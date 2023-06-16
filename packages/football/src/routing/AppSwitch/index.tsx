@@ -4,12 +4,14 @@ import { Navigate, Route, useLocation } from 'react-router-dom';
 import {
   FOOTBALL_MARKET,
   FOOTBALL_PATH,
+  FOOTBALL_TRANSFER_MARKET,
 } from '@sorare/core/src/constants/routes';
 import useGetSplat from '@sorare/core/src/hooks/useGetSplat';
 import { EnsureTopVisibleOnMount } from '@sorare/core/src/routing/EnsureTopVisibleOnMount';
 import { RoutesWithDialogs } from '@sorare/core/src/routing/Router';
 
 import MarketHome from '@sorare/football/src/pages/TransferMarket/Home';
+import TransferMarket from '@sorare/football/src/pages/TransferMarket/TransferMarket';
 import Layout from '@sorare/football/src/routing/Layout';
 
 export const AppSwitch = () => {
@@ -25,6 +27,16 @@ export const AppSwitch = () => {
         </>
       )}
     >
+      <Route
+        path={FOOTBALL_TRANSFER_MARKET}
+        element={
+          <EnsureTopVisibleOnMount>
+            <Layout>
+              <TransferMarket />
+            </Layout>
+          </EnsureTopVisibleOnMount>
+        }
+      />
       <Route
         path={FOOTBALL_MARKET}
         element={
