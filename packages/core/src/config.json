@@ -1,0 +1,21 @@
+{
+  "development": {
+    "walletUrl": "",
+    "wsUrl": "",
+    "backendHost": "",
+    "env": {}
+  },
+  "staging": {
+    "walletUrl": "",
+    "wsUrl": "",
+    "backendHost": "",
+    "env": {}
+  },
+  "production": {
+    "walletUrl": "",
+    "wsUrl": "",
+    "backendHost": "",
+    "env": {}
+  },
+  "mockprod": {}
+}
