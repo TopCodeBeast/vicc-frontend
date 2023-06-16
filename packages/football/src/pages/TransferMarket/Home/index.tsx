@@ -10,7 +10,7 @@ import { transferMarket } from '@sorare/core/src/lib/glossary';
 
 import PageTemplate from '@sorare/football/src/pages/TransferMarket/PageTemplate';
 
-// import { Entries } from './Entries';
+import { Entries } from './Entries';
 // import { Trends } from './Trends';
 
 const StyledTitle2 = styled(Title2)`
@@ -37,8 +37,7 @@ export const Home = () => {
           <FormattedMessage {...transferMarket.buySellAndTradeCards} />
         </StyledTitle2>
         <Section>
-        Entries
-          {/* <Entries /> */}
+          <Entries />
           {/* {useFootballMarketTrends && <Trends />} */}
         </Section>
       </PageTemplate>
