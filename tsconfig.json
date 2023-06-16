@@ -22,7 +22,9 @@
     "noFallthroughCasesInSwitch": true,
 
     "paths": {
-      "@sorare/*": [ "packages/*"]
+      "@sorare/*": [ "packages/*"],
+      "@core/*": [ "packages/core/src/*"],
+      "@football/*": [ "packages/football/src/*"],
     }
   },
   "include": [
