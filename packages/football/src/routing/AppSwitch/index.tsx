@@ -9,8 +9,8 @@ import useGetSplat from '@sorare/core/src/hooks/useGetSplat';
 import { EnsureTopVisibleOnMount } from '@sorare/core/src/routing/EnsureTopVisibleOnMount';
 import { RoutesWithDialogs } from '@sorare/core/src/routing/Router';
 
-import MarketHome from 'pages/TransferMarket/Home';
-import Layout from 'routing/Layout';
+import MarketHome from '@sorare/football/src/pages/TransferMarket/Home';
+import Layout from '@sorare/football/src/routing/Layout';
 
 export const AppSwitch = () => {
   const location = useLocation();

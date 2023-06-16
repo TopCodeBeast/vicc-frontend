@@ -1,8 +1,9 @@
-export const isStaging = ENV === 'staging';
-export const isMockprod = ENV === 'mockprod';
-export const isProduction = ENV === 'production';
+import { format } from 'date-fns';
+export const isStaging = false;
+export const isMockprod = false;
+export const isProduction = false;
 
-export const API_ROOT = envConfig.backendHost;
+export const API_ROOT = 'http://localhost:8000';
 export const LAUNCH_DARKLY_CLIENT_SIDE_ID = '';
 
 export const CLIENT_TYPE = 'Web';

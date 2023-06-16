@@ -17,7 +17,7 @@ const AppsRouter = () => {
   const bgLocation = useBgLocation();
   return (
     <Routes location={bgLocation}>
-      <Route path={'/*'} element={FootballRoot} />
+      <Route path={'/*'} element={<FootballRoot />} />
     </Routes>
   );
 };
