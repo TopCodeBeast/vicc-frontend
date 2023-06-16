@@ -4,17 +4,20 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import {
   LANDING,
 } from '@sorare/core/src/constants/routes';
+import { lazy } from '@sorare/core/src/lib/retry';
 
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 import { RoutesWithDialogs } from '@sorare/core/src/routing/Router';
 
 import Landing from '@sorare/shared-pages/src/Landing';
 
+const FootballRoot = lazy(async () => import('@sorare/football/src/main'));
+
 const AppsRouter = () => {
   const bgLocation = useBgLocation();
   return (
     <Routes location={bgLocation}>
-      <Route path={'/*'} element={<>FootballRoot</>} />
+      <Route path={'/*'} element={FootballRoot} />
     </Routes>
   );
 };
@@ -33,6 +36,10 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
         )}
       >
         <Route path={LANDING} element={<Landing />} />
+        <Route
+          path={'/*'}
+          element={appRoutes}
+        />
       </RoutesWithDialogs>
     </>
   );
