@@ -25,6 +25,9 @@
       "@sorare/*": [ "packages/*"]
     }
   },
-  "include": ["src"],
+  "include": [
+    "packages",
+    "src"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
