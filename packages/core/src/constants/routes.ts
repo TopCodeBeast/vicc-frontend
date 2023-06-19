@@ -8,3 +8,5 @@ export const FOOTBALL_STARTER_BUNDLES = `${FOOTBALL_MARKET}starter-packs`;
 export const FOOTBALL_TRANSFER_MARKET = `${FOOTBALL_MARKET}transfers`;
 
 export const HOME = FOOTBALL_MARKET;
+
+export const FOOTBALL_COMPETITION_DETAILS = `${FOOTBALL_PATH}/competition-details/:competition/:tab`;
