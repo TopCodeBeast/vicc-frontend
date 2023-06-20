@@ -3,7 +3,7 @@ import { FormattedMessage, defineMessages } from 'react-intl';
 
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
 import { Input } from 'components/form/Form/IntlTelInput';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { glossary, userAttributes } from '@sorare/core/src/lib/glossary';
 
 import PhoneNumberVerificationSection from '../PhoneNumberVerification/PhoneNumberVerificationSection';

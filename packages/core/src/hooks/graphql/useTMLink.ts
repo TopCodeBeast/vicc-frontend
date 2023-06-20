@@ -1,7 +1,7 @@
 import { ApolloLink } from '@apollo/client';
 import { useMemo } from 'react';
 
-import { useTMContext } from 'contexts/tm';
+import { useTMContext } from '@sorare/core/src/contexts/tm';
 
 interface Props {
   path: string;

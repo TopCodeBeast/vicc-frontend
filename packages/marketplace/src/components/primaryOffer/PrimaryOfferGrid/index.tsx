@@ -19,8 +19,8 @@ import PrimaryOfferPreview, {
 import {
   PrimaryOffersByIdsQuery,
   PrimaryOffersByIdsQueryVariables,
-} from 'lib/__generated__/fragments.graphql';
-import { PRIMARY_OFFERS_BY_IDS_QUERY } from 'lib/fragments';
+} from '@sorare/marketplace/src/lib/__generated__/fragments.graphql';
+import { PRIMARY_OFFERS_BY_IDS_QUERY } from '@sorare/marketplace/src/lib/fragments';
 
 type PrimaryOffersByIdsQuery_tokens_primaryOffers =
   PrimaryOffersByIdsQuery['tokens']['primaryOffers'][number];

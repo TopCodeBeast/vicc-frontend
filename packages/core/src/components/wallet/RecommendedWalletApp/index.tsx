@@ -10,7 +10,7 @@ import trustWallet from 'assets/wallet/icon-trustWallet.svg';
 import walletConnect from 'assets/wallet/icon-walletConnect.png';
 import ButtonsList, { ButtonProps } from '@sorare/core/src/atoms/buttons/ButtonsList';
 import { Text16 } from '@sorare/core/src/atoms/typography';
-import { useWeb3Context } from 'contexts/web3';
+import { useWeb3Context } from '@sorare/core/src/contexts/web3';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import useToggle from '@sorare/core/src/hooks/useToggle';

@@ -15,7 +15,7 @@ import { fragments as paymentProviderFragments } from 'components/buyActions/Pay
 import { BidWithWalletMutation } from 'hooks/auctions/__generated__/useBidWithWallet.graphql';
 import useBestBidBelongsToUser from 'hooks/auctions/useBestBidBelongsToUser';
 import useBidWithWallet from 'hooks/auctions/useBidWithWallet';
-import { auctionMinNextBid } from 'lib/auctions';
+import { auctionMinNextBid } from '@sorare/marketplace/src/lib/auctions';
 
 import {
   BidPaymentModal_auction,

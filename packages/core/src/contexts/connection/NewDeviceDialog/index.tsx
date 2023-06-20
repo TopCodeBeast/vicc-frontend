@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import Bold from '@sorare/core/src/atoms/typography/Bold';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 
 const messages = defineMessages({
   title: {

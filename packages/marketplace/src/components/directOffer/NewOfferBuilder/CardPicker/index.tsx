@@ -29,7 +29,7 @@ import {
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
 
-import SearchBox from 'search/SearchBox';
+import SearchBox from '@sorare/marketplace/src/search/SearchBox';
 
 import CardRow from '../CardRow';
 

@@ -1,14 +1,14 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { animated, config, useSpring } from 'react-spring';
+import { animated, config, useSpring } from '@react-spring/web';
 import styled from 'styled-components';
 
 import useFontFaceObserver from '@sorare/use-font-face-observer';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import { Text18 } from '@sorare/core/src/atoms/typography';
 import { RotatingStarball } from 'components/RotatingStarball';
-import { useConfigContext } from 'contexts/config';
-import { useConnectionContext } from 'contexts/connection';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
+import { useConnectionContext } from '@sorare/core/src/contexts/connection';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useIsVisibleInViewport from '@sorare/core/src/hooks/useIsVisibleInViewport';
 import useEvents from '@sorare/core/src/lib/events/useEvents';

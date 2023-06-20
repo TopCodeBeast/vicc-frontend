@@ -8,14 +8,14 @@ import styled from 'styled-components';
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import { Caption, Title2 } from '@sorare/core/src/atoms/typography';
 import { ACTIVITY } from '@sorare/core/src/constants/routes';
-import { useIntlContext } from 'contexts/intl';
-import idFromObject from 'gql/idFromObject';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
+import idFromObject from '@sorare/core/src/gql/idFromObject';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import getSafePreviousLocation from '@sorare/core/src/lib/navigation/getSafePreviousLocation';
 import { isExternalDomain, toRelative } from '@sorare/core/src/lib/urls';
-import { ClickAnnouncementLink } from 'protos/events/platform/web/events';
-import { Link } from 'routing/Link';
+import { ClickAnnouncementLink } from '@sorare/core/src/protos/events/platform/web/events';
+import { Link } from '@sorare/core/src/routing/Link';
 
 import { Announcement_announcement } from './__generated__/index.graphql';
 

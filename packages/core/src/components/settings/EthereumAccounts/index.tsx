@@ -6,7 +6,7 @@ import Button from '@sorare/core/src/atoms/buttons/Button';
 import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import { Text18 } from '@sorare/core/src/atoms/typography';
 import SettingsSection from 'components/settings/SettingsSection';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 

@@ -17,8 +17,8 @@ import {
   GraphqlForm,
   SubmitButtonProps,
 } from 'components/form/Form';
-import { useIntlContext } from 'contexts/intl';
-import { messages as walletMessages } from 'contexts/wallet/messages';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
+import { messages as walletMessages } from '@sorare/core/src/contexts/wallet/messages';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';

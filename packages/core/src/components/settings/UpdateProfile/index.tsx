@@ -9,8 +9,8 @@ import {
   TextField,
 } from 'components/form/Form';
 import UploadFile from 'components/form/UploadFile';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import useUpdateUserProfile from '@sorare/core/src/hooks/useUpdateUserProfile';
 import { glossary, userAttributes } from '@sorare/core/src/lib/glossary';
 import { formatGqlErrors } from '@sorare/core/src/lib/gql';

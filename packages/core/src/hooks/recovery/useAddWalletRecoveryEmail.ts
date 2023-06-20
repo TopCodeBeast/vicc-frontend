@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import { useCallback } from 'react';
 
 import { PrivateKeyRecoveryInput } from '__generated__/globalTypes';
-import { walletRecovery } from 'contexts/currentUser/queries';
+import { walletRecovery } from '@sorare/core/src/contexts/currentUser/queries';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 
 import {

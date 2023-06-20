@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
 
 import { MessagingContext, RecoverKey } from '@sorare/wallet-shared';
-import { useAuthContext } from 'contexts/auth';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useWalletContext } from 'contexts/wallet';
+import { useAuthContext } from '@sorare/core/src/contexts/auth';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useWalletContext } from '@sorare/core/src/contexts/wallet';
 import { formatUpdateUserErrors } from '@sorare/core/src/lib/http';
 
 export default () => {

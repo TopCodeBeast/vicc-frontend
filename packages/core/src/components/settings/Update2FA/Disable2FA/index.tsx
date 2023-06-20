@@ -12,10 +12,10 @@ import {
   TextField,
 } from 'components/form/Form';
 import { OTP_ATTEMPT_LENGTH } from '@sorare/core/src/constants/verificationCode';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useIntlContext } from 'contexts/intl';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
-import { useWalletContext } from 'contexts/wallet';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
+import { useWalletContext } from '@sorare/core/src/contexts/wallet';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useUpdate2FA from '@sorare/core/src/hooks/useUpdate2FA';
 import { glossary, userAttributes } from '@sorare/core/src/lib/glossary';

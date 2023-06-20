@@ -6,7 +6,7 @@ import { MessageDescriptor } from 'react-intl';
 
 import Button, { Props as ButtonProps } from '@sorare/core/src/atoms/buttons/Button';
 import { Share } from '@sorare/core/src/atoms/icons/Share';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { UTM_CAMPAIGNS } from '@sorare/core/src/hooks/useUtmParams';
 import { SocialShareEventContext, SocialShareEventName } from '@sorare/core/src/lib/events';
 import { glossary } from '@sorare/core/src/lib/glossary';

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { animated, config, useSpring } from 'react-spring';
+import { animated, config, useSpring } from '@react-spring/web';
 import { Waypoint } from 'react-waypoint';
 import styled from 'styled-components';
 
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { theme } from '@sorare/core/src/style/theme';
 
 import { SectionText } from '../SectionText';

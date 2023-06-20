@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
 
 type EthInputWithConversionProps = {

@@ -2,8 +2,8 @@ import braze from '@braze/web-sdk';
 import { useEffect } from 'react';
 
 import { BRAZE_API_KEY, BRAZE_SDK_ENDPOINT } from 'config';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import idFromObject from 'gql/idFromObject';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import idFromObject from '@sorare/core/src/gql/idFromObject';
 
 export const BrazeRegistration = () => {
   const { currentUser } = useCurrentUserContext();

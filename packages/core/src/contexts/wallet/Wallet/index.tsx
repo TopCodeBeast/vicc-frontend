@@ -30,11 +30,11 @@ import {
   UpdateUserAttributes,
   UpdateUserEmailAttributes,
   useAuthContext,
-} from 'contexts/auth';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useSentryContext } from 'contexts/sentry';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
-import { WalletTab, useWalletDrawerContext } from 'contexts/walletDrawer';
+} from '@sorare/core/src/contexts/auth';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useSentryContext } from '@sorare/core/src/contexts/sentry';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
+import { WalletTab, useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
 import useLogOut from '@sorare/core/src/hooks/auth/useLogOut';
 import { RecoveryOption } from '@sorare/core/src/hooks/recovery/useRecoveryOptions';
 import useQueryString from '@sorare/core/src/hooks/useQueryString';

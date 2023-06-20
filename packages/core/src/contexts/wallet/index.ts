@@ -15,7 +15,7 @@ import {
   AuthorizationApproval,
   AuthorizationRequest,
 } from '@sorare/wallet-shared/src/contexts/messaging/authorizations';
-import { UpdateUserAttributes, UpdateUserEmailAttributes } from 'contexts/auth';
+import { UpdateUserAttributes, UpdateUserEmailAttributes } from '@sorare/core/src/contexts/auth';
 import { RecoveryOption } from '@sorare/core/src/hooks/recovery/useRecoveryOptions';
 import { Side } from '@sorare/core/src/lib/deal';
 

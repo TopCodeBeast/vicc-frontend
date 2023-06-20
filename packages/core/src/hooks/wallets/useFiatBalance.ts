@@ -1,6 +1,6 @@
 import { FiatCurrency } from '__generated__/globalTypes';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useIntlContext } from 'contexts/intl';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 
 export const useFiatBalance = () => {
   const {

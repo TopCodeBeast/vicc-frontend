@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
-import { useConnectionContext } from 'contexts/connection';
-import WalletPlaceholder from 'contexts/wallet/Placeholder';
+import { useConnectionContext } from '@sorare/core/src/contexts/connection';
+import WalletPlaceholder from '@sorare/core/src/contexts/wallet/Placeholder';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
 const Content = styled.div`

@@ -3,10 +3,10 @@ import { useContext, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { GeneratedKey, MessagingContext, Prompt } from '@sorare/wallet-shared';
-import { useAuthContext } from 'contexts/auth';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useWalletContext } from 'contexts/wallet';
-import { WalletTab, useWalletDrawerContext } from 'contexts/walletDrawer';
+import { useAuthContext } from '@sorare/core/src/contexts/auth';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useWalletContext } from '@sorare/core/src/contexts/wallet';
+import { WalletTab, useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
 import { nullAddress } from '@sorare/core/src/lib/ethereum';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { formatUpdateUserErrors } from '@sorare/core/src/lib/http';

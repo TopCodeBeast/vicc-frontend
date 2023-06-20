@@ -3,7 +3,7 @@ import { matchPath } from 'react-router-dom';
 
 import { Sport as SportType } from '__generated__/globalTypes';
 import { SEARCH_PARAMS } from 'components/search/InstantSearch/types';
-import { Sport } from 'protos/events/shared/events';
+import { Sport } from '@sorare/core/src/protos/events/shared/events';
 
 import {
   ACTIVITY_NEWS_SHOW,

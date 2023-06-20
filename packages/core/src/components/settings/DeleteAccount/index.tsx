@@ -2,7 +2,7 @@ import { FormattedMessage, defineMessages } from 'react-intl';
 
 import { Text14, Title4, Title5 } from '@sorare/core/src/atoms/typography';
 import { GraphQLResult, GraphqlForm } from 'components/form/Form';
-import { useWalletContext } from 'contexts/wallet';
+import { useWalletContext } from '@sorare/core/src/contexts/wallet';
 
 import SettingsSection from '../SettingsSection';
 import useDestroyAccount from './useDestroyAccount';

@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import { Text14, Title4 } from '@sorare/core/src/atoms/typography';
-import { MarketplaceOnboardingStep } from 'contexts/managerTask';
+import { MarketplaceOnboardingStep } from '@sorare/core/src/contexts/managerTask';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
 const Content = styled.div`

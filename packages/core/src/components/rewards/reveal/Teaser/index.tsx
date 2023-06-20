@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { animated, easings, useTransition } from 'react-spring';
+import { animated, easings, useTransition } from '@react-spring/web';
 import styled from 'styled-components';
 
 const Wrapper = styled(animated.div)`

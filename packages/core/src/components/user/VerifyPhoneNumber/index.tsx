@@ -4,9 +4,9 @@ import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import EnterVerificationCode from 'components/settings/PhoneNumberVerification/EnterVerificationCode';
 import Header from 'components/settings/PhoneNumberVerification/Header';
 import SendVerificationCode from 'components/settings/PhoneNumberVerification/SendVerificationCode';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
-import { useWalletContext } from 'contexts/wallet';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
+import { useWalletContext } from '@sorare/core/src/contexts/wallet';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 
 import messages from './i18n';

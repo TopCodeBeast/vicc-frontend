@@ -1,6 +1,6 @@
 import Big from 'bignumber.js';
 
-import { useConfigContext } from 'contexts/config';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
 
 const useUnquantizeAmount = () => {
   const { ethQuantum } = useConfigContext();

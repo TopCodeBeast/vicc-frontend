@@ -1,6 +1,6 @@
 import { FormatNumberOptions } from 'react-intl';
 
-import { useSentryContext } from 'contexts/sentry';
+import { useSentryContext } from '@sorare/core/src/contexts/sentry';
 import { RoundingMode } from '@sorare/core/src/lib/wei';
 
 import { useIntlContext } from '..';

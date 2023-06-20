@@ -18,11 +18,11 @@ import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Text14, Title3 } from '@sorare/core/src/atoms/typography';
 import Scrollable from 'components/Scrollable';
 import Dialog from 'components/dialog';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useEventsContext } from 'contexts/events';
-import { useIntlContext } from 'contexts/intl';
-import { useSportContext } from 'contexts/sport';
-import idFromObject from 'gql/idFromObject';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useEventsContext } from '@sorare/core/src/contexts/events';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
+import { useSportContext } from '@sorare/core/src/contexts/sport';
+import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useUtmParams, {
   UTM_CAMPAIGNS,
   UTM_MEDIUMS,

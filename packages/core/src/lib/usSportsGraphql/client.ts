@@ -8,8 +8,8 @@ import {
   TypePolicies,
 } from '@apollo/client';
 
-import { SnackNotificationContext } from 'contexts/snackNotification';
-import { dataIdFromObject } from 'gql/idFromObject';
+import { SnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
+import { dataIdFromObject } from '@sorare/core/src/gql/idFromObject';
 
 import introspectionResult from '../../gql/usSportsIntrospectionResult.json';
 import { afterwareLink } from './links/afterware';

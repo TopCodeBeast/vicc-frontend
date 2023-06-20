@@ -1,5 +1,5 @@
 import { ReactElement, useState } from 'react';
-import { animated, config, useTransition } from 'react-spring';
+import { animated, config, useTransition } from '@react-spring/web';
 import { useMountedState } from 'react-use';
 
 export const Revealer = ({

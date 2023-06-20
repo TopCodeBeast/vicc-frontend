@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { defineMessages } from 'react-intl';
 
-import { useIntlContext } from 'contexts/intl';
-import { useSentryContext } from 'contexts/sentry';
-import { Level, useSnackNotificationContext } from 'contexts/snackNotification';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
+import { useSentryContext } from '@sorare/core/src/contexts/sentry';
+import { Level, useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import { fetchFile } from '@sorare/core/src/lib/files';
 import toSnakeCase from '@sorare/core/src/lib/toSnakeCase';
 

@@ -3,7 +3,7 @@ import { generatePath } from 'react-router-dom';
 
 import { DumbNotification } from 'components/activity/DumbNotification';
 import { ACTIVITY_NEWS_SHOW } from '@sorare/core/src/constants/routes';
-import idFromObject from 'gql/idFromObject';
+import idFromObject from '@sorare/core/src/gql/idFromObject';
 
 import { commonNotificationInterfaceFragment } from '../fragments';
 import { CommonNotificationProps } from '../types';

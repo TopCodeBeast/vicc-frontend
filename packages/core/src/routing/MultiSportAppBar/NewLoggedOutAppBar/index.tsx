@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { animated, useSpring } from 'react-spring';
+import { animated, useSpring } from '@react-spring/web';
 import styled from 'styled-components';
 
 import footballLogo from 'assets/logos/football/main.svg';
@@ -13,8 +13,8 @@ import { LinkOther } from '@sorare/core/src/atoms/navigation/Box';
 import SmallerStarBall from '@sorare/core/src/atoms/navigation/SmallerStarBall';
 import { useHeroAnimationTimings } from 'components/landing/NewLandingMultiSport/utils';
 import { FOOTBALL_PATH, LANDING, MLB_PATH, NBA_PATH } from '@sorare/core/src/constants/routes';
-import { useConnectionContext } from 'contexts/connection';
-import { useIntlContext } from 'contexts/intl';
+import { useConnectionContext } from '@sorare/core/src/contexts/connection';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { glossary, sportsLabelsMessages } from '@sorare/core/src/lib/glossary';

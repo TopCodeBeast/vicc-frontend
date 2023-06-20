@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Waypoint } from 'react-waypoint';
 import styled from 'styled-components';
 
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { theme } from '@sorare/core/src/style/theme';
 
 import { SectionText } from '../SectionText';

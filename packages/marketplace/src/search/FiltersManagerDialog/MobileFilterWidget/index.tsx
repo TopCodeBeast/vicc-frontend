@@ -9,7 +9,7 @@ import { Text16 } from '@sorare/core/src/atoms/typography';
 import { FILTERS, FilterWidget } from '@sorare/core/src/lib/filters';
 
 import { useFormatFilterWidgetValue } from 'hooks/search/useFormatFilterWidgetValue';
-import { RefinementItem } from 'search/ActiveFilters/types';
+import { RefinementItem } from '@sorare/marketplace/src/search/ActiveFilters/types';
 
 type Props = {
   widget: FilterWidget;

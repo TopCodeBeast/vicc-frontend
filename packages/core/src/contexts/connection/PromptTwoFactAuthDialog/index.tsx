@@ -1,6 +1,6 @@
 import TwoFactAuthDialog from 'components/TwoFactAuth/TwoFactAuthDialog';
 import { GraphQLResult } from 'components/form/Form';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
 import { Prompt2faCallback, useConnectionContext } from '..';
 

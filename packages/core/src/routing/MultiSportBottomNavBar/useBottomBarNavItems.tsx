@@ -11,7 +11,7 @@ import {
   FOOTBALL_LOBBY,
   FOOTBALL_MARKET,
 } from '@sorare/core/src/constants/routes';
-import { useSportContext } from 'contexts/sport';
+import { useSportContext } from '@sorare/core/src/contexts/sport';
 import { useIsDesktop } from '@sorare/core/src/hooks/device/useIsDesktop';
 import useTouchScreen from '@sorare/core/src/hooks/device/useTouchScreen';
 import { useShowBottomBarNavigation } from '@sorare/core/src/lib/featureFlags';

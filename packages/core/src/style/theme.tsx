@@ -14,7 +14,7 @@ import { ReactNode, useMemo } from 'react';
 import { css } from 'styled-components';
 
 import rewardBackground from 'assets/so5/reward-background.png';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { cardRatio } from '@sorare/core/src/lib/cardPicture';
 
 // Inject jss styles first in order to override them with Styled-components without resorting to && or important

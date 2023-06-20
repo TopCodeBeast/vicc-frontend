@@ -8,7 +8,7 @@ import {
   FOOTBALL_PRIVATE_LEAGUES_DETAILS,
   PrivateLeaguesTab,
 } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
 import { commonNotificationInterfaceFragment } from '../fragments';
 import { CommonNotificationProps } from '../types';

@@ -1,5 +1,5 @@
 import { Divider, Drawer, DrawerProps } from '@material-ui/core';
-import { animated, config, useSpring } from 'react-spring';
+import { animated, config, useSpring } from '@react-spring/web';
 import styled, { css } from 'styled-components';
 
 import { Sport } from '__generated__/globalTypes';

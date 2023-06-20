@@ -8,7 +8,7 @@ import { GalleryLink } from '@sorare/core/src/components/user/GalleryLink';
 import { Nickname } from '@sorare/core/src/components/user/Nickname';
 import { Nickname_publicUserInfoInterface } from '@sorare/core/src/components/user/Nickname/__generated__/index.graphql';
 
-import { galleryPathFromToken } from 'lib/galleryPathFromToken';
+import { galleryPathFromToken } from '@sorare/marketplace/src/lib/galleryPathFromToken';
 
 import { TokenOwner_token } from './__generated__/index.graphql';
 

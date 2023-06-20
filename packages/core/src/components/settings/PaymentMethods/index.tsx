@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import CreditCard from 'components/buyActions/CreditCard';
-import Warning from 'contexts/intl/Warning';
+import Warning from '@sorare/core/src/contexts/intl/Warning';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
 import SettingsSection from '../SettingsSection';

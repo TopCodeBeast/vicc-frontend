@@ -1,5 +1,5 @@
 import { CSSProperties, useRef } from 'react';
-import { animated, useSpring } from 'react-spring';
+import { animated, useSpring } from '@react-spring/web';
 import styled, { css } from 'styled-components';
 
 import ResponsiveImg from '@sorare/core/src/atoms/ui/ResponsiveImg';

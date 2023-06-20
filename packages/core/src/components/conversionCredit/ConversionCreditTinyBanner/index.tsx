@@ -8,8 +8,8 @@ import styled from 'styled-components';
 import { MonetaryAmount, Sport } from '__generated__/globalTypes';
 import { ChevronRightBold } from '@sorare/core/src/atoms/icons/ChevronRightBold';
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useIntlContext } from 'contexts/intl';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { useConversionCredit } from '@sorare/core/src/hooks/useConversionCredit';
 import { theme } from '@sorare/core/src/style/theme';
 

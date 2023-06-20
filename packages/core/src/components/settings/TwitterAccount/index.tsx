@@ -1,6 +1,6 @@
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
 import OAuthAccount from '../OAuthAccount';
 

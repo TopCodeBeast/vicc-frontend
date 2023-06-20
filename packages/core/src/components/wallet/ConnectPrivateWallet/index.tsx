@@ -6,8 +6,8 @@ import Button from '@sorare/core/src/atoms/buttons/Button';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import RecommendedWalletApp from 'components/wallet/RecommendedWalletApp';
-import { useBlockchainContext } from 'contexts/blockchain';
-import { useWeb3Context } from 'contexts/web3';
+import { useBlockchainContext } from '@sorare/core/src/contexts/blockchain';
+import { useWeb3Context } from '@sorare/core/src/contexts/web3';
 import useBlockchainAccountData from '@sorare/core/src/hooks/useBlockchainAccountData';
 import { EthereumSetupStatus } from '@sorare/core/src/lib/web3';
 

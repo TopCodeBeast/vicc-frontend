@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 
-import { useEventsContext } from 'contexts/events';
+import { useEventsContext } from '@sorare/core/src/contexts/events';
 import { getInteractionContext, getSport } from '@sorare/core/src/lib/events';
 import { mapKeys } from '@sorare/core/src/lib/object';
 import toStartCase from '@sorare/core/src/lib/string/toStartCase';
 import toSnakeCase from '@sorare/core/src/lib/toSnakeCase';
-import * as platformEvents from 'protos/events/platform/web/events';
-import { sportToJSON } from 'protos/events/shared/events';
-import * as so5Events from 'protos/events/so5/web/events';
+import * as platformEvents from '@sorare/core/src/protos/events/platform/web/events';
+import { sportToJSON } from '@sorare/core/src/protos/events/shared/events';
+import * as so5Events from '@sorare/core/src/protos/events/so5/web/events';
 import { StartCase, StringKeysOf } from 'types';
 
 import { EventsType, WithOptionalCommonProperties } from './EventsType';

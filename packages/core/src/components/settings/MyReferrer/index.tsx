@@ -5,8 +5,8 @@ import { Text16 } from '@sorare/core/src/atoms/typography';
 import Avatar from 'components/user/Avatar';
 import { GalleryLink } from 'components/user/GalleryLink';
 import { Nickname } from 'components/user/Nickname';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useIntlContext } from 'contexts/intl';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 
 import SettingsSection from '../SettingsSection';
 

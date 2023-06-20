@@ -1,5 +1,5 @@
 import { memo, useRef, useState } from 'react';
-import { Globals, SpringValue, animated, useSprings } from 'react-spring';
+import { Globals, SpringValue, animated, useSprings } from '@react-spring/web';
 import styled from 'styled-components';
 
 import { proxyUrl } from '@sorare/core/src/atoms/ui/ResponsiveImg';

@@ -9,8 +9,8 @@ import {
   MY_SORARE_MY_OFFER_RECEIVED,
   MY_SORARE_MY_OFFER_SENT,
 } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import idFromObject from 'gql/idFromObject';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import idFromObject from '@sorare/core/src/gql/idFromObject';
 import { isType } from '@sorare/core/src/lib/gql';
 
 import { commonNotificationInterfaceFragment } from '../fragments';

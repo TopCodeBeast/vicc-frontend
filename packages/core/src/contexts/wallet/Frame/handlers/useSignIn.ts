@@ -6,13 +6,13 @@ import {
   MessagingContext,
   SignIn,
 } from '@sorare/wallet-shared';
-import { useAuthContext } from 'contexts/auth';
+import { useAuthContext } from '@sorare/core/src/contexts/auth';
 import {
   AcceptTermsInfo,
   SignedInInfo,
   useConnectionContext,
-} from 'contexts/connection';
-import { useCurrentUserContext } from 'contexts/currentUser';
+} from '@sorare/core/src/contexts/connection';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { nullAddress } from '@sorare/core/src/lib/ethereum';
 import useEvents from '@sorare/core/src/lib/events/useEvents';

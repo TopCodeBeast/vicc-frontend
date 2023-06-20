@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import useUpdate2FA from '@sorare/core/src/hooks/useUpdate2FA';
 
 export const RecoveryCodes = ({

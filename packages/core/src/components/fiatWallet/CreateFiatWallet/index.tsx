@@ -9,7 +9,7 @@ import { Text14, Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import FilterInDropdown from 'components/FilterInDropdown';
 import { GraphQLResult, GraphqlForm, TextField } from 'components/form/Form';
 import { PRIVACY_POLICY } from '@sorare/core/src/constants/routes';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { toDisplayName } from '@sorare/core/src/lib/territories';
 

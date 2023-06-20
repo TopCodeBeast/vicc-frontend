@@ -1,7 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { ReactNode } from 'react';
 
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
 import {
   UpdateUserSettingsCurrencyMutation,

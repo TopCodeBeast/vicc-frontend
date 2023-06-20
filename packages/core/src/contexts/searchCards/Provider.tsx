@@ -1,8 +1,8 @@
 import { ReactNode, useState } from 'react';
 
 import { SEARCH_PARAMS } from 'components/search/InstantSearch/types';
-import { useConfigContext } from 'contexts/config';
-import { useSportContext } from 'contexts/sport';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
+import { useSportContext } from '@sorare/core/src/contexts/sport';
 import useCustomDeck from '@sorare/core/src/hooks/decks/useCustomDeck';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import useQueryString from '@sorare/core/src/hooks/useQueryString';

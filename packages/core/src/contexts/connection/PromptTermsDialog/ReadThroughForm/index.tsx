@@ -18,12 +18,12 @@ import {
   SubmitButtonProps,
 } from 'components/form/Form';
 import { GAME_RULES } from '@sorare/core/src/constants/routes';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useFetch from '@sorare/core/src/hooks/useFetch';
 import useIsVisibleInViewport from '@sorare/core/src/hooks/useIsVisibleInViewport';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 import { fileUrl } from '@sorare/core/src/lib/gitlab';
-import LazyMarkdown from 'routing/LazyMarkdown';
+import LazyMarkdown from '@sorare/core/src/routing/LazyMarkdown';
 import { theme } from '@sorare/core/src/style/theme';
 
 import AcceptAgeLimit from '../AcceptAgeLimit';

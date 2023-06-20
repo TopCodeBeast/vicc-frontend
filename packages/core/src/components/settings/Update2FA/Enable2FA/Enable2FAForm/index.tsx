@@ -11,7 +11,7 @@ import {
   TextField,
 } from 'components/form/Form';
 import { OTP_ATTEMPT_LENGTH } from '@sorare/core/src/constants/verificationCode';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import useUpdate2FA from '@sorare/core/src/hooks/useUpdate2FA';
 
 const messages = defineMessages({

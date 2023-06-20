@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { theme } from '@sorare/core/src/style/theme';
 
 const Wrapper = styled.div`

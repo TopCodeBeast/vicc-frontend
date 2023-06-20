@@ -20,7 +20,7 @@ import useTokenTakesPartPromotionalEvent from 'hooks/offers/useTokenTakesPartPro
 import {
   auctionCurrentPrice,
   promotionalEventsExcludeSpecialRewardBadge,
-} from 'lib/auctions';
+} from '@sorare/marketplace/src/lib/auctions';
 
 import { AuctionWinner } from './AuctionWinner';
 import { AuctionDetails_auction } from './__generated__/index.graphql';

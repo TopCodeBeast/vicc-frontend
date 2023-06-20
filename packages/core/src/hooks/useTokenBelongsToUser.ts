@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
 import { useTokenBelongsToUser_token } from './__generated__/useTokenBelongsToUser.graphql';
 

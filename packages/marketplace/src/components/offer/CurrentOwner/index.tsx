@@ -12,7 +12,7 @@ import Sell from 'components/offer/Sell';
 import {
   singleSaleOfferContextFragments,
   useSingleSaleOfferContext,
-} from 'contexts/singleSaleOffer';
+} from '@sorare/marketplace/src/contexts/singleSaleOffer';
 import useBelongsToUser from 'hooks/offers/useBelongsToUser';
 
 import OwnerAccount from '../OwnerAccount';

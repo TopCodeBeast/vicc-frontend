@@ -1,5 +1,5 @@
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 
 export const LineupCount = ({
   count,

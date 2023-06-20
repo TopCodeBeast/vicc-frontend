@@ -6,7 +6,7 @@ import { Currency } from '__generated__/globalTypes';
 import createLink from '@sorare/core/src/atoms/typography/Link';
 import { SETTINGS_SECURITY } from '@sorare/core/src/constants/routes';
 import { isType } from 'gql';
-import idFromObject from 'gql/idFromObject';
+import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { currencies } from '@sorare/core/src/lib/fiat';
 import { asObject } from '@sorare/core/src/lib/json';

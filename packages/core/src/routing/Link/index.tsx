@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
-import { RoutingContext } from 'routing/Router';
+import { RoutingContext } from '@sorare/core/src/routing/Router';
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   function ForwardedLink({ replace, to, ...rest }, ref) {

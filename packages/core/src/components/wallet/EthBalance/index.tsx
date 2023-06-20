@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { Caption, Title3 } from '@sorare/core/src/atoms/typography';
 import Dots from '@sorare/core/src/atoms/ui/Dots';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 
 const Container = styled.div`

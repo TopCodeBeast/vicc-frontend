@@ -1,7 +1,7 @@
 import algoliasearch from 'algoliasearch/lite';
 import { useMemo } from 'react';
 
-import { useConfigContext } from 'contexts/config';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { getAlgoliaHosts } from '@sorare/core/src/lib/algolia';
 

@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { generatePath } from 'react-router-dom';
-import { animated, useSpring } from 'react-spring';
+import { animated, useSpring } from '@react-spring/web';
 import styled from 'styled-components';
 
 import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';

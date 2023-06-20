@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
 import Dots from '@sorare/core/src/atoms/ui/Dots';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useAmountWithConversion, {
   Props as useAmountWithConversionProps,
 } from '@sorare/core/src/hooks/useAmountWithConversion';

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Text16, Title4, Title5 } from '@sorare/core/src/atoms/typography';
 import { GraphQLResult, GraphqlForm } from 'components/form/Form';
 import DisabledEmailWarning from 'components/user/DisabledEmailWarning';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
 

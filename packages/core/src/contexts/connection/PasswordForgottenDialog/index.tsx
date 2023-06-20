@@ -2,8 +2,8 @@ import { defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
 import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { useIntlContext } from 'contexts/intl';
-import WalletPlaceholder from 'contexts/wallet/Placeholder';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
+import WalletPlaceholder from '@sorare/core/src/contexts/wallet/Placeholder';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 
 type Props = {

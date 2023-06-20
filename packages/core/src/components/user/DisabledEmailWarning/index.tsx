@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import Blockquote from '@sorare/core/src/atoms/layout/Blockquote';
 import { Text16, Title6 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 import { theme } from '@sorare/core/src/style/theme';
 

@@ -11,7 +11,7 @@ import { SecondaryTabs } from '@sorare/core/src/atoms/navigation/SecondaryTabs';
 import { Text18, Title3, Title4 } from '@sorare/core/src/atoms/typography';
 import CardBack from 'components/card/Back';
 import { INVITE } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { Lifecycle } from '@sorare/core/src/hooks/useLifecycle';
 import { sportsLabelsMessages } from '@sorare/core/src/lib/glossary';

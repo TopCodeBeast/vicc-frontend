@@ -13,7 +13,7 @@ import { theme } from '@sorare/core/src/style/theme';
 
 import OfferDealSummary from 'components/offer/OfferDealSummary';
 import { TokenTransferValidator } from 'components/token/TokenTransferValidator';
-import { useMarketplaceEvents } from 'lib/events';
+import { useMarketplaceEvents } from '@sorare/marketplace/src/lib/events';
 
 import { switchToBuilding } from '../actions';
 import { CardDataType, StateProps } from '../types';

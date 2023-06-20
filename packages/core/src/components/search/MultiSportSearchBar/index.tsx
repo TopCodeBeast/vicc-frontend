@@ -1,10 +1,10 @@
 import { FunctionComponent, useState } from 'react';
 
 import { Sport } from '__generated__/globalTypes';
-import { AlgoliaIndexes } from 'contexts/config';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { AlgoliaIndexes } from '@sorare/core/src/contexts/config';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { Lifecycle } from '@sorare/core/src/hooks/useLifecycle';
-import { useAppBarContext } from 'routing/MultiSportAppBar/context';
+import { useAppBarContext } from '@sorare/core/src/routing/MultiSportAppBar/context';
 
 import { InstantSearch } from '../InstantSearch';
 import SearchBar, { MAX_RESULTS } from '../SearchBar';

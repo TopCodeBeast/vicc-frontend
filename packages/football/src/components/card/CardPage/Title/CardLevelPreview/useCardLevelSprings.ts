@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSpring } from 'react-spring';
+import { useSpring } from '@react-spring/web';
 
 import { percentageToNextLevel } from '@sorare/core/src/lib/cards';
 

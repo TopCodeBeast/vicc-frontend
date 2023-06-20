@@ -6,8 +6,8 @@ import { OnBackForgotPassword } from '@sorare/wallet-shared';
 import { TermsAndConditionsStatus } from '__generated__/globalTypes';
 import { GoogleReCAPTCHA, ReCAPTCHA } from 'components/recaptcha';
 import { TERMS } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useMessagingContext, useWalletContext } from 'contexts/wallet';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useMessagingContext, useWalletContext } from '@sorare/core/src/contexts/wallet';
 import useQueryString from '@sorare/core/src/hooks/useQueryString';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 

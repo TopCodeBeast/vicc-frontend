@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useRedirectToLogIn from '@sorare/core/src/hooks/auth/useRedirectToLogIn';
 
 const RequireAuth: React.FC<{ children: ReactElement; to?: string }> = ({

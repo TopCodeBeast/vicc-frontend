@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { Sport } from '__generated__/globalTypes';
 import { useDefaultSportPages } from '@sorare/core/src/constants/routes';
-import { useConnectionContext } from 'contexts/connection';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useConnectionContext } from '@sorare/core/src/contexts/connection';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 
 export const useSportCTAProps = (sport: Sport) => {

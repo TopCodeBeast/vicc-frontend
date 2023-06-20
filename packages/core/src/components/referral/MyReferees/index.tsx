@@ -10,8 +10,8 @@ import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Title4 } from '@sorare/core/src/atoms/typography';
 import FilterInDropdown from 'components/FilterInDropdown';
 import RefereesList from 'components/referral/RefereesList';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useIntlContext } from 'contexts/intl';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { sportsLabelsMessages } from '@sorare/core/src/lib/glossary';
 
 import { messages } from './messages';

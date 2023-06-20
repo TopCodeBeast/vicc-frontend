@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import { GraphQLResult } from 'components/form/Form';
 import { LANDING } from '@sorare/core/src/constants/routes';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { theme } from '@sorare/core/src/style/theme';

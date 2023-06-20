@@ -16,8 +16,8 @@ import Bold from '@sorare/core/src/atoms/typography/Bold';
 import Dots from '@sorare/core/src/atoms/ui/Dots';
 import EthBalance from 'components/wallet/EthBalance';
 import FiatBalance from 'components/wallet/FiatBalance';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { WalletTab, useWalletDrawerContext } from 'contexts/walletDrawer';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { WalletTab, useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
 import useEnableWallets from '@sorare/core/src/hooks/wallets/useEnableWallets';
 import { fromWei } from '@sorare/core/src/lib/wei';
 

@@ -21,7 +21,7 @@ import { theme } from '@sorare/core/src/style/theme';
 
 import CounterOfferBuilder from 'components/directOffer/CounterOfferBuilder';
 import { TokenTransferChildrenProps } from 'components/token/TokenTransferValidator/types';
-import { useMarketplaceContext } from 'contexts/Marketplace';
+import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 import useCancelOffer from 'hooks/offers/useCancelOffer';
 import useRejectOffer from 'hooks/offers/useRejectOffer';
 

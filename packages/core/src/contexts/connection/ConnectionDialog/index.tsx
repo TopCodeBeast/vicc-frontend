@@ -11,14 +11,14 @@ import {
 import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import { Title5 } from '@sorare/core/src/atoms/typography';
 import OAuthForm from 'components/user/OAuthForm';
-import { useMessagingContext, useWalletContext } from 'contexts/wallet';
-import WalletPlaceholder from 'contexts/wallet/Placeholder';
+import { useMessagingContext, useWalletContext } from '@sorare/core/src/contexts/wallet';
+import WalletPlaceholder from '@sorare/core/src/contexts/wallet/Placeholder';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { mustAcceptTermsOfServiceFlag } from '@sorare/core/src/lib/mustAcceptTermsOfServiceFlag';
-import * as events from 'protos/events/so5/web/events';
+import * as events from '@sorare/core/src/protos/events/so5/web/events';
 import { theme } from '@sorare/core/src/style/theme';
 
 import { PopMode } from '..';

@@ -1,5 +1,5 @@
 import { EnabledWallet } from '__generated__/globalTypes';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
 export const useWalletPreferences = () => {

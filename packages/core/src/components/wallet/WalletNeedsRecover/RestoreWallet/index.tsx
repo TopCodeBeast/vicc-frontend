@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { PrivateKeyRecoveryOptionMethodEnum } from '__generated__/globalTypes';
 import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
-import { useWalletContext } from 'contexts/wallet';
+import { useWalletContext } from '@sorare/core/src/contexts/wallet';
 import useSendRecoverKey from '@sorare/core/src/hooks/recovery/useSendRecoverKey';
 
 const Wrapper = styled.div`

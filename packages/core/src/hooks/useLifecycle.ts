@@ -2,7 +2,7 @@ import { gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
 
 import { CommonDraftCampaignType, Sport } from '__generated__/globalTypes';
-import { AlgoliaCardIndexesName } from 'contexts/config';
+import { AlgoliaCardIndexesName } from '@sorare/core/src/contexts/config';
 import { getInteractionContext } from '@sorare/core/src/lib/events';
 
 import {

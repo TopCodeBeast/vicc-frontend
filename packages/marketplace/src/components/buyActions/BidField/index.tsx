@@ -12,10 +12,10 @@ import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters'
 import useLoggedCallback from '@sorare/core/src/hooks/useLoggedCallback';
 
 import usePollAuction from 'components/auction/usePollAuction';
-import { useMarketplaceContext } from 'contexts/Marketplace';
+import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 import useBestBidBelongsToUser from 'hooks/auctions/useBestBidBelongsToUser';
 import useCannotTrade from 'hooks/offers/useCannotTrade';
-import { auctionMinNextBid } from 'lib/auctions';
+import { auctionMinNextBid } from '@sorare/marketplace/src/lib/auctions';
 
 import BidBundleSummary from '../BidBundleSummary';
 import BidTokenSummary from '../BidTokenSummary';

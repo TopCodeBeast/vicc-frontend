@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { Sport } from '__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import { Fade } from '@sorare/core/src/atoms/ui/Transition';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useTouchScreen from '@sorare/core/src/hooks/device/useTouchScreen';
 import { MenuVisibility } from '@sorare/core/src/lib/menu';
 import { matchLocation } from '@sorare/core/src/lib/urls';

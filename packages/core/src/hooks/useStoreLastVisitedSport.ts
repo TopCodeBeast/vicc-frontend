@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { Sport } from '__generated__/globalTypes';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
 import useLifecycle, { LIFECYCLE, Lifecycle } from './useLifecycle';
 

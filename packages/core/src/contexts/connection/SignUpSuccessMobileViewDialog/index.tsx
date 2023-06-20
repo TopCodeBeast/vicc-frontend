@@ -12,7 +12,7 @@ import {
   isVersion2OrGreater,
   isVersion4OrGreater,
 } from '@sorare/core/src/constants/mobile';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useQueryString from '@sorare/core/src/hooks/useQueryString';
 import { theme } from '@sorare/core/src/style/theme';
 import 'style/drukFontFaces.css';

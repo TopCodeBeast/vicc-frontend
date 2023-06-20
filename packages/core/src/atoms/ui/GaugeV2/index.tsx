@@ -1,4 +1,4 @@
-import { SpringValue, animated } from 'react-spring';
+import { SpringValue, animated } from '@react-spring/web';
 import styled from 'styled-components';
 
 const Root = styled.div`

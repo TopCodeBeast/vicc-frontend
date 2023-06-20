@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
 
 import { MessagingContext, Transaction } from '@sorare/wallet-shared';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
-import { WalletTab, useWalletDrawerContext } from 'contexts/walletDrawer';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
+import { WalletTab, useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
 import { txLink } from '@sorare/core/src/lib/etherscan';
 
 export default () => {

@@ -11,7 +11,7 @@ import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
 import SmallerStarBall from '@sorare/core/src/atoms/navigation/SmallerStarBall';
 import { Text16, Text20 } from '@sorare/core/src/atoms/typography';
 import ResponsiveImg from '@sorare/core/src/atoms/ui/ResponsiveImg';
-import { useConnectionContext } from 'contexts/connection';
+import { useConnectionContext } from '@sorare/core/src/contexts/connection';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { sportsLabelsMessages } from '@sorare/core/src/lib/glossary';

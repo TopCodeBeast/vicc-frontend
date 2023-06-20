@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { css } from 'styled-components';
 
 import HighlightableWrapper from 'components/HighlightableWrapper';
-import { useManagerTaskContext } from 'contexts/managerTask';
+import { useManagerTaskContext } from '@sorare/core/src/contexts/managerTask';
 import { OverrideClasses } from '@sorare/core/src/style/utils';
 
 type Props = {

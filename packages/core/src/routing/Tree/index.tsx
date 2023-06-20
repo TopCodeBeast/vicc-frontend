@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
 import TagButton from '@sorare/core/src/atoms/buttons/TagButton';
 import { Text16 } from '@sorare/core/src/atoms/typography';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 import { theme } from '@sorare/core/src/style/theme';

@@ -3,7 +3,7 @@ import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import Form from 'components/deck/Form';
 import ButtonWithConfirmDialog from 'components/form/ButtonWithConfirmDialog';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
 type Deck = { name: string; slug: string; visible: boolean };

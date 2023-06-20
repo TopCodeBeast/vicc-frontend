@@ -9,7 +9,7 @@ import SmallerStarBall from '@sorare/core/src/atoms/navigation/SmallerStarBall';
 import { Title4 } from '@sorare/core/src/atoms/typography';
 import { AddRecoveryEmailForm } from 'components/settings/RecoveryEmail/AddRecoveryEmailForm';
 import { VerifyRecoveryEmailForm } from 'components/settings/RecoveryEmail/VerifyRecoveryEmailForm';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useWalletNeedsRecover from '@sorare/core/src/hooks/recovery/useWalletNeedsRecover';
 import useLifecycle, { LIFECYCLE, Lifecycle } from '@sorare/core/src/hooks/useLifecycle';

@@ -11,8 +11,8 @@ import { FOOTBALL_MARKET } from '@sorare/core/src/constants/routes';
 import {
   MarketplaceOnboardingStep,
   useManagerTaskContext,
-} from 'contexts/managerTask';
-import { Link } from 'routing/Link';
+} from '@sorare/core/src/contexts/managerTask';
+import { Link } from '@sorare/core/src/routing/Link';
 
 import useBottomBarNavItems from './useBottomBarNavItems';
 

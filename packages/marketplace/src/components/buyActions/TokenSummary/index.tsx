@@ -13,7 +13,7 @@ import useToggle from '@sorare/core/src/hooks/useToggle';
 import TokenDrawerSummary from 'components/buyActions/TokenDrawerSummary';
 import TokenPriceHistory from 'components/price/TokenPriceHistory';
 import TokenDescription from 'components/token/TokenDescription';
-import { useMarketplaceContext } from 'contexts/Marketplace';
+import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 
 import { TokenSummary_token } from './__generated__/index.graphql';
 

@@ -1,7 +1,7 @@
 import { Container } from '@material-ui/core';
 import { ReactNode, useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
-import { animated, useSpring, useSprings } from 'react-spring';
+import { animated, useSpring, useSprings } from '@react-spring/web';
 import styled from 'styled-components';
 
 import Waypoint from '@sorare/core/src/atoms/animations/Waypoint';

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import Button, { Props as ButtonProps } from '@sorare/core/src/atoms/buttons/Button';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useSubscription from '@sorare/core/src/hooks/subscriptions/useSubscription';
 import useUnsubscription from '@sorare/core/src/hooks/subscriptions/useUnsubscription';
 import useLoggedCallback from '@sorare/core/src/hooks/useLoggedCallback';

@@ -2,9 +2,9 @@ import { ReactElement, useEffect } from 'react';
 import { MessageDescriptor, useIntl } from 'react-intl';
 import { Navigate } from 'react-router-dom';
 
-import { useConnectionContext } from 'contexts/connection';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useSeoContext } from 'contexts/seo';
+import { useConnectionContext } from '@sorare/core/src/contexts/connection';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useSeoContext } from '@sorare/core/src/contexts/seo';
 import useAfterLoggedInTarget from '@sorare/core/src/hooks/useAfterLoggedInTarget';
 
 interface Props {

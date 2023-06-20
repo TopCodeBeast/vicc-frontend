@@ -3,8 +3,8 @@ import { useContext, useEffect, useState } from 'react';
 
 import { MessagingContext, SignUp } from '@sorare/wallet-shared';
 import { SignupPlatform } from '__generated__/globalTypes';
-import { AcceptTermsInfo, useConnectionContext } from 'contexts/connection';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { AcceptTermsInfo, useConnectionContext } from '@sorare/core/src/contexts/connection';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useSignUp from '@sorare/core/src/hooks/auth/useSignUp';
 
 const readAcceptanceTerms = (

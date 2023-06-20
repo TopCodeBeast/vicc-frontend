@@ -5,8 +5,8 @@ import { Sport } from '__generated__/globalTypes';
 import Bold from '@sorare/core/src/atoms/typography/Bold';
 import { DumbNotification } from 'components/activity/DumbNotification';
 import { LEGACY_CARD_SHOW } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useSportContext } from 'contexts/sport';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useSportContext } from '@sorare/core/src/contexts/sport';
 
 import { commonNotificationInterfaceFragment } from '../fragments';
 import { CommonNotificationProps } from '../types';

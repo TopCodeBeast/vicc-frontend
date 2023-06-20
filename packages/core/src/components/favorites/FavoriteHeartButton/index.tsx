@@ -3,11 +3,11 @@ import { useIntl } from 'react-intl';
 
 import { Color } from '@sorare/core/src/atoms/buttons/Button';
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import {
   GetCurrentUserSubscriptionProps,
   useFollowContext,
-} from 'contexts/follow';
+} from '@sorare/core/src/contexts/follow';
 import useToggleSubscription from '@sorare/core/src/hooks/subscriptions/useToggleSubscription';
 
 import FavoriteCardIcon from '../FavoriteHeartIcon';

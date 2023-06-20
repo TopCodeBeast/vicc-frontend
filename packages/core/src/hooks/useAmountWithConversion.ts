@@ -1,7 +1,7 @@
 import { Currency } from '__generated__/globalTypes';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useIntlContext } from 'contexts/intl';
-import { useSentryContext } from 'contexts/sentry';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
+import { useSentryContext } from '@sorare/core/src/contexts/sentry';
 import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
 
 import { useWalletPreferences } from './wallets/useWalletPreferences';

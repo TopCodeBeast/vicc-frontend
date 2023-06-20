@@ -12,7 +12,7 @@ import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import LoadingButton, {
   Props as LoadingButtonProps,
 } from '@sorare/core/src/atoms/buttons/LoadingButton';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { GraphQLError } from '@sorare/core/src/lib/gql';
 import humanize from '@sorare/core/src/lib/humanize';

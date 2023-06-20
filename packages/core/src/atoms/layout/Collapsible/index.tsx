@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { animated, useSpring } from 'react-spring';
+import { animated, useSpring } from '@react-spring/web';
 import { useMeasure } from 'react-use';
 import styled from 'styled-components';
 

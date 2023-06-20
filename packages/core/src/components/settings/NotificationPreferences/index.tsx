@@ -11,7 +11,7 @@ import { Title4 } from '@sorare/core/src/atoms/typography';
 import FormSection from 'components/settings/SettingsSection';
 import DisabledEmailWarning from 'components/user/DisabledEmailWarning';
 import { SETTINGS_NOTIFICATIONS } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { Lifecycle } from '@sorare/core/src/hooks/useLifecycle';
 import { useNotificationPreferences } from '@sorare/core/src/hooks/useNotificationPreferences';
 import { sportsLabelsMessages } from '@sorare/core/src/lib/glossary';

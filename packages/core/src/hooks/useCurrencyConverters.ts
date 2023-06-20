@@ -1,7 +1,7 @@
 import Big from 'bignumber.js';
 import { useCallback } from 'react';
 
-import { useConfigContext } from 'contexts/config';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
 import { CurrencyCode } from '@sorare/core/src/lib/fiat';
 import { asObject } from '@sorare/core/src/lib/json';
 import { ETH_DECIMAL_PLACES, WEI_DECIMAL_PLACES } from '@sorare/core/src/lib/wei';

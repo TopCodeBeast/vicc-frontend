@@ -5,7 +5,7 @@ import Button, { Props as ButtonProps } from '@sorare/core/src/atoms/buttons/But
 import {
   GetCurrentUserSubscriptionProps,
   useFollowContext,
-} from 'contexts/follow';
+} from '@sorare/core/src/contexts/follow';
 import useToggleSubscription from '@sorare/core/src/hooks/subscriptions/useToggleSubscription';
 import useLoggedCallback from '@sorare/core/src/hooks/useLoggedCallback';
 

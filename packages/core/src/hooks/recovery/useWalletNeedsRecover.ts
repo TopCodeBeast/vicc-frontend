@@ -1,5 +1,5 @@
 import { UserWalletStatusEnum } from '__generated__/globalTypes';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
 export const useWalletNeedsRecover = () => {
   const { currentUser } = useCurrentUserContext();

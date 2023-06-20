@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { Actions } from '@sorare/core/src/atoms/layout/Dialog';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import { GraphQLResult, GraphqlForm, TextField } from 'components/form/Form';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 import { glossary } from '@sorare/core/src/lib/glossary';
 

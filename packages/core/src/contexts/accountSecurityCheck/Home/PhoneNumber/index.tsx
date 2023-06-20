@@ -11,8 +11,8 @@ import { Input } from 'components/form/Form/IntlTelInput';
 import {
   SecurityCheckTab,
   useAccountSecurityCheckContext,
-} from 'contexts/accountSecurityCheck';
-import { useCurrentUserContext } from 'contexts/currentUser';
+} from '@sorare/core/src/contexts/accountSecurityCheck';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
 const Wrapper = styled.div`

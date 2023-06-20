@@ -1,6 +1,6 @@
 import { Params, generatePath } from 'react-router-dom';
 
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
 const useMyPath = () => {
   const { currentUser } = useCurrentUserContext();

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { AccountData, useBlockchainContext } from 'contexts/blockchain';
+import { AccountData, useBlockchainContext } from '@sorare/core/src/contexts/blockchain';
 
 export default () => {
   const [accountData, setAccountData] = useState<AccountData | null>(null);

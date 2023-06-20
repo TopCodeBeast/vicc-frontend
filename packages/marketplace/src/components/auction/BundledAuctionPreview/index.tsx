@@ -8,7 +8,7 @@ import { useEventContext } from '@sorare/core/src/contexts/event';
 
 import { CardCount } from 'components/ItemPreview/ui';
 import FlexToken from 'components/token/FlexToken';
-import { useMarketplaceContext } from 'contexts/Marketplace';
+import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 
 import { BundledAuctionPreview_auction } from './__generated__/index.graphql';
 

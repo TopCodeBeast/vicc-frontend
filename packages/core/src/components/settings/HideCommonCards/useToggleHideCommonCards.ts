@@ -1,7 +1,7 @@
 import { FetchResult, gql, useMutation } from '@apollo/client';
 
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 
 import {
   UpdateUserSettingsHideCommonCards,

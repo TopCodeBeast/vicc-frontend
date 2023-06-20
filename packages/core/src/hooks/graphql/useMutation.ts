@@ -8,9 +8,9 @@ import {
 import { FieldNode, OperationDefinitionNode } from 'graphql';
 import { useCallback, useMemo } from 'react';
 
-import { useRestrictedAccessContext } from 'contexts/restrictedAccess';
-import { useSentryContext } from 'contexts/sentry';
-import { Level, useSnackNotificationContext } from 'contexts/snackNotification';
+import { useRestrictedAccessContext } from '@sorare/core/src/contexts/restrictedAccess';
+import { useSentryContext } from '@sorare/core/src/contexts/sentry';
+import { Level, useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 
 import MutationError from '../../errors/mutation';
 import NetworkError from '../../errors/network';

@@ -20,6 +20,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@material-ui/core": "^4.12.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
+    "@react-spring/web": "^9.7.2",
     "@sentry/react": "^7.55.2",
     "@sentry/utils": "^7.55.2",
     "algoliasearch": "^4.17.2",
@@ -28,10 +29,12 @@
     "bignumber.js": "^9.1.1",
     "classnames": "^2.3.2",
     "date-fns": "^2.30.0",
+    "dompurify": "^3.0.3",
     "jss-rtl": "^0.3.0",
     "lodash.isequal": "^4.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-flip-toolkit": "^7.1.0",
     "react-instantsearch-hooks-web": "^6.44.3",
     "react-intl": "^6.4.4",
     "react-redux": "^8.1.0",
@@ -41,6 +44,7 @@
     "styled-components": "^5.3.11"
   },
   "devDependencies": {
+    "@types/dompurify": "^3.0.2",
     "@types/lodash.isequal": "^4.5.6",
     "@types/node": "^20.3.1",
     "@types/react": "^17.0.52",

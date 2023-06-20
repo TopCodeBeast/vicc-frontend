@@ -1,8 +1,8 @@
 import { gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
 
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useEventsContext } from 'contexts/events';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useEventsContext } from '@sorare/core/src/contexts/events';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 
 import {

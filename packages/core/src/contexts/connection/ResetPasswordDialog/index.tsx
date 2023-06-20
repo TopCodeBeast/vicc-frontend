@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
 import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import SmallerStarBall from '@sorare/core/src/atoms/navigation/SmallerStarBall';
-import { useWalletContext } from 'contexts/wallet';
-import { useResetPassword } from 'contexts/wallet/Frame/handlers';
+import { useWalletContext } from '@sorare/core/src/contexts/wallet';
+import { useResetPassword } from '@sorare/core/src/contexts/wallet/Frame/handlers';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 
 import { ResetPasswordContent } from './ResetPasswordContent';

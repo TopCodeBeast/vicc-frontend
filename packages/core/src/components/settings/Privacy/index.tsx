@@ -3,7 +3,7 @@ import { FormattedMessage, defineMessages } from 'react-intl';
 
 import Switch from '@sorare/core/src/atoms/inputs/Switch';
 import Bold from '@sorare/core/src/atoms/typography/Bold';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import useLifecycle, { LIFECYCLE, Lifecycle } from '@sorare/core/src/hooks/useLifecycle';

@@ -1,7 +1,7 @@
 import { defineMessages } from 'react-intl';
 
 import { Sport } from '__generated__/globalTypes';
-import { useSportContext } from 'contexts/sport';
+import { useSportContext } from '@sorare/core/src/contexts/sport';
 import { useConversionCredit } from '@sorare/core/src/hooks/useConversionCredit';
 
 import { DumbConversionCreditBanner } from '../DumbConversionCreditBanner';

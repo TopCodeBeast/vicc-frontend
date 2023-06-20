@@ -14,7 +14,7 @@ import { roundCeilFloat, toWei } from '@sorare/core/src/lib/wei';
 import { theme } from '@sorare/core/src/style/theme';
 
 import FeesDetailsTooltip from 'components/offer/FeesDetailsTooltip';
-import { useMarketplaceContext } from 'contexts/Marketplace';
+import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 import {
   MarketFeeStatus,
   isMarketFeeEnabled,

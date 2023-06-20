@@ -13,7 +13,7 @@ import { Text14, Text16, Title6 } from '@sorare/core/src/atoms/typography';
 import {
   SecurityCheckTab,
   useAccountSecurityCheckContext,
-} from 'contexts/accountSecurityCheck';
+} from '@sorare/core/src/contexts/accountSecurityCheck';
 import useRecoveryEmails, {
   RecoveryOption,
 } from '@sorare/core/src/hooks/recovery/useRecoveryOptions';

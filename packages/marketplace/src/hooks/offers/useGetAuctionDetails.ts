@@ -3,7 +3,7 @@ import { add, isFuture, isPast, parseISO } from 'date-fns';
 
 import useForceUpdateAfterEndDate from '@sorare/core/src/hooks/useForceUpdateAfterEndDate';
 
-import { auctionCurrentPrice } from 'lib/auctions';
+import { auctionCurrentPrice } from '@sorare/marketplace/src/lib/auctions';
 
 import { useGetAuctionDetails_auction } from './__generated__/useGetAuctionDetails.graphql';
 

@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { useTickerContext } from 'contexts/ticker';
+import { useTickerContext } from '@sorare/core/src/contexts/ticker';
 
 export const messages = defineMessages({
   monthsLeft: {

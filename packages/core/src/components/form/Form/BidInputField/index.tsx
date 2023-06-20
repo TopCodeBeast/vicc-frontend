@@ -12,8 +12,8 @@ import styled from 'styled-components';
 
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import { Text14 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useIntlContext } from 'contexts/intl';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
 import useRegexp from '@sorare/core/src/hooks/useRegexp';
 import useToggle from '@sorare/core/src/hooks/useToggle';

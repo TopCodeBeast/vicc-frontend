@@ -8,7 +8,7 @@ import { getHumanReadableSerialNumber } from '@sorare/core/src/lib/cards';
 
 import { CardContainer } from 'components/ItemPreview/ui';
 import FlexToken from 'components/token/FlexToken';
-import { useMarketplaceContext } from 'contexts/Marketplace';
+import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 
 import { MobileCardPreview_token } from './__generated__/index.graphql';
 

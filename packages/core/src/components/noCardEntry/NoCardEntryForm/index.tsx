@@ -7,7 +7,7 @@ import { GraphQLResult, GraphqlForm, TextField } from 'components/form/Form';
 import Select from 'components/form/Form/Select';
 import UploadFile from 'components/form/UploadFile';
 import { GoogleReCAPTCHA, ReCAPTCHA } from 'components/recaptcha';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
 const Root = styled.div`
   display: flex;

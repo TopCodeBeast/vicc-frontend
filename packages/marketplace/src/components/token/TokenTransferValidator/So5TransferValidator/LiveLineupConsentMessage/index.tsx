@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Checkbox from '@sorare/core/src/atoms/inputs/Checkbox';
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
 
-import { useMarketplaceEvents } from 'lib/events';
+import { useMarketplaceEvents } from '@sorare/marketplace/src/lib/events';
 
 import { TokenTransferValidatorProps } from '../../types';
 

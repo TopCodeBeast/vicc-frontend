@@ -2,9 +2,9 @@ import { gql, useLazyQuery } from '@apollo/client';
 import { useContext, useEffect } from 'react';
 
 import { MessagingContext, PromptRestoreWallet } from '@sorare/wallet-shared';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
-import { WalletTab, useWalletDrawerContext } from 'contexts/walletDrawer';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
+import { WalletTab, useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
 import useQueryString from '@sorare/core/src/hooks/useQueryString';
 
 import {

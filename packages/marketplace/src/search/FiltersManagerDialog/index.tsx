@@ -18,8 +18,8 @@ import {
 import { FilterWidget } from '@sorare/core/src/lib/filters';
 import { filters, sorts as sortsMessages } from '@sorare/core/src/lib/glossary';
 
-import { useClearAllFilters } from 'search/ClearAllFilters';
-import useFiltersCount from 'search/FiltersManager/useFiltersCount';
+import { useClearAllFilters } from '@sorare/marketplace/src/search/ClearAllFilters';
+import useFiltersCount from '@sorare/marketplace/src/search/FiltersManager/useFiltersCount';
 
 import { MobileFilterWidget } from './MobileFilterWidget';
 

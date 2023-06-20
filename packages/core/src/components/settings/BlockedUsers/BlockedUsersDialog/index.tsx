@@ -9,7 +9,7 @@ import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import { Text16, Title5 } from '@sorare/core/src/atoms/typography';
 import Avatar from 'components/user/Avatar';
 import { Nickname } from 'components/user/Nickname';
-import { extractConnectionData } from 'gql/extractData';
+import { extractConnectionData } from '@sorare/core/src/gql/extractData';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useCurrentUserPaginatedQuery from '@sorare/core/src/hooks/graphql/useCurrentUserPaginatedQuery';
 

@@ -8,7 +8,7 @@ import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 
 import NewOfferBuilder from 'components/directOffer/NewOfferBuilder';
-import { useMarketplaceContext } from 'contexts/Marketplace';
+import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 import useTradeButtonVisible from 'hooks/offers/useTradeButtonVisible';
 
 import { TradeButton_publicUserInfoInterface } from './__generated__/index.graphql';

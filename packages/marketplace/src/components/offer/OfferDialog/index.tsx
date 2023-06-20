@@ -59,7 +59,7 @@ import TokenSummary from 'components/buyActions/TokenSummary';
 import Row from 'components/offer/Row';
 import { TokenTransferValidator } from 'components/token/TokenTransferValidator';
 import { TokenTransferChildrenProps } from 'components/token/TokenTransferValidator/types';
-import { useMarketplaceEvents } from 'lib/events';
+import { useMarketplaceEvents } from '@sorare/marketplace/src/lib/events';
 
 import { PreLaunchFiatWalletListing } from '../PreLaunchFiatWalletListing';
 import { OfferDialog_token } from './__generated__/index.graphql';

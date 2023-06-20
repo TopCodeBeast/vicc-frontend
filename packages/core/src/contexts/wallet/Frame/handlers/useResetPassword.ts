@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 
 import { MessagingContext, ResetPassword } from '@sorare/wallet-shared';
-import { useAuthContext } from 'contexts/auth';
+import { useAuthContext } from '@sorare/core/src/contexts/auth';
 import { formatUpdateUserErrors } from '@sorare/core/src/lib/http';
 
 type Props = {

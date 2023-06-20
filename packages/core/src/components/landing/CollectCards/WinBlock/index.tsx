@@ -5,7 +5,7 @@ import { Sport } from '__generated__/globalTypes';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import { CardRarity } from '__generated__/usSportsGlobalTypes';
 import { USSportCardBack } from 'components/cards/Back';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { theme } from '@sorare/core/src/style/theme';
 
 import { SectionText } from '../SectionText';

@@ -1,6 +1,6 @@
 import { ReactNode, useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
-import { useSpring } from 'react-spring';
+import { useSpring } from '@react-spring/web';
 import styled from 'styled-components';
 
 import WaypointComponent from '@sorare/core/src/atoms/animations/Waypoint';

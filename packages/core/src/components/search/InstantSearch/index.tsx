@@ -14,8 +14,8 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 
-import { AlgoliaIndexes, useConfigContext } from 'contexts/config';
-import { useSearchCardsContext } from 'contexts/searchCards';
+import { AlgoliaIndexes, useConfigContext } from '@sorare/core/src/contexts/config';
+import { useSearchCardsContext } from '@sorare/core/src/contexts/searchCards';
 import useSearchClient from '@sorare/core/src/hooks/search/useSearchClient';
 import { useMarketplaceLifecycle } from '@sorare/core/src/hooks/useMarketplaceLifecycle';
 import { useVirtualToggleManager } from '@sorare/core/src/hooks/useVirtualToggleManager';

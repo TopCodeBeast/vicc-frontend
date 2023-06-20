@@ -1,4 +1,4 @@
-import { useConfigContext } from 'contexts/config';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
 import MonetaryAmount, { MonetaryAmountParams } from '@sorare/core/src/lib/monetaryAmount';
 
 const useMonetaryAmount = () => {

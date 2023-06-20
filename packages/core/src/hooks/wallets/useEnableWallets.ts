@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 import { EnabledWallet } from '__generated__/globalTypes';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 
 import {

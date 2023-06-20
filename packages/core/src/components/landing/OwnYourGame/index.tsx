@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { animated, config, useSpring } from 'react-spring';
+import { animated, config, useSpring } from '@react-spring/web';
 import shuffle from 'shuffle-array';
 import styled from 'styled-components';
 
@@ -8,10 +8,10 @@ import { Sport } from '__generated__/globalTypes';
 import { BackgroundAnimation } from '@sorare/core/src/atoms/animations/Background';
 import Container from '@sorare/core/src/atoms/layout/Container';
 import { useDefaultSportPages } from '@sorare/core/src/constants/routes';
-import { useConfigContext } from 'contexts/config';
-import { useConnectionContext } from 'contexts/connection';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import MultiSportAppBar from 'routing/MultiSportAppBar';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
+import { useConnectionContext } from '@sorare/core/src/contexts/connection';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import MultiSportAppBar from '@sorare/core/src/routing/MultiSportAppBar';
 import { theme } from '@sorare/core/src/style/theme';
 
 import PlayNowButton from '../PlayNowButton';

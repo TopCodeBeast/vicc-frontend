@@ -6,7 +6,7 @@ import {
   ConversionCreditStatus,
   Sport,
 } from '__generated__/globalTypes';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 
 type SportConversionCredit = ConversionCredit & {

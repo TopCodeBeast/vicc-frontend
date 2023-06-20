@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import { GraphQLResult, GraphqlForm, TextField } from 'components/form/Form';
 import { RECOVERY_EMAIL_VERIFICATION_CODE_LENGTH } from '@sorare/core/src/constants/verificationCode';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import useActivateWalletRecoveryEmail from '@sorare/core/src/hooks/recovery/useActivateWalletRecoveryEmail';
 import { glossary } from '@sorare/core/src/lib/glossary';
 

@@ -7,7 +7,7 @@ import {
   NBA_HOME,
   useDefaultSportPages,
 } from '@sorare/core/src/constants/routes';
-import { useConfigContext } from 'contexts/config';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
 import useAfterLoggedInTarget from '@sorare/core/src/hooks/useAfterLoggedInTarget';
 import { Lifecycle } from '@sorare/core/src/hooks/useLifecycle';
 import { useRedirectUrl } from '@sorare/core/src/hooks/useRedirectUrl';

@@ -8,7 +8,7 @@ import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
 import Avatar from 'components/user/Avatar';
 import UserName from 'components/user/UserName';
 import { LEGACY_USER_GALLERY } from '@sorare/core/src/constants/routes';
-import { useSportContext } from 'contexts/sport';
+import { useSportContext } from '@sorare/core/src/contexts/sport';
 import { formatEthereumAddress } from '@sorare/core/src/lib/ethereum';
 import { isA } from '@sorare/core/src/lib/gql';
 

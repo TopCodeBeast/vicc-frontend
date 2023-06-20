@@ -1,4 +1,4 @@
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
 import SettingsSection from '../SettingsSection';

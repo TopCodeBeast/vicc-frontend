@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useInstantSearch } from 'react-instantsearch-hooks-web';
 
-import { useConfigContext } from 'contexts/config';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
 
 type Props = {
   interval: number;

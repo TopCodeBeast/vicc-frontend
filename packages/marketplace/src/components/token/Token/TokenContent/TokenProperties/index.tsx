@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { ItemPropertiesContainer } from 'components/ItemPreview/ui';
 import Bundle from 'components/auction/Bundle';
-import { useMarketplaceContext } from 'contexts/Marketplace';
+import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 
 import { TokenProperties_token } from './__generated__/index.graphql';
 

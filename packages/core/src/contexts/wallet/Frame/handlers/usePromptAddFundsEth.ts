@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { WalletTab, useWalletDrawerContext } from 'contexts/walletDrawer';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { WalletTab, useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
 import useQueryString from '@sorare/core/src/hooks/useQueryString';
 
 export default () => {

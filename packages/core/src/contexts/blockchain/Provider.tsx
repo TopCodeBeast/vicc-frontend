@@ -8,11 +8,11 @@ import BlockchainContextProvider, {
   AccountData,
   EthereumAccountHandler,
   InitEthereumSource,
-} from 'contexts/blockchain';
-import { useConfigContext } from 'contexts/config';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { EventStep } from 'contexts/events/types';
-import { useWeb3Context } from 'contexts/web3';
+} from '@sorare/core/src/contexts/blockchain';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { EventStep } from '@sorare/core/src/contexts/events/types';
+import { useWeb3Context } from '@sorare/core/src/contexts/web3';
 import useWithdrawEthEvent from '@sorare/core/src/hooks/events/useWithdrawEthEvent';
 import { ethNetworkName } from '@sorare/core/src/lib/ethereum';
 import { lazy } from '@sorare/core/src/lib/retry';

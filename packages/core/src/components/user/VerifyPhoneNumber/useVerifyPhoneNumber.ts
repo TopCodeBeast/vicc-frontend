@@ -1,7 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 
 import { Maybe } from '__generated__/globalTypes';
-import { Level, useSnackNotificationContext } from 'contexts/snackNotification';
+import { Level, useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import { formatGqlErrors } from '@sorare/core/src/lib/gql';
 
 import {

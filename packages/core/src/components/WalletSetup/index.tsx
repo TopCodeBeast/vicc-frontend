@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import DialogWithNavigation from '@sorare/core/src/atoms/layout/DialogWithNavigation';
 import { TERMS } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import useLifecycle, { LIFECYCLE, Lifecycle } from '@sorare/core/src/hooks/useLifecycle';

@@ -13,7 +13,7 @@ import {
 import { useConfigContext } from '@sorare/core/src/contexts/config';
 import { fromWei, toWei } from '@sorare/core/src/lib/wei';
 
-import { useMarketplaceContext } from 'contexts/Marketplace';
+import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 
 import {
   CreateOrUpdateSingleBuyOfferMinPriceMutation,

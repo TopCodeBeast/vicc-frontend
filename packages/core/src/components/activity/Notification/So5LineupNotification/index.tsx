@@ -8,8 +8,8 @@ import {
   FOOTBALL_COMPETITION_DETAILS_TEAM,
   FOOTBALL_COMPOSE_TEAM_LINEUP,
 } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import idFromObject from 'gql/idFromObject';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import idFromObject from '@sorare/core/src/gql/idFromObject';
 
 import { commonNotificationInterfaceFragment } from '../fragments';
 import { So5LineupNotification_so5LineupNotification } from './__generated__/index.graphql';

@@ -1,7 +1,7 @@
 import { defineMessages } from 'react-intl';
 
 import { Sport } from '__generated__/globalTypes';
-import { AlgoliaCardIndexesName } from 'contexts/config';
+import { AlgoliaCardIndexesName } from '@sorare/core/src/contexts/config';
 
 export const CAPTAIN = 'C';
 

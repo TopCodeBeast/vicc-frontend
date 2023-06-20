@@ -13,7 +13,7 @@ import { scarcityNames } from '@sorare/core/src/lib/cards';
 import { PrimaryOfferTokensPreview } from 'components/primaryOffer/PrimaryOfferTokensPreview';
 import FlexToken from 'components/token/FlexToken';
 import TokenDescription from 'components/token/TokenDescription';
-import { useMarketplaceContext } from 'contexts/Marketplace';
+import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 
 import TokenDrawerSummary from '../TokenDrawerSummary';
 import { TokensSummary_token } from './__generated__/index.graphql';

@@ -8,9 +8,9 @@ import {
   useState,
 } from 'react';
 
-import { useConfigContext } from 'contexts/config';
-import { useSentryContext } from 'contexts/sentry';
-import Web3ContextProvider from 'contexts/web3';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
+import { useSentryContext } from '@sorare/core/src/contexts/sentry';
+import Web3ContextProvider from '@sorare/core/src/contexts/web3';
 import { lazy } from '@sorare/core/src/lib/retry';
 import {
   EthereumSetupStatus,

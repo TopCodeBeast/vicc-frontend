@@ -10,7 +10,7 @@ import { ButtonBase } from '@material-ui/core';
 import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import { Link, generatePath, useNavigate } from 'react-router-dom';
-import { animated, useSpring } from 'react-spring';
+import { animated, useSpring } from '@react-spring/web';
 import styled, { css } from 'styled-components';
 
 import { Sport } from '__generated__/globalTypes';
@@ -81,17 +81,17 @@ import {
   SETTINGS_HOME,
   goToLobby,
 } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useIntlContext } from 'contexts/intl';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import {
   MarketplaceOnboardingStep,
   useManagerTaskContext,
-} from 'contexts/managerTask';
-import { useInlineNotificationsContext } from 'contexts/snackNotification/Provider';
-import { useSportContext } from 'contexts/sport';
-import { useWalletContext } from 'contexts/wallet';
-import { useWalletDrawerContext } from 'contexts/walletDrawer';
+} from '@sorare/core/src/contexts/managerTask';
+import { useInlineNotificationsContext } from '@sorare/core/src/contexts/snackNotification/Provider';
+import { useSportContext } from '@sorare/core/src/contexts/sport';
+import { useWalletContext } from '@sorare/core/src/contexts/wallet';
+import { useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { useLocationChanged } from '@sorare/core/src/hooks/useLocationChanged';
 import useMyPath from '@sorare/core/src/hooks/useMyPath';
@@ -103,8 +103,8 @@ import {
   navLabels,
   transferMarket,
 } from '@sorare/core/src/lib/glossary';
-import MenuIconButton from 'routing/MultiSportAppBar/MenuIconButton';
-import useBottomBarNavItems from 'routing/MultiSportBottomNavBar/useBottomBarNavItems';
+import MenuIconButton from '@sorare/core/src/routing/MultiSportAppBar/MenuIconButton';
+import useBottomBarNavItems from '@sorare/core/src/routing/MultiSportBottomNavBar/useBottomBarNavItems';
 import { theme } from '@sorare/core/src/style/theme';
 
 import Item, { Config } from '../Item';

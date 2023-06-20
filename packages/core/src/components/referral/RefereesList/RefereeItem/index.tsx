@@ -12,7 +12,7 @@ import { ClaimReferralRewardDialog } from 'components/referral/ClaimReferralRewa
 import UninteractiveToken from 'components/token/UninteractiveToken';
 import { GalleryLink } from 'components/user/GalleryLink';
 import { Nickname } from 'components/user/Nickname';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { useReferralReward } from '@sorare/core/src/hooks/useReferralReward';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 import { glossary } from '@sorare/core/src/lib/glossary';

@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { animated } from 'react-spring';
+import { animated } from '@react-spring/web';
 import styled, { keyframes } from 'styled-components';
 
 import { Caption } from '@sorare/core/src/atoms/typography';

@@ -1,7 +1,7 @@
 import { defineMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { theme } from '@sorare/core/src/style/theme';
 
 import commonCardNBA from '../../../CollectBlock/assets/nba/common.png';

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { animated, useSpring, useTransition } from 'react-spring';
+import { animated, useSpring, useTransition } from '@react-spring/web';
 import styled from 'styled-components';
 
 import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';

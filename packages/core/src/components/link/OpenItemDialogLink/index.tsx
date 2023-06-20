@@ -7,9 +7,9 @@ import {
   LEGACY_CARD_SHOW,
   LEGACY_TOKEN_AUCTION,
 } from '@sorare/core/src/constants/routes';
-import { useSportContext } from 'contexts/sport';
-import idFromObject from 'gql/idFromObject';
-import { Link, LinkProps } from 'routing/Link';
+import { useSportContext } from '@sorare/core/src/contexts/sport';
+import idFromObject from '@sorare/core/src/gql/idFromObject';
+import { Link, LinkProps } from '@sorare/core/src/routing/Link';
 
 interface Props {
   item: Item;

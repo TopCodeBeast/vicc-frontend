@@ -8,7 +8,7 @@ import { useSportContext } from '@sorare/core/src/contexts/sport';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { filters } from '@sorare/core/src/lib/glossary';
 
-import useFiltersCount from 'search/FiltersManager/useFiltersCount';
+import useFiltersCount from '@sorare/marketplace/src/search/FiltersManager/useFiltersCount';
 
 export const useClearAllFilters = () => {
   const track = useEvents();

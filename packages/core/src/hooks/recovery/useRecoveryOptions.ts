@@ -4,7 +4,7 @@ import {
   PrivateKeyRecoveryOptionMethodEnum,
   PrivateKeyRecoveryOptionStatusEnum,
 } from '__generated__/globalTypes';
-import { CurrentUser, useCurrentUserContext } from 'contexts/currentUser';
+import { CurrentUser, useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
 export type RecoveryOption = NonNullable<
   CurrentUser['wallet']

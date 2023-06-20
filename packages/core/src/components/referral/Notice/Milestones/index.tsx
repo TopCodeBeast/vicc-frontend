@@ -14,7 +14,7 @@ import OpenItemDialogLink from 'components/link/OpenItemDialogLink';
 import { ClaimReferralRewardDialog } from 'components/referral/ClaimReferralRewardDialog';
 import UninteractiveToken from 'components/token/UninteractiveToken';
 import Avatar from 'components/user/Avatar';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useReferralReward } from '@sorare/core/src/hooks/useReferralReward';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 import { scarcityNames } from '@sorare/core/src/lib/cards';

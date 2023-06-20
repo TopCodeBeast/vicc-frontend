@@ -10,8 +10,8 @@ import {
   Tradeable,
   WalletStatus,
 } from '__generated__/globalTypes';
-import { AlgoliaCardIndexesNames } from 'contexts/config';
-import idFromObject from 'gql/idFromObject';
+import { AlgoliaCardIndexesNames } from '@sorare/core/src/contexts/config';
+import idFromObject from '@sorare/core/src/gql/idFromObject';
 
 import { Algolia_CardHit_token } from './__generated__/algolia.graphql';
 import { Scarcity } from './cards';

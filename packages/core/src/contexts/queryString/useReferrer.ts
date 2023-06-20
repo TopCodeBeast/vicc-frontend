@@ -4,7 +4,7 @@ import { useCallback, useEffect } from 'react';
 import { Location, useLocation, useNavigate } from 'react-router-dom';
 
 import { keys } from 'components/PersistsQueryStringParameters/storage';
-import { useConfigContext } from 'contexts/config';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { local as localStorage } from '@sorare/core/src/lib/storage';
 

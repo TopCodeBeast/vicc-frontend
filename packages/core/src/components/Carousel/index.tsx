@@ -1,7 +1,7 @@
 import { useDrag } from '@use-gesture/react';
 import classnames from 'classnames';
 import { ReactNode, useEffect, useRef } from 'react';
-import { animated, config, useSpring } from 'react-spring';
+import { animated, config, useSpring } from '@react-spring/web';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`

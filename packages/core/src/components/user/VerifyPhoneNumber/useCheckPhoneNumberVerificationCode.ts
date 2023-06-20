@@ -1,7 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 
 import { PrivateKeyRecovery } from '@sorare/wallet-shared';
-import { Level, useSnackNotificationContext } from 'contexts/snackNotification';
+import { Level, useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import { formatGqlErrors } from '@sorare/core/src/lib/gql';
 
 import {

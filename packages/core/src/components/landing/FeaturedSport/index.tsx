@@ -11,7 +11,7 @@ import { LinkBox, LinkOverlay } from '@sorare/core/src/atoms/navigation/Box';
 import { useDefaultSportPages } from '@sorare/core/src/constants/routes';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { sportsLabelsMessages } from '@sorare/core/src/lib/glossary';
-import { Link } from 'routing/Link';
+import { Link } from '@sorare/core/src/routing/Link';
 import { theme } from '@sorare/core/src/style/theme';
 
 import PlayerCardsAnimation from '../PlayerCardsAnimation';

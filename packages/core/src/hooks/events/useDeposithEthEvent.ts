@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 
-import { useEventsContext } from 'contexts/events';
-import { ETH_DEPOSITED_TRAIT } from 'contexts/events/Provider';
-import { EventStep } from 'contexts/events/types';
+import { useEventsContext } from '@sorare/core/src/contexts/events';
+import { ETH_DEPOSITED_TRAIT } from '@sorare/core/src/contexts/events/Provider';
+import { EventStep } from '@sorare/core/src/contexts/events/types';
 import { EventsType } from '@sorare/core/src/lib/events/EventsType';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 

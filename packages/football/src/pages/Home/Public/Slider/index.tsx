@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import { FormattedMessage, MessageDescriptor } from 'react-intl';
-import { animated, useTransition } from 'react-spring';
+import { animated, useTransition } from '@react-spring/web';
 import styled from 'styled-components';
 
 import { Container } from '@sorare/core/src/atoms/container';

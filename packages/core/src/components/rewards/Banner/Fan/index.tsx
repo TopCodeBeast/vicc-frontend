@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { animated, useSpring } from 'react-spring';
+import { animated, useSpring } from '@react-spring/web';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`

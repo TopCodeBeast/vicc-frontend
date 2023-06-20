@@ -8,7 +8,7 @@ import {
 } from '@sorare/core/src/lib/filters';
 
 import useFormatFilters from 'hooks/filters/useFormatFilters';
-import { RefinementItem } from 'search/ActiveFilters/types';
+import { RefinementItem } from '@sorare/marketplace/src/search/ActiveFilters/types';
 
 import {
   formatListFilterWidgetValue,

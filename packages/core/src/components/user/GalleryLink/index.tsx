@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { Sport } from '__generated__/globalTypes';
 import { LEGACY_USER_GALLERY } from '@sorare/core/src/constants/routes';
-import { useSportContext } from 'contexts/sport';
+import { useSportContext } from '@sorare/core/src/contexts/sport';
 import { galleryPathFromSport } from '@sorare/core/src/lib/galleryPathFromSport';
 
 type UserWithGalleryPathFactory<T> = {

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useSportContext } from '@sorare/core/src/contexts/sport';
 import { FILTERS } from '@sorare/core/src/lib/filters';
 
-import { useMarketplaceContext } from 'contexts/Marketplace';
+import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 import { useFormatFilterWidgetValue } from 'hooks/search/useFormatFilterWidgetValue';
 
 import { FilterChip } from '../FilterChip';

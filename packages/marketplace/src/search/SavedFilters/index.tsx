@@ -38,7 +38,7 @@ import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { VIRTUAL_TOGGLE_FILTERS } from '@sorare/core/src/lib/filters';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import useFiltersCount from 'search/FiltersManager/useFiltersCount';
+import useFiltersCount from '@sorare/marketplace/src/search/FiltersManager/useFiltersCount';
 
 import {
   SavedFiltersQuery,

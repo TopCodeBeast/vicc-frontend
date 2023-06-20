@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { Empty as EmptyCards } from '@sorare/core/src/components/cards/Empty';
 import { filters } from '@sorare/core/src/lib/glossary';
 
-import useFiltersCount from 'search/FiltersManager/useFiltersCount';
+import useFiltersCount from '@sorare/marketplace/src/search/FiltersManager/useFiltersCount';
 import { SearchTopic } from '@sorare/marketplace/src/searchCards/AdvancedCardSearch/types';
 
 import EmptyMarket from './EmptyMarket';

@@ -10,7 +10,7 @@ import UninteractiveToken from 'components/token/UninteractiveToken';
 import Avatar from 'components/user/Avatar';
 import SocialShare from 'components/user/SocialShare';
 import UserName from 'components/user/UserName';
-import { fragments as analyticsFragments } from 'contexts/events/types';
+import { fragments as analyticsFragments } from '@sorare/core/src/contexts/events/types';
 import { socialShareEventContext, socialShareEventName } from '@sorare/core/src/lib/events';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { isA } from '@sorare/core/src/lib/gql';

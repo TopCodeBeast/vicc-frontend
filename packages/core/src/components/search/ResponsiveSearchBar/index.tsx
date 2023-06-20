@@ -7,8 +7,8 @@ import styled, { css } from 'styled-components';
 
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import MenuIconButton from 'routing/MultiSportAppBar/MenuIconButton';
-import { useAppBarContext } from 'routing/MultiSportAppBar/context';
+import MenuIconButton from '@sorare/core/src/routing/MultiSportAppBar/MenuIconButton';
+import { useAppBarContext } from '@sorare/core/src/routing/MultiSportAppBar/context';
 import { OverrideClasses } from '@sorare/core/src/style/utils';
 
 import MultiSportSearchBar from '../MultiSportSearchBar';

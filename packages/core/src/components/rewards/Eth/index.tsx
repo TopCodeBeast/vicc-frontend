@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Title2 } from '@sorare/core/src/atoms/typography';
-import { FormattedWei } from 'contexts/intl/FormattedWei';
+import { FormattedWei } from '@sorare/core/src/contexts/intl/FormattedWei';
 import { theme } from '@sorare/core/src/style/theme';
 
 import ethFrontCardBackground from './assets/ethFrontCardBackground.svg';

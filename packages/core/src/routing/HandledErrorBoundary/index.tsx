@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 
 import { LANDING } from '@sorare/core/src/constants/routes';
 import { wrapError } from '@sorare/core/src/lib/error';
-import { ErrorProps, HandledError } from 'routing/HandledError';
+import { ErrorProps, HandledError } from '@sorare/core/src/routing/HandledError';
 
 type Props = {
   children: ReactNode;

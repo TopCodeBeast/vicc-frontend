@@ -21,13 +21,13 @@ import {
   NBA_TEAM_CARDS,
   NBA_USER_GALLERY,
 } from '@sorare/core/src/constants/routes';
-import { useConfigContext } from 'contexts/config';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useSportContext } from 'contexts/sport';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useSportContext } from '@sorare/core/src/contexts/sport';
 import useLifecycle, { LIFECYCLE, Lifecycle } from '@sorare/core/src/hooks/useLifecycle';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { glossary, sportsLabelsMessages } from '@sorare/core/src/lib/glossary';
-import { sportFromJSON } from 'protos/events/shared/events';
+import { sportFromJSON } from '@sorare/core/src/protos/events/shared/events';
 import { theme } from '@sorare/core/src/style/theme';
 import { OverrideClasses } from '@sorare/core/src/style/utils';
 

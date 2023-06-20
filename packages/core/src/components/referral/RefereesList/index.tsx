@@ -7,7 +7,7 @@ import { ReferralState } from '__generated__/globalTypes';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import Pagination from '@sorare/core/src/atoms/navigation/Pagination';
 import { Text18 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
 import { RefereeItem } from './RefereeItem';
 import {

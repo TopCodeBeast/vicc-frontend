@@ -2,7 +2,7 @@ import { FetchResult, gql, useMutation } from '@apollo/client';
 
 // eslint-disable-next-line import/named
 import { updateUserProfileInput } from '__generated__/globalTypes';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 
 import {
   UpdateUserProfileMutation,

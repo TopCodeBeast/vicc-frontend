@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import {
   GetCurrentUserSubscriptionProps,
   useFollowContext,
-} from 'contexts/follow';
+} from '@sorare/core/src/contexts/follow';
 
 import useSubscription from './useSubscription';
 import useUnsubscription from './useUnsubscription';

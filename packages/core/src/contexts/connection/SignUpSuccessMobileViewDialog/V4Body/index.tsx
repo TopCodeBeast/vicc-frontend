@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { LANDING } from '@sorare/core/src/constants/routes';
-import { useSentryContext } from 'contexts/sentry';
+import { useSentryContext } from '@sorare/core/src/contexts/sentry';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 import { TOKEN_QUERY_PARAMETER } from '@sorare/core/src/lib/ephemeralLinks';
 

@@ -9,8 +9,8 @@ import BundledAuctionName from 'components/bundled/BundledAuctionName';
 import TokenDescriptionFromProps from 'components/token/TokenDescriptionFromProps';
 import TokenMetas from 'components/token/TokenMetas';
 import { FOOTBALL_BUNDLED_AUCTION, LEGACY_CARD_SHOW } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useSportContext } from 'contexts/sport';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useSportContext } from '@sorare/core/src/contexts/sport';
 
 import { commonNotificationInterfaceFragment } from '../fragments';
 import { CommonNotificationProps } from '../types';

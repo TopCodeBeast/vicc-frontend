@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Text16 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useUpdate2FA from '@sorare/core/src/hooks/useUpdate2FA';
 import { glossary } from '@sorare/core/src/lib/glossary';
 

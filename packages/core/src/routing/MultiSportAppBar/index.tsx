@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { Container } from '@sorare/core/src/atoms/container';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { lazy } from '@sorare/core/src/lib/retry';
 
 // eslint-disable-next-line import/no-useless-path-segments

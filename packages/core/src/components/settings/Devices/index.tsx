@@ -6,8 +6,8 @@ import styled from 'styled-components';
 
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import idFromObject from 'gql/idFromObject';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 import { glossary } from '@sorare/core/src/lib/glossary';
 

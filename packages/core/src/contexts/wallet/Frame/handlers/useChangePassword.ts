@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
 
 import { ChangePassword, MessagingContext } from '@sorare/wallet-shared';
-import { useAuthContext } from 'contexts/auth';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useAuthContext } from '@sorare/core/src/contexts/auth';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { formatUpdateUserErrors } from '@sorare/core/src/lib/http';
 
 export default () => {

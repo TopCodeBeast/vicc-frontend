@@ -4,10 +4,10 @@ import { useCallback } from 'react';
 
 import Bold from '@sorare/core/src/atoms/typography/Bold';
 import { getValue } from 'components/PersistsQueryStringParameters/storage';
-import { useDeviceFingerprintContext } from 'contexts/deviceFingerprint';
-import { useRestrictedAccessContext } from 'contexts/restrictedAccess';
-import createResendEmailConfirmationButton from 'contexts/restrictedAccess/ResendEmailConfirmationLink';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
+import { useDeviceFingerprintContext } from '@sorare/core/src/contexts/deviceFingerprint';
+import { useRestrictedAccessContext } from '@sorare/core/src/contexts/restrictedAccess';
+import createResendEmailConfirmationButton from '@sorare/core/src/contexts/restrictedAccess/ResendEmailConfirmationLink';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { getClientId } from '@sorare/core/src/lib/ga';
 

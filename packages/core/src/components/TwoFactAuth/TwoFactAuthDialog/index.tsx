@@ -8,8 +8,8 @@ import Dialog, { Actions } from '@sorare/core/src/atoms/layout/Dialog';
 import { Text16, Title4, Title5 } from '@sorare/core/src/atoms/typography';
 import { GraphQLResult, GraphqlForm, TextField } from 'components/form/Form';
 import { OTP_ATTEMPT_LENGTH } from '@sorare/core/src/constants/verificationCode';
-import NewDeviceDialog from 'contexts/connection/NewDeviceDialog';
-import { useIntlContext } from 'contexts/intl';
+import NewDeviceDialog from '@sorare/core/src/contexts/connection/NewDeviceDialog';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { glossary } from '@sorare/core/src/lib/glossary';
 

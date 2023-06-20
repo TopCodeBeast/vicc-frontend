@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useCallback, useState } from 'react';
 
-import { AccountData } from 'contexts/blockchain';
+import { AccountData } from '@sorare/core/src/contexts/blockchain';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 
 import {

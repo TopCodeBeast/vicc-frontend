@@ -4,8 +4,8 @@ import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { Keys, Salt } from '@sorare/wallet-shared';
-import { useConfigContext } from 'contexts/config';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { getSalt } from '@sorare/core/src/lib/password';
 import { theme } from '@sorare/core/src/style/theme';
 

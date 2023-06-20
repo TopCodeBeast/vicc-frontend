@@ -5,8 +5,8 @@ import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { NotificationCategoryInput, Sport } from '__generated__/globalTypes';
 import { allGroups } from 'components/activity/constants';
 import { flattenGroups } from 'components/activity/utils';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import idFromObject from 'gql/idFromObject';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { Lifecycle } from '@sorare/core/src/hooks/useLifecycle';
 

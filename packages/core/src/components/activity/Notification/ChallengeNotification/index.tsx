@@ -5,7 +5,7 @@ import { generatePath } from 'react-router-dom';
 import Bold from '@sorare/core/src/atoms/typography/Bold';
 import { DumbNotification } from 'components/activity/DumbNotification';
 import { FOOTBALL_COMPETITION_DETAILS } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
 import { commonNotificationInterfaceFragment } from '../fragments';
 import { CommonNotificationProps } from '../types';

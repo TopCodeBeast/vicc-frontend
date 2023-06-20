@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react';
-import { animated, useSpring } from 'react-spring';
+import { animated, useSpring } from '@react-spring/web';
 import styled from 'styled-components';
 
 import WaypointComponent from '@sorare/core/src/atoms/animations/Waypoint';

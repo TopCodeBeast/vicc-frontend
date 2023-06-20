@@ -6,7 +6,7 @@ import Button from '@sorare/core/src/atoms/buttons/Button';
 import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import Dialog from 'components/dialog';
 import VerifyPhoneNumber from 'components/user/VerifyPhoneNumber';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { theme } from '@sorare/core/src/style/theme';
 
 const Body = styled.div`

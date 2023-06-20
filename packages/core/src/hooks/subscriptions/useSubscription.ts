@@ -1,6 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
 
-import { GetCurrentUserSubscriptionProps } from 'contexts/follow';
+import { GetCurrentUserSubscriptionProps } from '@sorare/core/src/contexts/follow';
 import { getInteractionContext } from '@sorare/core/src/lib/events';
 
 import {

@@ -6,7 +6,7 @@ import {
   US_SPORTS_API_PATH,
   US_SPORTS_API_ROOT,
 } from 'config';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { getUsSportsApolloClient } from '@sorare/core/src/lib/usSportsGraphql/client';
 

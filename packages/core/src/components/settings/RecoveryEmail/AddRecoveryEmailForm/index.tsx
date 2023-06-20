@@ -8,9 +8,9 @@ import { Text14, Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import TwoFactAuthDialog from 'components/TwoFactAuth/TwoFactAuthDialog';
 import { GraphQLResult, GraphqlForm, TextField } from 'components/form/Form';
 import { GoogleReCAPTCHA, ReCAPTCHA } from 'components/recaptcha';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useMessagingContext } from 'contexts/wallet';
-import { useWalletDrawerContext } from 'contexts/walletDrawer';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useMessagingContext } from '@sorare/core/src/contexts/wallet';
+import { useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
 import useAddWalletRecoveryEmail from '@sorare/core/src/hooks/recovery/useAddWalletRecoveryEmail';
 import useRecoveryOptions, {
   RecoveryOption,

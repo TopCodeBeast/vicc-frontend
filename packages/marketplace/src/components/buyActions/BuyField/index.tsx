@@ -24,8 +24,8 @@ import BuyTokenConfirmation from 'components/buyActions/BuyTokenConfirmation';
 import BuyTokenSummary from 'components/buyActions/BuyTokenSummary';
 import CancelOffer from 'components/buyActions/CancelOffer';
 import LazyPaymentProvider from 'components/buyActions/LazyPaymentProvider';
-import { useMarketplaceContext } from 'contexts/Marketplace';
-import { useBuyConfirmationContext } from 'contexts/buyingConfirmation';
+import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
+import { useBuyConfirmationContext } from '@sorare/marketplace/src/contexts/buyingConfirmation';
 import useAcceptOffer from 'hooks/offers/useAcceptOffer';
 import useCannotBuy from 'hooks/offers/useCannotBuy';
 

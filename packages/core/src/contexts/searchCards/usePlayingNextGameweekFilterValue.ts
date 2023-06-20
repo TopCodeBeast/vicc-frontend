@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { useConfigContext } from 'contexts/config';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
 import { joinFiltersWithOr } from '@sorare/core/src/lib/algolia';
 
 export default () => {

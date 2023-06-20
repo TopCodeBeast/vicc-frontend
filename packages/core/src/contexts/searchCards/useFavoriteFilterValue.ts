@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 
-import { useFollowContext } from 'contexts/follow';
-import { favoriteCardType, favoritePlayerType } from 'contexts/follow/Provider';
-import { useSportContext } from 'contexts/sport';
+import { useFollowContext } from '@sorare/core/src/contexts/follow';
+import { favoriteCardType, favoritePlayerType } from '@sorare/core/src/contexts/follow/Provider';
+import { useSportContext } from '@sorare/core/src/contexts/sport';
 import { joinFiltersWithOr } from '@sorare/core/src/lib/algolia';
 
 type IncludeOnlyFilter = 'Card' | 'Player';

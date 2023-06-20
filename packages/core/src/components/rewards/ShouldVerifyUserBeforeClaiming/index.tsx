@@ -2,7 +2,7 @@ import { MouseEvent, useState } from 'react';
 import styled from 'styled-components';
 
 import VerifyPhoneNumber from 'components/user/VerifyPhoneNumber';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 
 const Wrapper = styled.div`

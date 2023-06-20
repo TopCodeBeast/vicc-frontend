@@ -1,5 +1,5 @@
 import { ReactNode, useMemo } from 'react';
-import { animated, easings, useTransition } from 'react-spring';
+import { animated, easings, useTransition } from '@react-spring/web';
 import styled from 'styled-components';
 
 import { Portal } from '@sorare/core/src/atoms/layout/Portal';

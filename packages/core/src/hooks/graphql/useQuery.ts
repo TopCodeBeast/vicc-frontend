@@ -7,7 +7,7 @@ import {
 } from '@apollo/client';
 import { DocumentNode } from 'graphql';
 
-import { useWalletContext } from 'contexts/wallet';
+import { useWalletContext } from '@sorare/core/src/contexts/wallet';
 import useLogOut from '@sorare/core/src/hooks/auth/useLogOut';
 
 let logoutTimeout: ReturnType<typeof setTimeout> | undefined;

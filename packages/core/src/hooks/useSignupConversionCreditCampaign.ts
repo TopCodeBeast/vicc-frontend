@@ -5,7 +5,7 @@ import {
   ConversionCreditCampaignStatus,
   Sport,
 } from '__generated__/globalTypes';
-import { useSportContext } from 'contexts/sport';
+import { useSportContext } from '@sorare/core/src/contexts/sport';
 import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 
 import { SESSION_STORAGE, useSessionStorage } from './useSessionStorage';

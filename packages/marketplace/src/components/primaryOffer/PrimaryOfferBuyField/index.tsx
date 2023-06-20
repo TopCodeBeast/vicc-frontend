@@ -17,10 +17,10 @@ import { glossary, payment } from '@sorare/core/src/lib/glossary';
 
 import LazyPaymentProvider from 'components/buyActions/LazyPaymentProvider';
 import PrimaryOfferTokensSummary from 'components/primaryOffer/PrimaryOfferTokensSummary';
-import { useMarketplaceContext } from 'contexts/Marketplace';
-import { useBuyConfirmationContext } from 'contexts/buyingConfirmation';
+import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
+import { useBuyConfirmationContext } from '@sorare/marketplace/src/contexts/buyingConfirmation';
 import useAcceptOffer from 'hooks/offers/useAcceptOffer';
-import { useMarketplaceEvents } from 'lib/events';
+import { useMarketplaceEvents } from '@sorare/marketplace/src/lib/events';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import BuyPrimaryOfferConfirmation from '../BuyPrimaryOfferConfirmation';

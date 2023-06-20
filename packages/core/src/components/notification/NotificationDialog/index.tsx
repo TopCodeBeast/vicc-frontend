@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useCallback } from 'react';
 
-import { useInGameNotificationContext } from 'contexts/inGameNotification';
+import { useInGameNotificationContext } from '@sorare/core/src/contexts/inGameNotification';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
 import AuctionNotification from './AuctionNotification';

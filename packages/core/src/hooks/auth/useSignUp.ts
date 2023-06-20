@@ -7,10 +7,10 @@ import {
   SorarePrivateKeyAttributes,
 } from '__generated__/globalTypes';
 import { getValue } from 'components/PersistsQueryStringParameters/storage';
-import { useConfigContext } from 'contexts/config';
-import { useConnectionContext } from 'contexts/connection';
-import { currentUser } from 'contexts/currentUser/queries';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
+import { useConnectionContext } from '@sorare/core/src/contexts/connection';
+import { currentUser } from '@sorare/core/src/contexts/currentUser/queries';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import useAfterLoggedInTarget from '@sorare/core/src/hooks/useAfterLoggedInTarget';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import usePrevious from '@sorare/core/src/hooks/usePrevious';
@@ -21,7 +21,7 @@ import { getInteractionContext } from '@sorare/core/src/lib/events';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { getClientId } from '@sorare/core/src/lib/ga';
 import { formatGqlErrors } from '@sorare/core/src/lib/gql';
-import { SubmitSignUpForm } from 'protos/events/platform/web/events';
+import { SubmitSignUpForm } from '@sorare/core/src/protos/events/platform/web/events';
 
 import {
   SignUpMutation,

@@ -7,7 +7,7 @@ import Body from '@sorare/core/src/atoms/layout/Body';
 import Container from '@sorare/core/src/atoms/layout/Container';
 import useFetch from '@sorare/core/src/hooks/useFetch';
 import { fileUrl } from '@sorare/core/src/lib/gitlab';
-import LazyMarkdown from 'routing/LazyMarkdown';
+import LazyMarkdown from '@sorare/core/src/routing/LazyMarkdown';
 
 interface Props {
   document: string;

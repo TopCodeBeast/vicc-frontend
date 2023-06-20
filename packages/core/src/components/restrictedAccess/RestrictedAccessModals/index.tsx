@@ -1,7 +1,7 @@
 import VerifyPhoneNumber from 'components/user/VerifyPhoneNumber';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useRestrictedAccessContext } from 'contexts/restrictedAccess';
-import EmailVerificationDialog from 'contexts/restrictedAccess/EmailVerificationDialog';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useRestrictedAccessContext } from '@sorare/core/src/contexts/restrictedAccess';
+import EmailVerificationDialog from '@sorare/core/src/contexts/restrictedAccess/EmailVerificationDialog';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
 export const RestrictedAccessModals = () => {

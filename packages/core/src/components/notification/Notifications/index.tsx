@@ -10,11 +10,11 @@ import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
 import Notification from 'components/activity/Notification';
 import { ACTIVITY } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useInGameNotificationContext } from 'contexts/inGameNotification';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useInGameNotificationContext } from '@sorare/core/src/contexts/inGameNotification';
 import useToggle from '@sorare/core/src/hooks/useToggle';
-import MenuIconButton from 'routing/MultiSportAppBar/MenuIconButton';
-import { useAppBarContext } from 'routing/MultiSportAppBar/context';
+import MenuIconButton from '@sorare/core/src/routing/MultiSportAppBar/MenuIconButton';
+import { useAppBarContext } from '@sorare/core/src/routing/MultiSportAppBar/context';
 import { theme } from '@sorare/core/src/style/theme';
 import { OverrideClasses } from '@sorare/core/src/style/utils';
 

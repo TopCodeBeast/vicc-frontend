@@ -6,11 +6,11 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
-import { useIntlContext } from 'contexts/intl';
-import { useTickerContext } from 'contexts/ticker';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
+import { useTickerContext } from '@sorare/core/src/contexts/ticker';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { useTimeLeft } from '@sorare/core/src/hooks/useTimeLeft';
-import { DarkThemeContext } from 'routing/DarkTheme';
+import { DarkThemeContext } from '@sorare/core/src/routing/DarkTheme';
 
 export interface LayoutProps {
   children: ReactNode;

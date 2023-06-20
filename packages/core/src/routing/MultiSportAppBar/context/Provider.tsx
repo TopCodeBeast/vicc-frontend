@@ -2,7 +2,7 @@ import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { useSessionStorage } from 'react-use';
 
 import { Sport } from '__generated__/globalTypes';
-import { useSportContext } from 'contexts/sport';
+import { useSportContext } from '@sorare/core/src/contexts/sport';
 import { useIsDesktop } from '@sorare/core/src/hooks/device/useIsDesktop';
 import useTouchScreen from '@sorare/core/src/hooks/device/useTouchScreen';
 import useIsLanding from '@sorare/core/src/hooks/useIsLandingPage';

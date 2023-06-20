@@ -8,7 +8,7 @@ import { CardBack as CardBackFootball } from 'components/card/Back/Football';
 import { USSportCardBack } from 'components/cards/Back';
 import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
 import { isA } from 'gql';
-import idFromObject from 'gql/idFromObject';
+import idFromObject from '@sorare/core/src/gql/idFromObject';
 import { getPositionInitials as getMLBPositionInitials } from '@sorare/core/src/lib/baseball';
 import { getPositionInitials as getNBAPositionInitials } from '@sorare/core/src/lib/nba';
 import {

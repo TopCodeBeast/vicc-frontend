@@ -5,7 +5,7 @@ import { Input } from 'components/form/Form/IntlTelInput';
 import useVerifyPhoneNumber, {
   canProceedToVerificationCodeInput,
 } from 'components/user/VerifyPhoneNumber/useVerifyPhoneNumber';
-import { useWalletContext } from 'contexts/wallet';
+import { useWalletContext } from '@sorare/core/src/contexts/wallet';
 
 import EnterVerificationCode from '../EnterVerificationCode';
 import Header from '../Header';

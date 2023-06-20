@@ -1,8 +1,8 @@
 import { defineMessages } from 'react-intl';
 
 import Switch from '@sorare/core/src/atoms/inputs/Switch';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import { useSnackNotificationContext } from 'contexts/snackNotification';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import { GraphQLError, formatGqlErrors } from '@sorare/core/src/lib/gql';
 
 import SettingsSection from '../SettingsSection';

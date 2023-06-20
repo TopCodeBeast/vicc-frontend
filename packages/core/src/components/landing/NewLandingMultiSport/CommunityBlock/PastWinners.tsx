@@ -7,7 +7,7 @@ import { LeaderboardRarity } from '__generated__/usSportsGlobalTypes';
 import { Text14 } from '@sorare/core/src/atoms/typography';
 import { proxyUrl } from '@sorare/core/src/atoms/ui/ResponsiveImg';
 import { PictureAvatar, PlaceHolderAvatar } from 'components/user/Avatar';
-import idFromObject from 'gql/idFromObject';
+import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { useUSSportsQuery } from '@sorare/core/src/hooks/graphql/useUSSportsQuery';

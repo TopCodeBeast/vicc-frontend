@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { MessageDescriptor, useIntl } from 'react-intl';
 
-import { useSeoContext } from 'contexts/seo';
+import { useSeoContext } from '@sorare/core/src/contexts/seo';
 
 type useTitleAndDescriptionType = {
   (title: MessageDescriptor, description?: MessageDescriptor): void;

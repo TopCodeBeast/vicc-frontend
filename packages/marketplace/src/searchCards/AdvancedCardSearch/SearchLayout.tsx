@@ -21,8 +21,8 @@ import { FILTERS, FilterWidget } from '@sorare/core/src/lib/filters';
 import useBottomBarNavItems from '@sorare/core/src/routing/MultiSportBottomNavBar/useBottomBarNavItems';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { ActiveFilters } from 'search/ActiveFilters';
-import { SavedFilters } from 'search/SavedFilters';
+import { ActiveFilters } from '@sorare/marketplace/src/search/ActiveFilters';
+import { SavedFilters } from '@sorare/marketplace/src/search/SavedFilters';
 import StackedSwitch from '@sorare/marketplace/src/searchCards/StackedSwitch';
 
 import FiltersManager from '../../search/FiltersManager';

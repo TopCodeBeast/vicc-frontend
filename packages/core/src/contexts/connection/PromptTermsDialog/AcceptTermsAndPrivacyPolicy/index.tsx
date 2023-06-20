@@ -2,7 +2,7 @@ import { ComponentProps } from 'react';
 import { defineMessages } from 'react-intl';
 
 import { PRIVACY_POLICY, TERMS } from '@sorare/core/src/constants/routes';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 
 import AcceptanceCheckbox from '../AcceptanceCheckbox';
 

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
 import Dropdown from '@sorare/core/src/atoms/dropdowns/Dropdown';
 import { Text16 } from '@sorare/core/src/atoms/typography';
-import { LOCALE_KEY, localeConfig } from 'contexts/intl';
+import { LOCALE_KEY, localeConfig } from '@sorare/core/src/contexts/intl';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { theme } from '@sorare/core/src/style/theme';
 

@@ -10,9 +10,9 @@ import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
 import { Caption, Text14 } from '@sorare/core/src/atoms/typography';
 import UninteractiveToken from 'components/token/UninteractiveToken';
 import Avatar from 'components/user/Avatar';
-import { useIntlContext } from 'contexts/intl';
+import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { sportsLabelsMessages } from '@sorare/core/src/lib/glossary';
-import { Link } from 'routing/Link';
+import { Link } from '@sorare/core/src/routing/Link';
 
 import {
   DumbNotification_tokenPicture,

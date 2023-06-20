@@ -8,7 +8,7 @@ import { DumbNotification } from 'components/activity/DumbNotification';
 import TokenDescriptionFromProps from 'components/token/TokenDescriptionFromProps';
 import TokenMetas from 'components/token/TokenMetas';
 import { FOOTBALL_USER_CARD_COLLECTION } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from 'contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
 import { commonNotificationInterfaceFragment } from '../fragments';
 import { CommonNotificationProps } from '../types';

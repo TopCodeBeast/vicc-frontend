@@ -1,7 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
 
-import { useSnackNotificationContext } from 'contexts/snackNotification';
+import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import { formatGqlErrors } from '@sorare/core/src/lib/gql';
 
 import {

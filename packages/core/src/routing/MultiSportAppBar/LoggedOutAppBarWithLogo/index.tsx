@@ -8,8 +8,8 @@ import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
 import Container from '@sorare/core/src/atoms/layout/Container';
 import SmallerStarBall from '@sorare/core/src/atoms/navigation/SmallerStarBall';
 import { LANDING } from '@sorare/core/src/constants/routes';
-import { useConnectionContext } from 'contexts/connection';
-import { useEventsContext } from 'contexts/events';
+import { useConnectionContext } from '@sorare/core/src/contexts/connection';
+import { useEventsContext } from '@sorare/core/src/contexts/events';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
