@@ -7,8 +7,8 @@ import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { isA } from '@sorare/core/src/lib/gql';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { TokenTransferValidator } from 'components/token/TokenTransferValidator';
-import useRejectOffer from 'hooks/offers/useRejectOffer';
+import { TokenTransferValidator } from '@sorare/marketplace/src/components/token/TokenTransferValidator';
+import useRejectOffer from '@sorare/marketplace/src/hooks/offers/useRejectOffer';
 
 import CounteredOffer from './CounteredOffer';
 import CounterpartUser from './CounterpartUser';

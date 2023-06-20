@@ -11,11 +11,11 @@ import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { range } from '@sorare/core/src/lib/arrays';
 import { theme } from '@sorare/core/src/style/theme';
 
-import EmptyMarket from 'components/market/Empty/EmptyMarket';
-import { Grid, GridItem } from 'components/market/Grid';
+import EmptyMarket from '@sorare/marketplace/src/components/market/Empty/EmptyMarket';
+import { Grid, GridItem } from '@sorare/marketplace/src/components/market/Grid';
 import PrimaryOfferPreview, {
   LoadingPrimaryOfferPreview,
-} from 'components/primaryOffer/PrimaryOfferPreview';
+} from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferPreview';
 import {
   PrimaryOffersByIdsQuery,
   PrimaryOffersByIdsQueryVariables,

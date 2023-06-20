@@ -7,11 +7,11 @@ import { Currency } from '@sorare/core/src/__generated__/globalTypes';
 import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import CardsPreviewContainer from '@sorare/core/src/components/bundled/CardsPreviewContainer';
 
-import BuyConfirmation from 'components/buyActions/BuyConfirmation';
-import { Props as SelectedPaymentMethodForConfirmationProps } from 'components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
-import { WalletPaymentMethod } from 'components/buyActions/PaymentProvider/types';
-import { PrimaryOfferTokensPreview } from 'components/primaryOffer/PrimaryOfferTokensPreview';
-import PrimaryOfferTokensSummary from 'components/primaryOffer/PrimaryOfferTokensSummary';
+import BuyConfirmation from '@sorare/marketplace/src/components/buyActions/BuyConfirmation';
+import { Props as SelectedPaymentMethodForConfirmationProps } from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
+import { WalletPaymentMethod } from '@sorare/marketplace/src/components/buyActions/PaymentProvider/types';
+import { PrimaryOfferTokensPreview } from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferTokensPreview';
+import PrimaryOfferTokensSummary from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferTokensSummary';
 
 import { BuyPrimaryOfferConfirmation_primaryOffer } from './__generated__/index.graphql';
 

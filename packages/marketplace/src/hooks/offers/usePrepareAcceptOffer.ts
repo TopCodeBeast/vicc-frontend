@@ -9,7 +9,7 @@ import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
-import { useGetAuthorizationApprovals } from 'hooks/useGetAuthorizationApprovals';
+import { useGetAuthorizationApprovals } from '@sorare/marketplace/src/hooks/useGetAuthorizationApprovals';
 
 import {
   PrepareAcceptOfferMutation,

@@ -12,8 +12,8 @@ import { isType } from '@sorare/core/src/gql';
 import { tradeLabels } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
 
-import EthereumCard from 'components/offer/EthereumCard';
-import useMarketFeesHelperStatus from 'hooks/useMarketFeesHelperStatus';
+import EthereumCard from '@sorare/marketplace/src/components/offer/EthereumCard';
+import useMarketFeesHelperStatus from '@sorare/marketplace/src/hooks/useMarketFeesHelperStatus';
 
 import CardOffer from '../../CardOffer';
 import CardsChanged from '../CardsChanged';

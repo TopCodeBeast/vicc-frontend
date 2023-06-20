@@ -15,11 +15,11 @@ import useLoggedCallback from '@sorare/core/src/hooks/useLoggedCallback';
 import { Currency } from '@sorare/core/src/lib/currency';
 import { glossary, payment } from '@sorare/core/src/lib/glossary';
 
-import LazyPaymentProvider from 'components/buyActions/LazyPaymentProvider';
-import PrimaryOfferTokensSummary from 'components/primaryOffer/PrimaryOfferTokensSummary';
+import LazyPaymentProvider from '@sorare/marketplace/src/components/buyActions/LazyPaymentProvider';
+import PrimaryOfferTokensSummary from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferTokensSummary';
 import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 import { useBuyConfirmationContext } from '@sorare/marketplace/src/contexts/buyingConfirmation';
-import useAcceptOffer from 'hooks/offers/useAcceptOffer';
+import useAcceptOffer from '@sorare/marketplace/src/hooks/offers/useAcceptOffer';
 import { useMarketplaceEvents } from '@sorare/marketplace/src/lib/events';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports

@@ -20,7 +20,7 @@ import { StackProps, assetIdFromHit } from '@sorare/core/src/lib/algolia';
 import { groupBy } from '@sorare/core/src/lib/arrays';
 import { formatScarcity } from '@sorare/core/src/lib/cards';
 
-import useFacetedSearchCards from 'hooks/search/useFacetedSearchCards';
+import useFacetedSearchCards from '@sorare/marketplace/src/hooks/search/useFacetedSearchCards';
 
 import { TokenContent } from './TokenContent';
 import {

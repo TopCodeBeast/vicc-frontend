@@ -10,9 +10,9 @@ import { supportedScarcities } from '@sorare/core/src/components/card/ScarcityBa
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { scarcityNames } from '@sorare/core/src/lib/cards';
 
-import { PrimaryOfferTokensPreview } from 'components/primaryOffer/PrimaryOfferTokensPreview';
-import FlexToken from 'components/token/FlexToken';
-import TokenDescription from 'components/token/TokenDescription';
+import { PrimaryOfferTokensPreview } from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferTokensPreview';
+import FlexToken from '@sorare/marketplace/src/components/token/FlexToken';
+import TokenDescription from '@sorare/marketplace/src/components/token/TokenDescription';
 import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 
 import TokenDrawerSummary from '../TokenDrawerSummary';

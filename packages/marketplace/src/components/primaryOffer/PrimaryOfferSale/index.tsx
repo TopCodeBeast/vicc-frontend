@@ -9,9 +9,9 @@ import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { useSportContext } from '@sorare/core/src/contexts/sport';
 import { theme } from '@sorare/core/src/style/theme';
 
-import AuctionTimeLeft from 'components/auction/AuctionTimeLeft';
-import PrimaryOfferBuyField from 'components/primaryOffer/PrimaryOfferBuyField';
-import SmallUser from 'components/user/SmallUser';
+import AuctionTimeLeft from '@sorare/marketplace/src/components/auction/AuctionTimeLeft';
+import PrimaryOfferBuyField from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferBuyField';
+import SmallUser from '@sorare/marketplace/src/components/user/SmallUser';
 
 import { PrimaryOfferSale_primaryOffer } from './__generated__/index.graphql';
 

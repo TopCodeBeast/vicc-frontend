@@ -4,8 +4,8 @@ import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { useLocationChanged } from '@sorare/core/src/hooks/useLocationChanged';
 
-import BuyTokenConfirmationById from 'components/buyActions/BuyTokenConfirmationById';
-import BuyPrimaryOfferConfirmationById from 'components/primaryOffer/BuyPrimaryOfferConfirmationById';
+import BuyTokenConfirmationById from '@sorare/marketplace/src/components/buyActions/BuyTokenConfirmationById';
+import BuyPrimaryOfferConfirmationById from '@sorare/marketplace/src/components/primaryOffer/BuyPrimaryOfferConfirmationById';
 
 import BuyConfirmationContextProvider, {
   BuyConfirmationProviderStateProps,

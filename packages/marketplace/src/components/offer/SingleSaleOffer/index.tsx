@@ -13,8 +13,8 @@ import UserName from '@sorare/core/src/components/user/UserName';
 import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
 import { theme } from '@sorare/core/src/style/theme';
 
-import BuyField from 'components/buyActions/BuyField';
-import MakeOffer from 'components/directOffer/MakeOffer';
+import BuyField from '@sorare/marketplace/src/components/buyActions/BuyField';
+import MakeOffer from '@sorare/marketplace/src/components/directOffer/MakeOffer';
 
 import FeesDetailsTooltip from '../FeesDetailsTooltip';
 import { SingleSaleOfferDetails } from './SingleSaleOfferDetails';

@@ -14,9 +14,9 @@ import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConvers
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
 
-import TokenSummary from 'components/buyActions/TokenSummary';
-import CalculatedFeesTooltip from 'components/offer/CalculatedFeesTooltip';
-import { TokenTransferChildrenProps } from 'components/token/TokenTransferValidator/types';
+import TokenSummary from '@sorare/marketplace/src/components/buyActions/TokenSummary';
+import CalculatedFeesTooltip from '@sorare/marketplace/src/components/offer/CalculatedFeesTooltip';
+import { TokenTransferChildrenProps } from '@sorare/marketplace/src/components/token/TokenTransferValidator/types';
 
 import { ConfirmationDialogContent_token } from './__generated__/index.graphql';
 

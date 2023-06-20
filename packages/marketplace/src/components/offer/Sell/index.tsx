@@ -11,9 +11,9 @@ import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import useTokenBelongsToUser from '@sorare/core/src/hooks/useTokenBelongsToUser';
 
-import NewSaleDialog from 'components/offer/NewSaleDialog';
-import { TokenTransferValidator } from 'components/token/TokenTransferValidator';
-import useCannotSell from 'hooks/offers/useCannotSell';
+import NewSaleDialog from '@sorare/marketplace/src/components/offer/NewSaleDialog';
+import { TokenTransferValidator } from '@sorare/marketplace/src/components/token/TokenTransferValidator';
+import useCannotSell from '@sorare/marketplace/src/hooks/offers/useCannotSell';
 import { useMarketplaceEvents } from '@sorare/marketplace/src/lib/events';
 
 import { SellCard_token } from './__generated__/index.graphql';

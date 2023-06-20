@@ -21,10 +21,10 @@ import { range } from '@sorare/core/src/lib/arrays';
 import { cardRatio } from '@sorare/core/src/lib/cardPicture';
 import { Link } from '@sorare/core/src/routing/Link';
 
-import AuctionTimeLeft from 'components/auction/AuctionTimeLeft';
-import PrimaryOfferBuyField from 'components/primaryOffer/PrimaryOfferBuyField';
-import { PrimaryOfferTokensPreview } from 'components/primaryOffer/PrimaryOfferTokensPreview';
-import SmallUser from 'components/user/SmallUser';
+import AuctionTimeLeft from '@sorare/marketplace/src/components/auction/AuctionTimeLeft';
+import PrimaryOfferBuyField from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferBuyField';
+import { PrimaryOfferTokensPreview } from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferTokensPreview';
+import SmallUser from '@sorare/marketplace/src/components/user/SmallUser';
 
 import { PrimaryOfferPreview_primaryOffer } from './__generated__/index.graphql';
 

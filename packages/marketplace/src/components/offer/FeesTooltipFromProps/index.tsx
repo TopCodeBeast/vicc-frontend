@@ -2,8 +2,8 @@ import { FormattedMessage, FormattedNumber, defineMessages } from 'react-intl';
 
 import { Caption, Text16, Title6 } from '@sorare/core/src/atoms/typography';
 
-import Row from 'components/offer/Row';
-import { MarketFeeStatus } from 'hooks/useMarketFeesHelperStatus';
+import Row from '@sorare/marketplace/src/components/offer/Row';
+import { MarketFeeStatus } from '@sorare/marketplace/src/hooks/useMarketFeesHelperStatus';
 
 const offerMessages = defineMessages({
   initialOffer: {

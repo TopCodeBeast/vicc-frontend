@@ -10,7 +10,7 @@ import { formatGqlErrors } from '@sorare/core/src/gql';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 import useCreateEthMigration from '@sorare/core/src/hooks/starkware/useCreateEthMigration';
 
-import SmallUser from 'components/user/SmallUser';
+import SmallUser from '@sorare/marketplace/src/components/user/SmallUser';
 
 import {
   AcceptOfferMutation,

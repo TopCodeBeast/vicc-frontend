@@ -53,12 +53,12 @@ import {
 } from '@sorare/core/src/lib/wei';
 import { theme } from '@sorare/core/src/style/theme';
 
-import ConfirmationDialogContent from 'components/ConfirmationDialogContent';
-import AmountWithConversion from 'components/buyActions/PaymentBox/AmountWithConversion';
-import TokenSummary from 'components/buyActions/TokenSummary';
-import Row from 'components/offer/Row';
-import { TokenTransferValidator } from 'components/token/TokenTransferValidator';
-import { TokenTransferChildrenProps } from 'components/token/TokenTransferValidator/types';
+import ConfirmationDialogContent from '@sorare/marketplace/src/components/ConfirmationDialogContent';
+import AmountWithConversion from '@sorare/marketplace/src/components/buyActions/PaymentBox/AmountWithConversion';
+import TokenSummary from '@sorare/marketplace/src/components/buyActions/TokenSummary';
+import Row from '@sorare/marketplace/src/components/offer/Row';
+import { TokenTransferValidator } from '@sorare/marketplace/src/components/token/TokenTransferValidator';
+import { TokenTransferChildrenProps } from '@sorare/marketplace/src/components/token/TokenTransferValidator/types';
 import { useMarketplaceEvents } from '@sorare/marketplace/src/lib/events';
 
 import { PreLaunchFiatWalletListing } from '../PreLaunchFiatWalletListing';

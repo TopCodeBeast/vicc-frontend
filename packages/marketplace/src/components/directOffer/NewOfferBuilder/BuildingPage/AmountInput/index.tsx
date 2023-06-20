@@ -13,12 +13,12 @@ import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters'
 import { roundCeilFloat, toWei } from '@sorare/core/src/lib/wei';
 import { theme } from '@sorare/core/src/style/theme';
 
-import FeesDetailsTooltip from 'components/offer/FeesDetailsTooltip';
+import FeesDetailsTooltip from '@sorare/marketplace/src/components/offer/FeesDetailsTooltip';
 import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 import {
   MarketFeeStatus,
   isMarketFeeEnabled,
-} from 'hooks/useMarketFeesHelperStatus';
+} from '@sorare/marketplace/src/hooks/useMarketFeesHelperStatus';
 
 import { setReceiveEth, setSendEth } from '../../actions';
 import { CardDataType, StateProps } from '../../types';

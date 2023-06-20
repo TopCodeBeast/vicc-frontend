@@ -1,6 +1,6 @@
 import { Caption } from '@sorare/core/src/atoms/typography';
 
-import AuctionTimeLeft from 'components/auction/AuctionTimeLeft';
+import AuctionTimeLeft from '@sorare/marketplace/src/components/auction/AuctionTimeLeft';
 
 const EndDate = ({ endDate }: { endDate: Date }) => {
   return (

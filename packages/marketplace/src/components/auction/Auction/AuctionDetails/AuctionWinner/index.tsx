@@ -5,7 +5,7 @@ import { Caption } from '@sorare/core/src/atoms/typography';
 import Since from '@sorare/core/src/contexts/intl/Since';
 import { isType } from '@sorare/core/src/gql';
 
-import { ItemOwner } from 'components/ItemPreview/ItemOwner';
+import { ItemOwner } from '@sorare/marketplace/src/components/ItemPreview/ItemOwner';
 
 import { AuctionWinner_auction } from './__generated__/index.graphql';
 

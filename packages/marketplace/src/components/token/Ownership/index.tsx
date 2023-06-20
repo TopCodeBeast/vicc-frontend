@@ -18,7 +18,7 @@ import { glossary } from '@sorare/core/src/lib/glossary';
 import { isA } from '@sorare/core/src/lib/gql';
 import { transferTypes } from '@sorare/core/src/lib/owners';
 
-import { useOwnerAccount } from 'hooks/tokens/useOwnerAccount';
+import { useOwnerAccount } from '@sorare/marketplace/src/hooks/tokens/useOwnerAccount';
 
 import { TokenOwnerPrice } from '../TokenOwnerPrice';
 import { AuctionOwnershipDetails } from './AuctionOwnershipDetails';

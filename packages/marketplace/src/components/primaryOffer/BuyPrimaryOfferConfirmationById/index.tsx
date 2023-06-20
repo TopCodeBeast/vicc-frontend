@@ -4,8 +4,8 @@ import { ReactNode } from 'react';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
-import { Props as SelectedPaymentMethodForConfirmationProps } from 'components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
-import BuyPrimaryOfferConfirmation from 'components/primaryOffer/BuyPrimaryOfferConfirmation';
+import { Props as SelectedPaymentMethodForConfirmationProps } from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
+import BuyPrimaryOfferConfirmation from '@sorare/marketplace/src/components/primaryOffer/BuyPrimaryOfferConfirmation';
 
 import {
   BuyPrimaryOfferConfirmationQueryById,

@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 
 import StackedToken from '@sorare/core/src/components/token/StackedToken';
 
-import { BundledAuctionPreview } from 'components/auction/BundledAuctionPreview';
-import FlexToken from 'components/token/FlexToken';
+import { BundledAuctionPreview } from '@sorare/marketplace/src/components/auction/BundledAuctionPreview';
+import FlexToken from '@sorare/marketplace/src/components/token/FlexToken';
 
 import { TokenImg_token } from './__generated__/index.graphql';
 

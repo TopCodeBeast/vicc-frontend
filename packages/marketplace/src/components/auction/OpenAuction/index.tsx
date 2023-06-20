@@ -8,11 +8,11 @@ import ButtonWithConfirmDialog from '@sorare/core/src/components/form/ButtonWith
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 import { theme } from '@sorare/core/src/style/theme';
 
-import BidInfos from 'components/auction/BidInfos';
-import BidField from 'components/buyActions/BidField';
-import useBestBidBelongsToUser from 'hooks/auctions/useBestBidBelongsToUser';
-import useStopAutoBid from 'hooks/auctions/useStopAutoBid';
-import useTokenTakesPartPromotionalEvent from 'hooks/offers/useTokenTakesPartPromotionalEvent';
+import BidInfos from '@sorare/marketplace/src/components/auction/BidInfos';
+import BidField from '@sorare/marketplace/src/components/buyActions/BidField';
+import useBestBidBelongsToUser from '@sorare/marketplace/src/hooks/auctions/useBestBidBelongsToUser';
+import useStopAutoBid from '@sorare/marketplace/src/hooks/auctions/useStopAutoBid';
+import useTokenTakesPartPromotionalEvent from '@sorare/marketplace/src/hooks/offers/useTokenTakesPartPromotionalEvent';
 
 import { OpenAuction_auction } from './__generated__/index.graphql';
 

@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
 
-import useHasInsufficientFundsInWallets from 'hooks/useHasInsufficientFundsInWallets';
+import useHasInsufficientFundsInWallets from '@sorare/marketplace/src/hooks/useHasInsufficientFundsInWallets';
 
 import TokensAvailableOnPrimary from '../TokensAvailableOnPrimary';
 import { TokensAvailableOnPrimaryWhenInsufficientFundsInWallet_token } from './__generated__/index.graphql';

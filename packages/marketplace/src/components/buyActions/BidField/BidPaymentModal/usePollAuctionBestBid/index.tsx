@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 
-import useBestBidBelongsToUser from 'hooks/auctions/useBestBidBelongsToUser';
+import useBestBidBelongsToUser from '@sorare/marketplace/src/hooks/auctions/useBestBidBelongsToUser';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import {

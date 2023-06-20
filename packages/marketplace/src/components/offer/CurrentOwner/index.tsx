@@ -7,13 +7,13 @@ import { SettlementDelayReason } from '@sorare/core/src/__generated__/globalType
 import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
 import { isA } from '@sorare/core/src/lib/gql';
 
-import MakeOffer from 'components/directOffer/MakeOffer';
-import Sell from 'components/offer/Sell';
+import MakeOffer from '@sorare/marketplace/src/components/directOffer/MakeOffer';
+import Sell from '@sorare/marketplace/src/components/offer/Sell';
 import {
   singleSaleOfferContextFragments,
   useSingleSaleOfferContext,
 } from '@sorare/marketplace/src/contexts/singleSaleOffer';
-import useBelongsToUser from 'hooks/offers/useBelongsToUser';
+import useBelongsToUser from '@sorare/marketplace/src/hooks/offers/useBelongsToUser';
 
 import OwnerAccount from '../OwnerAccount';
 import UnavailableAfterConversionCreditBuyHelpers from '../UnavailableAfterConversionCreditBuyHelpers';

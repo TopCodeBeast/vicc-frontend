@@ -1,7 +1,7 @@
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import generateUseEvents from '@sorare/core/src/lib/events/generateUseEvents';
 
-import { TokenTransferValidatorProps } from 'components/token/TokenTransferValidator/types';
+import { TokenTransferValidatorProps } from '@sorare/marketplace/src/components/token/TokenTransferValidator/types';
 
 type MarketplaceEventTypes = {
   '[Client] Listed after too low warning': {

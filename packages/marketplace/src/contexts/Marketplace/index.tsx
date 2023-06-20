@@ -3,7 +3,7 @@ import { createContext, useContext } from 'react';
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import { TokenComponentType } from '@sorare/core/src/types';
 
-import { BidField_auction } from 'components/buyActions/BidField/__generated__/index.graphql';
+import { BidField_auction } from '@sorare/marketplace/src/components/buyActions/BidField/__generated__/index.graphql';
 
 export interface MarketplaceContextType {
   secondaryMarketFeesRate: number;

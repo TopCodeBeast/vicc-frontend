@@ -4,9 +4,9 @@ import styled from 'styled-components';
 
 import { OwnerTransfer } from '@sorare/core/src/__generated__/globalTypes';
 
-import ItemOwnerSince from 'components/ItemPreview/ItemOwnerSince';
-import { ItemForSaleSecondRow } from 'components/ItemPreview/ui';
-import TokenOwnerTransfer from 'components/token/TokenOwnerTransfer';
+import ItemOwnerSince from '@sorare/marketplace/src/components/ItemPreview/ItemOwnerSince';
+import { ItemForSaleSecondRow } from '@sorare/marketplace/src/components/ItemPreview/ui';
+import TokenOwnerTransfer from '@sorare/marketplace/src/components/token/TokenOwnerTransfer';
 
 import { ItemOwner } from '../ItemOwner';
 import { ItemSold_token } from './__generated__/index.graphql';

@@ -8,9 +8,9 @@ import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import UninteractiveToken from '@sorare/core/src/components/token/UninteractiveToken';
 import { divideFiat, multiplyFiat } from '@sorare/core/src/lib/fiat';
 
-import BuyTokenSummary from 'components/buyActions/BuyTokenSummary';
-import { Props as SelectedPaymentMethodForConfirmationProps } from 'components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
-import SmallUser from 'components/user/SmallUser';
+import BuyTokenSummary from '@sorare/marketplace/src/components/buyActions/BuyTokenSummary';
+import { Props as SelectedPaymentMethodForConfirmationProps } from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
+import SmallUser from '@sorare/marketplace/src/components/user/SmallUser';
 
 import BuyConfirmation from '../BuyConfirmation';
 import { WalletPaymentMethod } from '../PaymentProvider/types';

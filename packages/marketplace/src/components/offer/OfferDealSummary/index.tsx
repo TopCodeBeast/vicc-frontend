@@ -11,13 +11,13 @@ import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
 
-import SelectedPaymentMethodForConfirmation from 'components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
-import { WalletPaymentMethod } from 'components/buyActions/PaymentProvider/types';
-import TokenSummary from 'components/buyActions/TokenSummary';
+import SelectedPaymentMethodForConfirmation from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
+import { WalletPaymentMethod } from '@sorare/marketplace/src/components/buyActions/PaymentProvider/types';
+import TokenSummary from '@sorare/marketplace/src/components/buyActions/TokenSummary';
 import useMarketFeesHelperStatus, {
   MarketFeeStatus,
   isMarketFeeEnabled,
-} from 'hooks/useMarketFeesHelperStatus';
+} from '@sorare/marketplace/src/hooks/useMarketFeesHelperStatus';
 
 import FeesDetailsTooltip from '../FeesDetailsTooltip';
 import { OfferDealSummary_token } from './__generated__/index.graphql';

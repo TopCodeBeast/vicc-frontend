@@ -8,7 +8,7 @@ import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
 import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
 
-import useCancelOffer from 'hooks/offers/useCancelOffer';
+import useCancelOffer from '@sorare/marketplace/src/hooks/offers/useCancelOffer';
 
 import { CancelOffer_token } from './__generated__/index.graphql';
 

@@ -14,7 +14,7 @@ import UninteractiveToken from '@sorare/core/src/components/token/UninteractiveT
 import { AUCTION_MARKET_URL } from '@sorare/core/src/constants/routes';
 import { formatScarcity } from '@sorare/core/src/lib/cards';
 
-import useDefaultFilters from 'hooks/useDefaultFilters';
+import useDefaultFilters from '@sorare/marketplace/src/hooks/useDefaultFilters';
 
 const Wrapper = styled.div`
   display: flex;

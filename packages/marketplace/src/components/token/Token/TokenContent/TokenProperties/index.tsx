@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { ItemPropertiesContainer } from 'components/ItemPreview/ui';
-import Bundle from 'components/auction/Bundle';
+import { ItemPropertiesContainer } from '@sorare/marketplace/src/components/ItemPreview/ui';
+import Bundle from '@sorare/marketplace/src/components/auction/Bundle';
 import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 
 import { TokenProperties_token } from './__generated__/index.graphql';

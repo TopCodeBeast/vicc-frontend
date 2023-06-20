@@ -3,7 +3,7 @@ import { useSportContext } from '@sorare/core/src/contexts/sport';
 import { VIRTUAL_TOGGLE_FILTERS } from '@sorare/core/src/lib/filters';
 
 import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
-import { useFormatFilterWidgetValue } from 'hooks/search/useFormatFilterWidgetValue';
+import { useFormatFilterWidgetValue } from '@sorare/marketplace/src/hooks/search/useFormatFilterWidgetValue';
 
 import { FilterChip } from '../FilterChip';
 

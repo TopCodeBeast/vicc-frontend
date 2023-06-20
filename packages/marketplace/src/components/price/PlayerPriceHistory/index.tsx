@@ -8,7 +8,7 @@ import { Title6 } from '@sorare/core/src/atoms/typography';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { scarcityMessages } from '@sorare/core/src/lib/scarcity';
 
-import { tokenPageMessages } from 'components/token/TokenPage/tokenPageMessages';
+import { tokenPageMessages } from '@sorare/marketplace/src/components/token/TokenPage/tokenPageMessages';
 
 import PriceHistoryFromProps from '../PriceHistoryFromProps';
 

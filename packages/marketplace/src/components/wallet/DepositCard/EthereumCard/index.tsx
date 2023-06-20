@@ -10,7 +10,7 @@ import { txLink } from '@sorare/core/src/lib/etherscan';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
 
-import FlexToken from 'components/token/FlexToken';
+import FlexToken from '@sorare/marketplace/src/components/token/FlexToken';
 
 import { EthereumCard_token } from './__generated__/index.graphql';
 

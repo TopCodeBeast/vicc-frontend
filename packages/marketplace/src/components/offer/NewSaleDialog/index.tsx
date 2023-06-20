@@ -5,7 +5,7 @@ import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import { Caption } from '@sorare/core/src/atoms/typography';
 import useSnackErrorHandler from '@sorare/core/src/hooks/useSnackErrorHandler';
 
-import useCreateSingleSaleOffer from 'hooks/offers/useCreateSingleSaleOffer';
+import useCreateSingleSaleOffer from '@sorare/marketplace/src/hooks/offers/useCreateSingleSaleOffer';
 
 import OfferDialog from '../OfferDialog';
 import { NewSaleDialog_token } from './__generated__/index.graphql';

@@ -7,8 +7,8 @@ import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import { ItemSpecialRewardBadge } from 'components/ItemPreview/ItemSpecialRewardBadge';
-import AuctionTimeLeft from 'components/auction/AuctionTimeLeft';
+import { ItemSpecialRewardBadge } from '@sorare/marketplace/src/components/ItemPreview/ItemSpecialRewardBadge';
+import AuctionTimeLeft from '@sorare/marketplace/src/components/auction/AuctionTimeLeft';
 
 const Column = styled.div`
   display: flex;

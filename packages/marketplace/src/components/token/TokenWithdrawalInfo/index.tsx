@@ -18,7 +18,7 @@ import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConvers
 import useUnquantizeAmount from '@sorare/core/src/hooks/useUnquantizeAmount';
 import { isAddress } from '@sorare/core/src/lib/ethereum';
 
-import { TokenName } from 'components/token/TokenName';
+import { TokenName } from '@sorare/marketplace/src/components/token/TokenName';
 
 import {
   CreateTokenWithdrawalMutation,

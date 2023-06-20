@@ -3,14 +3,14 @@ import { PaymentMethod as StripePaymentMethod } from '@stripe/stripe-js';
 import { Currency } from '@sorare/core/src/__generated__/globalTypes';
 import CreditCard from '@sorare/core/src/components/buyActions/CreditCard';
 
-import EthWallet from 'components/buyActions/PaymentBox/Methods/EthWallet';
-import FiatWallet from 'components/buyActions/PaymentBox/Methods/FiatWallet';
-import NewCreditCard from 'components/buyActions/PaymentBox/Methods/NewCreditCard';
+import EthWallet from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/EthWallet';
+import FiatWallet from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/FiatWallet';
+import NewCreditCard from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/NewCreditCard';
 import {
   PaymentProvider_paymentMethod,
   WalletPaymentMethod,
-} from 'components/buyActions/PaymentProvider/types';
-import { DisposableCard } from 'components/buyActions/PaymentProvider/useStripePayment';
+} from '@sorare/marketplace/src/components/buyActions/PaymentProvider/types';
+import { DisposableCard } from '@sorare/marketplace/src/components/buyActions/PaymentProvider/useStripePayment';
 
 export type Props = {
   paymentCurrency: Currency | null;

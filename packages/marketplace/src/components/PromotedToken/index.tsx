@@ -5,17 +5,17 @@ import styled from 'styled-components';
 import { Caption } from '@sorare/core/src/atoms/typography';
 import { getHumanReadableSerialNumber } from '@sorare/core/src/lib/cards';
 
-import ItemEndDate from 'components/ItemPreview/ItemEndDate';
-import ItemPrice from 'components/ItemPreview/ItemPrice';
-import TokenOwner from 'components/TokenPreview/TokenOwner';
-import BestBid from 'components/auction/BestBid';
-import { BidsCount } from 'components/auction/BidsCount';
-import BidField from 'components/buyActions/BidField';
-import BuyField from 'components/buyActions/BuyField';
-import FlexToken from 'components/token/FlexToken';
-import TokenFavoriteButton from 'components/token/TokenFavoriteButton';
-import useGetAuctionDetails from 'hooks/offers/useGetAuctionDetails';
-import useGetTokenSingleSaleDetails from 'hooks/offers/useGetTokenSingleSaleDetails';
+import ItemEndDate from '@sorare/marketplace/src/components/ItemPreview/ItemEndDate';
+import ItemPrice from '@sorare/marketplace/src/components/ItemPreview/ItemPrice';
+import TokenOwner from '@sorare/marketplace/src/components/TokenPreview/TokenOwner';
+import BestBid from '@sorare/marketplace/src/components/auction/BestBid';
+import { BidsCount } from '@sorare/marketplace/src/components/auction/BidsCount';
+import BidField from '@sorare/marketplace/src/components/buyActions/BidField';
+import BuyField from '@sorare/marketplace/src/components/buyActions/BuyField';
+import FlexToken from '@sorare/marketplace/src/components/token/FlexToken';
+import TokenFavoriteButton from '@sorare/marketplace/src/components/token/TokenFavoriteButton';
+import useGetAuctionDetails from '@sorare/marketplace/src/hooks/offers/useGetAuctionDetails';
+import useGetTokenSingleSaleDetails from '@sorare/marketplace/src/hooks/offers/useGetTokenSingleSaleDetails';
 
 import { PromotedToken_token } from './__generated__/index.graphql';
 

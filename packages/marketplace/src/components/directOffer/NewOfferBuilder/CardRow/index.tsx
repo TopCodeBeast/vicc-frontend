@@ -7,8 +7,8 @@ import { Caption, Text14, Text16 } from '@sorare/core/src/atoms/typography';
 import FormattedWei from '@sorare/core/src/contexts/intl/FormattedWei';
 import { CardHit, convertCardHitToToken } from '@sorare/core/src/lib/algolia';
 
-import FlexToken from 'components/token/FlexToken';
-import TokenDescription from 'components/token/TokenDescription';
+import FlexToken from '@sorare/marketplace/src/components/token/FlexToken';
+import TokenDescription from '@sorare/marketplace/src/components/token/TokenDescription';
 
 import { DirectOffer_CardRow_token } from './__generated__/index.graphql';
 

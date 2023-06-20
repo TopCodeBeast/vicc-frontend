@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useContext } from 'react';
 
-import { Props as SelectedPaymentMethodForConfirmationProps } from 'components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
+import { Props as SelectedPaymentMethodForConfirmationProps } from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
 
 export type BuyConfirmationProviderStateProps = {
   tokenOfferId?: string;

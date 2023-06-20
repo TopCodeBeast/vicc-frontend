@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import useBestBidBelongsToUser from 'hooks/auctions/useBestBidBelongsToUser';
+import useBestBidBelongsToUser from '@sorare/marketplace/src/hooks/auctions/useBestBidBelongsToUser';
 
 import { BestBid_auction } from './__generated__/index.graphql';
 

@@ -21,10 +21,10 @@ import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { wallet } from '@sorare/core/src/lib/glossary';
 import { toWei } from '@sorare/core/src/lib/wei';
 
-import EthWallet from 'components/buyActions/PaymentBox/Methods/EthWallet';
-import FiatWallet from 'components/buyActions/PaymentBox/Methods/FiatWallet';
-import { WalletPaymentMethod } from 'components/buyActions/PaymentProvider/types';
-import useHasInsufficientFundsInWallets from 'hooks/useHasInsufficientFundsInWallets';
+import EthWallet from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/EthWallet';
+import FiatWallet from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/FiatWallet';
+import { WalletPaymentMethod } from '@sorare/marketplace/src/components/buyActions/PaymentProvider/types';
+import useHasInsufficientFundsInWallets from '@sorare/marketplace/src/hooks/useHasInsufficientFundsInWallets';
 
 import { setCurrencyAndPaymentMethod } from '../../actions';
 import { CardDataType, StateProps } from '../../types';

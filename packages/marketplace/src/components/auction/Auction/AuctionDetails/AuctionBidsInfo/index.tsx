@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 import { Caption } from '@sorare/core/src/atoms/typography';
 
-import { BidsCount } from 'components/auction/BidsCount';
-import useBestBidBelongsToUser from 'hooks/auctions/useBestBidBelongsToUser';
+import { BidsCount } from '@sorare/marketplace/src/components/auction/BidsCount';
+import useBestBidBelongsToUser from '@sorare/marketplace/src/hooks/auctions/useBestBidBelongsToUser';
 
 import { AuctionBidsInfo_auction } from './__generated__/index.graphql';
 

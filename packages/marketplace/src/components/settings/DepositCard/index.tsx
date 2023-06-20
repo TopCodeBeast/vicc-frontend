@@ -2,7 +2,7 @@ import { defineMessages } from 'react-intl';
 
 import SettingsSection from '@sorare/core/src/components/settings/SettingsSection';
 
-import DepositCardButton from 'components/wallet/DepositCard';
+import DepositCardButton from '@sorare/marketplace/src/components/wallet/DepositCard';
 
 const messages = defineMessages({
   title: {

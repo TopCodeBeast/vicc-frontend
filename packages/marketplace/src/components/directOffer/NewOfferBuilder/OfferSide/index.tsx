@@ -11,8 +11,8 @@ import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { CardHit } from '@sorare/core/src/lib/algolia';
 import { theme } from '@sorare/core/src/style/theme';
 
-import PriceHistoryTooltip from 'components/price/PriceHistoryTooltip';
-import { TokenTransferValidator } from 'components/token/TokenTransferValidator';
+import PriceHistoryTooltip from '@sorare/marketplace/src/components/price/PriceHistoryTooltip';
+import { TokenTransferValidator } from '@sorare/marketplace/src/components/token/TokenTransferValidator';
 
 import CardRow from '../CardRow';
 import { OfferSide_token } from './__generated__/index.graphql';

@@ -24,9 +24,9 @@ import { tradeLabels } from '@sorare/core/src/lib/glossary';
 import { toWei } from '@sorare/core/src/lib/wei';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { WalletPaymentMethod } from 'components/buyActions/PaymentProvider/types';
-import useHasInsufficientFundsInWallets from 'hooks/useHasInsufficientFundsInWallets';
-import useMarketFeesHelperStatus from 'hooks/useMarketFeesHelperStatus';
+import { WalletPaymentMethod } from '@sorare/marketplace/src/components/buyActions/PaymentProvider/types';
+import useHasInsufficientFundsInWallets from '@sorare/marketplace/src/hooks/useHasInsufficientFundsInWallets';
+import useMarketFeesHelperStatus from '@sorare/marketplace/src/hooks/useMarketFeesHelperStatus';
 
 import CardPicker from '../CardPicker';
 import OfferSide from '../OfferSide';

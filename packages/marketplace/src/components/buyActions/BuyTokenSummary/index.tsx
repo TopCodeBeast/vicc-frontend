@@ -6,7 +6,7 @@ import { Fiat } from '@sorare/core/src/__generated__/globalTypes';
 import { Text14, Text16, Title5 } from '@sorare/core/src/atoms/typography';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 
-import TokenSummary from 'components/buyActions/TokenSummary';
+import TokenSummary from '@sorare/marketplace/src/components/buyActions/TokenSummary';
 
 import { BuyTokenSummary_token } from './__generated__/index.graphql';
 

@@ -6,8 +6,8 @@ import { Title4 } from '@sorare/core/src/atoms/typography';
 import OpenItemDialogLink from '@sorare/core/src/components/link/OpenItemDialogLink';
 import { useEventContext } from '@sorare/core/src/contexts/event';
 
-import { CardCount } from 'components/ItemPreview/ui';
-import FlexToken from 'components/token/FlexToken';
+import { CardCount } from '@sorare/marketplace/src/components/ItemPreview/ui';
+import FlexToken from '@sorare/marketplace/src/components/token/FlexToken';
 import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 
 import { BundledAuctionPreview_auction } from './__generated__/index.graphql';

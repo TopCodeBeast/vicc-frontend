@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import { createContext, useContext } from 'react';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import CancelSalePopin from 'components/offer/CancelSalePopin';
+import CancelSalePopin from '@sorare/marketplace/src/components/offer/CancelSalePopin';
 
 export interface SingleSaleOfferPopinInfo {
   assetId: string;

@@ -4,7 +4,7 @@ import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
-import DirectOffer from 'components/mySorare/common/DirectOffer';
+import DirectOffer from '@sorare/marketplace/src/components/mySorare/common/DirectOffer';
 
 import {
   DirectOfferOwnershipDetailsQuery,

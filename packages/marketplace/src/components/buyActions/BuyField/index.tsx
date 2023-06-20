@@ -18,16 +18,16 @@ import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelo
 import { Currency } from '@sorare/core/src/lib/currency';
 import { glossary, payment } from '@sorare/core/src/lib/glossary';
 
-import BuyOnAuctionPoweredByAlgolia from 'components/buyActions/BuyOnAuction';
+import BuyOnAuctionPoweredByAlgolia from '@sorare/marketplace/src/components/buyActions/BuyOnAuction';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import BuyTokenConfirmation from 'components/buyActions/BuyTokenConfirmation';
-import BuyTokenSummary from 'components/buyActions/BuyTokenSummary';
-import CancelOffer from 'components/buyActions/CancelOffer';
-import LazyPaymentProvider from 'components/buyActions/LazyPaymentProvider';
+import BuyTokenConfirmation from '@sorare/marketplace/src/components/buyActions/BuyTokenConfirmation';
+import BuyTokenSummary from '@sorare/marketplace/src/components/buyActions/BuyTokenSummary';
+import CancelOffer from '@sorare/marketplace/src/components/buyActions/CancelOffer';
+import LazyPaymentProvider from '@sorare/marketplace/src/components/buyActions/LazyPaymentProvider';
 import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 import { useBuyConfirmationContext } from '@sorare/marketplace/src/contexts/buyingConfirmation';
-import useAcceptOffer from 'hooks/offers/useAcceptOffer';
-import useCannotBuy from 'hooks/offers/useCannotBuy';
+import useAcceptOffer from '@sorare/marketplace/src/hooks/offers/useAcceptOffer';
+import useCannotBuy from '@sorare/marketplace/src/hooks/offers/useCannotBuy';
 
 import { BuyField_token } from './__generated__/index.graphql';
 

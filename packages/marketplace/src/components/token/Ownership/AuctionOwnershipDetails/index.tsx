@@ -4,7 +4,7 @@ import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery';
 
-import BidHistory from 'components/auction/BidHistory';
+import BidHistory from '@sorare/marketplace/src/components/auction/BidHistory';
 
 import {
   AuctionOwnershipDetailsQuery,

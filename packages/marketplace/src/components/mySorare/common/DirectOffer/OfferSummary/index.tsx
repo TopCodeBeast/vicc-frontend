@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { OfferUser } from 'components/directOffer/NewOfferBuilder/OfferUser';
-import OfferDealSummary from 'components/offer/OfferDealSummary';
-import { TokenTransferChildrenProps } from 'components/token/TokenTransferValidator/types';
+import { OfferUser } from '@sorare/marketplace/src/components/directOffer/NewOfferBuilder/OfferUser';
+import OfferDealSummary from '@sorare/marketplace/src/components/offer/OfferDealSummary';
+import { TokenTransferChildrenProps } from '@sorare/marketplace/src/components/token/TokenTransferValidator/types';
 
 import { OfferSummary_tokenOffer } from './__generated__/index.graphql';
 

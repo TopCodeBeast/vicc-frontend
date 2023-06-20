@@ -11,8 +11,8 @@ import { glossary } from '@sorare/core/src/lib/glossary';
 import { toWei } from '@sorare/core/src/lib/wei';
 import { theme } from '@sorare/core/src/style/theme';
 
-import OfferDealSummary from 'components/offer/OfferDealSummary';
-import { TokenTransferValidator } from 'components/token/TokenTransferValidator';
+import OfferDealSummary from '@sorare/marketplace/src/components/offer/OfferDealSummary';
+import { TokenTransferValidator } from '@sorare/marketplace/src/components/token/TokenTransferValidator';
 import { useMarketplaceEvents } from '@sorare/marketplace/src/lib/events';
 
 import { switchToBuilding } from '../actions';

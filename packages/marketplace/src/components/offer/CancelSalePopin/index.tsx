@@ -22,8 +22,8 @@ import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNoti
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { OverrideClasses } from '@sorare/core/src/style/utils';
 
-import TokenNameCancelSalePopin from 'components/token/TokenNameCancelSalePopin';
-import useCancelOffer from 'hooks/offers/useCancelOffer';
+import TokenNameCancelSalePopin from '@sorare/marketplace/src/components/token/TokenNameCancelSalePopin';
+import useCancelOffer from '@sorare/marketplace/src/hooks/offers/useCancelOffer';
 
 import {
   CancelSalePopinQuery,

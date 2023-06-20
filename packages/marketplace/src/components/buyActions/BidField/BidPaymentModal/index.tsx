@@ -8,13 +8,13 @@ import { useWalletPreferences } from '@sorare/core/src/hooks/wallets/useWalletPr
 import { Currency } from '@sorare/core/src/lib/currency';
 import { isA } from '@sorare/core/src/lib/gql';
 
-import BidBundleSummary from 'components/buyActions/BidBundleSummary';
-import BidTokenSummary from 'components/buyActions/BidTokenSummary';
-import LazyPaymentProvider from 'components/buyActions/LazyPaymentProvider';
-import { fragments as paymentProviderFragments } from 'components/buyActions/PaymentProvider/fragments';
-import { BidWithWalletMutation } from 'hooks/auctions/__generated__/useBidWithWallet.graphql';
-import useBestBidBelongsToUser from 'hooks/auctions/useBestBidBelongsToUser';
-import useBidWithWallet from 'hooks/auctions/useBidWithWallet';
+import BidBundleSummary from '@sorare/marketplace/src/components/buyActions/BidBundleSummary';
+import BidTokenSummary from '@sorare/marketplace/src/components/buyActions/BidTokenSummary';
+import LazyPaymentProvider from '@sorare/marketplace/src/components/buyActions/LazyPaymentProvider';
+import { fragments as paymentProviderFragments } from '@sorare/marketplace/src/components/buyActions/PaymentProvider/fragments';
+import { BidWithWalletMutation } from '@sorare/marketplace/src/hooks/auctions/__generated__/useBidWithWallet.graphql';
+import useBestBidBelongsToUser from '@sorare/marketplace/src/hooks/auctions/useBestBidBelongsToUser';
+import useBidWithWallet from '@sorare/marketplace/src/hooks/auctions/useBidWithWallet';
 import { auctionMinNextBid } from '@sorare/marketplace/src/lib/auctions';
 
 import {

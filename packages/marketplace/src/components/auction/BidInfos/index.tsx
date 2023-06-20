@@ -16,8 +16,8 @@ import useAmountWithConversion, {
 } from '@sorare/core/src/hooks/useAmountWithConversion';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import { ItemSpecialRewardBadge } from 'components/ItemPreview/ItemSpecialRewardBadge';
-import useBestBidBelongsToUser from 'hooks/auctions/useBestBidBelongsToUser';
+import { ItemSpecialRewardBadge } from '@sorare/marketplace/src/components/ItemPreview/ItemSpecialRewardBadge';
+import useBestBidBelongsToUser from '@sorare/marketplace/src/hooks/auctions/useBestBidBelongsToUser';
 
 import AuctionTimeLeft from '../AuctionTimeLeft';
 import { BidInfos_auction } from './__generated__/index.graphql';

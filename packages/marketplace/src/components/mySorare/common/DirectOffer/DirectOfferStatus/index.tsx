@@ -19,11 +19,11 @@ import { glossary } from '@sorare/core/src/lib/glossary';
 import { isA } from '@sorare/core/src/lib/gql';
 import { theme } from '@sorare/core/src/style/theme';
 
-import CounterOfferBuilder from 'components/directOffer/CounterOfferBuilder';
-import { TokenTransferChildrenProps } from 'components/token/TokenTransferValidator/types';
+import CounterOfferBuilder from '@sorare/marketplace/src/components/directOffer/CounterOfferBuilder';
+import { TokenTransferChildrenProps } from '@sorare/marketplace/src/components/token/TokenTransferValidator/types';
 import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
-import useCancelOffer from 'hooks/offers/useCancelOffer';
-import useRejectOffer from 'hooks/offers/useRejectOffer';
+import useCancelOffer from '@sorare/marketplace/src/hooks/offers/useCancelOffer';
+import useRejectOffer from '@sorare/marketplace/src/hooks/offers/useRejectOffer';
 
 import DirectOfferDialog from '../DirectOfferDialog';
 import OfferSummary from '../OfferSummary';

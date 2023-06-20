@@ -6,17 +6,17 @@ import AmountWithConversion from '@sorare/core/src/components/buyActions/AmountW
 import SorareUser from '@sorare/core/src/components/user/SorareUser';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
-import ItemPrice from 'components/ItemPreview/ItemPrice';
-import { ItemSpecialRewardBadge } from 'components/ItemPreview/ItemSpecialRewardBadge';
+import ItemPrice from '@sorare/marketplace/src/components/ItemPreview/ItemPrice';
+import { ItemSpecialRewardBadge } from '@sorare/marketplace/src/components/ItemPreview/ItemSpecialRewardBadge';
 import {
   ButtonContainer,
   TokenDetailsInfos,
   TokenDetailsRoot,
   TokenDetailsRow,
-} from 'components/ItemPreview/ui';
-import { AuctionStatus } from 'components/auction/AuctionStatus';
-import BidField from 'components/buyActions/BidField';
-import useTokenTakesPartPromotionalEvent from 'hooks/offers/useTokenTakesPartPromotionalEvent';
+} from '@sorare/marketplace/src/components/ItemPreview/ui';
+import { AuctionStatus } from '@sorare/marketplace/src/components/auction/AuctionStatus';
+import BidField from '@sorare/marketplace/src/components/buyActions/BidField';
+import useTokenTakesPartPromotionalEvent from '@sorare/marketplace/src/hooks/offers/useTokenTakesPartPromotionalEvent';
 import {
   auctionCurrentPrice,
   promotionalEventsExcludeSpecialRewardBadge,

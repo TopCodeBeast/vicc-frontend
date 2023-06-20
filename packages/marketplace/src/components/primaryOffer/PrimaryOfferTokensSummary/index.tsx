@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Title5, Title6 } from '@sorare/core/src/atoms/typography';
 
-import { TokensSummary } from 'components/buyActions/TokensSummary';
+import { TokensSummary } from '@sorare/marketplace/src/components/buyActions/TokensSummary';
 
 import { PrimaryOfferTokensSummary_token } from './__generated__/index.graphql';
 

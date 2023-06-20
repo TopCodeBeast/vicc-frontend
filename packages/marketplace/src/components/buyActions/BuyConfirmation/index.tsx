@@ -7,10 +7,10 @@ import { payment as paymentMessages } from '@sorare/core/src/lib/glossary';
 
 import SelectedPaymentMethodForConfirmation, {
   Props as SelectedPaymentMethodForConfirmationProps,
-} from 'components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
+} from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
 import SummaryTable, {
   Props as SummaryTableProps,
-} from 'components/buyActions/PaymentBox/SummaryTable';
+} from '@sorare/marketplace/src/components/buyActions/PaymentBox/SummaryTable';
 
 const Wrapper = styled.div`
   display: flex;

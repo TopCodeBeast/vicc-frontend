@@ -7,7 +7,7 @@ import OpenItemDialogLink from '@sorare/core/src/components/link/OpenItemDialogL
 import { getHumanReadableSerialNumber } from '@sorare/core/src/lib/cards';
 import { theme } from '@sorare/core/src/style/theme';
 
-import FlexToken from 'components/token/FlexToken';
+import FlexToken from '@sorare/marketplace/src/components/token/FlexToken';
 import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
 
 import { CardPreview_token } from './__generated__/index.graphql';

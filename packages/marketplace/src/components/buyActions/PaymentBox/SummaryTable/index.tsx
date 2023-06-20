@@ -12,7 +12,7 @@ import {
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
 
-import PaymentBoxAmountWithConversion from 'components/buyActions/PaymentBox/AmountWithConversion';
+import PaymentBoxAmountWithConversion from '@sorare/marketplace/src/components/buyActions/PaymentBox/AmountWithConversion';
 
 import { SummaryTableTotal } from './SummaryTableTotal';
 import { AccountingLine, Row } from './ui';

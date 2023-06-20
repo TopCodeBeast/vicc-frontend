@@ -10,7 +10,7 @@ import { Caption } from '@sorare/core/src/atoms/typography';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 import useTokenBelongsToUser from '@sorare/core/src/hooks/useTokenBelongsToUser';
 
-import SetupMinimumPriceDialog from 'components/offer/SetupMinimumPriceDialog';
+import SetupMinimumPriceDialog from '@sorare/marketplace/src/components/offer/SetupMinimumPriceDialog';
 
 import { MinimumPrice_token } from './__generated__/index.graphql';
 

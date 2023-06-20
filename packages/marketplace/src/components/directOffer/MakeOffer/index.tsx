@@ -13,9 +13,9 @@ import useToggle from '@sorare/core/src/hooks/useToggle';
 import useTokenBelongsToUser from '@sorare/core/src/hooks/useTokenBelongsToUser';
 import { isTokenWithUser } from '@sorare/core/src/lib/cards';
 
-import NewOfferBuilder from 'components/directOffer/NewOfferBuilder';
+import NewOfferBuilder from '@sorare/marketplace/src/components/directOffer/NewOfferBuilder';
 import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
-import useCannotBuy from 'hooks/offers/useCannotBuy';
+import useCannotBuy from '@sorare/marketplace/src/hooks/offers/useCannotBuy';
 
 import { MakeOffer_token } from './__generated__/index.graphql';
 

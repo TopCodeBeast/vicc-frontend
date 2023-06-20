@@ -23,7 +23,7 @@ import {
   isListFilterWidget,
   isRangeFilterWidget,
   useFormatFilterWidgetValue,
-} from 'hooks/search/useFormatFilterWidgetValue';
+} from '@sorare/marketplace/src/hooks/search/useFormatFilterWidgetValue';
 import { useClearAllFilters } from '@sorare/marketplace/src/search/ClearAllFilters';
 import useFiltersCount from '@sorare/marketplace/src/search/FiltersManager/useFiltersCount';
 

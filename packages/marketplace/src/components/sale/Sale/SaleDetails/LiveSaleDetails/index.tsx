@@ -22,17 +22,17 @@ import {
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import ItemEndDate from 'components/ItemPreview/ItemEndDate';
+import ItemEndDate from '@sorare/marketplace/src/components/ItemPreview/ItemEndDate';
 import {
   ButtonContainer,
   TokenDetailsInfos,
   TokenDetailsRoot,
   TokenDetailsRow,
-} from 'components/ItemPreview/ui';
-import TokenListingsCount from 'components/TokenPreview/TokenListingsCount';
-import TokenOwner from 'components/TokenPreview/TokenOwner';
-import BuyField from 'components/buyActions/BuyField';
-import useGetTokenSingleSaleDetails from 'hooks/offers/useGetTokenSingleSaleDetails';
+} from '@sorare/marketplace/src/components/ItemPreview/ui';
+import TokenListingsCount from '@sorare/marketplace/src/components/TokenPreview/TokenListingsCount';
+import TokenOwner from '@sorare/marketplace/src/components/TokenPreview/TokenOwner';
+import BuyField from '@sorare/marketplace/src/components/buyActions/BuyField';
+import useGetTokenSingleSaleDetails from '@sorare/marketplace/src/hooks/offers/useGetTokenSingleSaleDetails';
 
 import { SalePrice } from '../SalePrice';
 import {

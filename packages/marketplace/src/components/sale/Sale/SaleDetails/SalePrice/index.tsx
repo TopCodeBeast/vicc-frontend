@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
 
-import ItemPrice from 'components/ItemPreview/ItemPrice';
-import { TokenDetailsRow } from 'components/ItemPreview/ui';
-import FeesDetailsTooltip from 'components/offer/FeesDetailsTooltip';
+import ItemPrice from '@sorare/marketplace/src/components/ItemPreview/ItemPrice';
+import { TokenDetailsRow } from '@sorare/marketplace/src/components/ItemPreview/ui';
+import FeesDetailsTooltip from '@sorare/marketplace/src/components/offer/FeesDetailsTooltip';
 
 import { SalePrice_offer } from './__generated__/index.graphql';
 

@@ -6,8 +6,8 @@ import { Text16 } from '@sorare/core/src/atoms/typography';
 import { ConversionCreditTinyBanner } from '@sorare/core/src/components/conversionCredit/ConversionCreditTinyBanner';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { usePaymentContext } from 'components/buyActions/Context';
-import PaymentBoxAmountWithConversion from 'components/buyActions/PaymentBox/AmountWithConversion';
+import { usePaymentContext } from '@sorare/marketplace/src/components/buyActions/Context';
+import PaymentBoxAmountWithConversion from '@sorare/marketplace/src/components/buyActions/PaymentBox/AmountWithConversion';
 
 export const messages = defineMessages({
   title: { id: 'ConversionCreditRow.title', defaultMessage: 'Credit' },

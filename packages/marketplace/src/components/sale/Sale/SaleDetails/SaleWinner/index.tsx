@@ -7,7 +7,7 @@ import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import Since from '@sorare/core/src/contexts/intl/Since';
 import { isA, isType } from '@sorare/core/src/lib/gql';
 
-import { ItemOwner } from 'components/ItemPreview/ItemOwner';
+import { ItemOwner } from '@sorare/marketplace/src/components/ItemPreview/ItemOwner';
 
 import { SaleWinner_offer } from './__generated__/index.graphql';
 

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { Title6 } from '@sorare/core/src/atoms/typography';
 
-import Pack from 'components/transfers/Pack';
+import Pack from '@sorare/marketplace/src/components/transfers/Pack';
 
 import { TokensSummary } from '../TokensSummary';
 import { BidBundleSummary_token } from './__generated__/index.graphql';

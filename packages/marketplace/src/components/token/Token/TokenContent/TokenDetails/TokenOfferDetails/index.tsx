@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { isFuture, parseISO } from 'date-fns';
 
-import { SaleDetails } from 'components/sale/Sale/SaleDetails';
+import { SaleDetails } from '@sorare/marketplace/src/components/sale/Sale/SaleDetails';
 
 import { TokenOfferDetails_token } from './__generated__/index.graphql';
 

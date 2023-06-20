@@ -18,7 +18,7 @@ import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { isA } from '@sorare/core/src/lib/gql';
 import { fromWei } from '@sorare/core/src/lib/wei';
 
-import { BidField_auction } from 'components/buyActions/BidField/__generated__/index.graphql';
+import { BidField_auction } from '@sorare/marketplace/src/components/buyActions/BidField/__generated__/index.graphql';
 import BuyingConfirmationProvider from '@sorare/marketplace/src/contexts/buyingConfirmation/Provider';
 import { auctionMinNextBid } from '@sorare/marketplace/src/lib/auctions';
 
