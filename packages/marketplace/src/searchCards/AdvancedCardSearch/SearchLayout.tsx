@@ -3,6 +3,12 @@ import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
 import { FilterIconButton } from '@sorare/core/src/components/search/FilterIconButton';
+import {
+  LeftFilters,
+  SearchLayoutContainer,
+  SearchLayoutMain,
+} from '@sorare/core/src/components/search/SearchLayout/ui';
+import Highlightable from '@sorare/core/src/contexts/highlight/Highlightable';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useToggle from '@sorare/core/src/hooks/useToggle';
@@ -10,6 +16,7 @@ import { theme } from '@sorare/core/src/style/theme';
 
 import StackedSwitch from '@sorare/marketplace/src/searchCards/StackedSwitch';
 
+import FiltersManager from '../../search/FiltersManager';
 import SearchBox from '../../search/SearchBox';
 import { Props } from './types';
 
@@ -87,11 +94,14 @@ export const SearchLayout = (props: Props) => {
   const [showDesktopFilter, toggleShowDesktopFilters] = useToggle(toggleDesktopFilter);
   const { formatMessage, formatNumber } = useIntlContext();
   const {
+    cardFilters,
     title,
     subtitle,
   } = props;
 
   const responsiveFilters = !isLaptop;
+  console.log('responsiveFilters', responsiveFilters)
+  console.log('showDesktopFilter', showDesktopFilter)
 
   const ref = useMemo(() => createRef<HTMLDivElement>(), []);
   
@@ -124,7 +134,20 @@ export const SearchLayout = (props: Props) => {
         {/* {isLaptop && <SortCards indexes={sorts} />}
         {!hideSavedFilters && <SavedFilters />} */}
       </SearchRow>
-      <>SearchLayout2</>
+
+      <SearchLayoutContainer>
+        {!responsiveFilters && (
+          <Highlightable>
+            <LeftFilters visible={showDesktopFilter}>
+              <FiltersManager
+                filters={cardFilters}
+                // advancedFilters={advancedCardFilters}
+                skipClearAllButton
+              />
+            </LeftFilters>
+          </Highlightable>
+        )}
+      </SearchLayoutContainer>
     </Root>
   );
 };

@@ -6,6 +6,11 @@ import { FormattedMessage } from 'react-intl';
 import { Title2 } from '@sorare/core/src/atoms/typography';
 import { transferMarket } from '@sorare/core/src/lib/glossary';
 
+import {
+  RefineLatestSeason,
+  filterSeparator,
+} from '@sorare/marketplace/src/searchCards';
+
 import AdvancedCardSearch from '@sorare/football/src/components/searchCards/AdvancedCardSearch';
 import PageTemplate from '@sorare/football/src/pages/TransferMarket/PageTemplate';
 import { SelectedLeaderboardBanner } from '@sorare/football/src/pages/TransferMarket/SelectedLeaderboardBanner';
@@ -17,6 +22,7 @@ const TransferMarket = () => {
   return (
     <PageTemplate>
       <AdvancedCardSearch
+        cardFilters={[RefineLatestSeason]}
         title={
           <>
             <Title2>

@@ -1,5 +1,7 @@
 import React, { ReactNode } from 'react';
 
+import { FilterSeparator, FilterWidget } from '@sorare/core/src/lib/filters';
+
 export type Props = {
   children?: ReactNode;
   title: React.ReactNode;
@@ -8,4 +10,5 @@ export type Props = {
   toggleDesktopFilter?: boolean;
   hideSavedFilters?: boolean;
   banner: React.ReactNode;
+  cardFilters: (FilterWidget | FilterSeparator)[];
 };
