@@ -54,7 +54,7 @@ export const useEvictQueryCache = (queryKey: string) => {
 
 export const usePaginatedBaseballQuery = <
   TData = any,
-  TVariables = OperationVariables
+  TVariables extends OperationVariables = OperationVariables
 >(
   query: DocumentNode,
   options: QueryHookOptions<TData, TVariables> & { connection: string }
@@ -88,7 +88,7 @@ export const usePaginatedBaseballQuery = <
 
 export const useModernPaginatedBaseballQuery = <
   TData = any,
-  TVariables = OperationVariables
+  TVariables extends OperationVariables = OperationVariables
 >(
   query: DocumentNode,
   options: QueryHookOptions<TData, TVariables>

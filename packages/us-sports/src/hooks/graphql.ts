@@ -32,7 +32,7 @@ export const useUSSportsMutation: typeof useMutation = (mutation, options) => {
 
 export const usePaginatedUSSportsQuery = <
   TData = any,
-  TVariables = OperationVariables
+  TVariables extends OperationVariables = OperationVariables
 >(
   query: DocumentNode,
   options: QueryHookOptions<TData, TVariables> & { connection: string }
@@ -66,7 +66,7 @@ export const usePaginatedUSSportsQuery = <
 
 export const useModernPaginatedUSSportsQuery = <
   TData = any,
-  TVariables = OperationVariables
+  TVariables extends OperationVariables = OperationVariables
 >(
   query: DocumentNode,
   options: QueryHookOptions<TData, TVariables>

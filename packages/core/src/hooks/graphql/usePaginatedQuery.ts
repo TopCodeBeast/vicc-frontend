@@ -100,7 +100,7 @@ export interface WithRelayPagination<V> {
 
 export default function usePaginatedQuery<
   TData = any,
-  TVariables = OperationVariables
+  TVariables extends OperationVariables = OperationVariables
 >(
   query: DocumentNode,
   options: QueryHookOptions<TData, TVariables> & { connection: string }

@@ -12,7 +12,10 @@ import useLogOut from '@sorare/core/src/hooks/auth/useLogOut';
 
 let logoutTimeout: ReturnType<typeof setTimeout> | undefined;
 
-export default function useQuery<TData = any, TVariables = OperationVariables>(
+export default function useQuery<
+  TData = any,
+  TVariables extends OperationVariables = OperationVariables
+>(
   query: DocumentNode,
   options?: QueryHookOptions<TData, TVariables>,
   logOutOnErrorCode = 422
