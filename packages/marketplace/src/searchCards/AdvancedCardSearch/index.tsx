@@ -11,6 +11,7 @@ export interface FullProps extends Props {
 }
 
 export const AdvancedBlockchainCardSearch = ({ children, ...rest }: FullProps) => {
+  console.log('AdvancedBlockchainCardSearch')
 
   return (
     <SearchCardsContextProvider>

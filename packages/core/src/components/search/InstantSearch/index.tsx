@@ -1,3 +1,3 @@
-export const InstantBlockchainCardSearch: React.FC = ({}) => (
-  <>InstantSearch</>
+export const InstantBlockchainCardSearch: React.FC = ({ children }) => (
+  <>{children}</>
 );
