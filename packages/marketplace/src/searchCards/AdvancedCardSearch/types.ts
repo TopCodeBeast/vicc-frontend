@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 
 import { FilterSeparator, FilterWidget } from '@sorare/core/src/lib/filters';
 
@@ -11,4 +11,5 @@ export type Props = {
   hideSavedFilters?: boolean;
   banner: React.ReactNode;
   cardFilters: (FilterWidget | FilterSeparator)[];
+  CardResultsComponent: any;
 };

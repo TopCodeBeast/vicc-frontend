@@ -2,6 +2,7 @@ import { createRef, useMemo } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
+import { Text16 } from '@sorare/core/src/atoms/typography';
 import { FilterIconButton } from '@sorare/core/src/components/search/FilterIconButton';
 import {
   LeftFilters,
@@ -79,6 +80,16 @@ const TitleContainer = styled.div`
   }
 `;
 
+const ResultsCount = styled(Text16)`
+  display: inline;
+`;
+const Cards = styled.div`
+  position: relative;
+  border-radius: 8px;
+`;
+const StyledPagination = styled.div`
+  padding: 20px 0px;
+`;
 const SearchRow = styled.div`
   display: flex;
   align-items: center;
@@ -87,6 +98,7 @@ const SearchRow = styled.div`
 
 export const SearchLayout = (props: Props) => {
   const {
+    CardResultsComponent,
     stackable,
     toggleDesktopFilter = true,
   } = props;
@@ -147,6 +159,13 @@ export const SearchLayout = (props: Props) => {
             </LeftFilters>
           </Highlightable>
         )}
+
+        <SearchLayoutMain>
+          SearchLayoutMain
+          <Cards>
+            <CardResultsComponent />
+          </Cards>
+        </SearchLayoutMain>
       </SearchLayoutContainer>
     </Root>
   );
