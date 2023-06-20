@@ -8,6 +8,8 @@ import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 import { theme } from '@sorare/core/src/style/theme';
 
+import StackedSwitch from '@sorare/marketplace/src/searchCards/StackedSwitch';
+
 import SearchBox from '../../search/SearchBox';
 import { Props } from './types';
 
@@ -78,6 +80,7 @@ const SearchRow = styled.div`
 
 export const SearchLayout = (props: Props) => {
   const {
+    stackable,
     toggleDesktopFilter = true,
   } = props;
   const { up: isLaptop } = useScreenSize('laptop');
@@ -117,8 +120,8 @@ export const SearchLayout = (props: Props) => {
           })}
           favPlayerHit={{} as any}
         />
-        {/* {stackable && <StackedSwitch />}
-        {isLaptop && <SortCards indexes={sorts} />}
+        {stackable && <StackedSwitch />}
+        {/* {isLaptop && <SortCards indexes={sorts} />}
         {!hideSavedFilters && <SavedFilters />} */}
       </SearchRow>
       <>SearchLayout2</>
