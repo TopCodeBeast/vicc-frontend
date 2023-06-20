@@ -1,10 +1,27 @@
-import React, { FC, ReactNode, createContext, useContext, useEffect } from 'react';
+import { FC, ReactNode, createContext, useContext, useEffect } from 'react';
+
+import { MessagingContext, SetTheme } from '@sorare/wallet-shared';
 
 type Props = { children: ReactNode };
 
 export const DarkThemeContext = createContext({
   withinDarkTheme: false,
 });
+
+const DarkThemeContent: FC = ({ children }) => {
+  const { sendRequest } = useContext(MessagingContext)!;
+
+  useEffect(() => {
+    window.document.body.classList.add('dark-theme');
+    sendRequest<SetTheme>('setTheme', { dark: true });
+    return () => {
+      window.document.body.classList.remove('dark-theme');
+      sendRequest<SetTheme>('setTheme', { dark: false });
+    };
+  }, [sendRequest]);
+
+  return <>{children}</>;
+};
 
 export const DarkTheme = ({ children }: Props) => {
   const { withinDarkTheme } = useContext(DarkThemeContext);
@@ -15,7 +32,7 @@ export const DarkTheme = ({ children }: Props) => {
 
   return (
     <DarkThemeContext.Provider value={{ withinDarkTheme: true }}>
-      {children}
+      <DarkThemeContent>{children}</DarkThemeContent>
     </DarkThemeContext.Provider>
   );
 };

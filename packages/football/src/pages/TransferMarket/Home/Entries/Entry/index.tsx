@@ -8,7 +8,7 @@ import { LiveIndicator } from '@sorare/core/src/atoms/ui/LiveIndicator';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { useFootballEvents } from '@sorare/core/src/lib/events';
+import { useFootballEvents } from 'lib/events';
 
 const EntryRoot = styled.button.attrs({ type: 'button' })`
   text-align: left;

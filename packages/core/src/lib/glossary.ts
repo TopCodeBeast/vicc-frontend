@@ -1,5 +1,8 @@
 import { defineMessages } from 'react-intl';
 
+import { Sport } from '__generated__/globalTypes';
+import { AlgoliaCardIndexesName } from 'contexts/config';
+
 export const CAPTAIN = 'C';
 
 export const glossary = defineMessages({
@@ -574,6 +577,21 @@ export const userAttributes = defineMessages({
   },
 });
 
+export const sportsLabelsMessages = defineMessages({
+  [Sport.FOOTBALL]: {
+    id: 'sport.football',
+    defaultMessage: 'Football',
+  },
+  [Sport.BASEBALL]: {
+    id: 'sport.mlb',
+    defaultMessage: 'MLB',
+  },
+  [Sport.NBA]: {
+    id: 'sport.nba',
+    defaultMessage: 'NBA',
+  },
+});
+
 export const fantasy = defineMessages({
   alreadyJoined: {
     id: 'LeaguePicker.alreadyJoined',
@@ -863,6 +881,69 @@ export const filters = defineMessages({
   startedOnlyFilterLabel: {
     id: 'StartedOnlyFilter.label',
     defaultMessage: 'Not empty',
+  },
+});
+
+export const sorts = defineMessages<AlgoliaCardIndexesName>({
+  'Ending Soon': {
+    id: 'SortCard.endingSoon',
+    defaultMessage: 'Ending Soon',
+  },
+  'Highest Average Score': {
+    id: 'SortCard.highestAverageScore',
+    defaultMessage: 'Highest Average Score',
+  },
+  'Newly Listed': {
+    id: 'SortCard.newlyListed',
+    defaultMessage: 'Newly listed',
+  },
+  'Lowest Price': {
+    id: 'SortCard.lowestPrice',
+    defaultMessage: 'Lowest Price',
+  },
+  'Highest Price': {
+    id: 'SortCard.highestPrice',
+    defaultMessage: 'Highest Price',
+  },
+  'Cards Lowest Price': {
+    id: 'SortCard.lowestPrice',
+    defaultMessage: 'Lowest Price',
+  },
+  'Cards Highest Price': {
+    id: 'SortCard.highestPrice',
+    defaultMessage: 'Highest Price',
+  },
+  'Cards Highest Average Score': {
+    id: 'SortCard.highestAverageScore',
+    defaultMessage: 'Highest Average Score',
+  },
+  'Cards Player Name': {
+    id: 'SortCard.playerName',
+    defaultMessage: 'Player Name',
+  },
+  'Best Value': {
+    id: 'SortCard.bestValue',
+    defaultMessage: 'Best Value',
+  },
+  'Home Page Best Value': {
+    id: 'SortCard.homePageBestValue',
+    defaultMessage: 'Best Value',
+  },
+  'Popular Player': {
+    id: 'SortCard.popularPlayer',
+    defaultMessage: 'Popular Player',
+  },
+  'Home Page Popular Player': {
+    id: 'SortCard.homePagePopularPlayer',
+    defaultMessage: 'Home Page Popular Player',
+  },
+  'Cards New': {
+    id: 'SortCards.new',
+    defaultMessage: 'New',
+  },
+  Hottest: {
+    id: 'SortCards.hottest',
+    defaultMessage: 'Hottest',
   },
 });
 

@@ -13,8 +13,8 @@ import rtl from 'jss-rtl';
 import { ReactNode, useMemo } from 'react';
 import { css } from 'styled-components';
 
-import rewardBackground from '@sorare/core/src/assets/so5/reward-background.png';
-// import { useIntlContext } from '@sorare/core/src/contexts/intl';
+import rewardBackground from 'assets/so5/reward-background.png';
+import { useIntlContext } from 'contexts/intl';
 import { cardRatio } from '@sorare/core/src/lib/cardPicture';
 
 // Inject jss styles first in order to override them with Styled-components without resorting to && or important
@@ -649,7 +649,7 @@ interface Props {
 }
 
 export const useDirectionalTheme = () => {
-  const dir = 'ltr'; // const { dir } = useIntlContext(); //TODO
+  const { dir } = useIntlContext();
 
   return useMemo(() => createTheme({ ...theme, direction: dir }), [dir]);
 };

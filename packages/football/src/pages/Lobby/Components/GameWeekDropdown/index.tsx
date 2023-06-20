@@ -1,0 +1,384 @@
+import { gql } from '@apollo/client';
+import { faAngleDown } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useTheme } from '@material-ui/core';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { generatePath, useNavigate } from 'react-router-dom';
+import { AsyncPaginate } from 'react-select-async-paginate';
+import styled from 'styled-components';
+
+import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
+import FixtureDateRange from '@sorare/core/src/components/lobby/FixtureDateRange';
+import {
+  FOOTBALL_LOBBY_LIVE,
+  FOOTBALL_LOBBY_PAST,
+  FOOTBALL_LOBBY_UPCOMING,
+} from '@sorare/core/src/constants/routes';
+import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery';
+
+import { isFixtureLive, isFixtureOpened } from 'lib/so5';
+
+import {
+  Lobby_GameWeekDropdownHeader_so5Fixture,
+  So5FixturesDropdownQuery,
+} from './__generated__/index.graphql';
+
+export const selectStyles = (theme: any) => {
+  return {
+    control: () => ({
+      display: 'flex',
+      flexWrap: 'nowrap' as const,
+      cursor: 'pointer',
+    }),
+    indicatorsContainer: () => ({
+      position: 'relative' as const,
+      display: 'block',
+    }),
+    indicatorSeparator: () => ({
+      display: 'none',
+    }),
+    groupHeading: () => ({
+      position: 'sticky' as const,
+      top: 0,
+      background: 'var(--c-neutral-300)',
+      padding: 'var(--double-unit)',
+    }),
+    group: () => ({
+      padding: 0,
+    }),
+    option: (base: any, state: any) => {
+      let backgroundColor = 'var(--c-neutral-200)';
+      if (state.isSelected) {
+        backgroundColor = 'var(--c-neutral-400)';
+      } else if (state.isFocused) {
+        backgroundColor = 'var(--c-neutral-400)';
+      }
+      return {
+        ...base,
+        backgroundColor,
+        color: 'var(--c-neutral-1000)',
+        cursor: 'pointer',
+        padding: theme.spacing(1.5),
+        borderBottom: ` 1px solid var(--c-neutral-300)`,
+        '&:last-child': {
+          borderBottom: 'none',
+        },
+        '&:hover': {
+          backgroundColor: 'var(--c-neutral-300)',
+        },
+      };
+    },
+    menu: (base: any) => ({
+      ...base,
+      borderRadius: theme.radius.md,
+      overflow: 'hidden',
+      width: 400,
+      maxWidth: `calc(100vw - ${theme.spacing(2)}px)`,
+      boxShadow: `0px 10px 60px rgba(0, 0, 0, 0.3);`,
+      background: 'var(--c-neutral-200)',
+    }),
+    menuList: (base: any) => ({
+      ...base,
+      padding: 0,
+      maxHeight: 400,
+    }),
+    dropdownIndicator: (base: any, state: any) => {
+      const {
+        selectProps: { menuIsOpen },
+      } = state;
+      return {
+        position: 'absolute' as const,
+        color: 'var(--c-neutral-1000)',
+        padding: 0,
+        right: theme.spacing(-2),
+        transition: 'transform 0.25s ease-out',
+        transform: menuIsOpen ? 'rotate(-180deg)' : 'none',
+      };
+    },
+  };
+};
+
+type So5FixturesDropdownQuery_so5_so5Fixtures_nodes =
+  So5FixturesDropdownQuery['football']['so5']['so5Fixtures']['nodes'][number];
+
+const so5FixtureFragment = gql`
+  fragment Lobby_GameWeekDropdownHeader_so5Fixture on So5Fixture {
+    slug
+    gameWeek
+    startDate
+    endDate
+    aasmState
+    displayName
+    shortDisplayName
+  }
+`;
+
+const SO5_FIXTURES_DROPDOWN_QUERY = gql`
+  query So5FixturesDropdownQuery($cursor: String) {
+    football {
+      so5 {
+        so5Fixtures(first: 50, after: $cursor) {
+          nodes {
+            slug
+            ...Lobby_GameWeekDropdownHeader_so5Fixture
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
+        }
+      }
+    }
+  }
+  ${so5FixtureFragment}
+`;
+
+export type GameWeekOptionType = {
+  slug: string;
+  startDate: ISO8601DateTime;
+  endDate: ISO8601DateTime;
+  aasmState: string;
+  gameWeek: number;
+  value: string;
+  year: string;
+};
+
+export interface GameWeekDropdownProps {
+  defaultFixture: Lobby_GameWeekDropdownHeader_so5Fixture;
+  enabled?: boolean;
+}
+
+interface GroupBase {
+  readonly options: GameWeekOptionType[];
+  readonly label?: string;
+}
+
+const GroupHeading = (data: any) => {
+  const { label } = data;
+  return <Text14 color="var(--c-neutral-600)">{label}</Text14>;
+};
+
+const Root = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const Gameweek = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`;
+
+const Option = (so5Fixture: So5FixturesDropdownQuery_so5_so5Fixtures_nodes) => {
+  const { startDate, endDate, shortDisplayName } = so5Fixture || {};
+
+  return (
+    <Root>
+      <Gameweek>
+        <Text16 bold>
+          <FixtureDateRange startDate={startDate} endDate={endDate} />
+        </Text16>
+      </Gameweek>
+      <Text14 color="var(--c-neutral-600)">{shortDisplayName}</Text14>
+    </Root>
+  );
+};
+
+const StyledRoot = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+`;
+const DummyInput = styled.span`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+`;
+const StyledDate = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+const ValueContainer = (props: {
+  so5Fixture?: So5FixturesDropdownQuery_so5_so5Fixtures_nodes;
+  children?: React.ReactNode;
+}) => {
+  const { so5Fixture, children } = props;
+  const { startDate = '', endDate = '' } = so5Fixture || {};
+
+  if (!so5Fixture) {
+    return null;
+  }
+
+  const isPast = !isFixtureOpened(so5Fixture) && !isFixtureLive(so5Fixture);
+
+  return (
+    <StyledRoot>
+      {/** Only display the input to make the full label clickable without text  */}
+      <DummyInput>{children}</DummyInput>
+      <StyledDate>
+        {startDate?.trim() && endDate?.trim() && (
+          <>
+            <Text16 bold>
+              <FixtureDateRange startDate={startDate} endDate={endDate} />
+            </Text16>
+            {isPast && <FontAwesomeIcon icon={faAngleDown} />}
+          </>
+        )}
+      </StyledDate>
+    </StyledRoot>
+  );
+};
+
+const formatOption = (node: Lobby_GameWeekDropdownHeader_so5Fixture) => ({
+  ...node,
+  year: new Date(node?.startDate).getFullYear(),
+});
+
+const groupNodesBySlug = (
+  nodes: So5FixturesDropdownQuery_so5_so5Fixtures_nodes[]
+) => {
+  const optionsBySlug: Record<string, any> = {};
+  nodes.forEach(node => {
+    optionsBySlug[node!.slug] = formatOption(node!);
+  });
+  return optionsBySlug;
+};
+
+const groupOptionsByYear = (
+  optionsBySlug: Record<string, GameWeekOptionType>
+) => {
+  const optionsGroupedByYear: Record<string, GroupBase> = {};
+  Object.values(optionsBySlug).forEach(option => {
+    optionsGroupedByYear[option.year] =
+      optionsGroupedByYear[option.year] ||
+      ({
+        label: option.year,
+        options: [],
+      } as GroupBase);
+    optionsGroupedByYear[option.year].options.push(option);
+  });
+  return Object.values(optionsGroupedByYear).reverse();
+};
+
+const GameWeekDropdown = ({
+  defaultFixture,
+  enabled,
+}: GameWeekDropdownProps) => {
+  const navigate = useNavigate();
+  const defaultValue = formatOption(defaultFixture);
+  const theme = useTheme();
+  const optionsBySlug = useRef<Record<string, GameWeekOptionType>>({});
+  const [defaultOptions, setDefaultOptions] = useState<GroupBase[]>([]);
+  const { data, loadMore } = usePaginatedQuery<So5FixturesDropdownQuery>(
+    SO5_FIXTURES_DROPDOWN_QUERY,
+    {
+      connection: 'So5FixtureConnection',
+      nextFetchPolicy: 'cache-first',
+      fetchPolicy: 'cache-and-network',
+      skip: !enabled,
+    }
+  );
+  const so5Fixtures = data?.football.so5.so5Fixtures;
+  const endCursor = so5Fixtures?.pageInfo?.endCursor;
+  const hasMore = Boolean(so5Fixtures?.pageInfo.hasNextPage);
+  const latestGameWeek = so5Fixtures?.nodes[0]?.gameWeek;
+  const fixturesCount = so5Fixtures?.nodes.length || 0;
+
+  const fetchNext = useCallback(() => {
+    loadMore(false, { cursor: endCursor });
+  }, [endCursor, loadMore]);
+
+  const parseOptions = useCallback<() => GroupBase[]>(() => {
+    if (!data?.football.so5.so5Fixtures?.nodes) {
+      return [];
+    }
+    optionsBySlug.current = groupNodesBySlug(
+      data.football.so5.so5Fixtures.nodes
+    );
+    return groupOptionsByYear(optionsBySlug.current);
+  }, [data, optionsBySlug]);
+
+  const loadOptions = useCallback(async () => {
+    await fetchNext();
+    return {
+      options: parseOptions(),
+      hasMore,
+    };
+  }, [fetchNext, parseOptions, hasMore]);
+
+  useEffect(() => {
+    if (!latestGameWeek) {
+      return;
+    }
+    (async () => {
+      // keep fetching until we have the current fixture in the list
+      const offset = latestGameWeek! - (defaultValue?.gameWeek || 0);
+      if (offset > fixturesCount) {
+        await loadOptions();
+      } else {
+        setDefaultOptions(parseOptions());
+      }
+    })();
+  }, [
+    loadOptions,
+    parseOptions,
+    fixturesCount,
+    defaultValue?.gameWeek,
+    latestGameWeek,
+  ]);
+
+  if (!defaultValue || !optionsBySlug.current[defaultValue?.slug] || !enabled) {
+    return <ValueContainer so5Fixture={defaultFixture} />;
+  }
+
+  return (
+    <AsyncPaginate
+      onChange={newValue => {
+        if (!newValue) {
+          return null;
+        }
+        if (isFixtureOpened(newValue)) {
+          return navigate(generatePath(FOOTBALL_LOBBY_UPCOMING, { tab: '' }!));
+        }
+        if (isFixtureLive(newValue)) {
+          return navigate(
+            generatePath(FOOTBALL_LOBBY_LIVE, { tab: 'my-teams' }!)
+          );
+        }
+        return navigate(
+          generatePath(FOOTBALL_LOBBY_PAST, {
+            tab: 'my-teams',
+            slug: newValue!.slug,
+          })
+        );
+      }}
+      options={defaultOptions}
+      loadOptions={loadOptions}
+      reduceOptions={(_, mergedOptions) => mergedOptions}
+      defaultValue={defaultValue && optionsBySlug.current[defaultValue?.slug]}
+      getOptionValue={({ slug }) => optionsBySlug.current?.[slug]?.slug}
+      isLoading={false}
+      isSearchable={false}
+      styles={selectStyles(theme)}
+      components={{
+        DropdownIndicator: () => null,
+        Placeholder: () => null,
+        NoOptionsMessage: () => null,
+        ValueContainer: p => (
+          <ValueContainer {...p} so5Fixture={defaultFixture} />
+        ),
+      }}
+      formatGroupLabel={groupProps => <GroupHeading {...groupProps} />}
+      formatOptionLabel={(optionsProps: any) => <Option {...optionsProps} />}
+    />
+  );
+};
+
+export default GameWeekDropdown;
+
+GameWeekDropdown.fragments = {
+  so5Fixture: so5FixtureFragment,
+};

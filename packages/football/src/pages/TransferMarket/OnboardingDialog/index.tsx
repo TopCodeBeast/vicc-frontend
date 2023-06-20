@@ -5,7 +5,7 @@ import Button from '@sorare/core/src/atoms/buttons/Button';
 import CloseButton from '@sorare/core/src/atoms/buttons/CloseButton';
 import { Text16, Title2 } from '@sorare/core/src/atoms/typography';
 import Dialog from '@sorare/core/src/components/dialog';
-// import { OneTimeDialog } from '@sorare/core/src/contexts/oneTimeDialog/Provider';
+import { OneTimeDialog } from '@sorare/core/src/contexts/oneTimeDialog/Provider';
 import { LIFECYCLE } from '@sorare/core/src/hooks/useLifecycle';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
@@ -100,16 +100,13 @@ const OneTimeOnboardingDialog = ({
 }) => {
   if (isOpen)
     return <OnboardingDialog onClose={onClick} open={isOpen} {...rest} />;
-  // return (
-  //   <OneTimeDialog dialogId={lifecycleKey} show={show}>
-  //     {({ onClose, open }) => (
-  //       <OnboardingDialog onClose={onClose} open={open} {...rest} />
-  //     )}
-  //   </OneTimeDialog>
-  // );
   return (
-    <>OneTimeDialog</>
-  )
+    <OneTimeDialog dialogId={lifecycleKey} show={show}>
+      {({ onClose, open }) => (
+        <OnboardingDialog onClose={onClose} open={open} {...rest} />
+      )}
+    </OneTimeDialog>
+  );
 };
 
 export default OneTimeOnboardingDialog;

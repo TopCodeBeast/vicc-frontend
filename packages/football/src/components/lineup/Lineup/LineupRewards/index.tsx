@@ -1,0 +1,200 @@
+import { gql } from '@apollo/client';
+import { faPlus } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'classnames';
+import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
+
+import { caption } from '@sorare/core/src/atoms/typography';
+import useIsOverflowing from '@sorare/core/src/hooks/ui/useIsOverflowing';
+import { hasEligibleRewards, hasRewards } from '@sorare/core/src/lib/rewards';
+import { hideScrollbar } from '@sorare/core/src/style/utils';
+
+import ActualRewards from '@sorare/football/src/components/lineup/ActualRewards';
+import { EligibleRewards } from '@sorare/football/src/components/lineup/EligibleRewards';
+import { Rewards } from '@sorare/football/src/components/lineup/Rewards';
+import { RewardType } from 'lib/lineupRewards';
+
+import {
+  LineupRewards_rewardsOverview,
+  LineupRewards_so5Ranking,
+} from './__generated__/index.graphql';
+
+const Wrapper = styled.div`
+  display: flex;
+  padding-left: var(--intermediate-unit);
+  align-items: center;
+  height: 32px;
+  gap: var(--unit);
+  border-top: 1px solid var(--c-neutral-300);
+  color: var(--c-neutral-600);
+  &.empty {
+    justify-content: center;
+  }
+  &:focus,
+  &:hover {
+    color: var(--c-neutral-600);
+  }
+  ${hideScrollbar}
+  ${caption}
+  overflow: auto;
+`;
+
+const EligibleRewardsList = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--unit);
+`;
+
+const OverflowIcon = styled.div`
+  background: linear-gradient(
+    270deg,
+    var(--c-neutral-200) 54.55%,
+    rgba(34, 36, 43, 0) 100%
+  );
+  position: sticky;
+  right: -0.5px; /* fix weird overflow content showing behind icon */
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 var(--intermediate-unit) 0 var(--quadruple-unit);
+`;
+
+const RewardLabel = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--half-unit);
+  padding-right: var(--unit);
+  border-right: 1px solid var(--c-neutral-300);
+`;
+
+type Props = {
+  rewardType: RewardType;
+  rankingRewards?: LineupRewards_so5Ranking;
+  totalRewards: LineupRewards_rewardsOverview;
+};
+export const LineupRewards = ({
+  rewardType,
+  rankingRewards,
+  totalRewards,
+}: Props) => {
+  const { isOverflowing, containerRef } = useIsOverflowing();
+  const { eligibleRewards, so5Rewards } = rankingRewards || {};
+  const withEligibleRewards = !!eligibleRewards?.find(eligibleReward =>
+    hasEligibleRewards(eligibleReward)
+  );
+
+  const displayEligibleRewards = () => {
+    if (!withEligibleRewards) {
+      return (
+        <FormattedMessage
+          id="LineupRewards.NoEligibleRewards"
+          defaultMessage="No Projected Rewards"
+        />
+      );
+    }
+    return (
+      <>
+        <RewardLabel>
+          <FormattedMessage
+            id="LineupRewards.ProjectedReward"
+            defaultMessage="Projected Reward"
+          />
+        </RewardLabel>
+        <EligibleRewardsList>
+          {(eligibleRewards || []).map(eligibleReward => (
+            <EligibleRewards
+              key={`${eligibleReward.ethAmount}-${eligibleReward.usdAmount}-${
+                (eligibleReward.cards || []).length
+              }-${(eligibleReward.experiences || []).length}`}
+              rewards={eligibleReward}
+            />
+          ))}
+        </EligibleRewardsList>
+      </>
+    );
+  };
+
+  const displayActualRewards = () => {
+    if (!so5Rewards?.length) {
+      return (
+        <FormattedMessage
+          id="LineupRewards.NoRealRewards"
+          defaultMessage="No Rewards"
+        />
+      );
+    }
+    return (
+      <>
+        <RewardLabel>
+          <FormattedMessage
+            id="LineupRewards.Rewards"
+            defaultMessage="Rewards"
+          />
+        </RewardLabel>
+        <ActualRewards rewards={so5Rewards} />
+      </>
+    );
+  };
+
+  const displayGenericRewards = () =>
+    hasRewards(totalRewards) ? (
+      <>
+        <RewardLabel>
+          <FormattedMessage
+            id="LineupRewards.PrizePool"
+            defaultMessage="Prize Pool"
+          />
+        </RewardLabel>
+        <Rewards rewards={totalRewards} />
+      </>
+    ) : null;
+
+  return (
+    <Wrapper
+      ref={containerRef}
+      className={classNames({
+        empty:
+          (rewardType === RewardType.Eligible && !withEligibleRewards) ||
+          (rewardType === RewardType.Actual && !so5Rewards?.length) ||
+          (rewardType === RewardType.Generic && !hasRewards(totalRewards)),
+      })}
+    >
+      {rewardType === RewardType.Generic && displayGenericRewards()}
+      {rewardType === RewardType.Eligible && displayEligibleRewards()}
+      {rewardType === RewardType.Actual && displayActualRewards()}
+      {isOverflowing && (
+        <OverflowIcon>
+          <FontAwesomeIcon icon={faPlus} size="sm" />
+        </OverflowIcon>
+      )}
+    </Wrapper>
+  );
+};
+
+LineupRewards.fragments = {
+  so5Ranking: gql`
+    fragment LineupRewards_so5Ranking on So5Ranking {
+      id
+      eligibleRewards {
+        ...EligibleRewards_rewardConfig
+        ...hasEligibleRewards_so5RewardConfig
+      }
+      so5Rewards {
+        slug
+        ...ActualRewards_so5Reward
+      }
+    }
+    ${EligibleRewards.fragments.rewardConfig}
+    ${hasEligibleRewards.fragments.rewardConfig}
+    ${ActualRewards.fragments.so5Reward}
+  `,
+  rewardsOverview: gql`
+    fragment LineupRewards_rewardsOverview on RewardsOverview {
+      ...Rewards_rewardsOverview
+      ...hasRewards_rewardsOverview
+    }
+    ${Rewards.fragments.reward}
+    ${hasRewards.fragments.rewards}
+  `,
+};

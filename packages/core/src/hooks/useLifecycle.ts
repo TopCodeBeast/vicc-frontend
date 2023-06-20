@@ -1,14 +1,14 @@
 import { gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
 
-// import { CommonDraftCampaignType, Sport } from '__generated__/globalTypes';
-// import { AlgoliaCardIndexesName } from '../contexts/config';
-// import { getInteractionContext } from '../lib/events';
+import { CommonDraftCampaignType, Sport } from '__generated__/globalTypes';
+import { AlgoliaCardIndexesName } from 'contexts/config';
+import { getInteractionContext } from '@sorare/core/src/lib/events';
 
-// import {
-//   UpdateLifecycleMutation,
-//   UpdateLifecycleMutationVariables,
-// } from './__generated__/useLifecycle.graphql';
+import {
+  UpdateLifecycleMutation,
+  UpdateLifecycleMutationVariables,
+} from './__generated__/useLifecycle.graphql';
 
 export enum LIFECYCLE {
   sawComposeOnboarding = 'sawComposeOnboarding',
@@ -38,92 +38,92 @@ export enum LIFECYCLE {
   hideActivity = 'hideActivity',
 }
 
-// export type LifecycleEntries = {
-//   [LIFECYCLE.sawComposeOnboarding]?: boolean;
-//   [LIFECYCLE.sawCaptainTuto]?: boolean;
-//   [LIFECYCLE.sawCollectionCardTuto]?: boolean;
-//   [LIFECYCLE.sawMarketplaceOnboarding]?: boolean;
-//   [LIFECYCLE.sawManagersSalesOnboarding]?: boolean;
-//   [LIFECYCLE.sawStarterPacksOnboarding]?: boolean;
-//   [LIFECYCLE.sawComposeTeamCongrats]?: boolean;
-//   [LIFECYCLE.sawDraftTuto]?: CommonDraftCampaignType;
-//   [LIFECYCLE.transferMarket]?: string;
-//   [LIFECYCLE.newSignings]?: string;
-//   [LIFECYCLE.lastVisitedSport]?: Sport;
-//   [LIFECYCLE.nextTimeUserNeedsCheckSecurity]?: string;
-//   [LIFECYCLE.nextTimeUserNeedsSetupWallet]?: string;
-//   [LIFECYCLE.sawUsSportsCollectionsTuto]?: boolean;
-//   [LIFECYCLE.lastSaleDuration]?: number;
-//   [LIFECYCLE.sawMlbDraftErrorPrompt]?: boolean;
-//   [LIFECYCLE.sawMlbComposeTeamOnboarding]?: boolean;
-//   [LIFECYCLE.saw100PersonLeaderboardDialog]?: boolean;
-//   [LIFECYCLE.latestSeasonFilterEnabled]?: boolean;
-//   [LIFECYCLE.latestSearchedItems]?: {
-//     [sport: string]: {
-//       objectID: string;
-//       index: string;
-//       sport: Sport;
-//     }[];
-//   };
-//   [LIFECYCLE.sawMlbOnboarding]?: boolean;
-//   [LIFECYCLE.sawNbaOnboarding]?: boolean;
-//   [LIFECYCLE.marketSorts]?: Record<string, AlgoliaCardIndexesName>;
-//   [LIFECYCLE.sawMlbDraftEducationDialog]?: boolean;
-//   [LIFECYCLE.hideActivity]?: boolean;
-// };
+export type LifecycleEntries = {
+  [LIFECYCLE.sawComposeOnboarding]?: boolean;
+  [LIFECYCLE.sawCaptainTuto]?: boolean;
+  [LIFECYCLE.sawCollectionCardTuto]?: boolean;
+  [LIFECYCLE.sawMarketplaceOnboarding]?: boolean;
+  [LIFECYCLE.sawManagersSalesOnboarding]?: boolean;
+  [LIFECYCLE.sawStarterPacksOnboarding]?: boolean;
+  [LIFECYCLE.sawComposeTeamCongrats]?: boolean;
+  [LIFECYCLE.sawDraftTuto]?: CommonDraftCampaignType;
+  [LIFECYCLE.transferMarket]?: string;
+  [LIFECYCLE.newSignings]?: string;
+  [LIFECYCLE.lastVisitedSport]?: Sport;
+  [LIFECYCLE.nextTimeUserNeedsCheckSecurity]?: string;
+  [LIFECYCLE.nextTimeUserNeedsSetupWallet]?: string;
+  [LIFECYCLE.sawUsSportsCollectionsTuto]?: boolean;
+  [LIFECYCLE.lastSaleDuration]?: number;
+  [LIFECYCLE.sawMlbDraftErrorPrompt]?: boolean;
+  [LIFECYCLE.sawMlbComposeTeamOnboarding]?: boolean;
+  [LIFECYCLE.saw100PersonLeaderboardDialog]?: boolean;
+  [LIFECYCLE.latestSeasonFilterEnabled]?: boolean;
+  [LIFECYCLE.latestSearchedItems]?: {
+    [sport: string]: {
+      objectID: string;
+      index: string;
+      sport: Sport;
+    }[];
+  };
+  [LIFECYCLE.sawMlbOnboarding]?: boolean;
+  [LIFECYCLE.sawNbaOnboarding]?: boolean;
+  [LIFECYCLE.marketSorts]?: Record<string, AlgoliaCardIndexesName>;
+  [LIFECYCLE.sawMlbDraftEducationDialog]?: boolean;
+  [LIFECYCLE.hideActivity]?: boolean;
+};
 
-// export type Lifecycle = LifecycleEntries | undefined;
-// export type LifecycleValue = LifecycleEntries[LIFECYCLE];
-// export type LifecycleGetter = LifecycleValue;
+export type Lifecycle = LifecycleEntries | undefined;
+export type LifecycleValue = LifecycleEntries[LIFECYCLE];
+export type LifecycleGetter = LifecycleValue;
 
-// export const getMarketplaceSortsKey = (sport: Sport, unstacked: boolean) =>
-//   `${sport.toLocaleLowerCase()}_${getInteractionContext()}${
-//     unstacked ? '_unstacked' : ''
-//   }`;
+export const getMarketplaceSortsKey = (sport: Sport, unstacked: boolean) =>
+  `${sport.toLocaleLowerCase()}_${getInteractionContext()}${
+    unstacked ? '_unstacked' : ''
+  }`;
 
-// const UPDATE_LIFECYCLE_MUTATION = gql`
-//   mutation UpdateLifecycleMutation($input: updateUserSettingsInput!) {
-//     updateUserSettings(input: $input) {
-//       userSettings {
-//         id
-//         lifecycle
-//       }
-//       errors {
-//         path
-//         message
-//         code
-//       }
-//     }
-//   }
-// `;
+const UPDATE_LIFECYCLE_MUTATION = gql`
+  mutation UpdateLifecycleMutation($input: updateUserSettingsInput!) {
+    updateUserSettings(input: $input) {
+      userSettings {
+        id
+        lifecycle
+      }
+      errors {
+        path
+        message
+        code
+      }
+    }
+  }
+`;
 
-// export default function useLifecycle() {
-//   const [updateLifecycle, { loading }] = useMutation<
-//     UpdateLifecycleMutation,
-//     UpdateLifecycleMutationVariables
-//   >(UPDATE_LIFECYCLE_MUTATION);
+export default function useLifecycle() {
+  const [updateLifecycle, { loading }] = useMutation<
+    UpdateLifecycleMutation,
+    UpdateLifecycleMutationVariables
+  >(UPDATE_LIFECYCLE_MUTATION);
 
-//   const update = useCallback(
-//     <K extends keyof LifecycleEntries>(
-//       name: K,
-//       value: Omit<LifecycleEntries[K], 'undefined'>
-//     ) => {
-//       updateLifecycle({
-//         variables: {
-//           input: {
-//             lifecycle: {
-//               name,
-//               value,
-//             },
-//           },
-//         },
-//       });
-//     },
-//     [updateLifecycle]
-//   );
+  const update = useCallback(
+    <K extends keyof LifecycleEntries>(
+      name: K,
+      value: Omit<LifecycleEntries[K], 'undefined'>
+    ) => {
+      updateLifecycle({
+        variables: {
+          input: {
+            lifecycle: {
+              name,
+              value,
+            },
+          },
+        },
+      });
+    },
+    [updateLifecycle]
+  );
 
-//   return {
-//     update,
-//     loading,
-//   };
-// }
+  return {
+    update,
+    loading,
+  };
+}

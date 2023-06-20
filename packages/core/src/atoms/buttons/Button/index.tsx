@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { forwardRef } from 'react';
 import styled from 'styled-components';
 
-import useClickHandler from '@core/hooks/useClickHandler';
+import useClickHandler from '@sorare/core/src/hooks/useClickHandler';
 
 export const colors = [
   'blue',

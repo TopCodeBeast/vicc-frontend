@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { local as localStorage } from '../lib/storage';
+import { local as localStorage } from '@sorare/core/src/lib/storage';
 
 export const STORAGE = {
   lobby: {

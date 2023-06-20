@@ -1,30 +1,30 @@
 import { IndexUiState } from 'instantsearch.js';
 
-// import { Sport } from '__generated__/globalTypes';
-// import { AlgoliaIndexes } from 'contexts/config';
+import { Sport } from '__generated__/globalTypes';
+import { AlgoliaIndexes } from 'contexts/config';
 
-// export type SearchProps = {
-//   analyticsTags: AnalyticTag[];
-//   indexes?: (keyof AlgoliaIndexes)[];
-//   defaultHitsPerPage?: number;
-//   sport: Sport;
-//   defaultFilters?: string[];
-//   urlState?: boolean;
-//   initialIndexUIState?: ExtendedIndexUIState;
-// };
+export type SearchProps = {
+  analyticsTags: AnalyticTag[];
+  indexes?: (keyof AlgoliaIndexes)[];
+  defaultHitsPerPage?: number;
+  sport: Sport;
+  defaultFilters?: string[];
+  urlState?: boolean;
+  initialIndexUIState?: ExtendedIndexUIState;
+};
 
-// export type Props = {
-//   analyticsTags: AnalyticTag[];
-//   indexes: (keyof AlgoliaIndexes)[];
-//   distinct: boolean | number;
-//   defaultHitsPerPage: number;
-//   attributesToRetrieve?: string[];
-//   sport?: Sport;
-//   defaultFilters?: string[];
-//   getOptionalFilters?: (index: string) => string[];
-//   urlState?: boolean;
-//   initialIndexUIState?: ExtendedIndexUIState;
-// };
+export type Props = {
+  analyticsTags: AnalyticTag[];
+  indexes: (keyof AlgoliaIndexes)[];
+  distinct: boolean | number;
+  defaultHitsPerPage: number;
+  attributesToRetrieve?: string[];
+  sport?: Sport;
+  defaultFilters?: string[];
+  getOptionalFilters?: (index: string) => string[];
+  urlState?: boolean;
+  initialIndexUIState?: ExtendedIndexUIState;
+};
 
 export enum SEARCH_PARAMS {
   QUERY = 'q',

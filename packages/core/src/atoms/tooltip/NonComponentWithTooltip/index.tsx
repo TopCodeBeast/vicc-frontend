@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Tooltip } from 'atoms/tooltip/Tooltip';
+import { Tooltip } from '@sorare/core/src/atoms/tooltip/Tooltip';
 
 type Props = {
   title: string;

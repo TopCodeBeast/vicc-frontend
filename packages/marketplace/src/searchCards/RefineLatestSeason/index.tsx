@@ -1,19 +1,19 @@
 import { ChangeEvent, useCallback } from 'react';
-// import {
-//   useInstantSearch,
-//   useToggleRefinement,
-// } from 'react-instantsearch-hooks-web';
+import {
+  useInstantSearch,
+  useToggleRefinement,
+} from 'react-instantsearch-hooks-web';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components';
 
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import Switch from '@sorare/core/src/components/search/Switch';
-// import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-// import useLifecycle, {
-//   LIFECYCLE,
-//   Lifecycle,
-// } from '@sorare/core/src/hooks/useLifecycle';
-// import useEvents from '@sorare/core/src/lib/events/useEvents';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import useLifecycle, {
+  LIFECYCLE,
+  Lifecycle,
+} from '@sorare/core/src/hooks/useLifecycle';
+import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { FilterWidget, TOGGLE_FILTERS } from '@sorare/core/src/lib/filters';
 
 const FILTER = TOGGLE_FILTERS.latestSeasonFilter;
@@ -28,16 +28,17 @@ export const useLatestSeasonLocalStorage = (): [
   boolean,
   (value: boolean) => void
 ] => {
-  // const { currentUser } = useCurrentUserContext();
-  // const { update: updateLifecycle } = useLifecycle();
-  // const lifecycle = currentUser?.userSettings?.lifecycle as Lifecycle;
-  const latestSeasonFilterEnabled = true;//lifecycle?.latestSeasonFilterEnabled ?? true;
+  const { currentUser } = useCurrentUserContext();
+  const { update: updateLifecycle } = useLifecycle();
+  const lifecycle = currentUser?.userSettings?.lifecycle as Lifecycle;
+  const latestSeasonFilterEnabled =
+    lifecycle?.latestSeasonFilterEnabled ?? true;
 
   const setLatestSeason = useCallback(
     (value: boolean) => {
-      // updateLifecycle(LIFECYCLE.latestSeasonFilterEnabled, value);
+      updateLifecycle(LIFECYCLE.latestSeasonFilterEnabled, value);
     },
-    [/*updateLifecycle*/]
+    [updateLifecycle]
   );
 
   return [latestSeasonFilterEnabled, setLatestSeason];
@@ -45,27 +46,32 @@ export const useLatestSeasonLocalStorage = (): [
 
 const Filter = () => {
   const { formatMessage } = useIntl();
-  // const { value: { isRefined }, refine } = useToggleRefinement({ attribute: FILTER.attribute });
-  // const track = useEvents();
-  // const { indexUiState } = useInstantSearch();
+  const {
+    value: { isRefined },
+    refine,
+  } = useToggleRefinement({
+    attribute: FILTER.attribute,
+  });
+  const track = useEvents();
+  const { indexUiState } = useInstantSearch();
   const [, setLatestSeason] = useLatestSeasonLocalStorage();
 
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      // track('Use Market Filter', {
-      //   filterName: FILTER.attribute,
-      //   filterValue: event.target.checked.toString(),
-      // });
+      track('Use Market Filter', {
+        filterName: FILTER.attribute,
+        filterValue: event.target.checked.toString(),
+      });
 
-      // refine({ isRefined });
+      refine({ isRefined });
       setLatestSeason(event.target.checked);
     },
-    [/*track, refine, isRefined,*/ setLatestSeason]
+    [track, refine, isRefined, setLatestSeason]
   );
 
   // we rather consider the refinement state from the UI
   // so that we don't rely on the Algolia answer to come back to reflect the slider state
-  const optimisticRefined = false;//!!indexUiState.toggle?.[FILTER.attribute];
+  const optimisticRefined = !!indexUiState.toggle?.[FILTER.attribute];
 
   return (
     <Switch

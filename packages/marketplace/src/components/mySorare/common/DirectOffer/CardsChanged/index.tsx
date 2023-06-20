@@ -1,0 +1,304 @@
+import { gql } from '@apollo/client';
+import classNames from 'classnames';
+import { useState } from 'react';
+import {
+  FormattedMessage,
+  MessageDescriptor,
+  defineMessages,
+} from 'react-intl';
+import styled from 'styled-components';
+
+import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
+import Dialog from '@sorare/core/src/atoms/layout/Dialog';
+import { Text14, Title5 } from '@sorare/core/src/atoms/typography';
+import { Nickname } from '@sorare/core/src/components/user/Nickname';
+import { glossary } from '@sorare/core/src/lib/glossary';
+import { theme } from '@sorare/core/src/style/theme';
+
+import CardOffer from '../../CardOffer';
+import { useGetCardsDetails } from '../useGetCardsDetails';
+import {
+  CardsChanged_tokenOffer,
+  CardsChanged_user,
+} from './__generated__/index.graphql';
+
+const messages = defineMessages({
+  title: {
+    id: 'CardsChanged.title',
+    defaultMessage: 'Cards changes from previous trade',
+  },
+  subtitle: {
+    id: 'CardsChanged.subtitle',
+    defaultMessage:
+      '{user} added {value} {value, plural, one {card} other {cards}} and removed {remove} {remove, plural, one {card} other {cards}} from last trade.',
+  },
+  dialogSubtitle: {
+    id: 'CardsChanged.dialogSubtitle',
+    defaultMessage: '{user} made changes to the cards involved in the trade',
+  },
+  added: {
+    id: 'CardsChanged.added',
+    defaultMessage: 'Added',
+  },
+  removed: {
+    id: 'CardsChanged.removed',
+    defaultMessage: 'Removed',
+  },
+  noChanges: {
+    id: 'CardsChanged.noChanges',
+    defaultMessage: 'No changes',
+  },
+});
+
+const compareCardsArray = <T extends { assetId: string }>(
+  newCards: T[],
+  oldCards: T[]
+) => {
+  const results = newCards.filter(
+    ({ assetId }) =>
+      !oldCards.some(({ assetId: assetId2 }) => assetId2 === assetId)
+  );
+  return results;
+};
+
+const BodyContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--unit);
+`;
+
+const SeeDetails = styled(ButtonBase)`
+  text-decoration: underline;
+`;
+
+const DialogContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--double-unit);
+  margin-top: var(--double-unit);
+
+  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    flex-direction: row;
+    width: max-content;
+    min-width: 100%;
+
+    > div {
+      flex-grow: 1;
+      width: 50%;
+    }
+  }
+`;
+
+const Subtitle = styled(Text14)`
+  display: flex;
+  flex-direction: column;
+  gap: var(--half-unit);
+  align-items: flex-start;
+  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    flex-direction: row;
+    align-items: center;
+  }
+`;
+
+const DialogSubtitle = styled(Text14)`
+  > * {
+    display: inline-block;
+  }
+`;
+
+const Tabs = styled.div`
+  margin-top: var(--double-unit);
+  background-color: var(--c-neutral-300);
+  border-radius: var(--double-unit);
+  > button {
+    width: 50%;
+    padding: var(--half-unit) var(--unit);
+    border-radius: var(--double-unit);
+    &.active {
+      background-color: var(--c-neutral-500);
+    }
+  }
+`;
+
+const CardsColumn = ({
+  cards,
+  title,
+}: {
+  cards: CardsChanged_tokenOffer['receiverSide']['nfts'];
+  title: MessageDescriptor;
+}) => {
+  return (
+    <BodyContent>
+      <Title5 color="var(--c-neutral-600)">
+        <FormattedMessage {...title} />
+      </Title5>
+      {cards.length > 0 ? (
+        cards.map(cardAdded => (
+          <CardOffer key={cardAdded.assetId} item={cardAdded} />
+        ))
+      ) : (
+        <FormattedMessage {...messages.noChanges} />
+      )}
+    </BodyContent>
+  );
+};
+
+const CardsChanged = ({
+  offer,
+  counteredOffer,
+  counterpartUser,
+  isCurrentUserSender,
+}: {
+  offer: CardsChanged_tokenOffer;
+  counteredOffer: CardsChanged_tokenOffer;
+  counterpartUser: CardsChanged_user;
+  isCurrentUserSender: boolean;
+}) => {
+  const getCardsDetails = useGetCardsDetails();
+  const [selectedTab, setSelectedTab] = useState(0);
+  const { receivedCards, sendCards } = getCardsDetails(
+    offer,
+    isCurrentUserSender
+  );
+
+  const {
+    receivedCards: counteredOfferReceivedCards,
+    sendCards: counteredOfferSendCards,
+  } = getCardsDetails(counteredOffer, !isCurrentUserSender);
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const receivedCardsAdded = compareCardsArray<
+    CardsChanged_tokenOffer['senderSide']['nfts'][number]
+  >(receivedCards, counteredOfferReceivedCards);
+  const receivedCardsRemoved = compareCardsArray<
+    CardsChanged_tokenOffer['senderSide']['nfts'][number]
+  >(counteredOfferReceivedCards, receivedCards);
+  const sendCardsAdded = compareCardsArray<
+    CardsChanged_tokenOffer['senderSide']['nfts'][number]
+  >(sendCards, counteredOfferSendCards);
+  const sendCardsRemoved = compareCardsArray<
+    CardsChanged_tokenOffer['senderSide']['nfts'][number]
+  >(counteredOfferSendCards, sendCards);
+
+  if (
+    receivedCardsAdded.length +
+      receivedCardsRemoved.length +
+      sendCardsAdded.length +
+      sendCardsRemoved.length ===
+    0
+  )
+    return null;
+
+  const senderUserText = isCurrentUserSender ? (
+    <FormattedMessage id="CardsChanged.you" defaultMessage="You" />
+  ) : (
+    <Nickname user={counterpartUser} />
+  );
+
+  const removedCardsToDisplay =
+    selectedTab === 0 ? sendCardsRemoved : receivedCardsRemoved;
+
+  const addedCardsToDisplay =
+    selectedTab === 0 ? sendCardsAdded : receivedCardsAdded;
+
+  return (
+    <div>
+      <Subtitle>
+        <FormattedMessage
+          {...messages.subtitle}
+          values={{
+            value: receivedCardsAdded.length + sendCardsAdded.length,
+            remove: receivedCardsRemoved.length + sendCardsRemoved.length,
+            user: senderUserText,
+          }}
+        />
+        <SeeDetails onClick={() => setDialogOpen(true)}>
+          <FormattedMessage {...glossary.seeDetails} />
+        </SeeDetails>
+      </Subtitle>
+
+      <Dialog
+        title={
+          <Title5>
+            <FormattedMessage {...messages.title} />
+          </Title5>
+        }
+        maxWidth="xl"
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+      >
+        <DialogSubtitle>
+          <FormattedMessage
+            {...messages.dialogSubtitle}
+            values={{ user: senderUserText }}
+          />
+        </DialogSubtitle>
+        <Tabs>
+          <ButtonBase
+            className={classNames({ active: selectedTab === 0 })}
+            onClick={() => {
+              setSelectedTab(0);
+            }}
+          >
+            <FormattedMessage
+              id="CardsChanged.yourCards"
+              defaultMessage="Your cards"
+            />
+          </ButtonBase>
+          <ButtonBase
+            className={classNames({ active: selectedTab === 1 })}
+            onClick={() => {
+              setSelectedTab(1);
+            }}
+          >
+            <FormattedMessage
+              id="CardsChanged.otherPathCards"
+              defaultMessage="{user} cards"
+              values={{
+                user: <Nickname user={counterpartUser} />,
+              }}
+            />
+          </ButtonBase>
+        </Tabs>
+        <DialogContent>
+          <CardsColumn title={messages.removed} cards={removedCardsToDisplay} />
+          <CardsColumn title={messages.added} cards={addedCardsToDisplay} />
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+};
+
+CardsChanged.fragments = {
+  tokenOffer: gql`
+    fragment CardsChanged_tokenOffer on TokenOffer {
+      id
+      senderSide {
+        id
+        nfts {
+          assetId
+          slug
+          ...CardOffer_token
+        }
+      }
+      receiverSide {
+        id
+        nfts {
+          assetId
+          slug
+          ...CardOffer_token
+        }
+      }
+    }
+    ${CardOffer.fragments.token}
+  `,
+  user: gql`
+    fragment CardsChanged_user on PublicUserInfoInterface {
+      slug
+      ...Nickname_publicUserInfoInterface
+    }
+    ${Nickname.fragments.user}
+  `,
+};
+
+export default CardsChanged;

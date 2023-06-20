@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import React from 'react';
 
-import { sendSafeError } from '../../lib/error';
+import { sendSafeError } from '@sorare/core/src/lib/error';
 
 type Props = {
   action?: string;

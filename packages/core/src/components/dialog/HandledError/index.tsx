@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import { Title3 } from '@sorare/core/src/atoms/typography';
-import { ErrorProps, images, levelOfErrorCode } from '@sorare/core/src/routing/HandledError';
+import { ErrorProps, images, levelOfErrorCode } from 'routing/HandledError';
 
 const Container = styled.div`
   display: flex;

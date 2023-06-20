@@ -1,8 +1,8 @@
 import { Tooltip as MuiTooltip, TooltipProps } from '@material-ui/core';
 import styled, { css } from 'styled-components';
 
-import { theme } from 'style/theme';
-import { OverrideClasses } from 'style/utils';
+import { theme } from '@sorare/core/src/style/theme';
+import { OverrideClasses } from '@sorare/core/src/style/utils';
 
 type Props = Omit<TooltipProps, 'classes'> & {
   dark?: boolean;

@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
 import { MessageDescriptor } from 'react-intl';
 
-import { cardAttributes, filters } from './glossary';
+import { cardAttributes, filters } from '@sorare/core/src/lib/glossary';
+import { attributes as playerAttributes } from '@sorare/core/src/lib/players';
 
 type RealFilterWidget = {
   attribute: string;
@@ -151,7 +152,7 @@ export const FILTERS = {
     attribute: 'serial_number',
     title: cardAttributes.serialNumber,
   },
-  // age: { attribute: 'player.birth_date_i', title: `playerAttributes.age` },
+  age: { attribute: 'player.birth_date_i', title: playerAttributes.age },
   nbaTenGameAverageScore: {
     attribute: 'nba_stats.ten_game_average',
     title: filters.nbaTenGameAverageScore,

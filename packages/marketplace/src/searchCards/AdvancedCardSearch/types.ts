@@ -13,3 +13,5 @@ export type Props = {
   cardFilters: (FilterWidget | FilterSeparator)[];
   CardResultsComponent: any;
 };
+
+export type SearchTopic = any; //TODO

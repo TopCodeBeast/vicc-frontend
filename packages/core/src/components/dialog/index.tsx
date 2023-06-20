@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components';
 
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
-// import HandledErrorBoundary from '@sorare/core/src/routing/HandledErrorBoundary';
+import HandledErrorBoundary from 'routing/HandledErrorBoundary';
 import { theme } from '@sorare/core/src/style/theme';
 import { OverrideClasses } from '@sorare/core/src/style/utils';
 
@@ -156,10 +156,9 @@ export const Dialog = ({
       onClose={closeDialog}
     >
       {errors ? (
-        // <HandledErrorBoundary messages={errors} Error={HandledError}>
-        //   {contentToDisplay}
-        // </HandledErrorBoundary>
-        <>HandledErrorBoundary</>
+        <HandledErrorBoundary messages={errors} Error={HandledError}>
+          {contentToDisplay}
+        </HandledErrorBoundary>
       ) : (
         contentToDisplay
       )}

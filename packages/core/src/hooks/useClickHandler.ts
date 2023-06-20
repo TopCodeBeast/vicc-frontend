@@ -1,13 +1,6 @@
 import { useEffect, useState } from 'react';
 
-// import { Deferred } from '@sorare/wallet-shared';
-class Deferred<T> {
-  promise: any;
-  pending: boolean = false;
-  resolve(success: boolean) {
-
-  }
-}
+import { Deferred } from '@sorare/wallet-shared';
 
 type Handler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 

@@ -1,6 +1,6 @@
 import { ComponentType, lazy as lazyNoRetry } from 'react';
 
-import { SilencedError } from '../contexts/sentry/ErrorBoundary';
+import { SilencedError } from 'contexts/sentry/ErrorBoundary';
 
 const MAX_RETRIES = 5;
 const FAILED_TO_FETCH = 'Failed to fetch dynamically imported module';

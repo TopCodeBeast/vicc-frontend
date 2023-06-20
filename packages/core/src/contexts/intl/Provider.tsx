@@ -12,7 +12,7 @@ import useLocalStorage from '@sorare/core/src/hooks/useLocalStorage';
 import useTranslations, {
   ALLOWED_LOCALES,
   AllowedLocales,
-} from '@sorare/core/src/i18n/useTranslations';
+} from 'i18n/useTranslations';
 import detectBrowserLanguage from '@sorare/core/src/lib/detectBrowserLanguage';
 import { RoundingMode, fromWei } from '@sorare/core/src/lib/wei';
 

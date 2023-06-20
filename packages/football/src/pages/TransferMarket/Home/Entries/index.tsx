@@ -2,19 +2,19 @@ import { defineMessages } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-// import ManagerTaskTooltip from '@sorare/core/src/components/onboarding/managerTask/ManagerTaskTooltip';
-// import MarketplaceOnboardingTask from '@sorare/core/src/components/onboarding/managerTask/MarketplaceOnboardingTask';
+import ManagerTaskTooltip from '@sorare/core/src/components/onboarding/managerTask/ManagerTaskTooltip';
+import MarketplaceOnboardingTask from '@sorare/core/src/components/onboarding/managerTask/MarketplaceOnboardingTask';
 import {
   FOOTBALL_NEW_SIGNINGS,
   FOOTBALL_STARTER_BUNDLES,
   FOOTBALL_TRANSFER_MARKET,
 } from '@sorare/core/src/constants/routes';
-// import { useConfigContext } from '@sorare/core/src/contexts/config';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-// import {
-//   MarketplaceOnboardingStep,
-//   useManagerTaskContext,
-// } from '@sorare/core/src/contexts/managerTask';
+import {
+  MarketplaceOnboardingStep,
+  useManagerTaskContext,
+} from '@sorare/core/src/contexts/managerTask';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { transferMarket } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
@@ -78,10 +78,10 @@ const Root = styled.div`
 `;
 
 export const Entries = () => {
-  // const navigate = useNavigate();
-  // const { setStep, task } = useManagerTaskContext();
+  const navigate = useNavigate();
+  const { setStep, task } = useManagerTaskContext();
   const { up: isTablet } = useScreenSize('tablet');
-  // const { counts } = useConfigContext();
+  const { counts } = useConfigContext();
 
   return (
     <Root>
@@ -94,23 +94,38 @@ export const Entries = () => {
             : messages.mobileStarterPacksDescription
         }
         countMessage={messages.starterPacksCount}
-        count={1}
+        count={counts.football.starterPacksCount}
         mobileImage={<img src={starterPacksMobile} alt="Starter Packs" />}
         desktopImage={<img src={starterPacksDesktop} alt="Starter Packs" />}
       />
-      <Entry
-        to={FOOTBALL_TRANSFER_MARKET}
-        title={transferMarket.transfer}
-        description={
-          isTablet
-            ? messages.desktopManagerSalesDescription
-            : messages.mobileManagerSalesDescription
+      <ManagerTaskTooltip
+        name={MarketplaceOnboardingStep.managerSalesLink}
+        title={
+          <MarketplaceOnboardingTask
+            name={MarketplaceOnboardingStep.managerSalesLink}
+            onClick={() => {
+              navigate(FOOTBALL_TRANSFER_MARKET);
+              setStep(MarketplaceOnboardingStep.search);
+            }}
+          />
         }
-        countMessage={messages.primarySecondaryCount}
-        count={2}
-        mobileImage={<img src={managerSalesMobile} alt="Manager Sales" />}
-        desktopImage={<img src={managerSalesDesktop} alt="Manager Sales" />}
-      />
+        placement="bottom-start"
+        disable={!task}
+      >
+        <Entry
+          to={FOOTBALL_TRANSFER_MARKET}
+          title={transferMarket.transfer}
+          description={
+            isTablet
+              ? messages.desktopManagerSalesDescription
+              : messages.mobileManagerSalesDescription
+          }
+          countMessage={messages.primarySecondaryCount}
+          count={counts.football.managerSalesCount}
+          mobileImage={<img src={managerSalesMobile} alt="Manager Sales" />}
+          desktopImage={<img src={managerSalesDesktop} alt="Manager Sales" />}
+        />
+      </ManagerTaskTooltip>
       <Entry
         to={FOOTBALL_NEW_SIGNINGS}
         title={transferMarket.new}
@@ -120,7 +135,7 @@ export const Entries = () => {
             : messages.mobileAuctionsDescription
         }
         countMessage={messages.primarySecondaryCount}
-        count={1}
+        count={counts.football.auctionsCount}
         mobileImage={<img src={auctionsMobile} alt="Auctions" />}
         desktopImage={<img src={auctionsDesktop} alt="Auctions" />}
       />

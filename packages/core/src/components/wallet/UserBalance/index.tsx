@@ -1,0 +1,157 @@
+import { faEye, faEyeSlash } from '@fortawesome/pro-solid-svg-icons';
+import { ReactNode } from 'react';
+import styled from 'styled-components';
+
+import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
+import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
+import Dots from '@sorare/core/src/atoms/ui/Dots';
+import { useCurrentUserContext } from 'contexts/currentUser';
+import useAmountWithConversion, {
+  Props as useAmountWithConversionProps,
+} from '@sorare/core/src/hooks/useAmountWithConversion';
+import useToggleHideBalance from '@sorare/core/src/hooks/useToggleHideBalance';
+
+const Container = styled.div<{ $inline: boolean }>`
+  display: flex;
+  align-items: center;
+
+  ${props =>
+    props.$inline ? 'gap: var(--unit);' : `justify-content: space-between`};
+`;
+
+const Amount = styled.div`
+  text-align: center;
+  text-align: left;
+`;
+
+const Actions = styled.div`
+  display: flex;
+  gap: var(--unit);
+`;
+
+const Icon = styled(IconButton)<{ $inline: boolean }>`
+  width: var(--quadruple-unit);
+  height: var(--quadruple-unit);
+  min-width: auto;
+  display: flex;
+  margin-bottom: var(--double-unit);
+  ${props => (props.$inline ? `margin-bottom: 0;` : '')}
+`;
+
+const Line = styled.div`
+  display: flex;
+  align-items: baseline;
+  gap: var(--half-unit);
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--half-unit);
+`;
+
+const MainXL = styled.span`
+  font: var(--t-bold) var(--t-32);
+`;
+
+const Exponent = styled(Text14)`
+  color: var(--c-neutral-600);
+`;
+
+const ExponentXL = styled(Text16)`
+  color: var(--c-neutral-600);
+`;
+
+type UserBalanceAmountProps = useAmountWithConversionProps & {
+  inline?: boolean;
+  hideBalance?: boolean;
+};
+
+const UserBalanceAmount = ({
+  inline,
+  hideBalance,
+  ...props
+}: UserBalanceAmountProps) => {
+  const { main, exponent } = useAmountWithConversion(props);
+
+  if (inline)
+    return (
+      <Line>
+        {main && (
+          <Text14 color="var(--c-neutral-1000)">
+            {hideBalance ? <Dots size="small" count={7} /> : main}
+          </Text14>
+        )}
+        {exponent && (
+          <Exponent>
+            {hideBalance ? <Dots size="small" count={7} /> : `≈ ${exponent}`}
+          </Exponent>
+        )}
+      </Line>
+    );
+  return (
+    <Column>
+      {main && (
+        <MainXL>{hideBalance ? <Dots size="medium" count={7} /> : main}</MainXL>
+      )}
+      {exponent && (
+        <ExponentXL>
+          {hideBalance ? <Dots size="small" count={7} /> : `≈ ${exponent}`}
+        </ExponentXL>
+      )}
+    </Column>
+  );
+};
+
+type Props = {
+  context: string;
+  inline?: boolean;
+  right?: ReactNode;
+  disableToggle?: boolean;
+};
+
+export const UserBalance = ({
+  context,
+  inline,
+  right,
+  disableToggle = false,
+}: Props) => {
+  const { currentUser } = useCurrentUserContext();
+  const { toggleHideBalance, loading } = useToggleHideBalance();
+
+  if (!currentUser) return null;
+
+  const { availableBalance } = currentUser;
+
+  return (
+    <Container $inline={!!inline}>
+      <Amount>
+        <UserBalanceAmount
+          inline={!!inline}
+          context={context}
+          amount={availableBalance}
+          unit="wei"
+          hideBalance={
+            disableToggle ? false : currentUser?.userSettings?.hideBalance
+          }
+        />
+      </Amount>
+      <Actions>
+        {!disableToggle && (
+          <Icon
+            color="darkGray"
+            small
+            disableDebounce
+            icon={currentUser?.userSettings?.hideBalance ? faEye : faEyeSlash}
+            onClick={() => toggleHideBalance()}
+            $inline={!!inline}
+            disabled={loading}
+          />
+        )}
+        {right}
+      </Actions>
+    </Container>
+  );
+};
+
+export default UserBalance;

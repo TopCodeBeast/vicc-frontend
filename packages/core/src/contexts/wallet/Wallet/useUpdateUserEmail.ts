@@ -1,0 +1,52 @@
+import { gql } from '@apollo/client';
+import { useCallback } from 'react';
+
+import { updateUserEmailInput } from '__generated__/globalTypes';
+import { walletRecovery } from 'contexts/currentUser/queries';
+import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
+
+import {
+  UpdateUserEmailMutation,
+  UpdateUserEmailMutationVariables,
+} from './__generated__/useUpdateUserEmail.graphql';
+
+const UPDATE_EMAIL_MUTATION = gql`
+  mutation UpdateUserEmailMutation($input: updateUserEmailInput!) {
+    updateUserEmail(input: $input) {
+      currentUser {
+        slug
+        unconfirmedEmail
+        ...CurrentUserProvider_walletRecovery
+      }
+      errors {
+        path
+        message
+        code
+      }
+    }
+  }
+  ${walletRecovery}
+`;
+
+export default () => {
+  const [mutate] = useMutation<
+    UpdateUserEmailMutation,
+    UpdateUserEmailMutationVariables
+  >(UPDATE_EMAIL_MUTATION, {
+    showErrorsWithSnackNotification: false,
+    sendErrors: true,
+  });
+
+  return useCallback(
+    async (input: updateUserEmailInput) => {
+      const { data } = await mutate({
+        variables: {
+          input,
+        },
+      });
+
+      return data;
+    },
+    [mutate]
+  );
+};

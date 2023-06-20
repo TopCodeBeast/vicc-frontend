@@ -1,0 +1,122 @@
+import { gql } from '@apollo/client';
+import { FormattedMessage } from 'react-intl';
+import { generatePath } from 'react-router-dom';
+import styled from 'styled-components';
+
+import { FOOTBALL_LOBBY_LIVE } from '@sorare/core/src/constants/routes';
+
+import { HomeBlock } from '@sorare/football/src/components/Home/Block';
+import { ItemRows } from '@sorare/football/src/components/Home/ItemRows';
+import { SeeAllButton } from '@sorare/football/src/components/Home/SeeAllButton';
+import { Lineup } from '@sorare/football/src/components/lineup/Lineup';
+import { LiveDot } from '@sorare/football/src/components/so5/LiveDot';
+import { homeLabels } from 'lib/home';
+// eslint-disable-next-line sorare/no-unrendered-component-imports
+import { RewardType } from 'lib/lineupRewards';
+
+import { Live_so5 } from './__generated__/index.graphql';
+
+type Props = {
+  so5?: Live_so5;
+  loading: boolean;
+};
+
+const Title = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--unit);
+`;
+
+export const Live = ({ so5, loading }: Props) => {
+  const { edges } = so5?.so5Fixture?.mySo5LineupsPaginated || {};
+  const lineups =
+    edges?.map(edge => edge.node).filter(lineup => lineup?.so5Leaderboard) ||
+    [];
+  const lineupsCount = so5?.so5Fixture?.mySo5LineupsCount;
+
+  if (!lineups.length && !loading) {
+    return null;
+  }
+
+  return (
+    <HomeBlock
+      title={
+        <Title>
+          <LiveDot size="lg" />
+          <FormattedMessage
+            id="Home.Live.Title"
+            defaultMessage="Live Competitions"
+          />
+        </Title>
+      }
+      subtitle={
+        lineupsCount && lineupsCount > 1 ? (
+          <FormattedMessage
+            {...homeLabels.lineupsCount}
+            values={{
+              teams: lineupsCount,
+            }}
+          />
+        ) : (
+          <FormattedMessage
+            id="Home.Live.Subtitle"
+            defaultMessage="Follow your teams’ performance live"
+          />
+        )
+      }
+      loading={loading}
+      action={
+        lineupsCount &&
+        lineupsCount > 3 && (
+          <SeeAllButton
+            context="Live"
+            to={generatePath(FOOTBALL_LOBBY_LIVE, {
+              tab: 'my-teams',
+            })}
+          />
+        )
+      }
+    >
+      <ItemRows itemsCount={lineups.length} loading={loading}>
+        {lineups.map(
+          lineup =>
+            lineup?.so5Leaderboard && (
+              <Lineup
+                key={lineup.id}
+                leaderboard={lineup.so5Leaderboard}
+                lineup={lineup}
+                rewardType={RewardType.Eligible}
+                displayScore
+              />
+            )
+        )}
+      </ItemRows>
+    </HomeBlock>
+  );
+};
+
+Live.fragments = {
+  so5: gql`
+    fragment Live_so5 on So5Root {
+      so5Fixture(type: LIVE) {
+        slug
+        mySo5LineupsCount(training: false, draft: false)
+        mySo5LineupsPaginated(first: 3, withTraining: false) {
+          edges {
+            node {
+              id
+              ...Lineup_so5Lineup
+              so5Leaderboard {
+                slug
+                ...Lineup_so5Leaderboard
+              }
+            }
+          }
+        }
+      }
+    }
+
+    ${Lineup.fragments.so5Leaderboard}
+    ${Lineup.fragments.so5Lineup}
+  `,
+};

@@ -1,3 +1,4 @@
+import { StripeElementLocale } from '@stripe/stripe-js';
 import { createContext, useContext } from 'react';
 import { FormatNumberOptions, IntlShape } from 'react-intl';
 
@@ -74,12 +75,12 @@ export const localeConfig: {
   'es-ES': {
     date: async () => import('date-fns/locale/es'),
     dir: 'ltr',
-    name: 'Espa�ol',
+    name: 'Español',
   },
   'fr-FR': {
     date: async () => import('date-fns/locale/fr'),
     dir: 'ltr',
-    name: 'Fran�ais',
+    name: 'Français',
   },
   'it-IT': {
     date: async () => import('date-fns/locale/it'),
@@ -88,22 +89,34 @@ export const localeConfig: {
   },
   'ru-RU': {
     date: async () => import('date-fns/locale/ru'),
-    name: '???????',
+    name: 'русский',
     dir: 'ltr',
   },
   'tr-TR': {
     date: async () => import('date-fns/locale/tr'),
-    name: 'T�rk',
+    name: 'Türk',
     dir: 'ltr',
   },
   ar: {
     date: async () => import('date-fns/locale/ar-DZ'),
-    name: '???????',
+    name: 'العربية',
     dir: 'rtl',
   },
 };
 
 export type AvailableLocale = keyof typeof localeConfig;
+
+export const STRIPE_LOCALES: Record<AvailableLocale, StripeElementLocale> = {
+  ar: 'ar',
+  'de-DE': 'de',
+  'en-US': 'en',
+  'en-GB': 'en-GB',
+  'es-ES': 'es-ES',
+  'fr-FR': 'fr-FR',
+  'it-IT': 'it-IT',
+  'ru-RU': 'ru',
+  'tr-TR': 'tr',
+} as const;
 
 export const intlContext = createContext<IntlContext | null>(null);
 

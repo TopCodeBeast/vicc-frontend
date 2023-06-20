@@ -7,28 +7,28 @@ import {
 } from '@apollo/client';
 import { DocumentNode } from 'graphql';
 
-// import { useWalletContext } from 'contexts/wallet';
-// import useLogOut from 'hooks/auth/useLogOut';
+import { useWalletContext } from 'contexts/wallet';
+import useLogOut from '@sorare/core/src/hooks/auth/useLogOut';
 
 let logoutTimeout: ReturnType<typeof setTimeout> | undefined;
 
-export default function useQuery<TData = any, TVariables extends OperationVariables = OperationVariables>(
+export default function useQuery<TData = any, TVariables = OperationVariables>(
   query: DocumentNode,
   options?: QueryHookOptions<TData, TVariables>,
   logOutOnErrorCode = 422
 ): QueryResult<TData, TVariables> {
-  // const applogOut = useLogOut();
+  const applogOut = useLogOut();
   const { error, ...rest } = apolloUseQuery(query, options);
-  // const walletCtx = useWalletContext();
+  const walletCtx = useWalletContext();
 
   const logOut = () => {
     (async () => {
       try {
-        // if (walletCtx) {
-        //   await walletCtx.logOut();
-        // } else {
-        //   await applogOut();
-        // }
+        if (walletCtx) {
+          await walletCtx.logOut();
+        } else {
+          await applogOut();
+        }
       } finally {
         logoutTimeout = undefined;
       }
