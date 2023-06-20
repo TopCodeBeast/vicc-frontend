@@ -15,6 +15,8 @@
 /** See https://stackoverflow.com/a/51390763/1470607  */
 type Falsy = false | 0 | "" | null | undefined;
 
+type Nullable<T> = T | null;
+
 interface Array<T> {
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.

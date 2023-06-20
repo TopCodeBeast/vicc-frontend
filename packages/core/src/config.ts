@@ -1,4 +1,6 @@
 import { format } from 'date-fns';
+
+export const ENV = 'dev';
 export const isStaging = false;
 export const isMockprod = false;
 export const isProduction = false;
@@ -13,4 +15,3 @@ export const VERSION =
   REVISION === 'development' || import.meta.env.MODE === 'development'
     ? TAB_VERSION
     : Number(import.meta.env.VITE_TIMESTAMP_VERSION);
-
