@@ -2,7 +2,10 @@ import { createRef, useMemo } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
+import { FilterIconButton } from '@sorare/core/src/components/search/FilterIconButton';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
+import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
+import useToggle from '@sorare/core/src/hooks/useToggle';
 import { theme } from '@sorare/core/src/style/theme';
 
 import SearchBox from '../../search/SearchBox';
@@ -74,11 +77,18 @@ const SearchRow = styled.div`
 `;
 
 export const SearchLayout = (props: Props) => {
+  const {
+    toggleDesktopFilter = true,
+  } = props;
+  const { up: isLaptop } = useScreenSize('laptop');
+  const [showDesktopFilter, toggleShowDesktopFilters] = useToggle(toggleDesktopFilter);
   const { formatMessage, formatNumber } = useIntlContext();
   const {
     title,
     subtitle,
   } = props;
+
+  const responsiveFilters = !isLaptop;
 
   const ref = useMemo(() => createRef<HTMLDivElement>(), []);
   
@@ -97,9 +107,9 @@ export const SearchLayout = (props: Props) => {
         </Heading>
       )}
       <SearchRow>
-        {/* {!responsiveFilters && (
+        {!responsiveFilters && (
           <FilterIconButton onClick={toggleShowDesktopFilters} />
-        )} */}
+        )}
         <SearchBox
           withClearIcon
           placeholder={formatMessage(searchBoxPlaceholder, {
