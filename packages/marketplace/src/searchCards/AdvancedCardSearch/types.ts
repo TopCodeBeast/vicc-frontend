@@ -6,5 +6,6 @@ export type Props = {
   subtitle?: React.ReactNode;
   stackable: boolean;
   toggleDesktopFilter?: boolean;
+  hideSavedFilters?: boolean;
   banner: React.ReactNode;
 };
