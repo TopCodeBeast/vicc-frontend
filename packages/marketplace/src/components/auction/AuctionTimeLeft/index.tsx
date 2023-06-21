@@ -8,6 +8,7 @@ import TimeLeft from '@sorare/core/src/contexts/ticker/TimeLeft';
 interface Props {
   endDate: string;
   forceInlineLayout?: boolean;
+  withExplicitTime?: boolean;
 }
 
 const Layout = styled.span`
@@ -20,7 +21,11 @@ const ExpiringLayout = styled(Layout)`
   color: var(--c-red-800);
 `;
 
-export const AuctionTimeLeft = ({ endDate, forceInlineLayout }: Props) => {
+export const AuctionTimeLeft = ({
+  endDate,
+  forceInlineLayout,
+  withExplicitTime = true,
+}: Props) => {
   const parsedEndDate = useMemo(() => parseISO(endDate), [endDate]);
 
   const { now } = useTickerContext();
@@ -32,7 +37,7 @@ export const AuctionTimeLeft = ({ endDate, forceInlineLayout }: Props) => {
       time={parsedEndDate}
       Layout={expiring ? ExpiringLayout : Layout}
       forceInlineLayout={forceInlineLayout}
-      withExplicitTime={!expiring}
+      withExplicitTime={withExplicitTime && !expiring}
     />
   );
 };

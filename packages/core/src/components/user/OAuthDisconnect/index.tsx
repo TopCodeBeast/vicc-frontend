@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
+import Button from '@core/atoms/buttons/Button';
+import useMutation from '@core/hooks/graphql/useMutation';
 
 import {
   DisconnectOmniauthProviderMutation,

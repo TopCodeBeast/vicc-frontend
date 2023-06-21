@@ -1,4 +1,4 @@
-import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
+import { FRONTEND_ASSET_HOST } from '@core/constants/assets';
 
 import countryCodes from './country_codes.json';
 import enSubdivisions from './subdivisions_en.json';

@@ -1,6 +1,6 @@
-import TwoFactAuthDialog from 'components/TwoFactAuth/TwoFactAuthDialog';
-import { GraphQLResult } from 'components/form/Form';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import TwoFADialog from '@core/components/TwoFA/TwoFADialog';
+import { GraphQLResult } from '@core/components/form/Form';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 
 import { Prompt2faCallback, useConnectionContext } from '..';
 
@@ -59,7 +59,7 @@ export const PromptTwoFactAuthDialog = ({
   };
 
   return (
-    <TwoFactAuthDialog
+    <TwoFADialog
       open={open}
       reason={reason}
       onSubmit={(values: any, onResult: (result: GraphQLResult) => void) => {

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import { NoCardEntryRegisterDialog } from '@sorare/core/src/components/noCardEntry/NoCardEntryRegisterDialog';
 
-import PoolDetail from '@sorare/football/src/components/so5/NoCardEntry/PoolDetail';
+import PoolDetail from '@football/components/so5/NoCardEntry/PoolDetail';
 
 import { NoCardEntryRegisterDialogConfiQuery } from './__generated__/index.graphql';
 

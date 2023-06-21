@@ -4,7 +4,7 @@ import { ButtonBase, Collapse } from '@material-ui/core';
 import { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-import useToggle from '@sorare/core/src/hooks/useToggle';
+import useToggle from '@core/hooks/useToggle';
 
 type Props = {
   title: ReactNode;

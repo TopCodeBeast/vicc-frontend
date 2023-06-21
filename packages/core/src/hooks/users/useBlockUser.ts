@@ -1,7 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
 
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
 
 import {
   BlockUserMutation,

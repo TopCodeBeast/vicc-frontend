@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { range } from '@sorare/core/src/lib/arrays';
+import { range } from '@core/lib/arrays';
 
 const FlexContainer = styled.div`
   display: flex;

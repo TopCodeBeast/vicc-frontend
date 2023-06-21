@@ -22,12 +22,23 @@ const Row = styled.div`
   align-items: center;
   min-height: calc(var(--unit) * 6);
 `;
+const StyledText14 = styled(Text14)`
+  display: flex;
+  gap: var(--half-unit);
+  align-items: center;
+`;
+const StyledSpan = styled.span`
+  max-width: 120px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+`;
 
 export const OfferUser = ({ isReceiver, user }: Props) => {
   return (
     <Row>
       <Avatar user={user} />
-      <Text14 color="var(--c-neutral-600)">
+      <StyledText14 color="var(--c-neutral-600)">
         <FormattedMessage
           {...(isReceiver
             ? tradeLabels.youReceiveWithAvatar
@@ -35,9 +46,12 @@ export const OfferUser = ({ isReceiver, user }: Props) => {
           values={{
             nickname: user?.nickname,
             br: <br />,
+            span: (...chunks: string[]) => (
+              <StyledSpan title={user?.nickname}>{chunks}</StyledSpan>
+            ),
           }}
         />
-      </Text14>
+      </StyledText14>
     </Row>
   );
 };

@@ -29,13 +29,13 @@ import TokenFavoriteButton from '@sorare/marketplace/src/components/token/TokenF
 import { CardResultsProps } from '@sorare/marketplace/src/searchCards/AdvancedCardSearch/types';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import BundledAuctionEligibilityByAssetIds from '@sorare/football/src/components/auction/BundledAuctionEligibilityByAssetIds';
+import BundledAuctionEligibilityByAssetIds from '@football/components/auction/BundledAuctionEligibilityByAssetIds';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import CardPropertiesByAssetId from '@sorare/football/src/components/card/CardPropertiesByAssetId';
+import CardPropertiesByAssetId from '@football/components/card/CardPropertiesByAssetId';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import CardTeamsByAssetId from '@sorare/football/src/components/card/CardTeamsByAssetId';
-import CommonCardPreview from '@sorare/football/src/components/card/CommonCardPreview';
-import PlayerDetails from '@sorare/football/src/components/so5/ComposeTeam/responsive/PlayerDetails';
+import CardTeamsByAssetId from '@football/components/card/CardTeamsByAssetId';
+import CommonCardPreview from '@football/components/card/CommonCardPreview';
+import PlayerDetails from '@football/components/so5/ComposeTeam/responsive/PlayerDetails';
 
 import { CardPreviewGrid_card } from './__generated__/index.graphql';
 

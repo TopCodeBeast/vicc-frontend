@@ -6,13 +6,13 @@ import styled from 'styled-components';
 import {
   PrivateKeyRecoveryOption,
   PrivateKeyRecoveryOptionMethodEnum,
-} from '__generated__/globalTypes';
-import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
-import Radio from '@sorare/core/src/atoms/inputs/Radio';
-import { Text14, Text16, Title3 } from '@sorare/core/src/atoms/typography';
-import useRecoveryOptions from '@sorare/core/src/hooks/recovery/useRecoveryOptions';
-import useSendRecoverKey from '@sorare/core/src/hooks/recovery/useSendRecoverKey';
-import { glossary, userAttributes } from '@sorare/core/src/lib/glossary';
+} from '@core/__generated__/globalTypes';
+import LoadingButton from '@core/atoms/buttons/LoadingButton';
+import Radio from '@core/atoms/inputs/Radio';
+import { Text14, Text16, Title3 } from '@core/atoms/typography';
+import useRecoveryOptions from '@core/hooks/recovery/useRecoveryOptions';
+import useSendRecoverKey from '@core/hooks/recovery/useSendRecoverKey';
+import { glossary, userAttributes } from '@core/lib/glossary';
 
 const Wrapper = styled.div`
   display: flex;

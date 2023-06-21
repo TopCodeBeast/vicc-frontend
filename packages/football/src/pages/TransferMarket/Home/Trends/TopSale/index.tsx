@@ -1,7 +1,10 @@
 import { gql } from '@apollo/client';
 
-import { FeaturedPageDuration } from '@sorare/core/src/__generated__/globalTypes';
-import AmountWithConversion from '@sorare/core/src/components/buyActions/AmountWithConversion';
+import {
+  FeaturedPageDuration,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 import { LEGACY_CARD_SHOW } from '@sorare/core/src/constants/routes';
 import { useSportContext } from '@sorare/core/src/contexts/sport';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
@@ -9,11 +12,11 @@ import useEvents from '@sorare/core/src/lib/events/useEvents';
 import FlexToken from '@sorare/marketplace/src/components/token/FlexToken';
 import TokenDescription from '@sorare/marketplace/src/components/token/TokenDescription';
 
-import { Trend } from '@sorare/football/src/pages/TransferMarket/Home/Trends/Trend';
+import { Trend } from '@football/pages/TransferMarket/Home/Trends/Trend';
 import {
   TrendDescription,
   TrendTitle,
-} from '@sorare/football/src/pages/TransferMarket/Home/Trends/ui';
+} from '@football/pages/TransferMarket/Home/Trends/ui';
 
 import { TopSale_tokenOwner } from './__generated__/index.graphql';
 
@@ -39,7 +42,7 @@ export const TopSale = ({ tokenOwner, timeframe }: Props) => {
           timeframe,
         })
       }
-      img={<FlexToken token={tokenOwner.token} />}
+      img={<FlexToken token={tokenOwner.token} width={40} />}
       infos={
         <TokenDescription
           token={tokenOwner.token}
@@ -52,11 +55,13 @@ export const TopSale = ({ tokenOwner, timeframe }: Props) => {
       }
       numbers={
         <AmountWithConversion
+          monetaryAmount={{
+            referenceCurrency: SupportedCurrency.WEI,
+            [SupportedCurrency.WEI.toLowerCase()]: tokenOwner.priceWei,
+            ...tokenOwner.priceFiat,
+          }}
+          usingLegacyFiat
           column
-          amount={tokenOwner.priceWei}
-          amountInFiat={tokenOwner.priceFiat}
-          unit="wei"
-          context="Market.Home.Trends.TopSales"
         />
       }
     />

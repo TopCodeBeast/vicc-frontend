@@ -11,16 +11,16 @@ import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { range } from '@sorare/core/src/lib/arrays';
 import { theme } from '@sorare/core/src/style/theme';
 
-import EmptyMarket from '@sorare/marketplace/src/components/market/Empty/EmptyMarket';
-import { Grid, GridItem } from '@sorare/marketplace/src/components/market/Grid';
+import EmptyMarket from '@marketplace/components/market/Empty/EmptyMarket';
+import { Grid, GridItem } from '@marketplace/components/market/Grid';
 import PrimaryOfferPreview, {
   LoadingPrimaryOfferPreview,
-} from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferPreview';
+} from '@marketplace/components/primaryOffer/PrimaryOfferPreview';
 import {
   PrimaryOffersByIdsQuery,
   PrimaryOffersByIdsQueryVariables,
-} from '@sorare/marketplace/src/lib/__generated__/fragments.graphql';
-import { PRIMARY_OFFERS_BY_IDS_QUERY } from '@sorare/marketplace/src/lib/fragments';
+} from '@marketplace/lib/__generated__/fragments.graphql';
+import { PRIMARY_OFFERS_BY_IDS_QUERY } from '@marketplace/lib/fragments';
 
 type PrimaryOffersByIdsQuery_tokens_primaryOffers =
   PrimaryOffersByIdsQuery['tokens']['primaryOffers'][number];

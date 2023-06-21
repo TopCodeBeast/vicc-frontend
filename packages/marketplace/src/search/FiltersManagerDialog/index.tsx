@@ -5,11 +5,11 @@ import {
   useSortBy,
 } from 'react-instantsearch-hooks-web';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
+import styled from 'styled-components';
 
 import Button from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import DialogContentWithNavigation from '@sorare/core/src/atoms/layout/DialogContentWithNavigation';
 import { Text16 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@sorare/core/src/components/dialog';
 import Option from '@sorare/core/src/components/search/Option';
 import {
   AlgoliaCardIndexesNames,
@@ -17,9 +17,10 @@ import {
 } from '@sorare/core/src/contexts/config';
 import { FilterWidget } from '@sorare/core/src/lib/filters';
 import { filters, sorts as sortsMessages } from '@sorare/core/src/lib/glossary';
+import { theme } from '@sorare/core/src/style/theme';
 
-import { useClearAllFilters } from '@sorare/marketplace/src/search/ClearAllFilters';
-import useFiltersCount from '@sorare/marketplace/src/search/FiltersManager/useFiltersCount';
+import { useClearAllFilters } from '@marketplace/search/ClearAllFilters';
+import useFiltersCount from '@marketplace/search/FiltersManager/useFiltersCount';
 
 import { MobileFilterWidget } from './MobileFilterWidget';
 
@@ -36,6 +37,25 @@ const messages = defineMessages({
     defaultMessage: 'Filters',
   },
 });
+
+const Centered = styled.div`
+  text-align: center;
+`;
+const Body = styled.div`
+  padding: var(--triple-unit) 0;
+`;
+const ButtonsWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--unit);
+  padding: var(--unit);
+
+  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    flex-direction: row;
+  }
+`;
 
 export const FiltersManagerDialog = ({
   widgets,
@@ -101,26 +121,49 @@ export const FiltersManagerDialog = ({
       open={open}
       onClose={onClose}
       fullScreen
-      hideCloseButton
-      noMargin
       keepMounted
-    >
-      <DialogContentWithNavigation
-        title={
-          activeWidget ? (
+      onBack={() => (activeWidget ? setActiveWidget(undefined) : onClose())}
+      title={
+        <Centered>
+          {activeWidget ? (
             activeWidget.title
           ) : (
             <Text16 bold>
               <FormattedMessage {...messages.title} />
             </Text16>
-          )
-        }
-        onBackButton={() =>
-          activeWidget ? setActiveWidget(undefined) : onClose()
-        }
-        stickyHeader
-        footer={
-          <Button onClick={onClose} fullWidth medium color="blue">
+          )}
+        </Centered>
+      }
+      body={
+        <Body>
+          {[sortWidget, ...widgets].map(widget => (
+            <MobileFilterWidget
+              key={widget.key}
+              widget={widget}
+              activeWidget={activeWidget}
+              value={
+                sortItems.find(sortItem => sortItem.value === currentRefinement)
+                  ?.label
+              }
+              onClick={() => setActiveWidget(widget)}
+            />
+          ))}
+        </Body>
+      }
+      footer={
+        <ButtonsWrapper>
+          <Button
+            color="red"
+            medium
+            onClick={clearAllFilters}
+            disabled={!filtersCount}
+            fullWidth
+          >
+            <Text16>
+              <FormattedMessage {...filters.clearAll} />
+            </Text16>
+          </Button>
+          <Button onClick={onClose} medium color="blue" fullWidth>
             <FormattedMessage
               id="FiltersManagerDialog.viewResults"
               defaultMessage="Show {results, number} results"
@@ -129,35 +172,9 @@ export const FiltersManagerDialog = ({
               }}
             />
           </Button>
-        }
-        right={
-          <Button
-            color="transparent"
-            compact
-            onClick={clearAllFilters}
-            disabled={!filtersCount}
-          >
-            <Text16>
-              <FormattedMessage {...filters.clearAll} />
-            </Text16>
-          </Button>
-        }
-        noPadding
-      >
-        {[sortWidget, ...widgets].map(widget => (
-          <MobileFilterWidget
-            key={widget.key}
-            widget={widget}
-            activeWidget={activeWidget}
-            value={
-              sortItems.find(sortItem => sortItem.value === currentRefinement)
-                ?.label
-            }
-            onClick={() => setActiveWidget(widget)}
-          />
-        ))}
-      </DialogContentWithNavigation>
-    </Dialog>
+        </ButtonsWrapper>
+      }
+    />
   );
 };
 

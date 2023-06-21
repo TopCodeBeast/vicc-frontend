@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import RelatedPage from '@sorare/core/src/atoms/navigation/RelatedPage';
 import { FOOTBALL_CLUB_SHOW } from '@sorare/core/src/constants/routes';
 
-import TeamPicture from '@sorare/football/src/components/club/TeamPicture';
+import TeamPicture from '@football/components/club/TeamPicture';
 
 import { RelatedClub_club } from './__generated__/index.graphql';
 

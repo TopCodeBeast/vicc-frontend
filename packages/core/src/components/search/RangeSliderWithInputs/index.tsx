@@ -3,10 +3,10 @@ import { FormattedMessage } from 'react-intl';
 import { useDebounce } from 'react-use';
 import styled, { css } from 'styled-components';
 
-import RangeSlider, { RangeValues } from '@sorare/core/src/atoms/inputs/RangeSlider';
-import { Caption } from '@sorare/core/src/atoms/typography';
-import { clamp } from '@sorare/core/src/lib/math';
-import { Color } from '@sorare/core/src/style/types';
+import RangeSlider, { RangeValues } from '@core/atoms/inputs/RangeSlider';
+import { Caption } from '@core/atoms/typography';
+import { clamp } from '@core/lib/math';
+import { Color } from '@core/style/types';
 
 export const InputsLine = styled.div`
   display: flex;

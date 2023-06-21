@@ -1,9 +1,9 @@
 import { OwnerTransfer } from '@sorare/core/src/__generated__/globalTypes';
 
-import Pack from '@sorare/marketplace/src/components/transfers/Pack';
-import ReferralReward from '@sorare/marketplace/src/components/transfers/ReferralReward';
-import Reward from '@sorare/marketplace/src/components/transfers/Reward';
-import Transfer from '@sorare/marketplace/src/components/transfers/Transfer';
+import Pack from '@marketplace/components/transfers/Pack';
+import ReferralReward from '@marketplace/components/transfers/ReferralReward';
+import Reward from '@marketplace/components/transfers/Reward';
+import Transfer from '@marketplace/components/transfers/Transfer';
 
 export const TokenTransferTypeIcon = ({
   transferType,

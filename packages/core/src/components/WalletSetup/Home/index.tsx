@@ -1,8 +1,8 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { Text16, Text18, Title2 } from '@sorare/core/src/atoms/typography';
+import Button from '@core/atoms/buttons/Button';
+import { Text16, Text18, Title2 } from '@core/atoms/typography';
 
 import { StaticCashBalance } from '../StaticCashBalance';
 import { WalletSetupTab } from '../type';

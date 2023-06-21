@@ -1,11 +1,11 @@
 import { gql, useApolloClient } from '@apollo/client';
 import { useState } from 'react';
 
-import { PrivateKeyRecoveryOption } from '__generated__/globalTypes';
-import { Level, useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import { useWalletContext } from '@sorare/core/src/contexts/wallet';
-import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
-import { formatGqlErrors } from '@sorare/core/src/lib/gql';
+import { PrivateKeyRecoveryOption } from '@core/__generated__/globalTypes';
+import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
+import { useWalletContext } from '@core/contexts/wallet';
+import useMutation from '@core/hooks/graphql/useMutation';
+import { formatGqlErrors } from '@core/lib/gql';
 
 import {
   PrivateKeyRecoveryPayloadsQuery,

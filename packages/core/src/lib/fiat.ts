@@ -4,7 +4,7 @@ import {
   faSterlingSign,
 } from '@fortawesome/pro-solid-svg-icons';
 
-import { Fiat, FiatCurrency } from '__generated__/globalTypes';
+import { Fiat, FiatCurrency } from '@core/__generated__/globalTypes';
 
 export type CurrencyCode = 'USD' | 'GBP' | 'EUR';
 

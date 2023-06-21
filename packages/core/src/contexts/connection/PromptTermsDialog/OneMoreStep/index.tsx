@@ -9,19 +9,19 @@ import {
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled, { css } from 'styled-components';
 
-import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
-import StarBall from '@sorare/core/src/atoms/icons/StarBall';
-import { Text14, Title4, Title5 } from '@sorare/core/src/atoms/typography';
+import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import StarBall from '@core/atoms/icons/StarBall';
+import { Text14, Title4, Title5 } from '@core/atoms/typography';
 import {
   GraphQLResult,
   GraphqlForm,
   SubmitButtonProps,
-} from 'components/form/Form';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { messages as walletMessages } from '@sorare/core/src/contexts/wallet/messages';
-import useToggle from '@sorare/core/src/hooks/useToggle';
-import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+} from '@core/components/form/Form';
+import { useIntlContext } from '@core/contexts/intl';
+import { messages as walletMessages } from '@core/contexts/wallet/messages';
+import useToggle from '@core/hooks/useToggle';
+import { glossary } from '@core/lib/glossary';
+import { theme } from '@core/style/theme';
 
 import AcceptAgeLimit from '../AcceptAgeLimit';
 import AcceptTermsAndPrivacyPolicy from '../AcceptTermsAndPrivacyPolicy';

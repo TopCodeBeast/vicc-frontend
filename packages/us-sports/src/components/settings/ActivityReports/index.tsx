@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Text16 } from '@sorare/core/src/atoms/typography';
 
-import { useUSSportsQuery } from 'hooks/graphql';
+import { useUSSportsQuery } from '@us-sports/hooks/graphql';
 
 import { UsActivityReportsQuery } from './__generated__/index.graphql';
 

@@ -85,9 +85,13 @@ const StyledTabs = styled(Tabs)`
 `;
 const Row = styled.div`
   display: flex;
-  justify-content: space-between;
   gap: var(--triple-unit);
   overflow-x: auto;
+  justify-content: flex-start;
+  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 const Column = styled.div`
   min-width: 75vw;
@@ -95,9 +99,8 @@ const Column = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--intermediate-unit);
-
   @media (min-width: ${theme.breakpoints.values.tablet}px) {
-    min-width: 340px;
+    min-width: 0;
   }
 `;
 const List = styled.div`
@@ -139,6 +142,13 @@ export const Trends = () => {
       timeframe,
     },
   });
+
+  const filteredTopGainers = filterTrendsToDisplay(
+    data?.tokens?.topGainers || []
+  );
+  const filteredTopVolume = filterTrendsToDisplay(
+    data?.tokens?.topVolume || []
+  );
 
   useEffect(() => {
     query({ variables: { timeframe } }).then(({ data: fetchedData }) => {
@@ -184,7 +194,7 @@ export const Trends = () => {
       ) : (
         <Row>
           <Column>
-            <Text16 uppercase bold color="var(--c-neutral-600)">
+            <Text16 bold color="var(--c-neutral-600)">
               <FormattedMessage
                 id="Market.Home.Trends.topSales"
                 defaultMessage="Top sales"
@@ -202,44 +212,44 @@ export const Trends = () => {
               )}
             </List>
           </Column>
-          <Column>
-            <Text16 uppercase bold color="var(--c-neutral-600)">
-              <FormattedMessage
-                id="Market.Home.Trends.playersToFollow"
-                defaultMessage="Players to follow – all scarcities"
-              />
-            </Text16>
-            <List>
-              {filterTrendsToDisplay(data?.tokens?.topGainers || []).map(
-                topGainer => (
+          {!!filteredTopGainers.length && (
+            <Column>
+              <Text16 bold color="var(--c-neutral-600)">
+                <FormattedMessage
+                  id="Market.Home.Trends.playersToFollow"
+                  defaultMessage="Players to follow – All scarcities"
+                />
+              </Text16>
+              <List>
+                {filteredTopGainers.map(topGainer => (
                   <PlayerTrend
                     key={topGainer.footballPlayer?.slug}
                     player={topGainer.footballPlayer}
                     timeframe={timeframe}
                   />
-                )
-              )}
-            </List>
-          </Column>
-          <Column>
-            <Text16 uppercase bold color="var(--c-neutral-600)">
-              <FormattedMessage
-                id="Market.Home.Trends.mostExchangedPlayers"
-                defaultMessage="Most exchanged players – Limited Cards"
-              />
-            </Text16>
-            <List>
-              {filterTrendsToDisplay(data?.tokens?.topVolume || []).map(
-                topVolume => (
+                ))}
+              </List>
+            </Column>
+          )}
+          {!!filteredTopVolume.length && (
+            <Column>
+              <Text16 bold color="var(--c-neutral-600)">
+                <FormattedMessage
+                  id="Market.Home.Trends.mostExchangedPlayers"
+                  defaultMessage="Most exchanged players – Limited Cards"
+                />
+              </Text16>
+              <List>
+                {filteredTopVolume.map(topVolume => (
                   <PlayerTrend
                     key={topVolume.footballPlayer?.slug}
                     player={topVolume.footballPlayer}
                     timeframe={timeframe}
                   />
-                )
-              )}
-            </List>
-          </Column>
+                ))}
+              </List>
+            </Column>
+          )}
         </Row>
       )}
     </div>

@@ -6,7 +6,7 @@ import { Chip } from '@sorare/core/src/atoms/ui/Chip';
 import { LiveIndicator } from '@sorare/core/src/atoms/ui/LiveIndicator';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 
-import { GameEventStatus, gameStatusMessages } from 'lib/so5';
+import { GameEventStatus, gameStatusMessages } from '@football/lib/so5';
 
 const ChipContent = styled.div`
   display: flex;

@@ -4,45 +4,45 @@ import { gql } from '@apollo/client';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
 import ActivityIndicator from '@sorare/core/src/components/user/ActivityIndicator';
 
-import ItemSold from '@sorare/marketplace/src/components/ItemPreview/ItemSold';
-import { PromotedToken } from '@sorare/marketplace/src/components/PromotedToken';
+import ItemSold from '@marketplace/components/ItemPreview/ItemSold';
+import { PromotedToken } from '@marketplace/components/PromotedToken';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import { TradeButton } from '@sorare/marketplace/src/components/TradeButton';
+import { TradeButton } from '@marketplace/components/TradeButton';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import BidHistory from '@sorare/marketplace/src/components/auction/BidHistory';
+import BidHistory from '@marketplace/components/auction/BidHistory';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import OpenAuction from '@sorare/marketplace/src/components/auction/OpenAuction';
+import OpenAuction from '@marketplace/components/auction/OpenAuction';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import MinimumPrice from '@sorare/marketplace/src/components/directOffer/MinimumPrice';
+import MinimumPrice from '@marketplace/components/directOffer/MinimumPrice';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import CurrentOwner from '@sorare/marketplace/src/components/offer/CurrentOwner';
+import CurrentOwner from '@marketplace/components/offer/CurrentOwner';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import SingleSaleOffer from '@sorare/marketplace/src/components/offer/SingleSaleOffer';
+import SingleSaleOffer from '@marketplace/components/offer/SingleSaleOffer';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import PrimaryOfferPreview from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferPreview';
+import PrimaryOfferPreview from '@marketplace/components/primaryOffer/PrimaryOfferPreview';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import PrimaryOfferSale from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferSale';
+import PrimaryOfferSale from '@marketplace/components/primaryOffer/PrimaryOfferSale';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import PrimaryOfferTokensSummary from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferTokensSummary';
-import CardPreview from '@sorare/marketplace/src/components/starterbundle/CardPreview';
-import MobileCardPreview from '@sorare/marketplace/src/components/starterbundle/MobileCardPreview';
+import PrimaryOfferTokensSummary from '@marketplace/components/primaryOffer/PrimaryOfferTokensSummary';
+import CardPreview from '@marketplace/components/starterbundle/CardPreview';
+import MobileCardPreview from '@marketplace/components/starterbundle/MobileCardPreview';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import FlexToken from '@sorare/marketplace/src/components/token/FlexToken';
+import FlexToken from '@marketplace/components/token/FlexToken';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import OwnershipHistory from '@sorare/marketplace/src/components/token/OwnershipHistory';
-import { Token } from '@sorare/marketplace/src/components/token/Token';
+import OwnershipHistory from '@marketplace/components/token/OwnershipHistory';
+import { Token } from '@marketplace/components/token/Token';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import TokenDescription from '@sorare/marketplace/src/components/token/TokenDescription';
+import TokenDescription from '@marketplace/components/token/TokenDescription';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import TokenFavoriteButton from '@sorare/marketplace/src/components/token/TokenFavoriteButton';
+import TokenFavoriteButton from '@marketplace/components/token/TokenFavoriteButton';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import BlockchainInfo from '@sorare/marketplace/src/components/token/TokenPage/BlockchainInfo';
+import BlockchainInfo from '@marketplace/components/token/TokenPage/BlockchainInfo';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import TokensAvailableOnPrimaryWhenInsufficientFundsInWallet from '@sorare/marketplace/src/components/token/TokenPage/TokensAvailableOnPrimaryWhenInsufficientFundsInWallet';
+import TokensAvailableOnPrimaryWhenInsufficientFundsInWallet from '@marketplace/components/token/TokenPage/TokensAvailableOnPrimaryWhenInsufficientFundsInWallet';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import TokenWithdrawal from '@sorare/marketplace/src/components/token/TokenWithdrawal';
+import TokenWithdrawal from '@marketplace/components/token/TokenWithdrawal';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import SmallUser from '@sorare/marketplace/src/components/user/SmallUser';
+import SmallUser from '@marketplace/components/user/SmallUser';
 
 // /!\
 // This is a temporary query for Baseball's marketplace
@@ -236,6 +236,7 @@ export const tokenAuctionSubscription = gql`
       open
       endDate
       currentPrice
+      currency
       bidsCount
       blockchainId
       minNextBid

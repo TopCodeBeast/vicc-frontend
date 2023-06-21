@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { Text18 } from '@sorare/core/src/atoms/typography';
 
-import { Game as GameBase } from '@sorare/football/src/components/stats/Game';
+import { Game as GameBase } from '@football/components/stats/Game';
 
 import { PlayerUpcomingGames_game } from './__generated__/index.graphql';
 

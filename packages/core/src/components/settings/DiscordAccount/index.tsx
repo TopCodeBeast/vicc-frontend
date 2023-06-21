@@ -1,6 +1,6 @@
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 
 import OAuthAccount from '../OAuthAccount';
 

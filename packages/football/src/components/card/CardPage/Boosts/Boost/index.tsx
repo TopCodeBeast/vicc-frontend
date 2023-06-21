@@ -11,7 +11,7 @@ import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
 import { isA } from '@sorare/core/src/lib/gql';
 
-import ItemPreviewDialog from '@sorare/football/src/components/shopItems/ShopItemPicker/ItemPreviewDialog';
+import ItemPreviewDialog from '@football/components/shopItems/ShopItemPicker/ItemPreviewDialog';
 
 import { Boost_cardBoost } from './__generated__/index.graphql';
 import useConsumeCardBoost from './useConsumeCardBoost';

@@ -18,14 +18,14 @@ import { FILTERS, TOGGLE_FILTERS } from '@sorare/core/src/lib/filters';
 import { filters } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
+import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
 import {
   isListFilterWidget,
   isRangeFilterWidget,
   useFormatFilterWidgetValue,
-} from '@sorare/marketplace/src/hooks/search/useFormatFilterWidgetValue';
-import { useClearAllFilters } from '@sorare/marketplace/src/search/ClearAllFilters';
-import useFiltersCount from '@sorare/marketplace/src/search/FiltersManager/useFiltersCount';
+} from '@marketplace/hooks/search/useFormatFilterWidgetValue';
+import { useClearAllFilters } from '@marketplace/search/ClearAllFilters';
+import useFiltersCount from '@marketplace/search/FiltersManager/useFiltersCount';
 
 import { FilterChip } from './FilterChip';
 import { ListActiveFilter } from './ListActiveFilter';

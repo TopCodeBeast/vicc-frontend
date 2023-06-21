@@ -1,7 +1,7 @@
 import { defineMessages } from 'react-intl';
 
-import { Sport } from '__generated__/globalTypes';
-import { AlgoliaCardIndexesName } from '@sorare/core/src/contexts/config';
+import { Sport } from '@core/__generated__/globalTypes';
+import { AlgoliaCardIndexesName } from '@core/contexts/config';
 
 export const CAPTAIN = 'C';
 
@@ -310,7 +310,7 @@ export const tradeLabels = defineMessages({
   },
   youReceiveWithAvatar: {
     id: 'Glossary.youReceiveWithAvatar',
-    defaultMessage: '{nickname} sends',
+    defaultMessage: '<span>{nickname}</span> sends',
   },
 });
 
@@ -715,6 +715,10 @@ export const cardAttributes = defineMessages({
   L15Score: {
     id: 'CardSuggestion.averageScore.l15',
     defaultMessage: 'Average Score over Last 15 Games',
+  },
+  L15: {
+    id: 'CardSuggestion.averageScore.l15Short',
+    defaultMessage: 'Last 15 Games',
   },
 });
 

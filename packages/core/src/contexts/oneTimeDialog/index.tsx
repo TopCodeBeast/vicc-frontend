@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import { LIFECYCLE, LifecycleGetter, LifecycleValue } from '@sorare/core/src/hooks/useLifecycle';
+import { LIFECYCLE, LifecycleGetter, LifecycleValue } from '@core/hooks/useLifecycle';
 
 export interface OneTimeDialogContext {
   sawDialog: (

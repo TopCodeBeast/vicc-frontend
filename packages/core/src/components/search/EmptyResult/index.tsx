@@ -1,8 +1,8 @@
 import { FormattedMessage, defineMessages } from 'react-intl';
 
-import { Sport } from '__generated__/globalTypes';
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { Text16 } from '@sorare/core/src/atoms/typography';
+import { Sport } from '@core/__generated__/globalTypes';
+import Button from '@core/atoms/buttons/Button';
+import { Text16 } from '@core/atoms/typography';
 
 const messages = defineMessages({
   [Sport.FOOTBALL]: {

@@ -18,9 +18,9 @@ import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery'
 import { useQueryStrings } from '@sorare/core/src/hooks/useQueryStrings';
 import { playablePositions, positionNames } from '@sorare/core/src/lib/players';
 
-import PlayerGameScoreDialog from '@sorare/football/src/components/stats/PlayerGameScoreDialog';
-import PlayerScore from '@sorare/football/src/components/stats/PlayerScore';
-import { getPlayerScore } from 'lib/so5';
+import PlayerGameScoreDialog from '@football/components/stats/PlayerGameScoreDialog';
+import PlayerScore from '@football/components/stats/PlayerScore';
+import { getPlayerScore } from '@football/lib/so5';
 
 import {
   LobbyTopPlayersPerPositionQuery,
@@ -106,6 +106,12 @@ export const LOBBY_TOP_PLAYERS_PER_POSITION_QUERY = gql`
       so5 {
         so5Fixture(slug: $slug) {
           slug
+          orderedSo5Scores(first: 1) {
+            position
+            so5Scores {
+              id
+            }
+          }
           orderedSo5ScoresByPosition(
             position: $position
             minScore: 1
@@ -163,7 +169,6 @@ export const TopPlayers = ({ so5Fixture }: Props) => {
   if (!sortedPlayablePosition.includes(position)) {
     [position] = sortedPlayablePosition;
   }
-
   const { loading, data, loadMore } = usePaginatedQuery<
     LobbyTopPlayersPerPositionQuery,
     LobbyTopPlayersPerPositionQueryVariables
@@ -177,9 +182,12 @@ export const TopPlayers = ({ so5Fixture }: Props) => {
     connection: 'So5ScoreConnection',
     skip: !so5Fixture?.slug,
   });
+  const fixture = data?.football.so5.so5Fixture;
+  const hasScores = !!fixture?.orderedSo5Scores.find(
+    ({ so5Scores }) => so5Scores.length
+  );
 
-  const orderedSo5ScoresByPosition =
-    data?.football.so5.so5Fixture?.orderedSo5ScoresByPosition;
+  const orderedSo5ScoresByPosition = fixture?.orderedSo5ScoresByPosition;
   const { pageInfo, nodes } = orderedSo5ScoresByPosition || {};
   const cursor = pageInfo?.endCursor;
 
@@ -189,6 +197,10 @@ export const TopPlayers = ({ so5Fixture }: Props) => {
       cursor,
     });
   }, [position, loadMore, cursor]);
+
+  if (!hasScores) {
+    return null;
+  }
 
   return (
     <Root>
@@ -222,10 +234,10 @@ export const TopPlayers = ({ so5Fixture }: Props) => {
             active: !position || position === pos,
           }))}
         />
-        {nodes ? (
+        {nodes?.length ? (
           <>
             <PlayersWrapper>
-              {nodes?.map(so5Score => {
+              {nodes.map(so5Score => {
                 const {
                   player,
                   playerGameStats: { player: representativePlayer, team },

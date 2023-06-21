@@ -19,8 +19,15 @@ export const fragments = {
       autoBid
       myBestBid {
         id
-        maximumAmount
         fiatPayment
+        maximumAmount
+        maximumAmounts {
+          eur
+          gbp
+          referenceCurrency
+          usd
+          wei
+        }
       }
       ...AuctionState_tokenAuction
     }

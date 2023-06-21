@@ -3,8 +3,8 @@ import classnames from 'classnames';
 import { ReactElement, ReactNode } from 'react';
 import styled, { StyledComponent } from 'styled-components';
 
-import cardPlaceholder from 'assets/card_placeholder.svg';
-import { theme } from '@sorare/core/src/style/theme';
+import cardPlaceholder from '@core/assets/card_placeholder.svg';
+import { theme } from '@core/style/theme';
 
 interface Props {
   avatar?: ReactElement;

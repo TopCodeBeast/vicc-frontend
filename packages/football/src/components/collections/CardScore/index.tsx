@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
 import styled from 'styled-components';
 
-import { Score } from '@sorare/football/src/components/collections/Score';
+import { Score } from '@football/components/collections/Score';
 
 const Root = styled.div`
   display: flex;

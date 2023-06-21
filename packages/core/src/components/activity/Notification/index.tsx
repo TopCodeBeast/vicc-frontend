@@ -7,6 +7,7 @@ import { AuctionNotification } from './AuctionNotification';
 import { CardCollectionNotification } from './CardCollectionNotification';
 import { CardNotification } from './CardNotification';
 import { ChallengeNotification } from './ChallengeNotification';
+import { ExternalDepositNotification } from './ExternalDepositNotification';
 import { OfferNotification } from './OfferNotification';
 import { ReferralRewardNotification } from './ReferralRewardNotification';
 import { SaleNotification } from './SaleNotification';
@@ -50,6 +51,11 @@ export const Notification = ({ notification, ...rest }: Props) => {
   if (isType(notification, 'CardCollectionNotification')) {
     return <CardCollectionNotification notification={notification} {...rest} />;
   }
+  if (isType(notification, 'ExternalDepositNotification')) {
+    return (
+      <ExternalDepositNotification notification={notification} {...rest} />
+    );
+  }
 
   return null;
 };
@@ -67,6 +73,7 @@ Notification.fragments = {
       ...ChallengeNotification_challengeNotification
       ...So5UserGroupNotification_so5UserGroupNotification
       ...CardCollectionNotification_cardCollectionNotification
+      ...ExternalDepositNotification_externalDepositNotification
     }
     ${AuctionNotification.fragments.auctionNotification}
     ${SaleNotification.fragments.saleNotification}
@@ -78,6 +85,7 @@ Notification.fragments = {
     ${ChallengeNotification.fragments.challengeNotification}
     ${So5UserGroupNotification.fragments.so5UserGroupNotification}
     ${CardCollectionNotification.fragments.cardCollectionNotification}
+    ${ExternalDepositNotification.fragments.externalDepositNotification}
   `,
 };
 

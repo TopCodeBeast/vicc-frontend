@@ -1,15 +1,15 @@
 import { ReactNode, useCallback, useEffect, useState } from 'react';
-import { useSessionStorage } from 'react-use';
 
-import { Sport } from '__generated__/globalTypes';
-import { useSportContext } from '@sorare/core/src/contexts/sport';
-import { useIsDesktop } from '@sorare/core/src/hooks/device/useIsDesktop';
-import useTouchScreen from '@sorare/core/src/hooks/device/useTouchScreen';
-import useIsLanding from '@sorare/core/src/hooks/useIsLandingPage';
-import useIsMlbPage from '@sorare/core/src/hooks/useIsMlbPage';
-import useIsNBAPage from '@sorare/core/src/hooks/useIsNBAPage';
-import { useLocationChanged } from '@sorare/core/src/hooks/useLocationChanged';
-import useSharedAccrossSportsPage from '@sorare/core/src/hooks/useSharedAccrossSportsPage';
+import { Sport } from '@core/__generated__/globalTypes';
+import { useSportContext } from '@core/contexts/sport';
+import { useIsDesktop } from '@core/hooks/device/useIsDesktop';
+import useTouchScreen from '@core/hooks/device/useTouchScreen';
+import useIsLanding from '@core/hooks/useIsLandingPage';
+import useIsMlbPage from '@core/hooks/useIsMlbPage';
+import useIsNBAPage from '@core/hooks/useIsNBAPage';
+import { useLocationChanged } from '@core/hooks/useLocationChanged';
+import { SESSION_STORAGE, useSessionStorage } from '@core/hooks/useSessionStorage';
+import useSharedAccrossSportsPage from '@core/hooks/useSharedAccrossSportsPage';
 
 import AppBarContextProvider from '.';
 
@@ -27,9 +27,9 @@ const AppBarProvider = ({ children }: Props) => {
   const isLandingPage = useIsLanding();
   const sharedPage = useSharedAccrossSportsPage();
   const { sport: sportConfig } = useSportContext();
-  const [sportContext, setSportContext] = useSessionStorage<Sport | undefined>(
-    'sport'
-  );
+  const { getValue: getSportContext, setValue: setSportContext } =
+    useSessionStorage(SESSION_STORAGE.sport);
+  const sportContext = getSportContext();
 
   useEffect(() => {
     if (!sharedPage && !sportContext && sportConfig) {
@@ -43,7 +43,7 @@ const AppBarProvider = ({ children }: Props) => {
     } else if (!sharedPage) {
       setSportContext(Sport.FOOTBALL);
     } else if (isLandingPage) {
-      setSportContext(undefined);
+      setSportContext(null);
     }
   }, [
     sharedPage,
@@ -73,7 +73,7 @@ const AppBarProvider = ({ children }: Props) => {
     <AppBarContextProvider
       value={{
         small: !(isDesktop && isMouseFriendlyDevice),
-        sport: sportContext,
+        sport: sportContext || undefined,
         openMenu,
         closeMenu,
         openedMenu,

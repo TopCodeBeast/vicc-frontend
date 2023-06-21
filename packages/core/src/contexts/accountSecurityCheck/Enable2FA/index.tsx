@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import Enable2FAForm from 'components/settings/Update2FA/Enable2FA/Enable2FAForm';
-import RecoveryCodesDialogContent from 'components/settings/Update2FA/RecoveryCodesDialog/RecoveryCodesDialogContent';
+import Enable2FAForm from '@core/components/settings/Update2FA/Enable2FA/Enable2FAForm';
+import RecoveryCodesDialogContent from '@core/components/settings/Update2FA/RecoveryCodesDialog/RecoveryCodesDialogContent';
 
 type Props = {
   onClose: () => void;

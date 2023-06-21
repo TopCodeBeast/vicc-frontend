@@ -8,7 +8,7 @@ import {
   faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
 
-import { SocialLinkProps } from '@sorare/core/src/atoms/ui/SocialMedias';
+import { SocialLinkProps } from '@core/atoms/ui/SocialMedias';
 import {
   DISCORD_INVITATION_URL,
   FACEBOOK_URL,
@@ -26,7 +26,7 @@ import {
   TIKTOK_URL,
   TWITTER_URL,
   YOUTUBE_URL,
-} from '@sorare/core/src/constants/externalLinks';
+} from '@core/constants/externalLinks';
 
 const SocialLinksConfig: SocialLinkProps[] = [
   {

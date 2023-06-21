@@ -14,11 +14,11 @@ import {
 import { useKey } from 'react-use';
 import styled from 'styled-components';
 
-import { Portal } from '@sorare/core/src/atoms/layout/Portal';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import useFocusTrap from '@sorare/core/src/hooks/useFocusTrap';
-import { clamp } from '@sorare/core/src/lib/math';
-import { theme } from '@sorare/core/src/style/theme';
+import { Portal } from '@core/atoms/layout/Portal';
+import { Text16 } from '@core/atoms/typography';
+import useFocusTrap from '@core/hooks/useFocusTrap';
+import { clamp } from '@core/lib/math';
+import { theme } from '@core/style/theme';
 
 const drawerThreshold = theme.breakpoints.values.laptop;
 

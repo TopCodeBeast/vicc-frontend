@@ -2,7 +2,11 @@ import { PaymentMethod, PaymentRequest } from '@stripe/stripe-js';
 import { ReactNode, createContext, useContext } from 'react';
 import { MessageDescriptor } from 'react-intl';
 
-import { Sport } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  Sport,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
+import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { Currency } from '@sorare/core/src/lib/currency';
 
 import { PaymentProvider_auction } from '../PaymentProvider/__generated__/fragments.graphql';
@@ -17,8 +21,8 @@ type PaymentContext = {
   auction?: PaymentProvider_auction;
   currencies: Currency[];
   cta: MessageDescriptor;
-  defaultPriceInWei: string;
-  weiAmount: string;
+  defaultMonetaryAmount: MonetaryAmountOutput;
+  monetaryAmount: MonetaryAmountOutput;
   fiatCurrency: string;
   paymentMethodsLoading: boolean;
   paymentMethod:
@@ -30,15 +34,17 @@ type PaymentContext = {
   saveCreditCard: boolean;
   toggleSaveCreditCard: () => void;
   amountTooLow?: boolean;
-  fiatAmount: number;
-  totalWeiAmount: string;
-  updateAmountFromFiat: (amount: number) => void;
+  totalMonetaryAmount: MonetaryAmountOutput;
+  feesMonetaryAmount: MonetaryAmountOutput;
+  updateAmountFromFiat: (
+    amount: number,
+    supportedCurrency: SupportedCurrency
+  ) => void;
   submitWithFiat: (pm?: PaymentMethod | DisposableCard) => Promise<void>;
   submitWithWallet: () => Promise<void>;
   processingFiat: boolean;
   loadingFiat: boolean;
   loadingWallet: boolean;
-  ethAmount: number;
   updateAmountFromEth: (amount: number) => void;
   setActiveFee: (activeFee: boolean) => void;
   errors: MessageDescriptor[];
@@ -56,18 +62,12 @@ type PaymentContext = {
       | WalletPaymentMethod
       | null
   ) => void;
-  weiFeesAmount: string;
   fees: number;
   usingConversionCredit: boolean;
   setUsingConversionCredit: (bool: boolean) => void;
   readablePercentageDiscount: string;
-  weiConversionCreditAmount: string;
-  maxDiscountMonetary?: {
-    eur: number;
-    usd: number;
-    gbp: number;
-    wei: string;
-  };
+  conversionCreditMonetaryAmount: MonetaryAmountOutput;
+  maxDiscountMonetary?: MonetaryAmountOutput;
   paymentCurrency: Currency | null;
   setPaymentCurrency: (c: Currency) => void;
   isFiat: boolean;
@@ -76,6 +76,7 @@ type PaymentContext = {
   sport: Sport;
   insufficientFundsInEthWallet: boolean;
   insufficientFundsInFiatWallet: boolean;
+  referenceCurrency: SupportedCurrency;
 };
 
 export const paymentContext = createContext<PaymentContext | null>(null);

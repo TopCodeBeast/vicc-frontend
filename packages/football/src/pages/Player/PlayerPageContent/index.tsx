@@ -14,9 +14,9 @@ import {
 import { glossary } from '@sorare/core/src/lib/glossary';
 import PageWithTabs from '@sorare/core/src/routing/PageWithTabs';
 
-import Description from '@sorare/football/src/pages/Player/Description';
-import Header from '@sorare/football/src/pages/Player/Header';
-import Search from '@sorare/football/src/pages/Player/Search';
+import Description from '@football/pages/Player/Description';
+import Header from '@football/pages/Player/Header';
+import Search from '@football/pages/Player/Search';
 
 import { PlayerPageContent_player } from './__generated__/index.graphql';
 

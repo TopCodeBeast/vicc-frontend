@@ -13,17 +13,16 @@ import { Link, generatePath, useNavigate } from 'react-router-dom';
 import { animated, useSpring } from '@react-spring/web';
 import styled, { css } from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
-import { Container, FullWidth } from '@sorare/core/src/atoms/container';
-import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
-import { Text16, text16 } from '@sorare/core/src/atoms/typography';
-import Notifications from 'components/notification/Notifications';
-import ManagerTaskTooltip from 'components/onboarding/managerTask/ManagerTaskTooltip';
-import MarketplaceOnboardingTask from 'components/onboarding/managerTask/MarketplaceOnboardingTask';
-import ResponsiveSearchBar from 'components/search/ResponsiveSearchBar';
-import Avatar from 'components/user/Avatar';
-import EthereumBalance from 'components/wallet/EthereumBalance';
-import { HREF_HELP } from '@sorare/core/src/constants/externalLinks';
+import { Sport } from '@core/__generated__/globalTypes';
+import { Container, FullWidth } from '@core/atoms/container';
+import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { Text16, text16 } from '@core/atoms/typography';
+import Notifications from '@core/components/notification/Notifications';
+import ManagerTaskTooltip from '@core/components/onboarding/managerTask/ManagerTaskTooltip';
+import MarketplaceOnboardingTask from '@core/components/onboarding/managerTask/MarketplaceOnboardingTask';
+import ResponsiveSearchBar from '@core/components/search/ResponsiveSearchBar';
+import Avatar from '@core/components/user/Avatar';
+import { HREF_HELP } from '@core/constants/externalLinks';
 import {
   FOOTBALL_HOME,
   FOOTBALL_LOBBY_PRIZE_POOL,
@@ -80,33 +79,34 @@ import {
   NBA_USER_GALLERY_COLLECTIONS,
   SETTINGS_HOME,
   goToLobby,
-} from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
+} from '@core/constants/routes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useIntlContext } from '@core/contexts/intl';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import {
   MarketplaceOnboardingStep,
   useManagerTaskContext,
-} from '@sorare/core/src/contexts/managerTask';
-import { useInlineNotificationsContext } from '@sorare/core/src/contexts/snackNotification/Provider';
-import { useSportContext } from '@sorare/core/src/contexts/sport';
-import { useWalletContext } from '@sorare/core/src/contexts/wallet';
-import { useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import { useLocationChanged } from '@sorare/core/src/hooks/useLocationChanged';
-import useMyPath from '@sorare/core/src/hooks/useMyPath';
-import { useUseCustomLists } from '@sorare/core/src/lib/featureFlags';
+} from '@core/contexts/managerTask';
+import { useInlineNotificationsContext } from '@core/contexts/snackNotification/Provider';
+import { useSportContext } from '@core/contexts/sport';
+import { useWalletContext } from '@core/contexts/wallet';
+import { useWalletDrawerContext } from '@core/contexts/walletDrawer';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import { useLocationChanged } from '@core/hooks/useLocationChanged';
+import useMyPath from '@core/hooks/useMyPath';
+import { useUseCustomLists } from '@core/lib/featureFlags';
 import {
   fantasy,
   galleryTabs,
   glossary,
   navLabels,
   transferMarket,
-} from '@sorare/core/src/lib/glossary';
-import MenuIconButton from '@sorare/core/src/routing/MultiSportAppBar/MenuIconButton';
-import useBottomBarNavItems from '@sorare/core/src/routing/MultiSportBottomNavBar/useBottomBarNavItems';
-import { theme } from '@sorare/core/src/style/theme';
+} from '@core/lib/glossary';
+import MenuIconButton from '@core/routing/MultiSportAppBar/MenuIconButton';
+import useBottomBarNavItems from '@core/routing/MultiSportBottomNavBar/useBottomBarNavItems';
+import { theme } from '@core/style/theme';
 
+import { Balances } from '../Balances';
 import Item, { Config } from '../Item';
 import MLBLogos from '../MLBLogos';
 import NavDrawer from '../NavDrawer';
@@ -280,6 +280,10 @@ const SportSpecific = styled.div`
 const AppBarItems = styled.div`
   display: flex;
   gap: 30px;
+`;
+const Shrinkable = styled.div`
+  white-space: normal;
+  flex-shrink: 10;
 `;
 
 const SecondaryTooltipWrapper = ({ children }: { children: ReactNode }) => {
@@ -869,11 +873,13 @@ export const LoggedInAppBar = ({
       action: showDrawer,
       content: (
         <MenuItemContent>
-          <FormattedMessage
-            id="nav.walletBalance"
-            defaultMessage="Wallet balance"
-          />
-          <EthereumBalance small medium={false} />
+          <Shrinkable>
+            <FormattedMessage
+              id="nav.walletBalance"
+              defaultMessage="Wallet balance"
+            />
+          </Shrinkable>
+          <Balances medium />
         </MenuItemContent>
       ),
       overflowVisible: true,
@@ -1021,7 +1027,6 @@ export const LoggedInAppBar = ({
                   >
                     <ToggleMobileMenuButton
                       icon={faBars}
-                      disableRipple={small}
                       aria-owns={mobileMenuOpened ? 'simple-menu' : undefined}
                       aria-haspopup="true"
                       onClick={() => setMobileMenuOpened(true)}
@@ -1044,7 +1049,7 @@ export const LoggedInAppBar = ({
                 {sportConfig === sport && unclaimedReward}
                 <ResponsiveSearchBar />
                 <Notifications />
-                {!bottomBarNavItems && <EthereumBalance compact={small} />}
+                {!bottomBarNavItems && <Balances medium compact={small} />}
                 {small && (
                   <>
                     <ButtonBase

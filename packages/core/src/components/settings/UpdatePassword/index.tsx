@@ -1,10 +1,10 @@
 import { FormattedMessage, defineMessages } from 'react-intl';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { useWalletContext } from '@sorare/core/src/contexts/wallet';
-import { WalletTab, useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
-import { userAttributes } from '@sorare/core/src/lib/glossary';
+import Button from '@core/atoms/buttons/Button';
+import { Text16 } from '@core/atoms/typography';
+import { useWalletContext } from '@core/contexts/wallet';
+import { WalletTab, useWalletDrawerContext } from '@core/contexts/walletDrawer';
+import { userAttributes } from '@core/lib/glossary';
 
 const messages = defineMessages({
   cta: {

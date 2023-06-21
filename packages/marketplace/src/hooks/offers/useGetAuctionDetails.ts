@@ -3,7 +3,7 @@ import { add, isFuture, isPast, parseISO } from 'date-fns';
 
 import useForceUpdateAfterEndDate from '@sorare/core/src/hooks/useForceUpdateAfterEndDate';
 
-import { auctionCurrentPrice } from '@sorare/marketplace/src/lib/auctions';
+import { auctionCurrentPrice } from '@marketplace/lib/auctions';
 
 import { useGetAuctionDetails_auction } from './__generated__/useGetAuctionDetails.graphql';
 
@@ -12,19 +12,20 @@ const useGetAuctionDetails = (auction: useGetAuctionDetails_auction | null) => {
   const endDate = (endDateString && parseISO(endDateString)) as null | Date;
   useForceUpdateAfterEndDate(endDate);
   if (!auction) return undefined;
-  const weiPrice = auctionCurrentPrice(auction);
+  const price = auctionCurrentPrice(auction);
 
   // Simplified, check for regression
   const auctionIsOnSale = isFuture(
     add(parseISO(auction?.endDate), { seconds: 15 })
   );
 
-  if (auctionIsOnSale && weiPrice && endDate) {
+  if (auctionIsOnSale && price && endDate) {
     const ended = isPast(endDate);
     return {
       endDate,
       ended,
-      weiPrice,
+      price,
+      currency: auction?.currency,
     };
   }
   return undefined;
@@ -37,6 +38,7 @@ useGetAuctionDetails.fragments = {
       endDate
       currentPrice
       privateCurrentPrice
+      currency
     }
   `,
 };

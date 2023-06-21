@@ -1,14 +1,14 @@
 import { gql } from '@apollo/client';
 import { FormattedMessage, defineMessages } from 'react-intl';
 
-import { Text14 } from '@sorare/core/src/atoms/typography';
-import Bold from '@sorare/core/src/atoms/typography/Bold';
-import { DumbNotification } from 'components/activity/DumbNotification';
-import TokenDescriptionFromProps from 'components/token/TokenDescriptionFromProps';
-import TokenMetas from 'components/token/TokenMetas';
-import { LEGACY_CARD_SHOW } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useSportContext } from '@sorare/core/src/contexts/sport';
+import { Text14 } from '@core/atoms/typography';
+import Bold from '@core/atoms/typography/Bold';
+import { DumbNotification } from '@core/components/activity/DumbNotification';
+import TokenDescriptionFromProps from '@core/components/token/TokenDescriptionFromProps';
+import TokenMetas from '@core/components/token/TokenMetas';
+import { LEGACY_CARD_SHOW } from '@core/constants/routes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useSportContext } from '@core/contexts/sport';
 
 import { commonNotificationInterfaceFragment } from '../fragments';
 import { CommonNotificationProps } from '../types';

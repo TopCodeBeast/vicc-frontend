@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 
 import { So5UserGroupStatus } from '@sorare/core/src/__generated__/globalTypes';
 
-import UserGroupsStatus from '@sorare/football/src/components/userGroup/UserGroupStatus';
+import UserGroupsStatus from '@football/components/userGroup/UserGroupStatus';
 
 import { GroupStatus_userGroup } from './__generated__/index.graphql';
 

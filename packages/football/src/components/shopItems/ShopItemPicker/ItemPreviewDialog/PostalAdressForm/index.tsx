@@ -15,7 +15,7 @@ import Select from '@sorare/core/src/components/form/Form/Select';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { toDisplayName } from '@sorare/core/src/lib/territories';
 
-import CoinAmount from '@sorare/football/src/components/user/CoinAmount';
+import CoinAmount from '@football/components/user/CoinAmount';
 
 import {
   DeliverableCountriesQuery,
@@ -64,14 +64,14 @@ const FormWrapper = styled.div`
   display: grid;
   gap: var(--unit);
   grid-template-areas:
-    'first_name first_name last_name last_name'
-    'company company company company'
-    'country country country country'
-    'address address address address'
-    'additional_address additional_address additional_address additional_address'
-    'zip city city city'
-    'cta cta cta cta';
-  grid-template-columns: repeat(4, 1fr);
+    'first_name last_name'
+    'company company'
+    'country country'
+    'address address'
+    'additional_address additional_address'
+    'zip city'
+    'cta cta';
+  grid-template-columns: repeat(2, 1fr);
 `;
 const Country = styled.div`
   grid-area: country;

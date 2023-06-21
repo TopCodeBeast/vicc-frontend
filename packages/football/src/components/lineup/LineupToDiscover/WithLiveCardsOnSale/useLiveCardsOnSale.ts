@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
-import WithLineupSuggestions from '@sorare/football/src/components/lineup/LineupToDiscover/WithLineupSuggestions';
+import WithLineupSuggestions from '@football/components/lineup/LineupToDiscover/WithLineupSuggestions';
 
 import { WithLiveCardsOnSaleLeaderboardQuery } from './__generated__/index.graphql';
 import { WithLiveCardsOnSaleCardQuery } from './__generated__/useLiveCardsOnSale.graphql';

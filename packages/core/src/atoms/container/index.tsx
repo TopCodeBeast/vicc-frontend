@@ -19,17 +19,17 @@ export const Container = styled.div`
   }
 `;
 
-const FullWidthStyles = css`
+const fullWidthStyles = css`
   width: 100%;
   grid-column: 1 / 4;
 `;
 
 export const FullWidth = styled.div`
-  ${FullWidthStyles}
+  ${fullWidthStyles}
 `;
 
 export const FullWidthContainer = styled(Container)`
-  ${FullWidthStyles}
+  ${fullWidthStyles}
 `;
 
 export const FullWidthScroll = styled(FullWidth)`

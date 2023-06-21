@@ -10,8 +10,8 @@ import { FOOTBALL_PLAYER_SHOW } from '@sorare/core/src/constants/routes';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { theme } from '@sorare/core/src/style/theme';
 
-import PlayerAvatar from '@sorare/football/src/components/player/PlayerAvatar';
-import DetailedScoreV4V5 from '@sorare/football/src/components/stats/DetailedScore/DetailedScoreV4V5';
+import PlayerAvatar from '@football/components/player/PlayerAvatar';
+import DetailedScoreV4V5 from '@football/components/stats/DetailedScore/DetailedScoreV4V5';
 
 import {
   MatchViewPlayerDetailsQuery,

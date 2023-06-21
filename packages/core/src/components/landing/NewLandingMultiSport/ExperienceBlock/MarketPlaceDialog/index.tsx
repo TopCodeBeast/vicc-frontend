@@ -2,18 +2,18 @@ import { faTimes } from '@fortawesome/pro-solid-svg-icons';
 import { defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import footballLogo from 'assets/logos/football/main.svg';
-import mlbLogo from 'assets/logos/mlb/mlb.svg';
-import nbaLogo from 'assets/logos/nba/nba.svg';
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import { LinkOverlay } from '@sorare/core/src/atoms/navigation/Box';
-import { Text16, Text20 } from '@sorare/core/src/atoms/typography';
-import Dialog from 'components/dialog';
+import footballLogo from '@core/assets/logos/football/main.svg';
+import mlbLogo from '@core/assets/logos/mlb/mlb.svg';
+import nbaLogo from '@core/assets/logos/nba/nba.svg';
+import IconButton from '@core/atoms/buttons/IconButton';
+import { LinkOverlay } from '@core/atoms/navigation/Box';
+import { Text16, Text20 } from '@core/atoms/typography';
+import Dialog from '@core/components/dialog';
 import {
   FOOTBALL_MARKET,
   MLB_PRIMARY_MARKET,
   NBA_PRIMARY_MARKET,
-} from '@sorare/core/src/constants/routes';
+} from '@core/constants/routes';
 
 const messages = defineMessages({
   title: {

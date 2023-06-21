@@ -1,7 +1,7 @@
 import { FC, Suspense } from 'react';
 
-import Backdrop from '@sorare/core/src/atoms/loader/Backdrop';
-import { lazy } from '@sorare/core/src/lib/retry';
+import Backdrop from '@core/atoms/loader/Backdrop';
+import { lazy } from '@core/lib/retry';
 
 const ItemDialog = lazy(
   async () => import('@sorare/core/src/components/cards/ItemDialog')

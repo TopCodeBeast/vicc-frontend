@@ -11,12 +11,12 @@ import { FormattedMessage, MessageDescriptor } from 'react-intl';
 
 import LoadingButton, {
   Props as LoadingButtonProps,
-} from '@sorare/core/src/atoms/buttons/LoadingButton';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { glossary } from '@sorare/core/src/lib/glossary';
-import { GraphQLError } from '@sorare/core/src/lib/gql';
-import humanize from '@sorare/core/src/lib/humanize';
-import { toCamelCase } from '@sorare/core/src/lib/toCamelCase';
+} from '@core/atoms/buttons/LoadingButton';
+import { useIntlContext } from '@core/contexts/intl';
+import { glossary } from '@core/lib/glossary';
+import { GraphQLError } from '@core/lib/gql';
+import humanize from '@core/lib/humanize';
+import { toCamelCase } from '@core/lib/toCamelCase';
 
 import ConfirmDialog from '../ConfirmDialog';
 import ErrorField from './Error';

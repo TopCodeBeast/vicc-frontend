@@ -29,14 +29,14 @@ import {
 } from '@sorare/core/src/lib/events';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import CardPicker from '@sorare/football/src/components/card/CardPicker';
-import FlexCard from '@sorare/football/src/components/card/FlexCard';
-import EditableDeckCard from '@sorare/football/src/components/deck/EditableDeckCard';
-import { useDeckContext } '@sorare/football/src/contexts/deck';
-import useAddCardsToDeck from 'hooks/decks/useAddCardsToDeck';
-import useEditCard from 'hooks/decks/useEditCard';
-import useRemoveCardFromDeck from 'hooks/decks/useRemoveCardFromDeck';
-import useDragAndDrop from 'hooks/useDragAndDrop';
+import CardPicker from '@football/components/card/CardPicker';
+import FlexCard from '@football/components/card/FlexCard';
+import EditableDeckCard from '@football/components/deck/EditableDeckCard';
+import { useDeckContext } from '@football/contexts/deck';
+import useAddCardsToDeck from '@football/hooks/decks/useAddCardsToDeck';
+import useEditCard from '@football/hooks/decks/useEditCard';
+import useRemoveCardFromDeck from '@football/hooks/decks/useRemoveCardFromDeck';
+import useDragAndDrop from '@football/hooks/useDragAndDrop';
 
 import { CustomDeck_customDeck } from './__generated__/fragments.graphql';
 import {

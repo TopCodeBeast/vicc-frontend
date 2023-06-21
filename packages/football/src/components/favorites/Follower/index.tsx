@@ -7,8 +7,8 @@ import SubscribersCount from '@sorare/core/src/components/favorites/SubscribersC
 import { useFollowContext } from '@sorare/core/src/contexts/follow';
 import { isA } from '@sorare/core/src/lib/gql';
 
-import NotificationPreference from '@sorare/football/src/components/favorites/NotificationPreference';
-import { usePageContext } '@sorare/football/src/contexts/page';
+import NotificationPreference from '@football/components/favorites/NotificationPreference';
+import { usePageContext } from '@football/contexts/page';
 
 import PrivacyPolicyDialog from './PrivacyPolicyDialog';
 import { Follower_dataPartner } from './__generated__/index.graphql';

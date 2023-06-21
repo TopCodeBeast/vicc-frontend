@@ -23,8 +23,8 @@ import Button from '@sorare/core/src/atoms/buttons/Button';
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import Dropdown from '@sorare/core/src/atoms/dropdowns/Dropdown';
 import SearchInput from '@sorare/core/src/atoms/inputs/SearchInput';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import { Text16 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@sorare/core/src/components/dialog';
 import { ExtendedUIState } from '@sorare/core/src/components/search/InstantSearch/types';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useSportContext } from '@sorare/core/src/contexts/sport';
@@ -38,7 +38,7 @@ import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { VIRTUAL_TOGGLE_FILTERS } from '@sorare/core/src/lib/filters';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import useFiltersCount from '@sorare/marketplace/src/search/FiltersManager/useFiltersCount';
+import useFiltersCount from '@marketplace/search/FiltersManager/useFiltersCount';
 
 import {
   SavedFiltersQuery,
@@ -85,7 +85,6 @@ const DropdownContent = styled.div`
   width: 240px;
   background-color: var(--c-neutral-200);
 `;
-
 const Row = styled.div`
   height: 56px;
   display: flex;
@@ -132,6 +131,9 @@ const StyledText16 = styled(Text16)`
   text-overflow: ellipsis;
   overflow: hidden;
 `;
+const CenteredText16 = styled(Text16)`
+  text-align: center;
+`;
 const DeleteButton = styled(StyledButton)`
   width: 46px;
   color: var(--c-neutral-500);
@@ -145,6 +147,7 @@ const DialogForm = styled.form`
   flex-direction: column;
   gap: var(--double-unit);
   margin-bottom: 0;
+  padding: 0 var(--triple-unit) var(--triple-unit) var(--triple-unit);
 `;
 
 const FilterRow = ({
@@ -396,32 +399,35 @@ export const SavedFilters = () => {
         )}
       </Dropdown>
       <Dialog
+        maxWidth="xs"
+        fullWidth
         open={open}
         onClose={toggleOpen}
         title={
-          <Text16>
+          <CenteredText16>
             <FormattedMessage
               id="Search.SavedFilters.nameYourSavedSearch"
               defaultMessage="Name your Saved Search"
             />
-          </Text16>
+          </CenteredText16>
         }
-      >
-        <DialogForm onSubmit={onSubmit}>
-          <SearchInput
-            autoFocus
-            value={name}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              setName(event.target.value);
-            }}
-            rounded
-            small
-          />
-          <Button color="blue" small type="submit">
-            <FormattedMessage {...glossary.save} />
-          </Button>
-        </DialogForm>
-      </Dialog>
+        body={
+          <DialogForm onSubmit={onSubmit}>
+            <SearchInput
+              autoFocus
+              value={name}
+              onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                setName(event.target.value);
+              }}
+              rounded
+              small
+            />
+            <Button color="blue" small type="submit">
+              <FormattedMessage {...glossary.save} />
+            </Button>
+          </DialogForm>
+        }
+      />
     </div>
   );
 };

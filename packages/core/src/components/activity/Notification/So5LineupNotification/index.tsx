@@ -2,14 +2,14 @@ import { gql } from '@apollo/client';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import { generatePath } from 'react-router-dom';
 
-import Bold from '@sorare/core/src/atoms/typography/Bold';
-import { DumbNotification } from 'components/activity/DumbNotification';
+import Bold from '@core/atoms/typography/Bold';
+import { DumbNotification } from '@core/components/activity/DumbNotification';
 import {
   FOOTBALL_COMPETITION_DETAILS_TEAM,
   FOOTBALL_COMPOSE_TEAM_LINEUP,
-} from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import idFromObject from '@sorare/core/src/gql/idFromObject';
+} from '@core/constants/routes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import idFromObject from '@core/gql/idFromObject';
 
 import { commonNotificationInterfaceFragment } from '../fragments';
 import { So5LineupNotification_so5LineupNotification } from './__generated__/index.graphql';

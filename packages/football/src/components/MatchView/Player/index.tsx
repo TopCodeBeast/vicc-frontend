@@ -14,8 +14,8 @@ import playerPlaceholder from 'assets/players/placeholder.png';
 import WhistleIcon from 'assets/stats/WhistleIcon';
 import glove from 'assets/stats/glove.svg';
 import shoe from 'assets/stats/shoe.svg';
-import PlayerScore from '@sorare/football/src/components/stats/PlayerScore';
-import { statLabels } from 'lib/scoring';
+import PlayerScore from '@football/components/stats/PlayerScore';
+import { statLabels } from '@football/lib/scoring';
 
 import { Player_player } from './__generated__/index.graphql';
 

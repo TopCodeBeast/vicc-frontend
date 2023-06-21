@@ -3,17 +3,17 @@ import { ReactNode, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
-import DialogWithNavigation from '@sorare/core/src/atoms/layout/DialogWithNavigation';
-import SmallerStarBall from '@sorare/core/src/atoms/navigation/SmallerStarBall';
-import { Title4 } from '@sorare/core/src/atoms/typography';
-import { AddRecoveryEmailForm } from 'components/settings/RecoveryEmail/AddRecoveryEmailForm';
-import { VerifyRecoveryEmailForm } from 'components/settings/RecoveryEmail/VerifyRecoveryEmailForm';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import useWalletNeedsRecover from '@sorare/core/src/hooks/recovery/useWalletNeedsRecover';
-import useLifecycle, { LIFECYCLE, Lifecycle } from '@sorare/core/src/hooks/useLifecycle';
-import { glossary, userAttributes } from '@sorare/core/src/lib/glossary';
+import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import DialogWithNavigation from '@core/atoms/layout/DialogWithNavigation';
+import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
+import { Title4 } from '@core/atoms/typography';
+import { AddRecoveryEmailForm } from '@core/components/settings/RecoveryEmail/AddRecoveryEmailForm';
+import { VerifyRecoveryEmailForm } from '@core/components/settings/RecoveryEmail/VerifyRecoveryEmailForm';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import useWalletNeedsRecover from '@core/hooks/recovery/useWalletNeedsRecover';
+import useLifecycle, { LIFECYCLE, Lifecycle } from '@core/hooks/useLifecycle';
+import { glossary, userAttributes } from '@core/lib/glossary';
 
 import AccountSecurityCheckContextProvider, { SecurityCheckTab } from '.';
 import AddPhoneNumber from './AddPhoneNumber';

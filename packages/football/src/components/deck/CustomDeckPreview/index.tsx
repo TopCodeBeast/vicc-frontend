@@ -11,8 +11,8 @@ import { Text16, Title6 } from '@sorare/core/src/atoms/typography';
 import { FOOTBALL_CUSTOM_DECK_SHOW } from '@sorare/core/src/constants/routes';
 import { theme } from '@sorare/core/src/style/theme';
 
-import FlexCard from '@sorare/football/src/components/card/FlexCard';
-import { useDeckContext } '@sorare/football/src/contexts/deck';
+import FlexCard from '@football/components/card/FlexCard';
+import { useDeckContext } from '@football/contexts/deck';
 
 import { CustomDeckPreview_customDeck } from './__generated__/index.graphql';
 

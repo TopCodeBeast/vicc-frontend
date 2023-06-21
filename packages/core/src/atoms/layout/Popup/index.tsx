@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import styled, { keyframes } from 'styled-components';
 
-import { theme } from '@sorare/core/src/style/theme';
+import { theme } from '@core/style/theme';
 
 type Props = { children: ReactNode; className?: string };
 

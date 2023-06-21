@@ -7,9 +7,10 @@ export const useGetCardsDetails = () => {
       receiverSide: {
         nfts: T[];
       };
-    },
+    } | null,
     isCurrentUserSender: boolean
   ): { sendCards: T[]; receivedCards: T[] } => {
+    if (!offer) return { sendCards: [], receivedCards: [] };
     const { senderSide, receiverSide } = offer;
     const sendCards = isCurrentUserSender
       ? senderSide?.nfts

@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-import { Color } from '@sorare/core/src/style/types';
+import { Color } from '@core/style/types';
 
 interface SVGRProps {
   title?: string;

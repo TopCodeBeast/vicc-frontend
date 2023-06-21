@@ -2,51 +2,54 @@ import Big from 'bignumber.js';
 import { useCallback, useMemo } from 'react';
 
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
+import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { useFiatBalance } from '@sorare/core/src/hooks/wallets/useFiatBalance';
+import { getMonetaryAmountIndex } from '@sorare/core/src/lib/monetaryAmount';
 
 export const useHasInsufficientFundsInWallets = () => {
   const { currentUser } = useCurrentUserContext();
-  const { convertToWei } = useCurrencyConverters();
-  const { availableBalance: availableBalanceInFiat, fiatCurrency } =
-    useFiatBalance();
+  const { availableBalanceInCents, fiatCurrency } = useFiatBalance();
+
   const availableBalance = useMemo(
     () => new Big(currentUser?.availableBalance || '0'),
     [currentUser]
   );
 
-  const diffInWei = (balance: Big, weiAmountToPay: string | Big) =>
+  const diff = (balance: Big, weiAmountToPay: string | number) =>
     balance.minus(weiAmountToPay).multipliedBy(-1);
 
-  const bigAvailableFiatBalanceInWei = useMemo(
-    () =>
-      new Big(
-        (fiatCurrency &&
-          convertToWei(availableBalanceInFiat.toString(), fiatCurrency)) ||
-          '0'
-      ),
-    [availableBalanceInFiat, convertToWei, fiatCurrency]
+  const bigAvailableFiatCentsBalance = useMemo(
+    () => new Big(availableBalanceInCents || '0'),
+    [availableBalanceInCents]
   );
 
   return useCallback(
-    (weiAmountToPay: string | Big) => {
-      const insufficientFundsInEthWallet = availableBalance.lt(weiAmountToPay);
+    (monetaryAmountToPay: MonetaryAmountOutput) => {
+      const insufficientFundsInEthWallet = availableBalance.lt(
+        monetaryAmountToPay.wei
+      );
       const diffInWeiForEthWallet =
-        insufficientFundsInEthWallet &&
-        diffInWei(availableBalance, weiAmountToPay);
-      const insufficientFundsInFiatWallet =
-        bigAvailableFiatBalanceInWei.lt(weiAmountToPay);
-      const diffInWeiForFiatWallet =
-        insufficientFundsInFiatWallet &&
-        diffInWei(bigAvailableFiatBalanceInWei, weiAmountToPay);
+        (insufficientFundsInEthWallet &&
+          diff(availableBalance, monetaryAmountToPay.wei)) ||
+        undefined;
+      const insufficientFundsInFiatWallet = bigAvailableFiatCentsBalance.lt(
+        monetaryAmountToPay[getMonetaryAmountIndex(fiatCurrency)]
+      );
+      const diffInFiatCentsForFiatWallet =
+        (insufficientFundsInFiatWallet &&
+          diff(
+            bigAvailableFiatCentsBalance,
+            monetaryAmountToPay[getMonetaryAmountIndex(fiatCurrency)]
+          ).toNumber()) ||
+        undefined;
       return {
         insufficientFundsInEthWallet,
         diffInWeiForEthWallet,
         insufficientFundsInFiatWallet,
-        diffInWeiForFiatWallet,
+        diffInFiatCentsForFiatWallet,
       };
     },
-    [availableBalance, bigAvailableFiatBalanceInWei]
+    [availableBalance, bigAvailableFiatCentsBalance, fiatCurrency]
   );
 };
 

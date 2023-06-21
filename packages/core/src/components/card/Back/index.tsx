@@ -1,8 +1,8 @@
 import { HTMLAttributes } from 'react';
 
-import { Rarity, Sport } from '__generated__/globalTypes';
-import { CardRarity } from '__generated__/usSportsGlobalTypes';
-import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
+import { Rarity, Sport } from '@core/__generated__/globalTypes';
+import { CardRarity } from '@core/__generated__/usSportsGlobalTypes';
+import { FRONTEND_ASSET_HOST } from '@core/constants/assets';
 
 import { CardBack as BaseballCardBack } from './Baseball';
 import { CardBack as FootballCardBack } from './Football';

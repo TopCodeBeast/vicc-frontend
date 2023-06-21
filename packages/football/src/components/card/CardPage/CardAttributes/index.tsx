@@ -17,7 +17,7 @@ import {
 } from '@sorare/core/src/lib/players';
 import { toDisplayName } from '@sorare/core/src/lib/territories';
 
-import TeamAvatar from '@sorare/football/src/components/club/TeamAvatar';
+import TeamAvatar from '@football/components/club/TeamAvatar';
 
 import { CardAttributes_card } from './__generated__/index.graphql';
 

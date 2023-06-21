@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Text16 } from '@sorare/core/src/atoms/typography';
 
-import arrow from '@sorare/football/src/components/collections/assets/arrow.svg';
+import arrow from '@football/components/collections/assets/arrow.svg';
 
 const Wrapper = styled.div`
   display: flex;

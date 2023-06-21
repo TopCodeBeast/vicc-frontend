@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback } from 'react';
 import styled from 'styled-components';
 
-import { Text16, Title6 } from '@sorare/core/src/atoms/typography';
-import { EventsType } from '@sorare/core/src/lib/events/EventsType';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { isAbsolute } from '@sorare/core/src/lib/urls';
-import { theme } from '@sorare/core/src/style/theme';
+import { Text16, Title6 } from '@core/atoms/typography';
+import { EventsType } from '@core/lib/events/EventsType';
+import useEvents from '@core/lib/events/useEvents';
+import { isAbsolute } from '@core/lib/urls';
+import { theme } from '@core/style/theme';
 
 import ContentLink from '../../ContentLink';
 

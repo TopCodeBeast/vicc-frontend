@@ -18,7 +18,7 @@ import Block from '@sorare/core/src/atoms/layout/Block';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { attributes } from '@sorare/core/src/lib/players';
 
-import InfoLineWithLogoAndValue from '@sorare/football/src/pages/Player/InfoLineWithLogoAndValue';
+import InfoLineWithLogoAndValue from '@football/pages/Player/InfoLineWithLogoAndValue';
 
 import {
   SeasonStatsQuery,

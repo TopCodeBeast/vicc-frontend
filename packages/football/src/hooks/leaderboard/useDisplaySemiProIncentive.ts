@@ -2,8 +2,8 @@ import { So5LeaderboardType } from '@sorare/core/src/__generated__/globalTypes';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
-import { SEMI_PRO_TOURNAMENT_TYPES } from 'lib/leaderboard';
-import { isFreeUser } from 'lib/user';
+import { SEMI_PRO_TOURNAMENT_TYPES } from '@football/lib/leaderboard';
+import { isFreeUser } from '@football/lib/user';
 
 export const useDisplaySemiProIncentive = (
   so5LeaderboardType: Nullable<So5LeaderboardType>

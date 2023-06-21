@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import styled from 'styled-components';
 
-import { CustomRewardExperience } from '__generated__/globalTypes';
-import experiences from 'assets/rewards/experiences.png';
-import jerseys from 'assets/rewards/jerseys.png';
-import merch from 'assets/rewards/merch.png';
-import tickets from 'assets/rewards/tickets.png';
+import { CustomRewardExperience } from '@core/__generated__/globalTypes';
+import experiences from '@core/assets/rewards/experiences.png';
+import jerseys from '@core/assets/rewards/jerseys.png';
+import merch from '@core/assets/rewards/merch.png';
+import tickets from '@core/assets/rewards/tickets.png';
 
 const Img = styled.img`
   height: 28px;

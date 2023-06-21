@@ -1,9 +1,9 @@
 import { HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-import { Rarity } from '__generated__/globalTypes';
-import Shine from '@sorare/core/src/atoms/ui/Shine';
-import { CARD_BORDER_RADIUS } from '@sorare/core/src/lib/cards';
+import { Rarity } from '@core/__generated__/globalTypes';
+import Shine from '@core/atoms/ui/Shine';
+import { CARD_BORDER_RADIUS } from '@core/lib/cards';
 
 import commonBack from './assets/common.png';
 import limitedBack from './assets/limited.png';

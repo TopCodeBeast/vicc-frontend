@@ -6,8 +6,9 @@ import { defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
 import Button from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
+import { Title6 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@sorare/core/src/components/dialog';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 
@@ -53,6 +54,12 @@ export interface Props {
   token: TokenWithdrawalDialog_token;
 }
 
+const CenteredTitle6 = styled(Title6)`
+  text-align: center;
+`;
+const Body = styled.div`
+  padding: var(--triple-unit);
+`;
 const Loading = styled.div`
   height: 460px;
 `;
@@ -114,9 +121,13 @@ const TokenWithdrawalDialog = ({ token }: Props) => {
         <ButtonIcon icon={faEthereum} />
         {title}
       </Button>
-      <Dialog open={open} onClose={() => setOpen(false)} title={title}>
-        {renderContent()}
-      </Dialog>
+      <Dialog
+        open={open}
+        maxWidth="sm"
+        onClose={() => setOpen(false)}
+        title={<CenteredTitle6>{title}</CenteredTitle6>}
+        body={<Body>{renderContent()}</Body>}
+      />
     </div>
   );
 };

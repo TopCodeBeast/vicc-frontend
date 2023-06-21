@@ -2,13 +2,13 @@ import { ReactElement, useLayoutEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import CloseButton from '@sorare/core/src/atoms/buttons/CloseButton';
-import Dots from '@sorare/core/src/atoms/layout/Dots';
-import Dialog from 'components/dialog';
-import useTransitionApi from '@sorare/core/src/hooks/useTransitionApi';
-import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import Button from '@core/atoms/buttons/Button';
+import CloseButton from '@core/atoms/buttons/CloseButton';
+import Dots from '@core/atoms/layout/Dots';
+import Dialog from '@core/components/dialog';
+import useTransitionApi from '@core/hooks/useTransitionApi';
+import { glossary } from '@core/lib/glossary';
+import { theme } from '@core/style/theme';
 
 import Footer from './Footer';
 

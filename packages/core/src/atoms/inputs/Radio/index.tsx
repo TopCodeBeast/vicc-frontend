@@ -2,7 +2,7 @@
 import { ChangeEvent, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-import { Color } from '@sorare/core/src/style/types';
+import { Color } from '@core/style/types';
 
 import SimpleRadio from '../SimpleRadio';
 

@@ -3,16 +3,16 @@ import { FunctionComponent } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import { Overline, Text14, Text16, Title5 } from '@sorare/core/src/atoms/typography';
+import { Overline, Text14, Text16, Title5 } from '@core/atoms/typography';
 import {
   GraphQLResult,
   GraphqlForm,
   SubmitButtonProps,
   TextField,
-} from 'components/form/Form';
-import { OTP_ATTEMPT_LENGTH } from '@sorare/core/src/constants/verificationCode';
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import useUpdate2FA from '@sorare/core/src/hooks/useUpdate2FA';
+} from '@core/components/form/Form';
+import { OTP_ATTEMPT_LENGTH } from '@core/constants/verificationCode';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
+import useUpdate2FA from '@core/hooks/useUpdate2FA';
 
 const messages = defineMessages({
   dialogSubtitle: {

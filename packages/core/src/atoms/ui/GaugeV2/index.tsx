@@ -33,7 +33,7 @@ const Filled = styled(animated.div)`
 `;
 
 type Props = {
-  percentage: SpringValue<string>;
+  percentage: SpringValue<string> | string;
 };
 export const Gauge = ({ percentage }: Props) => {
   return (

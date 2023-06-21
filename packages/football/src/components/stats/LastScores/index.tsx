@@ -21,13 +21,13 @@ import {
 } from '@sorare/core/src/lib/glossary';
 import { positionNames } from '@sorare/core/src/lib/players';
 
-import TeamAvatar from '@sorare/football/src/components/club/TeamAvatar';
-import PlayerUnavailabilityBadge from '@sorare/football/src/components/player/PlayerUnavailabilityBadge';
-import Status from '@sorare/football/src/components/so5/ComposeTeam/responsive/PlayerDetails/Status';
-import PlayerGameScoreDialog from '@sorare/football/src/components/stats/PlayerGameScoreDialog';
-import { THRESHOLD_COLORS, findThreshold } from '@sorare/football/src/components/stats/PlayerScore';
-import useGetSuspensionsAndInjuries from 'hooks/useGetSuspensionsAndInjuries';
-import { GameEventStatus, gameStatusMessages } from 'lib/so5';
+import TeamAvatar from '@football/components/club/TeamAvatar';
+import PlayerUnavailabilityBadge from '@football/components/player/PlayerUnavailabilityBadge';
+import Status from '@football/components/so5/ComposeTeam/responsive/PlayerDetails/Status';
+import PlayerGameScoreDialog from '@football/components/stats/PlayerGameScoreDialog';
+import { THRESHOLD_COLORS, findThreshold } from '@football/components/stats/PlayerScore';
+import useGetSuspensionsAndInjuries from '@football/hooks/useGetSuspensionsAndInjuries';
+import { GameEventStatus, gameStatusMessages } from '@football/lib/so5';
 
 import {
   LastScores_player,

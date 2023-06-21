@@ -5,9 +5,9 @@ import { MessageDescriptor, useIntl } from 'react-intl';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
-import { MenuVisibility } from '@sorare/core/src/lib/menu';
-import { theme } from '@sorare/core/src/style/theme';
+import { Sport } from '@core/__generated__/globalTypes';
+import { MenuVisibility } from '@core/lib/menu';
+import { theme } from '@core/style/theme';
 
 import { useAppBarContext } from '../context';
 

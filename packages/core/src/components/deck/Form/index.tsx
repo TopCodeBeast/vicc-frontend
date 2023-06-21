@@ -6,12 +6,12 @@ import { ReactNode } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import { Actions } from '@sorare/core/src/atoms/layout/Dialog';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { GraphQLResult, GraphqlForm, TextField } from 'components/form/Form';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import useToggle from '@sorare/core/src/hooks/useToggle';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import { Actions } from '@core/atoms/layout/Dialog';
+import { Text16 } from '@core/atoms/typography';
+import { GraphQLResult, GraphqlForm, TextField } from '@core/components/form/Form';
+import { useIntlContext } from '@core/contexts/intl';
+import useToggle from '@core/hooks/useToggle';
+import { glossary } from '@core/lib/glossary';
 
 type Props = {
   onSubmit: ({

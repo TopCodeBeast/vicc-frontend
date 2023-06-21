@@ -4,8 +4,8 @@ import { ReactNode, useEffect, useMemo, useRef } from 'react';
 import { FormattedMessage, MessageDescriptor, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { Caption } from '@sorare/core/src/atoms/typography';
-import { fantasy, playerGameStatusLabels } from '@sorare/core/src/lib/glossary';
+import { Caption } from '@core/atoms/typography';
+import { fantasy, playerGameStatusLabels } from '@core/lib/glossary';
 
 const Wrapper = styled.div`
   display: flex;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { Title6 } from '@sorare/core/src/atoms/typography';
 
-import PlayerGame from '@sorare/football/src/components/stats/PlayerGame';
+import PlayerGame from '@football/components/stats/PlayerGame';
 
 import { LastGames_player } from './__generated__/index.graphql';
 

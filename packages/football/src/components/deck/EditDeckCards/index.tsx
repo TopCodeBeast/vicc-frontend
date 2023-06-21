@@ -20,9 +20,9 @@ import { glossary } from '@sorare/core/src/lib/glossary';
 import { allPositions } from '@sorare/core/src/lib/players';
 import { theme } from '@sorare/core/src/style/theme';
 
-import PositionTabs from '@sorare/football/src/components/searchCards/PositionTabs';
-import useAddCardsToDeck from 'hooks/decks/useAddCardsToDeck';
-import useRemoveCardFromDeck from 'hooks/decks/useRemoveCardFromDeck';
+import PositionTabs from '@football/components/searchCards/PositionTabs';
+import useAddCardsToDeck from '@football/hooks/decks/useAddCardsToDeck';
+import useRemoveCardFromDeck from '@football/hooks/decks/useRemoveCardFromDeck';
 
 import {
   GetCardsForDeckQuery,

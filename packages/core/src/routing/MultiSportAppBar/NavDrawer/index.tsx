@@ -2,12 +2,12 @@ import { Divider, Drawer, DrawerProps } from '@material-ui/core';
 import { animated, config, useSpring } from '@react-spring/web';
 import styled, { css } from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
-import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
-import { ChevronDownBold } from '@sorare/core/src/atoms/icons/ChevronDownBold';
-import { CloseBold } from '@sorare/core/src/atoms/icons/CloseBold';
-import { theme } from '@sorare/core/src/style/theme';
-import { OverrideClasses } from '@sorare/core/src/style/utils';
+import { Sport } from '@core/__generated__/globalTypes';
+import ButtonBase from '@core/atoms/buttons/ButtonBase';
+import { ChevronDownBold } from '@core/atoms/icons/ChevronDownBold';
+import { CloseBold } from '@core/atoms/icons/CloseBold';
+import { theme } from '@core/style/theme';
+import { OverrideClasses } from '@core/style/utils';
 
 import { sportLogos } from '../Sport/Switch';
 

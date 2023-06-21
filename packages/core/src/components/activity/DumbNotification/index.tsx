@@ -5,14 +5,14 @@ import { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
-import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
-import { Caption, Text14 } from '@sorare/core/src/atoms/typography';
-import UninteractiveToken from 'components/token/UninteractiveToken';
-import Avatar from 'components/user/Avatar';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { sportsLabelsMessages } from '@sorare/core/src/lib/glossary';
-import { Link } from '@sorare/core/src/routing/Link';
+import { Sport } from '@core/__generated__/globalTypes';
+import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { Caption, Text14 } from '@core/atoms/typography';
+import UninteractiveToken from '@core/components/token/UninteractiveToken';
+import Avatar from '@core/components/user/Avatar';
+import { useIntlContext } from '@core/contexts/intl';
+import { sportsLabelsMessages } from '@core/lib/glossary';
+import { Link } from '@core/routing/Link';
 
 import {
   DumbNotification_tokenPicture,
@@ -26,13 +26,13 @@ type Props = {
   title: string | ReactNode;
   tokenPicture?: DumbNotification_tokenPicture | null;
   content?: ReactNode;
-  link: string;
+  link?: string;
   read?: boolean;
   onClick?: () => void;
   inModale?: boolean;
 };
 
-const Root = styled(Link)`
+const Root = styled.span`
   width: 100%;
   display: flex;
   text-align: left;
@@ -40,6 +40,7 @@ const Root = styled(Link)`
   padding: var(--double-unit) var(--double-unit);
   border-bottom: 1px solid var(--c-neutral-200);
   color: var(--c-neutral-1000);
+  cursor: pointer;
 
   &.read {
     opacity: 0.6;
@@ -61,6 +62,7 @@ const Root = styled(Link)`
     opacity: 1;
   }
 `;
+
 const SorareContainer = styled.div`
   width: calc(5 * var(--unit));
   height: calc(5 * var(--unit));
@@ -108,10 +110,10 @@ export const DumbNotification = ({
   inModale,
 }: Props) => {
   const { formatDistanceToNow } = useIntlContext();
-
   return (
     <Root
-      to={link}
+      as={link ? Link : 'div'}
+      {...(link ? { to: link } : {})}
       onClick={onClick}
       className={classNames({ inModale, read })}
     >

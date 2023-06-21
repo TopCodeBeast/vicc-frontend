@@ -13,14 +13,14 @@ import {
   getTokensFromAssetIds,
 } from '@sorare/core/src/contexts/events/types';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
+import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { getInteractionContext } from '@sorare/core/src/lib/events';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { isA } from '@sorare/core/src/lib/gql';
 import { fromWei } from '@sorare/core/src/lib/wei';
 
-import { BidField_auction } from '@sorare/marketplace/src/components/buyActions/BidField/__generated__/index.graphql';
-import BuyingConfirmationProvider from '@sorare/marketplace/src/contexts/buyingConfirmation/Provider';
-import { auctionMinNextBid } from '@sorare/marketplace/src/lib/auctions';
+import { BidField_auction } from '@marketplace/components/buyActions/BidField/__generated__/index.graphql';
+import BuyingConfirmationProvider from '@marketplace/contexts/buyingConfirmation/Provider';
 
 import MarketplaceContextProvider, { MarketplaceContextType } from '.';
 
@@ -266,7 +266,7 @@ const MarketplaceProvider = ({
   const trackClickBid = useCallback(
     (
       auction: BidField_auction,
-      eurAmount: number,
+      monetaryAmount: MonetaryAmountOutput,
       assetIds: string[],
       sport: Sport,
       subPath?: string
@@ -274,8 +274,8 @@ const MarketplaceProvider = ({
       const sharedProperties = {
         auctionId: auction.id,
         count: auction.bidsCount,
-        ethAmount: fromWei(auctionMinNextBid(auction)),
-        eurAmount,
+        ethAmount: fromWei(monetaryAmount.wei),
+        eurAmount: monetaryAmount.eur,
         secondary: false,
         interactionContext: getInteractionContext(subPath),
         sport,

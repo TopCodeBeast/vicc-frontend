@@ -8,14 +8,14 @@ import { useEffect, useRef, useState } from 'react';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import CloseButton from '@sorare/core/src/atoms/buttons/CloseButton';
-import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
-import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
-import Dialog from 'components/dialog';
-import { GoogleReCAPTCHA, ReCAPTCHA } from 'components/recaptcha';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { avoidOrphan } from '@sorare/core/src/lib/text';
-import { theme } from '@sorare/core/src/style/theme';
+import CloseButton from '@core/atoms/buttons/CloseButton';
+import LoadingButton from '@core/atoms/buttons/LoadingButton';
+import { Text16, Title3 } from '@core/atoms/typography';
+import Dialog from '@core/components/dialog';
+import { GoogleReCAPTCHA, ReCAPTCHA } from '@core/components/recaptcha';
+import useEvents from '@core/lib/events/useEvents';
+import { avoidOrphan } from '@core/lib/text';
+import { theme } from '@core/style/theme';
 
 import useResendConfirmationInstructions from './useResendConfirmationInstructions';
 

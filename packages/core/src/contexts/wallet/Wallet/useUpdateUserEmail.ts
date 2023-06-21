@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client';
 import { useCallback } from 'react';
 
-import { updateUserEmailInput } from '__generated__/globalTypes';
-import { walletRecovery } from '@sorare/core/src/contexts/currentUser/queries';
-import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
+import { updateUserEmailInput } from '@core/__generated__/globalTypes';
+import { walletRecovery } from '@core/contexts/currentUser/queries';
+import useMutation from '@core/hooks/graphql/useMutation';
 
 import {
   UpdateUserEmailMutation,

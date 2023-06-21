@@ -5,9 +5,9 @@ import Button from '@sorare/core/src/atoms/buttons/Button';
 import { Container } from '@sorare/core/src/atoms/container';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import { CommonCards } from '@sorare/football/src/components/onboarding/DiscoverScarcities/CommonCards';
-import { DiscoverScarcitiesTitle } from '@sorare/football/src/components/onboarding/DiscoverScarcities/DiscoverScarcitiesTitle';
-import { ScarceCards } from '@sorare/football/src/components/onboarding/DiscoverScarcities/ScarceCards';
+import { CommonCards } from '@football/components/onboarding/DiscoverScarcities/CommonCards';
+import { DiscoverScarcitiesTitle } from '@football/components/onboarding/DiscoverScarcities/DiscoverScarcitiesTitle';
+import { ScarceCards } from '@football/components/onboarding/DiscoverScarcities/ScarceCards';
 
 const StyledContainer = styled(Container)`
   background-color: var(--c-neutral-100);

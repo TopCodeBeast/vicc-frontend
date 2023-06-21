@@ -1,9 +1,9 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { WalletTab } from '@sorare/core/src/contexts/walletDrawer';
-import { messages as walletMessages } from '@sorare/core/src/lib/wallet';
+import { Text16 } from '@core/atoms/typography';
+import { WalletTab } from '@core/contexts/walletDrawer';
+import { messages as walletMessages } from '@core/lib/wallet';
 
 import ChooseRestoreMethod from './ChooseRestoreMethod';
 import RestoreWallet from './RestoreWallet';

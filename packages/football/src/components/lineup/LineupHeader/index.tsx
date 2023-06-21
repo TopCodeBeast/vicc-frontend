@@ -5,11 +5,11 @@ import { LinkOverlay } from '@sorare/core/src/atoms/navigation/Box';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import { Link } from '@sorare/core/src/routing/Link';
 
-import DropdownActions from '@sorare/football/src/components/lineup/DropdownActions';
-import { LineupDate } from '@sorare/football/src/components/lineup/LineupDate';
-import DivisionLogo from '@sorare/football/src/components/so5/DivisionLogo';
-import { useFootballEvents } from 'lib/events';
-import getLineupDisplayName from 'lib/lineup/getLineupDisplayName';
+import DropdownActions from '@football/components/lineup/DropdownActions';
+import { LineupDate } from '@football/components/lineup/LineupDate';
+import DivisionLogo from '@football/components/so5/DivisionLogo';
+import { useFootballEvents } from '@football/lib/events';
+import getLineupDisplayName from '@football/lib/lineup/getLineupDisplayName';
 
 import {
   LineupHeader_so5Leaderboard,

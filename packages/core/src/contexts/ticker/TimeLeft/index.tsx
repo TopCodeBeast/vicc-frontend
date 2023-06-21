@@ -1,16 +1,15 @@
 import { faClock } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { differenceInHours } from 'date-fns';
-import { FunctionComponent, ReactNode, useContext, useEffect } from 'react';
+import { FunctionComponent, ReactNode, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { useTickerContext } from '@sorare/core/src/contexts/ticker';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { useTimeLeft } from '@sorare/core/src/hooks/useTimeLeft';
-import { DarkThemeContext } from '@sorare/core/src/routing/DarkTheme';
+import Tooltip from '@core/atoms/tooltip/Tooltip';
+import { useIntlContext } from '@core/contexts/intl';
+import { useTickerContext } from '@core/contexts/ticker';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import { useTimeLeft } from '@core/hooks/useTimeLeft';
 
 export interface LayoutProps {
   children: ReactNode;
@@ -48,7 +47,6 @@ const ExplicitTime = ({
   const { up: isTabletOrDesktop } = useScreenSize('tablet');
   const { now } = useTickerContext();
   const hoursDiff = differenceInHours(time, now);
-  const { withinDarkTheme } = useContext(DarkThemeContext);
   const { formatDate } = useIntlContext();
 
   const longTime = formatDate(time, {
@@ -77,7 +75,7 @@ const ExplicitTime = ({
 
   return (
     <Icon>
-      <Tooltip title={longTime} placement="top" dark={withinDarkTheme}>
+      <Tooltip title={longTime} placement="top">
         <FontAwesomeIcon icon={faClock} />
       </Tooltip>
     </Icon>

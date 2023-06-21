@@ -5,23 +5,23 @@ import { useLocation } from 'react-router-dom';
 import {
   SignupPlatform,
   SorarePrivateKeyAttributes,
-} from '__generated__/globalTypes';
-import { getValue } from 'components/PersistsQueryStringParameters/storage';
-import { useConfigContext } from '@sorare/core/src/contexts/config';
-import { useConnectionContext } from '@sorare/core/src/contexts/connection';
-import { currentUser } from '@sorare/core/src/contexts/currentUser/queries';
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import useAfterLoggedInTarget from '@sorare/core/src/hooks/useAfterLoggedInTarget';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import usePrevious from '@sorare/core/src/hooks/usePrevious';
-import { useRedirectUrl } from '@sorare/core/src/hooks/useRedirectUrl';
-import { SESSION_STORAGE, useSessionStorage } from '@sorare/core/src/hooks/useSessionStorage';
-import useUtmParams from '@sorare/core/src/hooks/useUtmParams';
-import { getInteractionContext } from '@sorare/core/src/lib/events';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { getClientId } from '@sorare/core/src/lib/ga';
-import { formatGqlErrors } from '@sorare/core/src/lib/gql';
-import { SubmitSignUpForm } from '@sorare/core/src/protos/events/platform/web/events';
+} from '@core/__generated__/globalTypes';
+import { getValue } from '@core/components/PersistsQueryStringParameters/storage';
+import { useConfigContext } from '@core/contexts/config';
+import { useConnectionContext } from '@core/contexts/connection';
+import { currentUser } from '@core/contexts/currentUser/queries';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
+import useAfterLoggedInTarget from '@core/hooks/useAfterLoggedInTarget';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import usePrevious from '@core/hooks/usePrevious';
+import { useRedirectUrl } from '@core/hooks/useRedirectUrl';
+import { SESSION_STORAGE, useSessionStorage } from '@core/hooks/useSessionStorage';
+import useUtmParams from '@core/hooks/useUtmParams';
+import { getInteractionContext } from '@core/lib/events';
+import useEvents from '@core/lib/events/useEvents';
+import { getClientId } from '@core/lib/ga';
+import { formatGqlErrors } from '@core/lib/gql';
+import { SubmitSignUpForm } from '@core/protos/events/platform/web/events';
 
 import {
   SignUpMutation,
@@ -29,6 +29,7 @@ import {
   SignUpMutationWithUser,
   SignUpMutationWithUserVariables,
 } from './__generated__/useSignUp.graphql';
+import useRedirectAfterSignUp from './useRedirectAfterSignUp';
 
 const SIGN_UP_MUTATION = gql`
   mutation SignUpMutation($input: signUpInput!) {
@@ -84,6 +85,7 @@ function useSignUp() {
   >(allowUnconfirmedAccess ? SIGN_UP_MUTATION_WITH_USER : SIGN_UP_MUTATION);
   const afterLoggedInTarget = useAfterLoggedInTarget();
   const { recaptchaRef } = useConnectionContext();
+  const redirectUser = useRedirectAfterSignUp();
 
   const submit = useCallback(
     async (attributes: {
@@ -152,6 +154,7 @@ function useSignUp() {
           nickname: result.data!.signUp?.currentUser!.nickname,
         });
         setSignupPromo(null);
+        redirectUser();
       }
 
       return result;
@@ -168,6 +171,7 @@ function useSignUp() {
       showNotification,
       allowUnconfirmedAccess,
       setSignupPromo,
+      redirectUser,
       updateQuery,
     ]
   );

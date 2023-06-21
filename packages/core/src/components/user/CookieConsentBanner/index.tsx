@@ -1,9 +1,9 @@
 import { ConsentManagerBuilder } from '@segment/consent-manager';
 import inEU from '@segment/in-eu';
 
-import { Popup } from '@sorare/core/src/atoms/layout/Popup';
-import { COOKIE_POLICY } from '@sorare/core/src/constants/routes';
-import useToggle from '@sorare/core/src/hooks/useToggle';
+import { Popup } from '@core/atoms/layout/Popup';
+import { COOKIE_POLICY } from '@core/constants/routes';
+import useToggle from '@core/hooks/useToggle';
 
 import { SEGMENT_API_KEY } from '../../../config';
 import { DetailedConsent, SimpleConsent } from './Consent';

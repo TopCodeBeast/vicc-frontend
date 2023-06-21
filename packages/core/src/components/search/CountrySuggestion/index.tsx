@@ -1,5 +1,5 @@
-import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
-import { CountryHit } from '@sorare/core/src/lib/algolia';
+import { FRONTEND_ASSET_HOST } from '@core/constants/assets';
+import { CountryHit } from '@core/lib/algolia';
 
 import Suggestion from '../Suggestion';
 

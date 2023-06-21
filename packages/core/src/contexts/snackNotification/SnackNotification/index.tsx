@@ -6,9 +6,9 @@ import { useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
-import { OverrideClasses } from '@sorare/core/src/style/utils';
+import { glossary } from '@core/lib/glossary';
+import { theme } from '@core/style/theme';
+import { OverrideClasses } from '@core/style/utils';
 
 import { Level, SnackNotificationOptions } from '..';
 import { Message } from '../SnackMessage';

@@ -4,10 +4,10 @@ import { defineMessage, defineMessages } from 'react-intl';
 import { CardCoverageStatus } from '@sorare/core/src/__generated__/globalTypes';
 import Bold from '@sorare/core/src/atoms/typography/Bold';
 import createLink from '@sorare/core/src/atoms/typography/Link';
-import { FAQ } from '@sorare/core/src/constants/routes';
+import { LICENSED_PARTNERS } from '@sorare/core/src/constants/routes';
 import Warning from '@sorare/core/src/contexts/intl/Warning';
 
-import { messages } from 'lib/cardCoverage';
+import { messages } from '@football/lib/cardCoverage';
 
 import { CardPage_ItemEligibility_card } from './__generated__/index.graphql';
 
@@ -56,7 +56,7 @@ export const ItemEligibility = ({ card }: Props) => {
         variant={variant}
         title={title}
         message={descriptionMessages.legend}
-        values={{ link: createLink(FAQ) }}
+        values={{ link: createLink(LICENSED_PARTNERS) }}
       />
     );
   }

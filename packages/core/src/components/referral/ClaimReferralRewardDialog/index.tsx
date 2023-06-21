@@ -3,12 +3,12 @@ import { ReactElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Preloader } from '@sorare/core/src/atoms/loader/Preloader';
-import { Title1 } from '@sorare/core/src/atoms/typography';
-import CardFront from 'components/card/Front';
-import { ClaimRewardsDialog } from 'components/rewards/ClaimRewardsDialog';
-import { Reward } from 'components/rewards/types';
-import { useReferralReward } from '@sorare/core/src/hooks/useReferralReward';
+import { Preloader } from '@core/atoms/loader/Preloader';
+import { Title1 } from '@core/atoms/typography';
+import CardFront from '@core/components/card/Front';
+import { ClaimRewardsDialog } from '@core/components/rewards/ClaimRewardsDialog';
+import { Reward } from '@core/components/rewards/types';
+import { useReferralReward } from '@core/hooks/useReferralReward';
 
 import { ClaimReferralRewardDialog_referralReward } from './__generated__/index.graphql';
 

@@ -2,8 +2,8 @@ import classnames from 'classnames';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import BackButton from '@sorare/core/src/atoms/buttons/BackButton';
-import { theme } from '@sorare/core/src/style/theme';
+import BackButton from '@core/atoms/buttons/BackButton';
+import { theme } from '@core/style/theme';
 
 type Props = {
   title?: ReactNode;

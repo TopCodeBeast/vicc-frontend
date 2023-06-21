@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { useInstantSearch } from 'react-instantsearch-hooks-web';
 
-import { ExtendedUIState } from 'components/search/InstantSearch/types';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useSearchCardsContext } from '@sorare/core/src/contexts/searchCards';
-import { VIRTUAL_TOGGLE_FILTERS } from '@sorare/core/src/lib/filters';
+import { ExtendedUIState } from '@core/components/search/InstantSearch/types';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useSearchCardsContext } from '@core/contexts/searchCards';
+import { VIRTUAL_TOGGLE_FILTERS } from '@core/lib/filters';
 
 import useVirtualToggle from './useVirtualToggle';
 

@@ -1,19 +1,23 @@
 import { gql } from '@apollo/client';
-import Big from 'bignumber.js';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Currency } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  Currency,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import UninteractiveToken from '@sorare/core/src/components/token/UninteractiveToken';
-import { divideFiat, multiplyFiat } from '@sorare/core/src/lib/fiat';
+import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 
-import BuyTokenSummary from '@sorare/marketplace/src/components/buyActions/BuyTokenSummary';
-import { Props as SelectedPaymentMethodForConfirmationProps } from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
-import SmallUser from '@sorare/marketplace/src/components/user/SmallUser';
+import BuyTokenSummary from '@marketplace/components/buyActions/BuyTokenSummary';
+import { Props as SelectedPaymentMethodForConfirmationProps } from '@marketplace/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
+import { Props as SummaryTableProps } from '@marketplace/components/buyActions/PaymentBox/SummaryTable';
+import SmallUser from '@marketplace/components/user/SmallUser';
 
 import BuyConfirmation from '../BuyConfirmation';
 import { WalletPaymentMethod } from '../PaymentProvider/types';
+import { useCalculateAmounts } from '../PaymentProvider/useCalculateAmounts';
 import { BuyTokenConfirmation_tokenOffer } from './__generated__/index.graphql';
 
 const Image = styled.div`
@@ -25,40 +29,36 @@ export type Props = {
 };
 
 export const BuyTokenConfirmation = ({ payment, offer }: Props) => {
+  const { toMonetaryAmount } = useMonetaryAmount();
   const {
     creditCardFee: fees,
     priceWei,
-    priceFiat,
     sender,
     senderSide: { nfts },
   } = offer;
+  const isFiat = payment?.paymentCurrency === Currency.FIAT;
+
+  const monetaryAmount = toMonetaryAmount({
+    wei: priceWei,
+    referenceCurrency: SupportedCurrency.WEI,
+  });
+
+  const sport = nfts?.[0]?.sport;
+
+  const { totalMonetaryAmount, feesMonetaryAmount } = useCalculateAmounts({
+    creditCardFee: fees,
+    activeFee: isFiat,
+    isFiat,
+    sport,
+    canUseConversionCredit: false,
+    monetaryAmount,
+    referenceCurrency: SupportedCurrency.WEI,
+  });
 
   if (!nfts || nfts.length === 0) return null;
   const token = nfts[0];
 
-  const isFiat = payment?.paymentCurrency === Currency.FIAT;
-
-  const subtotalBigAmount = isFiat
-    ? new Big(priceWei).dividedBy(1 + fees)
-    : new Big(priceWei);
-
-  const subtotalFiatAmount = isFiat
-    ? divideFiat(priceFiat, 1 + fees)
-    : priceFiat;
-
-  const feesWeiAmount = subtotalBigAmount
-    .multipliedBy(isFiat ? fees : 0)
-    .toString();
-
-  const feesFiatAmount = multiplyFiat(subtotalFiatAmount, isFiat ? fees : 0);
-
-  const summaryTableProps = {
-    subtotalWeiAmount: subtotalBigAmount.toString(),
-    subtotalFiatAmount,
-    totalWeiAmount: priceWei,
-    totalFiatAmount: priceFiat,
-    feesWeiAmount,
-    feesFiatAmount,
+  const summaryTableProps: SummaryTableProps = {
     fees,
     isFiat,
     isCreditCard:
@@ -66,6 +66,9 @@ export const BuyTokenConfirmation = ({ payment, offer }: Props) => {
     customAmountDisplay: null,
     usingConversionCredit: false,
     sport: token.sport,
+    subtotalMonetaryAmount: monetaryAmount,
+    feesMonetaryAmount,
+    totalMonetaryAmount,
   };
 
   return (
@@ -74,10 +77,7 @@ export const BuyTokenConfirmation = ({ payment, offer }: Props) => {
         <BuyTokenSummary
           withoutRecentSales
           token={token}
-          price={{
-            weiAmount: subtotalBigAmount.toString(),
-            amountInFiat: subtotalFiatAmount,
-          }}
+          monetaryAmount={monetaryAmount}
         />
       }
       itemPreview={
@@ -114,11 +114,6 @@ BuyTokenConfirmation.fragments = {
       id
       creditCardFee
       priceWei
-      priceFiat {
-        eur
-        gbp
-        usd
-      }
       sender {
         ...SmallUser_user
         ...SmallUser_anonymousUser

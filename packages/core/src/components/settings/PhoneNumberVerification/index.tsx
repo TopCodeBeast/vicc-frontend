@@ -1,5 +1,5 @@
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
 
 import SettingsSection from '../SettingsSection';
 import PhoneNumberVerificationSection from './PhoneNumberVerificationSection';

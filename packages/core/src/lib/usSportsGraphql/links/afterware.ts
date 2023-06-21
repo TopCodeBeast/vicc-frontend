@@ -1,6 +1,6 @@
 import { ApolloLink } from '@apollo/client';
 
-import { Level, SnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
+import { Level, SnackNotificationContext } from '@core/contexts/snackNotification';
 
 export const afterwareLink = (
   showNotification: SnackNotificationContext['showNotification']

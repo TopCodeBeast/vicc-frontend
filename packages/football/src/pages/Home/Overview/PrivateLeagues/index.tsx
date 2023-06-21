@@ -17,11 +17,11 @@ import {
 import { groupBy } from '@sorare/core/src/lib/arrays';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { HomeBlock } from '@sorare/football/src/components/Home/Block';
-import { ItemRows } from '@sorare/football/src/components/Home/ItemRows';
-import { SeeAllButton } from '@sorare/football/src/components/Home/SeeAllButton';
-import { homeLabels } from 'lib/home';
-import { sortLeaderboardsByTournamentType } from 'lib/so5';
+import { HomeBlock } from '@football/components/Home/Block';
+import { ItemRows } from '@football/components/Home/ItemRows';
+import { SeeAllButton } from '@football/components/Home/SeeAllButton';
+import { homeLabels } from '@football/lib/home';
+import { sortLeaderboardsByTournamentType } from '@football/lib/so5';
 
 import { PrivateLeagueBlock } from './PrivateLeagueBlock';
 import { PrivateLeagues_so5 } from './__generated__/index.graphql';
@@ -138,7 +138,6 @@ export const PrivateLeagues = ({ so5, loading }: Props) => {
             to={generatePath(FOOTBALL_PRIVATE_LEAGUES_CREATE, {
               step: PrivateLeaguesStep.CREATE,
             })}
-            disableRipple
             color="dark"
             className="light-theme"
             small

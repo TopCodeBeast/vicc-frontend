@@ -1,7 +1,7 @@
 import { IndexUiState } from 'instantsearch.js';
 
-import { Sport } from '__generated__/globalTypes';
-import { AlgoliaIndexes } from '@sorare/core/src/contexts/config';
+import { Sport } from '@core/__generated__/globalTypes';
+import { AlgoliaIndexes } from '@core/contexts/config';
 
 export type SearchProps = {
   analyticsTags: AnalyticTag[];

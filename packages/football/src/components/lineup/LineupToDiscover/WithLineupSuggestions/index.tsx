@@ -15,9 +15,9 @@ import { SEARCH_PARAMS } from '@sorare/core/src/components/search/InstantSearch/
 import { FOOTBALL_TRANSFER_MARKET } from '@sorare/core/src/constants/routes';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import { CardPlaceholder } from '@sorare/football/src/components/lineup/CardPlaceholder';
-import { Props as LineupProps } from '@sorare/football/src/components/lineup/Lineup';
-import { useFootballEvents } from 'lib/events';
+import { CardPlaceholder } from '@football/components/lineup/CardPlaceholder';
+import { Props as LineupProps } from '@football/components/lineup/Lineup';
+import { useFootballEvents } from '@football/lib/events';
 
 import BuyButton from './BuyButton';
 import { CommonPlayerCard } from './CommonPlayerCard';
@@ -133,7 +133,6 @@ const WithLineupSuggestions = ({
               <ButtonRows>
                 <StyledButton
                   small
-                  disableRipple={disableShuffle}
                   color="transparent"
                   className={classNames({
                     disabled: disableShuffle,

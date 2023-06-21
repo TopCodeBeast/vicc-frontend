@@ -1,25 +1,25 @@
 import { gql } from '@apollo/client';
 import { useMemo } from 'react';
 
-import { ShippingState, Sport } from '__generated__/globalTypes';
-import { RewardState } from '__generated__/usSportsGlobalTypes';
-import { Title3 } from '@sorare/core/src/atoms/typography';
-import { CardBack as CardBackFootball } from 'components/card/Back/Football';
-import { USSportCardBack } from 'components/cards/Back';
-import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
+import { ShippingState, Sport } from '@core/__generated__/globalTypes';
+import { RewardState } from '@core/__generated__/usSportsGlobalTypes';
+import { Title3 } from '@core/atoms/typography';
+import { CardBack as CardBackFootball } from '@core/components/card/Back/Football';
+import { USSportCardBack } from '@core/components/cards/Back';
+import { FRONTEND_ASSET_HOST } from '@core/constants/assets';
 import { isA } from 'gql';
-import idFromObject from '@sorare/core/src/gql/idFromObject';
-import { getPositionInitials as getMLBPositionInitials } from '@sorare/core/src/lib/baseball';
-import { getPositionInitials as getNBAPositionInitials } from '@sorare/core/src/lib/nba';
+import idFromObject from '@core/gql/idFromObject';
+import { getPositionInitials as getMLBPositionInitials } from '@core/lib/baseball';
+import { getPositionInitials as getNBAPositionInitials } from '@core/lib/nba';
 import {
   BaseballReferralRewardsQuery,
   BaseballReferralRewardsQueryVariables,
   NBAReferralRewardsQuery,
-} from '@sorare/core/src/lib/usSportsGraphql/__generated__/queries.graphql';
+} from '@core/lib/usSportsGraphql/__generated__/queries.graphql';
 import {
   BASEBALL_REFERRAL_REWARDS_QUERY,
   NBA_REFERRAL_REWARDS_QUERY,
-} from '@sorare/core/src/lib/usSportsGraphql/queries';
+} from '@core/lib/usSportsGraphql/queries';
 
 import { useReferralReward_referralReward } from './__generated__/useReferralReward.graphql';
 import { useBaseballQuery } from './graphql/baseball';

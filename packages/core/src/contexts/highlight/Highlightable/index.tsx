@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
 
-import OnboardingTooltip from '@sorare/core/src/atoms/tooltip/OnboardingTooltip';
-import HighlightableWrapper from 'components/HighlightableWrapper';
+import OnboardingTooltip from '@core/atoms/tooltip/OnboardingTooltip';
+import HighlightableWrapper from '@core/components/HighlightableWrapper';
 
 import { useHighLightContext } from '..';
 

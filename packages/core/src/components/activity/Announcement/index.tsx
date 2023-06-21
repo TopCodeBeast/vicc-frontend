@@ -5,17 +5,17 @@ import dompurify from 'dompurify';
 import { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import { Caption, Title2 } from '@sorare/core/src/atoms/typography';
-import { ACTIVITY } from '@sorare/core/src/constants/routes';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import idFromObject from '@sorare/core/src/gql/idFromObject';
-import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import getSafePreviousLocation from '@sorare/core/src/lib/navigation/getSafePreviousLocation';
-import { isExternalDomain, toRelative } from '@sorare/core/src/lib/urls';
-import { ClickAnnouncementLink } from '@sorare/core/src/protos/events/platform/web/events';
-import { Link } from '@sorare/core/src/routing/Link';
+import IconButton from '@core/atoms/buttons/IconButton';
+import { Caption, Title2 } from '@core/atoms/typography';
+import { ACTIVITY } from '@core/constants/routes';
+import { useIntlContext } from '@core/contexts/intl';
+import idFromObject from '@core/gql/idFromObject';
+import { useBgLocation } from '@core/hooks/useBgLocation';
+import useEvents from '@core/lib/events/useEvents';
+import getSafePreviousLocation from '@core/lib/navigation/getSafePreviousLocation';
+import { isExternalDomain, toRelative } from '@core/lib/urls';
+import { ClickAnnouncementLink } from '@core/protos/events/platform/web/events';
+import { Link } from '@core/routing/Link';
 
 import { Announcement_announcement } from './__generated__/index.graphql';
 

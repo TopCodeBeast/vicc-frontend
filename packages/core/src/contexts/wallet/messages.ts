@@ -21,6 +21,11 @@ export const messages = defineMessages<keyof Dict>({
     id: 'walletApp.availableAmountForDeposit',
     defaultMessage: 'Available funds for deposit',
   },
+  depositAvailableSoon: {
+    id: 'walletApp.depositAvailableSoon',
+    defaultMessage:
+      'Your deposit will be available in your balance in a moment.',
+  },
   insufficientFundsForDeposit: {
     id: 'walletApp.insufficientFundsForDeposit',
     defaultMessage: 'Insufficient funds to cover transaction fees',

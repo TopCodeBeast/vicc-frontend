@@ -1,11 +1,14 @@
+import { gql } from '@apollo/client';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import { Text16 } from '@sorare/core/src/atoms/typography';
 
-import DetailsDialog from '@sorare/football/src/components/collections/DetailsDialog';
-import howPointsWork from '@sorare/football/src/components/collections/assets/how-points-work.png';
+import DetailsDialog from '@football/components/collections/DetailsDialog';
+import howPointsWork from '@football/components/collections/assets/how-points-work.png';
+
+import { DetailsDialogBanner_cardCollection } from './__generated__/index.graphql';
 
 const Banner = styled.button`
   border: 2px solid var(--c-neutral-300);
@@ -18,7 +21,8 @@ const Banner = styled.button`
   background-size: 110px;
 `;
 
-const DetailsDialogBanner = () => {
+type Props = { cardCollection?: DetailsDialogBanner_cardCollection };
+const DetailsDialogBanner = ({ cardCollection }: Props) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -31,9 +35,23 @@ const DetailsDialogBanner = () => {
           />
         </Text16>
       </Banner>
-      <DetailsDialog open={open} onClose={() => setOpen(false)} />
+      <DetailsDialog
+        open={open}
+        onClose={() => setOpen(false)}
+        cardCollection={cardCollection}
+      />
     </>
   );
 };
 
 export default DetailsDialogBanner;
+
+DetailsDialogBanner.fragments = {
+  cardCollection: gql`
+    fragment DetailsDialogBanner_cardCollection on CardCollection {
+      slug
+      ...DetailsDialog_cardCollection
+    }
+    ${DetailsDialog.fragments.cardCollection}
+  `,
+};

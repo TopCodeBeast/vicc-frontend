@@ -8,7 +8,7 @@ import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Title3, Title5 } from '@sorare/core/src/atoms/typography';
 import { goToLobby } from '@sorare/core/src/constants/routes';
 
-import Header from '@sorare/football/src/pages/NoCardEntry/Header';
+import Header from '@football/pages/NoCardEntry/Header';
 
 const Root = styled.div`
   display: flex;

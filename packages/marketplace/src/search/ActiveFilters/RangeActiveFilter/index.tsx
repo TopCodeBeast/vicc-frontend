@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { useSportContext } from '@sorare/core/src/contexts/sport';
 import { FILTERS } from '@sorare/core/src/lib/filters';
 
-import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
-import { useFormatFilterWidgetValue } from '@sorare/marketplace/src/hooks/search/useFormatFilterWidgetValue';
+import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
+import { useFormatFilterWidgetValue } from '@marketplace/hooks/search/useFormatFilterWidgetValue';
 
 import { FilterChip } from '../FilterChip';
 import { RefinementItem } from '../types';

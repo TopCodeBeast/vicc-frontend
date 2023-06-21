@@ -9,8 +9,8 @@ import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 
-import { TokenDetailsInfos, TokenDetailsRoot } from '@sorare/marketplace/src/components/ItemPreview/ui';
-import NewSaleDialog from '@sorare/marketplace/src/components/offer/NewSaleDialog';
+import { TokenDetailsInfos, TokenDetailsRoot } from '@marketplace/components/ItemPreview/ui';
+import NewSaleDialog from '@marketplace/components/offer/NewSaleDialog';
 
 import { SalePrice } from '../SalePrice';
 import { SaleWinner } from '../SaleWinner';

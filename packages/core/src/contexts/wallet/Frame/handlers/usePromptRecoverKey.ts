@@ -1,10 +1,10 @@
 import { useContext, useEffect } from 'react';
 
 import { MessagingContext, PromptRecoverKey } from '@sorare/wallet-shared';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import { WalletTab, useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
-import useQueryString from '@sorare/core/src/hooks/useQueryString';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
+import { WalletTab, useWalletDrawerContext } from '@core/contexts/walletDrawer';
+import useQueryString from '@core/hooks/useQueryString';
 
 export default () => {
   const { sendRequest } = useContext(MessagingContext)!;

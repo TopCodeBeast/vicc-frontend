@@ -2,10 +2,10 @@ import classnames from 'classnames';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import Button, { Props as ButtonProps, Color } from '@sorare/core/src/atoms/buttons/Button';
-import DotsLoader from '@sorare/core/src/atoms/loader/DotsLoader';
-import { BaseLoadingIndicator } from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import Button, { Props as ButtonProps, Color } from '@core/atoms/buttons/Button';
+import DotsLoader from '@core/atoms/loader/DotsLoader';
+import { BaseLoadingIndicator } from '@core/atoms/loader/LoadingIndicator';
+import { glossary } from '@core/lib/glossary';
 
 export interface Props extends ButtonProps {
   loading: boolean;

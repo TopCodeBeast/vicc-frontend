@@ -6,15 +6,15 @@ import styled from 'styled-components';
 import { FOOTBALL_LOBBY_PAST } from '@sorare/core/src/constants/routes';
 import { hasUnclaimedRewards } from '@sorare/core/src/lib/rewards';
 
-import { GameWeekTitle } from '@sorare/football/src/components/Home/GameWeekTitle';
-import HomeBlockWithTimeline from '@sorare/football/src/components/Home/HomeBlockWithTimeline';
-import { ItemRows } from '@sorare/football/src/components/Home/ItemRows';
-import { SeeAllButton } from '@sorare/football/src/components/Home/SeeAllButton';
-import { Lineup } from '@sorare/football/src/components/lineup/Lineup';
-import { RewardsBanner } from '@sorare/football/src/components/rewards/Banner';
-import { EligibleRewardsBanner } from '@sorare/football/src/components/rewards/EligibleRewardsBanner';
-import { getRewardType } from 'lib/lineupRewards';
-import { isFixtureClosed } from 'lib/so5';
+import { GameWeekTitle } from '@football/components/Home/GameWeekTitle';
+import HomeBlockWithTimeline from '@football/components/Home/HomeBlockWithTimeline';
+import { ItemRows } from '@football/components/Home/ItemRows';
+import { SeeAllButton } from '@football/components/Home/SeeAllButton';
+import { Lineup } from '@football/components/lineup/Lineup';
+import { RewardsBanner } from '@football/components/rewards/Banner';
+import { EligibleRewardsBanner } from '@football/components/rewards/EligibleRewardsBanner';
+import { getRewardType } from '@football/lib/lineupRewards';
+import { isFixtureClosed } from '@football/lib/so5';
 
 import { PastFixture_so5 } from './__generated__/index.graphql';
 

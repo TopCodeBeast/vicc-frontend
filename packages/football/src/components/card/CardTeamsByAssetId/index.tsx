@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
-import CardTeams from '@sorare/football/src/components/card/CardTeams';
+import CardTeams from '@football/components/card/CardTeams';
 
 import {
   CardTeamsByAssetIdQuery,

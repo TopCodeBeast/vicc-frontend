@@ -3,8 +3,8 @@ import { gql } from '@apollo/client';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
-import BuyTokenConfirmation from '@sorare/marketplace/src/components/buyActions/BuyTokenConfirmation';
-import { Props as SelectedPaymentMethodForConfirmationProps } from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
+import BuyTokenConfirmation from '@marketplace/components/buyActions/BuyTokenConfirmation';
+import { Props as SelectedPaymentMethodForConfirmationProps } from '@marketplace/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
 
 import {
   BuyTokenConfirmationQueryById,

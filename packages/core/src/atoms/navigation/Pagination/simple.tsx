@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import Bold from '@sorare/core/src/atoms/typography/Bold';
+import Bold from '@core/atoms/typography/Bold';
 
 type Props = {
   currentPage: number;

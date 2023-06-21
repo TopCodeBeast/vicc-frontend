@@ -1,9 +1,11 @@
 import { gql } from '@apollo/client';
+import { parseISO } from 'date-fns';
 import { useState } from 'react';
 import styled from 'styled-components';
 
 import GlareEffect from '@sorare/core/src/atoms/animations/GlareEffect';
 import CloseButton from '@sorare/core/src/atoms/buttons/CloseButton';
+import Gauge from '@sorare/core/src/atoms/ui/GaugeV2';
 import Dialog from '@sorare/core/src/components/dialog';
 import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
 import { isListedOnMarket } from '@sorare/core/src/lib/cards';
@@ -11,16 +13,19 @@ import { theme } from '@sorare/core/src/style/theme';
 
 import useCancelOffer from '@sorare/marketplace/src/hooks/offers/useCancelOffer';
 
-import CardScore from '@sorare/football/src/components/collections/CardScore';
-import CollectionBackground from '@sorare/football/src/components/collections/CollectionBackground';
-import DetailedScoreIcon, {
+import CardScore from '@football/components/collections/CardScore';
+import CollectionBackground from '@football/components/collections/CollectionBackground';
+import DetailedScoreLine, {
   DetailedScoreKey,
   detailedScores,
-} from '@sorare/football/src/components/collections/DetailedScoreLine';
-import DetailsDialogBanner from '@sorare/football/src/components/collections/DetailsDialogBanner';
-import Warning from '@sorare/football/src/components/collections/Warning';
+} from '@football/components/collections/DetailedScoreLine';
+import DetailsDialogBanner from '@football/components/collections/DetailsDialogBanner';
+import Warning from '@football/components/collections/Warning';
 
-import { CardPreview_cardCollectionCard } from './__generated__/index.graphql';
+import {
+  CardPreview_cardCollection,
+  CardPreview_cardCollectionCard,
+} from './__generated__/index.graphql';
 
 const DialogContainer = styled(CollectionBackground)`
   isolation: isolate;
@@ -53,21 +58,36 @@ const Bonuses = styled.div`
   flex-direction: column;
 `;
 
+const DaysLeft = styled.span`
+  display: block;
+  text-align: right;
+  font-size: 10px;
+  line-height: 12px;
+  margin-left: auto;
+  margin-bottom: var(--half-unit);
+`;
+
+const Progression = styled.span`
+  display: block;
+`;
+
 type Props = {
   cardCollectionCard: CardPreview_cardCollectionCard;
   bannerPictureUrl: string;
   open?: boolean;
   onClose: () => void;
+  cardCollection?: CardPreview_cardCollection;
 };
 const CardPreview = ({
   cardCollectionCard,
   bannerPictureUrl,
   open,
   onClose,
+  cardCollection,
 }: Props) => {
   const [unlisting, setUnlisting] = useState(false);
   const [unlisted, setUnlisted] = useState(false);
-  const { card, scoreBreakdown } = cardCollectionCard;
+  const { card, scoreBreakdown, heldSince } = cardCollectionCard;
   const { __typename, total, ...scores } = scoreBreakdown;
   const theoricalScore = Object.values(scores).reduce(
     (sum, value) => sum + value
@@ -93,6 +113,11 @@ const CardPreview = ({
 
   const displayWarning = cardListed && !unlisted;
 
+  const date1 = new Date(parseISO(heldSince));
+  const date2 = new Date();
+  const remainingDays =
+    (date2.valueOf() - date1.valueOf()) / (1000 * 60 * 60 * 24);
+
   return (
     <Dialog darkTheme maxWidth="sm" open={open} onClose={onClose}>
       <DialogContainer bannerPictureUrl={bannerPictureUrl}>
@@ -108,20 +133,42 @@ const CardPreview = ({
         />
         <Bonuses>
           {Object.entries(scores).map(([key, value]) => {
-            return (
-              !!value &&
-              key in detailedScores && (
-                <DetailedScoreIcon
+            if (!value && key === 'holding' && remainingDays > 0)
+              return (
+                <DetailedScoreLine
                   key={key}
-                  id={key as DetailedScoreKey}
                   listed={displayWarning}
+                  {...detailedScores[key as DetailedScoreKey]}
+                  explanation={
+                    <>
+                      {detailedScores[key as DetailedScoreKey].explanation}
+                      {remainingDays > 0 && (
+                        <Progression>
+                          <DaysLeft>{Math.ceil(remainingDays)}/90</DaysLeft>
+                          <Gauge
+                            percentage={`${(remainingDays * 100) / 90}%`}
+                          />
+                        </Progression>
+                      )}
+                    </>
+                  }
+                  value={0}
+                />
+              );
+            if (!value) return null;
+            return (
+              key in detailedScores && (
+                <DetailedScoreLine
+                  key={key}
+                  listed={displayWarning}
+                  {...detailedScores[key as DetailedScoreKey]}
                 />
               )
             );
           })}
         </Bonuses>
         {displayWarning && <Warning onClick={onUnlist} loading={unlisting} />}
-        <DetailsDialogBanner />
+        <DetailsDialogBanner cardCollection={cardCollection} />
       </DialogContainer>
     </Dialog>
   );
@@ -131,6 +178,7 @@ CardPreview.fragments = {
   cardCollectionCard: gql`
     fragment CardPreview_cardCollectionCard on CardCollectionCard {
       id
+      heldSince
       card {
         assetId
         slug
@@ -158,6 +206,13 @@ CardPreview.fragments = {
     }
     ${isListedOnMarket.fragments.card}
     ${useTokenOfferBelongsToUser.fragments.offer}
+  `,
+  cardCollection: gql`
+    fragment CardPreview_cardCollection on CardCollection {
+      slug
+      ...DetailsDialogBanner_cardCollection
+    }
+    ${DetailsDialogBanner.fragments.cardCollection}
   `,
 };
 

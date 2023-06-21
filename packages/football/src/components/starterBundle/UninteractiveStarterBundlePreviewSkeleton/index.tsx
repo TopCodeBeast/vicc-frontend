@@ -9,7 +9,7 @@ import { Caption } from '@sorare/core/src/atoms/typography';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { cardRatio } from '@sorare/core/src/lib/cardPicture';
 
-import { positionShortNames } from 'lib/so5';
+import { positionShortNames } from '@football/lib/so5';
 
 import footballField from './footballField.svg';
 

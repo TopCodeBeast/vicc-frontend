@@ -18,7 +18,7 @@ import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { RootRoutes } from '@sorare/core/src/routing/RootRoutes';
 
-import ShopItemPicker from '@sorare/football/src/components/shopItems/ShopItemPicker';
+import ShopItemPicker from '@football/components/shopItems/ShopItemPicker';
 
 const Root = styled(Container)`
   row-gap: var(--double-unit);

@@ -1,15 +1,15 @@
 import { ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Sport } from '__generated__/globalTypes';
+import { Sport } from '@core/__generated__/globalTypes';
 import {
   LEGACY_BUNDLED_AUCTION,
   LEGACY_CARD_SHOW,
   LEGACY_TOKEN_AUCTION,
-} from '@sorare/core/src/constants/routes';
-import { useSportContext } from '@sorare/core/src/contexts/sport';
-import idFromObject from '@sorare/core/src/gql/idFromObject';
-import { Link, LinkProps } from '@sorare/core/src/routing/Link';
+} from '@core/constants/routes';
+import { useSportContext } from '@core/contexts/sport';
+import idFromObject from '@core/gql/idFromObject';
+import { Link, LinkProps } from '@core/routing/Link';
 
 interface Props {
   item: Item;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import LoadingIndicator, {
   Props as LoadingIndicatorProps,
-} from '@sorare/core/src/atoms/loader/LoadingIndicator';
+} from '@core/atoms/loader/LoadingIndicator';
 
 // This will call the fetch function when hasMore is true and the ref that is returned
 // intersects with the viewport.

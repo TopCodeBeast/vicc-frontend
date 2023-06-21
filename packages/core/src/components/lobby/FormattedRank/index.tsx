@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { FormattedNumber } from 'react-intl';
 import styled from 'styled-components';
 
-import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
+import { Text14, Text16 } from '@core/atoms/typography';
 
 import { Rank } from '../Rank';
 

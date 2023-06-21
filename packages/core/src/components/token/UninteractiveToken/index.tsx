@@ -10,9 +10,9 @@ import {
 } from 'react';
 import styled from 'styled-components';
 
-import { ValidWidths } from '@sorare/core/src/atoms/ui/ResponsiveImg';
-import { CardImg, CardImgLoadingWrapper } from 'components/card/CardImg';
-import { theme } from '@sorare/core/src/style/theme';
+import { ValidWidths } from '@core/atoms/ui/ResponsiveImg';
+import { CardImg, CardImgLoadingWrapper } from '@core/components/card/CardImg';
+import { theme } from '@core/style/theme';
 
 export type DraggableProps = HTMLAttributes<HTMLDivElement>;
 

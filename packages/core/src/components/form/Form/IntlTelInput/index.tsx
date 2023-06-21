@@ -3,9 +3,9 @@ import classNames from 'classnames';
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
-import { Text18 } from '@sorare/core/src/atoms/typography';
-import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
-import { hidePhoneDetails } from '@sorare/core/src/lib/privacy';
+import { Text18 } from '@core/atoms/typography';
+import { FRONTEND_ASSET_HOST } from '@core/constants/assets';
+import { hidePhoneDetails } from '@core/lib/privacy';
 
 import Field from '../Field';
 import data, { getCountry, getInternationalNumber } from './data';

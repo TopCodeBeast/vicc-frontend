@@ -2,23 +2,23 @@ import { FunctionComponent, useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { Text16, Title5 } from '@sorare/core/src/atoms/typography';
+import Button from '@core/atoms/buttons/Button';
+import Dialog from '@core/atoms/layout/Dialog';
+import { Text16, Title5 } from '@core/atoms/typography';
 import {
   GraphQLResult,
   GraphqlForm,
   SubmitButtonProps,
   TextField,
-} from 'components/form/Form';
-import { OTP_ATTEMPT_LENGTH } from '@sorare/core/src/constants/verificationCode';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import { useWalletContext } from '@sorare/core/src/contexts/wallet';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import useUpdate2FA from '@sorare/core/src/hooks/useUpdate2FA';
-import { glossary, userAttributes } from '@sorare/core/src/lib/glossary';
+} from '@core/components/form/Form';
+import { OTP_ATTEMPT_LENGTH } from '@core/constants/verificationCode';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useIntlContext } from '@core/contexts/intl';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
+import { useWalletContext } from '@core/contexts/wallet';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import useUpdate2FA from '@core/hooks/useUpdate2FA';
+import { glossary, userAttributes } from '@core/lib/glossary';
 
 const messages = defineMessages({
   cta: {

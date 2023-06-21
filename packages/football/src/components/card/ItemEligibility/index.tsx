@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 
 import { CardCoverageStatus } from '@sorare/core/src/__generated__/globalTypes';
 
-import So5Eligibility from '@sorare/football/src/components/so5/CardProperties/So5Eligibility';
-import { messages } from 'lib/cardCoverage';
+import So5Eligibility from '@football/components/so5/CardProperties/So5Eligibility';
+import { messages } from '@football/lib/cardCoverage';
 
 import { ItemEligibility_card } from './__generated__/index.graphql';
 

@@ -1,13 +1,13 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import Button, { Props as ButtonProps } from '@sorare/core/src/atoms/buttons/Button';
+import Button, { Props as ButtonProps } from '@core/atoms/buttons/Button';
 import {
   GetCurrentUserSubscriptionProps,
   useFollowContext,
-} from '@sorare/core/src/contexts/follow';
-import useToggleSubscription from '@sorare/core/src/hooks/subscriptions/useToggleSubscription';
-import useLoggedCallback from '@sorare/core/src/hooks/useLoggedCallback';
+} from '@core/contexts/follow';
+import useToggleSubscription from '@core/hooks/subscriptions/useToggleSubscription';
+import useLoggedCallback from '@core/hooks/useLoggedCallback';
 
 interface Props extends Omit<ButtonProps, 'onChange' | 'classes'> {
   subscribable: GetCurrentUserSubscriptionProps;

@@ -3,10 +3,10 @@ import qs from 'qs';
 import { useCallback, useEffect } from 'react';
 import { Location, useLocation, useNavigate } from 'react-router-dom';
 
-import { keys } from 'components/PersistsQueryStringParameters/storage';
-import { useConfigContext } from '@sorare/core/src/contexts/config';
-import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
-import { local as localStorage } from '@sorare/core/src/lib/storage';
+import { keys } from '@core/components/PersistsQueryStringParameters/storage';
+import { useConfigContext } from '@core/contexts/config';
+import useQuery from '@core/hooks/graphql/useQuery';
+import { local as localStorage } from '@core/lib/storage';
 
 import {
   OwnYourGameQuery,

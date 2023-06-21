@@ -1,15 +1,15 @@
 import { gql } from '@apollo/client';
 import styled from 'styled-components';
 
-import american_express from 'assets/wallet/icon-american_express.png';
-import apple_pay from 'assets/wallet/icon-apple_pay.png';
-import diners_club from 'assets/wallet/icon-diners_club.png';
-import google_pay from 'assets/wallet/icon-g_pay.png';
-import jcb from 'assets/wallet/icon-jcb.png';
-import mastercard from 'assets/wallet/icon-mastercard.png';
-import unknown from 'assets/wallet/icon-unknown_cc.png';
-import visa from 'assets/wallet/icon-visa.png';
-import { Text16 } from '@sorare/core/src/atoms/typography';
+import american_express from '@core/assets/wallet/icon-american_express.png';
+import apple_pay from '@core/assets/wallet/icon-apple_pay.png';
+import diners_club from '@core/assets/wallet/icon-diners_club.png';
+import google_pay from '@core/assets/wallet/icon-g_pay.png';
+import jcb from '@core/assets/wallet/icon-jcb.png';
+import mastercard from '@core/assets/wallet/icon-mastercard.png';
+import unknown from '@core/assets/wallet/icon-unknown_cc.png';
+import visa from '@core/assets/wallet/icon-visa.png';
+import { Text16 } from '@core/atoms/typography';
 
 import { CreditCard_creditCard } from './__generated__/index.graphql';
 

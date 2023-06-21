@@ -1,12 +1,12 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useLifecycle, {
   LIFECYCLE,
   Lifecycle,
   LifecycleGetter,
   LifecycleValue,
-} from '@sorare/core/src/hooks/useLifecycle';
+} from '@core/hooks/useLifecycle';
 
 import OneTimeDialogContextProvider, { useOneTimeDialogContext } from '.';
 

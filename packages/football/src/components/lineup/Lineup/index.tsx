@@ -25,14 +25,14 @@ import { theme } from '@sorare/core/src/style/theme';
 
 import LineupActions, {
   Props as LineupActionsProps,
-} from '@sorare/football/src/components/lineup/LineupActions';
-import { LineupHeader } from '@sorare/football/src/components/lineup/LineupHeader';
-import { PlayerCard } from '@sorare/football/src/components/lineup/PlayerCard';
-import PlayerCardPlaceholder from '@sorare/football/src/components/lineup/PlayerCardPlaceholder';
-import PlayerGameScoreDialog from '@sorare/football/src/components/stats/PlayerGameScoreDialog';
-import { useDisplaySemiProIncentive } from 'hooks/leaderboard/useDisplaySemiProIncentive';
-import { lineupMessages } from 'lib/lineup/messages';
-import { RewardType } from 'lib/lineupRewards';
+} from '@football/components/lineup/LineupActions';
+import { LineupHeader } from '@football/components/lineup/LineupHeader';
+import { PlayerCard } from '@football/components/lineup/PlayerCard';
+import PlayerCardPlaceholder from '@football/components/lineup/PlayerCardPlaceholder';
+import PlayerGameScoreDialog from '@football/components/stats/PlayerGameScoreDialog';
+import { useDisplaySemiProIncentive } from '@football/hooks/leaderboard/useDisplaySemiProIncentive';
+import { lineupMessages } from '@football/lib/lineup/messages';
+import { RewardType } from '@football/lib/lineupRewards';
 
 import { LineupRewards } from './LineupRewards';
 import { LineupStatus } from './LineupStatus';

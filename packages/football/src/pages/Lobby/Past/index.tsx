@@ -28,7 +28,7 @@ import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 
 import { RewardsBanner } from '@sorare/football/src/components/rewards/Banner';
-import { isFixtureLive, isFixtureOpened } from 'lib/so5';
+import { isFixtureLive, isFixtureOpened } from '@football/lib/so5';
 import { Layout } from '@sorare/football/src/pages/Lobby/Components/Layout';
 import { LeaderboardPicker } from '@sorare/football/src/pages/Lobby/Components/LeaderboardPicker';
 import { MyPlayers } from '@sorare/football/src/pages/Lobby/Components/MyPlayers';

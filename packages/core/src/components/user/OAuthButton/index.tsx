@@ -2,8 +2,8 @@ import classnames from 'classnames';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import OAuthForm from 'components/user/OAuthForm';
+import Button from '@core/atoms/buttons/Button';
+import OAuthForm from '@core/components/user/OAuthForm';
 
 type Props = {
   provider: 'discord' | 'twitter' | 'google_oauth2' | 'facebook';

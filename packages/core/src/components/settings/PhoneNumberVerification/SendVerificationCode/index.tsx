@@ -7,12 +7,12 @@ import {
 } from 'react-intl';
 import styled from 'styled-components';
 
-import verifyPhoneNumber from 'assets/user/verify_phone_number.svg';
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { Text16, Title4 } from '@sorare/core/src/atoms/typography';
-import { type GraphQLResult, GraphqlForm } from 'components/form/Form';
-import IntlTelInput from 'components/form/Form/IntlTelInput';
-import { errorMessages } from 'components/user/VerifyPhoneNumber/i18n';
+import verifyPhoneNumber from '@core/assets/user/verify_phone_number.svg';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import { Text16, Title4 } from '@core/atoms/typography';
+import { type GraphQLResult, GraphqlForm } from '@core/components/form/Form';
+import IntlTelInput from '@core/components/form/Form/IntlTelInput';
+import { errorMessages } from '@core/components/user/VerifyPhoneNumber/i18n';
 
 import { SendVerificationCode_currentUser } from './__generated__/index.graphql';
 

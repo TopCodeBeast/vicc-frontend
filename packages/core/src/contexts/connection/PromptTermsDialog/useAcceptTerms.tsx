@@ -1,7 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
 
-import { currentUser } from '@sorare/core/src/contexts/currentUser/queries';
+import { currentUser } from '@core/contexts/currentUser/queries';
 
 import {
   AcceptTermsMutation,

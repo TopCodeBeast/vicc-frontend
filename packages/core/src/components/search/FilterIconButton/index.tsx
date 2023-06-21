@@ -1,6 +1,6 @@
 import { faFilter } from '@fortawesome/pro-solid-svg-icons';
 
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
+import IconButton from '@core/atoms/buttons/IconButton';
 
 type Props = { onClick: () => void };
 

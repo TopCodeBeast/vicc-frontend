@@ -13,8 +13,8 @@ import styled from 'styled-components';
 import RadioButtons from '@sorare/core/src/atoms/buttons/RadioButtons';
 import { hideScrollbar } from '@sorare/core/src/style/utils';
 
-import Formation from '@sorare/football/src/components/MatchView/Formation';
-import { SelectedTeam } from '@sorare/football/src/components/MatchView/types';
+import Formation from '@football/components/MatchView/Formation';
+import { SelectedTeam } from '@football/components/MatchView/types';
 
 import FootballFieldLines from './FootballFieldLines';
 import { FootballField_game } from './__generated__/index.graphql';

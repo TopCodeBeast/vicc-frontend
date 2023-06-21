@@ -8,7 +8,7 @@ import { ShirtSize } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import { isType } from '@sorare/core/src/lib/gql';
 
-import { ResetIn } from '@sorare/football/src/components/shopItems/ShopItemPicker/Item/Label';
+import { ResetIn } from '@football/components/shopItems/ShopItemPicker/Item/Label';
 
 import { SizeSelector_shopItem } from './__generated__/index.graphql';
 

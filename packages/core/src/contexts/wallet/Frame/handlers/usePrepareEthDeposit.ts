@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 
 import { MessagingContext, PrepareEthDeposit } from '@sorare/wallet-shared';
-import usePrepareEthDeposit from '@sorare/core/src/contexts/blockchain/usePrepareEthDeposit';
+import usePrepareEthDeposit from '@core/contexts/blockchain/usePrepareEthDeposit';
 
 export default () => {
   const { registerHandler } = useContext(MessagingContext)!;

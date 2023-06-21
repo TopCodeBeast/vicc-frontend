@@ -12,7 +12,7 @@ import { groupBy } from '@sorare/core/src/lib/arrays';
 
 import useDefaultFilters from '@sorare/marketplace/src/hooks/useDefaultFilters';
 
-import CardRow from '@sorare/football/src/components/card/CardRow';
+import CardRow from '@football/components/card/CardRow';
 
 import {
   CardsOnSaleQuery,

@@ -11,7 +11,7 @@ import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import useInfiniteScroll from '@sorare/core/src/hooks/useInfiniteScroll';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { useLoadMore } from 'hooks/useLoadMore';
+import { useLoadMore } from '@sorare/football/src/hooks/useLoadMore';
 import { Player } from '@sorare/football/src/pages/Lobby/Components/Player';
 import { ShowMoreButton } from '@sorare/football/src/pages/Lobby/Components/ShowMoreButton';
 

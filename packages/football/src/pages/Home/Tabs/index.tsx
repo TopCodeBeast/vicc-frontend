@@ -27,9 +27,9 @@ import { galleryTabs } from '@sorare/core/src/lib/glossary';
 import { lazy } from '@sorare/core/src/lib/retry';
 import { RootRoutes } from '@sorare/core/src/routing/RootRoutes';
 
-import { RewardsBanner } from '@sorare/football/src/components/rewards/Banner';
-import Header from '@sorare/football/src/components/user/Header';
-import Overview from '@sorare/football/src/pages/Gallery/Overview';
+import { RewardsBanner } from '@football/components/rewards/Banner';
+import Header from '@football/components/user/Header';
+import Overview from '@football/pages/Gallery/Overview';
 
 import {
   HomeTabs_currentUser,
@@ -48,12 +48,12 @@ const Content = styled.div`
   padding: var(--double-unit) 0;
 `;
 
-const HomeOverview = lazy(async () => import('pages/Home/Overview'));
-const Cards = lazy(async () => import('pages/Gallery/Cards'));
-const Collections = lazy(async () => import('pages/Collections/Collections'));
-const CustomDecks = lazy(async () => import('pages/Gallery/CustomDecks'));
-const ClubHonors = lazy(async () => import('pages/Home/ClubHonors'));
-const Network = lazy(async () => import('pages/Home/Network'));
+const HomeOverview = lazy(async () => import('@football/pages/Home/Overview'));
+const Cards = lazy(async () => import('@football/pages/Gallery/Cards'));
+const Collections = lazy(async () => import('@football/pages/Collections/Collections'));
+const CustomDecks = lazy(async () => import('@football/pages/Gallery/CustomDecks'));
+const ClubHonors = lazy(async () => import('@football/pages/Home/ClubHonors'));
+const Network = lazy(async () => import('@football/pages/Home/Network'));
 
 export const Tabs = ({ user, isOwnPage }: Props) => {
   const useCustomLists = useUseCustomLists();
@@ -69,7 +69,7 @@ export const Tabs = ({ user, isOwnPage }: Props) => {
           label: formatMessage(galleryTabs.overview),
           tabContent: <HomeOverview />,
         }
-      : {
+      : !useCustomLists && {
           path: FOOTBALL_USER_GALLERY_OVERVIEW,
           label: formatMessage(galleryTabs.overview),
           tabContent: (
@@ -87,7 +87,7 @@ export const Tabs = ({ user, isOwnPage }: Props) => {
     {
       path: FOOTBALL_USER_GALLERY_CARD_COLLECTIONS,
       label: formatMessage(galleryTabs.cardCollections),
-      tabContent: <Collections />,
+      tabContent: <Collections readOnly={!isOwnPage} />,
     },
     {
       path: FOOTBALL_USER_GALLERY_CLUB_HONORS,
@@ -142,7 +142,12 @@ export const Tabs = ({ user, isOwnPage }: Props) => {
                   to={
                     isOwnPage
                       ? FOOTBALL_HOME
-                      : generatePath(FOOTBALL_USER_GALLERY_OVERVIEW, { slug })
+                      : generatePath(
+                          useCustomLists
+                            ? FOOTBALL_USER_GALLERY_CARDS
+                            : FOOTBALL_USER_GALLERY_OVERVIEW,
+                          { slug }
+                        )
                   }
                   replace
                 />

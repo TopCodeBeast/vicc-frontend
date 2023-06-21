@@ -13,7 +13,7 @@ import { FILTERS, Filter, FilterWidget } from '@sorare/core/src/lib/filters';
 import { powerAlgorithm } from '@sorare/core/src/lib/slider';
 import { toWei } from '@sorare/core/src/lib/wei';
 
-import useFormatFilters from '@sorare/marketplace/src/hooks/filters/useFormatFilters';
+import useFormatFilters from '@marketplace/hooks/filters/useFormatFilters';
 
 import RangeSlider from '../../search/RangeSlider';
 

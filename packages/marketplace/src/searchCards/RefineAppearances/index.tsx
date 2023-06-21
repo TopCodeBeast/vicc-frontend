@@ -14,7 +14,7 @@ import {
 import { FILTERS, FilterWidget } from '@sorare/core/src/lib/filters';
 import { filters } from '@sorare/core/src/lib/glossary';
 
-import { makeRangeFilter } from '@sorare/marketplace/src/searchCards/RangeSlider';
+import { makeRangeFilter } from '@marketplace/searchCards/RangeSlider';
 
 import RangeSlider from '../../search/RangeSlider';
 

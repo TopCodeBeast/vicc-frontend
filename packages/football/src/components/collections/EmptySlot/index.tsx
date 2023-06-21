@@ -10,7 +10,7 @@ import { glossary } from '@sorare/core/src/lib/glossary';
 import { positionNames } from '@sorare/core/src/lib/players';
 import { Link } from '@sorare/core/src/routing/Link';
 
-import addPlayer from '@sorare/football/src/components/collections/assets/add-player.svg';
+import addPlayer from '@football/components/collections/assets/add-player.svg';
 
 import { EmptySlot_cardCollectionSlot } from './__generated__/index.graphql';
 

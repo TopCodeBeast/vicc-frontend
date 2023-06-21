@@ -82,4 +82,15 @@ export const metadatas = {
       defaultMessage: 'Press articles about us',
     },
   }),
+  licensedPartners: defineMessages({
+    title: {
+      id: 'Meta.common.licensedPartners.title',
+      defaultMessage: '300+ licensed clubs',
+    },
+    description: {
+      id: 'Meta.common.licensedPartners.description',
+      defaultMessage:
+        'We have partnered with the top sport clubs in the world to provide the best game experience to our users.',
+    },
+  }),
 };

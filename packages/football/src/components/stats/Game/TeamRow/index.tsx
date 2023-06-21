@@ -5,7 +5,7 @@ import { Text14, Text16, Text20 } from '@sorare/core/src/atoms/typography';
 import { CLUB_PLACEHOLDER } from '@sorare/core/src/constants/assets';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { GameEventStatus } from 'lib/so5';
+import { GameEventStatus } from '@football/lib/so5';
 
 const Team = styled.div<{ $lost: boolean }>`
   display: flex;

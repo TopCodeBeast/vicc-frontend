@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
-import { Rarity } from '__generated__/globalTypes';
-import { User } from '@sorare/core/src/atoms/icons/User';
+import { Rarity } from '@core/__generated__/globalTypes';
+import { User } from '@core/atoms/icons/User';
 
 type Props = {
   scarcity: Rarity;

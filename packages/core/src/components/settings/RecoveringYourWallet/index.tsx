@@ -1,10 +1,10 @@
 import { Divider } from '@material-ui/core';
 import { FormattedMessage, defineMessages } from 'react-intl';
 
-import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
-import { Input } from 'components/form/Form/IntlTelInput';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { glossary, userAttributes } from '@sorare/core/src/lib/glossary';
+import { Text14, Text16 } from '@core/atoms/typography';
+import { Input } from '@core/components/form/Form/IntlTelInput';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { glossary, userAttributes } from '@core/lib/glossary';
 
 import PhoneNumberVerificationSection from '../PhoneNumberVerification/PhoneNumberVerificationSection';
 import RecoveryEmail from '../RecoveryEmail';

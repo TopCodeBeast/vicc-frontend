@@ -1,9 +1,13 @@
 import { gql } from '@apollo/client';
 
-import { Sport } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  Sport,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
+import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
 
-import useHasInsufficientFundsInWallets from '@sorare/marketplace/src/hooks/useHasInsufficientFundsInWallets';
+import useHasInsufficientFundsInWallets from '@marketplace/hooks/useHasInsufficientFundsInWallets';
 
 import TokensAvailableOnPrimary from '../TokensAvailableOnPrimary';
 import { TokensAvailableOnPrimaryWhenInsufficientFundsInWallet_token } from './__generated__/index.graphql';
@@ -19,6 +23,7 @@ export const TokensAvailableOnPrimaryWhenInsufficientFundsInWallet = ({
   hitsPerRow,
   sport,
 }: Props) => {
+  const { toMonetaryAmount } = useMonetaryAmount();
   const {
     metadata: { playerSlug, rarity },
     liveSingleSaleOffer,
@@ -38,8 +43,12 @@ export const TokensAvailableOnPrimaryWhenInsufficientFundsInWallet = ({
 
   const { priceWei } = liveSingleSaleOffer;
 
-  const { insufficientFundsInEthWallet } =
-    hasInsufficientFundsInWallets(priceWei);
+  const { insufficientFundsInEthWallet } = hasInsufficientFundsInWallets(
+    toMonetaryAmount({
+      wei: priceWei,
+      referenceCurrency: SupportedCurrency.WEI,
+    })
+  );
   if (insufficientFundsInEthWallet) return null;
 
   return (

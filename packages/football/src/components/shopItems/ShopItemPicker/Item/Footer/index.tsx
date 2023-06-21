@@ -15,8 +15,8 @@ import {
   OldPrice,
   OrderConfirmed,
   Owned,
-} from '@sorare/football/src/components/shopItems/ShopItemPicker/Item/Label';
-import CoinAmount from '@sorare/football/src/components/user/CoinAmount';
+} from '@football/components/shopItems/ShopItemPicker/Item/Label';
+import CoinAmount from '@football/components/user/CoinAmount';
 
 import { Footer_shopItem } from './__generated__/index.graphql';
 

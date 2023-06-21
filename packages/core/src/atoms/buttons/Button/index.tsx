@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { forwardRef } from 'react';
 import styled from 'styled-components';
 
-import useClickHandler from '@sorare/core/src/hooks/useClickHandler';
+import useClickHandler from '@core/hooks/useClickHandler';
 
 export const colors = [
   'blue',
@@ -23,7 +23,16 @@ export const colors = [
 export type Color = (typeof colors)[number];
 
 export interface Props
-  extends Omit<ButtonProps, 'variant' | 'color' | 'classes' | 'size'> {
+  extends Omit<
+    ButtonProps,
+    | 'variant'
+    | 'color'
+    | 'classes'
+    | 'size'
+    | 'disableRipple'
+    | 'disableFocusRipple'
+    | 'disableTouchRipple'
+  > {
   stroke?: boolean;
   small?: boolean;
   medium?: boolean;
@@ -225,6 +234,9 @@ export const Button = forwardRef<HTMLElement, Props>((props, ref) => {
         ? ({ target: '_blank', rel: 'noopener noreferrer' } as any)
         : {})}
       to={to}
+      disableRipple
+      disableFocusRipple
+      disableTouchRipple
       {...rest}
       classes={{
         root: classnames(color, className, {

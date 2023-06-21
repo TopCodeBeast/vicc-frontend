@@ -5,8 +5,8 @@ import {
   MessagingContext,
   ResetPrivateKey as ResetPrivateKeyMessage,
 } from '@sorare/wallet-shared';
-import { useResetPrivateKeyContext } from '@sorare/core/src/contexts/resetPrivateKey';
-import { formatUpdateUserErrors } from '@sorare/core/src/lib/http';
+import { useResetPrivateKeyContext } from '@core/contexts/resetPrivateKey';
+import { formatUpdateUserErrors } from '@core/lib/http';
 
 import {
   ResetPrivateKeyMutation,

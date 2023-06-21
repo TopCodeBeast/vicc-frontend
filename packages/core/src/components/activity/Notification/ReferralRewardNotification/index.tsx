@@ -2,10 +2,10 @@ import { gql } from '@apollo/client';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import { generatePath } from 'react-router-dom';
 
-import Bold from '@sorare/core/src/atoms/typography/Bold';
-import { DumbNotification } from 'components/activity/DumbNotification';
-import { INVITE } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import Bold from '@core/atoms/typography/Bold';
+import { DumbNotification } from '@core/components/activity/DumbNotification';
+import { INVITE } from '@core/constants/routes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 
 import { commonNotificationInterfaceFragment } from '../fragments';
 import { CommonNotificationProps } from '../types';

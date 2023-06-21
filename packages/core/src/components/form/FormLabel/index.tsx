@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import styled from 'styled-components';
 
-import { Title6 } from '@sorare/core/src/atoms/typography';
+import { Title6 } from '@core/atoms/typography';
 
 type Props = {
   id: string;

@@ -9,9 +9,9 @@ import { theme } from '@sorare/core/src/style/theme';
 import ItemUser from '@sorare/marketplace/src/components/ItemPreview/ItemUser';
 import TokenTransferTypeIcon from '@sorare/marketplace/src/components/token/TokenTransferTypeIcon';
 
-import CardDescription from '@sorare/football/src/components/card/CardDescription';
-import FlexCard from '@sorare/football/src/components/card/FlexCard';
-import CardProperties from '@sorare/football/src/components/so5/CardProperties';
+import CardDescription from '@football/components/card/CardDescription';
+import FlexCard from '@football/components/card/FlexCard';
+import CardProperties from '@football/components/so5/CardProperties';
 
 import { CommonCardPreview_card } from './__generated__/index.graphql';
 

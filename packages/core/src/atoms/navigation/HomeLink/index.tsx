@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
-import { LANDING } from '@sorare/core/src/constants/routes';
-import { theme } from '@sorare/core/src/style/theme';
+import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { LANDING } from '@core/constants/routes';
+import { theme } from '@core/style/theme';
 
 import SmallerStarBall from '../SmallerStarBall';
 

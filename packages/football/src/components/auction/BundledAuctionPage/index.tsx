@@ -20,8 +20,8 @@ import CardPreview from '@sorare/marketplace/src/components/starterbundle/CardPr
 import FlexToken from '@sorare/marketplace/src/components/token/FlexToken';
 import { tokenPageMessages } from '@sorare/marketplace/src/components/token/TokenPage/tokenPageMessages';
 
-import RelatedTeam from '@sorare/football/src/components/club/RelatedTeam';
-import CardProperties from '@sorare/football/src/components/so5/CardProperties';
+import RelatedTeam from '@football/components/club/RelatedTeam';
+import CardProperties from '@football/components/so5/CardProperties';
 
 import BundledAuctionTitle from './BundledAuctionTitle';
 import {

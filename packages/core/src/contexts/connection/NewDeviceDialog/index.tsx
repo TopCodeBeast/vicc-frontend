@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import Bold from '@sorare/core/src/atoms/typography/Bold';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
+import Dialog from '@core/atoms/layout/Dialog';
+import { Text16 } from '@core/atoms/typography';
+import Bold from '@core/atoms/typography/Bold';
+import { useIntlContext } from '@core/contexts/intl';
 
 const messages = defineMessages({
   title: {

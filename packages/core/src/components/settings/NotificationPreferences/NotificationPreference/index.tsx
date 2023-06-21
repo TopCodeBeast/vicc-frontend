@@ -4,11 +4,11 @@ import { ChangeEvent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
-import Switch from '@sorare/core/src/atoms/inputs/Switch';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
-import { useNotificationPreferences_userSettings } from '@sorare/core/src/hooks/useNotificationPreferences';
+import { Sport } from '@core/__generated__/globalTypes';
+import Switch from '@core/atoms/inputs/Switch';
+import { Text16 } from '@core/atoms/typography';
+import useMutation from '@core/hooks/graphql/useMutation';
+import { useNotificationPreferences_userSettings } from '@core/hooks/useNotificationPreferences';
 
 import { notificationSubtitles, notificationTitles } from '../messages';
 import {

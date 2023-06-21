@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { HomeLink } from '@sorare/core/src/atoms/navigation/HomeLink';
-import ResponsiveSearchBar from 'components/search/ResponsiveSearchBar';
-import { useConnectionContext } from '@sorare/core/src/contexts/connection';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import Button from '@core/atoms/buttons/Button';
+import { HomeLink } from '@core/atoms/navigation/HomeLink';
+import ResponsiveSearchBar from '@core/components/search/ResponsiveSearchBar';
+import { useConnectionContext } from '@core/contexts/connection';
+import { useIntlContext } from '@core/contexts/intl';
+import useEvents from '@core/lib/events/useEvents';
+import { glossary } from '@core/lib/glossary';
+import { theme } from '@core/style/theme';
 
 const Wrapper = styled.div`
   height: var(--navbar-height-mobile);

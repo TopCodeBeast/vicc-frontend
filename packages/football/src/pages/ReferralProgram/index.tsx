@@ -5,7 +5,7 @@ import MyReferees from '@sorare/core/src/components/referral/MyReferees';
 import Notice from '@sorare/core/src/components/referral/Notice';
 import { theme } from '@sorare/core/src/style/theme';
 
-import ReferralBar from '@sorare/football/src/components/user/ReferralBar';
+import ReferralBar from '@football/components/user/ReferralBar';
 
 import Header from './Header';
 

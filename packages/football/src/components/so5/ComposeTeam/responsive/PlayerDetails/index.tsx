@@ -8,7 +8,7 @@ import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery'
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import useInfiniteScroll from '@sorare/core/src/hooks/useInfiniteScroll';
 
-import LastScores from '@sorare/football/src/components/stats/LastScores';
+import LastScores from '@football/components/stats/LastScores';
 
 import PlayerProperties from './PlayerProperties';
 import PlayerUnavailabilityPanel from './PlayerUnavailabilityPanel';

@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
 import { Text14 } from '@sorare/core/src/atoms/typography';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
@@ -28,9 +29,10 @@ type Props = {
 const BuyButton = ({ token, loading, onPaymentSuccess }: Props) => {
   const priceWei = token?.liveSingleSaleOffer?.priceWei;
   const { main } = useAmountWithConversion({
-    amount: priceWei || '',
-    context: 'LineupToDiscover',
-    unit: 'wei',
+    monetaryAmount: {
+      referenceCurrency: SupportedCurrency.WEI,
+      [SupportedCurrency.WEI.toLowerCase()]: priceWei,
+    },
   });
   if (!priceWei) {
     return null;

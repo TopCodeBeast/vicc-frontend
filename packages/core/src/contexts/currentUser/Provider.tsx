@@ -2,14 +2,14 @@ import { useSubscription } from '@apollo/client';
 import Big from 'bignumber.js';
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Currency } from '__generated__/globalTypes';
-import createLink from '@sorare/core/src/atoms/typography/Link';
-import { SETTINGS_SECURITY } from '@sorare/core/src/constants/routes';
+import { Currency } from '@core/__generated__/globalTypes';
+import createLink from '@core/atoms/typography/Link';
+import { SETTINGS_SECURITY } from '@core/constants/routes';
 import { isType } from 'gql';
-import idFromObject from '@sorare/core/src/gql/idFromObject';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import { currencies } from '@sorare/core/src/lib/fiat';
-import { asObject } from '@sorare/core/src/lib/json';
+import idFromObject from '@core/gql/idFromObject';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import { currencies } from '@core/lib/fiat';
+import { asObject } from '@core/lib/json';
 
 import { VERSION } from '../../config';
 import { useConfigContext } from '../config';

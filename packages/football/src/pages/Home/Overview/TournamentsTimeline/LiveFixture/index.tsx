@@ -4,14 +4,14 @@ import styled from 'styled-components';
 
 import { FOOTBALL_LOBBY_LIVE } from '@sorare/core/src/constants/routes';
 
-import { GameWeekTitle } from '@sorare/football/src/components/Home/GameWeekTitle';
-import HomeBlockWithTimeline from '@sorare/football/src/components/Home/HomeBlockWithTimeline';
-import { ItemRows } from '@sorare/football/src/components/Home/ItemRows';
-import { SeeAllButton } from '@sorare/football/src/components/Home/SeeAllButton';
-import { Lineup } from '@sorare/football/src/components/lineup/Lineup';
-import { EligibleRewardsBanner } from '@sorare/football/src/components/rewards/EligibleRewardsBanner';
+import { GameWeekTitle } from '@football/components/Home/GameWeekTitle';
+import HomeBlockWithTimeline from '@football/components/Home/HomeBlockWithTimeline';
+import { ItemRows } from '@football/components/Home/ItemRows';
+import { SeeAllButton } from '@football/components/Home/SeeAllButton';
+import { Lineup } from '@football/components/lineup/Lineup';
+import { EligibleRewardsBanner } from '@football/components/rewards/EligibleRewardsBanner';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import { RewardType } from 'lib/lineupRewards';
+import { RewardType } from '@football/lib/lineupRewards';
 
 import { LiveFixture_so5 } from './__generated__/index.graphql';
 

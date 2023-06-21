@@ -21,12 +21,12 @@ import { socialShareEventContext } from '@sorare/core/src/lib/events';
 import { fantasy, glossary } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { Bonus } from '@sorare/football/src/components/collections/Bonus';
-import { CardsNumber } from '@sorare/football/src/components/collections/CardsNumber';
-import ProgressBar from '@sorare/football/src/components/collections/ProgressBar';
-import { Ranking } from '@sorare/football/src/components/collections/Ranking';
-import { ScarcityLabel } from '@sorare/football/src/components/collections/ScarcityLabel';
-import { Score } from '@sorare/football/src/components/collections/Score';
+import { Bonus } from '@football/components/collections/Bonus';
+import { CardsNumber } from '@football/components/collections/CardsNumber';
+import ProgressBar from '@football/components/collections/ProgressBar';
+import { Ranking } from '@football/components/collections/Ranking';
+import { ScarcityLabel } from '@football/components/collections/ScarcityLabel';
+import { Score } from '@football/components/collections/Score';
 
 import {
   Header_cardCollection,
@@ -141,11 +141,13 @@ const IconWrapper = styled.span`
 `;
 
 type HeaderStatsProps = {
+  cardCollection: Header_cardCollection;
   userCardCollection?: Header_userCardCollection | null;
   slotsCount: number;
   showBonus: boolean;
 };
 const HeaderStats = ({
+  cardCollection,
   userCardCollection,
   slotsCount,
   showBonus,
@@ -188,7 +190,7 @@ const HeaderStats = ({
             <Bonus bonus={bonus} />
           </StatBox>
           <ProgressBarWrapper>
-            <ProgressBar score={score} showLabel />
+            <ProgressBar score={score} cardCollection={cardCollection} />
           </ProgressBarWrapper>
         </>
       )}
@@ -283,6 +285,7 @@ export const Header = ({
             )}
           </TeamInfos>
           <HeaderStats
+            cardCollection={cardCollection}
             userCardCollection={userCardCollection}
             slotsCount={slotsCount}
             showBonus={bonusThresholds.length > 0}
@@ -319,7 +322,9 @@ Header.fragments = {
         startYear
         name
       }
+      ...ProgressBar_cardCollection
     }
+    ${ProgressBar.fragments.cardCollection}
   `,
   userCardCollection: gql`
     fragment Header_userCardCollection on UserCardCollection {

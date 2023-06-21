@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
-import { Container } from '@sorare/core/src/atoms/container';
-import PlayNowButton from 'components/landing/LandingFootball/PlayNowButton';
-import { theme } from '@sorare/core/src/style/theme';
+import { Sport } from '@core/__generated__/globalTypes';
+import { Container } from '@core/atoms/container';
+import PlayNowButton from '@core/components/landing/LandingFootball/PlayNowButton';
+import { theme } from '@core/style/theme';
 
 import BannerWrapper from '../../../BannerWrapper';
 

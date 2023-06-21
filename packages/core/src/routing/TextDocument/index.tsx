@@ -3,11 +3,11 @@ import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import styled from 'styled-components';
 
-import Body from '@sorare/core/src/atoms/layout/Body';
-import Container from '@sorare/core/src/atoms/layout/Container';
-import useFetch from '@sorare/core/src/hooks/useFetch';
-import { fileUrl } from '@sorare/core/src/lib/gitlab';
-import LazyMarkdown from '@sorare/core/src/routing/LazyMarkdown';
+import Body from '@core/atoms/layout/Body';
+import Container from '@core/atoms/layout/Container';
+import useFetch from '@core/hooks/useFetch';
+import { fileUrl } from '@core/lib/gitlab';
+import LazyMarkdown from '@core/routing/LazyMarkdown';
 
 interface Props {
   document: string;

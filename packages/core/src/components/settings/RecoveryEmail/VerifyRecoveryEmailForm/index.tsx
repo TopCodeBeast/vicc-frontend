@@ -1,13 +1,13 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
-import { GraphQLResult, GraphqlForm, TextField } from 'components/form/Form';
-import { RECOVERY_EMAIL_VERIFICATION_CODE_LENGTH } from '@sorare/core/src/constants/verificationCode';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import useActivateWalletRecoveryEmail from '@sorare/core/src/hooks/recovery/useActivateWalletRecoveryEmail';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import { Text16, Title3 } from '@core/atoms/typography';
+import { GraphQLResult, GraphqlForm, TextField } from '@core/components/form/Form';
+import { RECOVERY_EMAIL_VERIFICATION_CODE_LENGTH } from '@core/constants/verificationCode';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
+import useActivateWalletRecoveryEmail from '@core/hooks/recovery/useActivateWalletRecoveryEmail';
+import { glossary } from '@core/lib/glossary';
 
 const Wrapper = styled.div`
   display: flex;

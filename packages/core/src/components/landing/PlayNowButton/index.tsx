@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 
-import { Sport } from '__generated__/globalTypes';
-import Button, { Color } from '@sorare/core/src/atoms/buttons/Button';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
+import { Sport } from '@core/__generated__/globalTypes';
+import Button, { Color } from '@core/atoms/buttons/Button';
+import useEvents from '@core/lib/events/useEvents';
 
 type Props = {
   to?: string;

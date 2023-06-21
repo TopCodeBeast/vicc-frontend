@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import GoogleReCAPTCHA, { ReCAPTCHAProps } from 'react-google-recaptcha';
 
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
 
 export const ReCAPTCHA = forwardRef<
   GoogleReCAPTCHA,

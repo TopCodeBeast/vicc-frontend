@@ -8,18 +8,19 @@ import {
   Prompt,
   RequestOAuth2,
   SettleDealSignatureType,
-  SignLimitOrder,
+  SignLimitOrders,
   SignTransfer,
 } from '@sorare/wallet-shared';
 import {
   AuthorizationApproval,
   AuthorizationRequest,
 } from '@sorare/wallet-shared/src/contexts/messaging/authorizations';
-import { UpdateUserAttributes, UpdateUserEmailAttributes } from '@sorare/core/src/contexts/auth';
-import { RecoveryOption } from '@sorare/core/src/hooks/recovery/useRecoveryOptions';
-import { Side } from '@sorare/core/src/lib/deal';
+import { UpdateUserAttributes, UpdateUserEmailAttributes } from '@core/contexts/auth';
+import { RecoveryOption } from '@core/hooks/recovery/useRecoveryOptions';
+import { Side } from '@core/lib/deal';
 
-export type LimitOrder = SignLimitOrder['request']['args']['limitOrder'];
+export type LimitOrder =
+  SignLimitOrders['request']['args']['limitOrders'][number];
 export type Transfer = SignTransfer['request']['args']['transfer'];
 
 export type { StarkexLimitOrderAuthorizationApproval } from '@sorare/wallet-shared/src/contexts/messaging/authorizations';
@@ -91,7 +92,11 @@ interface WalletContext {
     authorizationApprovals?: AuthorizationApproval[];
     starkKey?: string;
   }>;
+  depositId?: string;
   signPaymentIntent: (id: string, amount: string) => Promise<string | null>;
+  signWalletChallenge: (
+    challenge: string
+  ) => Promise<{ r: string; s: string } | null>;
   walletNode: Element | null;
   setWalletNode: (elt: Element | null) => void;
   setOnWalletResizeRequest: (

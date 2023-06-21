@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
-import BlueShirt from '@sorare/core/src/atoms/icons/shirts/BlueShirt';
-import RedShirt from '@sorare/core/src/atoms/icons/shirts/RedShirt';
-import YellowShirt from '@sorare/core/src/atoms/icons/shirts/YellowShirt';
+import BlueShirt from '@core/atoms/icons/shirts/BlueShirt';
+import RedShirt from '@core/atoms/icons/shirts/RedShirt';
+import YellowShirt from '@core/atoms/icons/shirts/YellowShirt';
 
 // We don't use MaterialUI, react-intl or any other imports to reduce the chances of failing
 import './styles.css';

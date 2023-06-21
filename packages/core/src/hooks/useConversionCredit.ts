@@ -1,17 +1,19 @@
 import { gql } from '@apollo/client';
 import { isPast, parseISO } from 'date-fns';
+import { useMemo } from 'react';
 
 import {
   ConversionCredit,
   ConversionCreditStatus,
+  MonetaryAmount,
   Sport,
-} from '__generated__/globalTypes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
+} from '@core/__generated__/globalTypes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useMonetaryAmount from '@core/hooks/useMonetaryAmount';
 
 type SportConversionCredit = ConversionCredit & {
   sport: Sport;
-  maxDiscount: {
+  maxDiscount: MonetaryAmount & {
     eur: number;
     usd: number;
     gbp: number;
@@ -25,37 +27,43 @@ export const useConversionCredit = (
   const { currentUser } = useCurrentUserContext();
   const { toMonetaryAmount } = useMonetaryAmount();
 
-  if (!sport) return undefined;
+  const conversionCredit = useMemo(() => {
+    if (!sport) return undefined;
 
-  const sportConversionCredit = {
-    [Sport.FOOTBALL]: currentUser?.footballConversionCredit,
-    [Sport.NBA]: currentUser?.nbaConversionCredit,
-    [Sport.BASEBALL]: currentUser?.baseballConversionCredit,
-  }[sport];
+    const sportConversionCredit = {
+      [Sport.FOOTBALL]: currentUser?.footballConversionCredit,
+      [Sport.NBA]: currentUser?.nbaConversionCredit,
+      [Sport.BASEBALL]: currentUser?.baseballConversionCredit,
+    }[sport];
 
-  if (
-    !sportConversionCredit?.sport ||
-    ![ConversionCreditStatus.CLAIMED, ConversionCreditStatus.CREATED].includes(
-      sportConversionCredit.status
-    ) ||
-    isPast(parseISO(sportConversionCredit.endDate))
-  ) {
-    return undefined;
-  }
+    if (
+      !sportConversionCredit?.sport ||
+      ![
+        ConversionCreditStatus.CLAIMED,
+        ConversionCreditStatus.CREATED,
+      ].includes(sportConversionCredit.status) ||
+      isPast(parseISO(sportConversionCredit.endDate))
+    ) {
+      return undefined;
+    }
 
-  const amounts =
-    sportConversionCredit &&
-    toMonetaryAmount(sportConversionCredit.maxDiscount);
+    const amounts =
+      sportConversionCredit &&
+      toMonetaryAmount(sportConversionCredit.maxDiscount);
 
-  const conversionCredit = sportConversionCredit && {
-    ...sportConversionCredit,
-    maxDiscount: amounts && {
-      eur: amounts.eur / 100,
-      usd: amounts.usd / 100,
-      gbp: amounts.gbp / 100,
-      wei: amounts.wei,
-    },
-  };
+    return (
+      sportConversionCredit && {
+        ...sportConversionCredit,
+        maxDiscount: amounts,
+      }
+    );
+  }, [
+    currentUser?.baseballConversionCredit,
+    currentUser?.footballConversionCredit,
+    currentUser?.nbaConversionCredit,
+    sport,
+    toMonetaryAmount,
+  ]);
 
   return conversionCredit as SportConversionCredit;
 };

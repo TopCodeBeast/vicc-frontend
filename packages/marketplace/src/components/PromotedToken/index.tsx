@@ -1,21 +1,26 @@
 import { gql } from '@apollo/client';
+import { isPast, parseISO } from 'date-fns';
 import { useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import { Caption } from '@sorare/core/src/atoms/typography';
+import Since from '@sorare/core/src/contexts/intl/Since';
 import { getHumanReadableSerialNumber } from '@sorare/core/src/lib/cards';
 
-import ItemEndDate from '@sorare/marketplace/src/components/ItemPreview/ItemEndDate';
-import ItemPrice from '@sorare/marketplace/src/components/ItemPreview/ItemPrice';
-import TokenOwner from '@sorare/marketplace/src/components/TokenPreview/TokenOwner';
-import BestBid from '@sorare/marketplace/src/components/auction/BestBid';
-import { BidsCount } from '@sorare/marketplace/src/components/auction/BidsCount';
-import BidField from '@sorare/marketplace/src/components/buyActions/BidField';
-import BuyField from '@sorare/marketplace/src/components/buyActions/BuyField';
-import FlexToken from '@sorare/marketplace/src/components/token/FlexToken';
-import TokenFavoriteButton from '@sorare/marketplace/src/components/token/TokenFavoriteButton';
-import useGetAuctionDetails from '@sorare/marketplace/src/hooks/offers/useGetAuctionDetails';
-import useGetTokenSingleSaleDetails from '@sorare/marketplace/src/hooks/offers/useGetTokenSingleSaleDetails';
+import ItemEndDate from '@marketplace/components/ItemPreview/ItemEndDate';
+import ItemPrice from '@marketplace/components/ItemPreview/ItemPrice';
+import TokenOwner from '@marketplace/components/TokenPreview/TokenOwner';
+import { AuctionWinner } from '@marketplace/components/auction/Auction/AuctionDetails/AuctionWinner';
+import BestBid from '@marketplace/components/auction/BestBid';
+import { BidsCount } from '@marketplace/components/auction/BidsCount';
+import BidField from '@marketplace/components/buyActions/BidField';
+import BuyField from '@marketplace/components/buyActions/BuyField';
+import FlexToken from '@marketplace/components/token/FlexToken';
+import TokenFavoriteButton from '@marketplace/components/token/TokenFavoriteButton';
+import useGetAuctionDetails from '@marketplace/hooks/offers/useGetAuctionDetails';
+import useGetTokenSingleSaleDetails from '@marketplace/hooks/offers/useGetTokenSingleSaleDetails';
 
 import { PromotedToken_token } from './__generated__/index.graphql';
 
@@ -70,6 +75,14 @@ const Footer = styled.div`
   max-width: 100%;
 `;
 
+const StyledCaption = styled(Caption)`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--half-unit);
+  color: var(--c-neutral-600);
+`;
+
 type Props = {
   token: PromotedToken_token;
   CardInfo: () => JSX.Element | null;
@@ -80,17 +93,44 @@ type Props = {
 
 const Price = ({ token }: Omit<Props, 'CardInfo'>) => {
   const sale = useGetTokenSingleSaleDetails(token);
-  const auction = useGetAuctionDetails(token.latestEnglishAuction);
+  const { price, currency } =
+    useGetAuctionDetails(token.latestEnglishAuction) || {};
 
-  if (sale) return <ItemPrice wei={sale.weiPrice} />;
+  if (sale)
+    return (
+      <ItemPrice
+        amount={sale.weiPrice}
+        referenceCurrency={SupportedCurrency.WEI}
+      />
+    );
 
-  if (auction && token.latestEnglishAuction) {
+  if (price && currency && token.latestEnglishAuction) {
     return (
       <>
-        <ItemPrice wei={auction.weiPrice} />
+        <ItemPrice amount={price} referenceCurrency={currency} />
         <BestBid auction={token.latestEnglishAuction} small />
       </>
     );
+  }
+  return null;
+};
+
+const FinalPrice = ({ token }: Omit<Props, 'CardInfo'>) => {
+  const salePrice = token?.liveSingleSaleOffer?.priceWei;
+  const auctionPrice =
+    token?.latestEnglishAuction?.bestBid?.amount ||
+    token?.latestEnglishAuction?.currentPrice;
+
+  const auctionCurrency =
+    token?.latestEnglishAuction?.bestBid?.amounts.referenceCurrency ||
+    token?.latestEnglishAuction?.currency;
+
+  const price = salePrice || auctionPrice;
+  const referenceCurrency =
+    (salePrice && SupportedCurrency.WEI) || auctionCurrency;
+
+  if (price && referenceCurrency) {
+    return <ItemPrice amount={price} referenceCurrency={referenceCurrency} />;
   }
   return null;
 };
@@ -135,6 +175,40 @@ const EndDate = ({ token }: Omit<Props, 'CardInfo'>) => {
   return null;
 };
 
+const EndInfo = ({ token }: Omit<Props, 'CardInfo'>) => {
+  const sale = token.liveSingleSaleOffer;
+  const auction = token.latestEnglishAuction;
+
+  if (sale) {
+    // TODO: Replace with more detailed sale info
+    return (
+      <StyledCaption as="div">
+        <FormattedMessage
+          id="PromotedToken.SaleEnded"
+          defaultMessage="Sale Ended"
+        />
+        {' · '}
+        <Since date={sale.endDate} />
+      </StyledCaption>
+    );
+  }
+  if (auction) {
+    return auction.bestBid ? (
+      <AuctionWinner auction={auction} />
+    ) : (
+      <StyledCaption as="div">
+        <FormattedMessage
+          id="PromotedToken.AuctionEnded"
+          defaultMessage="Auction Ended"
+        />
+        {' · '}
+        <Since date={auction.endDate} />
+      </StyledCaption>
+    );
+  }
+  return null;
+};
+
 export const PromotedToken = ({
   token,
   CardInfo,
@@ -143,6 +217,17 @@ export const PromotedToken = ({
   className,
 }: Props) => {
   const [hoveredItem, setHoveredItem] = useState<boolean>(false);
+
+  const auction = token.latestEnglishAuction;
+  const auctionEndDate = auction?.endDate && parseISO(auction.endDate);
+  const auctionEnded = auctionEndDate && isPast(auctionEndDate);
+
+  const sale = token.liveSingleSaleOffer;
+  const saleEndDate = sale?.endDate && parseISO(sale.endDate);
+  const saleEnded = saleEndDate && isPast(saleEndDate);
+
+  const ended = auctionEnded || saleEnded;
+
   return (
     <Wrapper
       className={className}
@@ -175,12 +260,18 @@ export const PromotedToken = ({
         </CardSerial>
         <div>
           <PriceWrapper>
-            <Price token={token} />
+            {ended ? <FinalPrice token={token} /> : <Price token={token} />}
           </PriceWrapper>
           <Footer>
-            <FooterInfo token={token} />
-            <span> • </span>
-            <EndDate token={token} />
+            {ended ? (
+              <EndInfo token={token} />
+            ) : (
+              <>
+                <FooterInfo token={token} />
+                <span> • </span>
+                <EndDate token={token} />
+              </>
+            )}
           </Footer>
         </div>
         <Cta token={token} />
@@ -209,10 +300,23 @@ PromotedToken.fragments = {
       }
       latestEnglishAuction {
         id
+        currency
+        bestBid {
+          id
+          amount
+          amounts {
+            eur
+            usd
+            wei
+            gbp
+            referenceCurrency
+          }
+        }
         ...BestBid_auction
         ...BidField_auction
         ...BidsCount_auction
         ...useGetAuctionDetails_auction
+        ...AuctionWinner_auction
       }
       ...FlexToken_token
       ...BuyField_token
@@ -226,6 +330,7 @@ PromotedToken.fragments = {
     ${TokenOwner.fragments.token}
     ${BidsCount.fragments.auction}
     ${useGetAuctionDetails.fragments.auction}
+    ${AuctionWinner.fragments.auction}
     ${useGetTokenSingleSaleDetails.fragments.token}
   `,
 };

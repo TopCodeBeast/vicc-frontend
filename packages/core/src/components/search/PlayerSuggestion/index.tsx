@@ -1,4 +1,4 @@
-import { PlayerHit } from '@sorare/core/src/lib/algolia';
+import { PlayerHit } from '@core/lib/algolia';
 
 import Suggestion from '../Suggestion';
 

@@ -2,14 +2,14 @@ import { useMutation } from '@apollo/client';
 import { secondsToHours } from 'date-fns';
 import { useCallback } from 'react';
 
-import Bold from '@sorare/core/src/atoms/typography/Bold';
-import { getValue } from 'components/PersistsQueryStringParameters/storage';
-import { useDeviceFingerprintContext } from '@sorare/core/src/contexts/deviceFingerprint';
-import { useRestrictedAccessContext } from '@sorare/core/src/contexts/restrictedAccess';
-import createResendEmailConfirmationButton from '@sorare/core/src/contexts/restrictedAccess/ResendEmailConfirmationLink';
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { getClientId } from '@sorare/core/src/lib/ga';
+import Bold from '@core/atoms/typography/Bold';
+import { getValue } from '@core/components/PersistsQueryStringParameters/storage';
+import { useDeviceFingerprintContext } from '@core/contexts/deviceFingerprint';
+import { useRestrictedAccessContext } from '@core/contexts/restrictedAccess';
+import createResendEmailConfirmationButton from '@core/contexts/restrictedAccess/ResendEmailConfirmationLink';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
+import useEvents from '@core/lib/events/useEvents';
+import { getClientId } from '@core/lib/ga';
 
 import { SignInArgs } from '.';
 import {

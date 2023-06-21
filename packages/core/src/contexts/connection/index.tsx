@@ -1,7 +1,7 @@
 import { RefObject, createContext, useContext } from 'react';
 
 import { EncryptedPrivateKey } from '@sorare/wallet-shared';
-import { GoogleReCAPTCHA } from 'components/recaptcha';
+import { GoogleReCAPTCHA } from '@core/components/recaptcha';
 
 export type SignedInInfo = {
   email: string;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
+import Button from '@core/atoms/buttons/Button';
 
 import SettingsSection from '../SettingsSection';
 import BlockedUsersDialog from './BlockedUsersDialog';

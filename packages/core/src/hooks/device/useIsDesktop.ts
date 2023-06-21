@@ -1,6 +1,6 @@
 import { useMedia } from 'react-use';
 
-import { theme } from '@sorare/core/src/style/theme';
+import { theme } from '@core/style/theme';
 
 export const useIsDesktop = () =>
   useMedia(`(min-width: ${theme.breakpoints.values.tablet}px)`);

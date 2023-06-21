@@ -2,8 +2,8 @@ import { CSSProperties, useRef } from 'react';
 import { animated, useSpring } from '@react-spring/web';
 import styled, { css } from 'styled-components';
 
-import ResponsiveImg from '@sorare/core/src/atoms/ui/ResponsiveImg';
-import { theme } from '@sorare/core/src/style/theme';
+import ResponsiveImg from '@core/atoms/ui/ResponsiveImg';
+import { theme } from '@core/style/theme';
 
 const Root = styled(animated.div)`
   position: relative;

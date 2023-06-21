@@ -2,11 +2,11 @@ import { gql } from '@apollo/client';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import CreditCard from 'components/buyActions/CreditCard';
-import Warning from '@sorare/core/src/contexts/intl/Warning';
-import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
+import Button from '@core/atoms/buttons/Button';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import CreditCard from '@core/components/buyActions/CreditCard';
+import Warning from '@core/contexts/intl/Warning';
+import useQuery from '@core/hooks/graphql/useQuery';
 
 import SettingsSection from '../SettingsSection';
 import { CurrentUserPaymentMethodsQuery } from './__generated__/index.graphql';

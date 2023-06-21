@@ -10,16 +10,16 @@ import {
 } from 'react';
 import styled from 'styled-components';
 
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import { Text14 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
-import useRegexp from '@sorare/core/src/hooks/useRegexp';
-import useToggle from '@sorare/core/src/hooks/useToggle';
-import { Currency } from '@sorare/core/src/lib/currency';
-import { currencySymbol } from '@sorare/core/src/lib/fiat';
-import { RoundingMode, fromWei, toWei } from '@sorare/core/src/lib/wei';
+import IconButton from '@core/atoms/buttons/IconButton';
+import { Text14 } from '@core/atoms/typography';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useIntlContext } from '@core/contexts/intl';
+import useCurrencyConverters from '@core/hooks/useCurrencyConverters';
+import useRegexp from '@core/hooks/useRegexp';
+import useToggle from '@core/hooks/useToggle';
+import { Currency } from '@core/lib/currency';
+import { currencySymbol } from '@core/lib/fiat';
+import { RoundingMode, fromWei, toWei } from '@core/lib/wei';
 
 const Label = styled.label<{ $symbolAfter?: boolean }>`
   position: relative;

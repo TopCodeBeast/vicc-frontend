@@ -8,7 +8,7 @@ import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
-import { useFootballEvents } from 'lib/events';
+import { useFootballEvents } from '@football/lib/events';
 
 import FootballField from './FootballField';
 import Overview from './Overview';

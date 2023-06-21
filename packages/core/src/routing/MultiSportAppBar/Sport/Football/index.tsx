@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Sorare } from '@sorare/core/src/atoms/icons/Sorare';
+import { Sorare } from '@core/atoms/icons/Sorare';
 
 const SorareLogo = styled(Sorare)`
   color: var(--c-brand-600);

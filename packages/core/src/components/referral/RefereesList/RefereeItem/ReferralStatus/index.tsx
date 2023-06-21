@@ -5,13 +5,13 @@ import { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { Ball } from '@sorare/core/src/atoms/icons/Ball';
-import { Text14 } from '@sorare/core/src/atoms/typography';
-import useDestroyReferral from '@sorare/core/src/hooks/referral/useDestroyReferral';
-import { glossary } from '@sorare/core/src/lib/glossary';
-import { CARDS_REQUIREMENTS_BY_SPORT } from '@sorare/core/src/lib/referral';
+import { Sport } from '@core/__generated__/globalTypes';
+import Button from '@core/atoms/buttons/Button';
+import { Ball } from '@core/atoms/icons/Ball';
+import { Text14 } from '@core/atoms/typography';
+import useDestroyReferral from '@core/hooks/referral/useDestroyReferral';
+import { glossary } from '@core/lib/glossary';
+import { CARDS_REQUIREMENTS_BY_SPORT } from '@core/lib/referral';
 
 import { ReferralStatus_referral } from './__generated__/index.graphql';
 

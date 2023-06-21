@@ -1,11 +1,11 @@
 import { gql } from '@apollo/client';
 import Big from 'bignumber.js';
 
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useWalletContext } from '@sorare/core/src/contexts/wallet';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useWalletContext } from '@core/contexts/wallet';
 import { EthMigrationError } from 'errors';
-import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
-import { generateDealId } from '@sorare/core/src/lib/deal';
+import useMutation from '@core/hooks/graphql/useMutation';
+import { generateDealId } from '@core/lib/deal';
 
 import {
   CreateEthMigrationMutation,

@@ -7,7 +7,7 @@ import { FOOTBALL_VIDEOS } from '@sorare/core/src/constants/routes';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { range } from '@sorare/core/src/lib/arrays';
 
-import { HomeBlock } from '@sorare/football/src/components/Home/Block';
+import { HomeBlock } from '@football/components/Home/Block';
 
 import { ContentUnit } from './ContentUnit';
 import { ManagerHomeContentUnits } from './__generated__/index.graphql';

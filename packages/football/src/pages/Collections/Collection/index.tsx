@@ -21,9 +21,9 @@ import { useSeoContext } from '@sorare/core/src/contexts/seo';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 
-import CollectionLeaderboard from '@sorare/football/src/components/collections/CollectionLeaderboard';
-import { CollectionSlots } from '@sorare/football/src/components/collections/CollectionSlots';
-import { Header } from '@sorare/football/src/components/collections/Header';
+import CollectionLeaderboard from '@football/components/collections/CollectionLeaderboard';
+import { CollectionSlots } from '@football/components/collections/CollectionSlots';
+import { Header } from '@football/components/collections/Header';
 
 import {
   CollectionQuery,
@@ -58,6 +58,7 @@ const COLLECTION_QUERY = gql`
         slug
         name
         bannerPictureUrl
+        ...CollectionSlots_cardCollection
         slots @skip(if: $hasUserCollection) {
           id
           ...CollectionSlots_cardCollectionSlot
@@ -82,6 +83,7 @@ const COLLECTION_QUERY = gql`
   }
   ${CollectionSlots.fragments.userCardCollectionSlot}
   ${CollectionSlots.fragments.cardCollectionSlot}
+  ${CollectionSlots.fragments.cardCollection}
   ${Header.fragments.cardCollection}
   ${Header.fragments.userCardCollection}
 `;
@@ -171,6 +173,7 @@ const CollectionWithParams = ({ slug, userSlug }: Props) => {
         <CollectionSlots
           bannerPictureUrl={cardCollection.bannerPictureUrl || ''}
           slots={slots}
+          cardCollection={cardCollection}
         />
       ),
     },

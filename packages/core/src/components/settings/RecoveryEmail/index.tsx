@@ -4,16 +4,16 @@ import { useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import { PrivateKeyRecoveryOptionStatusEnum } from '__generated__/globalTypes';
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import DialogWithNavigation from '@sorare/core/src/atoms/layout/DialogWithNavigation';
-import { Text14, Text16, Title5 } from '@sorare/core/src/atoms/typography';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import useDeactivateWalletRecoveryEmail from '@sorare/core/src/hooks/recovery/useDeactivateWalletRecoveryEmail';
-import useRecoveryOptions from '@sorare/core/src/hooks/recovery/useRecoveryOptions';
-import useResendVerificationCodeForRecoveryEmail from '@sorare/core/src/hooks/recovery/useResendVerificationCodeForRecoveryEmail';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import { PrivateKeyRecoveryOptionStatusEnum } from '@core/__generated__/globalTypes';
+import Button from '@core/atoms/buttons/Button';
+import IconButton from '@core/atoms/buttons/IconButton';
+import DialogWithNavigation from '@core/atoms/layout/DialogWithNavigation';
+import { Text14, Text16, Title5 } from '@core/atoms/typography';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import useDeactivateWalletRecoveryEmail from '@core/hooks/recovery/useDeactivateWalletRecoveryEmail';
+import useRecoveryOptions from '@core/hooks/recovery/useRecoveryOptions';
+import useResendVerificationCodeForRecoveryEmail from '@core/hooks/recovery/useResendVerificationCodeForRecoveryEmail';
+import { glossary } from '@core/lib/glossary';
 
 import { AddRecoveryEmailForm } from './AddRecoveryEmailForm';
 import { VerifyRecoveryEmailForm } from './VerifyRecoveryEmailForm';

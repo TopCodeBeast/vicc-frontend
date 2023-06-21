@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 import { ReactNode } from 'react';
 
-import { getHumanReadableSerialNumber } from '@sorare/core/src/lib/cards';
-import { format } from '@sorare/core/src/lib/seasons';
+import { getHumanReadableSerialNumber } from '@core/lib/cards';
+import { format } from '@core/lib/seasons';
 
 import { TokenDescription_tokenMetas } from './__generated__/index.graphql';
 

@@ -8,19 +8,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { PrivateKeyRecoveryOptionStatusEnum } from '__generated__/globalTypes';
-import { Text14, Text16, Title6 } from '@sorare/core/src/atoms/typography';
+import { PrivateKeyRecoveryOptionStatusEnum } from '@core/__generated__/globalTypes';
+import { Text14, Text16, Title6 } from '@core/atoms/typography';
 import {
   SecurityCheckTab,
   useAccountSecurityCheckContext,
-} from '@sorare/core/src/contexts/accountSecurityCheck';
+} from '@core/contexts/accountSecurityCheck';
 import useRecoveryEmails, {
   RecoveryOption,
-} from '@sorare/core/src/hooks/recovery/useRecoveryOptions';
-import useResendVerificationCodeForRecoveryEmail from '@sorare/core/src/hooks/recovery/useResendVerificationCodeForRecoveryEmail';
-import useToggle from '@sorare/core/src/hooks/useToggle';
-import { glossary } from '@sorare/core/src/lib/glossary';
-import { hideEmailDetails } from '@sorare/core/src/lib/privacy';
+} from '@core/hooks/recovery/useRecoveryOptions';
+import useResendVerificationCodeForRecoveryEmail from '@core/hooks/recovery/useResendVerificationCodeForRecoveryEmail';
+import useToggle from '@core/hooks/useToggle';
+import { glossary } from '@core/lib/glossary';
+import { hideEmailDetails } from '@core/lib/privacy';
 
 const Wrapper = styled.div`
   display: flex;

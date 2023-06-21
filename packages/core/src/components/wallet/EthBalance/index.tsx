@@ -3,10 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Caption, Title3 } from '@sorare/core/src/atoms/typography';
-import Dots from '@sorare/core/src/atoms/ui/Dots';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
+import { Currency, SupportedCurrency } from '@core/__generated__/globalTypes';
+import { Caption, Title3 } from '@core/atoms/typography';
+import Dots from '@core/atoms/ui/Dots';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useAmountWithConversion from '@core/hooks/useAmountWithConversion';
 
 const Container = styled.div`
   display: flex;
@@ -24,10 +25,12 @@ const Container = styled.div`
 export const EthBalance = ({ ethFirst = false, hideExponent = false }) => {
   const { currentUser } = useCurrentUserContext();
   const { main, exponent } = useAmountWithConversion({
-    context: 'EthBalance',
-    amount: currentUser?.availableBalance || '0',
-    unit: 'wei',
-    ethFirst,
+    monetaryAmount: {
+      referenceCurrency: SupportedCurrency.WEI,
+      [SupportedCurrency.WEI.toLowerCase()]:
+        currentUser?.availableBalance || '0',
+    },
+    primaryCurrency: ethFirst ? Currency.ETH : undefined,
   });
   const hideBalance = currentUser?.userSettings?.hideBalance;
   return (

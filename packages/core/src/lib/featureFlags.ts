@@ -1,7 +1,7 @@
 import { withLDProvider } from 'launchdarkly-react-client-sdk';
 import { ComponentType } from 'react';
 
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
 
 import { LAUNCH_DARKLY_CLIENT_SIDE_ID } from '../config';
 

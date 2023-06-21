@@ -1,6 +1,6 @@
 import { Currency, Fiat } from '@sorare/core/src/__generated__/globalTypes';
 
-import useFormatWithCurrency from '@sorare/marketplace/src/hooks/useFormatWithCurrency';
+import useFormatWithCurrency from '@marketplace/hooks/useFormatWithCurrency';
 
 import FeesTooltipFromProps from '../FeesTooltipFromProps';
 

@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import { ReactElement } from 'react';
 import styled from 'styled-components';
 
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { theme } from '@sorare/core/src/style/theme';
+import { Text16 } from '@core/atoms/typography';
+import { theme } from '@core/style/theme';
 
 const Root = styled.div`
   display: flex;

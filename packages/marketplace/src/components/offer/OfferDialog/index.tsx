@@ -16,11 +16,15 @@ import {
 } from 'react-intl';
 import styled from 'styled-components';
 
-import { Currency, Sport } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  Currency,
+  Sport,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import Select from '@sorare/core/src/atoms/inputs/Select';
-import Dialog, { Actions } from '@sorare/core/src/atoms/layout/Dialog';
 import { Tooltip } from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Text14, Text16, Title6 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@sorare/core/src/components/dialog';
 import CreateFiatWallet from '@sorare/core/src/components/fiatWallet/CreateFiatWallet';
 import {
   Field,
@@ -53,13 +57,13 @@ import {
 } from '@sorare/core/src/lib/wei';
 import { theme } from '@sorare/core/src/style/theme';
 
-import ConfirmationDialogContent from '@sorare/marketplace/src/components/ConfirmationDialogContent';
-import AmountWithConversion from '@sorare/marketplace/src/components/buyActions/PaymentBox/AmountWithConversion';
-import TokenSummary from '@sorare/marketplace/src/components/buyActions/TokenSummary';
-import Row from '@sorare/marketplace/src/components/offer/Row';
-import { TokenTransferValidator } from '@sorare/marketplace/src/components/token/TokenTransferValidator';
-import { TokenTransferChildrenProps } from '@sorare/marketplace/src/components/token/TokenTransferValidator/types';
-import { useMarketplaceEvents } from '@sorare/marketplace/src/lib/events';
+import ConfirmationDialogContent from '@marketplace/components/ConfirmationDialogContent';
+import { PaymentBoxAmountWithConversion } from '@marketplace/components/buyActions/PaymentBox/AmountWithConversion';
+import TokenSummary from '@marketplace/components/buyActions/TokenSummary';
+import Row from '@marketplace/components/offer/Row';
+import { TokenTransferValidator } from '@marketplace/components/token/TokenTransferValidator';
+import { TokenTransferChildrenProps } from '@marketplace/components/token/TokenTransferValidator/types';
+import { useMarketplaceEvents } from '@marketplace/lib/events';
 
 import { PreLaunchFiatWalletListing } from '../PreLaunchFiatWalletListing';
 import { OfferDialog_token } from './__generated__/index.graphql';
@@ -158,9 +162,7 @@ const FeesLabel = ({
         <Tooltip
           placement="top"
           enterTouchDelay={0}
-          arrow
           interactive
-          dark={false}
           title={
             <StyledTooltip>
               <FormattedMessage
@@ -202,23 +204,18 @@ const StyledError = styled.div`
   color: var(--c-red-600);
   margin: var(--unit) 0;
 `;
-const StyledActions = styled(Actions)`
-  & > * {
-    flex-grow: 1;
-  }
-`;
-
 const Title = styled(Text16).attrs({ bold: true })`
   text-align: center;
   color: var(--c-neutral-600);
 `;
-
+const CenteredTitl6 = styled(Title6)`
+  text-align: center;
+`;
 const Description = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
 `;
-
 const DetailsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -228,9 +225,14 @@ const DetailsWrapper = styled.div`
   padding: var(--double-unit);
   gap: var(--double-unit);
 `;
-
 const StyledGraphqlForm = styled(GraphqlForm)`
   margin-bottom: 0;
+`;
+const Body = styled.div`
+  padding: var(--triple-unit);
+`;
+const SubmitButtonWrapper = styled.div`
+  padding-top: var(--double-unit);
 `;
 
 const OfferDialog = ({
@@ -465,10 +467,11 @@ const OfferDialog = ({
                     />
                   }
                 >
-                  <AmountWithConversion
-                    amount={weiFeesAmount.toString()}
-                    context="list_modal"
-                    unit="wei"
+                  <PaymentBoxAmountWithConversion
+                    monetaryAmount={{
+                      referenceCurrency: SupportedCurrency.WEI,
+                      [SupportedCurrency.WEI.toLowerCase()]: weiFeesAmount,
+                    }}
                   />
                 </Row>
                 <Row
@@ -476,10 +479,12 @@ const OfferDialog = ({
                     <Title6>{formatMessage(tradeLabels.youReceive)}</Title6>
                   }
                 >
-                  <AmountWithConversion
-                    amount={youReceiveWeiAmount.toString()}
-                    context="list_modal"
-                    unit="wei"
+                  <PaymentBoxAmountWithConversion
+                    monetaryAmount={{
+                      referenceCurrency: SupportedCurrency.WEI,
+                      [SupportedCurrency.WEI.toLowerCase()]:
+                        youReceiveWeiAmount,
+                    }}
                   />
                 </Row>
                 <Row
@@ -505,17 +510,18 @@ const OfferDialog = ({
                   setNeedCreateFiatWallet={setNeedCreateFiatWallet}
                 />
               )}
-              <StyledActions>
+              <SubmitButtonWrapper>
                 <SubmitButton
                   color="blue"
                   disabled={
                     validationLoading ||
                     new Big(minimumReceiveWeiAmount).gt(weiAmount)
                   }
+                  fullWidth
                 >
                   <FormattedMessage {...cta} />
                 </SubmitButton>
-              </StyledActions>
+              </SubmitButtonWrapper>
             </>
           )}
         />
@@ -531,27 +537,31 @@ const OfferDialog = ({
 
   return (
     <Dialog
-      onBack={onBack}
+      maxWidth="sm"
+      fullWidth
+      onBack={promptConfirm || promptCreateFiatWallet ? onBack : undefined}
       open={open}
       onClose={promptConfirm || promptCreateFiatWallet ? undefined : onClose}
       fullScreen={!isTablet}
-      headerCentered
       title={
         promptConfirm ? (
-          <Title6>
+          <CenteredTitl6>
             <FormattedMessage {...confirmationMessage} />
-          </Title6>
+          </CenteredTitl6>
         ) : (
-          <Title6>
+          <CenteredTitl6>
             <FormattedMessage {...title} />
-          </Title6>
+          </CenteredTitl6>
         )
       }
-    >
-      <TokenTransferValidator tokens={[token]} transferContext="list">
-        {dialogContent}
-      </TokenTransferValidator>
-    </Dialog>
+      body={
+        <Body>
+          <TokenTransferValidator tokens={[token]} transferContext="list">
+            {dialogContent}
+          </TokenTransferValidator>
+        </Body>
+      }
+    />
   );
 };
 

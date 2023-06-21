@@ -1,4 +1,4 @@
-import { isNBAPage } from '@sorare/core/src/constants/routes';
+import { isNBAPage } from '@core/constants/routes';
 
 import { useBgLocation } from './useBgLocation';
 

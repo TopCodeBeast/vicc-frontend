@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import useUpdate2FA from '@sorare/core/src/hooks/useUpdate2FA';
+import LoadingButton from '@core/atoms/buttons/LoadingButton';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
+import useUpdate2FA from '@core/hooks/useUpdate2FA';
 
 export const RecoveryCodes = ({
   setRecoveryCodes,

@@ -3,15 +3,15 @@ import { useMemo } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import { generatePath } from 'react-router-dom';
 
-import Bold from '@sorare/core/src/atoms/typography/Bold';
-import { DumbNotification } from 'components/activity/DumbNotification';
+import Bold from '@core/atoms/typography/Bold';
+import { DumbNotification } from '@core/components/activity/DumbNotification';
 import {
   MY_SORARE_MY_OFFER_RECEIVED,
   MY_SORARE_MY_OFFER_SENT,
-} from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import idFromObject from '@sorare/core/src/gql/idFromObject';
-import { isType } from '@sorare/core/src/lib/gql';
+} from '@core/constants/routes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import idFromObject from '@core/gql/idFromObject';
+import { isType } from '@core/lib/gql';
 
 import { commonNotificationInterfaceFragment } from '../fragments';
 import { CommonNotificationProps } from '../types';

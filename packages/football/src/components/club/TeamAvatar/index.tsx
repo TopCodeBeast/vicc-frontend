@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 import FlagAvatar from '@sorare/core/src/components/country/FlagAvatar';
 import { isA } from '@sorare/core/src/lib/gql';
 
-import ClubAvatar from '@sorare/football/src/components/club/ClubAvatar';
+import ClubAvatar from '@football/components/club/ClubAvatar';
 
 import {
   TeamAvatar_team,

@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 import { consumeCardBoosterInput } from '@sorare/core/src/__generated__/globalTypes';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 
-import CardProperties from '@sorare/football/src/components/so5/CardProperties';
+import CardProperties from '@football/components/so5/CardProperties';
 
 import {
   ConsumeCardBoostMutation,

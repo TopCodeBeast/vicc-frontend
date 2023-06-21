@@ -1,4 +1,4 @@
-import { Level, useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
+import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
 import { AppError, errorWrapper } from 'errors';
 
 const useSnackErrorHandler = () => {

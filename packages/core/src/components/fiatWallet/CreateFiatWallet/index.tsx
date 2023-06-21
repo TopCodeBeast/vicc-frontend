@@ -3,15 +3,15 @@ import { ReactNode, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import RadioGroup from '@sorare/core/src/atoms/inputs/RadioGroup';
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { Text14, Text16, Title3 } from '@sorare/core/src/atoms/typography';
-import FilterInDropdown from 'components/FilterInDropdown';
-import { GraphQLResult, GraphqlForm, TextField } from 'components/form/Form';
-import { PRIVACY_POLICY } from '@sorare/core/src/constants/routes';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { glossary } from '@sorare/core/src/lib/glossary';
-import { toDisplayName } from '@sorare/core/src/lib/territories';
+import RadioGroup from '@core/atoms/inputs/RadioGroup';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import { Text14, Text16, Title3 } from '@core/atoms/typography';
+import FilterInDropdown from '@core/components/FilterInDropdown';
+import { GraphQLResult, GraphqlForm, TextField } from '@core/components/form/Form';
+import { PRIVACY_POLICY } from '@core/constants/routes';
+import { useIntlContext } from '@core/contexts/intl';
+import { glossary } from '@core/lib/glossary';
+import { toDisplayName } from '@core/lib/territories';
 
 import useCreateFiatWallet from './useCreateFiatWallet';
 import useGetSupportedCountries from './useGetSupportedCountries';

@@ -9,8 +9,8 @@ import { InstantBlockchainCardSearch } from '@sorare/core/src/components/search/
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import { CardHit } from '@sorare/core/src/lib/algolia';
 
-import { tokenPageMessages } from '@sorare/marketplace/src/components/token/TokenPage/tokenPageMessages';
-import useDefaultFilters from '@sorare/marketplace/src/hooks/useDefaultFilters';
+import { tokenPageMessages } from '@marketplace/components/token/TokenPage/tokenPageMessages';
+import useDefaultFilters from '@marketplace/hooks/useDefaultFilters';
 
 import TokensRow from '../TokensRow';
 

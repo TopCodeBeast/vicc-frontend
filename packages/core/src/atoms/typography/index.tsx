@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
-import { theme } from '@sorare/core/src/style/theme';
-import { Color } from '@sorare/core/src/style/types';
+import { theme } from '@core/style/theme';
+import { Color } from '@core/style/types';
 
 const variant = ({
   bold,

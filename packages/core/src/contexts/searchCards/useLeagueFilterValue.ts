@@ -1,4 +1,4 @@
-import { useConfigContext } from '@sorare/core/src/contexts/config';
+import { useConfigContext } from '@core/contexts/config';
 
 export default (leagueFilter: string | undefined) => {
   const {

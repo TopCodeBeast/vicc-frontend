@@ -20,7 +20,7 @@ import { Link } from '@sorare/core/src/routing/Link';
 import { theme } from '@sorare/core/src/style/theme';
 import { createVar } from '@sorare/core/src/style/utils';
 
-import { useFootballEvents } from 'lib/events';
+import { useFootballEvents } from '@football/lib/events';
 
 const bgColor = createVar();
 const illustrationSize = createVar();

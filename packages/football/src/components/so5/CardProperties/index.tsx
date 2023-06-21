@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { isA } from '@sorare/core/src/lib/gql';
 
-import ItemEligibility from '@sorare/football/src/components/card/ItemEligibility';
-import AverageScore from '@sorare/football/src/components/so5/AverageScore';
+import ItemEligibility from '@football/components/card/ItemEligibility';
+import AverageScore from '@football/components/so5/AverageScore';
 
 import CardBonus from './CardBonus';
 import U23Eligible from './U23Eligible';

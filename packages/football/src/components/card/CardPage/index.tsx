@@ -33,8 +33,8 @@ import TokensAvailableOnPrimaryWhenInsufficientFundsInWallet from '@sorare/marke
 import { tokenPageMessages } from '@sorare/marketplace/src/components/token/TokenPage/tokenPageMessages';
 import TokenWithdrawal from '@sorare/marketplace/src/components/token/TokenWithdrawal';
 
-import AddCardToDeck from '@sorare/football/src/components/deck/AddCardToDeck';
-import LastScores from '@sorare/football/src/components/stats/LastScores';
+import AddCardToDeck from '@football/components/deck/AddCardToDeck';
+import LastScores from '@football/components/stats/LastScores';
 
 import CardAttributes from './CardAttributes';
 import CommonCardCurrentOwner from './CommonCardCurrentOwner';

@@ -7,7 +7,7 @@ import Block from '@sorare/core/src/atoms/layout/Block';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import { FOOTBALL_PLAYER_SHOW } from '@sorare/core/src/constants/routes';
 
-import PlayerAvatar from '@sorare/football/src/components/player/PlayerAvatar';
+import PlayerAvatar from '@football/components/player/PlayerAvatar';
 
 import { PlayerListItem_player } from './__generated__/index.graphql';
 

@@ -22,12 +22,12 @@ import {
 } from '@sorare/core/src/lib/events';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import { useLineupSharingAttributes } from '@sorare/football/src/components/lineup/useLineupSharingAttributes';
-import useConfirmLineups from 'hooks/so5/useConfirmLineups';
-import useDeleteLineup from 'hooks/so5/useDeleteLineup';
-import getLineupActions from 'lib/lineup/getLineupActions';
+import { useLineupSharingAttributes } from '@football/components/lineup/useLineupSharingAttributes';
+import useConfirmLineups from '@football/hooks/so5/useConfirmLineups';
+import useDeleteLineup from '@football/hooks/so5/useDeleteLineup';
+import getLineupActions from '@football/lib/lineup/getLineupActions';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import { LeaderboardAction } from 'types/leaderboard';
+import { LeaderboardAction } from '@football/types/leaderboard';
 
 import {
   DropdownActions_so5Leaderboard,

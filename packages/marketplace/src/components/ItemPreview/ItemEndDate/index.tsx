@@ -1,11 +1,20 @@
 import { Caption } from '@sorare/core/src/atoms/typography';
 
-import AuctionTimeLeft from '@sorare/marketplace/src/components/auction/AuctionTimeLeft';
+import AuctionTimeLeft from '@marketplace/components/auction/AuctionTimeLeft';
 
-const EndDate = ({ endDate }: { endDate: Date }) => {
+const EndDate = ({
+  endDate,
+  withExplicitTime,
+}: {
+  endDate: Date;
+  withExplicitTime?: boolean;
+}) => {
   return (
     <Caption color="var(--c-neutral-600)" as="span">
-      <AuctionTimeLeft endDate={endDate.toISOString()} />
+      <AuctionTimeLeft
+        endDate={endDate.toISOString()}
+        withExplicitTime={withExplicitTime}
+      />
     </Caption>
   );
 };

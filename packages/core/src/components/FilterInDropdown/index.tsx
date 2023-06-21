@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FC, ReactElement, ReactNode, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import Dropdown from '@sorare/core/src/atoms/dropdowns/Dropdown';
+import Button from '@core/atoms/buttons/Button';
+import Dropdown from '@core/atoms/dropdowns/Dropdown';
 
 const ButtonsWrapper = styled.div<{ fullWidth: boolean }>`
   position: relative;
@@ -85,9 +85,6 @@ export const FilterInDropdown = ({
             medium={buttonSize === 'medium'}
             fullWidth={fullWidth}
             disableDebounce
-            disableRipple
-            disableFocusRipple
-            disableTouchRipple
             disableElevation
           >
             <LabelWrapper filterSelected={filterSelected}>
@@ -102,7 +99,6 @@ export const FilterInDropdown = ({
             <CloseButton
               small={buttonSize === 'small'}
               medium={buttonSize === 'medium'}
-              disableRipple
               onClick={onClearFilter}
             >
               <CloseContent>

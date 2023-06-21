@@ -6,8 +6,8 @@ import Button from '@sorare/core/src/atoms/buttons/Button';
 import { Text14 } from '@sorare/core/src/atoms/typography';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
-import Details from '@sorare/football/src/components/shopItems/ShopItemPicker/ItemPreviewDialog/Details';
-import ItemImagePreview from '@sorare/football/src/components/shopItems/ShopItemPicker/ItemPreviewDialog/ItemImagePreview';
+import Details from '@football/components/shopItems/ShopItemPicker/ItemPreviewDialog/Details';
+import ItemImagePreview from '@football/components/shopItems/ShopItemPicker/ItemPreviewDialog/ItemImagePreview';
 
 import { Congrats_shopItem } from './__generated__/index.graphql';
 

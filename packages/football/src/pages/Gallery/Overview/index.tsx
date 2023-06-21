@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client';
 import styled from 'styled-components';
 
-import CardsOnSale from '@sorare/football/src/pages/Gallery/CardsOnSale';
-import DecksPreview from '@sorare/football/src/pages/Gallery/DecksPreview';
-import HighlightedCards from '@sorare/football/src/pages/Gallery/HighlightedCards';
+import CardsOnSale from '@football/pages/Gallery/CardsOnSale';
+import DecksPreview from '@football/pages/Gallery/DecksPreview';
+import HighlightedCards from '@football/pages/Gallery/HighlightedCards';
 
 import { Overview_publicUserInfoInterface } from './__generated__/index.graphql';
 

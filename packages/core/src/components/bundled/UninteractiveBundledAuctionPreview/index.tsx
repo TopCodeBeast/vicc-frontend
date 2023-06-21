@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import classnames from 'classnames';
 import styled, { css } from 'styled-components';
 
-import UninteractiveToken from 'components/token/UninteractiveToken';
+import UninteractiveToken from '@core/components/token/UninteractiveToken';
 
 import { UninteractiveBundledAuctionPreview_auction } from './__generated__/index.graphql';
 import { CardSize, cardSizes } from './types';

@@ -1,7 +1,10 @@
 import { gql } from '@apollo/client';
 
-import { OwnerTransfer } from '@sorare/core/src/__generated__/globalTypes';
-import AmountWithConversion from '@sorare/core/src/components/buyActions/AmountWithConversion';
+import {
+  OwnerTransfer,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 
 import { TokenOwnerPrice_tokenOwner } from './__generated__/index.graphql';
 
@@ -24,10 +27,12 @@ export const TokenOwnerPrice = ({ tokenOwner }: Props) => {
     ) {
       return (
         <AmountWithConversion
-          amount={priceWei}
-          amountInFiat={priceFiat}
-          unit="wei"
-          context="CardOwner"
+          monetaryAmount={{
+            referenceCurrency: SupportedCurrency.WEI,
+            [SupportedCurrency.WEI.toLowerCase()]: priceWei,
+            ...priceFiat,
+          }}
+          usingLegacyFiat
         />
       );
     }

@@ -1,11 +1,11 @@
 import { useCallback, useMemo, useReducer } from 'react';
 
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { Input } from 'components/form/Form/IntlTelInput';
+import Dialog from '@core/atoms/layout/Dialog';
+import { Input } from '@core/components/form/Form/IntlTelInput';
 import useVerifyPhoneNumber, {
   canProceedToVerificationCodeInput,
-} from 'components/user/VerifyPhoneNumber/useVerifyPhoneNumber';
-import { useWalletContext } from '@sorare/core/src/contexts/wallet';
+} from '@core/components/user/VerifyPhoneNumber/useVerifyPhoneNumber';
+import { useWalletContext } from '@core/contexts/wallet';
 
 import EnterVerificationCode from '../EnterVerificationCode';
 import Header from '../Header';

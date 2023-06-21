@@ -1,10 +1,10 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
 
 import { Dict, Init, LogOut, MessagingContext } from '@sorare/wallet-shared';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useIntlContext } from '@core/contexts/intl';
+import useCurrencyConverters from '@core/hooks/useCurrencyConverters';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
 
 import { messages } from '../../messages';
 

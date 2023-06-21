@@ -6,17 +6,17 @@ import {
   MessagingContext,
   SignIn,
 } from '@sorare/wallet-shared';
-import { useAuthContext } from '@sorare/core/src/contexts/auth';
+import { useAuthContext } from '@core/contexts/auth';
 import {
   AcceptTermsInfo,
   SignedInInfo,
   useConnectionContext,
-} from '@sorare/core/src/contexts/connection';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import { nullAddress } from '@sorare/core/src/lib/ethereum';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { mustAcceptTermsOfServiceFlag } from '@sorare/core/src/lib/mustAcceptTermsOfServiceFlag';
+} from '@core/contexts/connection';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import { nullAddress } from '@core/lib/ethereum';
+import useEvents from '@core/lib/events/useEvents';
+import { mustAcceptTermsOfServiceFlag } from '@core/lib/mustAcceptTermsOfServiceFlag';
 
 const RATE_LIMIT_STATUS_CODE = 429;
 

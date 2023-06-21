@@ -1,7 +1,7 @@
 import { defineMessages } from 'react-intl';
 import { useParams } from 'react-router-dom';
 
-import Form from '@sorare/football/src/pages/NoCardEntry/Form';
+import Form from '@football/pages/NoCardEntry/Form';
 
 import useAcceptSo5NoCardLineup from './useAcceptSo5NoCardLineup';
 

@@ -1,7 +1,7 @@
 import { parseISO } from 'date-fns';
 import styled from 'styled-components';
 
-import { Caption } from '@sorare/core/src/atoms/typography';
+import { Caption } from '@core/atoms/typography';
 
 import { useIntlContext } from '..';
 

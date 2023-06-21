@@ -3,7 +3,7 @@ import {
   PaginationItem as MuiPaginationItem,
 } from '@material-ui/lab';
 
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
+import useScreenSize from '@core/hooks/device/useScreenSize';
 
 import Simple from './simple';
 

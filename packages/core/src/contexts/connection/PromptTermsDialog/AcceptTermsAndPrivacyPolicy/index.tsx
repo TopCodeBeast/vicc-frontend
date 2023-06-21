@@ -1,8 +1,8 @@
 import { ComponentProps } from 'react';
 import { defineMessages } from 'react-intl';
 
-import { PRIVACY_POLICY, TERMS } from '@sorare/core/src/constants/routes';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
+import { PRIVACY_POLICY, TERMS } from '@core/constants/routes';
+import { useIntlContext } from '@core/contexts/intl';
 
 import AcceptanceCheckbox from '../AcceptanceCheckbox';
 

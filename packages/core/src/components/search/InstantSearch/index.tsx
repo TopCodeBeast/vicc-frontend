@@ -14,20 +14,20 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 
-import { AlgoliaIndexes, useConfigContext } from '@sorare/core/src/contexts/config';
-import { useSearchCardsContext } from '@sorare/core/src/contexts/searchCards';
-import useSearchClient from '@sorare/core/src/hooks/search/useSearchClient';
-import { useMarketplaceLifecycle } from '@sorare/core/src/hooks/useMarketplaceLifecycle';
-import { useVirtualToggleManager } from '@sorare/core/src/hooks/useVirtualToggleManager';
-import { joinFiltersWithAnd, sportFilter } from '@sorare/core/src/lib/algolia';
+import { AlgoliaIndexes, useConfigContext } from '@core/contexts/config';
+import { useSearchCardsContext } from '@core/contexts/searchCards';
+import useSearchClient from '@core/hooks/search/useSearchClient';
+import { useMarketplaceLifecycle } from '@core/hooks/useMarketplaceLifecycle';
+import { useVirtualToggleManager } from '@core/hooks/useVirtualToggleManager';
+import { joinFiltersWithAnd, sportFilter } from '@core/lib/algolia';
 import {
   APPEARANCES_15_MAX,
   APPEARANCES_5_MAX,
   APPEARANCES_MIN,
   LEVEL_MAX,
   LEVEL_MIN,
-} from '@sorare/core/src/lib/cards';
-import { FILTERS } from '@sorare/core/src/lib/filters';
+} from '@core/lib/cards';
+import { FILTERS } from '@core/lib/filters';
 
 import InstantSearchRefresh from './Refresh';
 import {

@@ -3,9 +3,9 @@ import { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { css } from 'styled-components';
 
-import CloseButton from '@sorare/core/src/atoms/buttons/CloseButton';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { OverrideClasses } from '@sorare/core/src/style/utils';
+import CloseButton from '@core/atoms/buttons/CloseButton';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import { OverrideClasses } from '@core/style/utils';
 
 type Props = {
   children: ReactNode;

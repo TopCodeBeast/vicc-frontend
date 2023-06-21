@@ -1,8 +1,8 @@
 import { gql, useMutation } from '@apollo/client';
 
-import { Maybe } from '__generated__/globalTypes';
-import { Level, useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import { formatGqlErrors } from '@sorare/core/src/lib/gql';
+import { Maybe } from '@core/__generated__/globalTypes';
+import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
+import { formatGqlErrors } from '@core/lib/gql';
 
 import {
   VerifyPhoneNumberMutation,

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Title2, Title6 } from '@sorare/core/src/atoms/typography';
 
-import CardDescription from '@sorare/football/src/components/card/CardDescription';
+import CardDescription from '@football/components/card/CardDescription';
 
 import { CardTitle_card } from './__generated__/index.graphql';
 

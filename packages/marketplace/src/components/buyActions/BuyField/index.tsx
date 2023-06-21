@@ -18,16 +18,16 @@ import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelo
 import { Currency } from '@sorare/core/src/lib/currency';
 import { glossary, payment } from '@sorare/core/src/lib/glossary';
 
-import BuyOnAuctionPoweredByAlgolia from '@sorare/marketplace/src/components/buyActions/BuyOnAuction';
+import BuyOnAuctionPoweredByAlgolia from '@marketplace/components/buyActions/BuyOnAuction';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import BuyTokenConfirmation from '@sorare/marketplace/src/components/buyActions/BuyTokenConfirmation';
-import BuyTokenSummary from '@sorare/marketplace/src/components/buyActions/BuyTokenSummary';
-import CancelOffer from '@sorare/marketplace/src/components/buyActions/CancelOffer';
-import LazyPaymentProvider from '@sorare/marketplace/src/components/buyActions/LazyPaymentProvider';
-import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
-import { useBuyConfirmationContext } from '@sorare/marketplace/src/contexts/buyingConfirmation';
-import useAcceptOffer from '@sorare/marketplace/src/hooks/offers/useAcceptOffer';
-import useCannotBuy from '@sorare/marketplace/src/hooks/offers/useCannotBuy';
+import BuyTokenConfirmation from '@marketplace/components/buyActions/BuyTokenConfirmation';
+import BuyTokenSummary from '@marketplace/components/buyActions/BuyTokenSummary';
+import CancelOffer from '@marketplace/components/buyActions/CancelOffer';
+import LazyPaymentProvider from '@marketplace/components/buyActions/LazyPaymentProvider';
+import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
+import { useBuyConfirmationContext } from '@marketplace/contexts/buyingConfirmation';
+import useAcceptOffer from '@marketplace/hooks/offers/useAcceptOffer';
+import useCannotBuy from '@marketplace/hooks/offers/useCannotBuy';
 
 import { BuyField_token } from './__generated__/index.graphql';
 
@@ -174,7 +174,10 @@ const BuyField = ({
             objectId: id,
             onSuccess: onPaymentSuccess,
             onSubmit: buyWithEth,
-            priceInWei: priceWei,
+            price: {
+              amount: priceWei,
+              referenceCurrency: SupportedCurrency.WEI,
+            },
             cta: payment.confirmAndPay,
             creditCardFee,
             currencies: [Currency.ETH],

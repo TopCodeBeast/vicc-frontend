@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { load } from '@sorare/core/src/lib/http';
+import { load } from '@core/lib/http';
 
 function useFetch<T extends NonNullable<unknown> = string>(url: string) {
   const [data, setData] = useState<null | T>(null);

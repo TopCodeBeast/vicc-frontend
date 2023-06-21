@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
-import { load } from '@sorare/core/src/lib/http';
-import { toLanguageCode } from '@sorare/core/src/lib/i18n';
+import { FRONTEND_ASSET_HOST } from '@core/constants/assets';
+import { load } from '@core/lib/http';
+import { toLanguageCode } from '@core/lib/i18n';
 
 import { REVISION } from '../config';
 

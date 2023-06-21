@@ -1,7 +1,7 @@
 import { FormattedMessage, defineMessage } from 'react-intl';
 
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { Title4 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@core/atoms/layout/Dialog';
+import { Title4 } from '@core/atoms/typography';
 
 import RecoveryCodesDialogContent from './RecoveryCodesDialogContent';
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { theme } from '@sorare/core/src/style/theme';
+import { theme } from '@core/style/theme';
 
 export const SearchLayoutContainer = styled.div`
   display: flex;

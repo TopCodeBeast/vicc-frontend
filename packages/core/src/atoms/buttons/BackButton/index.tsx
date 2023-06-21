@@ -2,7 +2,7 @@ import { faCaretLeft } from '@fortawesome/pro-solid-svg-icons';
 import { useIntl } from 'react-intl';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { glossary } from '@sorare/core/src/lib/glossary';
+import { glossary } from '@core/lib/glossary';
 
 import IconButton from '../IconButton';
 

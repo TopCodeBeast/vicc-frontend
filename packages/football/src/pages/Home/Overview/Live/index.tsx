@@ -5,14 +5,14 @@ import styled from 'styled-components';
 
 import { FOOTBALL_LOBBY_LIVE } from '@sorare/core/src/constants/routes';
 
-import { HomeBlock } from '@sorare/football/src/components/Home/Block';
-import { ItemRows } from '@sorare/football/src/components/Home/ItemRows';
-import { SeeAllButton } from '@sorare/football/src/components/Home/SeeAllButton';
-import { Lineup } from '@sorare/football/src/components/lineup/Lineup';
-import { LiveDot } from '@sorare/football/src/components/so5/LiveDot';
-import { homeLabels } from 'lib/home';
+import { HomeBlock } from '@football/components/Home/Block';
+import { ItemRows } from '@football/components/Home/ItemRows';
+import { SeeAllButton } from '@football/components/Home/SeeAllButton';
+import { Lineup } from '@football/components/lineup/Lineup';
+import { LiveDot } from '@football/components/so5/LiveDot';
+import { homeLabels } from '@football/lib/home';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import { RewardType } from 'lib/lineupRewards';
+import { RewardType } from '@football/lib/lineupRewards';
 
 import { Live_so5 } from './__generated__/index.graphql';
 

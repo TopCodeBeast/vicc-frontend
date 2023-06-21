@@ -1,6 +1,6 @@
-import { useConfigContext } from '@sorare/core/src/contexts/config';
-import ErrorBoundary from '@sorare/core/src/contexts/sentry/ErrorBoundary';
-import { EventsType } from '@sorare/core/src/lib/events/EventsType';
+import { useConfigContext } from '@core/contexts/config';
+import ErrorBoundary from '@core/contexts/sentry/ErrorBoundary';
+import { EventsType } from '@core/lib/events/EventsType';
 
 import Tiles from '../Tiles';
 

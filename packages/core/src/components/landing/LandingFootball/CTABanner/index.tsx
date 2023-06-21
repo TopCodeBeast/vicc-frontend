@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
-import StarBall from '@sorare/core/src/atoms/icons/StarBall';
-import Container from '@sorare/core/src/atoms/layout/Container';
-import { theme } from '@sorare/core/src/style/theme';
+import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import StarBall from '@core/atoms/icons/StarBall';
+import Container from '@core/atoms/layout/Container';
+import { theme } from '@core/style/theme';
 
 import { BuildYourLegacyTitle } from '../BuildYourLegacyTitle';
 import PlayNowButton from '../PlayNowButton';

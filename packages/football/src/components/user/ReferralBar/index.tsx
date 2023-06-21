@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 import { faBaseball, faBasketball } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
+import { parseISO } from 'date-fns';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
@@ -14,6 +15,7 @@ import ScarcityCardIcon from '@sorare/core/src/components/card/ScarcityCardIcon'
 import { ClaimReferralRewardDialog } from '@sorare/core/src/components/referral/ClaimReferralRewardDialog';
 import { GalleryLink } from '@sorare/core/src/components/user/GalleryLink';
 import { Nickname } from '@sorare/core/src/components/user/Nickname';
+import TimeLeft from '@sorare/core/src/contexts/ticker/TimeLeft';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { useReferralReward } from '@sorare/core/src/hooks/useReferralReward';
 import useToggle from '@sorare/core/src/hooks/useToggle';
@@ -22,7 +24,7 @@ import { isA } from '@sorare/core/src/lib/gql';
 import { CARDS_REQUIREMENTS_BY_SPORT } from '@sorare/core/src/lib/referral';
 import { theme } from '@sorare/core/src/style/theme';
 
-import ReferralCampaignTitle from '@sorare/football/src/components/user/ReferralCampaignTitle';
+import ReferralCampaignTitle from '@football/components/user/ReferralCampaignTitle';
 
 import Progression from './Progression';
 import { ReferralBarQuery } from './__generated__/index.graphql';
@@ -66,6 +68,7 @@ const REFERRAL_BAR_QUERY = gql`
       referralAsReferee {
         id
         aasmState
+        expirationDate
         footballCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
           sport: FOOTBALL
         )
@@ -169,6 +172,10 @@ const ReadyToClaimReferralRewardHeader = ({
   );
 };
 
+const Row = styled.div`
+  display: flex;
+  gap: var(--half-unit);
+`;
 const Header = styled.div`
   display: flex;
   flex-direction: column;
@@ -209,11 +216,22 @@ const InProgressReferralRewardHeader = ({
           <Back rarity={Rarity.limited} shine={false} />
         </Card>
         <div>
-          <Text18 bold>
-            <FormattedMessage
-              {...(completed ? messages.claimSoon : messages.title)}
-            />
-          </Text18>
+          <Row>
+            <Text18 bold>
+              <FormattedMessage
+                {...(completed ? messages.claimSoon : messages.title)}
+              />
+            </Text18>
+            {!completed && (
+              <>
+                {' · '}
+                <TimeLeft
+                  time={parseISO(referralAsReferee.expirationDate)}
+                  withExplicitTime
+                />
+              </>
+            )}
+          </Row>
           <Text16 color="var(--c-neutral-600)">
             {isA<ReferralBarQuery_currentUser_referralAsReferee_referrer_User>(
               'User',

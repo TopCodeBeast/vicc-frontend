@@ -1,8 +1,8 @@
 import { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
-import { Radio } from '@sorare/core/src/atoms/icons/Radio';
-import { Color } from '@sorare/core/src/style/types';
+import { Radio } from '@core/atoms/icons/Radio';
+import { Color } from '@core/style/types';
 
 const Wrapper = styled.span`
   position: relative;

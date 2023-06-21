@@ -1,7 +1,7 @@
 import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import styled from 'styled-components';
 
-import Button, { Color } from '@sorare/core/src/atoms/buttons/Button';
+import Button, { Color } from '@core/atoms/buttons/Button';
 
 const ButtonsBar = styled.div`
   display: flex;

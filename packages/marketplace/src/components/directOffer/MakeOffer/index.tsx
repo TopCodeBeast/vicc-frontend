@@ -13,9 +13,9 @@ import useToggle from '@sorare/core/src/hooks/useToggle';
 import useTokenBelongsToUser from '@sorare/core/src/hooks/useTokenBelongsToUser';
 import { isTokenWithUser } from '@sorare/core/src/lib/cards';
 
-import NewOfferBuilder from '@sorare/marketplace/src/components/directOffer/NewOfferBuilder';
-import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
-import useCannotBuy from '@sorare/marketplace/src/hooks/offers/useCannotBuy';
+import NewOfferBuilder from '@marketplace/components/directOffer/NewOfferBuilder';
+import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
+import useCannotBuy from '@marketplace/hooks/offers/useCannotBuy';
 
 import { MakeOffer_token } from './__generated__/index.graphql';
 
@@ -31,7 +31,7 @@ const statusMessages = defineMessages<Tradeable>({
   [Tradeable.NO]: {
     id: 'MakeOffer.no',
     defaultMessage:
-      'This Card cannot be sold on Sorare. The owner must transfer it to his Sorare account.',
+      'This Card cannot be sold on Sorare. The owner must transfer it to their Sorare account.',
   },
   [Tradeable.YES]: {
     id: 'MakeOffer.internal',

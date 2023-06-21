@@ -1,11 +1,11 @@
 import { gql, useMutation } from '@apollo/client';
-import { ComponentType, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
 import Checkbox from '@sorare/core/src/atoms/inputs/Checkbox';
-import Dialog, { Actions } from '@sorare/core/src/atoms/layout/Dialog';
 import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@sorare/core/src/components/dialog';
 import {
   GraphqlForm,
   TextFieldWithConversion,
@@ -13,7 +13,7 @@ import {
 import { useConfigContext } from '@sorare/core/src/contexts/config';
 import { fromWei, toWei } from '@sorare/core/src/lib/wei';
 
-import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
+import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
 
 import {
   CreateOrUpdateSingleBuyOfferMinPriceMutation,
@@ -73,9 +73,21 @@ const CREATE_OR_UPDATE_SINGLE_BUY_OFFER_MIN_PRICE_MUTATION = gql`
   ${SetupMinimumPriceDialogFragments.token}
 `;
 
+const CenteredText16 = styled(Text16)`
+  text-align: center;
+`;
+const Body = styled.div`
+  padding: var(--triple-unit);
+`;
 const Content = styled.div`
   display: flex;
   flex-direction: column;
+`;
+const StyledGraphqlForm = styled(GraphqlForm)`
+  margin-bottom: 0;
+`;
+const SubmitButtonWrapper = styled.div`
+  padding-top: var(--double-unit);
 `;
 
 const SetupMinimumPriceDialog = ({ onClose, open, token, title }: Props) => {
@@ -129,42 +141,50 @@ const SetupMinimumPriceDialog = ({ onClose, open, token, title }: Props) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} title={title}>
-      <div>
-        <Text16>
-          <FormattedMessage {...messages.disclaimer} />{' '}
-          {secondaryMarketFeesRate > 0 && <>*</>}
-        </Text16>
-      </div>
-      <GraphqlForm
-        onSubmit={(attributes, onResult, onCancel) => {
-          submit(attributes, onResult, onCancel);
-        }}
-        onSuccess={onClose}
-        render={(Error: ComponentType, SubmitButton: ComponentType) => (
-          <Content>
-            <Error />
-            <TextFieldWithConversion
-              name="price"
-              defaultEthValue={initialEthPrice.toString()}
-            />
-            {secondaryMarketFeesRate > 0 && (
-              <Caption color="var(--c-neutral-600)">
-                <FormattedMessage {...messages.disclaimerLegend} />
-              </Caption>
+    <Dialog
+      maxWidth="sm"
+      open={open}
+      onClose={onClose}
+      title={<CenteredText16>{title}</CenteredText16>}
+      body={
+        <Body>
+          <Text16>
+            <FormattedMessage {...messages.disclaimer} />{' '}
+            {secondaryMarketFeesRate > 0 && <>*</>}
+          </Text16>
+          <StyledGraphqlForm
+            onSubmit={(attributes, onResult, onCancel) => {
+              submit(attributes, onResult, onCancel);
+            }}
+            onSuccess={onClose}
+            render={(Error, SubmitButton) => (
+              <Content>
+                <Error />
+                <TextFieldWithConversion
+                  name="price"
+                  defaultEthValue={initialEthPrice.toString()}
+                />
+                {secondaryMarketFeesRate > 0 && (
+                  <Caption color="var(--c-neutral-600)">
+                    <FormattedMessage {...messages.disclaimerLegend} />
+                  </Caption>
+                )}
+                <Checkbox
+                  checked={keepPrivate}
+                  onChange={handleChecked}
+                  label={formatMessage(messages.amountPrivate)}
+                />
+                <SubmitButtonWrapper>
+                  <SubmitButton fullWidth>
+                    {formatMessage(messages.submit)}
+                  </SubmitButton>
+                </SubmitButtonWrapper>
+              </Content>
             )}
-            <Checkbox
-              checked={keepPrivate}
-              onChange={handleChecked}
-              label={formatMessage(messages.amountPrivate)}
-            />
-            <Actions>
-              <SubmitButton>{formatMessage(messages.submit)}</SubmitButton>
-            </Actions>
-          </Content>
-        )}
-      />
-    </Dialog>
+          />
+        </Body>
+      }
+    />
   );
 };
 

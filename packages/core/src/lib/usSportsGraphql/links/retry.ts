@@ -3,8 +3,8 @@ import { onError } from '@apollo/client/link/error';
 import { withScope } from '@sentry/react';
 import { print } from 'graphql/language/printer';
 
-import { SnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import { sendSafeError } from '@sorare/core/src/lib/error';
+import { SnackNotificationContext } from '@core/contexts/snackNotification';
+import { sendSafeError } from '@core/lib/error';
 
 const SILENT_STATUS_CODES = [404];
 

@@ -7,12 +7,12 @@ import styled from 'styled-components';
 import { CardCollectionCardScoreBreakdown } from '@sorare/core/src/__generated__/globalTypes';
 import { Caption, Text14 } from '@sorare/core/src/atoms/typography';
 
-import { Score } from '@sorare/football/src/components/collections/Score';
-import holding from '@sorare/football/src/components/collections/assets/holding.png';
-import jersey from '@sorare/football/src/components/collections/assets/jersey.png';
-import owner from '@sorare/football/src/components/collections/assets/owner.png';
-import special from '@sorare/football/src/components/collections/assets/special.png';
-import ticket from '@sorare/football/src/components/collections/assets/ticket.png';
+import { Score } from '@football/components/collections/Score';
+import holding from '@football/components/collections/assets/holding.png';
+import jersey from '@football/components/collections/assets/jersey.png';
+import owner from '@football/components/collections/assets/owner.png';
+import special from '@football/components/collections/assets/special.png';
+import ticket from '@football/components/collections/assets/ticket.png';
 
 const Item = styled.div`
   display: grid;
@@ -167,11 +167,19 @@ export const detailedScores: Record<
 };
 
 type Props = {
-  id: DetailedScoreKey;
+  img: string;
+  label: ReactNode;
+  value: number;
+  explanation: ReactNode;
   listed?: boolean;
 };
-const DetailedScoreLine = ({ id, listed }: Props) => {
-  const { img, label, explanation, value } = detailedScores[id];
+const DetailedScoreLine = ({
+  img,
+  label,
+  explanation,
+  value,
+  listed,
+}: Props) => {
   return (
     <Item>
       <ImageWrapper>
@@ -186,7 +194,9 @@ const DetailedScoreLine = ({ id, listed }: Props) => {
         )}
         <Img src={img} alt="" />
       </ImageWrapper>
-      <StyledText14 bold>{label}</StyledText14>
+      <StyledText14 bold>
+        <span>{label}</span>
+      </StyledText14>
       <StyledCaption bold color="var(--c-neutral-700)">
         {explanation}
       </StyledCaption>

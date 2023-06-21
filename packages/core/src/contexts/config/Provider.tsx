@@ -3,15 +3,15 @@ import { ReactNode, useEffect, useMemo } from 'react';
 import { useInterval } from 'react-use';
 
 import useFontFaceObserver from '@sorare/use-font-face-observer';
-import { Sport } from '__generated__/globalTypes';
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { useGraphqlContext } from '@sorare/core/src/contexts/graphql';
-import { useTMContext } from '@sorare/core/src/contexts/tm';
-import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import { currency } from '@sorare/core/src/lib/fiat';
-import { asObject } from '@sorare/core/src/lib/json';
-import { fromWei } from '@sorare/core/src/lib/wei';
+import { Sport } from '@core/__generated__/globalTypes';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import { useGraphqlContext } from '@core/contexts/graphql';
+import { useTMContext } from '@core/contexts/tm';
+import useQuery from '@core/hooks/graphql/useQuery';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import { currency } from '@core/lib/fiat';
+import { asObject } from '@core/lib/json';
+import { fromWei } from '@core/lib/wei';
 
 import ConfigContextProvider, { AlgoliaCardIndexes, AlgoliaIndexes } from '.';
 import { currentUser } from '../currentUser/queries';
@@ -125,6 +125,7 @@ const CONFIG_QUERY = gql`
       sponsorAccountAddress
       migratorAddress
       minimumReceiveWeiAmount
+      walletChallenge
       footballMarketFeesBasisPoints: marketFeeRateBasisPoints(sport: FOOTBALL)
       nbaMarketFeesBasisPoints: marketFeeRateBasisPoints(sport: NBA)
       mlbMarketFeesBasisPoints: marketFeeRateBasisPoints(sport: BASEBALL)
@@ -151,6 +152,7 @@ const CONFIG_QUERY = gql`
       }
       currentLocation {
         countryCode
+        regionCode
       }
       counts {
         usersCount

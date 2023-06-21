@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 import { Position } from '@sorare/core/src/__generated__/globalTypes';
 
-import LastScores from '@sorare/football/src/components/stats/LastScores';
+import LastScores from '@football/components/stats/LastScores';
 
 import { PlayerLastScores_player } from './__generated__/index.graphql';
 

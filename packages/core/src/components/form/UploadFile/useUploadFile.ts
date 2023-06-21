@@ -1,8 +1,8 @@
 import { ChangeEvent, useState } from 'react';
 import { useIntl } from 'react-intl';
 
-import { sameArrays } from '@sorare/core/src/lib/arrays';
-import { hasValidExtension, imgExtension, readFile } from '@sorare/core/src/lib/files';
+import { sameArrays } from '@core/lib/arrays';
+import { hasValidExtension, imgExtension, readFile } from '@core/lib/files';
 
 const maxFileSizeMb = 1; // 1 Megabyte
 const maxFileSizeinBytes = maxFileSizeMb * 10 ** 6;

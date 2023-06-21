@@ -1,10 +1,10 @@
 import { CSSProperties } from 'react';
 import styled from 'styled-components';
 
-import blazon from 'assets/club/blazon_none.png';
-import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
-import ContainedAvatar from '@sorare/core/src/atoms/ui/ContainedAvatar';
-import { CLUB_PLACEHOLDER } from '@sorare/core/src/constants/assets';
+import blazon from '@core/assets/club/blazon_none.png';
+import Tooltip from '@core/atoms/tooltip/Tooltip';
+import ContainedAvatar from '@core/atoms/ui/ContainedAvatar';
+import { CLUB_PLACEHOLDER } from '@core/constants/assets';
 
 type Props = {
   club: {

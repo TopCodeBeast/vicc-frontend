@@ -4,8 +4,8 @@ import { ReactNode } from 'react';
 import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import styled, { keyframes } from 'styled-components';
 
-import { Text14 } from '@sorare/core/src/atoms/typography';
-import { Color } from '@sorare/core/src/style/types';
+import { Text14 } from '@core/atoms/typography';
+import { Color } from '@core/style/types';
 
 const Root = styled.button`
   position: relative;

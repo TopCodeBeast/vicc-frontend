@@ -3,24 +3,24 @@ import classNames from 'classnames';
 import { defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { LeaderboardRarity } from '__generated__/usSportsGlobalTypes';
-import { Text14 } from '@sorare/core/src/atoms/typography';
-import { proxyUrl } from '@sorare/core/src/atoms/ui/ResponsiveImg';
-import { PictureAvatar, PlaceHolderAvatar } from 'components/user/Avatar';
-import idFromObject from '@sorare/core/src/gql/idFromObject';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
-import { useUSSportsQuery } from '@sorare/core/src/hooks/graphql/useUSSportsQuery';
-import { Scarcity } from '@sorare/core/src/lib/cards';
+import { LeaderboardRarity } from '@core/__generated__/usSportsGlobalTypes';
+import { Text14 } from '@core/atoms/typography';
+import { proxyUrl } from '@core/atoms/ui/ResponsiveImg';
+import { PictureAvatar, PlaceHolderAvatar } from '@core/components/user/Avatar';
+import idFromObject from '@core/gql/idFromObject';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import useQuery from '@core/hooks/graphql/useQuery';
+import { useUSSportsQuery } from '@core/hooks/graphql/useUSSportsQuery';
+import { Scarcity } from '@core/lib/cards';
 import {
   BaseballPastWinnerQuery,
   NBAPastWinnerQuery,
-} from '@sorare/core/src/lib/usSportsGraphql/__generated__/queries.graphql';
+} from '@core/lib/usSportsGraphql/__generated__/queries.graphql';
 import {
   BASEBALL_PAST_WINNER_QUERY,
   NBA_PAST_WINNER_QUERY,
-} from '@sorare/core/src/lib/usSportsGraphql/queries';
-import { theme } from '@sorare/core/src/style/theme';
+} from '@core/lib/usSportsGraphql/queries';
+import { theme } from '@core/style/theme';
 
 import {
   FootballPastLeaderboardQuery,

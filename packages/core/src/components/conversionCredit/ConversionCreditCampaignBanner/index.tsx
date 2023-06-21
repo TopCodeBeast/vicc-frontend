@@ -1,6 +1,6 @@
 import { defineMessages } from 'react-intl';
 
-import { useSignupConversionCreditCampaign } from '@sorare/core/src/hooks/useSignupConversionCreditCampaign';
+import { useSignupConversionCreditCampaign } from '@core/hooks/useSignupConversionCreditCampaign';
 
 import { DumbConversionCreditBanner } from '../DumbConversionCreditBanner';
 

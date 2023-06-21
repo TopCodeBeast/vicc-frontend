@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 
 import { isA } from '@sorare/core/src/lib/gql';
 
-import RelatedClub from '@sorare/football/src/components/club/RelatedClub';
-import RelatedNationalTeam from '@sorare/football/src/components/club/RelatedNationalTeam';
+import RelatedClub from '@football/components/club/RelatedClub';
+import RelatedNationalTeam from '@football/components/club/RelatedNationalTeam';
 
 import { RelatedTeam_team } from './__generated__/index.graphql';
 

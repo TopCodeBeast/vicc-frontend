@@ -9,7 +9,7 @@ import useInfiniteScroll from '@sorare/core/src/hooks/useInfiniteScroll';
 import { useTitleAndDescription } from '@sorare/core/src/hooks/useTitleAndDescription';
 import { metadatas } from '@sorare/core/src/lib/seo/common';
 
-import PageContextProvider, { pageContextFragments } '@sorare/football/src/contexts/page';
+import PageContextProvider, { pageContextFragments } from '@football/contexts/page';
 
 import PlayerPageContent from './PlayerPageContent';
 import {

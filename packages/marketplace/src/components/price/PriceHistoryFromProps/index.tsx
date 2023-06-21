@@ -13,9 +13,9 @@ import OpenItemDialogLink from '@sorare/core/src/components/link/OpenItemDialogL
 import { range } from '@sorare/core/src/lib/arrays';
 import { isA } from '@sorare/core/src/lib/gql';
 
-import FlexToken from '@sorare/marketplace/src/components/token/FlexToken';
-import { PriceHistoryQuery } from '@sorare/marketplace/src/hooks/__generated__/useGetPriceHistory.graphql';
-import useGetPriceHistory from '@sorare/marketplace/src/hooks/useGetPriceHistory';
+import FlexToken from '@marketplace/components/token/FlexToken';
+import { PriceHistoryQuery } from '@marketplace/hooks/__generated__/useGetPriceHistory.graphql';
+import useGetPriceHistory from '@marketplace/hooks/useGetPriceHistory';
 
 import PriceHistoryDate from '../PriceHistoryDate';
 import PriceHistoryValue from '../PriceHistoryValue';

@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 
 import { lazy } from '@sorare/core/src/lib/retry';
 
-import useImportantNotification from 'hooks/useImportantNotification';
+import useImportantNotification from '@football/hooks/useImportantNotification';
 
 const NotificationDialog = lazy(
   async () =>

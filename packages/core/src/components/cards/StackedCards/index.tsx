@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import { ValidWidths } from '@sorare/core/src/atoms/ui/ResponsiveImg';
-import UninteractiveToken from 'components/token/UninteractiveToken';
+import { ValidWidths } from '@core/atoms/ui/ResponsiveImg';
+import UninteractiveToken from '@core/components/token/UninteractiveToken';
 
 const ImagesContainer = styled.div`
   position: relative;

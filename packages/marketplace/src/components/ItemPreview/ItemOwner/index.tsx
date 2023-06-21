@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import { Caption } from '@sorare/core/src/atoms/typography';
 
-import { OwnerGalleryLink } from '@sorare/marketplace/src/components/TokenPreview/TokenOwner';
+import { OwnerGalleryLink } from '@marketplace/components/TokenPreview/TokenOwner';
 
 import { ItemOwner_user } from './__generated__/index.graphql';
 

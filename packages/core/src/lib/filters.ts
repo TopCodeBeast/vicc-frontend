@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import { MessageDescriptor } from 'react-intl';
 
-import { cardAttributes, filters } from '@sorare/core/src/lib/glossary';
-import { attributes as playerAttributes } from '@sorare/core/src/lib/players';
+import { cardAttributes, filters } from '@core/lib/glossary';
+import { attributes as playerAttributes } from '@core/lib/players';
 
 type RealFilterWidget = {
   attribute: string;

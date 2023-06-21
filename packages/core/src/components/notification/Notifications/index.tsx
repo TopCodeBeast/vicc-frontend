@@ -4,19 +4,18 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import DialogContentWithNavigation from '@sorare/core/src/atoms/layout/DialogContentWithNavigation';
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
-import Notification from 'components/activity/Notification';
-import { ACTIVITY } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useInGameNotificationContext } from '@sorare/core/src/contexts/inGameNotification';
-import useToggle from '@sorare/core/src/hooks/useToggle';
-import MenuIconButton from '@sorare/core/src/routing/MultiSportAppBar/MenuIconButton';
-import { useAppBarContext } from '@sorare/core/src/routing/MultiSportAppBar/context';
-import { theme } from '@sorare/core/src/style/theme';
-import { OverrideClasses } from '@sorare/core/src/style/utils';
+import IconButton from '@core/atoms/buttons/IconButton';
+import DialogContentWithNavigation from '@core/atoms/layout/DialogContentWithNavigation';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import { Text14, Text16 } from '@core/atoms/typography';
+import Notification from '@core/components/activity/Notification';
+import { ACTIVITY } from '@core/constants/routes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useInGameNotificationContext } from '@core/contexts/inGameNotification';
+import useToggle from '@core/hooks/useToggle';
+import MenuIconButton from '@core/routing/MultiSportAppBar/MenuIconButton';
+import { theme } from '@core/style/theme';
+import { OverrideClasses } from '@core/style/utils';
 
 const [Drawer, classes] = OverrideClasses(MuiDrawer, null, {
   paper: css`
@@ -47,7 +46,6 @@ const StyledText14 = styled(Text14)`
 export const Notifications = () => {
   const [open, toggleOpen] = useToggle(false);
   const { currentUser } = useCurrentUserContext();
-  const { small } = useAppBarContext();
   const {
     notifications,
     loading: notificationLoading,
@@ -73,7 +71,6 @@ export const Notifications = () => {
       <Badge badgeContent={unreadNotifications} overlap="circular">
         <MenuIconButton
           icon={faBell}
-          disableRipple={small}
           aria-haspopup="true"
           onClick={toggleOpen}
           active={open}

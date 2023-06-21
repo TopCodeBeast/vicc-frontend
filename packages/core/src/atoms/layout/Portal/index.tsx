@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
-import usePortal from '@sorare/core/src/hooks/usePortal';
+import usePortal from '@core/hooks/usePortal';
 
 export const Portal = ({
   id,

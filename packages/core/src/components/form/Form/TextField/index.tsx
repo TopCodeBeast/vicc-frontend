@@ -1,8 +1,8 @@
 import { ChangeEventHandler, InputHTMLAttributes, ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { Caption } from '@sorare/core/src/atoms/typography';
-import FormLabel from 'components/form/FormLabel';
+import { Caption } from '@core/atoms/typography';
+import FormLabel from '@core/components/form/FormLabel';
 
 import Field from '../Field';
 

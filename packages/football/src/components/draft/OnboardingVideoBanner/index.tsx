@@ -11,7 +11,7 @@ import { FOOTBALL_VIDEOS } from '@sorare/core/src/constants/routes';
 import { Link } from '@sorare/core/src/routing/Link';
 
 import thumbnailTutorial from 'assets/home/thumbnail_tutorial.jpg';
-import { useFootballEvents } from 'lib/events';
+import { useFootballEvents } from '@football/lib/events';
 
 const StyledContainer = styled(Container)`
   background-color: var(--c-brand-800);

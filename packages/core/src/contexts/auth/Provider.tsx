@@ -1,10 +1,10 @@
 import { useApolloClient } from '@apollo/client';
 import { ReactElement, useCallback } from 'react';
 
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useAfterLoggedInTarget from '@sorare/core/src/hooks/useAfterLoggedInTarget';
-import { client as httpClient, onError } from '@sorare/core/src/lib/http';
-import { paramsToSnakeCase } from '@sorare/core/src/lib/toSnakeCase';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useAfterLoggedInTarget from '@core/hooks/useAfterLoggedInTarget';
+import { client as httpClient, onError } from '@core/lib/http';
+import { paramsToSnakeCase } from '@core/lib/toSnakeCase';
 
 import AuthContextProvider, { UpdateUserAttributes } from '.';
 

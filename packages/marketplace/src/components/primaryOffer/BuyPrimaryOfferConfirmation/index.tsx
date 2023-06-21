@@ -3,15 +3,20 @@ import { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Currency } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  Currency,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import CardsPreviewContainer from '@sorare/core/src/components/bundled/CardsPreviewContainer';
+import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 
-import BuyConfirmation from '@sorare/marketplace/src/components/buyActions/BuyConfirmation';
-import { Props as SelectedPaymentMethodForConfirmationProps } from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
-import { WalletPaymentMethod } from '@sorare/marketplace/src/components/buyActions/PaymentProvider/types';
-import { PrimaryOfferTokensPreview } from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferTokensPreview';
-import PrimaryOfferTokensSummary from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferTokensSummary';
+import BuyConfirmation from '@marketplace/components/buyActions/BuyConfirmation';
+import { Props as SelectedPaymentMethodForConfirmationProps } from '@marketplace/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
+import { WalletPaymentMethod } from '@marketplace/components/buyActions/PaymentProvider/types';
+import useCalculateAmounts from '@marketplace/components/buyActions/PaymentProvider/useCalculateAmounts';
+import { PrimaryOfferTokensPreview } from '@marketplace/components/primaryOffer/PrimaryOfferTokensPreview';
+import PrimaryOfferTokensSummary from '@marketplace/components/primaryOffer/PrimaryOfferTokensSummary';
 
 import { BuyPrimaryOfferConfirmation_primaryOffer } from './__generated__/index.graphql';
 
@@ -30,17 +35,36 @@ export const BuyPrimaryOfferConfirmation = ({
   customAmountDisplay,
   payment,
 }: Props) => {
+  const { toMonetaryAmount } = useMonetaryAmount();
   const { priceWei, nfts } = primaryOffer;
   const isFiat = payment?.paymentCurrency === Currency.FIAT;
+  const monetaryAmount = toMonetaryAmount({
+    wei: priceWei,
+    referenceCurrency: SupportedCurrency.WEI,
+  });
+
+  const sport = nfts?.[0]?.sport;
+
+  const { totalMonetaryAmount, feesMonetaryAmount } = useCalculateAmounts({
+    creditCardFee: 0,
+    activeFee: isFiat,
+    isFiat,
+    sport,
+    canUseConversionCredit: false,
+    monetaryAmount,
+    referenceCurrency: SupportedCurrency.WEI,
+  });
+
   const summaryTableProps = {
-    subtotalWeiAmount: priceWei,
-    totalWeiAmount: priceWei,
+    subtotalMonetaryAmount: monetaryAmount,
+    totalMonetaryAmount,
+    feesMonetaryAmount,
     feesWeiAmount: '0',
     fees: 0,
     isFiat,
     isCreditCard:
       isFiat && payment?.paymentMethod !== WalletPaymentMethod.FIAT_WALLET,
-    customAmountDisplay: null,
+    customAmountDisplay,
     usingConversionCredit: false,
     sport: nfts[0].sport,
   };

@@ -1,11 +1,12 @@
 import { gql } from '@apollo/client';
+import { isBefore, parseISO } from 'date-fns';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
 import { Title6 } from '@sorare/core/src/atoms/typography';
 
-import { Game } from '@sorare/football/src/components/stats/Game';
-import GameCoverageBadge from '@sorare/football/src/components/stats/GameCoverageBadge';
+import { Game } from '@football/components/stats/Game';
+import GameCoverageBadge from '@football/components/stats/GameCoverageBadge';
 
 import { UpcomingGames_player } from './__generated__/index.graphql';
 
@@ -42,12 +43,24 @@ const StyledGame = styled(Game)`
 `;
 
 const UpcomingGames = ({ player }: Props) => {
+  const upcomingClubGames = player?.activeClub?.upcomingGames || [];
+  const upcomingNationalTeamGames =
+    player?.activeNationalTeam?.upcomingGames || [];
+
+  const next3Games = upcomingClubGames
+    .concat(upcomingNationalTeamGames)
+    .filter(Boolean)
+    .sort((game1, game2) => {
+      return isBefore(parseISO(game1.date), parseISO(game2.date)) ? -1 : 1;
+    })
+    .slice(0, 3);
+
   return (
     <Root>
       <Title6 as="h2">
         <FormattedMessage {...messages.title} />
       </Title6>
-      {!player?.activeClub?.upcomingGames.length ? (
+      {!next3Games.length ? (
         <Empty>
           <FormattedMessage
             id="UpcomingGames.NoGame"
@@ -56,7 +69,7 @@ const UpcomingGames = ({ player }: Props) => {
         </Empty>
       ) : (
         <Games>
-          {player.activeClub.upcomingGames.map(
+          {next3Games.map(
             game =>
               game && (
                 <StyledGame
@@ -83,6 +96,18 @@ UpcomingGames.fragments = {
         upcomingGames(first: 3) {
           id
           coverageStatus
+          date
+          ...So5Game_game
+          ...So5Game_gameWeek
+          ...So5Game_competitionName
+        }
+      }
+      activeNationalTeam {
+        slug
+        upcomingGames(first: 3) {
+          id
+          coverageStatus
+          date
           ...So5Game_game
           ...So5Game_gameWeek
           ...So5Game_competitionName

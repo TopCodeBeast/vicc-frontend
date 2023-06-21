@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { Text18 } from '@sorare/core/src/atoms/typography';
-import SettingsSection from 'components/settings/SettingsSection';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import Button from '@core/atoms/buttons/Button';
+import Dialog from '@core/atoms/layout/Dialog';
+import { Text18 } from '@core/atoms/typography';
+import SettingsSection from '@core/components/settings/SettingsSection';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
 
 import { AddEthereumAccountForm } from './AddEthereumAccountForm';
 

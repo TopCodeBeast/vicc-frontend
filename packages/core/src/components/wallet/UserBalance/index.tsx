@@ -2,14 +2,15 @@ import { faEye, faEyeSlash } from '@fortawesome/pro-solid-svg-icons';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
-import Dots from '@sorare/core/src/atoms/ui/Dots';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { SupportedCurrency } from '@core/__generated__/globalTypes';
+import IconButton from '@core/atoms/buttons/IconButton';
+import { Text14, Text16 } from '@core/atoms/typography';
+import Dots from '@core/atoms/ui/Dots';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useAmountWithConversion, {
   Props as useAmountWithConversionProps,
-} from '@sorare/core/src/hooks/useAmountWithConversion';
-import useToggleHideBalance from '@sorare/core/src/hooks/useToggleHideBalance';
+} from '@core/hooks/useAmountWithConversion';
+import useToggleHideBalance from '@core/hooks/useToggleHideBalance';
 
 const Container = styled.div<{ $inline: boolean }>`
   display: flex;
@@ -104,14 +105,12 @@ const UserBalanceAmount = ({
 };
 
 type Props = {
-  context: string;
   inline?: boolean;
   right?: ReactNode;
   disableToggle?: boolean;
 };
 
 export const UserBalance = ({
-  context,
   inline,
   right,
   disableToggle = false,
@@ -128,9 +127,10 @@ export const UserBalance = ({
       <Amount>
         <UserBalanceAmount
           inline={!!inline}
-          context={context}
-          amount={availableBalance}
-          unit="wei"
+          monetaryAmount={{
+            referenceCurrency: SupportedCurrency.WEI,
+            [SupportedCurrency.WEI.toLowerCase()]: availableBalance,
+          }}
           hideBalance={
             disableToggle ? false : currentUser?.userSettings?.hideBalance
           }

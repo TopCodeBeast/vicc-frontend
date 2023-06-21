@@ -1,10 +1,10 @@
 import { gql, useMutation } from '@apollo/client';
 import { useEffect } from 'react';
 
-import { LOCALE_STORAGE_KEY } from '@sorare/core/src/constants/intl';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import useLocalStorage from '@sorare/core/src/hooks/useLocalStorage';
+import { LOCALE_STORAGE_KEY } from '@core/constants/intl';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useIntlContext } from '@core/contexts/intl';
+import useLocalStorage from '@core/hooks/useLocalStorage';
 
 import {
   UpdateUserSettingsLocaleMutation,

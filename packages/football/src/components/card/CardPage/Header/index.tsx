@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import GlareEffect from '@sorare/core/src/atoms/animations/GlareEffect';
 import { theme } from '@sorare/core/src/style/theme';
 
-import CardProperties from '@sorare/football/src/components/so5/CardProperties';
+import CardProperties from '@football/components/so5/CardProperties';
 
 import { CardPageHeader_card } from './__generated__/index.graphql';
 

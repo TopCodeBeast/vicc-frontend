@@ -9,9 +9,9 @@ import {
   OldPrice,
   OrderConfirmed,
   Owned,
-} from '@sorare/football/src/components/shopItems/ShopItemPicker/Item/Label';
-import { canEquip } from '@sorare/football/src/components/shopItems/ShopItemPicker/utils';
-import CoinAmount from '@sorare/football/src/components/user/CoinAmount';
+} from '@football/components/shopItems/ShopItemPicker/Item/Label';
+import { canEquip } from '@football/components/shopItems/ShopItemPicker/utils';
+import CoinAmount from '@football/components/user/CoinAmount';
 
 import { Details_shopItem } from './__generated__/index.graphql';
 

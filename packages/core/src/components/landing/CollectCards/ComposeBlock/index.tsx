@@ -3,8 +3,8 @@ import { FormattedMessage } from 'react-intl';
 import { Waypoint } from 'react-waypoint';
 import styled from 'styled-components';
 
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { theme } from '@sorare/core/src/style/theme';
+import { useIntlContext } from '@core/contexts/intl';
+import { theme } from '@core/style/theme';
 
 import { SectionText } from '../SectionText';
 import Field from './Field';

@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 import { Params, generatePath } from 'react-router-dom';
 
-import { Sport } from '__generated__/globalTypes';
-import { FOOTBALL_PATH, MLB_PATH, NBA_PATH } from '@sorare/core/src/constants/routes';
-import useStoreLastVisitedSport from '@sorare/core/src/hooks/useStoreLastVisitedSport';
+import { Sport } from '@core/__generated__/globalTypes';
+import { FOOTBALL_PATH, MLB_PATH, NBA_PATH } from '@core/constants/routes';
+import useStoreLastVisitedSport from '@core/hooks/useStoreLastVisitedSport';
 
 import SportContextProvider from '.';
 

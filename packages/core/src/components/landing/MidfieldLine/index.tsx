@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Waypoint } from 'react-waypoint';
 import styled from 'styled-components';
 
-import StarBall from '@sorare/core/src/atoms/icons/StarBall';
+import StarBall from '@core/atoms/icons/StarBall';
 
 const StarBallContainer = styled.div`
   position: relative;

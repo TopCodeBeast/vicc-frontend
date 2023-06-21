@@ -1,6 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
 
-import { deckFragment } from '@sorare/football/src/pages/CustomDeck/fragments';
+import { deckFragment } from '@football/pages/CustomDeck/fragments';
 
 import {
   EditCardInDeckMutation,

@@ -5,9 +5,9 @@ import { useConfigContext } from '@sorare/core/src/contexts/config';
 
 import MarketplaceProvider from '@sorare/marketplace/src/contexts/Marketplace/Provider';
 
-import BundledAuctionEligibilityByAssetIds from '@sorare/football/src/components/auction/BundledAuctionEligibilityByAssetIds';
-import CardPropertiesByAssetId from '@sorare/football/src/components/card/CardPropertiesByAssetId';
-import CardTeamsByAssetId from '@sorare/football/src/components/card/CardTeamsByAssetId';
+import BundledAuctionEligibilityByAssetIds from '@football/components/auction/BundledAuctionEligibilityByAssetIds';
+import CardPropertiesByAssetId from '@football/components/card/CardPropertiesByAssetId';
+import CardTeamsByAssetId from '@football/components/card/CardTeamsByAssetId';
 
 const So5MarketplaceProvider = ({ children }: { children: ReactNode }) => {
   const { getMarketFeesRateBySport } = useConfigContext();

@@ -11,7 +11,7 @@ import { FOOTBALL_CLUB_SHOP_INVENTORY } from '@sorare/core/src/constants/routes'
 import {
   InventoryCounterInline,
   ResetIn,
-} from '@sorare/football/src/components/shopItems/ShopItemPicker/Item/Label';
+} from '@football/components/shopItems/ShopItemPicker/Item/Label';
 
 import { ConsumableCta_shopItem } from './__generated__/index.graphql';
 

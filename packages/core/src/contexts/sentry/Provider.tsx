@@ -1,8 +1,8 @@
 import { User, setUser } from '@sentry/react';
 import { useCallback, useMemo } from 'react';
 
-import { sendSafeError } from '@sorare/core/src/lib/error';
-import FallbackComponent from '@sorare/core/src/routing/FallbackComponent';
+import { sendSafeError } from '@core/lib/error';
+import FallbackComponent from '@core/routing/FallbackComponent';
 
 import SentryContextProvider from '.';
 import { ACTUAL_ENV, REVISION } from '../../config';

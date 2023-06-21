@@ -22,12 +22,12 @@ import useSafePreviousNavigate from '@sorare/core/src/hooks/useSafePreviousNavig
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { LeaguePicker } from '@sorare/football/src/components/draft/LeaguePicker';
-import { LeagueTile } from '@sorare/football/src/components/draft/LeagueTile';
-import { OnboardingVideoBanner } from '@sorare/football/src/components/draft/OnboardingVideoBanner';
-import { useActiveOnboarding } from 'hooks/onboarding/useActiveOnboarding';
-import { useFootballEvents } from 'lib/events';
-import useStartOnboarding from '@sorare/football/src/pages/PickLeague/useStartOnboarding';
+import { LeaguePicker } from '@football/components/draft/LeaguePicker';
+import { LeagueTile } from '@football/components/draft/LeagueTile';
+import { OnboardingVideoBanner } from '@football/components/draft/OnboardingVideoBanner';
+import { useActiveOnboarding } from '@football/hooks/onboarding/useActiveOnboarding';
+import { useFootballEvents } from '@football/lib/events';
+import useStartOnboarding from '@football/pages/PickLeague/useStartOnboarding';
 
 import { GetOnboardingDraftCampaignsQuery } from './__generated__/index.graphql';
 

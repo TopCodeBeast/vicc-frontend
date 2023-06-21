@@ -2,9 +2,9 @@ import classnames from 'classnames';
 import { Link, matchPath, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
-import { useIsInModal } from '@sorare/core/src/hooks/useIsInModal';
-import { theme } from '@sorare/core/src/style/theme';
+import { useBgLocation } from '@core/hooks/useBgLocation';
+import { useIsInModal } from '@core/hooks/useIsInModal';
+import { theme } from '@core/style/theme';
 
 const Wrapper = styled.div`
   --selector: var(--c-neutral-1000);

@@ -25,11 +25,11 @@ import { theme } from '@sorare/core/src/style/theme';
 
 import { TradeButton } from '@sorare/marketplace/src/components/TradeButton';
 
-import ClubShopButton from '@sorare/football/src/components/clubShop/ClubShopButton';
-import ShopItemDialog from '@sorare/football/src/components/shopItems/ShopItemDialog';
-import BigInfo from '@sorare/football/src/components/user/BigInfo';
-import CoinAmount from '@sorare/football/src/components/user/CoinAmount';
-import Follows from '@sorare/football/src/components/user/Follows';
+import ClubShopButton from '@football/components/clubShop/ClubShopButton';
+import ShopItemDialog from '@football/components/shopItems/ShopItemDialog';
+import BigInfo from '@football/components/user/BigInfo';
+import CoinAmount from '@football/components/user/CoinAmount';
+import Follows from '@football/components/user/Follows';
 
 import {
   UserHeader_currentUser,
@@ -138,6 +138,7 @@ export const Header = ({ user, readOnly }: Props) => {
           user={user}
           setPickingSkin={readOnly ? undefined : setPickingSkin}
           Camera={Camera}
+          readOnly={readOnly}
         >
           <Actions>
             <FollowButtonWrapper>

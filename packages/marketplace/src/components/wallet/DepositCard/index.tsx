@@ -1,8 +1,9 @@
 import { FormattedMessage, defineMessages } from 'react-intl';
+import styled from 'styled-components';
 
 import Button from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import { Title5 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@sorare/core/src/components/dialog';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 
@@ -19,6 +20,13 @@ const messages = defineMessages({
   },
 });
 
+const CenteredTitle5 = styled(Title5)`
+  text-align: center;
+`;
+const Body = styled.div`
+  padding: var(--triple-unit);
+`;
+
 const DepositCard = () => {
   const [open, toggleOpen] = useToggle(false);
   const { up: isTablet } = useScreenSize('tablet');
@@ -31,17 +39,20 @@ const DepositCard = () => {
       {open && (
         <Dialog
           open
-          headerCentered
-          title={
-            <Title5>
-              <FormattedMessage {...messages.title} />
-            </Title5>
-          }
           onClose={toggleOpen}
+          maxWidth="sm"
           fullScreen={!isTablet}
-        >
-          <Container closeDialog={toggleOpen} />
-        </Dialog>
+          title={
+            <CenteredTitle5>
+              <FormattedMessage {...messages.title} />
+            </CenteredTitle5>
+          }
+          body={
+            <Body>
+              <Container closeDialog={toggleOpen} />
+            </Body>
+          }
+        />
       )}
     </>
   );

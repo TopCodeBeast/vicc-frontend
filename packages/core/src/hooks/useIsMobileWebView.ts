@@ -1,4 +1,4 @@
-import useQueryString from '@sorare/core/src/hooks/useQueryString';
+import useQueryString from '@core/hooks/useQueryString';
 
 export const useIsMobileWebView = () => {
   const platformQueryParam = useQueryString('platform');

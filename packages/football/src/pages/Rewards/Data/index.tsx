@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Rarity } from '@sorare/core/src/__generated__/globalTypes';
 import { Title3 } from '@sorare/core/src/atoms/typography';
 
-import PlayerListItem from '@sorare/football/src/components/player/PlayerListItem';
+import PlayerListItem from '@football/components/player/PlayerListItem';
 
 import { RewardPool_Data_playerWithSupply } from './__generated__/index.graphql';
 

@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 import { Link } from '@sorare/core/src/routing/Link';
 
-import UninteractiveStarterBundlePreview from '@sorare/football/src/components/starterBundle/UninteractiveStarterBundlePreview';
+import UninteractiveStarterBundlePreview from '@football/components/starterBundle/UninteractiveStarterBundlePreview';
 
 import { StarterBundlePreview_card } from './__generated__/index.graphql';
 

@@ -62,10 +62,8 @@ const UnavailableAfterConversionCreditBuyHelpers = ({ token }: Props) => {
         />
       </HelperText>
       <Tooltip
-        arrow
         interactive
         placement="bottom"
-        dark={false}
         title={
           <FormattedMessage
             id="UnavailableAfterConversionCreditBuyHelpers.tooltip"

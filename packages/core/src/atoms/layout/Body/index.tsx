@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { theme } from '@sorare/core/src/style/theme';
+import { theme } from '@core/style/theme';
 
 interface Props {
   children: ReactNode;

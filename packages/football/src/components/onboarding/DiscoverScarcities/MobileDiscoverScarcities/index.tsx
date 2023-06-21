@@ -7,9 +7,9 @@ import { Container } from '@sorare/core/src/atoms/container';
 import Dots from '@sorare/core/src/atoms/layout/Dots';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import { CommonCards } from '@sorare/football/src/components/onboarding/DiscoverScarcities/CommonCards';
-import { DiscoverScarcitiesTitle } from '@sorare/football/src/components/onboarding/DiscoverScarcities/DiscoverScarcitiesTitle';
-import { ScarceCards } from '@sorare/football/src/components/onboarding/DiscoverScarcities/ScarceCards';
+import { CommonCards } from '@football/components/onboarding/DiscoverScarcities/CommonCards';
+import { DiscoverScarcitiesTitle } from '@football/components/onboarding/DiscoverScarcities/DiscoverScarcitiesTitle';
+import { ScarceCards } from '@football/components/onboarding/DiscoverScarcities/ScarceCards';
 
 const scarceBackground = css`
   background: linear-gradient(

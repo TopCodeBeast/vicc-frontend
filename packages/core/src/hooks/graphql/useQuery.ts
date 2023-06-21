@@ -7,15 +7,12 @@ import {
 } from '@apollo/client';
 import { DocumentNode } from 'graphql';
 
-import { useWalletContext } from '@sorare/core/src/contexts/wallet';
-import useLogOut from '@sorare/core/src/hooks/auth/useLogOut';
+import { useWalletContext } from '@core/contexts/wallet';
+import useLogOut from '@core/hooks/auth/useLogOut';
 
 let logoutTimeout: ReturnType<typeof setTimeout> | undefined;
 
-export default function useQuery<
-  TData = any,
-  TVariables extends OperationVariables = OperationVariables
->(
+export default function useQuery<TData = any, TVariables extends OperationVariables = OperationVariables>(
   query: DocumentNode,
   options?: QueryHookOptions<TData, TVariables>,
   logOutOnErrorCode = 422

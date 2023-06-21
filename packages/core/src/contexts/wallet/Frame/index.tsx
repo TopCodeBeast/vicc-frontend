@@ -4,10 +4,12 @@ import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { Keys, Salt } from '@sorare/wallet-shared';
-import { useConfigContext } from '@sorare/core/src/contexts/config';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { getSalt } from '@sorare/core/src/lib/password';
-import { theme } from '@sorare/core/src/style/theme';
+import { useConfigContext } from '@core/contexts/config';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useFetchEncryptedPrivateKeyMutation } from '@core/hooks/auth/useFetchEncryptedPrivateKeyMutation';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import { getSalt } from '@core/lib/password';
+import { theme } from '@core/style/theme';
 
 import { useMessagingContext, useWalletContext } from '..';
 import { WALLET_URL } from '../../../config';
@@ -29,6 +31,7 @@ import {
 import { useErrorEvent } from './handlers/useErrorEvent';
 
 const key = 'wallet';
+const MISSING_OTP_CODE = 1000;
 
 type FrameStyle = Pick<CSSProperties, 'width' | 'height' | 'top' | 'left'> & {
   '--header-size'?: string;
@@ -126,8 +129,11 @@ export const Frame = () => {
   const { currentUser } = useCurrentUserContext();
   const iFrame = useRef<HTMLIFrameElement | null>(null);
   const [frameStyle, setFrameStyle] = useState<FrameStyle>(defaultStyle);
+  const [fetchEncryptedPrivateKey] = useFetchEncryptedPrivateKeyMutation();
 
   const { setWindow, walletNode } = useWalletContext();
+  const { flags } = useFeatureFlags();
+  const use2FA = flags['2FaWallet'];
 
   useInit();
   useErrorEvent();
@@ -165,8 +171,32 @@ export const Frame = () => {
     () =>
       registerHandler<Keys>('keys', async () => {
         if (!currentUser) return { result: { sorareEncryptionKey } };
-
-        const { sorarePrivateKey } = currentUser;
+        const { sorarePrivateKey, otpRequiredForLogin } = currentUser;
+        if (use2FA && otpRequiredForLogin) {
+          const result = await fetchEncryptedPrivateKey({
+            variables: { input: {} },
+          });
+          if (
+            result?.data?.fetchEncryptedPrivateKey?.errors.some(
+              error => error.code === MISSING_OTP_CODE
+            )
+          )
+            return {
+              result: {
+                userPrivateKey: undefined,
+                sorareEncryptionKey,
+              },
+              error: 'invalid-otp',
+            };
+          return {
+            result: {
+              userPrivateKey:
+                result.data?.fetchEncryptedPrivateKey?.sorarePrivateKey ||
+                undefined,
+              sorareEncryptionKey,
+            },
+          };
+        }
         return {
           result: {
             userPrivateKey: sorarePrivateKey || undefined,
@@ -174,7 +204,13 @@ export const Frame = () => {
           },
         };
       }),
-    [currentUser, registerHandler, sorareEncryptionKey]
+    [
+      currentUser,
+      use2FA,
+      registerHandler,
+      fetchEncryptedPrivateKey,
+      sorareEncryptionKey,
+    ]
   );
 
   const forcedEnv =

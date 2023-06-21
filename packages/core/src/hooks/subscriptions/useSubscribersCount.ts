@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-import { GetCurrentUserSubscriptionProps } from '@sorare/core/src/contexts/follow';
-import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
+import { GetCurrentUserSubscriptionProps } from '@core/contexts/follow';
+import useQuery from '@core/hooks/graphql/useQuery';
 
 import {
   SubscriptionStatsQuery,

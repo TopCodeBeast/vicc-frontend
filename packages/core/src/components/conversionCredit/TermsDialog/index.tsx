@@ -1,12 +1,12 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { Title6 } from '@sorare/core/src/atoms/typography';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { glossary } from '@sorare/core/src/lib/glossary';
-import TextDocument from '@sorare/core/src/routing/TextDocument';
+import Button from '@core/atoms/buttons/Button';
+import Dialog from '@core/atoms/layout/Dialog';
+import { Title6 } from '@core/atoms/typography';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import { glossary } from '@core/lib/glossary';
+import TextDocument from '@core/routing/TextDocument';
 
 type Props = {
   onClose: () => void;

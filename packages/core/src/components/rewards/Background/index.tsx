@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { Fragment } from 'react';
 import styled from 'styled-components';
 
-import { range } from '@sorare/core/src/lib/arrays';
+import { range } from '@core/lib/arrays';
 
 const Bg = styled.div<{ black?: boolean }>`
   background: ${({ black }) =>

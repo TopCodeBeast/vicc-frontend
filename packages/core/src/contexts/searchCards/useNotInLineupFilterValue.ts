@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { joinFiltersWithAnd } from '@sorare/core/src/lib/algolia';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { joinFiltersWithAnd } from '@core/lib/algolia';
 
 export const useNotInLineupFilterValue = () => {
   const { currentUser } = useCurrentUserContext();

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { Text16 } from '@sorare/core/src/atoms/typography';
+import { Text16 } from '@core/atoms/typography';
 
 const Wrapper = styled.div`
   width: 100%;

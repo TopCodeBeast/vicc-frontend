@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-import { AuctionDetails } from '@sorare/marketplace/src/components/auction/Auction/AuctionDetails';
-import useGetAuctionDetails from '@sorare/marketplace/src/hooks/offers/useGetAuctionDetails';
+import { AuctionDetails } from '@marketplace/components/auction/Auction/AuctionDetails';
+import useGetAuctionDetails from '@marketplace/hooks/offers/useGetAuctionDetails';
 
 import { TokenAuctionDetails_token } from './__generated__/index.graphql';
 

@@ -1,4 +1,4 @@
-import { ClubHit } from '@sorare/core/src/lib/algolia';
+import { ClubHit } from '@core/lib/algolia';
 
 import Suggestion from '../Suggestion';
 

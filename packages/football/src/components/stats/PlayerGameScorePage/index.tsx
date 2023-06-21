@@ -8,12 +8,12 @@ import Blockquote from '@sorare/core/src/atoms/layout/Blockquote';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import { FOOTBALL_PLAYER_SHOW } from '@sorare/core/src/constants/routes';
 
-import PlayerAvatar from '@sorare/football/src/components/player/PlayerAvatar';
-import RepresentedPlayerAvatar from '@sorare/football/src/components/player/RepresentedPlayerAvatar';
-import AppearanceDetails from '@sorare/football/src/components/so5/AppearanceDetails';
-import PlayerScore from '@sorare/football/src/components/stats/PlayerScore';
-import ScoreFrom from '@sorare/football/src/components/stats/ScoreFrom';
-import { getPlayerScore } from 'lib/so5';
+import PlayerAvatar from '@football/components/player/PlayerAvatar';
+import RepresentedPlayerAvatar from '@football/components/player/RepresentedPlayerAvatar';
+import AppearanceDetails from '@football/components/so5/AppearanceDetails';
+import PlayerScore from '@football/components/stats/PlayerScore';
+import ScoreFrom from '@football/components/stats/ScoreFrom';
+import { getPlayerScore } from '@football/lib/so5';
 
 import {
   PlayerGameScorePage_player,

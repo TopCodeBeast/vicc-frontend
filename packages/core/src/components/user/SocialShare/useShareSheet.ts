@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { defineMessages } from 'react-intl';
 
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { useSentryContext } from '@sorare/core/src/contexts/sentry';
-import { Level, useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import { fetchFile } from '@sorare/core/src/lib/files';
-import toSnakeCase from '@sorare/core/src/lib/toSnakeCase';
+import { useIntlContext } from '@core/contexts/intl';
+import { useSentryContext } from '@core/contexts/sentry';
+import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
+import { fetchFile } from '@core/lib/files';
+import toSnakeCase from '@core/lib/toSnakeCase';
 
 const messages = defineMessages({
   notSupported: {

@@ -2,10 +2,10 @@ import { memo, useRef, useState } from 'react';
 import { Globals, SpringValue, animated, useSprings } from '@react-spring/web';
 import styled from 'styled-components';
 
-import { proxyUrl } from '@sorare/core/src/atoms/ui/ResponsiveImg';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { range } from '@sorare/core/src/lib/arrays';
-import { CARD_ASPECT_RATIO } from '@sorare/core/src/lib/cards';
+import { proxyUrl } from '@core/atoms/ui/ResponsiveImg';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import { range } from '@core/lib/arrays';
+import { CARD_ASPECT_RATIO } from '@core/lib/cards';
 
 import { MobileBackground } from './mobile';
 
@@ -117,16 +117,18 @@ const Column = ({
       },
       loop: !Globals.skipAnimation && { config: { progress: 0 }, reset: true },
       onRest: () => {
-        // show next card
-        setCardForSlot(arr => {
-          const copy: [ThreeFaces, ThreeFaces, ThreeFaces, ThreeFaces] = [
-            ...arr,
-          ];
-          lastUsedCardSlot.current =
-            (lastUsedCardSlot.current + 1) % cards.length;
-          copy[index] = cards[lastUsedCardSlot.current];
-          return copy;
-        });
+        if (!Globals.skipAnimation) {
+          // show next cards
+          setCardForSlot(arr => {
+            const copy: [ThreeFaces, ThreeFaces, ThreeFaces, ThreeFaces] = [
+              ...arr,
+            ];
+            lastUsedCardSlot.current =
+              (lastUsedCardSlot.current + 1) % cards.length;
+            copy[index] = cards[lastUsedCardSlot.current];
+            return copy;
+          });
+        }
       },
     }),
     [cardHeight]

@@ -9,7 +9,7 @@ import { scarcityNames } from '@sorare/core/src/lib/cards';
 import { format } from '@sorare/core/src/lib/seasons';
 import { metadatas } from '@sorare/core/src/lib/seo/common';
 
-import CardPageContent from '@sorare/football/src/components/card/CardPage';
+import CardPageContent from '@football/components/card/CardPage';
 
 import { CardQuery, CardQueryVariables } from './__generated__/index.graphql';
 

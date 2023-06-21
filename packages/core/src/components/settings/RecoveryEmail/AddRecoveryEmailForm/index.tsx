@@ -3,20 +3,20 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
 import { CreateWalletRecovery } from '@sorare/wallet-shared';
-import { PrivateKeyRecoveryOptionStatusEnum } from '__generated__/globalTypes';
-import { Text14, Text16, Title3 } from '@sorare/core/src/atoms/typography';
-import TwoFactAuthDialog from 'components/TwoFactAuth/TwoFactAuthDialog';
-import { GraphQLResult, GraphqlForm, TextField } from 'components/form/Form';
-import { GoogleReCAPTCHA, ReCAPTCHA } from 'components/recaptcha';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useMessagingContext } from '@sorare/core/src/contexts/wallet';
-import { useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
-import useAddWalletRecoveryEmail from '@sorare/core/src/hooks/recovery/useAddWalletRecoveryEmail';
+import { PrivateKeyRecoveryOptionStatusEnum } from '@core/__generated__/globalTypes';
+import { Text14, Text16, Title3 } from '@core/atoms/typography';
+import TwoFADialog from '@core/components/TwoFA/TwoFADialog';
+import { GraphQLResult, GraphqlForm, TextField } from '@core/components/form/Form';
+import { GoogleReCAPTCHA, ReCAPTCHA } from '@core/components/recaptcha';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useMessagingContext } from '@core/contexts/wallet';
+import { useWalletDrawerContext } from '@core/contexts/walletDrawer';
+import useAddWalletRecoveryEmail from '@core/hooks/recovery/useAddWalletRecoveryEmail';
 import useRecoveryOptions, {
   RecoveryOption,
-} from '@sorare/core/src/hooks/recovery/useRecoveryOptions';
-import useResendVerificationCodeForRecoveryEmail from '@sorare/core/src/hooks/recovery/useResendVerificationCodeForRecoveryEmail';
-import { glossary } from '@sorare/core/src/lib/glossary';
+} from '@core/hooks/recovery/useRecoveryOptions';
+import useResendVerificationCodeForRecoveryEmail from '@core/hooks/recovery/useResendVerificationCodeForRecoveryEmail';
+import { glossary } from '@core/lib/glossary';
 
 const Wrapper = styled.div`
   display: flex;
@@ -237,7 +237,7 @@ export const AddRecoveryEmailForm = ({
         )}
       />
       {otpRequiredForLogin && (
-        <TwoFactAuthDialog
+        <TwoFADialog
           onSubmit={(values, onResult) => {
             twoFACallback?.resolve(values.otpAttempt);
             onResult(values);

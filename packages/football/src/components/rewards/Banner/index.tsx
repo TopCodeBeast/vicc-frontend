@@ -9,9 +9,9 @@ import { ShouldVerifyUserBeforeClaiming } from '@sorare/core/src/components/rewa
 import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 
-import { DumbBanner } from '@sorare/football/src/components/rewards/DumbBanner';
-import { formatReward } from '@sorare/football/src/components/rewards/utils';
-import useClaimRewards from 'hooks/so5/useClaimRewards';
+import { DumbBanner } from '@football/components/rewards/DumbBanner';
+import { formatReward } from '@football/components/rewards/utils';
+import useClaimRewards from '@football/hooks/so5/useClaimRewards';
 
 import { RewardsBanner_so5Reward } from './__generated__/index.graphql';
 

@@ -3,11 +3,11 @@ import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Rarity } from '__generated__/globalTypes';
-import ScarcityIcon from '@sorare/core/src/atoms/icons/ScarcityIcon';
+import { Rarity } from '@core/__generated__/globalTypes';
+import ScarcityIcon from '@core/atoms/icons/ScarcityIcon';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import { Text16, TypographyVariant } from '@sorare/core/src/atoms/typography';
-import { Color } from '@sorare/core/src/style/types';
+import { Text16, TypographyVariant } from '@core/atoms/typography';
+import { Color } from '@core/style/types';
 
 interface Props {
   displayName: string;

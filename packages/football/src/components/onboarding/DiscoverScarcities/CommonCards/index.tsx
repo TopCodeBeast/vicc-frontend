@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import GlareEffect from '@sorare/core/src/atoms/animations/GlareEffect';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 
-import cannotBeSold from '@sorare/football/src/components/onboarding/DiscoverScarcities/assets/cannotBeSold.png';
-import earnCoins from '@sorare/football/src/components/onboarding/DiscoverScarcities/assets/earnCoins.png';
+import cannotBeSold from '@football/components/onboarding/DiscoverScarcities/assets/cannotBeSold.png';
+import earnCoins from '@football/components/onboarding/DiscoverScarcities/assets/earnCoins.png';
 
 const Wrapper = styled.div`
   display: flex;

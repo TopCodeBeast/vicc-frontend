@@ -4,8 +4,8 @@ import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
 import PrimaryOfferGrid from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferGrid';
 
-import { CustomStarterBundlePreview } from '@sorare/football/src/components/starterBundle/CustomStarterBundlePreview';
-import LoadingStarterBundlePreview from '@sorare/football/src/components/starterBundle/LoadingStarterBundlePreview';
+import { CustomStarterBundlePreview } from '@football/components/starterBundle/CustomStarterBundlePreview';
+import LoadingStarterBundlePreview from '@football/components/starterBundle/LoadingStarterBundlePreview';
 
 import {
   BatchStarterBundlePreviewQuery,

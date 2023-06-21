@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import { Popup } from '@sorare/core/src/atoms/layout/Popup';
-import { Text14 } from '@sorare/core/src/atoms/typography';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import { theme } from '@sorare/core/src/style/theme';
+import IconButton from '@core/atoms/buttons/IconButton';
+import { Popup } from '@core/atoms/layout/Popup';
+import { Text14 } from '@core/atoms/typography';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import { theme } from '@core/style/theme';
 
 const Wrapper = styled.div`
   color: var(--c-neutral-1000);

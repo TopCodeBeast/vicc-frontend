@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import Container from '@sorare/core/src/atoms/layout/Container';
-import BrandingVideo from 'components/content/BrandingVideo';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { theme } from '@sorare/core/src/style/theme';
+import Container from '@core/atoms/layout/Container';
+import BrandingVideo from '@core/components/content/BrandingVideo';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import { theme } from '@core/style/theme';
 
 import { MixedFontTitle, SubTitle } from '../ui';
 

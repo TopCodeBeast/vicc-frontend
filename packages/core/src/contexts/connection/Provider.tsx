@@ -3,13 +3,13 @@ import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { OnBackForgotPassword } from '@sorare/wallet-shared';
-import { TermsAndConditionsStatus } from '__generated__/globalTypes';
-import { GoogleReCAPTCHA, ReCAPTCHA } from 'components/recaptcha';
-import { TERMS } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useMessagingContext, useWalletContext } from '@sorare/core/src/contexts/wallet';
-import useQueryString from '@sorare/core/src/hooks/useQueryString';
-import useToggle from '@sorare/core/src/hooks/useToggle';
+import { TermsAndConditionsStatus } from '@core/__generated__/globalTypes';
+import { GoogleReCAPTCHA, ReCAPTCHA } from '@core/components/recaptcha';
+import { TERMS } from '@core/constants/routes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useMessagingContext, useWalletContext } from '@core/contexts/wallet';
+import useQueryString from '@core/hooks/useQueryString';
+import useToggle from '@core/hooks/useToggle';
 
 import ConnectionContextProvider, {
   AcceptTermsInfo,

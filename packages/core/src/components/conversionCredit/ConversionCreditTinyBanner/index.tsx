@@ -5,13 +5,14 @@ import { useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import { MonetaryAmount, Sport } from '__generated__/globalTypes';
-import { ChevronRightBold } from '@sorare/core/src/atoms/icons/ChevronRightBold';
-import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { useConversionCredit } from '@sorare/core/src/hooks/useConversionCredit';
-import { theme } from '@sorare/core/src/style/theme';
+import { Sport } from '@core/__generated__/globalTypes';
+import { ChevronRightBold } from '@core/atoms/icons/ChevronRightBold';
+import { Text14, Text16 } from '@core/atoms/typography';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useIntlContext } from '@core/contexts/intl';
+import { useConversionCredit } from '@core/hooks/useConversionCredit';
+import { MonetaryAmountCurrency } from '@core/lib/monetaryAmount';
+import { theme } from '@core/style/theme';
 
 import { TermsDialog } from '../TermsDialog';
 import coins from '../assets/coins.png';
@@ -83,11 +84,12 @@ export const ConversionCreditTinyBanner = ({
     addSuffix: false,
   });
 
-  const currencyCode = fiatCurrency.code.toLowerCase();
+  const currencyCode = fiatCurrency.code.toLowerCase() as Exclude<
+    MonetaryAmountCurrency,
+    'wei'
+  >;
   const maxDiscountInFiat =
-    (currencyCode in maxDiscount &&
-      maxDiscount?.[currencyCode as keyof MonetaryAmount]) ||
-    0;
+    ((currencyCode in maxDiscount && maxDiscount?.[currencyCode]) || 0) / 100;
 
   return (
     <>

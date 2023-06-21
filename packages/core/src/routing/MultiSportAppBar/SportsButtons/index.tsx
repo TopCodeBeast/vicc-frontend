@@ -1,8 +1,8 @@
 import { ButtonBase } from '@material-ui/core';
 import styled from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
-import { ChevronRightBold } from '@sorare/core/src/atoms/icons/ChevronRightBold';
+import { Sport } from '@core/__generated__/globalTypes';
+import { ChevronRightBold } from '@core/atoms/icons/ChevronRightBold';
 
 import { sportLogos } from '../Sport/Switch';
 

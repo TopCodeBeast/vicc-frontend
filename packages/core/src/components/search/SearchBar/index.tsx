@@ -6,10 +6,10 @@ import { generatePath, useNavigate } from 'react-router-dom';
 import { useDebounce } from 'react-use';
 import styled, { css } from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import SearchInput from '@sorare/core/src/atoms/inputs/SearchInput';
-import { Caption } from '@sorare/core/src/atoms/typography';
+import { Sport } from '@core/__generated__/globalTypes';
+import Button from '@core/atoms/buttons/Button';
+import SearchInput from '@core/atoms/inputs/SearchInput';
+import { Caption } from '@core/atoms/typography';
 import {
   FOOTBALL_CLUB_SHOW_CARDS,
   FOOTBALL_USER_GALLERY_OVERVIEW,
@@ -20,16 +20,16 @@ import {
   MLB_USER_GALLERY,
   NBA_TEAM_CARDS,
   NBA_USER_GALLERY,
-} from '@sorare/core/src/constants/routes';
-import { useConfigContext } from '@sorare/core/src/contexts/config';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useSportContext } from '@sorare/core/src/contexts/sport';
-import useLifecycle, { LIFECYCLE, Lifecycle } from '@sorare/core/src/hooks/useLifecycle';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { glossary, sportsLabelsMessages } from '@sorare/core/src/lib/glossary';
-import { sportFromJSON } from '@sorare/core/src/protos/events/shared/events';
-import { theme } from '@sorare/core/src/style/theme';
-import { OverrideClasses } from '@sorare/core/src/style/utils';
+} from '@core/constants/routes';
+import { useConfigContext } from '@core/contexts/config';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useSportContext } from '@core/contexts/sport';
+import useLifecycle, { LIFECYCLE, Lifecycle } from '@core/hooks/useLifecycle';
+import useEvents from '@core/lib/events/useEvents';
+import { glossary, sportsLabelsMessages } from '@core/lib/glossary';
+import { sportFromJSON } from '@core/protos/events/shared/events';
+import { theme } from '@core/style/theme';
+import { OverrideClasses } from '@core/style/utils';
 
 import ClubSuggestion from '../ClubSuggestion';
 import CompetitionSuggestion from '../CompetitionSuggestion';

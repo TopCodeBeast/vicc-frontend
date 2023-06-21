@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { ChangeEvent, ReactNode } from 'react';
 import styled from 'styled-components';
 
-import AtomSwitch from '@sorare/core/src/atoms/inputs/Switch';
+import AtomSwitch from '@core/atoms/inputs/Switch';
 
 type Props = {
   checked: boolean;

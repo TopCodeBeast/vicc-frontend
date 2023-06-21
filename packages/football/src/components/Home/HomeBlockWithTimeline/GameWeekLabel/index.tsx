@@ -9,7 +9,7 @@ import { glossary } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
 import { stroke } from '@sorare/core/src/style/utils';
 
-import { LiveDot } from '@sorare/football/src/components/so5/LiveDot';
+import { LiveDot } from '@football/components/so5/LiveDot';
 
 const Wrapper = styled.div`
   display: flex;

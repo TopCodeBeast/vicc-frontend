@@ -18,6 +18,7 @@ export const appHandlers = [
   'recoverKey',
   'resetPassword',
   'resetPrivateKey',
+  'verify2FA',
   'salt',
   'signIn',
   'signUp',
@@ -38,6 +39,7 @@ export const walletHandlers = [
   'cancelUnlockScreen',
   'prompt',
   'promptResetPassword',
+  'promptDeposit',
   'promptRecoverKey',
   'promptRestoreWallet',
   'password',
@@ -46,7 +48,7 @@ export const walletHandlers = [
   'signSettleDeal',
   'signTransfer',
   'signPaymentIntent',
-  'signLimitOrder',
+  'signWalletChallenge',
   'signLimitOrders',
   'approveAuthorizationRequests',
   'approveBank',
@@ -154,6 +156,15 @@ export interface Prompt extends WalletRPC {
         | 'generateKeys'
         | 'signMessage';
       version?: string; // the version of the prompt to use
+    };
+  };
+}
+
+export interface PromptDeposit extends WalletRPC {
+  request: {
+    handler: 'promptDeposit';
+    args: {
+      id?: string;
     };
   };
 }
@@ -277,21 +288,6 @@ export interface SignTransfer extends WalletRPC {
   };
 }
 
-export interface SignLimitOrder extends WalletRPC {
-  request: {
-    handler: 'signLimitOrder';
-    args: {
-      limitOrder: LimitOrder;
-    };
-  };
-  response: {
-    result?: {
-      signature: Signature;
-      starkKey: string;
-    };
-  };
-}
-
 export interface ApproveAuthorizationRequests extends WalletRPC {
   request: {
     handler: 'approveAuthorizationRequests';
@@ -314,6 +310,20 @@ export interface SignPaymentIntent extends WalletRPC {
     args: {
       id: string;
       amount: string;
+    };
+  };
+  response: {
+    result?: {
+      signature: Signature;
+    };
+  };
+}
+
+export interface SignWalletChallenge extends WalletRPC {
+  request: {
+    handler: 'signWalletChallenge';
+    args: {
+      challenge: string;
     };
   };
   response: {
@@ -540,6 +550,7 @@ export interface Keys extends WalletRPC {
       userPrivateKey?: EncryptedPrivateKey;
       sorareEncryptionKey: string;
     };
+    error?: 'invalid-otp';
   };
 }
 
@@ -589,6 +600,18 @@ export interface ResetPrivateKey extends WalletRPC {
   };
 }
 
+export interface Verify2FA extends WalletRPC {
+  request: {
+    handler: 'verify2FA';
+  };
+  response: {
+    result?: {
+      userPrivateKey?: EncryptedPrivateKey;
+    };
+    error?: 'invalid-otp';
+  };
+}
+
 export interface RecoverKey extends WalletRPC {
   request: {
     handler: 'recoverKey';
@@ -634,6 +657,7 @@ export interface Transaction extends WalletRPC {
     handler: 'transaction';
     args: {
       hash?: string;
+      depositId?: string;
       error?: string;
     };
   };

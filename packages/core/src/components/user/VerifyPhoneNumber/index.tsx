@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import EnterVerificationCode from 'components/settings/PhoneNumberVerification/EnterVerificationCode';
-import Header from 'components/settings/PhoneNumberVerification/Header';
-import SendVerificationCode from 'components/settings/PhoneNumberVerification/SendVerificationCode';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import { useWalletContext } from '@sorare/core/src/contexts/wallet';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
+import Dialog from '@core/atoms/layout/Dialog';
+import EnterVerificationCode from '@core/components/settings/PhoneNumberVerification/EnterVerificationCode';
+import Header from '@core/components/settings/PhoneNumberVerification/Header';
+import SendVerificationCode from '@core/components/settings/PhoneNumberVerification/SendVerificationCode';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
+import { useWalletContext } from '@core/contexts/wallet';
+import useEvents from '@core/lib/events/useEvents';
 
 import messages from './i18n';
 import useVerifyPhoneNumber, {

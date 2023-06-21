@@ -14,17 +14,17 @@ import { animated, config, useSpring } from '@react-spring/web';
 import { useKey } from 'react-use';
 import styled from 'styled-components';
 
-import { Revealer } from '@sorare/core/src/atoms/animations/Revealer';
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import { Drawer } from '@sorare/core/src/atoms/layout/Drawer';
-import { Carousel } from 'components/Carousel';
-import { Reward } from 'components/rewards/types';
-import { useIsDesktop } from '@sorare/core/src/hooks/device/useIsDesktop';
-import { useToggleArray } from '@sorare/core/src/hooks/useToggleArray';
-import { range } from '@sorare/core/src/lib/arrays';
-import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { Revealer } from '@core/atoms/animations/Revealer';
+import Button from '@core/atoms/buttons/Button';
+import IconButton from '@core/atoms/buttons/IconButton';
+import { Drawer } from '@core/atoms/layout/Drawer';
+import { Carousel } from '@core/components/Carousel';
+import { Reward } from '@core/components/rewards/types';
+import { useIsDesktop } from '@core/hooks/device/useIsDesktop';
+import { useToggleArray } from '@core/hooks/useToggleArray';
+import { range } from '@core/lib/arrays';
+import { glossary } from '@core/lib/glossary';
+import { theme } from '@core/style/theme';
 
 import { Background } from '../Background';
 import { RevealWithTease } from '../reveal/WithTease';

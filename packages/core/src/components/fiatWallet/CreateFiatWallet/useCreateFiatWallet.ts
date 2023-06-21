@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useCallback } from 'react';
 
-import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
+import useMutation from '@core/hooks/graphql/useMutation';
 
 import {
   CreateFiatWalletMutation,

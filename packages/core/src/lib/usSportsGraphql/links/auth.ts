@@ -5,7 +5,7 @@ import {
   cloudflareAccessHeaders,
   xsrfCookieName,
   xsrfHeaderName,
-} from '@sorare/core/src/lib/http';
+} from '@core/lib/http';
 
 import { CLIENT_TYPE, REVISION, TAB_VERSION, VERSION } from '../../../config';
 

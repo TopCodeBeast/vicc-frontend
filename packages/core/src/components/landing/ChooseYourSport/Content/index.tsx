@@ -1,9 +1,9 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { sportsLabelsMessages } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import Button from '@core/atoms/buttons/Button';
+import { sportsLabelsMessages } from '@core/lib/glossary';
+import { theme } from '@core/style/theme';
 
 import {
   FeaturedSportFootball,

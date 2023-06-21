@@ -11,6 +11,7 @@ import {
   PasswordForgotten,
   PrivateKeyRecoveryPayload,
   Prompt,
+  PromptDeposit,
   PromptRestoreWallet,
   RequestOAuth2,
   RequestResize,
@@ -22,24 +23,25 @@ import {
   SignPaymentIntent,
   SignSettleDeal,
   SignTransfer,
+  SignWalletChallenge,
 } from '@sorare/wallet-shared';
 import { AuthorizationRequest } from '@sorare/wallet-shared/src/contexts/messaging/authorizations';
-import useCheckPhoneNumberVerificationCode from 'components/user/VerifyPhoneNumber/useCheckPhoneNumberVerificationCode';
-import { SIGNUP_WORKFLOW_VERSION_QUERY_PARAMETER } from '@sorare/core/src/constants/mobile';
+import useCheckPhoneNumberVerificationCode from '@core/components/user/VerifyPhoneNumber/useCheckPhoneNumberVerificationCode';
+import { SIGNUP_WORKFLOW_VERSION_QUERY_PARAMETER } from '@core/constants/mobile';
 import {
   UpdateUserAttributes,
   UpdateUserEmailAttributes,
   useAuthContext,
-} from '@sorare/core/src/contexts/auth';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useSentryContext } from '@sorare/core/src/contexts/sentry';
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import { WalletTab, useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
-import useLogOut from '@sorare/core/src/hooks/auth/useLogOut';
-import { RecoveryOption } from '@sorare/core/src/hooks/recovery/useRecoveryOptions';
-import useQueryString from '@sorare/core/src/hooks/useQueryString';
-import { Side } from '@sorare/core/src/lib/deal';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
+} from '@core/contexts/auth';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useSentryContext } from '@core/contexts/sentry';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
+import { WalletTab, useWalletDrawerContext } from '@core/contexts/walletDrawer';
+import useLogOut from '@core/hooks/auth/useLogOut';
+import { RecoveryOption } from '@core/hooks/recovery/useRecoveryOptions';
+import useQueryString from '@core/hooks/useQueryString';
+import { Side } from '@core/lib/deal';
+import useEvents from '@core/lib/events/useEvents';
 
 import WalletContextProvider, {
   LimitOrder,
@@ -106,12 +108,15 @@ const Wallet = ({ children, setWindow }: Props) => {
     [sendRequest]
   );
 
-  const promptDeposit = useCallback(async () => {
-    if (currentUser?.sorarePrivateKey) {
-      await sendRequest<Prompt>('prompt', { type: 'deposit' });
-      showWallet();
-    }
-  }, [currentUser?.sorarePrivateKey, sendRequest, showWallet]);
+  const promptDeposit = useCallback(
+    async id => {
+      if (currentUser?.sorarePrivateKey) {
+        await sendRequest<PromptDeposit>('promptDeposit', { id });
+        showWallet();
+      }
+    },
+    [currentUser?.sorarePrivateKey, sendRequest, showWallet]
+  );
 
   const signIn = useCallback(async () => prompt('signIn'), [prompt]);
   const signUp = useCallback(async () => prompt('signUp'), [prompt]);
@@ -493,6 +498,28 @@ const Wallet = ({ children, setWindow }: Props) => {
     ]
   );
 
+  const signWalletChallenge = useCallback(
+    async (challenge: string) => {
+      if (!currentUser?.sorarePrivateKey) {
+        showWallet();
+        return null;
+      }
+      const { result } = await sendRequest<SignWalletChallenge>(
+        'signWalletChallenge',
+        { challenge }
+      );
+
+      closeWalletAndDrawer();
+      return result?.signature || null;
+    },
+    [
+      sendRequest,
+      closeWalletAndDrawer,
+      showWallet,
+      currentUser?.sorarePrivateKey,
+    ]
+  );
+
   useEffect(() => {
     if (action === 'signup') {
       signUp();
@@ -598,6 +625,7 @@ const Wallet = ({ children, setWindow }: Props) => {
         signLimitOrders,
         signTransfer,
         signPaymentIntent,
+        signWalletChallenge,
         walletNode,
         setWalletNode,
         setOnWalletResizeRequest: registerOnWalletResizeRequestHandler,

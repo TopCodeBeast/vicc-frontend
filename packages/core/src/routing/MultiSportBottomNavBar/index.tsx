@@ -4,15 +4,15 @@ import { FormattedMessage } from 'react-intl';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import ManagerTaskTooltip from 'components/onboarding/managerTask/ManagerTaskTooltip';
-import MarketplaceOnboardingTask from 'components/onboarding/managerTask/MarketplaceOnboardingTask';
-import { FOOTBALL_MARKET } from '@sorare/core/src/constants/routes';
+import ManagerTaskTooltip from '@core/components/onboarding/managerTask/ManagerTaskTooltip';
+import MarketplaceOnboardingTask from '@core/components/onboarding/managerTask/MarketplaceOnboardingTask';
+import { FOOTBALL_MARKET } from '@core/constants/routes';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import {
   MarketplaceOnboardingStep,
   useManagerTaskContext,
-} from '@sorare/core/src/contexts/managerTask';
-import { Link } from '@sorare/core/src/routing/Link';
+} from '@core/contexts/managerTask';
+import { Link } from '@core/routing/Link';
 
 import useBottomBarNavItems from './useBottomBarNavItems';
 

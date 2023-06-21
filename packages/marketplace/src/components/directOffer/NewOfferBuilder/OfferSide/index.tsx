@@ -11,8 +11,8 @@ import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { CardHit } from '@sorare/core/src/lib/algolia';
 import { theme } from '@sorare/core/src/style/theme';
 
-import PriceHistoryTooltip from '@sorare/marketplace/src/components/price/PriceHistoryTooltip';
-import { TokenTransferValidator } from '@sorare/marketplace/src/components/token/TokenTransferValidator';
+import PriceHistoryTooltip from '@marketplace/components/price/PriceHistoryTooltip';
+import { TokenTransferValidator } from '@marketplace/components/token/TokenTransferValidator';
 
 import CardRow from '../CardRow';
 import { OfferSide_token } from './__generated__/index.graphql';
@@ -51,7 +51,7 @@ const Section = styled.div`
 const SectionHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: var(--double--unit);
   gap: var(--unit);
 `;

@@ -14,10 +14,10 @@ import { metadatas } from '@sorare/core/src/lib/seo/nba';
 import useDefaultFilters from '@sorare/marketplace/src/hooks/useDefaultFilters';
 import { AdvancedBlockchainCardSearch } from '@sorare/marketplace/src/searchCards/AdvancedCardSearch';
 
-import PrimaryOfferResultsFromGraphQL from '@sorare/football/src/components/starterBundle/PrimaryOfferResultsFromGraphQL';
-import StartersPacks from '@sorare/football/src/pages/TransferMarket/OnboardingDialog/StarterPacks';
-import PageTemplate from '@sorare/football/src/pages/TransferMarket/PageTemplate';
-import { starterBundlesMarketFilters } from '@sorare/football/src/pages/TransferMarket/cardFilters';
+import PrimaryOfferResultsFromGraphQL from '@football/components/starterBundle/PrimaryOfferResultsFromGraphQL';
+import StartersPacks from '@football/pages/TransferMarket/OnboardingDialog/StarterPacks';
+import PageTemplate from '@football/pages/TransferMarket/PageTemplate';
+import { starterBundlesMarketFilters } from '@football/pages/TransferMarket/cardFilters';
 
 const cardSorts = createCardSorts({ withHighestAverageScore: true });
 

@@ -3,11 +3,11 @@ import { useRef, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { LinkOther } from '@sorare/core/src/atoms/navigation/Box';
-import { Text14, Text18 } from '@sorare/core/src/atoms/typography';
-import { ContentContainer } from 'components/landing/NewLandingMultiSport/ui';
-import { theme } from '@sorare/core/src/style/theme';
-import { hideScrollbar } from '@sorare/core/src/style/utils';
+import { LinkOther } from '@core/atoms/navigation/Box';
+import { Text14, Text18 } from '@core/atoms/typography';
+import { ContentContainer } from '@core/components/landing/NewLandingMultiSport/ui';
+import { theme } from '@core/style/theme';
+import { hideScrollbar } from '@core/style/utils';
 
 import diamond from './assets/diamond.svg';
 import ethImage from './assets/ethImage.jpg';

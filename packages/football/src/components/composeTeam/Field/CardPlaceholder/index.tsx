@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { LineupPosition } from '@sorare/core/src/lib/players';
 
-import CardPlaceholderInfo from '@sorare/football/src/components/card/CardPlaceholderInfo';
+import CardPlaceholderInfo from '@football/components/card/CardPlaceholderInfo';
 
 const CardPlaceholder = styled.button`
   display: flex;

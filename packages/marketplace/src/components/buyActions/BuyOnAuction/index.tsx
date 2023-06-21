@@ -4,17 +4,21 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Rarity, Sport } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  Rarity,
+  Sport,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import { ChevronRightBold } from '@sorare/core/src/atoms/icons/ChevronRightBold';
 import { Text14, Title6 } from '@sorare/core/src/atoms/typography';
-import AmountWithConversion from '@sorare/core/src/components/buyActions/AmountWithConversion';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 import { InstantBlockchainCardSearch } from '@sorare/core/src/components/search/InstantSearch';
 import { SEARCH_PARAMS } from '@sorare/core/src/components/search/InstantSearch/types';
 import UninteractiveToken from '@sorare/core/src/components/token/UninteractiveToken';
 import { AUCTION_MARKET_URL } from '@sorare/core/src/constants/routes';
 import { formatScarcity } from '@sorare/core/src/lib/cards';
 
-import useDefaultFilters from '@sorare/marketplace/src/hooks/useDefaultFilters';
+import useDefaultFilters from '@marketplace/hooks/useDefaultFilters';
 
 const Wrapper = styled.div`
   display: flex;
@@ -144,9 +148,10 @@ export const BuyOnAuction = ({ rarity, sport }: BuyOnAuctionProps) => {
               />
             </Text14>
             <AmountWithConversion
-              amount={weiAmount}
-              unit="wei"
-              context="buyOnAuction.price"
+              monetaryAmount={{
+                referenceCurrency: SupportedCurrency.WEI,
+                [SupportedCurrency.WEI.toLowerCase()]: weiAmount,
+              }}
             />
           </Price>
         </Metas>

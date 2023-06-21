@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 
-import SendVerificationCode from 'components/settings/PhoneNumberVerification/SendVerificationCode';
-import useVerifyPhoneNumber from 'components/user/VerifyPhoneNumber/useVerifyPhoneNumber';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import SendVerificationCode from '@core/components/settings/PhoneNumberVerification/SendVerificationCode';
+import useVerifyPhoneNumber from '@core/components/user/VerifyPhoneNumber/useVerifyPhoneNumber';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 
 type Props = {
   onSuccess: (phoneNumber: string) => void;

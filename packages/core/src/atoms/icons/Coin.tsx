@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import coin from 'assets/coin.png';
+import coin from '@core/assets/coin.png';
 
 const Img = styled.img`
   width: var(--double-unit);

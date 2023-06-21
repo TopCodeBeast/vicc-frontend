@@ -22,24 +22,24 @@ import extractFiles from 'extract-files/extractFiles.mjs';
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import cookie from 'react-cookies';
 
-import { useDeviceFingerprintContext } from '@sorare/core/src/contexts/deviceFingerprint';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { useSentryContext } from '@sorare/core/src/contexts/sentry';
-import { useSessionContext } from '@sorare/core/src/contexts/session';
-import { Level, useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import OperationStoreClient from '@sorare/core/src/gql/OperationStoreClient';
-import { dataIdFromObject } from '@sorare/core/src/gql/idFromObject';
-import introspectionResult from '@sorare/core/src/gql/introspectionResult.json';
-import { useDebugLink } from '@sorare/core/src/hooks/graphql/useDebugLink';
-import { useTMLink } from '@sorare/core/src/hooks/graphql/useTMLink';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import { mergeArrayOfUnnormalizedObjects, replaceByIncoming } from '@sorare/core/src/lib/gql';
+import { useDeviceFingerprintContext } from '@core/contexts/deviceFingerprint';
+import { useIntlContext } from '@core/contexts/intl';
+import { useSentryContext } from '@core/contexts/sentry';
+import { useSessionContext } from '@core/contexts/session';
+import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
+import OperationStoreClient from '@core/gql/OperationStoreClient';
+import { dataIdFromObject } from '@core/gql/idFromObject';
+import introspectionResult from '@core/gql/introspectionResult.json';
+import { useDebugLink } from '@core/hooks/graphql/useDebugLink';
+import { useTMLink } from '@core/hooks/graphql/useTMLink';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import { mergeArrayOfUnnormalizedObjects, replaceByIncoming } from '@core/lib/gql';
 import {
   cloudflareAccessHeaders,
   xsrfCookieName,
   xsrfHeaderName,
   xsrfReceivingHeaderName,
-} from '@sorare/core/src/lib/http';
+} from '@core/lib/http';
 
 import GraphqlContextProvider from '.';
 import {
@@ -416,7 +416,9 @@ export const GraphqlProvider = ({
 
         if (
           !disableGraphQLErrorsReport &&
-          (graphQLErrors || (networkError as ServerError)?.result?.message)
+          (graphQLErrors || (networkError as ServerError)?.result?.message) &&
+          // HTTP 500 errors are already logged in the backend
+          (networkError as ServerError)?.statusCode !== 500
         ) {
           withScope(scope => {
             scope.setTag('kind', operation.operationName);

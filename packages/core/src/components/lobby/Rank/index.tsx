@@ -1,7 +1,7 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { glossary } from '@sorare/core/src/lib/glossary';
+import { glossary } from '@core/lib/glossary';
 
 const DefaultSup = styled.sup`
   font-size: inherit;

@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import styled from 'styled-components';
 
-import { Container } from '@sorare/core/src/atoms/container';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { SocialLinks } from '@sorare/core/src/atoms/ui/SocialMedias';
-import LanguageSwitcher from 'components/user/LanguageSwitcher';
-import { theme } from '@sorare/core/src/style/theme';
+import { Container } from '@core/atoms/container';
+import { Text16 } from '@core/atoms/typography';
+import { SocialLinks } from '@core/atoms/ui/SocialMedias';
+import LanguageSwitcher from '@core/components/user/LanguageSwitcher';
+import { theme } from '@core/style/theme';
 
 import FooterLinks from './FooterLinks';
 import socialLinks from './socialLinks';

@@ -25,7 +25,7 @@ export const CompetitionLogo = ({ competition, small = false }: Props) => {
   return (
     <Root
       style={{ backgroundImage: `url('${competition.pictureUrl}')` }}
-      data-className={classnames({ small })}
+      className={classnames({ small })}
     />
   );
 };

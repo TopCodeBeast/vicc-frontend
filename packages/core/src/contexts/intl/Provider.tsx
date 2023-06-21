@@ -8,13 +8,13 @@ import {
 } from 'react-intl';
 import { useSearchParams } from 'react-router-dom';
 
-import useLocalStorage from '@sorare/core/src/hooks/useLocalStorage';
+import useLocalStorage from '@core/hooks/useLocalStorage';
 import useTranslations, {
   ALLOWED_LOCALES,
   AllowedLocales,
-} from 'i18n/useTranslations';
-import detectBrowserLanguage from '@sorare/core/src/lib/detectBrowserLanguage';
-import { RoundingMode, fromWei } from '@sorare/core/src/lib/wei';
+} from '@core/i18n/useTranslations';
+import detectBrowserLanguage from '@core/lib/detectBrowserLanguage';
+import { RoundingMode, fromWei } from '@core/lib/wei';
 
 import IntlContextProvider, {
   AvailableLocale,

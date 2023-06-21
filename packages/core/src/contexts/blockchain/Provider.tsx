@@ -8,15 +8,15 @@ import BlockchainContextProvider, {
   AccountData,
   EthereumAccountHandler,
   InitEthereumSource,
-} from '@sorare/core/src/contexts/blockchain';
-import { useConfigContext } from '@sorare/core/src/contexts/config';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { EventStep } from '@sorare/core/src/contexts/events/types';
-import { useWeb3Context } from '@sorare/core/src/contexts/web3';
-import useWithdrawEthEvent from '@sorare/core/src/hooks/events/useWithdrawEthEvent';
-import { ethNetworkName } from '@sorare/core/src/lib/ethereum';
-import { lazy } from '@sorare/core/src/lib/retry';
-import { fromWei } from '@sorare/core/src/lib/wei';
+} from '@core/contexts/blockchain';
+import { useConfigContext } from '@core/contexts/config';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { EventStep } from '@core/contexts/events/types';
+import { useWeb3Context } from '@core/contexts/web3';
+import useWithdrawEthEvent from '@core/hooks/events/useWithdrawEthEvent';
+import { ethNetworkName } from '@core/lib/ethereum';
+import { lazy } from '@core/lib/retry';
+import { fromWei } from '@core/lib/wei';
 
 import useDepositEth from './useDepositEth';
 import useDepositNft from './useDepositNft';

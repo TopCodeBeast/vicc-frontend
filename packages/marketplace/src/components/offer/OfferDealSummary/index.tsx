@@ -3,7 +3,10 @@ import { ReactNode } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import { Currency } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  Currency,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import Blockquote from '@sorare/core/src/atoms/layout/Blockquote';
 import { Text14, Text16, Text20 } from '@sorare/core/src/atoms/typography';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
@@ -11,13 +14,13 @@ import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
 
-import SelectedPaymentMethodForConfirmation from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
-import { WalletPaymentMethod } from '@sorare/marketplace/src/components/buyActions/PaymentProvider/types';
-import TokenSummary from '@sorare/marketplace/src/components/buyActions/TokenSummary';
+import SelectedPaymentMethodForConfirmation from '@marketplace/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
+import { WalletPaymentMethod } from '@marketplace/components/buyActions/PaymentProvider/types';
+import TokenSummary from '@marketplace/components/buyActions/TokenSummary';
 import useMarketFeesHelperStatus, {
   MarketFeeStatus,
   isMarketFeeEnabled,
-} from '@sorare/marketplace/src/hooks/useMarketFeesHelperStatus';
+} from '@marketplace/hooks/useMarketFeesHelperStatus';
 
 import FeesDetailsTooltip from '../FeesDetailsTooltip';
 import { OfferDealSummary_token } from './__generated__/index.graphql';
@@ -144,9 +147,10 @@ const Amounts = ({
   marketFeeAmountWei,
 }: AmountsProps) => {
   const { main, exponent } = useAmountWithConversion({
-    amount: amount.toString(),
-    unit: 'wei',
-    context: 'DealSummaryAmounts',
+    monetaryAmount: {
+      referenceCurrency: SupportedCurrency.WEI,
+      [SupportedCurrency.WEI.toLowerCase()]: amount,
+    },
   });
   if (amount === '0') {
     return null;

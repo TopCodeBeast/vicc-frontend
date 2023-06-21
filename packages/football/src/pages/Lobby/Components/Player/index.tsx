@@ -11,7 +11,7 @@ import idFromObject from '@sorare/core/src/gql/idFromObject';
 import { Game } from '@sorare/football/src/components/stats/Game';
 import PlayerGameScoreDialog from '@sorare/football/src/components/stats/PlayerGameScoreDialog';
 import PlayerScore from '@sorare/football/src/components/stats/PlayerScore';
-import { getPlayerScore } from 'lib/so5';
+import { getPlayerScore } from '@football/lib/so5';
 
 import { LobbyPlayer_so5Appearance } from './__generated__/index.graphql';
 

@@ -1,10 +1,11 @@
 import { gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import Block from '@sorare/core/src/atoms/layout/Block';
 import { Text16 } from '@sorare/core/src/atoms/typography';
-import AmountWithConversion from '@sorare/core/src/components/buyActions/AmountWithConversion';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import useToggle from '@sorare/core/src/hooks/useToggle';
@@ -44,9 +45,10 @@ export const LiveOffer = ({ offer }: Props) => {
         </Text16>
         {offer.senderSide.wei && (
           <AmountWithConversion
-            amount={offer.senderSide.wei}
-            unit="wei"
-            context="LiveOffer"
+            monetaryAmount={{
+              referenceCurrency: SupportedCurrency.WEI,
+              [SupportedCurrency.WEI.toLowerCase()]: offer.senderSide.wei,
+            }}
           />
         )}
       </div>

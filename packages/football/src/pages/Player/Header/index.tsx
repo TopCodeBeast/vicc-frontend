@@ -13,9 +13,9 @@ import { theme } from '@sorare/core/src/style/theme';
 import { createVar } from '@sorare/core/src/style/utils';
 
 import placeholder from 'assets/players/placeholder.png';
-import Follower from '@sorare/football/src/components/favorites/Follower';
-import { InnerContainer, Root } from '@sorare/football/src/components/layout/header/ui';
-import Information from '@sorare/football/src/pages/Player/Information';
+import Follower from '@football/components/favorites/Follower';
+import { InnerContainer, Root } from '@football/components/layout/header/ui';
+import Information from '@football/pages/Player/Information';
 
 import { Header_player } from './__generated__/index.graphql';
 

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Ineligible } from '@sorare/core/src/atoms/icons/Ineligible';
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 
-import TooltipContent from '@sorare/football/src/components/so5/CardProperties/TooltipContent';
+import TooltipContent from '@football/components/so5/CardProperties/TooltipContent';
 
 const titleMessages = defineMessages({
   partial: {

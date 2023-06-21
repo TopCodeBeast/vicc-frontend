@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { CommonDraftCampaignStatus } from '@sorare/core/src/__generated__/globalTypes';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { LeagueRow } from '@sorare/football/src/components/draft/LeagueRow';
+import { LeagueRow } from '@football/components/draft/LeagueRow';
 
 import { LeaguePicker_onboardingCompetition } from './__generated__/index.graphql';
 

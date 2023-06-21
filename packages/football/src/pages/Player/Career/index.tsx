@@ -18,7 +18,7 @@ import FlagAvatar from '@sorare/core/src/components/country/FlagAvatar';
 import { FOOTBALL_COUNTRY_SHOW } from '@sorare/core/src/constants/routes';
 import { isA } from '@sorare/core/src/lib/gql';
 
-import TeamPicture from '@sorare/football/src/components/club/TeamPicture';
+import TeamPicture from '@football/components/club/TeamPicture';
 
 import { Career_player } from './__generated__/index.graphql';
 

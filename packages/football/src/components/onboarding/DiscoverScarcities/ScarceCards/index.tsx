@@ -8,10 +8,10 @@ import { LinkOverlay } from '@sorare/core/src/atoms/navigation/Box';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
-import { DiscoverRewardsDialog } from '@sorare/football/src/components/onboarding/DiscoverScarcities/DiscoverRewardsDialog';
-import { ScarceCardsSpinner } from '@sorare/football/src/components/onboarding/DiscoverScarcities/ScarceCardsSpinner';
-import canBeSold from '@sorare/football/src/components/onboarding/DiscoverScarcities/assets/canBeSold.png';
-import earnRewards from '@sorare/football/src/components/onboarding/DiscoverScarcities/assets/earnRewards.png';
+import { DiscoverRewardsDialog } from '@football/components/onboarding/DiscoverScarcities/DiscoverRewardsDialog';
+import { ScarceCardsSpinner } from '@football/components/onboarding/DiscoverScarcities/ScarceCardsSpinner';
+import canBeSold from '@football/components/onboarding/DiscoverScarcities/assets/canBeSold.png';
+import earnRewards from '@football/components/onboarding/DiscoverScarcities/assets/earnRewards.png';
 
 const Wrapper = styled.div`
   display: flex;
@@ -107,7 +107,6 @@ export const ScarceCards = () => {
               as={StyledIconButton}
               icon={faChevronRight}
               color="transparent"
-              disableRipple
               onClick={() => setOpenDialog(true)}
             />
           </ListItemWithButton>

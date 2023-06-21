@@ -7,9 +7,9 @@ import { Button } from '@sorare/core/src/atoms/buttons/Button';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 
-import NewOfferBuilder from '@sorare/marketplace/src/components/directOffer/NewOfferBuilder';
-import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
-import useTradeButtonVisible from '@sorare/marketplace/src/hooks/offers/useTradeButtonVisible';
+import NewOfferBuilder from '@marketplace/components/directOffer/NewOfferBuilder';
+import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
+import useTradeButtonVisible from '@marketplace/hooks/offers/useTradeButtonVisible';
 
 import { TradeButton_publicUserInfoInterface } from './__generated__/index.graphql';
 

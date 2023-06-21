@@ -16,7 +16,7 @@ import { GalleryLink } from '@sorare/core/src/components/user/GalleryLink';
 import { Nickname } from '@sorare/core/src/components/user/Nickname';
 import TimeLeft from '@sorare/core/src/contexts/ticker/TimeLeft';
 
-import { galleryPathFromToken } from '@sorare/marketplace/src/lib/galleryPathFromToken';
+import { galleryPathFromToken } from '@marketplace/lib/galleryPathFromToken';
 
 import {
   CounterpartUser_publicUserInfoInterface,

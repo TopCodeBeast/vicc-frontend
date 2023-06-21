@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { GraphQLResult } from 'components/form/Form';
-import { LANDING } from '@sorare/core/src/constants/routes';
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { theme } from '@sorare/core/src/style/theme';
+import Dialog from '@core/atoms/layout/Dialog';
+import { GraphQLResult } from '@core/components/form/Form';
+import { LANDING } from '@core/constants/routes';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import useEvents from '@core/lib/events/useEvents';
+import { theme } from '@core/style/theme';
 
 import {
   PromptTermsCallback,

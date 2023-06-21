@@ -9,7 +9,7 @@ import { Clock } from '@sorare/core/src/atoms/icons/Clock';
 import Body from '@sorare/core/src/atoms/layout/Body';
 import { Portal } from '@sorare/core/src/atoms/layout/Portal';
 import { Tabs } from '@sorare/core/src/atoms/navigation/Tabs';
-import { Title2 } from '@sorare/core/src/atoms/typography';
+import { Text16, Title2 } from '@sorare/core/src/atoms/typography';
 import { ConversionCreditBanner } from '@sorare/core/src/components/conversionCredit/ConversionCreditBanner';
 import {
   FOOTBALL_LOBBY_LIVE_WILDCARD,
@@ -21,9 +21,9 @@ import { fantasy } from '@sorare/core/src/lib/glossary';
 import { UNBREAKABLE_SPACE } from '@sorare/core/src/lib/text';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { isFixtureLive, isFixtureOpened } from 'lib/so5';
-import GameWeekDropdown from '@sorare/football/src/pages/Lobby/Components/GameWeekDropdown';
-import { TopPlayers } from '@sorare/football/src/pages/Lobby/Components/TopPlayer';
+import { isFixtureLive, isFixtureOpened } from '@football/lib/so5';
+import GameWeekDropdown from '@football/pages/Lobby/Components/GameWeekDropdown';
+import { TopPlayers } from '@football/pages/Lobby/Components/TopPlayer';
 
 import { Lobby_Layout_so5Fixture } from './__generated__/index.graphql';
 
@@ -145,11 +145,18 @@ export const Layout = ({
                     defaultMessage="Lobby"
                   />
                 </Title2>
-                {!so5Fixture.transient && !isUpcoming && (
+                {!so5Fixture.transient && !isUpcoming ? (
                   <GameWeekDropdown
                     defaultFixture={so5Fixture}
                     enabled={!so5Fixture.transient && !isLive}
                   />
+                ) : (
+                  <Text16 bold>
+                    <FormattedMessage
+                      id="LobbyLayout.upcoming"
+                      defaultMessage="Prepare ahead"
+                    />
+                  </Text16>
                 )}
               </div>
               <StyledTabs items={TabsItems} />

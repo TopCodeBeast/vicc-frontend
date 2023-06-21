@@ -3,15 +3,15 @@ import { FormattedMessage, defineMessages } from 'react-intl';
 import { useSpring } from '@react-spring/web';
 import styled from 'styled-components';
 
-import WaypointComponent from '@sorare/core/src/atoms/animations/Waypoint';
-import Container from '@sorare/core/src/atoms/layout/Container';
+import WaypointComponent from '@core/atoms/animations/Waypoint';
+import Container from '@core/atoms/layout/Container';
 import {
   BackgroundOverlay,
   MixedFontTitle,
   Section,
   SubTitle,
   TitlesContainer,
-} from 'components/landing/LandingFootball/ui';
+} from '@core/components/landing/LandingFootball/ui';
 
 import { CardsCarousel } from '../../CollectCards/CardsCarousel';
 

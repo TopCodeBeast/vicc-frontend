@@ -6,9 +6,8 @@ import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
 import Button from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import { Text14, Title3 } from '@sorare/core/src/atoms/typography';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
+import Dialog from '@sorare/core/src/components/dialog';
 
 import BidResume from './BidResume';
 import { BidConfirmedDialogContent_tokenAuction } from './__generated__/index.graphql';
@@ -33,12 +32,11 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--double-unit);
+  padding: 0 var(--triple-unit) var(--triple-unit) var(--triple-unit);
 `;
-
 const Title = styled(Title3)`
   text-align: center;
 `;
-
 const CheckContainer = styled.div`
   align-self: center;
   width: 48px;
@@ -49,11 +47,9 @@ const CheckContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
 const LeftAlignText = styled(Text14)`
   text-align: left;
 `;
-
 const CheckIcon = styled(FontAwesomeIcon)`
   color: var(--c-neutral-100);
   .dark-theme & {
@@ -61,39 +57,45 @@ const CheckIcon = styled(FontAwesomeIcon)`
   }
 `;
 
+type Props = {
+  auction: BidConfirmedDialogContent_tokenAuction;
+  open: boolean;
+  assetsPreview?: ReactNode;
+  onClose: () => void;
+};
 const BidConfirmedDialog = ({
   auction,
   assetsPreview,
   open,
   onClose,
-}: {
-  auction: BidConfirmedDialogContent_tokenAuction;
-  open: boolean;
-  assetsPreview?: ReactNode;
-  onClose: () => void;
-}) => {
-  const { up: isLaptop } = useScreenSize('laptop');
+}: Props) => {
   return (
-    <Dialog title=" " fullScreen={!isLaptop} open={open} onClose={onClose}>
-      <Content>
-        <CheckContainer>
-          <CheckIcon icon={faCheck} size="2x" />
-        </CheckContainer>
-        <Title>
-          <FormattedMessage {...messages.title} />
-        </Title>
-        <BidResume auction={auction} />
-        {auction.autoBid && (
-          <LeftAlignText>
-            <FormattedMessage {...messages.autoBidExplanation} />
-          </LeftAlignText>
-        )}
-        {assetsPreview}
-        <Button onClick={onClose} medium color="blue">
-          <FormattedMessage {...messages.buttonLabel} />
-        </Button>
-      </Content>
-    </Dialog>
+    <Dialog
+      open={open}
+      maxWidth="xs"
+      fullWidth
+      onClose={onClose}
+      body={
+        <Content>
+          <CheckContainer>
+            <CheckIcon icon={faCheck} size="2x" />
+          </CheckContainer>
+          <Title>
+            <FormattedMessage {...messages.title} />
+          </Title>
+          <BidResume auction={auction} />
+          {auction.autoBid && (
+            <LeftAlignText>
+              <FormattedMessage {...messages.autoBidExplanation} />
+            </LeftAlignText>
+          )}
+          {assetsPreview}
+          <Button onClick={onClose} medium color="blue">
+            <FormattedMessage {...messages.buttonLabel} />
+          </Button>
+        </Content>
+      }
+    />
   );
 };
 

@@ -18,14 +18,14 @@ import TimeLeft from '@sorare/core/src/contexts/ticker/TimeLeft';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import { GameWeekTitle } from '@sorare/football/src/components/Home/GameWeekTitle';
-import HomeBlockWithTimeline from '@sorare/football/src/components/Home/HomeBlockWithTimeline';
-import { ItemRows } from '@sorare/football/src/components/Home/ItemRows';
-import { SeeAllButton } from '@sorare/football/src/components/Home/SeeAllButton';
-import { Lineup } from '@sorare/football/src/components/lineup/Lineup';
-import { DumbBanner } from '@sorare/football/src/components/rewards/DumbBanner';
-import NoCardEntry from '@sorare/football/src/components/so5/NoCardEntry';
-import { sortLeaderboards, sortLeaderboardsByTournamentType } from 'lib/so5';
+import { GameWeekTitle } from '@football/components/Home/GameWeekTitle';
+import HomeBlockWithTimeline from '@football/components/Home/HomeBlockWithTimeline';
+import { ItemRows } from '@football/components/Home/ItemRows';
+import { SeeAllButton } from '@football/components/Home/SeeAllButton';
+import { Lineup } from '@football/components/lineup/Lineup';
+import { DumbBanner } from '@football/components/rewards/DumbBanner';
+import NoCardEntry from '@football/components/so5/NoCardEntry';
+import { sortLeaderboards, sortLeaderboardsByTournamentType } from '@football/lib/so5';
 
 import { UpcomingFixture_so5Leaderboard } from './__generated__/index.graphql';
 

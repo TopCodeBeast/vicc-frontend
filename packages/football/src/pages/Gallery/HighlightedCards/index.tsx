@@ -12,11 +12,11 @@ import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { range } from '@sorare/core/src/lib/arrays';
 import { theme } from '@sorare/core/src/style/theme';
 
-import CardPicker from '@sorare/football/src/components/card/CardPicker';
-import FlexCard from '@sorare/football/src/components/card/FlexCard';
-import EditableDeckCard from '@sorare/football/src/components/deck/EditableDeckCard';
-import Banner from '@sorare/football/src/components/user/Banner';
-import useDragAndDrop from 'hooks/useDragAndDrop';
+import CardPicker from '@football/components/card/CardPicker';
+import FlexCard from '@football/components/card/FlexCard';
+import EditableDeckCard from '@football/components/deck/EditableDeckCard';
+import Banner from '@football/components/user/Banner';
+import useDragAndDrop from '@football/hooks/useDragAndDrop';
 
 import {
   AddCardsToDeckMutation,

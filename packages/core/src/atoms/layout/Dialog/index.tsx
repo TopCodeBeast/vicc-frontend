@@ -4,11 +4,11 @@ import classnames from 'classnames';
 import { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-import BackButton from '@sorare/core/src/atoms/buttons/BackButton';
-import CloseButton from '@sorare/core/src/atoms/buttons/CloseButton';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { theme } from '@sorare/core/src/style/theme';
-import { OverrideClasses } from '@sorare/core/src/style/utils';
+import BackButton from '@core/atoms/buttons/BackButton';
+import CloseButton from '@core/atoms/buttons/CloseButton';
+import { Text16 } from '@core/atoms/typography';
+import { theme } from '@core/style/theme';
+import { OverrideClasses } from '@core/style/utils';
 
 import Actions from './Actions';
 

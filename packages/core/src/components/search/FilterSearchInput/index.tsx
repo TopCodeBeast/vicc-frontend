@@ -1,7 +1,7 @@
 import { useIntl } from 'react-intl';
 
-import SearchInput from '@sorare/core/src/atoms/inputs/SearchInput';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import SearchInput from '@core/atoms/inputs/SearchInput';
+import { glossary } from '@core/lib/glossary';
 
 type Props = {
   handleChange: (event: {

@@ -1,6 +1,6 @@
 import { To } from 'react-router-dom';
 
-import { hasPreviousLocation } from '@sorare/core/src/lib/routing';
+import { hasPreviousLocation } from '@core/lib/routing';
 
 const getSafePreviousLocation = (
   defaultPreviousLocation: string | To,

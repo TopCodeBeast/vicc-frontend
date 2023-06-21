@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 
 import {
+  StarkwareSignatureInput,
   SupportedCurrency,
   TokenPaymentMethod,
 } from '@sorare/core/src/__generated__/globalTypes';
@@ -9,7 +10,7 @@ import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
-import { useGetAuthorizationApprovals } from '@sorare/marketplace/src/hooks/useGetAuthorizationApprovals';
+import { useGetAuthorizationApprovals } from '@marketplace/hooks/useGetAuthorizationApprovals';
 
 import {
   PrepareBidMutation,
@@ -53,6 +54,7 @@ type PrepareBidArgs = {
   amount: string;
   conversionCreditId?: string;
   savePaymentMethod?: boolean;
+  walletChallengeSignature?: StarkwareSignatureInput | null;
 };
 type Props = {
   signAuthorizations: boolean;
@@ -80,6 +82,7 @@ const usePrepareBid = ({ signAuthorizations }: Props) => {
     amount,
     conversionCreditId,
     savePaymentMethod,
+    walletChallengeSignature,
   }: PrepareBidArgs) => {
     const settlementInfo = {
       currency: supportedCurrency,
@@ -87,6 +90,7 @@ const usePrepareBid = ({ signAuthorizations }: Props) => {
       paymentMethod: tokenPaymentMethod,
       ...(conversionCreditId && { conversionCreditId }),
       savePaymentMethod,
+      walletChallengeSignature,
     };
 
     const { data } = await prepareBidMutation({
@@ -94,6 +98,7 @@ const usePrepareBid = ({ signAuthorizations }: Props) => {
         input: {
           englishAuctionId,
           bidAmountWei,
+          ...(conversionCreditId && { conversionCreditId }),
           ...(useAuthorizationsToBid && {
             settlementInfo,
             amount,

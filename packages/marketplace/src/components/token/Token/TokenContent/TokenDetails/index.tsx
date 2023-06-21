@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-import ItemSold from '@sorare/marketplace/src/components/ItemPreview/ItemSold';
-import useGetAuctionDetails from '@sorare/marketplace/src/hooks/offers/useGetAuctionDetails';
-import useGetTokenSingleSaleDetails from '@sorare/marketplace/src/hooks/offers/useGetTokenSingleSaleDetails';
+import ItemSold from '@marketplace/components/ItemPreview/ItemSold';
+import useGetAuctionDetails from '@marketplace/hooks/offers/useGetAuctionDetails';
+import useGetTokenSingleSaleDetails from '@marketplace/hooks/offers/useGetTokenSingleSaleDetails';
 
 import { TokenAuctionDetails } from './TokenAuctionDetails';
 import { TokenOfferDetails } from './TokenOfferDetails';

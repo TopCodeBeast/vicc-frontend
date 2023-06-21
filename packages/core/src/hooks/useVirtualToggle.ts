@@ -2,7 +2,7 @@ import { Connector, WidgetRenderState } from 'instantsearch.js';
 import { noop } from 'instantsearch.js/es/lib/utils';
 import { useConnector } from 'react-instantsearch-hooks-web';
 
-import { VIRTUAL_TOGGLE_FILTERS } from '@sorare/core/src/lib/filters';
+import { VIRTUAL_TOGGLE_FILTERS } from '@core/lib/filters';
 
 export type VirtualToggleConnectorParams = {
   name: string;

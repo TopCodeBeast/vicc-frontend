@@ -4,15 +4,15 @@ import { animated, config, useSpring } from '@react-spring/web';
 import shuffle from 'shuffle-array';
 import styled from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
-import { BackgroundAnimation } from '@sorare/core/src/atoms/animations/Background';
-import Container from '@sorare/core/src/atoms/layout/Container';
-import { useDefaultSportPages } from '@sorare/core/src/constants/routes';
-import { useConfigContext } from '@sorare/core/src/contexts/config';
-import { useConnectionContext } from '@sorare/core/src/contexts/connection';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import MultiSportAppBar from '@sorare/core/src/routing/MultiSportAppBar';
-import { theme } from '@sorare/core/src/style/theme';
+import { Sport } from '@core/__generated__/globalTypes';
+import { BackgroundAnimation } from '@core/atoms/animations/Background';
+import Container from '@core/atoms/layout/Container';
+import { useDefaultSportPages } from '@core/constants/routes';
+import { useConfigContext } from '@core/contexts/config';
+import { useConnectionContext } from '@core/contexts/connection';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import MultiSportAppBar from '@core/routing/MultiSportAppBar';
+import { theme } from '@core/style/theme';
 
 import PlayNowButton from '../PlayNowButton';
 import footballCards from './footballCards';

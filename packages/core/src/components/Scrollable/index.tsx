@@ -7,12 +7,12 @@ import { Children, ReactNode, UIEventHandler, useState } from 'react';
 import { useDebounce } from 'react-use';
 import styled from 'styled-components';
 
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import useIsOverflowing from '@sorare/core/src/hooks/ui/useIsOverflowing';
-import useScrollPosition from '@sorare/core/src/hooks/ui/useScrollPosition';
-import { range } from '@sorare/core/src/lib/arrays';
-import { theme } from '@sorare/core/src/style/theme';
-import { hideScrollbar } from '@sorare/core/src/style/utils';
+import IconButton from '@core/atoms/buttons/IconButton';
+import useIsOverflowing from '@core/hooks/ui/useIsOverflowing';
+import useScrollPosition from '@core/hooks/ui/useScrollPosition';
+import { range } from '@core/lib/arrays';
+import { theme } from '@core/style/theme';
+import { hideScrollbar } from '@core/style/utils';
 
 const ScrollableContent = styled.div<{
   itemToDisplay: number;

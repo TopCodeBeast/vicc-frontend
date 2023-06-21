@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
 
-import { Color } from '@sorare/core/src/atoms/buttons/Button';
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { Color } from '@core/atoms/buttons/Button';
+import IconButton from '@core/atoms/buttons/IconButton';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 import {
   GetCurrentUserSubscriptionProps,
   useFollowContext,
-} from '@sorare/core/src/contexts/follow';
-import useToggleSubscription from '@sorare/core/src/hooks/subscriptions/useToggleSubscription';
+} from '@core/contexts/follow';
+import useToggleSubscription from '@core/hooks/subscriptions/useToggleSubscription';
 
 import FavoriteCardIcon from '../FavoriteHeartIcon';
 

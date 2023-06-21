@@ -8,7 +8,7 @@ import {
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useNavigateWithDeeplink from '@sorare/core/src/hooks/useNavigateWithDeeplink';
 
-import { RouteState } from 'types/routes';
+import { RouteState } from '@football/types/routes';
 
 const useNavigateToComposeTeam = () => {
   const navigateWithDeepLink = useNavigateWithDeeplink();

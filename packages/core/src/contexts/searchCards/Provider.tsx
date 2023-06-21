@@ -1,15 +1,15 @@
 import { ReactNode, useState } from 'react';
 
-import { SEARCH_PARAMS } from 'components/search/InstantSearch/types';
-import { useConfigContext } from '@sorare/core/src/contexts/config';
-import { useSportContext } from '@sorare/core/src/contexts/sport';
-import useCustomDeck from '@sorare/core/src/hooks/decks/useCustomDeck';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import useQueryString from '@sorare/core/src/hooks/useQueryString';
-import { clearAll } from '@sorare/core/src/hooks/useVirtualToggle';
-import { joinFiltersWithAnd, joinFiltersWithOr } from '@sorare/core/src/lib/algolia';
-import { nonPlayableBlockchainRarities } from '@sorare/core/src/lib/cards';
-import { FilterSeparator, FilterWidget } from '@sorare/core/src/lib/filters';
+import { SEARCH_PARAMS } from '@core/components/search/InstantSearch/types';
+import { useConfigContext } from '@core/contexts/config';
+import { useSportContext } from '@core/contexts/sport';
+import useCustomDeck from '@core/hooks/decks/useCustomDeck';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import useQueryString from '@core/hooks/useQueryString';
+import { clearAll } from '@core/hooks/useVirtualToggle';
+import { joinFiltersWithAnd, joinFiltersWithOr } from '@core/lib/algolia';
+import { nonPlayableBlockchainRarities } from '@core/lib/cards';
+import { FilterSeparator, FilterWidget } from '@core/lib/filters';
 
 import SearchCardsContextProvider from '.';
 import useFavoriteFilterValue from './useFavoriteFilterValue';

@@ -15,8 +15,8 @@ import { Caption } from '@sorare/core/src/atoms/typography';
 import useCustomDecks from '@sorare/core/src/hooks/decks/useCustomDecks';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import useAddCardsToDeck from 'hooks/decks/useAddCardsToDeck';
-import useRemoveCardFromDeck from 'hooks/decks/useRemoveCardFromDeck';
+import useAddCardsToDeck from '@football/hooks/decks/useAddCardsToDeck';
+import useRemoveCardFromDeck from '@football/hooks/decks/useRemoveCardFromDeck';
 
 import { AddCardToDeck_card } from './__generated__/index.graphql';
 

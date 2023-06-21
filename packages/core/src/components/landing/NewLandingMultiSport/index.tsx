@@ -3,15 +3,18 @@ import { Navigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import useFontFaceObserver from '@sorare/use-font-face-observer';
-import Bold from '@sorare/core/src/atoms/typography/Bold';
-import { useDefaultSportPages } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useReferrer from '@sorare/core/src/contexts/queryString/useReferrer';
-import { Level, useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import { Lifecycle } from '@sorare/core/src/hooks/useLifecycle';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import NewLoggedOutAppBar from '@sorare/core/src/routing/MultiSportAppBar/NewLoggedOutAppBar';
-import MultiSportFooter from '@sorare/core/src/routing/MultiSportFooter';
+import { Container } from '@core/atoms/container';
+import Bold from '@core/atoms/typography/Bold';
+import { useDefaultSportPages } from '@core/constants/routes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useReferrer from '@core/contexts/queryString/useReferrer';
+import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
+import { Lifecycle } from '@core/hooks/useLifecycle';
+import useEvents from '@core/lib/events/useEvents';
+import LoggedInAppBar from '@core/routing/MultiSportAppBar/LoggedInAppBar';
+import NewLoggedOutAppBar from '@core/routing/MultiSportAppBar/NewLoggedOutAppBar';
+import AppBarProvider from '@core/routing/MultiSportAppBar/context/Provider';
+import MultiSportFooter from '@core/routing/MultiSportFooter';
 
 import 'style/drukFontFaces.css';
 
@@ -82,7 +85,15 @@ export const NewLandingMultiSport = () => {
   if (fontStatus === 'initial') return null; // allow rendering without the right font after the timeout
   return (
     <DarkBackground>
-      <NewLoggedOutAppBar />
+      <AppBarProvider>
+        {currentUser ? (
+          <Container>
+            <LoggedInAppBar />
+          </Container>
+        ) : (
+          <NewLoggedOutAppBar />
+        )}
+      </AppBarProvider>
       <Hero />
       <LeaguesBlock />
       <ExperienceBlock />

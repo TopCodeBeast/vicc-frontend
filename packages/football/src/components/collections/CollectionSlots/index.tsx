@@ -4,10 +4,11 @@ import styled from 'styled-components';
 import { isType } from '@sorare/core/src/gql';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { EmptySlot } from '@sorare/football/src/components/collections/EmptySlot';
-import { FulfilledSlot } from '@sorare/football/src/components/collections/FulfilledSlot';
+import { EmptySlot } from '@football/components/collections/EmptySlot';
+import { FulfilledSlot } from '@football/components/collections/FulfilledSlot';
 
 import {
+  CollectionSlots_cardCollection,
   CollectionSlots_cardCollectionSlot,
   CollectionSlots_userCardCollectionSlot,
 } from './__generated__/index.graphql';
@@ -28,9 +29,14 @@ type Props = {
   slots:
     | CollectionSlots_userCardCollectionSlot[]
     | CollectionSlots_cardCollectionSlot[];
+  cardCollection?: CollectionSlots_cardCollection;
 };
 
-export const CollectionSlots = ({ bannerPictureUrl, slots }: Props) => {
+export const CollectionSlots = ({
+  bannerPictureUrl,
+  slots,
+  cardCollection,
+}: Props) => {
   return (
     <Wrapper>
       {slots.map(slot => {
@@ -41,6 +47,7 @@ export const CollectionSlots = ({ bannerPictureUrl, slots }: Props) => {
               key={slot.slug}
               bannerPictureUrl={bannerPictureUrl}
               userSlot={slot}
+              cardCollection={cardCollection}
             />
           ) : (
             <EmptySlot slot={slot.slot} key={slot.slot.id} />
@@ -76,5 +83,12 @@ CollectionSlots.fragments = {
       ...EmptySlot_cardCollectionSlot
     }
     ${EmptySlot.fragments.cardCollectionSlot}
+  `,
+  cardCollection: gql`
+    fragment CollectionSlots_cardCollection on CardCollection {
+      slug
+      ...FulfilledSlot_cardCollection
+    }
+    ${FulfilledSlot.fragments.cardCollection}
   `,
 };

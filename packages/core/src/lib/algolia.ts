@@ -9,9 +9,9 @@ import {
   Sport,
   Tradeable,
   WalletStatus,
-} from '__generated__/globalTypes';
-import { AlgoliaCardIndexesNames } from '@sorare/core/src/contexts/config';
-import idFromObject from '@sorare/core/src/gql/idFromObject';
+} from '@core/__generated__/globalTypes';
+import { AlgoliaCardIndexesNames } from '@core/contexts/config';
+import idFromObject from '@core/gql/idFromObject';
 
 import { Algolia_CardHit_token } from './__generated__/algolia.graphql';
 import { Scarcity } from './cards';

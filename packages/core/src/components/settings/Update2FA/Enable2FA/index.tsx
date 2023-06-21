@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { FormattedMessage, defineMessage } from 'react-intl';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { Title5 } from '@sorare/core/src/atoms/typography';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import Button from '@core/atoms/buttons/Button';
+import Dialog from '@core/atoms/layout/Dialog';
+import { Title5 } from '@core/atoms/typography';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import { glossary } from '@core/lib/glossary';
 
 import Enable2FAForm from './Enable2FAForm';
 

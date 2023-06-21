@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-import { useConversionCredit } from '@sorare/core/src/hooks/useConversionCredit';
+import { useConversionCredit } from '@core/hooks/useConversionCredit';
 
 export const onboardingStatus = gql`
   fragment CurrentUserProvider_onboardingStatus on CurrentUser {
@@ -221,8 +221,11 @@ export const currentUser = gql`
     followingCount
     followersCount
     pendingDeposits {
+      id
       date
+      providerType
       amount
+      transactionHash
       amountInFiat {
         eur
         gbp
@@ -279,8 +282,11 @@ export const subscription = gql`
         aasmState
       }
       pendingDeposits {
+        id
         date
         amount
+        providerType
+        transactionHash
         amountInFiat {
           eur
           usd
@@ -294,6 +300,7 @@ export const subscription = gql`
           id
           privateCurrentPrice
           privateMinNextBid
+          currency
         }
       }
       ...CurrentUserProvider_onboardingStatus

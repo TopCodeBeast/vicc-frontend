@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 import classnames from 'classnames';
 import styled from 'styled-components';
 
-import { isA } from '@sorare/core/src/lib/gql';
-import { theme } from '@sorare/core/src/style/theme';
+import { isA } from '@core/lib/gql';
+import { theme } from '@core/style/theme';
 
 import {
   Avatar_anonymousUser,

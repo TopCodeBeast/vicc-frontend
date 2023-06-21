@@ -23,7 +23,7 @@ import {
 } from '@sorare/core/src/constants/routes';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
-import { useActiveOnboarding } from 'hooks/onboarding/useActiveOnboarding';
+import { useActiveOnboarding } from '@football/hooks/onboarding/useActiveOnboarding';
 
 export const useCheckRedirectToOnboarding = () => {
   const navigate = useNavigate();

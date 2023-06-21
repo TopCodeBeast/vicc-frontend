@@ -7,7 +7,7 @@ import { Text14 } from '@sorare/core/src/atoms/typography';
 import { FOOTBALL_PRIVATE_LEAGUES } from '@sorare/core/src/constants/routes';
 import { theme } from '@sorare/core/src/style/theme';
 
-import DivisionLogo from '@sorare/football/src/components/so5/DivisionLogo';
+import DivisionLogo from '@football/components/so5/DivisionLogo';
 
 import { ITEM_HEIGHT, PrivateLeagueItem } from './PrivateLeagueItem';
 import { PrivateLeagueBlock_userGroup } from './__generated__/index.graphql';

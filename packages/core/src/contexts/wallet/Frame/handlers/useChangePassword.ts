@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
 
 import { ChangePassword, MessagingContext } from '@sorare/wallet-shared';
-import { useAuthContext } from '@sorare/core/src/contexts/auth';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { formatUpdateUserErrors } from '@sorare/core/src/lib/http';
+import { useAuthContext } from '@core/contexts/auth';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { formatUpdateUserErrors } from '@core/lib/http';
 
 export default () => {
   const { registerHandler } = useContext(MessagingContext)!;

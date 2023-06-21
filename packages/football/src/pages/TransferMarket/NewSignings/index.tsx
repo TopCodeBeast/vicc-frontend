@@ -14,14 +14,14 @@ import { metadatas } from '@sorare/core/src/lib/seo/football';
 
 import useDefaultFilters from '@sorare/marketplace/src/hooks/useDefaultFilters';
 
-import AdvancedCardSearch from '@sorare/football/src/components/searchCards/AdvancedCardSearch';
-import NewsSignings from '@sorare/football/src/pages/TransferMarket/OnboardingDialog/NewsSignings';
-import PageTemplate from '@sorare/football/src/pages/TransferMarket/PageTemplate';
-import { SelectedLeaderboardBanner } from '@sorare/football/src/pages/TransferMarket/SelectedLeaderboardBanner';
+import AdvancedCardSearch from '@football/components/searchCards/AdvancedCardSearch';
+import NewsSignings from '@football/pages/TransferMarket/OnboardingDialog/NewsSignings';
+import PageTemplate from '@football/pages/TransferMarket/PageTemplate';
+import { SelectedLeaderboardBanner } from '@football/pages/TransferMarket/SelectedLeaderboardBanner';
 import {
   advancedPrimaryMarketFilters,
   primaryMarketFilters,
-} from '@sorare/football/src/pages/TransferMarket/cardFilters';
+} from '@football/pages/TransferMarket/cardFilters';
 
 const cardSorts = createCardSorts({ withHighestAverageScore: true });
 

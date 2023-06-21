@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { ShopItemType } from '@sorare/core/src/__generated__/globalTypes';
 import ResponsiveImg from '@sorare/core/src/atoms/ui/ResponsiveImg';
 
-import ItemPreviewDialog from '@sorare/football/src/components/shopItems/ShopItemPicker/ItemPreviewDialog';
+import ItemPreviewDialog from '@football/components/shopItems/ShopItemPicker/ItemPreviewDialog';
 
 import Footer from './Footer';
 import Header from './Header';

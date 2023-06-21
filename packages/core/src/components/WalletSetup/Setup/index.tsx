@@ -8,18 +8,18 @@ import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { EnabledWallet } from '__generated__/globalTypes';
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
-import { Text14, Text16, Title3 } from '@sorare/core/src/atoms/typography';
-import Bold from '@sorare/core/src/atoms/typography/Bold';
-import Dots from '@sorare/core/src/atoms/ui/Dots';
-import EthBalance from 'components/wallet/EthBalance';
-import FiatBalance from 'components/wallet/FiatBalance';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { WalletTab, useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
-import useEnableWallets from '@sorare/core/src/hooks/wallets/useEnableWallets';
-import { fromWei } from '@sorare/core/src/lib/wei';
+import { EnabledWallet } from '@core/__generated__/globalTypes';
+import Button from '@core/atoms/buttons/Button';
+import LoadingButton from '@core/atoms/buttons/LoadingButton';
+import { Text14, Text16, Title3 } from '@core/atoms/typography';
+import Bold from '@core/atoms/typography/Bold';
+import Dots from '@core/atoms/ui/Dots';
+import EthBalance from '@core/components/wallet/EthBalance';
+import FiatBalance from '@core/components/wallet/FiatBalance';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { WalletTab, useWalletDrawerContext } from '@core/contexts/walletDrawer';
+import useEnableWallets from '@core/hooks/wallets/useEnableWallets';
+import { fromWei } from '@core/lib/wei';
 
 import ReinsuranceItem from '../ReinsuranceItem';
 

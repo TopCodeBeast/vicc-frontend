@@ -1,8 +1,8 @@
 import { ReactNode, useRef } from 'react';
 import styled from 'styled-components';
 
-import ecusson from 'assets/user/ecusson.png';
-import Button from '@sorare/core/src/atoms/buttons/Button';
+import ecusson from '@core/assets/user/ecusson.png';
+import Button from '@core/atoms/buttons/Button';
 
 import useUploadFile from './useUploadFile';
 

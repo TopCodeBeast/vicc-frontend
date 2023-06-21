@@ -47,7 +47,7 @@ const Filter = () => {
   const optimisticRefined = !!indexUiState.toggle?.[FILTER.attribute];
 
   return (
-    <Root htmlFor="jersey_serial">
+    <Root className="FilterWidget visible" htmlFor="jersey_serial">
       <StyledCheckbox
         id="jersey_serial"
         checked={optimisticRefined}

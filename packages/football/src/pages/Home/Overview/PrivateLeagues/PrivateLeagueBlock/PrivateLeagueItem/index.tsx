@@ -12,11 +12,11 @@ import {
 } from '@sorare/core/src/constants/routes';
 import { Link } from '@sorare/core/src/routing/Link';
 
-import { useFootballEvents } from 'lib/events';
+import { useFootballEvents } from '@football/lib/events';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import GroupStatus, {
   useGroupStatusLabel,
-} from '@sorare/football/src/pages/Lobby/Components/UserGroup/GroupStatus';
+} from '@football/pages/Lobby/Components/UserGroup/GroupStatus';
 
 import { PrivateLeagueItem_userGroup } from './__generated__/index.graphql';
 

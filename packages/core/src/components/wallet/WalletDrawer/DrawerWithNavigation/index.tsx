@@ -2,9 +2,9 @@ import { DrawerProps, Drawer as MuiDrawer } from '@material-ui/core';
 import { ReactNode } from 'react';
 import { css } from 'styled-components';
 
-import DialogContentWithNavigation from '@sorare/core/src/atoms/layout/DialogContentWithNavigation';
-import { theme } from '@sorare/core/src/style/theme';
-import { OverrideClasses } from '@sorare/core/src/style/utils';
+import DialogContentWithNavigation from '@core/atoms/layout/DialogContentWithNavigation';
+import { theme } from '@core/style/theme';
+import { OverrideClasses } from '@core/style/utils';
 
 interface Props extends DrawerProps {
   contentTitle?: ReactNode;

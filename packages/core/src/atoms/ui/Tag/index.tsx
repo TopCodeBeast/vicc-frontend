@@ -35,7 +35,7 @@ export const Tag = styled.span<StyleProps>`
   ${({ small }) => {
     if (small) {
       return css`
-        height: auto;
+        height: var(--triple-unit);
         line-height: var(--triple-unit);
         min-width: var(--triple-unit);
         font-size: var(--intermediate-unit);
@@ -55,21 +55,30 @@ export const Tag = styled.span<StyleProps>`
         `;
       case 'red':
         return css`
-          background-color: var(--c-neutral-100);
-          color: var(--c-static-red-300);
-          border: 1px solid var(--c-static-red-300);
+          background-color: var(--c-static-red-600);
+          color: var(--c-static-neutral-100);
+          ${$stroke
+            ? css`
+                color: var(--c-static-red-600);
+                background-color: var(--c-static-neutral-100);
+                border: 1px solid var(--c-static-red-300);
+              `
+            : ``};
         `;
       case 'yellow':
         return css`
-          background-color: var(--c-yellow-300);
-          color: var(--c-neutral-1000);
-          border: 1px solid var(--c-yellow-300);
+          background-color: var(--c-static-yellow-300);
+          color: var(--c-static-neutral-1000);
         `;
       case 'white':
         return css`
           background-color: var(--c-neutral-100);
           color: var(--c-neutral-1000);
-          ${$stroke ? `border: 1px solid var(--c-neutral-400);` : ``};
+          ${$stroke
+            ? css`
+                border: 1px solid var(--c-neutral-400);
+              `
+            : ``};
         `;
       case 'blue':
         return css`

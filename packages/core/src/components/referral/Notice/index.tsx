@@ -3,22 +3,22 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import { CardQuality, Rarity, Sport } from '__generated__/globalTypes';
-import { Ball } from '@sorare/core/src/atoms/icons/Ball';
-import { MLBBall } from '@sorare/core/src/atoms/icons/MLBBall';
-import { NBABall } from '@sorare/core/src/atoms/icons/NBABall';
-import { SecondaryTabs } from '@sorare/core/src/atoms/navigation/SecondaryTabs';
-import { Text18, Title3, Title4 } from '@sorare/core/src/atoms/typography';
-import CardBack from 'components/card/Back';
-import { INVITE } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import { Lifecycle } from '@sorare/core/src/hooks/useLifecycle';
-import { sportsLabelsMessages } from '@sorare/core/src/lib/glossary';
-import { qualityNames } from '@sorare/core/src/lib/players';
-import { CARDS_REQUIREMENTS_BY_SPORT } from '@sorare/core/src/lib/referral';
-import { scarcityMessages } from '@sorare/core/src/lib/scarcity';
-import { theme } from '@sorare/core/src/style/theme';
+import { CardQuality, Rarity, Sport } from '@core/__generated__/globalTypes';
+import { Ball } from '@core/atoms/icons/Ball';
+import { MLBBall } from '@core/atoms/icons/MLBBall';
+import { NBABall } from '@core/atoms/icons/NBABall';
+import { SecondaryTabs } from '@core/atoms/navigation/SecondaryTabs';
+import { Text18, Title3, Title4 } from '@core/atoms/typography';
+import CardBack from '@core/components/card/Back';
+import { INVITE } from '@core/constants/routes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import { Lifecycle } from '@core/hooks/useLifecycle';
+import { sportsLabelsMessages } from '@core/lib/glossary';
+import { qualityNames } from '@core/lib/players';
+import { CARDS_REQUIREMENTS_BY_SPORT } from '@core/lib/referral';
+import { scarcityMessages } from '@core/lib/scarcity';
+import { theme } from '@core/style/theme';
 
 import { MilestonesNotice } from './MilestonesNotice';
 import { messages } from './messages';

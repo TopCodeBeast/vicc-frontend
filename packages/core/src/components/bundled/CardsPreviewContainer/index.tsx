@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { cardRatio } from '@sorare/core/src/lib/cardPicture';
+import { cardRatio } from '@core/lib/cardPicture';
 
 export const cardsPreviewContainerStyle = css`
   width: 100%;

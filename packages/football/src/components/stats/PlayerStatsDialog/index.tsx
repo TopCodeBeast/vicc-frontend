@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 
-import PlayerGameScorePage from '@sorare/football/src/components/stats/PlayerGameScorePage';
-import useTitle from '@sorare/football/src/components/stats/PlayerGameScorePage/useTitle';
+import PlayerGameScorePage from '@football/components/stats/PlayerGameScorePage';
+import useTitle from '@football/components/stats/PlayerGameScorePage/useTitle';
 
 type Props = {
   open: boolean;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Verified } from '@sorare/core/src/atoms/icons/Verified';
+import { Verified } from '@core/atoms/icons/Verified';
 
 const Root = styled.div`
   color: var(--c-neutral-1000);

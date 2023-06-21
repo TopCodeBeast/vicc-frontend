@@ -5,11 +5,10 @@ import classNames from 'classnames';
 import { useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import MenuIconButton from '@sorare/core/src/routing/MultiSportAppBar/MenuIconButton';
-import { useAppBarContext } from '@sorare/core/src/routing/MultiSportAppBar/context';
-import { OverrideClasses } from '@sorare/core/src/style/utils';
+import IconButton from '@core/atoms/buttons/IconButton';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import MenuIconButton from '@core/routing/MultiSportAppBar/MenuIconButton';
+import { OverrideClasses } from '@core/style/utils';
 
 import MultiSportSearchBar from '../MultiSportSearchBar';
 
@@ -44,7 +43,6 @@ export const ResponsiveSearchBar = () => {
   const { up: isDesktop } = useScreenSize('desktop');
   const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
   const [onExit, setOnExit] = useState<boolean>(false);
-  const { small } = useAppBarContext();
 
   const onClose = useCallback(() => {
     setMenuAnchor(null);
@@ -63,7 +61,6 @@ export const ResponsiveSearchBar = () => {
       <MenuIconButton
         icon={faSearch}
         onClick={toggleOpen}
-        disableRipple={small}
         active={Boolean(menuAnchor)}
       />
       <StyledMenu

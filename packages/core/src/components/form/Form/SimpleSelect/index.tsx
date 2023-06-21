@@ -4,9 +4,9 @@ import classNames from 'classnames';
 import { FormEventHandler, ReactNode } from 'react';
 import styled from 'styled-components';
 
-import Dropdown, { DropdownOptionLabel } from '@sorare/core/src/atoms/dropdowns/Dropdown';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import FormLabel from 'components/form/FormLabel';
+import Dropdown, { DropdownOptionLabel } from '@core/atoms/dropdowns/Dropdown';
+import { Text16 } from '@core/atoms/typography';
+import FormLabel from '@core/components/form/FormLabel';
 
 const Container = styled.div`
   display: flex;

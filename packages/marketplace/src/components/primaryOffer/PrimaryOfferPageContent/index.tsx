@@ -9,9 +9,9 @@ import HandledError from '@sorare/core/src/routing/HandledError';
 
 import MultiCardPageContent, {
   Section,
-} from '@sorare/marketplace/src/components/market/MultiCardPageContent';
-import PrimaryOfferSale from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferSale';
-import { PrimaryOfferTokensPreview } from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferTokensPreview';
+} from '@marketplace/components/market/MultiCardPageContent';
+import PrimaryOfferSale from '@marketplace/components/primaryOffer/PrimaryOfferSale';
+import { PrimaryOfferTokensPreview } from '@marketplace/components/primaryOffer/PrimaryOfferTokensPreview';
 
 import { PrimaryOfferPageContent_primaryOffer } from './__generated__/index.graphql';
 

@@ -173,7 +173,6 @@ export const LeagueRow = ({
         color="blue"
         medium
         role="link"
-        disableRipple
         state={{
           sourcePage: 'pick-league',
         }}

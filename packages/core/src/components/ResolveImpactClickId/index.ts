@@ -2,9 +2,9 @@ import qs from 'qs';
 import { useLayoutEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import idFromObject from '@sorare/core/src/gql/idFromObject';
-import { randomUUID } from '@sorare/core/src/lib/uuid';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import idFromObject from '@core/gql/idFromObject';
+import { randomUUID } from '@core/lib/uuid';
 
 import { IMPACT_PAGE_LOAD_API_URL } from '../../config';
 import {

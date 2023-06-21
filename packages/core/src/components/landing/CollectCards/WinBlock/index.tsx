@@ -1,12 +1,12 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
+import { Sport } from '@core/__generated__/globalTypes';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import { CardRarity } from '__generated__/usSportsGlobalTypes';
-import { USSportCardBack } from 'components/cards/Back';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { theme } from '@sorare/core/src/style/theme';
+import { CardRarity } from '@core/__generated__/usSportsGlobalTypes';
+import { USSportCardBack } from '@core/components/cards/Back';
+import { useIntlContext } from '@core/contexts/intl';
+import { theme } from '@core/style/theme';
 
 import { SectionText } from '../SectionText';
 

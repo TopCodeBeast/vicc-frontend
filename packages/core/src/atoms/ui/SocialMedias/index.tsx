@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
 import styled from 'styled-components';
 
-import Dropdown from '@sorare/core/src/atoms/dropdowns/Dropdown';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
+import Dropdown from '@core/atoms/dropdowns/Dropdown';
+import useEvents from '@core/lib/events/useEvents';
 
 export type Social =
   | 'twitter'

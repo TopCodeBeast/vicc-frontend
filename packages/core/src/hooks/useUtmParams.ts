@@ -1,7 +1,7 @@
 import qs from 'qs';
 import { useMemo } from 'react';
 
-import { getValue } from 'components/PersistsQueryStringParameters/storage';
+import { getValue } from '@core/components/PersistsQueryStringParameters/storage';
 
 import { Sport, UtmInput } from '../__generated__/globalTypes';
 

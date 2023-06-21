@@ -2,9 +2,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Title3 } from '@sorare/core/src/atoms/typography';
-import { useFiatBalance } from '@sorare/core/src/hooks/wallets/useFiatBalance';
-import { getFaCurrencySymbol } from '@sorare/core/src/lib/fiat';
+import { Title3 } from '@core/atoms/typography';
+import { useFiatBalance } from '@core/hooks/wallets/useFiatBalance';
+import { getFaCurrencySymbol } from '@core/lib/fiat';
 
 const Container = styled.div`
   display: flex;

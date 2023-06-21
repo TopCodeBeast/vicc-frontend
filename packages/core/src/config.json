@@ -1,21 +1,78 @@
 {
   "development": {
+    "backendHost": "",
+    "brazeApiKey": "",
+    "brazeSdkEndpoint": "",
     "walletUrl": "",
     "wsUrl": "",
-    "backendHost": "",
-    "env": {}
+    "launchDarklyClientSideID": "",
+    "usSportsBackendHost": "",
+    "moonpayUrl": "",
+    "portisId": "",
+    "segmentApiKey": "",
+    "stripePublicKey": "",
+    "sofeHost": "",
+    "rampUrl": "",
+    "rampApiKey": "",
+    "impactPageLoadAPIUrl": "",
+    "env": {
+    }
   },
   "staging": {
+    "backendHost": "",
+    "brazeApiKey": "",
+    "brazeSdkEndpoint": "",
     "walletUrl": "",
     "wsUrl": "",
-    "backendHost": "",
-    "env": {}
+    "launchDarklyClientSideID": "",
+    "usSportsBackendHost": "",
+    "moonpayUrl": "",
+    "portisId": "",
+    "segmentApiKey": "",
+    "stripePublicKey": "",
+    "sofeHost": "",
+    "rampUrl": "",
+    "rampApiKey": "",
+    "impactPageLoadAPIUrl": "",
+    "env": {
+    }
   },
   "production": {
+    "backendHost": "",
+    "brazeApiKey": "",
+    "brazeSdkEndpoint": "",
     "walletUrl": "",
     "wsUrl": "",
-    "backendHost": "",
-    "env": {}
+    "launchDarklyClientSideID": "",
+    "usSportsBackendHost": "",
+    "moonpayUrl": "",
+    "portisId": "",
+    "segmentApiKey": "",
+    "stripePublicKey": "",
+    "sofeHost": "",
+    "rampUrl": "",
+    "rampApiKey": "",
+    "impactPageLoadAPIUrl": "",
+    "env": {
+    }
   },
-  "mockprod": {}
+  "mockprod": {
+    "backendHost": "",
+    "brazeApiKey": "",
+    "brazeSdkEndpoint": "",
+    "walletUrl": "",
+    "wsUrl": "",
+    "launchDarklyClientSideID": "",
+    "usSportsBackendHost": "",
+    "moonpayUrl": "",
+    "portisId": "",
+    "segmentApiKey": "",
+    "stripePublicKey": "",
+    "sofeHost": "",
+    "rampUrl": "",
+    "rampApiKey": "",
+    "impactPageLoadAPIUrl": "",
+    "env": {
+    }
+  }
 }

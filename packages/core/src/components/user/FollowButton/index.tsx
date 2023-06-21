@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import Button, { Props as ButtonProps } from '@sorare/core/src/atoms/buttons/Button';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useSubscription from '@sorare/core/src/hooks/subscriptions/useSubscription';
-import useUnsubscription from '@sorare/core/src/hooks/subscriptions/useUnsubscription';
-import useLoggedCallback from '@sorare/core/src/hooks/useLoggedCallback';
+import Button, { Props as ButtonProps } from '@core/atoms/buttons/Button';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useSubscription from '@core/hooks/subscriptions/useSubscription';
+import useUnsubscription from '@core/hooks/subscriptions/useUnsubscription';
+import useLoggedCallback from '@core/hooks/useLoggedCallback';
 
 interface Subscription {
   slug: string;

@@ -16,8 +16,8 @@ import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { qualityNames } from '@sorare/core/src/lib/players';
 import { CARDS_REQUIREMENTS_BY_SPORT } from '@sorare/core/src/lib/referral';
 
-import TeamAvatar from '@sorare/football/src/components/club/TeamAvatar';
-import CompetitionLogo from '@sorare/football/src/components/competition/CompetitionLogo';
+import TeamAvatar from '@football/components/club/TeamAvatar';
+import CompetitionLogo from '@football/components/competition/CompetitionLogo';
 
 import { ReferralCampaignTitle_referralCampaign } from './__generated__/index.graphql';
 

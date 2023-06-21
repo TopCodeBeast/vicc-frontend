@@ -4,21 +4,22 @@ import { Link } from 'react-router-dom';
 import { animated, useSpring } from '@react-spring/web';
 import styled from 'styled-components';
 
-import footballLogo from 'assets/logos/football/main.svg';
-import mlbLogo from 'assets/logos/mlb/mlb.svg';
-import nbaLogo from 'assets/logos/nba/nba.svg';
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
-import { LinkOther } from '@sorare/core/src/atoms/navigation/Box';
-import SmallerStarBall from '@sorare/core/src/atoms/navigation/SmallerStarBall';
-import { useHeroAnimationTimings } from 'components/landing/NewLandingMultiSport/utils';
-import { FOOTBALL_PATH, LANDING, MLB_PATH, NBA_PATH } from '@sorare/core/src/constants/routes';
-import { useConnectionContext } from '@sorare/core/src/contexts/connection';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { glossary, sportsLabelsMessages } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import footballLogo from '@core/assets/logos/football/main.svg';
+import mlbLogo from '@core/assets/logos/mlb/mlb.svg';
+import nbaLogo from '@core/assets/logos/nba/nba.svg';
+import Button from '@core/atoms/buttons/Button';
+import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { LinkOther } from '@core/atoms/navigation/Box';
+import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
+import { useHeroAnimationTimings } from '@core/components/landing/NewLandingMultiSport/utils';
+import { FOOTBALL_PATH, LANDING, MLB_PATH, NBA_PATH } from '@core/constants/routes';
+import { useConnectionContext } from '@core/contexts/connection';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useIntlContext } from '@core/contexts/intl';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import useEvents from '@core/lib/events/useEvents';
+import { glossary, sportsLabelsMessages } from '@core/lib/glossary';
+import { theme } from '@core/style/theme';
 
 export const Container = styled.div`
   z-index: 2;
@@ -156,6 +157,7 @@ const MobileSportsBanner = styled.div`
 
 const LoggedOutAppBar = () => {
   const track = useEvents();
+  const { currentUser } = useCurrentUserContext();
   const { signIn, signUp } = useConnectionContext();
   const { formatMessage } = useIntlContext();
   const { secondBatch } = useHeroAnimationTimings();
@@ -272,7 +274,7 @@ const LoggedOutAppBar = () => {
           </Actions>
         </Wrapper>
       </DarkBackground>
-      {!isDesktop && (
+      {!isDesktop && !currentUser && (
         <MobileSportsBanner
           className={classNames({
             translate: secondBatch && isVisible,

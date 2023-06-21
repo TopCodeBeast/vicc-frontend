@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 import { Position } from '@sorare/core/src/__generated__/globalTypes';
 import UninteractiveToken from '@sorare/core/src/components/token/UninteractiveToken';
 
-import UninteractiveStarterBundlePreviewSkeleton from '@sorare/football/src/components/starterBundle/UninteractiveStarterBundlePreviewSkeleton';
+import UninteractiveStarterBundlePreviewSkeleton from '@football/components/starterBundle/UninteractiveStarterBundlePreviewSkeleton';
 
 import { UninteractiveStarterBundlePreview_card } from './__generated__/index.graphql';
 

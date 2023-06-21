@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { forwardRef } from 'react';
 import styled from 'styled-components';
 
-import Player from '@sorare/football/src/components/MatchView/Player';
+import Player from '@football/components/MatchView/Player';
 
 import { Formation_game } from './__generated__/index.graphql';
 

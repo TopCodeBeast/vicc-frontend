@@ -8,8 +8,8 @@ import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useNavigateWithDeeplink from '@sorare/core/src/hooks/useNavigateWithDeeplink';
 
 import useFontFaceObserver from '@sorare/use-font-face-observer';
-import { DesktopDiscoverScarcities } from '@sorare/football/src/components/onboarding/DiscoverScarcities/DesktopDiscoverScarcities';
-import { MobileDiscoverScarcities } from '@sorare/football/src/components/onboarding/DiscoverScarcities/MobileDiscoverScarcities';
+import { DesktopDiscoverScarcities } from '@football/components/onboarding/DiscoverScarcities/DesktopDiscoverScarcities';
+import { MobileDiscoverScarcities } from '@football/components/onboarding/DiscoverScarcities/MobileDiscoverScarcities';
 
 export const DiscoverScarcities = () => {
   const { up: isTablet } = useScreenSize('tablet');

@@ -1,17 +1,16 @@
 import { faChevronDown } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
-import { ReactElement } from 'react';
+import { FC, ReactElement } from 'react';
 import { MessageDescriptor } from 'react-intl';
 import styled from 'styled-components';
 
-import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
-import TagButton from '@sorare/core/src/atoms/buttons/TagButton';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import useToggle from '@sorare/core/src/hooks/useToggle';
-import { theme } from '@sorare/core/src/style/theme';
+import TagButton from '@core/atoms/buttons/TagButton';
+import { Text16 } from '@core/atoms/typography';
+import { useIntlContext } from '@core/contexts/intl';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import useToggle from '@core/hooks/useToggle';
+import { theme } from '@core/style/theme';
 
 export type Selection = [string, string | undefined, string | undefined];
 type SubSection = Record<string, undefined | string[]>;
@@ -26,85 +25,84 @@ interface Props {
   translations?: Record<string, MessageDescriptor>;
 }
 
+const Root = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--triple-unit);
+  margin-top: var(--double-unit);
+`;
+const Dropdown = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--unit);
+`;
 const SideBar = styled.div`
-  width: 100%;
-  margin-right: 0;
-  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--unit);
   border-bottom: 1px solid var(--c-neutral-300);
+  padding-bottom: var(--double-unit);
+  button {
+    text-align: left;
+  }
   @media (min-width: ${theme.breakpoints.values.laptop}px) {
-    margin-right: 20px;
-    width: 220px;
-    padding: unset;
-    border-bottom: unset;
+    min-width: 220px;
+    border-bottom: none;
   }
 `;
-const SectionTitle = styled(Text16)`
-  color: var(--c-neutral-600);
+const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
 `;
 const Sub1 = styled.div`
   display: none;
   flex-direction: column;
-  margin-left: 20px;
-  align-items: baseline;
-`;
-const Section = styled.div`
-  &.selected ${SectionTitle} {
-    font-weight: bold;
-    color: var(--c-brand-600);
-  }
-  &.selected ${Sub1} {
+  gap: var(--unit);
+  margin-left: var(--double-unit);
+  justify-content: stretch;
+  &.selected {
     display: flex;
   }
 `;
-const SectionButton = styled(ButtonBase)`
-  margin-bottom: 5px;
-`;
-
-const Sub1Button = styled(ButtonBase)`
-  margin-bottom: 5px;
-`;
-const Sub1Title = styled(Text16)`
-  color: var(--c-neutral-600);
-  &.selected {
-    color: var(--c-brand-600);
-  }
-`;
-const Dropdown = styled.div`
-  margin-bottom: 40px;
-`;
-const Selected = styled(ButtonBase)`
-  padding: 20px 30px;
-  border-top: 1px solid var(--c-neutral-300);
-  border-bottom: 1px solid var(--c-neutral-300);
-  width: 100%;
+const Selected = styled.button`
   display: flex;
   justify-content: space-between;
-`;
-const SelectedSection = styled.span``;
-const SelectedSub1 = styled.span``;
-const Root = styled.div``;
-const Title = styled.div`
-  padding: 0px 20px;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
-    padding: unset;
-  }
+  color: var(--c-neutral-1000);
 `;
 const Container = styled.div`
   @media (min-width: ${theme.breakpoints.values.laptop}px) {
     display: flex;
   }
 `;
-const Right = styled.div`
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--double-unit);
   width: 100%;
 `;
 const Sub2 = styled.div`
   display: flex;
-  margin-bottom: 20px;
-  gap: 10px;
+  white-space: nowrap;
+  overflow: auto;
+  gap: var(--unit);
 `;
-const Main = styled.div`
-  padding-bottom: 10px;
-`;
+
+const Button: FC<{ onClick: () => void; selected: boolean }> = ({
+  onClick,
+  selected,
+  children,
+}) => (
+  <Text16
+    color={selected ? 'var(--c-brand-600)' : 'var(--c-neutral-600)'}
+    as="button"
+    onClick={onClick}
+    type="button"
+    bold={selected}
+  >
+    {children}
+  </Text16>
+);
 
 export const Tree = ({
   schema,
@@ -151,37 +149,29 @@ export const Tree = ({
   const renderSideBar = () => (
     <SideBar>
       {Object.entries(schema).map(([section, subSections]) => (
-        <Section
-          key={section}
-          className={classnames({
-            selected: selectedSection === section,
-          })}
-        >
-          <SectionButton onClick={select(section)}>
-            <SectionTitle>
-              {translations ? formatMessage(translations[section]) : section}
-            </SectionTitle>
-          </SectionButton>
+        <Section key={section}>
+          <Button
+            selected={selectedSection === section}
+            onClick={select(section)}
+          >
+            {translations ? formatMessage(translations[section]) : section}
+          </Button>
           {subSections && (
-            <Sub1>
+            <Sub1
+              className={classnames({
+                selected: selectedSection === section,
+              })}
+            >
               {Object.keys(subSections).map(subSection => (
-                <Sub1Button
-                  onClick={select(section, subSection)}
+                <Button
                   key={`${section}/${subSection}`}
-                  className={classnames({
-                    selected: selectedSub1 === subSection,
-                  })}
+                  selected={selectedSub1 === subSection}
+                  onClick={select(section, subSection)}
                 >
-                  <Sub1Title
-                    className={classnames({
-                      selected: selectedSub1 === subSection,
-                    })}
-                  >
-                    {translations
-                      ? formatMessage(translations[subSection])
-                      : subSection}
-                  </Sub1Title>
-                </Sub1Button>
+                  {translations
+                    ? formatMessage(translations[subSection])
+                    : subSection}
+                </Button>
               ))}
             </Sub1>
           )}
@@ -194,10 +184,8 @@ export const Tree = ({
     <Dropdown>
       <Selected onClick={toggleOpen}>
         <Text16 bold>
-          <SelectedSection>{selectedSection}</SelectedSection>
-          {selectedSub1 && (
-            <SelectedSub1>&nbsp;/&nbsp;{selectedSub1}</SelectedSub1>
-          )}
+          {selectedSection}
+          {selectedSub1 && <>&nbsp;/&nbsp;{selectedSub1}</>}
         </Text16>
         <FontAwesomeIcon icon={faChevronDown} />
       </Selected>
@@ -208,10 +196,10 @@ export const Tree = ({
   return (
     <Root>
       {!isLaptop && renderDropdown()}
-      <Title>{title}</Title>
+      <div>{title}</div>
       <Container>
         {isLaptop && renderSideBar()}
-        <Right>
+        <Content>
           {sub2() && (
             <Sub2>
               {sub2()?.map(sub2Title => (
@@ -225,8 +213,8 @@ export const Tree = ({
               ))}
             </Sub2>
           )}
-          <Main>{children}</Main>
-        </Right>
+          <div>{children}</div>
+        </Content>
       </Container>
     </Root>
   );

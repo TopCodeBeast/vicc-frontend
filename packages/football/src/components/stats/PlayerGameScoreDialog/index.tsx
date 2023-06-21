@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
-import PlayerStatsDialog from '@sorare/football/src/components/stats/PlayerStatsDialog';
+import PlayerStatsDialog from '@football/components/stats/PlayerStatsDialog';
 
 import {
   PlayerGameScoreDialogQuery,

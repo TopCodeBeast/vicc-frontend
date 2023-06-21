@@ -68,12 +68,12 @@ export const TooltipTitle = styled(TitlePart)`
 `;
 
 const TextGrey = styled.span`
-  color: var(--c-neutral-400);
+  color: var(--c-neutral-600);
 `;
 
 const PriceHistoryValueContainer = styled(Text14)<{ rarity: Rarity }>`
   font-weight: bold;
-  color: var(--c-neutral-100);
+  color: var(--c-neutral-1000);
   line-height: 19px;
 `;
 

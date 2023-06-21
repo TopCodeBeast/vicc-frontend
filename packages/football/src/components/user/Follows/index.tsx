@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
 import { Text14 } from '@sorare/core/src/atoms/typography';
 
-import useNetworkTabPath from 'hooks/useNetworkTabPath';
+import useNetworkTabPath from '@football/hooks/useNetworkTabPath';
 
 import { Follows_user } from './__generated__/index.graphql';
 

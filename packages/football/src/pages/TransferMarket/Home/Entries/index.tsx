@@ -19,12 +19,12 @@ import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { transferMarket } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
 
-import auctionsDesktop from '@sorare/football/src/pages/TransferMarket/assets/auctions_desktop.png';
-import auctionsMobile from '@sorare/football/src/pages/TransferMarket/assets/auctions_mobile.png';
-import managerSalesDesktop from '@sorare/football/src/pages/TransferMarket/assets/manager_sales_desktop.png';
-import managerSalesMobile from '@sorare/football/src/pages/TransferMarket/assets/manager_sales_mobile.png';
-import starterPacksDesktop from '@sorare/football/src/pages/TransferMarket/assets/starter_packs_desktop.png';
-import starterPacksMobile from '@sorare/football/src/pages/TransferMarket/assets/starter_packs_mobile.png';
+import auctionsDesktop from '@football/pages/TransferMarket/assets/auctions_desktop.png';
+import auctionsMobile from '@football/pages/TransferMarket/assets/auctions_mobile.png';
+import managerSalesDesktop from '@football/pages/TransferMarket/assets/manager_sales_desktop.png';
+import managerSalesMobile from '@football/pages/TransferMarket/assets/manager_sales_mobile.png';
+import starterPacksDesktop from '@football/pages/TransferMarket/assets/starter_packs_desktop.png';
+import starterPacksMobile from '@football/pages/TransferMarket/assets/starter_packs_mobile.png';
 
 import { Entry } from './Entry';
 

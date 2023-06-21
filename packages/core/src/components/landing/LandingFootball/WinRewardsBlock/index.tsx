@@ -6,15 +6,15 @@ import {
 } from 'react-intl';
 import styled from 'styled-components';
 
-import Container from '@sorare/core/src/atoms/layout/Container';
+import Container from '@core/atoms/layout/Container';
 import {
   MixedFontTitle,
   Section,
   SubTitle,
-} from 'components/landing/LandingFootball/ui';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import useSlider from '@sorare/core/src/hooks/useSlider';
-import { theme } from '@sorare/core/src/style/theme';
+} from '@core/components/landing/LandingFootball/ui';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import useSlider from '@core/hooks/useSlider';
+import { theme } from '@core/style/theme';
 
 const messages = defineMessages({
   title: {

@@ -2,12 +2,12 @@ import classnames from 'classnames';
 import { CSSProperties } from 'react';
 import styled from 'styled-components';
 
-import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
+import Tooltip from '@core/atoms/tooltip/Tooltip';
 import {
   flagUrl,
   toDisplayName,
   toThreeLettersCountryCode,
-} from '@sorare/core/src/lib/territories';
+} from '@core/lib/territories';
 
 type Props = {
   className?: string;

@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 
-import IconButton, { Props as IconButtonProps } from '@sorare/core/src/atoms/buttons/IconButton';
-import { useConfigContext } from '@sorare/core/src/contexts/config';
-import { useAppBarContext } from '@sorare/core/src/routing/MultiSportAppBar/context';
+import IconButton, { Props as IconButtonProps } from '@core/atoms/buttons/IconButton';
+import { useConfigContext } from '@core/contexts/config';
+import { useAppBarContext } from '@core/routing/MultiSportAppBar/context';
 
 interface Props extends IconButtonProps {
   active?: boolean;

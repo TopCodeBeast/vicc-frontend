@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 
-import { TypographyVariant } from '@sorare/core/src/atoms/typography';
-import { isA } from '@sorare/core/src/lib/gql';
+import { TypographyVariant } from '@core/atoms/typography';
+import { isA } from '@core/lib/gql';
 
 import { BundledAuctionName_auction } from './__generated__/index.graphql';
 

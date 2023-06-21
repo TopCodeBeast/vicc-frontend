@@ -2,30 +2,22 @@ import { gql } from '@apollo/client';
 import { isPast, parseISO } from 'date-fns';
 import styled from 'styled-components';
 
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import { Text20 } from '@sorare/core/src/atoms/typography';
 import { ConversionCreditTinyBanner } from '@sorare/core/src/components/conversionCredit/ConversionCreditTinyBanner';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { useSportContext } from '@sorare/core/src/contexts/sport';
+import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 import { theme } from '@sorare/core/src/style/theme';
 
-import AuctionTimeLeft from '@sorare/marketplace/src/components/auction/AuctionTimeLeft';
-import PrimaryOfferBuyField from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferBuyField';
-import SmallUser from '@sorare/marketplace/src/components/user/SmallUser';
+import AuctionTimeLeft from '@marketplace/components/auction/AuctionTimeLeft';
+import PrimaryOfferBuyField from '@marketplace/components/primaryOffer/PrimaryOfferBuyField';
+import SmallUser from '@marketplace/components/user/SmallUser';
 
 import { PrimaryOfferSale_primaryOffer } from './__generated__/index.graphql';
-
-type PrimaryOfferSale_primaryOffer_priceFiat =
-  PrimaryOfferSale_primaryOffer['priceFiat'];
 
 interface Props {
   primaryOffer: PrimaryOfferSale_primaryOffer;
 }
-
-type LowercaseCurrencyCode = keyof Omit<
-  PrimaryOfferSale_primaryOffer_priceFiat,
-  '__typename'
->;
 
 const Container = styled.div`
   display: flex;
@@ -66,20 +58,15 @@ const Column = styled.div`
 `;
 
 export const PrimaryOfferSale = ({ primaryOffer }: Props) => {
-  const { priceFiat, endDate, buyer } = primaryOffer;
-  const {
-    fiatCurrency: { code: preferredCurrencyCode },
-  } = useCurrentUserContext();
-  const { formatNumber } = useIntlContext();
+  const { priceWei, priceFiat, endDate, buyer } = primaryOffer;
   const { sport } = useSportContext();
-  const price = formatNumber(
-    priceFiat[preferredCurrencyCode.toLowerCase() as LowercaseCurrencyCode] /
-      100,
-    {
-      style: 'currency',
-      currency: preferredCurrencyCode,
-    }
-  );
+  const { main: price } = useAmountWithConversion({
+    monetaryAmount: {
+      referenceCurrency: SupportedCurrency.WEI,
+      wei: priceWei,
+      ...priceFiat,
+    },
+  });
   const ended = isPast(parseISO(endDate));
   const bought = !!buyer;
   return (

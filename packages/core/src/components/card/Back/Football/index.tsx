@@ -1,7 +1,7 @@
 import { HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-import Shine from '@sorare/core/src/atoms/ui/Shine';
+import Shine from '@core/atoms/ui/Shine';
 
 type Props = {
   path: string;

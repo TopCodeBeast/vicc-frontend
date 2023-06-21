@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import CloseButton from '@sorare/core/src/atoms/buttons/CloseButton';
+import CloseButton from '@core/atoms/buttons/CloseButton';
 
 import Dialog, { Props as DialogProps } from '../Dialog';
 import DialogContentWithNavigation from '../DialogContentWithNavigation';

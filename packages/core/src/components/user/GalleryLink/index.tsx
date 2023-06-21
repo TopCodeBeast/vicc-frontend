@@ -2,10 +2,10 @@ import { gql } from '@apollo/client';
 import { ComponentProps, FC, Fragment, PropsWithChildren } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { Sport } from '__generated__/globalTypes';
-import { LEGACY_USER_GALLERY } from '@sorare/core/src/constants/routes';
-import { useSportContext } from '@sorare/core/src/contexts/sport';
-import { galleryPathFromSport } from '@sorare/core/src/lib/galleryPathFromSport';
+import { Sport } from '@core/__generated__/globalTypes';
+import { LEGACY_USER_GALLERY } from '@core/constants/routes';
+import { useSportContext } from '@core/contexts/sport';
+import { galleryPathFromSport } from '@core/lib/galleryPathFromSport';
 
 type UserWithGalleryPathFactory<T> = {
   user: T & { suspended: boolean };

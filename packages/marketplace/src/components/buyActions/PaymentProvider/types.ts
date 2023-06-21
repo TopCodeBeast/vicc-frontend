@@ -6,23 +6,26 @@ import {
   Sport,
   SupportedCurrency,
 } from '@sorare/core/src/__generated__/globalTypes';
+import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { Currency } from '@sorare/core/src/lib/currency';
 
 import { PaymentProvider_auction } from './__generated__/fragments.graphql';
 
 type onSubmitArgs = {
-  weiAmount: string;
-  totalFiatAmountInCents: string;
+  monetaryAmount: MonetaryAmountOutput;
   conversionCreditId?: string;
   supportedCurrency: SupportedCurrency;
 };
 
 export interface PaymentProviderProps {
   auction?: PaymentProvider_auction;
-  onSuccess: (weiAmount?: string) => void;
+  onSuccess: (amount?: MonetaryAmountOutput) => void;
   onSubmit: (args: onSubmitArgs) => Promise<void | { err: string[] }>;
   objectId: string;
-  priceInWei: string;
+  price: {
+    amount: string | number; // wei or cents
+    referenceCurrency: SupportedCurrency;
+  };
   creditCardFee?: number;
   activeFee?: boolean;
   cta: MessageDescriptor;

@@ -5,9 +5,9 @@ import { Destination } from '@segment/consent-manager/types/types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import Button from '@core/atoms/buttons/Button';
+import { Text16 } from '@core/atoms/typography';
+import { glossary } from '@core/lib/glossary';
 
 import LinkToCookiePolicy from './LinkToCookiePolicy';
 

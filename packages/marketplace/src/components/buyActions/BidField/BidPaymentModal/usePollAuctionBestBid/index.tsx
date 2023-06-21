@@ -1,10 +1,14 @@
 import { gql, useLazyQuery } from '@apollo/client';
 import Big from 'bignumber.js';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
+import useMonetaryAmount, {
+  MonetaryAmountOutput,
+} from '@sorare/core/src/hooks/useMonetaryAmount';
 
-import useBestBidBelongsToUser from '@sorare/marketplace/src/hooks/auctions/useBestBidBelongsToUser';
+import useBestBidBelongsToUser from '@marketplace/hooks/auctions/useBestBidBelongsToUser';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import {
@@ -22,14 +26,29 @@ const TOKEN_AUCTION_BEST_BID_QUERY = gql`
         minNextBid
         currentPrice
         privateCurrentPrice
+        currency
         bestBid {
           id
-          amount
+          amounts {
+            eur
+            gbp
+            usd
+            wei
+            referenceCurrency
+          }
           ...UseBestBidBelongsToUser_bestBid
         }
         myBestBid {
           id
+          fiatPayment
           maximumAmount
+          maximumAmounts {
+            eur
+            gbp
+            usd
+            wei
+            referenceCurrency
+          }
         }
         myLastBid {
           id
@@ -43,9 +62,10 @@ const TOKEN_AUCTION_BEST_BID_QUERY = gql`
 const usePollAuctionBestBid = (
   enabled: boolean,
   auction: usePollAuctionBestBid_auction,
-  weiAmount: string,
+  monetaryAmount: MonetaryAmountOutput | null,
   cb: (winning: boolean) => void
 ) => {
+  const { toMonetaryAmount } = useMonetaryAmount();
   const [refetch] = useLazyQuery<
     TokenAuctionBestBidQuery,
     TokenAuctionBestBidQueryVariables
@@ -53,17 +73,59 @@ const usePollAuctionBestBid = (
 
   const bestBidBelongsToUser = useBestBidBelongsToUser();
 
-  const bigWeiAmount = new Big(weiAmount);
   const { bestBid, myBestBid } = auction;
   const userWinning = bestBid && bestBidBelongsToUser(bestBid);
+
+  const myBestBidReferenceCurrency =
+    myBestBid?.maximumAmounts?.referenceCurrency;
+  const myBestBidReferenceCurrencyIndex =
+    myBestBidReferenceCurrency?.toLowerCase() as keyof MonetaryAmountOutput;
+  const myBestBidMonetaryAmount =
+    myBestBid?.maximumAmounts &&
+    toMonetaryAmount({
+      ...myBestBid.maximumAmounts,
+    });
+
+  const bestBidReferenceCurrency = bestBid?.amounts?.referenceCurrency;
+  const bestBidReferenceCurrencyIndex =
+    bestBidReferenceCurrency?.toLowerCase() as keyof MonetaryAmountOutput;
+  const bestBidMonetaryAmount =
+    bestBid?.amounts &&
+    toMonetaryAmount({
+      ...bestBid.amounts,
+    });
+
   const bidWinning =
-    myBestBid?.maximumAmount &&
-    new Big(myBestBid.maximumAmount).eq(bigWeiAmount) &&
+    myBestBidReferenceCurrency &&
+    myBestBidMonetaryAmount &&
+    monetaryAmount &&
+    myBestBidMonetaryAmount[myBestBidReferenceCurrencyIndex] ===
+      monetaryAmount[myBestBidReferenceCurrencyIndex] &&
     userWinning;
-  const bidOutBidded =
-    bestBid?.amount &&
-    new Big(bestBid.amount).gte(bigWeiAmount) &&
-    !userWinning;
+
+  const bidOutBidded = useMemo(() => {
+    if (!monetaryAmount || !bestBidMonetaryAmount) {
+      return false;
+    }
+    if (!bestBidReferenceCurrency) return false;
+    if (bestBidReferenceCurrency === SupportedCurrency.WEI) {
+      return (
+        new Big(bestBidMonetaryAmount.wei).gte(monetaryAmount.wei) &&
+        !userWinning
+      );
+    }
+    return (
+      bestBidMonetaryAmount[bestBidReferenceCurrencyIndex] >=
+        monetaryAmount[bestBidReferenceCurrencyIndex] && !userWinning
+    );
+  }, [
+    bestBidMonetaryAmount,
+    bestBidReferenceCurrency,
+    bestBidReferenceCurrencyIndex,
+    monetaryAmount,
+    userWinning,
+  ]);
+
   const shouldStop = bidWinning || bidOutBidded;
 
   const auctionId = idFromObject(auction?.id) || '';
@@ -98,12 +160,24 @@ usePollAuctionBestBid.fragments = {
       id
       bestBid {
         id
-        amount
+        amounts {
+          eur
+          gbp
+          usd
+          wei
+          referenceCurrency
+        }
         ...UseBestBidBelongsToUser_bestBid
       }
       myBestBid {
         id
-        maximumAmount
+        maximumAmounts {
+          eur
+          gbp
+          usd
+          wei
+          referenceCurrency
+        }
       }
     }
     ${useBestBidBelongsToUser.fragments.bestBid}

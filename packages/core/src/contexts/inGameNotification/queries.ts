@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-import Notification from 'components/activity/Notification';
-import NotificationDialog from 'components/notification/NotificationDialog';
+import Notification from '@core/components/activity/Notification';
+import NotificationDialog from '@core/components/notification/NotificationDialog';
 
 const notification = gql`
   fragment InGameNotificationProvider_notification on Notification {

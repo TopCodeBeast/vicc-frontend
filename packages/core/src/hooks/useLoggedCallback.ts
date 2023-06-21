@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useConnectionContext } from '@sorare/core/src/contexts/connection';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useConnectionContext } from '@core/contexts/connection';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 
 import useAfterLoggedInTarget from './useAfterLoggedInTarget';
 import useTruncatedLocation from './useTruncatedLocation';

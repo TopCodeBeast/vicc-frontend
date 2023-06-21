@@ -4,7 +4,7 @@ import { Dispatch, useCallback } from 'react';
 import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import { errorCodes } from '@sorare/core/src/hooks/graphql/useMutation';
 
-import useCreateDirectOffer from '@sorare/marketplace/src/hooks/offers/useCreateDirectOffer';
+import useCreateDirectOffer from '@marketplace/hooks/offers/useCreateDirectOffer';
 
 import { useOnSubmit_token } from './__generated__/useOnSubmit.graphql';
 import { switchToBuilding, switchToSubmitting } from './actions';

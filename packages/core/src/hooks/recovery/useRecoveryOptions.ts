@@ -3,8 +3,8 @@ import { useMemo } from 'react';
 import {
   PrivateKeyRecoveryOptionMethodEnum,
   PrivateKeyRecoveryOptionStatusEnum,
-} from '__generated__/globalTypes';
-import { CurrentUser, useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+} from '@core/__generated__/globalTypes';
+import { CurrentUser, useCurrentUserContext } from '@core/contexts/currentUser';
 
 export type RecoveryOption = NonNullable<
   CurrentUser['wallet']

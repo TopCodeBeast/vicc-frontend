@@ -2,7 +2,7 @@ import { QueryHookOptions, QueryResult } from '@apollo/client';
 import { DocumentNode } from 'graphql';
 import { Maybe } from 'graphql/jsutils/Maybe';
 
-import { GqlType } from '@sorare/core/src/lib/gql';
+import { GqlType } from '@core/lib/gql';
 
 import usePaginatedQuery, { WithRelayPagination } from './usePaginatedQuery';
 

@@ -1,11 +1,14 @@
 import BigNumber from 'bignumber.js';
 
-import { SupportedCurrency } from '__generated__/globalTypes';
+import { FiatCurrency, SupportedCurrency } from '@core/__generated__/globalTypes';
+
+import { CurrencyCode } from './fiat';
 
 const ETH_IN_WEI = new BigNumber('1000000000000000000');
 const ETH_PRECISION = 4;
 
-type Currency = 'eur' | 'usd' | 'gbp' | 'wei';
+const currencies = ['eur', 'usd', 'gbp', 'wei'] as const;
+export type MonetaryAmountCurrency = (typeof currencies)[number];
 
 type Rates = {
   eur: number;
@@ -21,11 +24,17 @@ export interface MonetaryAmountParams {
   wei?: string | null;
 }
 
+export const getMonetaryAmountIndex = (
+  currency: SupportedCurrency | FiatCurrency | CurrencyCode
+) => {
+  return currency.toLowerCase() as MonetaryAmountCurrency;
+};
+
 class MonetaryAmount {
   public static convert(
-    referenceCurrency: Currency,
+    referenceCurrency: MonetaryAmountCurrency,
     referenceAmount: BigNumber,
-    currency: Currency,
+    currency: MonetaryAmountCurrency,
     rates: Rates
   ): BigNumber {
     if (referenceCurrency === currency) return referenceAmount;
@@ -34,7 +43,7 @@ class MonetaryAmount {
       return referenceAmount
         .dividedBy(ETH_IN_WEI)
         .multipliedBy(MonetaryAmount.rate(referenceCurrency, currency, rates))
-        .decimalPlaces(0);
+        .decimalPlaces(0, BigNumber.ROUND_HALF_UP);
     }
     if (currency === 'wei') {
       return referenceAmount
@@ -49,14 +58,12 @@ class MonetaryAmount {
   }
 
   public static rate(
-    referenceCurrency: Currency,
-    currency: Currency,
+    referenceCurrency: MonetaryAmountCurrency,
+    currency: MonetaryAmountCurrency,
     rates: Rates
   ) {
     if (referenceCurrency === 'wei') {
-      return new BigNumber(
-        rates[currency as 'eur' | 'usd' | 'gbp']
-      ).multipliedBy(100);
+      return new BigNumber(rates[currency as keyof Rates]).multipliedBy(100);
     }
     if (currency === 'wei') {
       return new BigNumber(1)
@@ -67,7 +74,7 @@ class MonetaryAmount {
     return new BigNumber(rates[currency] / rates[referenceCurrency]);
   }
 
-  private referenceCurrency: Currency;
+  private referenceCurrency: MonetaryAmountCurrency;
 
   private eur: BigNumber | null;
 
@@ -78,15 +85,33 @@ class MonetaryAmount {
   private wei: BigNumber | null;
 
   constructor(params: MonetaryAmountParams) {
-    this.referenceCurrency = params.referenceCurrency.toLowerCase() as Currency;
-    this.eur = !params.eur ? null : new BigNumber(params.eur);
-    this.usd = !params.usd ? null : new BigNumber(params.usd);
-    this.gbp = !params.gbp ? null : new BigNumber(params.gbp);
+    this.referenceCurrency =
+      params.referenceCurrency.toLowerCase() as MonetaryAmountCurrency;
+    this.eur =
+      params.eur !== null && params.eur !== undefined
+        ? new BigNumber(params.eur)
+        : null;
+    this.usd =
+      params.usd !== null && params.usd !== undefined
+        ? new BigNumber(params.usd)
+        : null;
+    this.gbp =
+      params.gbp !== null && params.gbp !== undefined
+        ? new BigNumber(params.gbp)
+        : null;
     this.wei = !params.wei ? null : new BigNumber(params.wei);
 
     if (!this.referenceValue) {
       throw new Error('Reference currency is required');
     }
+
+    currencies.forEach(currency => {
+      if (this[currency]?.isNaN()) {
+        throw new Error(
+          `Invalid ${currency} value (received: ${params[currency]})`
+        );
+      }
+    });
   }
 
   public inCurrencies(rates: Rates) {
@@ -98,7 +123,10 @@ class MonetaryAmount {
     };
   }
 
-  public inCurrency(currency: Currency, rates: Rates): string | number {
+  public inCurrency(
+    currency: MonetaryAmountCurrency,
+    rates: Rates
+  ): string | number {
     if (this[currency]) {
       if (currency === 'wei') return this[currency]!.toString();
 
@@ -111,7 +139,7 @@ class MonetaryAmount {
   }
 
   private bigValueAbove(
-    currency: Currency,
+    currency: MonetaryAmountCurrency,
     rates: Rates,
     value?: BigNumber
   ): BigNumber {
@@ -139,7 +167,7 @@ class MonetaryAmount {
     return this.bigValueAbove(currency, rates, bigValuePlus);
   }
 
-  private convert(currency: Currency, rates: Rates) {
+  private convert(currency: MonetaryAmountCurrency, rates: Rates) {
     return MonetaryAmount.convert(
       this.referenceCurrency,
       this.referenceValue,

@@ -1,4 +1,4 @@
-import { CompetitionHit } from '@sorare/core/src/lib/algolia';
+import { CompetitionHit } from '@core/lib/algolia';
 
 import Suggestion from '../Suggestion';
 

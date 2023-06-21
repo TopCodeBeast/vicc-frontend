@@ -6,8 +6,8 @@ import { GameCoverageStatus } from '@sorare/core/src/__generated__/globalTypes';
 import { Caption } from '@sorare/core/src/atoms/typography';
 import { fantasy } from '@sorare/core/src/lib/glossary';
 
-import { GameTimeStatusTag } from '@sorare/football/src/components/stats/GameTimeStatusTag';
-import { GameEventStatus } from 'lib/so5';
+import { GameTimeStatusTag } from '@football/components/stats/GameTimeStatusTag';
+import { GameEventStatus } from '@football/lib/so5';
 
 const Root = styled.span`
   display: inline-flex;

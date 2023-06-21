@@ -5,15 +5,16 @@ import styled from 'styled-components';
 
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
+import { Text16 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@sorare/core/src/components/dialog';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { toWei } from '@sorare/core/src/lib/wei';
 import { theme } from '@sorare/core/src/style/theme';
 
-import OfferDealSummary from '@sorare/marketplace/src/components/offer/OfferDealSummary';
-import { TokenTransferValidator } from '@sorare/marketplace/src/components/token/TokenTransferValidator';
-import { useMarketplaceEvents } from '@sorare/marketplace/src/lib/events';
+import OfferDealSummary from '@marketplace/components/offer/OfferDealSummary';
+import { TokenTransferValidator } from '@marketplace/components/token/TokenTransferValidator';
+import { useMarketplaceEvents } from '@marketplace/lib/events';
 
 import { switchToBuilding } from '../actions';
 import { CardDataType, StateProps } from '../types';
@@ -28,17 +29,18 @@ type Props<D extends BaseType> = StateProps<D> & {
   receiver: ReactNode;
 };
 
+const CenteredText16 = styled(Text16)`
+  text-align: center;
+`;
 const Content = styled.div`
   width: 100%;
-  margin: var(--double-unit) 0;
-  padding: 0 var(--double-unit);
+  padding: 0 var(--triple-unit) var(--triple-unit) var(--triple-unit);
   @media (min-width: ${theme.breakpoints.values.tablet}px) {
     min-width: calc(
       ${theme.breakpoints.values.tablet}px - var(--double-and-a-half-unit)
     );
   }
 `;
-
 const ButtonsBar = styled.div`
   width: 100%;
   display: flex;
@@ -46,20 +48,19 @@ const ButtonsBar = styled.div`
   justify-content: space-between;
   gap: var(--double-unit);
 `;
-
 const CancelCta = styled(Button)`
   width: 50%;
 `;
-
 const ConfirmCta = styled(LoadingButton)`
   width: 50%;
 `;
-
 const FooterWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: var(--unit);
+  padding: var(--unit) var(--triple-unit) var(--triple-unit) var(--triple-unit);
+  box-shadow: 0px 14px 50px rgba(0, 0, 0, 0.2);
   width: 100%;
-  gap: var(--double-unit);
 `;
 
 export const Summary = <D extends BaseType>({
@@ -104,12 +105,27 @@ export const Summary = <D extends BaseType>({
       {({ validationMessages, ConsentMessage }) => (
         <Dialog
           open
+          maxWidth="md"
           onBack={setBuilding}
-          shadowFooter
-          noMargin
-          headerCentered
           fullScreen={!isTablet}
-          title={title}
+          title={<CenteredText16>{title}</CenteredText16>}
+          body={
+            <Content>
+              <OfferDealSummary
+                sendWeiAmount={toWei(sendEth)}
+                receiveWeiAmount={toWei(receiveEth)}
+                marketFeeAmountWei={toWei(receiveMarketFeesEth)}
+                receiveTokens={receiveTokens}
+                sendTokens={sendTokens}
+                duration={duration}
+                withEmpty
+                sender={sender}
+                receiver={receiver}
+                validationMessages={validationMessages}
+                paymentMethod={paymentMethod}
+              />
+            </Content>
+          }
           footer={
             <FooterWrapper>
               {ConsentMessage && (
@@ -139,23 +155,7 @@ export const Summary = <D extends BaseType>({
               </ButtonsBar>
             </FooterWrapper>
           }
-        >
-          <Content>
-            <OfferDealSummary
-              sendWeiAmount={toWei(sendEth)}
-              receiveWeiAmount={toWei(receiveEth)}
-              marketFeeAmountWei={toWei(receiveMarketFeesEth)}
-              receiveTokens={receiveTokens}
-              sendTokens={sendTokens}
-              duration={duration}
-              withEmpty
-              sender={sender}
-              receiver={receiver}
-              validationMessages={validationMessages}
-              paymentMethod={paymentMethod}
-            />
-          </Content>
-        </Dialog>
+        />
       )}
     </TokenTransferValidator>
   );

@@ -8,18 +8,18 @@ import {
   SetMode,
   SignUpAdditionalScreen,
 } from '@sorare/wallet-shared';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { Title5 } from '@sorare/core/src/atoms/typography';
-import OAuthForm from 'components/user/OAuthForm';
-import { useMessagingContext, useWalletContext } from '@sorare/core/src/contexts/wallet';
-import WalletPlaceholder from '@sorare/core/src/contexts/wallet/Placeholder';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { glossary } from '@sorare/core/src/lib/glossary';
-import { mustAcceptTermsOfServiceFlag } from '@sorare/core/src/lib/mustAcceptTermsOfServiceFlag';
-import * as events from '@sorare/core/src/protos/events/so5/web/events';
-import { theme } from '@sorare/core/src/style/theme';
+import Dialog from '@core/atoms/layout/Dialog';
+import { Title5 } from '@core/atoms/typography';
+import OAuthForm from '@core/components/user/OAuthForm';
+import { useMessagingContext, useWalletContext } from '@core/contexts/wallet';
+import WalletPlaceholder from '@core/contexts/wallet/Placeholder';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import useEvents from '@core/lib/events/useEvents';
+import { glossary } from '@core/lib/glossary';
+import { mustAcceptTermsOfServiceFlag } from '@core/lib/mustAcceptTermsOfServiceFlag';
+import * as events from '@core/protos/events/so5/web/events';
+import { theme } from '@core/style/theme';
 
 import { PopMode } from '..';
 

@@ -10,8 +10,8 @@ import { Chip } from '@sorare/core/src/atoms/ui/Chip';
 import { LiveIndicator } from '@sorare/core/src/atoms/ui/LiveIndicator';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 
-import { SelectedTeam } from '@sorare/football/src/components/MatchView/types';
-import { GameEventStatus, gameStatusMessages } from 'lib/so5';
+import { SelectedTeam } from '@football/components/MatchView/types';
+import { GameEventStatus, gameStatusMessages } from '@football/lib/so5';
 
 import { Overview_game } from './__generated__/index.graphql';
 

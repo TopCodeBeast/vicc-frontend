@@ -2,9 +2,9 @@ import { ReactNode, useMemo } from 'react';
 import { animated, easings, useTransition } from '@react-spring/web';
 import styled from 'styled-components';
 
-import { Portal } from '@sorare/core/src/atoms/layout/Portal';
-import Backdrop from '@sorare/core/src/atoms/loader/Backdrop';
-import useBodyLock from '@sorare/core/src/hooks/useBodyLock';
+import { Portal } from '@core/atoms/layout/Portal';
+import Backdrop from '@core/atoms/loader/Backdrop';
+import useBodyLock from '@core/hooks/useBodyLock';
 
 import { ConditionalWrapper } from '../ConditionalWrapper';
 

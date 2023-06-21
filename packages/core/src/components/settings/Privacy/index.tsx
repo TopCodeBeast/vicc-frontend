@@ -1,12 +1,12 @@
 import { gql } from '@apollo/client';
 import { FormattedMessage, defineMessages } from 'react-intl';
 
-import Switch from '@sorare/core/src/atoms/inputs/Switch';
-import Bold from '@sorare/core/src/atoms/typography/Bold';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import useLifecycle, { LIFECYCLE, Lifecycle } from '@sorare/core/src/hooks/useLifecycle';
+import Switch from '@core/atoms/inputs/Switch';
+import Bold from '@core/atoms/typography/Bold';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useQuery from '@core/hooks/graphql/useQuery';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import useLifecycle, { LIFECYCLE, Lifecycle } from '@core/hooks/useLifecycle';
 
 import SettingsSection from '../SettingsSection';
 import { PrivacyQuery } from './__generated__/index.graphql';

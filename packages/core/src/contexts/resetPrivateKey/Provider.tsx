@@ -2,7 +2,7 @@ import { ReactNode, useState } from 'react';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
+import Dialog from '@core/atoms/layout/Dialog';
 
 import Provider from '.';
 

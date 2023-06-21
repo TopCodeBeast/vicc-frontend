@@ -1,7 +1,7 @@
 import { gql, useLazyQuery } from '@apollo/client';
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Sport } from '__generated__/globalTypes';
+import { Sport } from '@core/__generated__/globalTypes';
 
 import FollowContextProvider from '.';
 import {
@@ -22,14 +22,30 @@ export const favoriteCardType: Record<Sport, string> = {
   [Sport.BASEBALL]: 'BaseballCard',
   [Sport.NBA]: 'NBACard',
 };
-const cardTypes = Object.values(favoriteCardType);
 
 export const favoritePlayerType: Record<Sport, string> = {
   [Sport.FOOTBALL]: 'Player',
   [Sport.BASEBALL]: 'BaseballPlayer',
   [Sport.NBA]: 'NBAPlayer',
 };
-const playerTypes = Object.values(favoritePlayerType);
+
+const sportOfCardType = {
+  Card: Sport.FOOTBALL,
+  BaseballCard: Sport.BASEBALL,
+  NBACard: Sport.NBA,
+};
+
+const sportOfPlayerType = {
+  Player: Sport.FOOTBALL,
+  BaseballPlayer: Sport.BASEBALL,
+  NBAPlayer: Sport.NBA,
+};
+
+const emptyCatalogBySport = {
+  [Sport.FOOTBALL]: [],
+  [Sport.NBA]: [],
+  [Sport.BASEBALL]: [],
+} as Record<Sport, FollowQuery_currentUser_mySubscriptions_nodes[]>;
 
 export const currentUser = gql`
   fragment FollowProvider_currentUser on CurrentUser {
@@ -161,19 +177,59 @@ export const FollowProvider = ({ children }: Props) => {
     );
   };
 
-  const favoriteCards = useMemo(() => {
-    if (!mySubscriptionsLoaded) return [];
-    return mySubscriptions?.filter(item => {
-      return cardTypes.includes(item.subscribableType);
-    });
+  const { favoritePlayersBySport, favoriteCardsBySport } = useMemo(() => {
+    if (!mySubscriptionsLoaded)
+      return {
+        favoritePlayersBySport: emptyCatalogBySport,
+        favoriteCardsBySport: emptyCatalogBySport,
+      };
+    return (mySubscriptions || []).reduce(
+      (map, item) => {
+        const sportOfPlayer: Sport | undefined = (sportOfPlayerType as any)[
+          item.subscribableType
+        ];
+
+        if (sportOfPlayer) {
+          return {
+            ...map,
+            favoritePlayersBySport: {
+              ...map.favoritePlayersBySport,
+              [sportOfPlayer]: [
+                ...map.favoritePlayersBySport[sportOfPlayer],
+                item,
+              ],
+            },
+          };
+        }
+
+        const sportOfCard: Sport | undefined = (sportOfCardType as any)[
+          item.subscribableType
+        ];
+        if (sportOfCard) {
+          return {
+            ...map,
+            favoriteCardsBySport: {
+              ...map.favoriteCardsBySport,
+              [sportOfCard]: [...map.favoriteCardsBySport[sportOfCard], item],
+            },
+          };
+        }
+        return map;
+      },
+      {
+        favoritePlayersBySport: emptyCatalogBySport,
+        favoriteCardsBySport: emptyCatalogBySport,
+      }
+    );
   }, [mySubscriptions, mySubscriptionsLoaded]);
 
   const favoritePlayers = useMemo(() => {
-    if (!mySubscriptionsLoaded) return [];
-    return mySubscriptions?.filter(item => {
-      return playerTypes.includes(item.subscribableType);
-    });
-  }, [mySubscriptions, mySubscriptionsLoaded]);
+    return Object.values(favoritePlayersBySport).flat();
+  }, [favoritePlayersBySport]);
+
+  const favoriteCards = useMemo(() => {
+    return Object.values(favoriteCardsBySport).flat();
+  }, [favoriteCardsBySport]);
 
   return (
     <FollowContextProvider
@@ -184,7 +240,9 @@ export const FollowProvider = ({ children }: Props) => {
         removeFromMySubscriptions,
         updateMySubscriptions,
         favoriteCards,
+        favoriteCardsBySport,
         favoritePlayers,
+        favoritePlayersBySport,
         getCurrentUserSubscription,
       }}
     >

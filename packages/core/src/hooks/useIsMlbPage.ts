@@ -1,4 +1,4 @@
-import { isMlbPage } from '@sorare/core/src/constants/routes';
+import { isMlbPage } from '@core/constants/routes';
 
 import { useBgLocation } from './useBgLocation';
 

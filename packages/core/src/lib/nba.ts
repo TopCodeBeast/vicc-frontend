@@ -1,4 +1,4 @@
-import { NBAPlayerPosition } from '__generated__/usSportsGlobalTypes';
+import { NBAPlayerPosition } from '@core/__generated__/usSportsGlobalTypes';
 
 const positions = {
   [NBAPlayerPosition.NBA_GUARD]: {

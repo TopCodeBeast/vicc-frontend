@@ -5,7 +5,7 @@ import { Position } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { positionShortNames } from 'lib/so5';
+import { positionShortNames } from '@football/lib/so5';
 
 const Wrapper = styled.div`
   display: flex;

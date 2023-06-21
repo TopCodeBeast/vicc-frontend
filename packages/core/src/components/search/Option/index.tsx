@@ -2,11 +2,11 @@ import { ReactNode } from 'react';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import Checkbox from '@sorare/core/src/atoms/inputs/Checkbox';
-import SimpleRadio from '@sorare/core/src/atoms/inputs/SimpleRadio';
-import { LinkBox, LinkOther, LinkOverlay } from '@sorare/core/src/atoms/navigation/Box';
-import { Caption, Text14 } from '@sorare/core/src/atoms/typography';
-import { theme } from '@sorare/core/src/style/theme';
+import Checkbox from '@core/atoms/inputs/Checkbox';
+import SimpleRadio from '@core/atoms/inputs/SimpleRadio';
+import { LinkBox, LinkOther, LinkOverlay } from '@core/atoms/navigation/Box';
+import { Caption, Text14 } from '@core/atoms/typography';
+import { theme } from '@core/style/theme';
 
 type Props = {
   label: string;

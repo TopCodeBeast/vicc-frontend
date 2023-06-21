@@ -1,13 +1,17 @@
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import { Currency, Sport } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  Currency,
+  Sport,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import { ConversionCreditTinyBanner } from '@sorare/core/src/components/conversionCredit/ConversionCreditTinyBanner';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { usePaymentContext } from '@sorare/marketplace/src/components/buyActions/Context';
-import PaymentBoxAmountWithConversion from '@sorare/marketplace/src/components/buyActions/PaymentBox/AmountWithConversion';
+import { usePaymentContext } from '@marketplace/components/buyActions/Context';
+import { PaymentBoxAmountWithConversion } from '@marketplace/components/buyActions/PaymentBox/AmountWithConversion';
 
 export const messages = defineMessages({
   title: { id: 'ConversionCreditRow.title', defaultMessage: 'Credit' },
@@ -53,10 +57,10 @@ export const ConversionCreditRow = ({ sport, currencyFirst }: Props) => {
   const {
     usingConversionCredit,
     setUsingConversionCredit,
-    weiConversionCreditAmount,
+    conversionCreditMonetaryAmount,
   } = usePaymentContext();
 
-  if (!usingConversionCredit) return null;
+  if (!usingConversionCredit || !conversionCreditMonetaryAmount) return null;
 
   return (
     <Root>
@@ -76,11 +80,12 @@ export const ConversionCreditRow = ({ sport, currencyFirst }: Props) => {
         <Amount>
           <Text16 as="span" color="var(--c-green-600)">
             <PaymentBoxAmountWithConversion
+              monetaryAmount={{
+                referenceCurrency: SupportedCurrency.WEI,
+                ...conversionCreditMonetaryAmount,
+              }}
+              primaryCurrency={currencyFirst}
               bold
-              amount={weiConversionCreditAmount}
-              unit="wei"
-              context="ConversionCreditRow"
-              currencyFirst={currencyFirst}
               color="currentColor"
             />
           </Text16>

@@ -6,11 +6,11 @@ import ResponsiveRow from '@sorare/core/src/atoms/layout/ResponsiveRow';
 import { Token } from '@sorare/marketplace/src/components/token/Token';
 
 /* eslint-disable sorare/no-unrendered-component-imports */
-import BundledAuctionEligibilityByAssetIds from '@sorare/football/src/components/auction/BundledAuctionEligibilityByAssetIds';
+import BundledAuctionEligibilityByAssetIds from '@football/components/auction/BundledAuctionEligibilityByAssetIds';
 /* eslint-disable sorare/no-unrendered-component-imports */
-import CardPropertiesByAssetId from '@sorare/football/src/components/card/CardPropertiesByAssetId';
+import CardPropertiesByAssetId from '@football/components/card/CardPropertiesByAssetId';
 /* eslint-disable sorare/no-unrendered-component-imports */
-import CardTeamsByAssetId from '@sorare/football/src/components/card/CardTeamsByAssetId';
+import CardTeamsByAssetId from '@football/components/card/CardTeamsByAssetId';
 
 import { CardRow_card } from './__generated__/index.graphql';
 

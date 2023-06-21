@@ -12,8 +12,8 @@ import { useTitleAndDescription } from '@sorare/core/src/hooks/useTitleAndDescri
 import { metadatas } from '@sorare/core/src/lib/seo/football';
 import { toDisplayName } from '@sorare/core/src/lib/territories';
 
-import Follower from '@sorare/football/src/components/favorites/Follower';
-import PageContextProvider, { pageContextFragments } '@sorare/football/src/contexts/page';
+import Follower from '@football/components/favorites/Follower';
+import PageContextProvider, { pageContextFragments } from '@football/contexts/page';
 
 import Search from './Search';
 import {

@@ -2,13 +2,13 @@ import { HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
-import { CardRarity } from '__generated__/usSportsGlobalTypes';
-import { proxyUrl } from '@sorare/core/src/atoms/ui/ResponsiveImg';
-import Shine from '@sorare/core/src/atoms/ui/Shine';
-import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
-import { getScarcityName } from '@sorare/core/src/lib/baseball';
-import { CARD_BORDER_RADIUS, CARD_SIZE } from '@sorare/core/src/lib/cards';
+import { Sport } from '@core/__generated__/globalTypes';
+import { CardRarity } from '@core/__generated__/usSportsGlobalTypes';
+import { proxyUrl } from '@core/atoms/ui/ResponsiveImg';
+import Shine from '@core/atoms/ui/Shine';
+import { FRONTEND_ASSET_HOST } from '@core/constants/assets';
+import { getScarcityName } from '@core/lib/baseball';
+import { CARD_BORDER_RADIUS, CARD_SIZE } from '@core/lib/cards';
 
 const CardShine = styled(Shine)`
   aspect-ratio: var(--card-aspect-ratio);

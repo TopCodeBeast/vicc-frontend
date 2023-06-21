@@ -14,8 +14,8 @@ import {
 } from '@sorare/marketplace/src/lib/__generated__/fragments.graphql';
 import { PRIMARY_OFFER_BY_ID_QUERY } from '@sorare/marketplace/src/lib/fragments';
 
-import CardProperties from '@sorare/football/src/components/so5/CardProperties';
-import UninteractiveStarterBundlePreview from '@sorare/football/src/components/starterBundle/UninteractiveStarterBundlePreview';
+import CardProperties from '@football/components/so5/CardProperties';
+import UninteractiveStarterBundlePreview from '@football/components/starterBundle/UninteractiveStarterBundlePreview';
 
 import {
   StarterBundlePageQuery,

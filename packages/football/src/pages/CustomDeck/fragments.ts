@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 import User from '@sorare/core/src/components/user/User';
 
-import EditableDeckCard from '@sorare/football/src/components/deck/EditableDeckCard';
+import EditableDeckCard from '@football/components/deck/EditableDeckCard';
 
 export const deckFragment = gql`
   fragment CustomDeck_customDeck on CustomDeck {

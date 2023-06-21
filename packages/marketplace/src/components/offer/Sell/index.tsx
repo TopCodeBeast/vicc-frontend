@@ -11,10 +11,10 @@ import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import useTokenBelongsToUser from '@sorare/core/src/hooks/useTokenBelongsToUser';
 
-import NewSaleDialog from '@sorare/marketplace/src/components/offer/NewSaleDialog';
-import { TokenTransferValidator } from '@sorare/marketplace/src/components/token/TokenTransferValidator';
-import useCannotSell from '@sorare/marketplace/src/hooks/offers/useCannotSell';
-import { useMarketplaceEvents } from '@sorare/marketplace/src/lib/events';
+import NewSaleDialog from '@marketplace/components/offer/NewSaleDialog';
+import { TokenTransferValidator } from '@marketplace/components/token/TokenTransferValidator';
+import useCannotSell from '@marketplace/hooks/offers/useCannotSell';
+import { useMarketplaceEvents } from '@marketplace/lib/events';
 
 import { SellCard_token } from './__generated__/index.graphql';
 
@@ -73,7 +73,7 @@ const Sell = ({ token }: SellProps) => {
             disableFocusListener
             title={
               Object.keys(validationMessages).length === 0 ? (
-                <Text16 color="var(--c-neutral-100)">
+                <Text16 color="var(--c-neutral-1000)">
                   {formatMessage(cannotSellValue || messages[tradeableStatus])}
                 </Text16>
               ) : (
@@ -95,10 +95,7 @@ const Sell = ({ token }: SellProps) => {
                 medium
                 startIcon={
                   validationMessages[token.slug] && (
-                    <Tooltip
-                      dark={false}
-                      title={validationMessages[token.slug]}
-                    >
+                    <Tooltip title={validationMessages[token.slug]}>
                       <FontAwesomeIcon icon={faWarning} />
                     </Tooltip>
                   )

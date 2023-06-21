@@ -1,7 +1,7 @@
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import { AvatarProps } from '@material-ui/core';
 
-import ContainedAvatar from '@sorare/core/src/atoms/ui/ContainedAvatar';
+import ContainedAvatar from '@core/atoms/ui/ContainedAvatar';
 
 import { VariantStyle } from './types';
 

@@ -13,17 +13,18 @@ import { useCallback, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components';
 
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
 import { Popup } from '@sorare/core/src/atoms/layout/Popup';
 import { Caption } from '@sorare/core/src/atoms/typography';
-import AmountWithConversion from '@sorare/core/src/components/buyActions/AmountWithConversion';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { OverrideClasses } from '@sorare/core/src/style/utils';
 
-import TokenNameCancelSalePopin from '@sorare/marketplace/src/components/token/TokenNameCancelSalePopin';
-import useCancelOffer from '@sorare/marketplace/src/hooks/offers/useCancelOffer';
+import TokenNameCancelSalePopin from '@marketplace/components/token/TokenNameCancelSalePopin';
+import useCancelOffer from '@marketplace/hooks/offers/useCancelOffer';
 
 import {
   CancelSalePopinQuery,
@@ -260,9 +261,10 @@ export const CancelSalePopin = ({ assetId, onClose }: Props) => {
           </LeftContent>
           <RightContent>
             <AmountWithConversion
-              context="CancelSalePopin"
-              amount={priceWei}
-              unit="wei"
+              monetaryAmount={{
+                referenceCurrency: SupportedCurrency.WEI,
+                [SupportedCurrency.WEI.toLowerCase()]: priceWei,
+              }}
               column
             />
           </RightContent>

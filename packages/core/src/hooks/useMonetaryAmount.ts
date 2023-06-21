@@ -1,14 +1,27 @@
-import { useConfigContext } from '@sorare/core/src/contexts/config';
-import MonetaryAmount, { MonetaryAmountParams } from '@sorare/core/src/lib/monetaryAmount';
+import { useCallback } from 'react';
+
+import { MonetaryAmount } from '@core/__generated__/globalTypes';
+import { useConfigContext } from '@core/contexts/config';
+import MonetaryAmountClass, { MonetaryAmountParams } from '@core/lib/monetaryAmount';
+
+type NonNullableObj<T> = { [K in keyof T]: NonNullable<T[K]> };
+
+export type MonetaryAmountOutput = Omit<
+  NonNullableObj<Required<MonetaryAmount>>,
+  '__typename' | 'referenceCurrency'
+>;
 
 const useMonetaryAmount = () => {
   const { exchangeRate } = useConfigContext();
 
-  const toMonetaryAmount = (params: MonetaryAmountParams) => {
-    const monetaryAmount = new MonetaryAmount(params);
+  const toMonetaryAmount = useCallback(
+    (params: MonetaryAmountParams): MonetaryAmountOutput => {
+      const monetaryAmount = new MonetaryAmountClass(params);
 
-    return monetaryAmount.inCurrencies(exchangeRate.rates.eth);
-  };
+      return monetaryAmount.inCurrencies(exchangeRate.rates.eth);
+    },
+    [exchangeRate.rates.eth]
+  );
 
   return { toMonetaryAmount };
 };

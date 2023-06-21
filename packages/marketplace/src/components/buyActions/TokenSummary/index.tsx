@@ -10,10 +10,10 @@ import UninteractiveToken from '@sorare/core/src/components/token/UninteractiveT
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 
-import TokenDrawerSummary from '@sorare/marketplace/src/components/buyActions/TokenDrawerSummary';
-import TokenPriceHistory from '@sorare/marketplace/src/components/price/TokenPriceHistory';
-import TokenDescription from '@sorare/marketplace/src/components/token/TokenDescription';
-import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
+import TokenDrawerSummary from '@marketplace/components/buyActions/TokenDrawerSummary';
+import TokenPriceHistory from '@marketplace/components/price/TokenPriceHistory';
+import TokenDescription from '@marketplace/components/token/TokenDescription';
+import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
 
 import { TokenSummary_token } from './__generated__/index.graphql';
 

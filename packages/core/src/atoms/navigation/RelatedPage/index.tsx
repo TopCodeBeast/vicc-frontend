@@ -3,8 +3,8 @@ import { Grid } from '@material-ui/core';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import Block from '@sorare/core/src/atoms/layout/Block';
-import { Text16 } from '@sorare/core/src/atoms/typography';
+import Block from '@core/atoms/layout/Block';
+import { Text16 } from '@core/atoms/typography';
 
 interface Props {
   title: string;

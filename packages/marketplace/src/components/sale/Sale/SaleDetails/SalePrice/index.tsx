@@ -1,11 +1,12 @@
 import { gql } from '@apollo/client';
 import styled from 'styled-components';
 
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
 
-import ItemPrice from '@sorare/marketplace/src/components/ItemPreview/ItemPrice';
-import { TokenDetailsRow } from '@sorare/marketplace/src/components/ItemPreview/ui';
-import FeesDetailsTooltip from '@sorare/marketplace/src/components/offer/FeesDetailsTooltip';
+import ItemPrice from '@marketplace/components/ItemPreview/ItemPrice';
+import { TokenDetailsRow } from '@marketplace/components/ItemPreview/ui';
+import FeesDetailsTooltip from '@marketplace/components/offer/FeesDetailsTooltip';
 
 import { SalePrice_offer } from './__generated__/index.graphql';
 
@@ -37,7 +38,7 @@ export const SalePrice = ({ sale, showFees }: Props) => {
 
   return (
     <StyledTokenDetailsRow>
-      <ItemPrice wei={priceWei} />
+      <ItemPrice amount={priceWei} referenceCurrency={SupportedCurrency.WEI} />
       {showFees && saleBelongsToUser && hasFees && (
         <FeesDetailsTooltip
           completed

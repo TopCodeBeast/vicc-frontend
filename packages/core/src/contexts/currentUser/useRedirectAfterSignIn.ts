@@ -6,11 +6,11 @@ import {
   MLB_HOME,
   NBA_HOME,
   useDefaultSportPages,
-} from '@sorare/core/src/constants/routes';
-import { useConfigContext } from '@sorare/core/src/contexts/config';
-import useAfterLoggedInTarget from '@sorare/core/src/hooks/useAfterLoggedInTarget';
-import { Lifecycle } from '@sorare/core/src/hooks/useLifecycle';
-import { useRedirectUrl } from '@sorare/core/src/hooks/useRedirectUrl';
+} from '@core/constants/routes';
+import { useConfigContext } from '@core/contexts/config';
+import useAfterLoggedInTarget from '@core/hooks/useAfterLoggedInTarget';
+import { Lifecycle } from '@core/hooks/useLifecycle';
+import { useRedirectUrl } from '@core/hooks/useRedirectUrl';
 
 import { SignInMutation } from './__generated__/queries.graphql';
 

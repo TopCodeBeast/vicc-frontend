@@ -10,12 +10,13 @@ import Dialog from '@sorare/core/src/components/dialog';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { isA, isType } from '@sorare/core/src/lib/gql';
 
-import CoinAmount from '@sorare/football/src/components/user/CoinAmount';
+import CoinAmount from '@football/components/user/CoinAmount';
 
 import Congrats from './Congrats';
 import Details from './Details';
 import ItemImagePreview from './ItemImagePreview';
 import PostalAdressForm from './PostalAdressForm';
+import Requirements from './Requirements';
 import SizeSelector from './SizeSelector';
 import Step1 from './Step1';
 import Step2 from './Step2';
@@ -171,7 +172,11 @@ const ItemPreviewDialog = ({
             </>
           )}
 
-          {!itemEquipped && currentStep.content}
+          {item.disabled ? (
+            <Requirements item={item} />
+          ) : (
+            !itemEquipped && currentStep.content
+          )}
         </DialogContainer>
         <MyBalance>
           <Text14 color="var(--c-neutral-600)">
@@ -195,18 +200,21 @@ ItemPreviewDialog.fragments = {
         name
         position
         pictureUrl
+        disabled
       }
       ...Details_shopItem
       ...Step1_shopItem
       ...Step2_shopItem
       ...SizeSelector_shopItem
       ...PostalAdressForm_shopItem
+      ...Requirements_shopItem
     }
     ${Details.fragments.shopItem}
     ${Step1.fragments.shopItem}
     ${Step2.fragments.shopItem}
     ${SizeSelector.fragments.shopItem}
     ${PostalAdressForm.fragments.shopItem}
+    ${Requirements.fragments.shopItem}
   `,
   user: gql`
     fragment ItemPreviewDialog_user on PublicUserInfoInterface {

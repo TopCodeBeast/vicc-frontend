@@ -7,8 +7,8 @@ import {
   VirtualToggleFilter,
 } from '@sorare/core/src/lib/filters';
 
-import useFormatFilters from '@sorare/marketplace/src/hooks/filters/useFormatFilters';
-import { RefinementItem } from '@sorare/marketplace/src/search/ActiveFilters/types';
+import useFormatFilters from '@marketplace/hooks/filters/useFormatFilters';
+import { RefinementItem } from '@marketplace/search/ActiveFilters/types';
 
 import {
   formatListFilterWidgetValue,

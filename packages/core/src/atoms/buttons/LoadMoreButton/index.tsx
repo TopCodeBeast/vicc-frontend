@@ -2,8 +2,8 @@ import { FormattedMessage } from 'react-intl';
 
 import LoadingButton, {
   Props as LoadingButtonProps,
-} from '@sorare/core/src/atoms/buttons/LoadingButton';
-import { glossary } from '@sorare/core/src/lib/glossary';
+} from '@core/atoms/buttons/LoadingButton';
+import { glossary } from '@core/lib/glossary';
 
 export interface Props extends LoadingButtonProps {
   hasMore?: boolean;

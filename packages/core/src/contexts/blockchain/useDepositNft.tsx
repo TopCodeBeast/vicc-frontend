@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 import { useCallback, useState } from 'react';
 
-import { AccountData } from '@sorare/core/src/contexts/blockchain';
-import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
+import { AccountData } from '@core/contexts/blockchain';
+import useMutation from '@core/hooks/graphql/useMutation';
 
 import {
   GetTokenDepositInfoMutation,

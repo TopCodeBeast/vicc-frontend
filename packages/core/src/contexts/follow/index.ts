@@ -1,5 +1,7 @@
 import { createContext, useContext } from 'react';
 
+import { Sport } from '@core/__generated__/globalTypes';
+
 import { FollowQuery } from './__generated__/Provider.graphql';
 
 type FollowQuery_currentUser_mySubscriptions_nodes = NonNullable<
@@ -15,7 +17,15 @@ export interface FollowContext {
   mySubscriptions: FollowQuery_currentUser_mySubscriptions_nodes[] | undefined;
   mySubscriptionsLoaded: boolean;
   favoriteCards: FollowQuery_currentUser_mySubscriptions_nodes[] | undefined;
+  favoriteCardsBySport: Record<
+    Sport,
+    FollowQuery_currentUser_mySubscriptions_nodes[]
+  >;
   favoritePlayers: FollowQuery_currentUser_mySubscriptions_nodes[] | undefined;
+  favoritePlayersBySport: Record<
+    Sport,
+    FollowQuery_currentUser_mySubscriptions_nodes[]
+  >;
   addToMySubscriptions: (
     subscription: FollowQuery_currentUser_mySubscriptions_nodes
   ) => void;

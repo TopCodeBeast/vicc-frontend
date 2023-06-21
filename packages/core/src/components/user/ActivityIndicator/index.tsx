@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 import { defineMessage, useIntl } from 'react-intl';
 import styled, { css } from 'styled-components';
 
-import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
-import { useActivityIndicator } from '@sorare/core/src/hooks/users/useActivityIndicator';
+import Tooltip from '@core/atoms/tooltip/Tooltip';
+import { useActivityIndicator } from '@core/hooks/users/useActivityIndicator';
 
 import { ActivityIndicator_user } from './__generated__/index.graphql';
 
@@ -79,7 +79,6 @@ export const ActivityIndicator = ({ user, children, style }: Props) => {
 
       <TooltipStyled
         title={formatMessage(active ? messages.online : messages.offline)}
-        arrow
         placement="right"
         role="status"
       >

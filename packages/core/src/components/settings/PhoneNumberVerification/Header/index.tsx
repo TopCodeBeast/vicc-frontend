@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import MetalabButton from '@sorare/core/src/atoms/buttons/MetalabButton';
+import MetalabButton from '@core/atoms/buttons/MetalabButton';
 
 interface HeaderProps {
   onClose?: () => void;

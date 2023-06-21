@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 import styled from 'styled-components';
 
-import DetailedScore from '@sorare/football/src/components/stats/DetailedScore';
-import { Game } from '@sorare/football/src/components/stats/Game';
+import DetailedScore from '@football/components/stats/DetailedScore';
+import { Game } from '@football/components/stats/Game';
 
 import { AppearanceDetails_so5Score } from './__generated__/index.graphql';
 

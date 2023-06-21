@@ -1,15 +1,15 @@
 import { useCallback, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
-import { AccountData } from '@sorare/core/src/contexts/blockchain';
-import usePrepareEthDeposit from '@sorare/core/src/contexts/blockchain/usePrepareEthDeposit';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { EventStep } from '@sorare/core/src/contexts/events/types';
-import { useSentryContext } from '@sorare/core/src/contexts/sentry';
-import { useWeb3Context } from '@sorare/core/src/contexts/web3';
-import useDepositEthEvent from '@sorare/core/src/hooks/events/useDeposithEthEvent';
-import { Wallet } from '@sorare/core/src/lib/web3';
-import { toWei } from '@sorare/core/src/lib/wei';
+import { AccountData } from '@core/contexts/blockchain';
+import usePrepareEthDeposit from '@core/contexts/blockchain/usePrepareEthDeposit';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { EventStep } from '@core/contexts/events/types';
+import { useSentryContext } from '@core/contexts/sentry';
+import { useWeb3Context } from '@core/contexts/web3';
+import useDepositEthEvent from '@core/hooks/events/useDeposithEthEvent';
+import { Wallet } from '@core/lib/web3';
+import { toWei } from '@core/lib/wei';
 
 import useCreatePendingDeposit from './useCreatePendingDeposit';
 

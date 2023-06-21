@@ -1,88 +1,58 @@
-import { Currency } from '__generated__/globalTypes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { useSentryContext } from '@sorare/core/src/contexts/sentry';
-import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
+import { Currency } from '@core/__generated__/globalTypes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useIntlContext } from '@core/contexts/intl';
+import { MonetaryAmountParams } from '@core/lib/monetaryAmount';
+import { ETH_DECIMAL_PLACES } from '@core/lib/wei';
 
+import useMonetaryAmount from './useMonetaryAmount';
 import { useWalletPreferences } from './wallets/useWalletPreferences';
 
-type AmountProps = {
-  amount: string;
-  unit: 'wei';
+export type Props = {
+  monetaryAmount: MonetaryAmountParams;
+  primaryCurrency?: Currency;
+  usingLegacyFiat?: boolean;
 };
 
-export type Props = {
-  amountInFiat?: any;
-  decimals?: number;
-  currencyFirst?: Currency;
-  ethFirst?: boolean;
-  displayEth?: boolean;
-  context: string;
-} & AmountProps;
-
-const useAmountWithConversion = (props: Props) => {
-  const { onlyShowFiatCurrency } = useWalletPreferences();
-  const { convertFromWei } = useCurrencyConverters();
+const useAmountWithConversion = ({
+  monetaryAmount,
+  primaryCurrency,
+  usingLegacyFiat,
+}: Props) => {
   const { formatNumber, formatWei } = useIntlContext();
+  const { toMonetaryAmount } = useMonetaryAmount();
+  const { fiatCurrency: userFiatCurrency, currency: userCurrency } =
+    useCurrentUserContext();
+  const { onlyShowFiatCurrency } = useWalletPreferences();
 
-  const {
-    fiatCurrency,
-    currency,
-    displayEth: userDisplayEth,
-  } = useCurrentUserContext();
+  const fullMonetaryAmount = toMonetaryAmount(monetaryAmount);
 
-  const { sendSafeError } = useSentryContext();
-
-  const {
-    context,
-    amount: weiAmount,
-    decimals,
-    ethFirst,
-    currencyFirst,
-    amountInFiat = null,
-    displayEth = userDisplayEth,
-  } = props;
-  const d = decimals ?? 4;
-
-  let primaryCurrency = currency;
-  if (ethFirst) {
-    primaryCurrency = Currency.ETH;
-  } else if (currencyFirst) {
-    primaryCurrency = currencyFirst;
-  }
-
-  const fiat = formatNumber(
-    amountInFiat
-      ? amountInFiat[fiatCurrency.code.toLowerCase()]
-      : convertFromWei(weiAmount, fiatCurrency.code),
+  const monetaryAmountFiatKey = userFiatCurrency.code.toLowerCase() as
+    | 'eur'
+    | 'usd'
+    | 'gbp';
+  const fiatAmount = fullMonetaryAmount[monetaryAmountFiatKey];
+  const fiatFormatted = formatNumber(
+    usingLegacyFiat ? fiatAmount : fiatAmount / 100,
     {
       style: 'currency',
-      currency: fiatCurrency.code,
+      currency: userFiatCurrency.code,
     }
   );
 
-  if (!weiAmount) {
-    sendSafeError(
-      new Error(`Received null value for FormattedWei, context: ${context}`)
-    );
-  }
+  const weiAmount = fullMonetaryAmount.wei;
+  const ethFormatted = formatWei(weiAmount, undefined, {
+    maximumFractionDigits: ETH_DECIMAL_PLACES,
+  });
 
-  const eth =
-    weiAmount &&
-    formatWei(weiAmount, undefined, {
-      maximumFractionDigits: d,
-    });
-
-  const main = onlyShowFiatCurrency || primaryCurrency === 'FIAT' ? fiat : eth;
+  const actualPrimaryCurrency =
+    primaryCurrency || (onlyShowFiatCurrency && Currency.FIAT) || userCurrency;
 
   const exponent =
-    (displayEth || primaryCurrency === 'ETH') && primaryCurrency === 'ETH'
-      ? fiat
-      : eth;
+    actualPrimaryCurrency === Currency.ETH ? fiatFormatted : ethFormatted;
 
   return {
-    main,
-    exponent: onlyShowFiatCurrency ? null : exponent,
+    main: actualPrimaryCurrency === Currency.ETH ? ethFormatted : fiatFormatted,
+    exponent: primaryCurrency || !onlyShowFiatCurrency ? exponent : null,
   };
 };
 

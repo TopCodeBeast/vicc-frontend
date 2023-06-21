@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useUpdate2FA from '@sorare/core/src/hooks/useUpdate2FA';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import { Text16 } from '@core/atoms/typography';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useUpdate2FA from '@core/hooks/useUpdate2FA';
+import { glossary } from '@core/lib/glossary';
 
 import Disable2FA from './Disable2FA';
 import Enable2FA from './Enable2FA';

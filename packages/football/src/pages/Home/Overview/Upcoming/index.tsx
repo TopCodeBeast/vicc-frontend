@@ -8,11 +8,11 @@ import { FOOTBALL_LOBBY_UPCOMING } from '@sorare/core/src/constants/routes';
 import TimeLeft from '@sorare/core/src/contexts/ticker/TimeLeft';
 import { uniqueBy } from '@sorare/core/src/lib/arrays';
 
-import { HomeBlock } from '@sorare/football/src/components/Home/Block';
-import { ItemRows } from '@sorare/football/src/components/Home/ItemRows';
-import { SeeAllButton } from '@sorare/football/src/components/Home/SeeAllButton';
-import { Lineup } from '@sorare/football/src/components/lineup/Lineup';
-import { sortLeaderboards, sortLeaderboardsByTournamentType } from 'lib/so5';
+import { HomeBlock } from '@football/components/Home/Block';
+import { ItemRows } from '@football/components/Home/ItemRows';
+import { SeeAllButton } from '@football/components/Home/SeeAllButton';
+import { Lineup } from '@football/components/lineup/Lineup';
+import { sortLeaderboards, sortLeaderboardsByTournamentType } from '@football/lib/so5';
 
 import { Upcoming_leaderboard } from './__generated__/index.graphql';
 

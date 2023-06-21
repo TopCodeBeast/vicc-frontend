@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { Text16 } from '@sorare/core/src/atoms/typography';
 
-import { THRESHOLD_COLORS, thresholds } from '@sorare/football/src/components/stats/PlayerScore';
+import { THRESHOLD_COLORS, thresholds } from '@football/components/stats/PlayerScore';
 
 import { StarterBundleLastFifteen_card } from './__generated__/index.graphql';
 

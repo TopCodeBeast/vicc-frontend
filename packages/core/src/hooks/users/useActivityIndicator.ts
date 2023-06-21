@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
 
 import { useActivityIndicator_user } from './__generated__/useActivityIndicator.graphql';
 

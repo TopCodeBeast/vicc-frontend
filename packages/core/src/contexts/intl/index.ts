@@ -2,7 +2,7 @@ import { StripeElementLocale } from '@stripe/stripe-js';
 import { createContext, useContext } from 'react';
 import { FormatNumberOptions, IntlShape } from 'react-intl';
 
-import { RoundingMode } from '@sorare/core/src/lib/wei';
+import { RoundingMode } from '@core/lib/wei';
 
 export type DisplayOptions = {
   hideSymbol?: boolean;

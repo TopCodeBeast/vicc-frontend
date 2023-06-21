@@ -1,4 +1,4 @@
-import { local as localStorage } from '@sorare/core/src/lib/storage';
+import { local as localStorage } from '@core/lib/storage';
 
 export const keys: { [index in QSKey]: LSKey } = {
   referrer: 'REFERRER',

@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 
-import { useEventsContext } from '@sorare/core/src/contexts/events';
-import { getInteractionContext, getSport } from '@sorare/core/src/lib/events';
-import { mapKeys } from '@sorare/core/src/lib/object';
-import toSnakeCase from '@sorare/core/src/lib/toSnakeCase';
-import { sportToJSON } from '@sorare/core/src/protos/events/shared/events';
+import { useEventsContext } from '@core/contexts/events';
+import { getInteractionContext, getSport } from '@core/lib/events';
+import { mapKeys } from '@core/lib/object';
+import toSnakeCase from '@core/lib/toSnakeCase';
+import { sportToJSON } from '@core/protos/events/shared/events';
 
 import { WithOptionalCommonProperties } from './EventsType';
 

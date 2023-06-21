@@ -2,18 +2,18 @@ import { gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
-import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
-import UninteractiveBundledAuctionPreview from 'components/bundled/UninteractiveBundledAuctionPreview';
-import UninteractiveToken from 'components/token/UninteractiveToken';
-import Avatar from 'components/user/Avatar';
-import SocialShare from 'components/user/SocialShare';
-import UserName from 'components/user/UserName';
-import { fragments as analyticsFragments } from '@sorare/core/src/contexts/events/types';
-import { socialShareEventContext, socialShareEventName } from '@sorare/core/src/lib/events';
-import { glossary } from '@sorare/core/src/lib/glossary';
-import { isA } from '@sorare/core/src/lib/gql';
+import Button from '@core/atoms/buttons/Button';
+import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { Text16, Title3 } from '@core/atoms/typography';
+import UninteractiveBundledAuctionPreview from '@core/components/bundled/UninteractiveBundledAuctionPreview';
+import UninteractiveToken from '@core/components/token/UninteractiveToken';
+import Avatar from '@core/components/user/Avatar';
+import SocialShare from '@core/components/user/SocialShare';
+import UserName from '@core/components/user/UserName';
+import { fragments as analyticsFragments } from '@core/contexts/events/types';
+import { socialShareEventContext, socialShareEventName } from '@core/lib/events';
+import { glossary } from '@core/lib/glossary';
+import { isA } from '@core/lib/gql';
 
 import { AuctionWonContent_tokenAuction } from './__generated__/index.graphql';
 

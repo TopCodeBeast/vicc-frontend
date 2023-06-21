@@ -11,7 +11,7 @@ import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
 import TimeLeft from '@sorare/core/src/contexts/ticker/TimeLeft';
 import { hasEligibleRewards } from '@sorare/core/src/lib/rewards';
 
-import { DumbBanner } from '@sorare/football/src/components/rewards/DumbBanner';
+import { DumbBanner } from '@football/components/rewards/DumbBanner';
 
 import { EligibleRewardsBanner_rewardConfig } from './__generated__/index.graphql';
 

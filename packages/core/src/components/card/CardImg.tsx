@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 
-import cardPlaceholder from 'assets/card_placeholder.svg';
+import cardPlaceholder from '@core/assets/card_placeholder.svg';
 import ResponsiveImg, {
   ValidWidths,
   getClosestStandardWidth,
-} from '@sorare/core/src/atoms/ui/ResponsiveImg';
-import { theme } from '@sorare/core/src/style/theme';
+} from '@core/atoms/ui/ResponsiveImg';
+import { theme } from '@core/style/theme';
 
 const WIDTH = 21;
 const HEIGHT = 34;

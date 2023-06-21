@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
-import { sharedAcrossSportsPage } from '@sorare/core/src/constants/routes';
+import { sharedAcrossSportsPage } from '@core/constants/routes';
 
 export default () => {
   const location = useLocation();

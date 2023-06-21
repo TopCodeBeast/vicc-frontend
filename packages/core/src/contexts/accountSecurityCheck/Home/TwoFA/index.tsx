@@ -6,13 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Caption, Text14, Text16, Title6 } from '@sorare/core/src/atoms/typography';
+import { Caption, Text14, Text16, Title6 } from '@core/atoms/typography';
 import {
   SecurityCheckTab,
   useAccountSecurityCheckContext,
-} from '@sorare/core/src/contexts/accountSecurityCheck';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { glossary } from '@sorare/core/src/lib/glossary';
+} from '@core/contexts/accountSecurityCheck';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { glossary } from '@core/lib/glossary';
 
 const Wrapper = styled.div`
   display: flex;

@@ -4,9 +4,9 @@ import classnames from 'classnames';
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-import { LinkBox, LinkOther, LinkOverlay } from '@sorare/core/src/atoms/navigation/Box';
-import { theme } from '@sorare/core/src/style/theme';
-import { createVar } from '@sorare/core/src/style/utils';
+import { LinkBox, LinkOther, LinkOverlay } from '@core/atoms/navigation/Box';
+import { theme } from '@core/style/theme';
+import { createVar } from '@core/style/utils';
 
 const colorOpacities = [
   0.1, 0.15, 0.2, 0.3,

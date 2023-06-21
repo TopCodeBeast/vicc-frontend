@@ -1,9 +1,13 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
+import {
+  Currency,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import ethIcon from '@sorare/core/src/assets/eth_icon.png';
 import { Caption } from '@sorare/core/src/atoms/typography';
-import AmountWithConversion from '@sorare/core/src/components/buyActions/AmountWithConversion';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 import { cardRatio } from '@sorare/core/src/lib/cardPicture';
 import { theme } from '@sorare/core/src/style/theme';
 
@@ -62,10 +66,11 @@ const EthereumCard = ({ amount, marketFeeAmountWei, displayFees }: Props) => {
       </EthImageContainer>
       <Amount>
         <AmountWithConversion
-          context="EthereumCard"
-          amount={amount || '0'}
-          unit="wei"
-          ethFirst
+          monetaryAmount={{
+            referenceCurrency: SupportedCurrency.WEI,
+            [SupportedCurrency.WEI.toLowerCase()]: amount || '0',
+          }}
+          primaryCurrency={Currency.ETH}
           column
         />
         {feesDisplayable && (

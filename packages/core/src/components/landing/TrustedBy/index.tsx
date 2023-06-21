@@ -3,8 +3,8 @@ import { FormattedMessage } from 'react-intl';
 import { Waypoint } from 'react-waypoint';
 import styled from 'styled-components';
 
-import { Text18 } from '@sorare/core/src/atoms/typography';
-import { theme } from '@sorare/core/src/style/theme';
+import { Text18 } from '@core/atoms/typography';
+import { theme } from '@core/style/theme';
 
 import football1x from './assets/football-1x.png';
 import football2x from './assets/football-2x.png';

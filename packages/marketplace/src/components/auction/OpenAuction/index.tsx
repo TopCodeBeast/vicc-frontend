@@ -3,16 +3,17 @@ import Big from 'bignumber.js';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
+import { MonetaryAmount } from '@sorare/core/src/__generated__/globalTypes';
 import Block from '@sorare/core/src/atoms/layout/Block';
 import ButtonWithConfirmDialog from '@sorare/core/src/components/form/ButtonWithConfirmDialog';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 import { theme } from '@sorare/core/src/style/theme';
 
-import BidInfos from '@sorare/marketplace/src/components/auction/BidInfos';
-import BidField from '@sorare/marketplace/src/components/buyActions/BidField';
-import useBestBidBelongsToUser from '@sorare/marketplace/src/hooks/auctions/useBestBidBelongsToUser';
-import useStopAutoBid from '@sorare/marketplace/src/hooks/auctions/useStopAutoBid';
-import useTokenTakesPartPromotionalEvent from '@sorare/marketplace/src/hooks/offers/useTokenTakesPartPromotionalEvent';
+import BidInfos from '@marketplace/components/auction/BidInfos';
+import BidField from '@marketplace/components/buyActions/BidField';
+import useBestBidBelongsToUser from '@marketplace/hooks/auctions/useBestBidBelongsToUser';
+import useStopAutoBid from '@marketplace/hooks/auctions/useStopAutoBid';
+import useTokenTakesPartPromotionalEvent from '@marketplace/hooks/offers/useTokenTakesPartPromotionalEvent';
 
 import { OpenAuction_auction } from './__generated__/index.graphql';
 
@@ -60,11 +61,9 @@ interface Props {
   auction: OpenAuction_auction;
 }
 
-const Price = ({ amount }: { amount: string }) => {
+const Price = ({ monetaryAmount }: { monetaryAmount: MonetaryAmount }) => {
   const { main } = useAmountWithConversion({
-    context: 'OpenAuction',
-    amount,
-    unit: 'wei',
+    monetaryAmount,
   });
 
   return <b>{main}</b>;
@@ -86,12 +85,12 @@ export const OpenAuction = ({ auction }: Props) => {
     bestBid &&
     myBestBid &&
     bestBidBelongsToUser(bestBid) &&
-    new Big(myBestBid.maximumAmount!.toString()).gt(bestBid?.amount);
+    new Big(myBestBid.maximumAmounts.wei || 0).gt(bestBid.amounts.wei || 0);
 
   const ConfirmMessage = () => (
     <div>
       {formatMessage(messages.stopAutoBidConfirm, {
-        amount: <Price amount={bestBid?.amount || ''} />,
+        amount: bestBid && <Price monetaryAmount={bestBid.amounts} />,
       })}
     </div>
   );
@@ -132,13 +131,25 @@ OpenAuction.fragments = {
       autoBid
       bestBid {
         id
-        amount
+        amounts {
+          wei
+          eur
+          usd
+          gbp
+          referenceCurrency
+        }
         ...useStopAutoBid_bid
         ...UseBestBidBelongsToUser_bestBid
       }
       myBestBid {
         id
-        maximumAmount
+        maximumAmounts {
+          wei
+          eur
+          usd
+          gbp
+          referenceCurrency
+        }
       }
       ...BidField_auction
       ...BidInfos_auction

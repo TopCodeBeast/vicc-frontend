@@ -14,8 +14,8 @@ import {
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 
-import { CardPlaceholder } from '@sorare/football/src/components/lineup/CardPlaceholder';
-import { CardFooter } from '@sorare/football/src/components/lineup/PlayerCard';
+import { CardPlaceholder } from '@football/components/lineup/CardPlaceholder';
+import { CardFooter } from '@football/components/lineup/PlayerCard';
 
 import {
   PlayerCardPlaceholder_so5Leaderboard,

@@ -11,7 +11,7 @@ import { Caption } from '@sorare/core/src/atoms/typography';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { format } from '@sorare/core/src/lib/seasons';
 
-import Item from '@sorare/football/src/components/so5/CardProperties/Item';
+import Item from '@football/components/so5/CardProperties/Item';
 
 import { CardBonus_card } from './__generated__/index.graphql';
 import { useCardBonus } from './useCardBonus';
@@ -61,14 +61,14 @@ const Row = styled.div`
 const Key = styled(Caption)`
   margin-right: 5px;
   font-weight: var(--t-bold);
-  color: var(--c-neutral-400);
+  color: var(--c-neutral-600);
 `;
 const Value = styled.div`
   font-size: 12px;
   line-height: 18px;
   text-transform: none;
   letter-spacing: normal;
-  color: var(--c-neutral-100);
+  color: var(--c-neutral-1000);
   padding: 1px 8px;
   border-radius: 8px;
   font-weight: 700;

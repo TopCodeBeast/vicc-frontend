@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { fantasy } from '@sorare/core/src/lib/glossary';
 
-import { LiveDot } from '@sorare/football/src/components/so5/LiveDot';
+import { LiveDot } from '@football/components/so5/LiveDot';
 
 import { LineupDate_fixture } from './__generated__/index.graphql';
 

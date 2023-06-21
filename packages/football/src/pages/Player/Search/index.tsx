@@ -18,8 +18,8 @@ import {
   filterSeparator,
 } from '@sorare/marketplace/src/searchCards';
 
-import AdvancedCardSearch from '@sorare/football/src/components/searchCards/AdvancedCardSearch';
-import { RefineMultipleFootballPositions } from '@sorare/football/src/components/searchCards/RefinePosition';
+import AdvancedCardSearch from '@football/components/searchCards/AdvancedCardSearch';
+import { RefineMultipleFootballPositions } from '@football/components/searchCards/RefinePosition';
 
 import { PlayerSearch_player } from './__generated__/index.graphql';
 

@@ -3,10 +3,10 @@ import { FormattedMessage, defineMessages } from 'react-intl';
 import { generatePath, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Text14, Title2 } from '@sorare/core/src/atoms/typography';
-import UninteractiveToken from 'components/token/UninteractiveToken';
-import { FOOTBALL_USER_CARD_COLLECTION } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { Text14, Title2 } from '@core/atoms/typography';
+import UninteractiveToken from '@core/components/token/UninteractiveToken';
+import { FOOTBALL_USER_CARD_COLLECTION } from '@core/constants/routes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 
 import Layout from '../Layout';
 import { NotificationDialog_CardCollectionNotification_cardCollectionNotification } from './__generated__/index.graphql';

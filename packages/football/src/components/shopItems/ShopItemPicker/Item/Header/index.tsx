@@ -18,7 +18,7 @@ import {
   New,
   ResetIn,
   SoldOut,
-} from '@sorare/football/src/components/shopItems/ShopItemPicker/Item/Label';
+} from '@football/components/shopItems/ShopItemPicker/Item/Label';
 
 import { Header_shopItem } from './__generated__/index.graphql';
 

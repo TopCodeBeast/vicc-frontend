@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Text16 } from '@sorare/core/src/atoms/typography';
 
-import LiveOffer from '@sorare/football/src/components/card/CardPage/LiveOffer';
+import LiveOffer from '@football/components/card/CardPage/LiveOffer';
 
 import { MyOffers_token } from './__generated__/index.graphql';
 

@@ -7,11 +7,11 @@ import {
 } from 'react-intl';
 import styled from 'styled-components';
 
-import { Delivery } from '__generated__/globalTypes';
-import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
-import { Text14, Text16, Title3 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
+import { Delivery } from '@core/__generated__/globalTypes';
+import LoadingButton from '@core/atoms/buttons/LoadingButton';
+import { Text14, Text16, Title3 } from '@core/atoms/typography';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
 
 import useAddDevice from './useAddDevice';
 

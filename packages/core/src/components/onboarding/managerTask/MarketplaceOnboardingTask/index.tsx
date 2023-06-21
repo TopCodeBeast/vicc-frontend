@@ -6,10 +6,10 @@ import {
 } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { Text14, Title4 } from '@sorare/core/src/atoms/typography';
-import { MarketplaceOnboardingStep } from '@sorare/core/src/contexts/managerTask';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import Button from '@core/atoms/buttons/Button';
+import { Text14, Title4 } from '@core/atoms/typography';
+import { MarketplaceOnboardingStep } from '@core/contexts/managerTask';
+import { glossary } from '@core/lib/glossary';
 
 const Content = styled.div`
   display: flex;

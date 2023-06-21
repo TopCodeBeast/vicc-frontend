@@ -3,13 +3,13 @@ import { useContext, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { GeneratedKey, MessagingContext, Prompt } from '@sorare/wallet-shared';
-import { useAuthContext } from '@sorare/core/src/contexts/auth';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useWalletContext } from '@sorare/core/src/contexts/wallet';
-import { WalletTab, useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
-import { nullAddress } from '@sorare/core/src/lib/ethereum';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { formatUpdateUserErrors } from '@sorare/core/src/lib/http';
+import { useAuthContext } from '@core/contexts/auth';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useWalletContext } from '@core/contexts/wallet';
+import { WalletTab, useWalletDrawerContext } from '@core/contexts/walletDrawer';
+import { nullAddress } from '@core/lib/ethereum';
+import useEvents from '@core/lib/events/useEvents';
+import { formatUpdateUserErrors } from '@core/lib/http';
 
 export default () => {
   const { registerHandler, sendRequest } = useContext(MessagingContext)!;

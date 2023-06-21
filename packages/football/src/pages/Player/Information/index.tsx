@@ -10,7 +10,7 @@ import { FOOTBALL_COUNTRY_SHOW } from '@sorare/core/src/constants/routes';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { positionShortNames } from 'lib/so5';
+import { positionShortNames } from '@football/lib/so5';
 
 import { Information_player } from './__generated__/index.graphql';
 

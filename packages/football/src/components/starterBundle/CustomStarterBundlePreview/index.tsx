@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
-import { StarterBundleLastFifteen } from '@sorare/football/src/components/starterBundle/StarterBundleLastFifteen';
-import StarterBundlePreview from '@sorare/football/src/components/starterBundle/StarterBundlePreview';
+import { StarterBundleLastFifteen } from '@football/components/starterBundle/StarterBundleLastFifteen';
+import StarterBundlePreview from '@football/components/starterBundle/StarterBundlePreview';
 
 import {
   CustomStarterBundlePreviewQuery,

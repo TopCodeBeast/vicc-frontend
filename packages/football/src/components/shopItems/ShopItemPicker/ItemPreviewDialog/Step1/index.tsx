@@ -20,7 +20,7 @@ import { isA } from '@sorare/core/src/lib/gql';
 import {
   InventoryCounterInline,
   ResetIn,
-} from '@sorare/football/src/components/shopItems/ShopItemPicker/Item/Label';
+} from '@football/components/shopItems/ShopItemPicker/Item/Label';
 
 import { Step1_shopItem } from './__generated__/index.graphql';
 import useBuyShopItem from './useBuyShopItem';

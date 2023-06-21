@@ -4,13 +4,13 @@ import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
-import Avatar from 'components/user/Avatar';
-import UserName from 'components/user/UserName';
-import { LEGACY_USER_GALLERY } from '@sorare/core/src/constants/routes';
-import { useSportContext } from '@sorare/core/src/contexts/sport';
-import { formatEthereumAddress } from '@sorare/core/src/lib/ethereum';
-import { isA } from '@sorare/core/src/lib/gql';
+import { Caption, Text16 } from '@core/atoms/typography';
+import Avatar from '@core/components/user/Avatar';
+import UserName from '@core/components/user/UserName';
+import { LEGACY_USER_GALLERY } from '@core/constants/routes';
+import { useSportContext } from '@core/contexts/sport';
+import { formatEthereumAddress } from '@core/lib/ethereum';
+import { isA } from '@core/lib/gql';
 
 import {
   User_anonymousUser,

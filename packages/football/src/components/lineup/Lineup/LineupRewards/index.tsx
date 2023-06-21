@@ -10,10 +10,10 @@ import useIsOverflowing from '@sorare/core/src/hooks/ui/useIsOverflowing';
 import { hasEligibleRewards, hasRewards } from '@sorare/core/src/lib/rewards';
 import { hideScrollbar } from '@sorare/core/src/style/utils';
 
-import ActualRewards from '@sorare/football/src/components/lineup/ActualRewards';
-import { EligibleRewards } from '@sorare/football/src/components/lineup/EligibleRewards';
-import { Rewards } from '@sorare/football/src/components/lineup/Rewards';
-import { RewardType } from 'lib/lineupRewards';
+import ActualRewards from '@football/components/lineup/ActualRewards';
+import { EligibleRewards } from '@football/components/lineup/EligibleRewards';
+import { Rewards } from '@football/components/lineup/Rewards';
+import { RewardType } from '@football/lib/lineupRewards';
 
 import {
   LineupRewards_rewardsOverview,

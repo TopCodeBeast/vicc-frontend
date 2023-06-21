@@ -5,9 +5,9 @@ import { useCallback } from 'react';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { ButtonBaseWithConfirmDialog } from 'components/form/ButtonWithConfirmDialog';
-import { Nickname } from 'components/user/Nickname';
-import useBlockUser from '@sorare/core/src/hooks/users/useBlockUser';
+import { ButtonBaseWithConfirmDialog } from '@core/components/form/ButtonWithConfirmDialog';
+import { Nickname } from '@core/components/user/Nickname';
+import useBlockUser from '@core/hooks/users/useBlockUser';
 
 import { BlockButton_publicUserInfoInterface } from './__generated__/index.graphql';
 

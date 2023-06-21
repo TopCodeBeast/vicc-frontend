@@ -2,12 +2,12 @@ import { useRef, useState } from 'react';
 import { FormattedMessage, MessageDescriptor, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { Caption, Text14, Title6 } from '@sorare/core/src/atoms/typography';
-import { GraphQLResult, GraphqlForm, TextField } from 'components/form/Form';
-import Select from 'components/form/Form/Select';
-import UploadFile from 'components/form/UploadFile';
-import { GoogleReCAPTCHA, ReCAPTCHA } from 'components/recaptcha';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { Caption, Text14, Title6 } from '@core/atoms/typography';
+import { GraphQLResult, GraphqlForm, TextField } from '@core/components/form/Form';
+import Select from '@core/components/form/Form/Select';
+import UploadFile from '@core/components/form/UploadFile';
+import { GoogleReCAPTCHA, ReCAPTCHA } from '@core/components/recaptcha';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 
 const Root = styled.div`
   display: flex;

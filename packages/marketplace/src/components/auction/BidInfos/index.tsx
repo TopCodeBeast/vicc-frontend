@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import Big from 'bignumber.js';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -15,9 +14,10 @@ import useAmountWithConversion, {
   Props as UseAmountWithConversionProps,
 } from '@sorare/core/src/hooks/useAmountWithConversion';
 import { glossary } from '@sorare/core/src/lib/glossary';
+import { MonetaryAmountCurrency } from '@sorare/core/src/lib/monetaryAmount';
 
-import { ItemSpecialRewardBadge } from '@sorare/marketplace/src/components/ItemPreview/ItemSpecialRewardBadge';
-import useBestBidBelongsToUser from '@sorare/marketplace/src/hooks/auctions/useBestBidBelongsToUser';
+import { ItemSpecialRewardBadge } from '@marketplace/components/ItemPreview/ItemSpecialRewardBadge';
+import useBestBidBelongsToUser from '@marketplace/hooks/auctions/useBestBidBelongsToUser';
 
 import AuctionTimeLeft from '../AuctionTimeLeft';
 import { BidInfos_auction } from './__generated__/index.graphql';
@@ -107,15 +107,27 @@ const BidInfos = ({ auction, promotionalEvent }: Props) => {
     bidsCount,
     cancelled,
     currentPrice,
+    currency,
     endDate,
     myBestBid,
     myLastBid,
   } = auction;
 
-  const bestBidIsMaxBid =
-    myBestBid?.maximumAmount &&
-    bestBid?.amount &&
-    new Big(myBestBid?.maximumAmount).eq(bestBid.amount);
+  const bestBidRefCurrency = bestBid?.amounts.referenceCurrency;
+  const bestBidAmount =
+    bestBidRefCurrency &&
+    bestBid?.amounts[
+      bestBidRefCurrency.toLowerCase() as MonetaryAmountCurrency
+    ];
+
+  const myBestBidRefCurrency = myBestBid?.maximumAmounts.referenceCurrency;
+  const myBestBidAmount =
+    myBestBidRefCurrency &&
+    myBestBid?.maximumAmounts[
+      myBestBidRefCurrency.toLowerCase() as MonetaryAmountCurrency
+    ];
+
+  const bestBidIsMaxBid = myBestBidAmount === bestBidAmount;
 
   return (
     <Wrapper>
@@ -132,30 +144,33 @@ const BidInfos = ({ auction, promotionalEvent }: Props) => {
           )}
           {currentPrice && (
             <AmountWithConversion
-              unit="wei"
-              amount={currentPrice}
-              context="Open auction currentBid"
+              monetaryAmount={{
+                referenceCurrency: currency,
+                [currency.toLowerCase()]: currentPrice,
+              }}
               bigger={!myLastBid}
             />
           )}
         </Column>
-        {autoBid && myBestBid?.maximumAmount && !bestBidIsMaxBid && (
-          <Column>
-            <Text16 color="var(--c-neutral-600)">
-              <FormattedMessage
-                id="BidInfos.maxBid"
-                defaultMessage="Your max bid"
-              />
-            </Text16>
-            {auction?.myBestBid?.maximumAmount && (
+        {autoBid &&
+          myBestBid?.maximumAmounts &&
+          myBestBidRefCurrency &&
+          !bestBidIsMaxBid && (
+            <Column>
+              <Text16 color="var(--c-neutral-600)">
+                <FormattedMessage
+                  id="BidInfos.maxBid"
+                  defaultMessage="Your max bid"
+                />
+              </Text16>
               <AmountWithConversion
-                unit="wei"
-                amount={auction.myBestBid.maximumAmount}
-                context="Open auction currentBid"
+                monetaryAmount={{
+                  referenceCurrency: myBestBidRefCurrency,
+                  [myBestBidRefCurrency.toLowerCase()]: myBestBidAmount,
+                }}
               />
-            )}
-          </Column>
-        )}
+            </Column>
+          )}
       </Row>
       {promotionalEvent && <ItemSpecialRewardBadge event={promotionalEvent} />}
       <StyledText14 as="div" color="var(--c-neutral-600)">
@@ -188,6 +203,7 @@ BidInfos.fragments = {
       bidsCount
       autoBid
       currentPrice
+      currency
       privateCurrentPrice
       nfts {
         assetId
@@ -196,12 +212,24 @@ BidInfos.fragments = {
       }
       bestBid {
         id
-        amount
+        amounts {
+          eur
+          usd
+          gbp
+          wei
+          referenceCurrency
+        }
         ...UseBestBidBelongsToUser_bestBid
       }
       myBestBid {
         id
-        maximumAmount
+        maximumAmounts {
+          eur
+          usd
+          gbp
+          wei
+          referenceCurrency
+        }
       }
       myLastBid {
         id

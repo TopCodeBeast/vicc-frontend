@@ -9,7 +9,7 @@ import { LEGACY_PLAYER_SHOW } from '@sorare/core/src/constants/routes';
 import { useSportContext } from '@sorare/core/src/contexts/sport';
 import { Color } from '@sorare/core/src/style/types';
 
-import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
+import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
 
 import { TokenDescription_token } from './__generated__/index.graphql';
 

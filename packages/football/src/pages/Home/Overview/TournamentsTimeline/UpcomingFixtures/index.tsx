@@ -7,7 +7,7 @@ import {
 } from '@sorare/core/src/__generated__/globalTypes';
 import { groupBy } from '@sorare/core/src/lib/arrays';
 
-import { Discover } from '@sorare/football/src/pages/Home/Overview/Discover';
+import { Discover } from '@football/pages/Home/Overview/Discover';
 
 import { UpcomingFixture } from './UpcomingFixture';
 import { UpcomingFixtures_so5 } from './__generated__/index.graphql';

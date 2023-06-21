@@ -10,8 +10,8 @@ import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import {
   ItemImgContainer,
   ItemInfosContainer,
-} from '@sorare/marketplace/src/components/ItemPreview/ui';
-import TokenDescription from '@sorare/marketplace/src/components/token/TokenDescription';
+} from '@marketplace/components/ItemPreview/ui';
+import TokenDescription from '@marketplace/components/token/TokenDescription';
 
 import { TokenDetails } from './TokenDetails';
 import { TokenImg } from './TokenImg';

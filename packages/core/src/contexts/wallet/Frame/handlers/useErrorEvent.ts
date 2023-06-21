@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 
 import { ErrorTracking, MessagingContext } from '@sorare/wallet-shared';
-import { useSentryContext } from '@sorare/core/src/contexts/sentry';
+import { useSentryContext } from '@core/contexts/sentry';
 
 export function useErrorEvent() {
   const { registerHandler } = useContext(MessagingContext)!;

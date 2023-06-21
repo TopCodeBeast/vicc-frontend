@@ -14,12 +14,12 @@ import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useInfiniteScroll from '@sorare/core/src/hooks/useInfiniteScroll';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { Lineup } from '@sorare/football/src/components/lineup/Lineup';
-import LineupToDiscover from '@sorare/football/src/components/lineup/LineupToDiscover';
-import useNavigateToComposeTeam from 'hooks/so5/useNavigateToComposeTeam';
-import { getRewardType } from 'lib/lineupRewards';
-import { ShowMoreButton } from '@sorare/football/src/pages/Lobby/Components/ShowMoreButton';
-import useGetRecommendedLeaderboard from '@sorare/football/src/pages/useGetRecommendedLeaderboard';
+import { Lineup } from '@football/components/lineup/Lineup';
+import LineupToDiscover from '@football/components/lineup/LineupToDiscover';
+import useNavigateToComposeTeam from '@football/hooks/so5/useNavigateToComposeTeam';
+import { getRewardType } from '@football/lib/lineupRewards';
+import { ShowMoreButton } from '@football/pages/Lobby/Components/ShowMoreButton';
+import useGetRecommendedLeaderboard from '@football/pages/useGetRecommendedLeaderboard';
 
 import { Teams_so5Fixture } from './__generated__/index.graphql';
 import useGetTeams from './useGetTeams';

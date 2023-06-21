@@ -8,17 +8,17 @@ import {
   useState,
 } from 'react';
 
-import { useConfigContext } from '@sorare/core/src/contexts/config';
-import { useSentryContext } from '@sorare/core/src/contexts/sentry';
-import Web3ContextProvider from '@sorare/core/src/contexts/web3';
-import { lazy } from '@sorare/core/src/lib/retry';
+import { useConfigContext } from '@core/contexts/config';
+import { useSentryContext } from '@core/contexts/sentry';
+import Web3ContextProvider from '@core/contexts/web3';
+import { lazy } from '@core/lib/retry';
 import {
   EthereumSetupStatus,
   WALLET_NOT_INITIALIZED_ERROR,
   Wallet,
   getWallet,
   getWalletStatus,
-} from '@sorare/core/src/lib/web3';
+} from '@core/lib/web3';
 
 import {
   UpdateUserSettingsLastWeb3ProviderMutation,

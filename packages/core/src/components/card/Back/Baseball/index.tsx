@@ -1,8 +1,8 @@
-import { Sport } from '__generated__/globalTypes';
+import { Sport } from '@core/__generated__/globalTypes';
 import {
   USSportCardBack,
   Props as USSportCardBackProps,
-} from 'components/cards/Back';
+} from '@core/components/cards/Back';
 
 type Props = Omit<USSportCardBackProps, 'sport'>;
 

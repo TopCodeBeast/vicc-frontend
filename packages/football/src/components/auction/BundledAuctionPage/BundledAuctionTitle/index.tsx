@@ -6,7 +6,7 @@ import { Text16, TypographyVariant } from '@sorare/core/src/atoms/typography';
 import { transferMarket } from '@sorare/core/src/lib/glossary';
 import { format } from '@sorare/core/src/lib/seasons';
 
-import ItemEligibility from '@sorare/football/src/components/card/ItemEligibility';
+import ItemEligibility from '@football/components/card/ItemEligibility';
 
 import { BundledAuctionTitle_card } from './__generated__/index.graphql';
 

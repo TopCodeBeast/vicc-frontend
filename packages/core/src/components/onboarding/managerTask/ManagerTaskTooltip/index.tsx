@@ -2,9 +2,9 @@ import { Tooltip as MuiTooltip, TooltipProps } from '@material-ui/core';
 import { ReactNode } from 'react';
 import { css } from 'styled-components';
 
-import HighlightableWrapper from 'components/HighlightableWrapper';
-import { useManagerTaskContext } from '@sorare/core/src/contexts/managerTask';
-import { OverrideClasses } from '@sorare/core/src/style/utils';
+import HighlightableWrapper from '@core/components/HighlightableWrapper';
+import { useManagerTaskContext } from '@core/contexts/managerTask';
+import { OverrideClasses } from '@core/style/utils';
 
 type Props = {
   children?: ReactNode;

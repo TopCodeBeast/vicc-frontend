@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { lazy } from '@sorare/core/src/lib/retry';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import { lazy } from '@core/lib/retry';
 
 import type { Props as ContentProps } from './Content';
 

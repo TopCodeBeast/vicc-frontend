@@ -1,9 +1,9 @@
 import { useApolloClient } from '@apollo/client';
 import { useCallback } from 'react';
 
-import { AuthBroadCastChannel } from '@sorare/core/src/lib/broadcastChannel';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { client as httpClient } from '@sorare/core/src/lib/http';
+import { AuthBroadCastChannel } from '@core/lib/broadcastChannel';
+import useEvents from '@core/lib/events/useEvents';
+import { client as httpClient } from '@core/lib/http';
 
 const useLogout = () => {
   const client = useApolloClient();

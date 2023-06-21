@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
-import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
+import { FRONTEND_ASSET_HOST } from '@core/constants/assets';
 
 const shuffle = keyframes`
   0% {

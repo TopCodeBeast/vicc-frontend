@@ -5,6 +5,7 @@ import { ReactNode, useState } from 'react';
 import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import styled from 'styled-components';
 
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
 import Blockquote from '@sorare/core/src/atoms/layout/Blockquote';
@@ -14,9 +15,9 @@ import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConvers
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
 
-import TokenSummary from '@sorare/marketplace/src/components/buyActions/TokenSummary';
-import CalculatedFeesTooltip from '@sorare/marketplace/src/components/offer/CalculatedFeesTooltip';
-import { TokenTransferChildrenProps } from '@sorare/marketplace/src/components/token/TokenTransferValidator/types';
+import TokenSummary from '@marketplace/components/buyActions/TokenSummary';
+import CalculatedFeesTooltip from '@marketplace/components/offer/CalculatedFeesTooltip';
+import { TokenTransferChildrenProps } from '@marketplace/components/token/TokenTransferValidator/types';
 
 import { ConfirmationDialogContent_token } from './__generated__/index.graphql';
 
@@ -101,9 +102,10 @@ const ConfirmationDialogContent = ({
   token,
 }: Props) => {
   const { main, exponent } = useAmountWithConversion({
-    amount: weiAmount,
-    unit: 'wei',
-    context: 'OfferDialog.dialogContent',
+    monetaryAmount: {
+      referenceCurrency: SupportedCurrency.WEI,
+      [SupportedCurrency.WEI.toLowerCase()]: weiAmount,
+    },
   });
   const [consentAgreed, setConsentAgreed] = useState(false);
 
@@ -122,7 +124,6 @@ const ConfirmationDialogContent = ({
               <Main $warning={showWarningMessage}>{main}</Main>
               {secondaryMarketFeesRate > 0 && (
                 <Tooltip
-                  arrow
                   enterTouchDelay={0}
                   interactive
                   placement="top"

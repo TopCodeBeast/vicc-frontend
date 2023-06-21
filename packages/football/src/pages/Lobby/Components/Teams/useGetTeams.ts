@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 import { So5State } from '@sorare/core/src/__generated__/globalTypes';
 import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery';
 
-import { Lineup } from '@sorare/football/src/components/lineup/Lineup';
+import { Lineup } from '@football/components/lineup/Lineup';
 
 import {
   LobbyLineupsQuery,

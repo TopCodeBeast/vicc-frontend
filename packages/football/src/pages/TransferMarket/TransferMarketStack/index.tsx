@@ -24,9 +24,9 @@ import {
   filterSeparator,
 } from '@sorare/marketplace/src/searchCards';
 
-import AdvancedCardSearch from '@sorare/football/src/components/searchCards/AdvancedCardSearch';
-import { RefineFootballPosition } from '@sorare/football/src/components/searchCards/RefinePosition';
-import PageTemplate from '@sorare/football/src/pages/TransferMarket/PageTemplate';
+import AdvancedCardSearch from '@football/components/searchCards/AdvancedCardSearch';
+import { RefineFootballPosition } from '@football/components/searchCards/RefinePosition';
+import PageTemplate from '@football/pages/TransferMarket/PageTemplate';
 
 import {
   So5SecondaryMarketStackPlayerQuery,

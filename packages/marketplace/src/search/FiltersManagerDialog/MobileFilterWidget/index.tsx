@@ -8,8 +8,8 @@ import styled, { css } from 'styled-components';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import { FILTERS, FilterWidget } from '@sorare/core/src/lib/filters';
 
-import { useFormatFilterWidgetValue } from '@sorare/marketplace/src/hooks/search/useFormatFilterWidgetValue';
-import { RefinementItem } from '@sorare/marketplace/src/search/ActiveFilters/types';
+import { useFormatFilterWidgetValue } from '@marketplace/hooks/search/useFormatFilterWidgetValue';
+import { RefinementItem } from '@marketplace/search/ActiveFilters/types';
 
 type Props = {
   widget: FilterWidget;

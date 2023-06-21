@@ -1,4 +1,4 @@
-import { Tradeable, WalletStatus } from '__generated__/globalTypes';
+import { Tradeable, WalletStatus } from '@core/__generated__/globalTypes';
 
 import { BANK_APPROVAL_ERROR, WALLET_ACCESS_ERROR } from '../constants/errors';
 

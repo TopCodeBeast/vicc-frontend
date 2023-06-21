@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { useKey } from 'react-use';
 import styled, { css } from 'styled-components';
 
-import useLocalStorage from '@sorare/core/src/hooks/useLocalStorage';
+import useLocalStorage from '@core/hooks/useLocalStorage';
 
 import DebugContextProvider, { GraphQLCall } from '.';
 

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import Button from '@sorare/core/src/atoms/buttons/Button';
 
-import { useClearAllFilters } from '@sorare/marketplace/src/search/ClearAllFilters';
+import { useClearAllFilters } from '@marketplace/search/ClearAllFilters';
 
 const messages = defineMessages({
   clearFilters: {

@@ -4,18 +4,20 @@ import { FormattedMessage, defineMessages } from 'react-intl';
 
 import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import { Title5 } from '@sorare/core/src/atoms/typography';
+import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { useWalletPreferences } from '@sorare/core/src/hooks/wallets/useWalletPreferences';
 import { Currency } from '@sorare/core/src/lib/currency';
 import { isA } from '@sorare/core/src/lib/gql';
+import { getMonetaryAmountIndex } from '@sorare/core/src/lib/monetaryAmount';
 
-import BidBundleSummary from '@sorare/marketplace/src/components/buyActions/BidBundleSummary';
-import BidTokenSummary from '@sorare/marketplace/src/components/buyActions/BidTokenSummary';
-import LazyPaymentProvider from '@sorare/marketplace/src/components/buyActions/LazyPaymentProvider';
-import { fragments as paymentProviderFragments } from '@sorare/marketplace/src/components/buyActions/PaymentProvider/fragments';
-import { BidWithWalletMutation } from '@sorare/marketplace/src/hooks/auctions/__generated__/useBidWithWallet.graphql';
-import useBestBidBelongsToUser from '@sorare/marketplace/src/hooks/auctions/useBestBidBelongsToUser';
-import useBidWithWallet from '@sorare/marketplace/src/hooks/auctions/useBidWithWallet';
-import { auctionMinNextBid } from '@sorare/marketplace/src/lib/auctions';
+import BidBundleSummary from '@marketplace/components/buyActions/BidBundleSummary';
+import BidTokenSummary from '@marketplace/components/buyActions/BidTokenSummary';
+import LazyPaymentProvider from '@marketplace/components/buyActions/LazyPaymentProvider';
+import { fragments as paymentProviderFragments } from '@marketplace/components/buyActions/PaymentProvider/fragments';
+import { BidWithWalletMutation } from '@marketplace/hooks/auctions/__generated__/useBidWithWallet.graphql';
+import useBestBidBelongsToUser from '@marketplace/hooks/auctions/useBestBidBelongsToUser';
+import useBidWithWallet from '@marketplace/hooks/auctions/useBidWithWallet';
+import { auctionMinNextBid } from '@marketplace/lib/auctions';
 
 import {
   BidPaymentModal_auction,
@@ -46,7 +48,9 @@ const BidPaymentModal = ({ auction, tokens, onSuccess, onClose }: Props) => {
   const [outBidByAutoBid, setOutBidByAutoBid] = useState(false);
   const [outBidCallback, setOutBidCallback] =
     useState<(amount: string) => void>();
-  const [stripeWeiAmount, setStripeWeiAmount] = useState<string>('');
+
+  const [stripeMonetaryAmount, setStripeMonetaryAmount] =
+    useState<MonetaryAmountOutput | null>(null);
   const [timeoutPolling, setTimeoutPolling] = useState<ReturnType<
     typeof setTimeout
   > | null>(null);
@@ -67,12 +71,12 @@ const BidPaymentModal = ({ auction, tokens, onSuccess, onClose }: Props) => {
     }
   };
 
-  usePollAuctionBestBid(polling, auction, stripeWeiAmount, onPollingEnd);
+  usePollAuctionBestBid(polling, auction, stripeMonetaryAmount, onPollingEnd);
 
   const onSuccessWithFiat = useCallback(
-    (weiAmount?: string) => {
-      if (auction.autoBid && weiAmount) {
-        setStripeWeiAmount(weiAmount);
+    (monetaryAmount?: MonetaryAmountOutput) => {
+      if (auction.autoBid && monetaryAmount) {
+        setStripeMonetaryAmount(monetaryAmount);
         setPolling(true);
         setTimeoutPolling(
           setTimeout(() => {
@@ -107,22 +111,21 @@ const BidPaymentModal = ({ auction, tokens, onSuccess, onClose }: Props) => {
   const bid = useCallback(
     async ({
       supportedCurrency,
-      weiAmount,
-      totalFiatAmountInCents,
+      monetaryAmount,
       conversionCreditId,
     }: {
       supportedCurrency: SupportedCurrency;
-      weiAmount: string;
-      totalFiatAmountInCents: string;
+      monetaryAmount: MonetaryAmountOutput;
       conversionCreditId?: string;
     }) => {
+      const monetaryAmountIndex = getMonetaryAmountIndex(supportedCurrency);
       const newBid = await bidWithWallet({
         supportedCurrency,
-        bidAmountWei: weiAmount,
+        bidAmountWei: monetaryAmount.wei,
         amount:
           supportedCurrency === SupportedCurrency.WEI
-            ? weiAmount
-            : totalFiatAmountInCents,
+            ? monetaryAmount.wei
+            : monetaryAmount[monetaryAmountIndex].toString(),
         conversionCreditId,
       });
       if (
@@ -150,7 +153,10 @@ const BidPaymentModal = ({ auction, tokens, onSuccess, onClose }: Props) => {
         objectId: auction.id,
         onSuccess: onSuccessWithFiat,
         onSubmit: bid,
-        priceInWei: minNextBid,
+        price: {
+          amount: minNextBid,
+          referenceCurrency: auction.currency,
+        },
         cta: confirmMessage,
         creditCardFee: auction.creditCardFee,
         canUseConversionCredit: true,
@@ -204,9 +210,9 @@ BidPaymentModal.fragments = {
       privateMinNextBid
       creditCardFee
       autoBid
+      currency
       bestBid {
         id
-        amount
         ...UseBestBidBelongsToUser_bestBid
       }
       ...useBidWithWallet_auction

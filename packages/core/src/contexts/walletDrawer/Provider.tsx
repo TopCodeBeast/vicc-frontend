@@ -1,7 +1,7 @@
 import { ReactNode, useCallback, useRef, useState } from 'react';
 
-import { GoogleReCAPTCHA, ReCAPTCHA } from 'components/recaptcha';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
+import { GoogleReCAPTCHA, ReCAPTCHA } from '@core/components/recaptcha';
+import useEvents from '@core/lib/events/useEvents';
 
 import WalletDrawerContextProvider, {
   WalletTab,

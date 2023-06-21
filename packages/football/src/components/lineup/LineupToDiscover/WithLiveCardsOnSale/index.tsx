@@ -5,8 +5,8 @@ import { useHits, usePagination } from 'react-instantsearch-hooks-web';
 import { Position } from '@sorare/core/src/__generated__/globalTypes';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
-import { Props as LineupProps } from '@sorare/football/src/components/lineup/Lineup';
-import WithLineupSuggestions from '@sorare/football/src/components/lineup/LineupToDiscover/WithLineupSuggestions';
+import { Props as LineupProps } from '@football/components/lineup/Lineup';
+import WithLineupSuggestions from '@football/components/lineup/LineupToDiscover/WithLineupSuggestions';
 
 import {
   WithLiveCardsOnSaleLeaderboardQuery,
@@ -42,7 +42,6 @@ const WITH_LIVE_CARDS_ON_SALE_LEADERBOARD_QUERY = gql`
 `;
 
 type CardHit = {
-  slug: string;
   active_club?: {
     slug?: string;
   };
@@ -172,7 +171,7 @@ const WithLiveCardsOnSaleContainer = ({
       suggestionCardSlugs={hits
         // filter out transfered players to avoid confusion for new users
         .filter(hit => hit.active_club?.slug === hit.team?.slug)
-        .map(hit => hit.slug)}
+        .map(hit => hit.objectID)}
       amateurLeaderboardSlug={amateurLeaderboardSlug}
       fetchNextPage={() => {
         if (!isLastPage) {

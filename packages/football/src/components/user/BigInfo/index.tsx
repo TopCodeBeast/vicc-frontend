@@ -1,17 +1,19 @@
 import { gql } from '@apollo/client';
 import { faCamera } from '@fortawesome/pro-solid-svg-icons';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { Dispatch, FC, ReactNode, SetStateAction, useState } from 'react';
 import styled, { StyledComponent } from 'styled-components';
 
 import { ShopItemType } from '@sorare/core/src/__generated__/globalTypes';
 import ecusson from '@sorare/core/src/assets/user/ecusson.png';
 import { Text14, Title2 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@sorare/core/src/components/dialog';
+import UpdateProfile from '@sorare/core/src/components/settings/UpdateProfile';
 import ActivityIndicator from '@sorare/core/src/components/user/ActivityIndicator';
 import UserName from '@sorare/core/src/components/user/UserName';
 import { theme } from '@sorare/core/src/style/theme';
 
-import Banner from '@sorare/football/src/components/user/Banner';
-import ClubName from '@sorare/football/src/components/user/ClubName';
+import Banner from '@football/components/user/Banner';
+import ClubName from '@football/components/user/ClubName';
 
 import { BigInfo_user } from './__generated__/index.graphql';
 
@@ -22,6 +24,7 @@ interface Props {
   >;
   Camera: StyledComponent<any, any>;
   children: ReactNode;
+  readOnly?: boolean;
 }
 
 const Root = styled.div`
@@ -54,9 +57,28 @@ const ProfilePicture = styled.img`
   object-fit: cover;
   box-shadow: var(--shadow-400);
 `;
+const UpdateProfileWrapper = styled.div`
+  padding: 0 var(--double-unit) var(--double-unit);
+`;
 
-export const BigInfo = ({ user, setPickingSkin, Camera, children }: Props) => {
+const Avatar: FC<{ onClick?: () => void }> = ({ children, onClick }) =>
+  onClick ? (
+    <button onClick={onClick} type="button">
+      {children}
+    </button>
+  ) : (
+    <>{children}</>
+  );
+
+export const BigInfo = ({
+  user,
+  setPickingSkin,
+  Camera,
+  children,
+  readOnly,
+}: Props) => {
   const { profile } = user;
+  const [openUpdatingPicture, setOpenUpdatingPicture] = useState(false);
   const { fullPictureUrl } = profile;
 
   return (
@@ -64,9 +86,8 @@ export const BigInfo = ({ user, setPickingSkin, Camera, children }: Props) => {
       <Banner user={user} />
       <Root>
         <Infos>
-          <button
-            type="button"
-            onClick={() => setPickingSkin?.(ShopItemType.BANNER)}
+          <Avatar
+            onClick={readOnly ? undefined : () => setOpenUpdatingPicture(true)}
           >
             <ActivityIndicator user={user}>
               <ProfilePicture
@@ -75,7 +96,7 @@ export const BigInfo = ({ user, setPickingSkin, Camera, children }: Props) => {
                 height={60}
               />
             </ActivityIndicator>
-          </button>
+          </Avatar>
           <PersonalInfos>
             <Title2 color="var(--c-static-neutral-100)">
               <UserName user={user} />
@@ -101,6 +122,16 @@ export const BigInfo = ({ user, setPickingSkin, Camera, children }: Props) => {
           )}
         </Infos>
         {children}
+        <Dialog
+          maxWidth="sm"
+          open={openUpdatingPicture}
+          onClose={() => setOpenUpdatingPicture(false)}
+          body={
+            <UpdateProfileWrapper>
+              <UpdateProfile onSubmit={() => setOpenUpdatingPicture(false)} />
+            </UpdateProfileWrapper>
+          }
+        />
       </Root>
     </>
   );

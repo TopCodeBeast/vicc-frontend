@@ -5,7 +5,7 @@ import { Text16 } from '@sorare/core/src/atoms/typography';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { Link } from '@sorare/core/src/routing/Link';
 
-import { FootballEventTypes, useFootballEvents } from 'lib/events';
+import { FootballEventTypes, useFootballEvents } from '@football/lib/events';
 
 type Props = {
   context: FootballEventTypes['Click View More In Homepage']['context'];

@@ -4,7 +4,7 @@ import VerifyPhoneNumber from '@sorare/core/src/components/user/VerifyPhoneNumbe
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useRedirectToLogIn from '@sorare/core/src/hooks/auth/useRedirectToLogIn';
 
-import Layout from 'routing/Layout';
+import Layout from '@football/routing/Layout';
 
 interface Props {
   element: ReactElement;

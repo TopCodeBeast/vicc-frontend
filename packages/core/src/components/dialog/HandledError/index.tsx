@@ -2,9 +2,9 @@ import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { Title3 } from '@sorare/core/src/atoms/typography';
-import { ErrorProps, images, levelOfErrorCode } from '@sorare/core/src/routing/HandledError';
+import Button from '@core/atoms/buttons/Button';
+import { Title3 } from '@core/atoms/typography';
+import { ErrorProps, images, levelOfErrorCode } from '@core/routing/HandledError';
 
 const Container = styled.div`
   display: flex;

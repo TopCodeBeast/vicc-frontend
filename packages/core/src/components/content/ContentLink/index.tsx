@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { isExternalDomain, toRelative } from '@sorare/core/src/lib/urls';
-import { Link } from '@sorare/core/src/routing/Link';
+import { isExternalDomain, toRelative } from '@core/lib/urls';
+import { Link } from '@core/routing/Link';
 
 const Root = styled.a`
   text-decoration: none;

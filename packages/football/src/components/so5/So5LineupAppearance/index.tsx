@@ -14,7 +14,7 @@ import CardBonus from '@sorare/football/src/components/so5/CardProperties/CardBo
 import Points from '@sorare/football/src/components/so5/Points';
 import PlayerScore from '@sorare/football/src/components/stats/PlayerScore';
 import ScoreFrom from '@sorare/football/src/components/stats/ScoreFrom';
-import { getPlayerScore } from 'lib/so5';
+import { getPlayerScore } from '@football/lib/so5';
 
 import { So5LineupAppearance_so5Appearance } from './__generated__/index.graphql';
 

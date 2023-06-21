@@ -1,9 +1,9 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { GetCurrentUserSubscriptionProps } from '@sorare/core/src/contexts/follow';
-import useSubscribersCount from '@sorare/core/src/hooks/subscriptions/useSubscribersCount';
+import { Text16 } from '@core/atoms/typography';
+import { GetCurrentUserSubscriptionProps } from '@core/contexts/follow';
+import useSubscribersCount from '@core/hooks/subscriptions/useSubscribersCount';
 
 const Count = styled(Text16)`
   font-weight: 900;

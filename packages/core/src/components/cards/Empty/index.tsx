@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { Title3 } from '@sorare/core/src/atoms/typography';
+import { Title3 } from '@core/atoms/typography';
 
 import EmptyCards from './cards.svg';
 

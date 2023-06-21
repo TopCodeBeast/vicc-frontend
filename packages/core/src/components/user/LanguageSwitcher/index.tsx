@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
 import styled from 'styled-components';
 
-import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
-import Dropdown from '@sorare/core/src/atoms/dropdowns/Dropdown';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { LOCALE_KEY, localeConfig } from '@sorare/core/src/contexts/intl';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { theme } from '@sorare/core/src/style/theme';
+import ButtonBase from '@core/atoms/buttons/ButtonBase';
+import Dropdown from '@core/atoms/dropdowns/Dropdown';
+import { Text16 } from '@core/atoms/typography';
+import { LOCALE_KEY, localeConfig } from '@core/contexts/intl';
+import useEvents from '@core/lib/events/useEvents';
+import { theme } from '@core/style/theme';
 
 import { useSetLocale } from './useSetLocale';
 

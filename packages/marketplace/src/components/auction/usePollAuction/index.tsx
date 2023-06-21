@@ -5,7 +5,7 @@ import { usePageVisibility } from 'react-page-visibility';
 
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 
-import useBestBidBelongsToUser from '@sorare/marketplace/src/hooks/auctions/useBestBidBelongsToUser';
+import useBestBidBelongsToUser from '@marketplace/hooks/auctions/useBestBidBelongsToUser';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import BidHistory from '../BidHistory';

@@ -3,8 +3,8 @@ import classnames from 'classnames';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { IconButton, Props as IconButtonProps } from '@sorare/core/src/atoms/buttons/IconButton';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import { IconButton, Props as IconButtonProps } from '@core/atoms/buttons/IconButton';
+import { glossary } from '@core/lib/glossary';
 
 interface Props extends Omit<IconButtonProps, 'color' | 'classes'> {
   onClose: (...args: any[]) => any;

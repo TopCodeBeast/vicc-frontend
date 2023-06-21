@@ -7,7 +7,7 @@ import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
 import { FOOTBALL_USER_GALLERY_CARDS } from '@sorare/core/src/constants/routes';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
-import Airdrop from '@sorare/football/src/components/so5/ActionReward/Airdrop';
+import Airdrop from '@football/components/so5/ActionReward/Airdrop';
 
 const UnclaimedReward = styled(MenuItem)`
   display: flex;

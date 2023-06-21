@@ -1,8 +1,8 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
-import usePrevious from '@sorare/core/src/hooks/usePrevious';
+import { useBgLocation } from '@core/hooks/useBgLocation';
+import usePrevious from '@core/hooks/usePrevious';
 
 export const EnsureTopVisibleOnMount = ({
   children,

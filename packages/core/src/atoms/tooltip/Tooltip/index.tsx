@@ -1,39 +1,32 @@
 import { Tooltip as MuiTooltip, TooltipProps } from '@material-ui/core';
 import styled, { css } from 'styled-components';
 
-import { theme } from '@sorare/core/src/style/theme';
-import { OverrideClasses } from '@sorare/core/src/style/utils';
+import { OverrideClasses } from '@core/style/utils';
 
-type Props = Omit<TooltipProps, 'classes'> & {
-  dark?: boolean;
+type Props = Omit<TooltipProps, 'classes' | 'arrow'> & {
+  arrow?: false;
 };
 
-const commonTooltipStyle = css`
-  padding: var(--unit);
-  box-shadow: var(--shadow-300);
-  border-radius: ${theme.shape.borderRadius};
-  max-width: min(calc(100vw - var(--unit)), 600px);
-`;
-
-const DarkTooltip = OverrideClasses(MuiTooltip, null, {
+const Root = OverrideClasses(MuiTooltip, null, {
   tooltip: css`
-    ${commonTooltipStyle}
-    background-color: var(--c-neutral-1000);
-    color: var(--c-neutral-100);
-  `,
-  arrow: css`
-    color: var(--c-neutral-1000);
-  `,
-});
-
-const LightTooltip = OverrideClasses(MuiTooltip, null, {
-  tooltip: css`
-    ${commonTooltipStyle}
+    padding: var(--unit);
+    box-shadow: var(--shadow-300);
+    max-width: min(calc(100vw - var(--double-unit)), 600px);
     background-color: var(--c-neutral-100);
     color: var(--c-neutral-1000);
+    border: 1px solid rgba(var(--c-rgb-neutral-400), 0.5);
+    .dark-theme & {
+      background-color: var(--c-neutral-200);
+    }
   `,
   arrow: css`
-    color: var(--c-neutral-100);
+    &::before {
+      border: 1px solid rgba(var(--c-rgb-neutral-400), 0.5);
+      background-color: var(--c-neutral-100);
+      .dark-theme & {
+        background-color: var(--c-neutral-200);
+      }
+    }
   `,
 });
 
@@ -45,13 +38,8 @@ const ContentWrapper = styled.span`
   display: inline-flex;
 `;
 
-export const Tooltip = ({
-  children,
-  interactive = true,
-  dark = true,
-  ...rest
-}: Props) => {
-  const [TooltipOverride, classes] = dark ? DarkTooltip : LightTooltip;
+export const Tooltip = ({ children, interactive = true, ...rest }: Props) => {
+  const [TooltipOverride, classes] = Root;
   return (
     <TooltipOverride
       arrow

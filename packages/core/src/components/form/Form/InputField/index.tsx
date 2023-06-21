@@ -6,19 +6,18 @@ import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { FormattedNumber } from 'react-intl';
 import styled, { css } from 'styled-components';
 
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import { Text16, Title5 } from '@sorare/core/src/atoms/typography';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import useRegexp from '@sorare/core/src/hooks/useRegexp';
-import useToggle from '@sorare/core/src/hooks/useToggle';
-import { Currency } from '@sorare/core/src/lib/currency';
-import { currencySymbol } from '@sorare/core/src/lib/fiat';
-import { OverrideClasses } from '@sorare/core/src/style/utils';
+import IconButton from '@core/atoms/buttons/IconButton';
+import { Text16, Title5 } from '@core/atoms/typography';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import useRegexp from '@core/hooks/useRegexp';
+import useToggle from '@core/hooks/useToggle';
+import { Currency } from '@core/lib/currency';
+import { currencySymbol } from '@core/lib/fiat';
+import { OverrideClasses } from '@core/style/utils';
 
 const SwitchButton = styled(IconButton).attrs({
   color: 'transparent',
   small: true,
-  disableRipple: true,
   disableDebounce: true,
 })`
   color: var(--c-neutral-600);

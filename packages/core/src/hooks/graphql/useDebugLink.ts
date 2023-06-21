@@ -1,7 +1,7 @@
 import { ApolloLink } from '@apollo/client';
 import { useMemo } from 'react';
 
-import { useDebugContext } from '@sorare/core/src/contexts/debug';
+import { useDebugContext } from '@core/contexts/debug';
 
 import { isProduction } from '../../config';
 

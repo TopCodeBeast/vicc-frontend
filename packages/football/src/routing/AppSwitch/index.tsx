@@ -85,63 +85,63 @@ import { RoutesWithDialogs } from '@sorare/core/src/routing/Router';
 import WithItemDialog from '@sorare/core/src/routing/WithItemDialog';
 
 import Landing from '@sorare/shared-pages/src/Landing';
-import BundledAuctionPage from '@sorare/football/src/components/auction/BundledAuctionPage';
-import EditDeckCards from '@sorare/football/src/components/deck/EditDeckCards';
-import BundesligaLanding from '@sorare/football/src/pages/BundesligaLanding';
-import Card from '@sorare/football/src/pages/Card';
-import ClubShop from '@sorare/football/src/pages/ClubShop';
-import Collection from '@sorare/football/src/pages/Collections/Collection';
-import Country from '@sorare/football/src/pages/Country';
-import CustomDeck from '@sorare/football/src/pages/CustomDeck';
-import DiscoverScarcities from '@sorare/football/src/pages/DiscoverScarcities';
-import EPLLanding, { metadata } from '@sorare/football/src/pages/EPLLanding';
-import Home from '@sorare/football/src/pages/Home';
-import HomePublic from '@sorare/football/src/pages/Home/Public';
-import ManagerHomeVideos from '@sorare/football/src/pages/Home/Videos';
-import LaLigaLanding from '@sorare/football/src/pages/LaLigaLanding';
-import LineupSharing from '@sorare/football/src/pages/LineupSharing';
-import MLSLanding from '@sorare/football/src/pages/MLSLanding';
-import NoCardEntryAccept from '@sorare/football/src/pages/NoCardEntry/Accept/index';
-import NoCardEntryCancel from '@sorare/football/src/pages/NoCardEntry/Cancel/index';
-import NoCardEntryConfirm from '@sorare/football/src/pages/NoCardEntry/Confirm/index';
-import NoCardEntryRequestLeaderboards from '@sorare/football/src/pages/NoCardEntry/RequestLeaderboards/index';
-import NoCardEntry from '@sorare/football/src/pages/NoCardEntry/index';
-import PickLeague from '@sorare/football/src/pages/PickLeague';
-import Player from '@sorare/football/src/pages/Player';
-import ReferralProgram from '@sorare/football/src/pages/ReferralProgram';
-import Rewards from '@sorare/football/src/pages/Rewards';
-import SerieALanding from '@sorare/football/src/pages/SerieALanding';
-import StarterBundlePage from '@sorare/football/src/pages/StarterBundle';
-import MarketHome from '@sorare/football/src/pages/TransferMarket/Home';
-import NewSignings from '@sorare/football/src/pages/TransferMarket/NewSignings';
-import StarterBundles from '@sorare/football/src/pages/TransferMarket/StarterBundles';
-import TransferMarket from '@sorare/football/src/pages/TransferMarket/TransferMarket';
-import TransferMarketStack from '@sorare/football/src/pages/TransferMarket/TransferMarketStack';
-import Layout from 'routing/Layout';
-import PrivateRoute from 'routing/PrivateRoute';
+import BundledAuctionPage from '@football/components/auction/BundledAuctionPage';
+import EditDeckCards from '@football/components/deck/EditDeckCards';
+import BundesligaLanding from '@football/pages/BundesligaLanding';
+import Card from '@football/pages/Card';
+import ClubShop from '@football/pages/ClubShop';
+import Collection from '@football/pages/Collections/Collection';
+import Country from '@football/pages/Country';
+import CustomDeck from '@football/pages/CustomDeck';
+import DiscoverScarcities from '@football/pages/DiscoverScarcities';
+import EPLLanding, { metadata } from '@football/pages/EPLLanding';
+import Home from '@football/pages/Home';
+import HomePublic from '@football/pages/Home/Public';
+import ManagerHomeVideos from '@football/pages/Home/Videos';
+import LaLigaLanding from '@football/pages/LaLigaLanding';
+import LineupSharing from '@football/pages/LineupSharing';
+import MLSLanding from '@football/pages/MLSLanding';
+import NoCardEntryAccept from '@football/pages/NoCardEntry/Accept/index';
+import NoCardEntryCancel from '@football/pages/NoCardEntry/Cancel/index';
+import NoCardEntryConfirm from '@football/pages/NoCardEntry/Confirm/index';
+import NoCardEntryRequestLeaderboards from '@football/pages/NoCardEntry/RequestLeaderboards/index';
+import NoCardEntry from '@football/pages/NoCardEntry/index';
+import PickLeague from '@football/pages/PickLeague';
+import Player from '@football/pages/Player';
+import ReferralProgram from '@football/pages/ReferralProgram';
+import Rewards from '@football/pages/Rewards';
+import SerieALanding from '@football/pages/SerieALanding';
+import StarterBundlePage from '@football/pages/StarterBundle';
+import MarketHome from '@football/pages/TransferMarket/Home';
+import NewSignings from '@football/pages/TransferMarket/NewSignings';
+import StarterBundles from '@football/pages/TransferMarket/StarterBundles';
+import TransferMarket from '@football/pages/TransferMarket/TransferMarket';
+import TransferMarketStack from '@football/pages/TransferMarket/TransferMarketStack';
+import Layout from '@football/routing/Layout';
+import PrivateRoute from '@football/routing/PrivateRoute';
 
-const draftImport = importFactory(async () => import('pages/Draft'));
-const ComposeTeam = lazy(async () => import('pages/ComposeTeam'));
-const ComposeTeamDraft = lazy(async () => import('pages/ComposeTeam/Draft'));
+const draftImport = importFactory(async () => import('@football/pages/Draft'));
+const ComposeTeam = lazy(async () => import('@football/pages/ComposeTeam'));
+const ComposeTeamDraft = lazy(async () => import('@football/pages/ComposeTeam/Draft'));
 const Draft = lazy(draftImport);
 const LobbyCompetitionDetails = lazy(
-  async () => import('pages/Lobby/CompetitionDetails/index')
+  async () => import('@football/pages/Lobby/CompetitionDetails/index')
 );
 const UserGroupInviteLinkEntryPoint = lazy(
   async () =>
     import('pages/Lobby/Components/UserGroup/UserGroupInviteLinkEntryPoint')
 );
-const LobbyUpcoming = lazy(async () => import('pages/Lobby/Upcoming/index'));
-const LobbyLive = lazy(async () => import('pages/Lobby/Live/index'));
-const LobbyPast = lazy(async () => import('pages/Lobby/Past/index'));
-const Swap = lazy(async () => import('pages/Lobby/Upcoming/Swap'));
-const LobbyPrizePool = lazy(async () => import('pages/Lobby/PrizePool/index'));
-const UserGroups = lazy(async () => import('pages/Lobby/UserGroups/index'));
+const LobbyUpcoming = lazy(async () => import('@football/pages/Lobby/Upcoming/index'));
+const LobbyLive = lazy(async () => import('@football/pages/Lobby/Live/index'));
+const LobbyPast = lazy(async () => import('@football/pages/Lobby/Past/index'));
+const Swap = lazy(async () => import('@football/pages/Lobby/Upcoming/Swap'));
+const LobbyPrizePool = lazy(async () => import('@football/pages/Lobby/PrizePool/index'));
+const UserGroups = lazy(async () => import('@football/pages/Lobby/UserGroups/index'));
 const StarterBundlesPage = lazy(
-  async () => import('pages/Lobby/StarterBundles')
+  async () => import('@football/pages/Lobby/StarterBundles')
 );
-const League = lazy(async () => import('pages/League'));
-const Club = lazy(async () => import('pages/Club'));
+const League = lazy(async () => import('@football/pages/League'));
+const Club = lazy(async () => import('@football/pages/Club'));
 
 const FOOTBALL_LOBBY_UPCOMING = goToLobby('upcoming');
 

@@ -1,6 +1,6 @@
 import { RefObject, createContext, useContext } from 'react';
 
-import type { GoogleReCAPTCHA } from 'components/recaptcha';
+import type { GoogleReCAPTCHA } from '@core/components/recaptcha';
 
 export enum WalletTab {
   // Open from outside the wallet

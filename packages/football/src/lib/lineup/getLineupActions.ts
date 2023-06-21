@@ -7,7 +7,7 @@ import {
 } from '@sorare/core/src/__generated__/globalTypes';
 import { withFragments } from '@sorare/core/src/lib/gql';
 
-import { LeaderboardAction } from 'types/leaderboard';
+import { LeaderboardAction } from '@football/types/leaderboard';
 
 import {
   getLineupActions_so5Leaderboard,

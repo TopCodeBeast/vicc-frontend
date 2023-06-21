@@ -5,12 +5,12 @@ import styled from 'styled-components';
 
 import { FOOTBALL_LOBBY_PAST } from '@sorare/core/src/constants/routes';
 
-import { HomeBlock } from '@sorare/football/src/components/Home/Block';
-import { ItemRows } from '@sorare/football/src/components/Home/ItemRows';
-import { SeeAllButton } from '@sorare/football/src/components/Home/SeeAllButton';
-import { Lineup } from '@sorare/football/src/components/lineup/Lineup';
-import { homeLabels } from 'lib/home';
-import { getRewardType } from 'lib/lineupRewards';
+import { HomeBlock } from '@football/components/Home/Block';
+import { ItemRows } from '@football/components/Home/ItemRows';
+import { SeeAllButton } from '@football/components/Home/SeeAllButton';
+import { Lineup } from '@football/components/lineup/Lineup';
+import { homeLabels } from '@football/lib/home';
+import { getRewardType } from '@football/lib/lineupRewards';
 
 import { Past_so5 } from './__generated__/index.graphql';
 

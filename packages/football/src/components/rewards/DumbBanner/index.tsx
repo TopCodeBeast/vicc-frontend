@@ -82,7 +82,6 @@ export const DumbBanner = ({
         <LinkOverlay
           as={StyledButton}
           type="button"
-          disableRipple
           small
           onClick={onClick}
           color={disabled ? 'white' : 'blue'}

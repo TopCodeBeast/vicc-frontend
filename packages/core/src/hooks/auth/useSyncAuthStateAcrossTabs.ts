@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { AuthBroadCastChannel } from '@sorare/core/src/lib/broadcastChannel';
+import { AuthBroadCastChannel } from '@core/lib/broadcastChannel';
 
 const useSyncAuthStateAcrossTabs = () => {
   useEffect(() => {

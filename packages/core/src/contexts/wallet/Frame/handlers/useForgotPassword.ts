@@ -3,13 +3,13 @@ import type ReCAPTCHA from 'react-google-recaptcha';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 import { ForgotPassword, MessagingContext } from '@sorare/wallet-shared';
-import { useAuthContext } from '@sorare/core/src/contexts/auth';
-import { useConnectionContext } from '@sorare/core/src/contexts/connection';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useSentryContext } from '@sorare/core/src/contexts/sentry';
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import { useWalletContext } from '@sorare/core/src/contexts/wallet';
-import { useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
+import { useAuthContext } from '@core/contexts/auth';
+import { useConnectionContext } from '@core/contexts/connection';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useSentryContext } from '@core/contexts/sentry';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
+import { useWalletContext } from '@core/contexts/wallet';
+import { useWalletDrawerContext } from '@core/contexts/walletDrawer';
 
 export default () => {
   const { registerHandler } = useContext(MessagingContext)!;

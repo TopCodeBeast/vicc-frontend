@@ -15,8 +15,8 @@ import {
 import { glossary, wallet } from '@sorare/core/src/lib/glossary';
 import { fromWei } from '@sorare/core/src/lib/wei';
 
-import { TokenTransferChildrenProps } from '@sorare/marketplace/src/components/token/TokenTransferValidator/types';
-import useAcceptOffer from '@sorare/marketplace/src/hooks/offers/useAcceptOffer';
+import { TokenTransferChildrenProps } from '@marketplace/components/token/TokenTransferValidator/types';
+import useAcceptOffer from '@marketplace/hooks/offers/useAcceptOffer';
 
 import DirectOfferDialog from '../../DirectOfferDialog';
 import OfferSummary from '../../OfferSummary';

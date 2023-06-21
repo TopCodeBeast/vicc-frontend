@@ -3,21 +3,19 @@ import { useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { Button } from '@sorare/core/src/atoms/buttons/Button';
-import { Text18 } from '@sorare/core/src/atoms/typography';
-import { ContentContainer } from 'components/landing/NewLandingMultiSport/ui';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { theme } from '@sorare/core/src/style/theme';
+import { Button } from '@core/atoms/buttons/Button';
+import { Text18 } from '@core/atoms/typography';
+import { ContentContainer } from '@core/components/landing/NewLandingMultiSport/ui';
+import useEvents from '@core/lib/events/useEvents';
+import { theme } from '@core/style/theme';
 
 import { MarketPlaceDialog } from './MarketPlaceDialog';
-import { ZizouVIP } from './ZizouVIP';
 import competeImage from './assets/competeImage.jpg';
 import competeImageMobile from './assets/competeImageMobile.jpg';
 import createImage from './assets/createImage.jpg';
 import strengthenImage from './assets/strengthenImage.jpg';
 import strengthenVideo from './assets/strengthenVideo.webm';
 import winRewardsImage from './assets/winRewardsImage.jpg';
-import winRewardsImageMobile from './assets/winRewardsImageMobile.jpg';
 
 const messages = defineMessages({
   title: {
@@ -265,9 +263,7 @@ export const ExperienceBlock = () => {
       text: messages.winRewardsText,
       imageSrc: {
         default: winRewardsImage,
-        mobile: winRewardsImageMobile,
       },
-      Banner: <ZizouVIP />,
     },
   ];
 
@@ -324,7 +320,6 @@ export const ExperienceBlock = () => {
                   src={block.imageSrc.default}
                   alt={formatMessage(block.title)}
                 />
-                {block.Banner && block.Banner}
               </Picture>
             )}
           </BlockWrapper>

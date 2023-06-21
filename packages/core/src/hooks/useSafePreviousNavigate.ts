@@ -1,6 +1,6 @@
 import { To, useNavigate } from 'react-router-dom';
 
-import getSafePreviousLocation from '@sorare/core/src/lib/navigation/getSafePreviousLocation';
+import getSafePreviousLocation from '@core/lib/navigation/getSafePreviousLocation';
 
 const useSafePreviousNavigate = (
   defaultPreviousLocation: To,

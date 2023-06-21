@@ -3,13 +3,16 @@ import { useCallback } from 'react';
 import {
   ConversionCreditCampaign,
   MonetaryAmount,
-} from '__generated__/globalTypes';
+  Sport,
+} from '@core/__generated__/globalTypes';
 
 export enum SESSION_STORAGE {
+  sport = 'sport',
   signupPromo = 'signup-promo',
 }
 
 export type SessionStorageEntries = {
+  [SESSION_STORAGE.sport]: Sport;
   [SESSION_STORAGE.signupPromo]: Omit<
     ConversionCreditCampaign,
     'maxDiscount'
@@ -31,7 +34,11 @@ export const useSessionStorage = <K extends keyof SessionStorageEntries>(
     const stringValue = sessionStorage.getItem(key);
 
     if (stringValue) {
-      return JSON.parse(stringValue) as SessionStorageEntries[K];
+      try {
+        return JSON.parse(stringValue) as SessionStorageEntries[K];
+      } catch {
+        return null;
+      }
     }
 
     return null;

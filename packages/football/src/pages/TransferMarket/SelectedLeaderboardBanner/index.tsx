@@ -11,8 +11,8 @@ import { useGeneratePathWithSearch } from '@sorare/core/src/hooks/useGeneratePat
 import { Link } from '@sorare/core/src/routing/Link';
 import { theme } from '@sorare/core/src/style/theme';
 
-import DivisionLogo from '@sorare/football/src/components/so5/DivisionLogo';
-import { MissingCardsMessage } from '@sorare/football/src/components/unlockCompetition/MissingCardsMessage';
+import DivisionLogo from '@football/components/so5/DivisionLogo';
+import { MissingCardsMessage } from '@football/components/unlockCompetition/MissingCardsMessage';
 
 import {
   MarketLeaderboardQuery,

@@ -8,7 +8,7 @@ import {
 import { MessageDescriptor, useIntl } from 'react-intl';
 import { useDebounce } from 'react-use';
 
-import useEvents from '@sorare/core/src/lib/events/useEvents';
+import useEvents from '@core/lib/events/useEvents';
 
 import { FilterSearchInput } from '../FilterSearchInput';
 import { FilterSection } from '../FilterSection';

@@ -4,15 +4,15 @@ import { FormattedMessage, defineMessages } from 'react-intl';
 import { animated, useSpring, useSprings } from '@react-spring/web';
 import styled from 'styled-components';
 
-import Waypoint from '@sorare/core/src/atoms/animations/Waypoint';
+import Waypoint from '@core/atoms/animations/Waypoint';
 import {
   MixedFontTitle,
   SubTitle,
   TitlesContainer,
-} from 'components/landing/LandingFootball/ui';
-import MidfieldLine from 'components/landing/MidfieldLine';
-import { range } from '@sorare/core/src/lib/arrays';
-import { theme } from '@sorare/core/src/style/theme';
+} from '@core/components/landing/LandingFootball/ui';
+import MidfieldLine from '@core/components/landing/MidfieldLine';
+import { range } from '@core/lib/arrays';
+import { theme } from '@core/style/theme';
 
 const messages = defineMessages({
   title: {

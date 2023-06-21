@@ -50,8 +50,6 @@ const ScoreFrom = ({ player }: Props) => {
             </Caption>
           </StyledTooltip>
         }
-        arrow={false}
-        dark={false}
         placement="top"
       >
         <span role="img">

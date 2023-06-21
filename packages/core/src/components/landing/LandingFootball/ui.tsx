@@ -1,7 +1,7 @@
 import { animated } from '@react-spring/web';
 import styled from 'styled-components';
 
-import { theme } from '@sorare/core/src/style/theme';
+import { theme } from '@core/style/theme';
 
 export const TitlesContainer = styled(animated.div)`
   display: flex;

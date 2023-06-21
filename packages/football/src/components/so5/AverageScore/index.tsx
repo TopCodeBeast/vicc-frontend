@@ -6,8 +6,8 @@ import { PlayerScoreMode } from '@sorare/core/src/lib/players';
 
 import PlayerScore, {
   Props as PlayerScoreProps,
-} from '@sorare/football/src/components/stats/PlayerScore';
-import { PlayerScoreStatus } from 'lib/so5';
+} from '@football/components/stats/PlayerScore';
+import { PlayerScoreStatus } from '@football/lib/so5';
 
 const messages = defineMessages<PlayerScoreMode>({
   AVERAGE_LAST_5_GAMES: {

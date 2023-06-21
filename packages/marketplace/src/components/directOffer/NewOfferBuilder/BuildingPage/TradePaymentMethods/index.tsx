@@ -4,7 +4,10 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Currency } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  Currency,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
 import Dropdown from '@sorare/core/src/atoms/dropdowns/Dropdown';
 import { ChevronRightBold } from '@sorare/core/src/atoms/icons/ChevronRightBold';
@@ -16,15 +19,15 @@ import {
   WalletTab,
   useWalletDrawerContext,
 } from '@sorare/core/src/contexts/walletDrawer';
-import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 import { wallet } from '@sorare/core/src/lib/glossary';
 import { toWei } from '@sorare/core/src/lib/wei';
 
-import EthWallet from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/EthWallet';
-import FiatWallet from '@sorare/marketplace/src/components/buyActions/PaymentBox/Methods/FiatWallet';
-import { WalletPaymentMethod } from '@sorare/marketplace/src/components/buyActions/PaymentProvider/types';
-import useHasInsufficientFundsInWallets from '@sorare/marketplace/src/hooks/useHasInsufficientFundsInWallets';
+import EthWallet from '@marketplace/components/buyActions/PaymentBox/Methods/EthWallet';
+import FiatWallet from '@marketplace/components/buyActions/PaymentBox/Methods/FiatWallet';
+import { WalletPaymentMethod } from '@marketplace/components/buyActions/PaymentProvider/types';
+import useHasInsufficientFundsInWallets from '@marketplace/hooks/useHasInsufficientFundsInWallets';
 
 import { setCurrencyAndPaymentMethod } from '../../actions';
 import { CardDataType, StateProps } from '../../types';
@@ -83,7 +86,7 @@ const Helper = ({
   diffAmount,
   onClick,
 }: {
-  diffAmount: string;
+  diffAmount?: string;
   onClick: () => void;
 }) => (
   <HelperRoot>
@@ -122,19 +125,24 @@ export const TradePaymentMethods = <D extends CardDataType>({
 
   const [expanded, setExpanded] = useState(false);
   const { setCurrentTab, showDrawer } = useWalletDrawerContext();
+  const { toMonetaryAmount } = useMonetaryAmount();
   const { formatNumber, formatWei } = useIntlContext();
   const {
     currency: userSettingsCurrency,
     fiatCurrency: { code: currencyCode },
   } = useCurrentUserContext();
-  const { convertFromWei } = useCurrencyConverters();
   const hasInsufficientFundsInWallets = useHasInsufficientFundsInWallets();
   const {
     insufficientFundsInEthWallet,
     diffInWeiForEthWallet,
     insufficientFundsInFiatWallet,
-    diffInWeiForFiatWallet,
-  } = hasInsufficientFundsInWallets(toWei(sendEth));
+    diffInFiatCentsForFiatWallet,
+  } = hasInsufficientFundsInWallets(
+    toMonetaryAmount({
+      wei: toWei(sendEth),
+      referenceCurrency: SupportedCurrency.WEI,
+    })
+  );
 
   useEffect(() => {
     if (selectedPaymentMethod === null) {
@@ -176,15 +184,12 @@ export const TradePaymentMethods = <D extends CardDataType>({
       label: <FiatWallet />,
       value: WalletPaymentMethod.FIAT_WALLET,
       currency: Currency.FIAT,
-      helper: insufficientFundsInFiatWallet && (
+      helper: insufficientFundsInFiatWallet && diffInFiatCentsForFiatWallet && (
         <Helper
-          diffAmount={formatNumber(
-            convertFromWei(diffInWeiForFiatWallet!.toString(), currencyCode),
-            {
-              style: 'currency',
-              currency: currencyCode,
-            }
-          )}
+          diffAmount={formatNumber(diffInFiatCentsForFiatWallet / 100, {
+            style: 'currency',
+            currency: currencyCode,
+          })}
           onClick={onAddFundsClick}
         />
       ),

@@ -6,8 +6,8 @@ import classnames from 'classnames';
 import { ChangeEvent, KeyboardEvent, ReactNode, forwardRef } from 'react';
 import styled, { css } from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { theme } from '@sorare/core/src/style/theme';
+import Button from '@core/atoms/buttons/Button';
+import { theme } from '@core/style/theme';
 
 export type Props = {
   rounded?: boolean;
@@ -62,7 +62,7 @@ const StyledClearIcon = styled(FontAwesomeIcon)`
 const ClearIcon = ({ hidden, onClear }: ClearIconProps) => {
   return (
     <MaybeHidden position="end" $hidden={hidden}>
-      <Button medium disableRipple onClick={onClear}>
+      <Button medium onClick={onClear}>
         <StyledClearIcon icon={faCircleXmark} />
       </Button>
     </MaybeHidden>

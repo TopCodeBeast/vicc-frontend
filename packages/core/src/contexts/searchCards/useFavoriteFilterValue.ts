@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 
-import { useFollowContext } from '@sorare/core/src/contexts/follow';
-import { favoriteCardType, favoritePlayerType } from '@sorare/core/src/contexts/follow/Provider';
-import { useSportContext } from '@sorare/core/src/contexts/sport';
-import { joinFiltersWithOr } from '@sorare/core/src/lib/algolia';
+import { useFollowContext } from '@core/contexts/follow';
+import { favoriteCardType } from '@core/contexts/follow/Provider';
+import { useSportContext } from '@core/contexts/sport';
+import { joinFiltersWithOr } from '@core/lib/algolia';
 
 type IncludeOnlyFilter = 'Card' | 'Player';
 
@@ -11,27 +11,10 @@ export default (onlyType?: IncludeOnlyFilter) => {
   const followContext = useFollowContext();
   const { sport } = useSportContext();
 
-  const { favoriteCards, favoritePlayers } = followContext;
-  const stringifiedFavorites = JSON.stringify({
-    favoriteCards,
-    favoritePlayers,
-  });
+  const { favoriteCardsBySport, favoritePlayersBySport } = followContext;
 
-  const { cardsForSport, playersForSport } = useMemo(() => {
-    const {
-      favoriteCards: allCards,
-      favoritePlayers: allPlayers,
-    }: typeof followContext = JSON.parse(stringifiedFavorites);
-
-    return {
-      cardsForSport: allCards?.filter(
-        c => c.subscribableType === favoriteCardType[sport!]
-      ),
-      playersForSport: allPlayers?.filter(
-        p => p.subscribableType === favoritePlayerType[sport!]
-      ),
-    };
-  }, [stringifiedFavorites, sport]);
+  const cardsForSport = favoriteCardsBySport?.[sport!];
+  const playersForSport = favoritePlayersBySport?.[sport!];
 
   const showCards = !onlyType || onlyType === 'Card';
   const showPlayers = !onlyType || onlyType === 'Player';

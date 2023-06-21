@@ -7,7 +7,7 @@ import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { arrayToObject } from '@sorare/core/src/lib/arrays';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { Token } from '@sorare/marketplace/src/components/token/Token';
+import { Token } from '@marketplace/components/token/Token';
 
 import {
   TokensRowsByObjectIds,

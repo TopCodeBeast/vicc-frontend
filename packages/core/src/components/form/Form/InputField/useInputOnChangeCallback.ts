@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 
-import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
-import { Currency } from '@sorare/core/src/lib/currency';
-import { CurrencyCode } from '@sorare/core/src/lib/fiat';
+import useCurrencyConverters from '@core/hooks/useCurrencyConverters';
+import { Currency } from '@core/lib/currency';
+import { CurrencyCode } from '@core/lib/fiat';
 
 export type Callback = (ethAmount: number, fiatAmount: number) => void;
 

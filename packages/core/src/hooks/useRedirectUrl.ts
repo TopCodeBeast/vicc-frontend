@@ -1,4 +1,4 @@
-import { isValidUrl, sanitizeRedirectUrl } from '@sorare/core/src/lib/uri';
+import { isValidUrl, sanitizeRedirectUrl } from '@core/lib/uri';
 
 import useQueryString from './useQueryString';
 

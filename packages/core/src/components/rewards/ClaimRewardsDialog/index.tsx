@@ -2,10 +2,10 @@ import { faTimes } from '@fortawesome/pro-solid-svg-icons';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import Dialog from 'components/dialog';
-import { Reward } from 'components/rewards/types';
-import { theme } from '@sorare/core/src/style/theme';
+import IconButton from '@core/atoms/buttons/IconButton';
+import Dialog from '@core/components/dialog';
+import { Reward } from '@core/components/rewards/types';
+import { theme } from '@core/style/theme';
 
 import { ClaimRewards } from '../ClaimRewards';
 

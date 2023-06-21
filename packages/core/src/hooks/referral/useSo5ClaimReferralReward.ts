@@ -1,8 +1,8 @@
 import { gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
 
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import { formatGqlErrors } from '@sorare/core/src/lib/gql';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
+import { formatGqlErrors } from '@core/lib/gql';
 
 import {
   ClaimSo5ReferralRewardMutation,

@@ -8,7 +8,7 @@ import { useTitleAndDescription } from '@sorare/core/src/hooks/useTitleAndDescri
 import { transferMarket } from '@sorare/core/src/lib/glossary';
 import { metadatas } from '@sorare/core/src/lib/seo/football';
 
-import PageTemplate from '@sorare/football/src/pages/TransferMarket/PageTemplate';
+import PageTemplate from '@football/pages/TransferMarket/PageTemplate';
 
 import { Entries } from './Entries';
 import { Trends } from './Trends';

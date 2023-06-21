@@ -10,14 +10,14 @@ import { theme } from '@sorare/core/src/style/theme';
 
 import PlayerPriceHistory from '@sorare/marketplace/src/components/price/PlayerPriceHistory';
 
-import PlayerLastScores from '@sorare/football/src/components/stats/PlayerLastScores';
-import CardSupply from '@sorare/football/src/pages/Player/CardSupply';
-import Career from '@sorare/football/src/pages/Player/Career';
-import CareerStats from '@sorare/football/src/pages/Player/CareerStats';
-import LastGames from '@sorare/football/src/pages/Player/LastGames';
-import PlayerOnSorare from '@sorare/football/src/pages/Player/PlayerOnSorare';
-import RelatedPlayers from '@sorare/football/src/pages/Player/RelatedPlayers';
-import UpcomingGames from '@sorare/football/src/pages/Player/UpcomingGames';
+import PlayerLastScores from '@football/components/stats/PlayerLastScores';
+import CardSupply from '@football/pages/Player/CardSupply';
+import Career from '@football/pages/Player/Career';
+import CareerStats from '@football/pages/Player/CareerStats';
+import LastGames from '@football/pages/Player/LastGames';
+import PlayerOnSorare from '@football/pages/Player/PlayerOnSorare';
+import RelatedPlayers from '@football/pages/Player/RelatedPlayers';
+import UpcomingGames from '@football/pages/Player/UpcomingGames';
 
 import { Description_player } from './__generated__/index.graphql';
 

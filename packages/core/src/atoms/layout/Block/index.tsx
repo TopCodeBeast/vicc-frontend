@@ -3,9 +3,9 @@ import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
-import BlockHeader from '@sorare/core/src/atoms/layout/BlockHeader';
-import { theme } from '@sorare/core/src/style/theme';
+import ButtonBase from '@core/atoms/buttons/ButtonBase';
+import BlockHeader from '@core/atoms/layout/BlockHeader';
+import { theme } from '@core/style/theme';
 
 type BlockProps = {
   id?: string;

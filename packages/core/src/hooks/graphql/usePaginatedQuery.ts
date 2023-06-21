@@ -6,7 +6,7 @@ import {
 import { DocumentNode } from 'graphql';
 import { useCallback } from 'react';
 
-import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
+import useQuery from '@core/hooks/graphql/useQuery';
 
 export type LoadMore<V> = (
   reload: boolean,

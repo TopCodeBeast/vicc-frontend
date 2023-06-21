@@ -1,4 +1,4 @@
-import { COOKIE_POLICY } from '@sorare/core/src/constants/routes';
+import { COOKIE_POLICY } from '@core/constants/routes';
 
 const LinkToCookiePolicy = (s: string) => {
   return <a href={COOKIE_POLICY}>{s}</a>;

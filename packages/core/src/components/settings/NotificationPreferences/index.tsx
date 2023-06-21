@@ -2,19 +2,19 @@ import { Divider } from '@material-ui/core';
 import { useMemo, useState } from 'react';
 import { FormattedMessage, defineMessage } from 'react-intl';
 
-import { Sport } from '__generated__/globalTypes';
-import { Ball } from '@sorare/core/src/atoms/icons/Ball';
-import { MLBBall } from '@sorare/core/src/atoms/icons/MLBBall';
-import { NBABall } from '@sorare/core/src/atoms/icons/NBABall';
-import { SecondaryTabs } from '@sorare/core/src/atoms/navigation/SecondaryTabs';
-import { Title4 } from '@sorare/core/src/atoms/typography';
-import FormSection from 'components/settings/SettingsSection';
-import DisabledEmailWarning from 'components/user/DisabledEmailWarning';
-import { SETTINGS_NOTIFICATIONS } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { Lifecycle } from '@sorare/core/src/hooks/useLifecycle';
-import { useNotificationPreferences } from '@sorare/core/src/hooks/useNotificationPreferences';
-import { sportsLabelsMessages } from '@sorare/core/src/lib/glossary';
+import { Sport } from '@core/__generated__/globalTypes';
+import { Ball } from '@core/atoms/icons/Ball';
+import { MLBBall } from '@core/atoms/icons/MLBBall';
+import { NBABall } from '@core/atoms/icons/NBABall';
+import { SecondaryTabs } from '@core/atoms/navigation/SecondaryTabs';
+import { Title4 } from '@core/atoms/typography';
+import FormSection from '@core/components/settings/SettingsSection';
+import DisabledEmailWarning from '@core/components/user/DisabledEmailWarning';
+import { SETTINGS_NOTIFICATIONS } from '@core/constants/routes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { Lifecycle } from '@core/hooks/useLifecycle';
+import { useNotificationPreferences } from '@core/hooks/useNotificationPreferences';
+import { sportsLabelsMessages } from '@core/lib/glossary';
 
 import { NotificationPreference } from './NotificationPreference';
 import {

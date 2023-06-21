@@ -2,13 +2,13 @@ import { addHours, addWeeks, isPast } from 'date-fns';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import DialogWithNavigation from '@sorare/core/src/atoms/layout/DialogWithNavigation';
-import { TERMS } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import useLifecycle, { LIFECYCLE, Lifecycle } from '@sorare/core/src/hooks/useLifecycle';
-import { useWalletPreferences } from '@sorare/core/src/hooks/wallets/useWalletPreferences';
+import DialogWithNavigation from '@core/atoms/layout/DialogWithNavigation';
+import { TERMS } from '@core/constants/routes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import useLifecycle, { LIFECYCLE, Lifecycle } from '@core/hooks/useLifecycle';
+import { useWalletPreferences } from '@core/hooks/wallets/useWalletPreferences';
 
 import { Home } from './Home';
 import { Setup } from './Setup';
@@ -24,7 +24,7 @@ const backTargets = {
 
 const WalletSetup = () => {
   const {
-    flags: { useNewWallet = false },
+    flags: { useNewWalletSetup = false },
   } = useFeatureFlags();
 
   const { hasMigratedAndSetupWallet } = useWalletPreferences();
@@ -70,7 +70,7 @@ const WalletSetup = () => {
   };
 
   if (
-    useNewWallet &&
+    useNewWalletSetup &&
     needsSetupWallet &&
     !loading &&
     !hasMigratedAndSetupWallet

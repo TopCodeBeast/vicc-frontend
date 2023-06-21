@@ -4,32 +4,29 @@ import { ComponentType, ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import { Skeleton } from '@sorare/core/src/atoms/animations/Skeleton';
 import { Props as ButtonProps } from '@sorare/core/src/atoms/buttons/Button';
 import DotsLoader from '@sorare/core/src/atoms/loader/DotsLoader';
 import { Text16, Text20 } from '@sorare/core/src/atoms/typography';
 import { cardsPreviewContainerStyle } from '@sorare/core/src/components/bundled/CardsPreviewContainer';
 import { LEGACY_BUNDLE_PAGE } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { fragments as analyticsFragments } from '@sorare/core/src/contexts/events/types';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import ErrorBoundary from '@sorare/core/src/contexts/sentry/ErrorBoundary';
 import { useSportContext } from '@sorare/core/src/contexts/sport';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
+import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { range } from '@sorare/core/src/lib/arrays';
 import { cardRatio } from '@sorare/core/src/lib/cardPicture';
 import { Link } from '@sorare/core/src/routing/Link';
 
-import AuctionTimeLeft from '@sorare/marketplace/src/components/auction/AuctionTimeLeft';
-import PrimaryOfferBuyField from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferBuyField';
-import { PrimaryOfferTokensPreview } from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferTokensPreview';
-import SmallUser from '@sorare/marketplace/src/components/user/SmallUser';
+import AuctionTimeLeft from '@marketplace/components/auction/AuctionTimeLeft';
+import PrimaryOfferBuyField from '@marketplace/components/primaryOffer/PrimaryOfferBuyField';
+import { PrimaryOfferTokensPreview } from '@marketplace/components/primaryOffer/PrimaryOfferTokensPreview';
+import SmallUser from '@marketplace/components/user/SmallUser';
 
 import { PrimaryOfferPreview_primaryOffer } from './__generated__/index.graphql';
-
-type PrimaryOfferPreview_primaryOffer_priceFiat =
-  PrimaryOfferPreview_primaryOffer['priceFiat'];
 
 interface Props {
   primaryOffer: PrimaryOfferPreview_primaryOffer;
@@ -40,11 +37,6 @@ interface Props {
     assetIds: string[];
   }> | null;
 }
-
-type LowercaseCurrencyCode = keyof Omit<
-  PrimaryOfferPreview_primaryOffer_priceFiat,
-  '__typename'
->;
 
 const CardsPreview = styled(Link)`
   padding: var(--double-unit);
@@ -118,28 +110,22 @@ export const PrimaryOfferPreview = ({
   CustomPreview,
   buyButtonProps = {},
 }: Props) => {
-  const { nfts, priceFiat, endDate, buyer, id } = primaryOffer;
+  const { nfts, priceWei, priceFiat, endDate, buyer, id } = primaryOffer;
   const {
     flags: { useSportWithUncoloredCta = [] },
   } = useFeatureFlags();
-
-  const {
-    fiatCurrency: { code: preferredCurrencyCode },
-  } = useCurrentUserContext();
-  const { formatNumber } = useIntlContext();
   const ended = isPast(parseISO(endDate));
   const location = useLocation();
   const bought = !!buyer;
   const { generateSportPath } = useSportContext();
   const sport = nfts?.[0].sport;
-  const price = formatNumber(
-    priceFiat[preferredCurrencyCode.toLowerCase() as LowercaseCurrencyCode] /
-      100,
-    {
-      style: 'currency',
-      currency: preferredCurrencyCode,
-    }
-  );
+  const { main: price } = useAmountWithConversion({
+    monetaryAmount: {
+      referenceCurrency: SupportedCurrency.WEI,
+      wei: priceWei,
+      ...priceFiat,
+    },
+  });
 
   const dest = generateSportPath(LEGACY_BUNDLE_PAGE + location.search, {
     params: { id: idFromObject(id) },
@@ -196,6 +182,7 @@ PrimaryOfferPreview.fragments = {
         slug
         ...SmallUser_user
       }
+      priceWei
       priceFiat {
         eur
         usd

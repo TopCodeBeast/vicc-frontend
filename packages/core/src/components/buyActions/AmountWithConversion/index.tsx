@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import { Text14, Title6 } from '@sorare/core/src/atoms/typography';
+import { Text14, Title6 } from '@core/atoms/typography';
 import useAmountWithConversion, {
   Props as UseAmountWithConversionProps,
-} from '@sorare/core/src/hooks/useAmountWithConversion';
+} from '@core/hooks/useAmountWithConversion';
 
 const Line = styled.div<{ $column: boolean }>`
   display: flex;
@@ -24,7 +24,7 @@ export type Props = UseAmountWithConversionProps & {
   withApproxSymbol?: boolean;
 };
 
-const AmountWithConversion = (props: Props) => {
+export const AmountWithConversion = (props: Props) => {
   const {
     column = false,
     withApproxSymbol = false,
@@ -45,5 +45,3 @@ const AmountWithConversion = (props: Props) => {
     </Line>
   );
 };
-
-export default AmountWithConversion;

@@ -5,12 +5,12 @@ import CloseButton from '@sorare/core/src/atoms/buttons/CloseButton';
 import { Text16, Title2 } from '@sorare/core/src/atoms/typography';
 import Dialog from '@sorare/core/src/components/dialog';
 
-import { ScarceCardsSpinner } from '@sorare/football/src/components/onboarding/DiscoverScarcities/ScarceCardsSpinner';
-import cashPrizes from '@sorare/football/src/components/onboarding/DiscoverScarcities/assets/cashPrizes.png';
-import earnCoins from '@sorare/football/src/components/onboarding/DiscoverScarcities/assets/earnCoins.png';
-import gameTickets from '@sorare/football/src/components/onboarding/DiscoverScarcities/assets/gameTickets.png';
-import jerseys from '@sorare/football/src/components/onboarding/DiscoverScarcities/assets/jerseys.png';
-import realLifeExperiences from '@sorare/football/src/components/onboarding/DiscoverScarcities/assets/realLifeExperiences.png';
+import { ScarceCardsSpinner } from '@football/components/onboarding/DiscoverScarcities/ScarceCardsSpinner';
+import cashPrizes from '@football/components/onboarding/DiscoverScarcities/assets/cashPrizes.png';
+import earnCoins from '@football/components/onboarding/DiscoverScarcities/assets/earnCoins.png';
+import gameTickets from '@football/components/onboarding/DiscoverScarcities/assets/gameTickets.png';
+import jerseys from '@football/components/onboarding/DiscoverScarcities/assets/jerseys.png';
+import realLifeExperiences from '@football/components/onboarding/DiscoverScarcities/assets/realLifeExperiences.png';
 
 const Wrapper = styled.div`
   display: flex;

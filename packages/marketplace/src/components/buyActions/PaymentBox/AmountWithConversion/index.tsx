@@ -15,7 +15,7 @@ type Props = UseAmountWithConversionProps & {
   bold?: boolean;
 };
 
-const PaymentBoxAmountWithConversion = ({
+export const PaymentBoxAmountWithConversion = ({
   bold = false,
   color,
   ...props
@@ -33,5 +33,3 @@ const PaymentBoxAmountWithConversion = ({
     </JustifyEnd>
   );
 };
-
-export default PaymentBoxAmountWithConversion;

@@ -9,12 +9,12 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 
-import { ValidWidths } from '@sorare/core/src/atoms/ui/ResponsiveImg';
-import StackedCards from 'components/cards/StackedCards';
-import { indexStateToRoute } from 'components/search/InstantSearch';
-import { SEARCH_PARAMS } from 'components/search/InstantSearch/types';
-import { SECONDARY_MARKET_STACK_SHOW_BY_SPORT } from '@sorare/core/src/constants/routes';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
+import { ValidWidths } from '@core/atoms/ui/ResponsiveImg';
+import StackedCards from '@core/components/cards/StackedCards';
+import { indexStateToRoute } from '@core/components/search/InstantSearch';
+import { SEARCH_PARAMS } from '@core/components/search/InstantSearch/types';
+import { SECONDARY_MARKET_STACK_SHOW_BY_SPORT } from '@core/constants/routes';
+import useEvents from '@core/lib/events/useEvents';
 
 import { StackedToken_token } from './__generated__/index.graphql';
 

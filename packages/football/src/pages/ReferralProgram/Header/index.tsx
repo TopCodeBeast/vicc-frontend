@@ -9,7 +9,7 @@ import { socialShareEventContext } from '@sorare/core/src/lib/events';
 import { messages } from '@sorare/core/src/lib/referral';
 import { theme } from '@sorare/core/src/style/theme';
 
-import InviteFriendsCta from '@sorare/football/src/components/user/InviteFriendsCta';
+import InviteFriendsCta from '@football/components/user/InviteFriendsCta';
 
 const Root = styled.div`
   padding: calc(8 * var(--unit)) 0;

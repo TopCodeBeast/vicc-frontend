@@ -20,8 +20,8 @@ import {
   RefineTeam,
 } from '@sorare/marketplace/src/searchCards';
 
-import AdvancedCardSearch from '@sorare/football/src/components/searchCards/AdvancedCardSearch';
-import { RefineFootballPosition } from '@sorare/football/src/components/searchCards/RefinePosition';
+import AdvancedCardSearch from '@football/components/searchCards/AdvancedCardSearch';
+import { RefineFootballPosition } from '@football/components/searchCards/RefinePosition';
 
 import { CountrySearch_country } from './__generated__/index.graphql';
 

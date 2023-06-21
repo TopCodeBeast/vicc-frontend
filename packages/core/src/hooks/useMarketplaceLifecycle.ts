@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 
-import { AlgoliaCardIndexesName } from '@sorare/core/src/contexts/config';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useSportContext } from '@sorare/core/src/contexts/sport';
-import { getInteractionContext } from '@sorare/core/src/lib/events';
+import { AlgoliaCardIndexesName } from '@core/contexts/config';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useSportContext } from '@core/contexts/sport';
+import { getInteractionContext } from '@core/lib/events';
 
 import useLifecycle, { LIFECYCLE, Lifecycle } from './useLifecycle';
 

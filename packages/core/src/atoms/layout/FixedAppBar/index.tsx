@@ -2,7 +2,7 @@ import { AppBarProps, AppBar as MuiAppBar } from '@material-ui/core';
 import classnames from 'classnames';
 import styled from 'styled-components';
 
-import Container from '@sorare/core/src/atoms/layout/Container';
+import Container from '@core/atoms/layout/Container';
 
 interface Props extends Omit<AppBarProps, 'position'> {
   position: 'top' | 'bottom';

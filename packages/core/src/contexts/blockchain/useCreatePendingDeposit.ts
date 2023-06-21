@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useCallback } from 'react';
 
-import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
+import useMutation from '@core/hooks/graphql/useMutation';
 
 import {
   CreatePendingDepositMutation,
@@ -14,8 +14,11 @@ const CREATE_PENDING_DEPOSIT_MUTATION = gql`
       currentUser {
         slug
         pendingDeposits {
+          id
           date
           amount
+          providerType
+          transactionHash
           amountInFiat {
             eur
             gbp

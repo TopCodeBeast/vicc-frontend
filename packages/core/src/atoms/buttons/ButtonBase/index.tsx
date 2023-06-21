@@ -2,7 +2,7 @@ import { ButtonBase as MuiButtonBase } from '@material-ui/core';
 import { ButtonBaseProps } from '@material-ui/core/ButtonBase/ButtonBase';
 import { ElementType } from 'react';
 
-import useClickHandler from '@sorare/core/src/hooks/useClickHandler';
+import useClickHandler from '@core/hooks/useClickHandler';
 
 const ButtonBase = <T extends ElementType<any>>(
   props: ButtonBaseProps<T> & { classes?: never }

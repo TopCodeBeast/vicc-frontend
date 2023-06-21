@@ -2,14 +2,14 @@ import { useEffect, useMemo } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import RecommendedWalletApp from 'components/wallet/RecommendedWalletApp';
-import { useBlockchainContext } from '@sorare/core/src/contexts/blockchain';
-import { useWeb3Context } from '@sorare/core/src/contexts/web3';
-import useBlockchainAccountData from '@sorare/core/src/hooks/useBlockchainAccountData';
-import { EthereumSetupStatus } from '@sorare/core/src/lib/web3';
+import Button from '@core/atoms/buttons/Button';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import { Text16 } from '@core/atoms/typography';
+import RecommendedWalletApp from '@core/components/wallet/RecommendedWalletApp';
+import { useBlockchainContext } from '@core/contexts/blockchain';
+import { useWeb3Context } from '@core/contexts/web3';
+import useBlockchainAccountData from '@core/hooks/useBlockchainAccountData';
+import { EthereumSetupStatus } from '@core/lib/web3';
 
 const messages = defineMessages({
   wrongNetwork: {

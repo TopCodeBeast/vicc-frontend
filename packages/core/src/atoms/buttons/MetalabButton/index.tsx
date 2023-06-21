@@ -1,7 +1,7 @@
 import { faChevronLeft, faTimes } from '@fortawesome/pro-solid-svg-icons';
 import styled from 'styled-components';
 
-import IconButton, { Props as IconButtonProps } from '@sorare/core/src/atoms/buttons/IconButton';
+import IconButton, { Props as IconButtonProps } from '@core/atoms/buttons/IconButton';
 
 export const IconTypes = ['close', 'back'] as const;
 

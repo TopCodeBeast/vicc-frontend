@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
-import { toDisplayName } from '@sorare/core/src/lib/territories';
+import useQuery from '@core/hooks/graphql/useQuery';
+import { toDisplayName } from '@core/lib/territories';
 
 import { GetSupportedCountriesQuery } from './__generated__/useGetSupportedCountries.graphql';
 

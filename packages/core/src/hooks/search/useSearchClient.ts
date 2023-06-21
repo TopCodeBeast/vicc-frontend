@@ -1,9 +1,9 @@
 import algoliasearch from 'algoliasearch/lite';
 import { useMemo } from 'react';
 
-import { useConfigContext } from '@sorare/core/src/contexts/config';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import { getAlgoliaHosts } from '@sorare/core/src/lib/algolia';
+import { useConfigContext } from '@core/contexts/config';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import { getAlgoliaHosts } from '@core/lib/algolia';
 
 const useSearchClient = () => {
   const { algoliaApplicationId, algoliaSearchApiKey } = useConfigContext();

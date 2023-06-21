@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 
-import EnterVerificationCode from 'components/settings/PhoneNumberVerification/EnterVerificationCode';
-import useVerifyPhoneNumber from 'components/user/VerifyPhoneNumber/useVerifyPhoneNumber';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useWalletContext } from '@sorare/core/src/contexts/wallet';
+import EnterVerificationCode from '@core/components/settings/PhoneNumberVerification/EnterVerificationCode';
+import useVerifyPhoneNumber from '@core/components/user/VerifyPhoneNumber/useVerifyPhoneNumber';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useWalletContext } from '@core/contexts/wallet';
 
 type Props = {
   unverifiedPhoneNumber: string;

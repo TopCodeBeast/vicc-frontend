@@ -1,9 +1,9 @@
 import { MouseEvent, useState } from 'react';
 import styled from 'styled-components';
 
-import VerifyPhoneNumber from 'components/user/VerifyPhoneNumber';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
+import VerifyPhoneNumber from '@core/components/user/VerifyPhoneNumber';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useEvents from '@core/lib/events/useEvents';
 
 const Wrapper = styled.div`
   display: flex;

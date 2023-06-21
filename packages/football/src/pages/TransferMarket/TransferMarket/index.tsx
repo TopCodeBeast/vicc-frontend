@@ -25,15 +25,15 @@ import {
 } from '@sorare/marketplace/src/searchCards';
 import { useLatestSeasonLocalStorage } from '@sorare/marketplace/src/searchCards/RefineLatestSeason';
 
-import AdvancedCardSearch from '@sorare/football/src/components/searchCards/AdvancedCardSearch';
-import useFavPlayer from 'hooks/useFavPlayer';
-import ManagersSales from '@sorare/football/src/pages/TransferMarket/OnboardingDialog/ManagersSales';
-import PageTemplate from '@sorare/football/src/pages/TransferMarket/PageTemplate';
-import { SelectedLeaderboardBanner } from '@sorare/football/src/pages/TransferMarket/SelectedLeaderboardBanner';
+import AdvancedCardSearch from '@football/components/searchCards/AdvancedCardSearch';
+import useFavPlayer from '@football/hooks/useFavPlayer';
+import ManagersSales from '@football/pages/TransferMarket/OnboardingDialog/ManagersSales';
+import PageTemplate from '@football/pages/TransferMarket/PageTemplate';
+import { SelectedLeaderboardBanner } from '@football/pages/TransferMarket/SelectedLeaderboardBanner';
 import {
   advancedSecondaryMarketFilters,
   secondaryMarketFilters,
-} from '@sorare/football/src/pages/TransferMarket/cardFilters';
+} from '@football/pages/TransferMarket/cardFilters';
 
 const cardSortsWithBestValue = createCardSorts({
   withBestValue: true,

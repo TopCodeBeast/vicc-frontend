@@ -5,8 +5,8 @@ import { fromBirthDateToAge } from '@sorare/core/src/lib/birthDate';
 import { FILTERS } from '@sorare/core/src/lib/filters';
 import { scarcityMessages } from '@sorare/core/src/lib/scarcity';
 
-import { RefinementItem } from '@sorare/marketplace/src/search/ActiveFilters/types';
-import { formatBundledOption } from '@sorare/marketplace/src/searchCards/RefineList';
+import { RefinementItem } from '@marketplace/search/ActiveFilters/types';
+import { formatBundledOption } from '@marketplace/searchCards/RefineList';
 
 export const formatListFilterWidgetValue = (
   item: RefinementItem,

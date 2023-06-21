@@ -1,6 +1,6 @@
 import { defineMessages } from 'react-intl';
 
-import { Sport } from '__generated__/globalTypes';
+import { Sport } from '@core/__generated__/globalTypes';
 
 export const CARDS_REQUIREMENTS_BY_SPORT = {
   [Sport.FOOTBALL]: 5,

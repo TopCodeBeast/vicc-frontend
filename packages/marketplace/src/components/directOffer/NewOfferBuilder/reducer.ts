@@ -4,7 +4,7 @@ import { Currency } from '@sorare/core/src/__generated__/globalTypes';
 import { CardHit, buildAlgoliaObjectId } from '@sorare/core/src/lib/algolia';
 import { fromWei } from '@sorare/core/src/lib/wei';
 
-import { WalletPaymentMethod } from '@sorare/marketplace/src/components/buyActions/PaymentProvider/types';
+import { WalletPaymentMethod } from '@marketplace/components/buyActions/PaymentProvider/types';
 
 import {
   ActionType,

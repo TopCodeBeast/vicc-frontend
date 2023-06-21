@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import Avatar from 'components/user/Avatar';
-import UserName from 'components/user/UserName';
-import { UserHit, convertUserHit } from '@sorare/core/src/lib/algolia';
+import { Text16 } from '@core/atoms/typography';
+import Avatar from '@core/components/user/Avatar';
+import UserName from '@core/components/user/UserName';
+import { UserHit, convertUserHit } from '@core/lib/algolia';
 
 import Suggestion from '../Suggestion';
 

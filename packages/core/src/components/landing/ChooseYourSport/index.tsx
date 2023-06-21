@@ -1,9 +1,9 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import dotsPattern from 'assets/dots-pattern.png';
-import Container from '@sorare/core/src/atoms/layout/Container';
-import { theme } from '@sorare/core/src/style/theme';
+import dotsPattern from '@core/assets/dots-pattern.png';
+import Container from '@core/atoms/layout/Container';
+import { theme } from '@core/style/theme';
 
 import { ChooseYourSportContent } from './Content';
 

@@ -95,27 +95,29 @@ const messages = defineMessages({
 });
 
 export const tasksData: {
-  [key in FootballManagerTaskSlug]: {
-    desktopDescription: {
-      id: string;
-      defaultMessage: string;
-    };
-    mobileDescription: {
-      id: string;
-      defaultMessage: string;
-    };
-    image: any;
-    getLink?: (args: {
-      leaderboards: Nullable<FootballManagerTask_so5Leaderboard[]>;
-      so5LeaguesAlgoliaFilters: Record<string, string>;
-    }) => string;
-    onClick?: (args: {
-      openAddFunds: () => void;
-      validateReward: () => void;
-      openExploreMarketplace: () => void;
-    }) => void;
-    leaveActiveAfterCompleted?: boolean;
-  };
+  [key in FootballManagerTaskSlug]:
+    | {
+        desktopDescription: {
+          id: string;
+          defaultMessage: string;
+        };
+        mobileDescription: {
+          id: string;
+          defaultMessage: string;
+        };
+        image: any;
+        getLink?: (args: {
+          leaderboards: Nullable<FootballManagerTask_so5Leaderboard[]>;
+          so5LeaguesAlgoliaFilters: Record<string, string>;
+        }) => string;
+        onClick?: (args: {
+          openAddFunds: () => void;
+          validateReward: () => void;
+          openExploreMarketplace: () => void;
+        }) => void;
+        leaveActiveAfterCompleted?: boolean;
+      }
+    | undefined;
 } = {
   COMPOSE_TEAM_AMATEUR: {
     desktopDescription: messages.desktopComposeTeamAmateur,

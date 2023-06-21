@@ -3,7 +3,11 @@ import { FormattedNumber } from 'react-intl';
 import { generatePath } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { CardQuality } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  CardQuality,
+  Currency,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import Coin from '@sorare/core/src/atoms/icons/Coin';
 import { Eth } from '@sorare/core/src/atoms/icons/Eth';
 import ScarcityIcon from '@sorare/core/src/atoms/icons/ScarcityIcon';
@@ -49,10 +53,11 @@ export const ActualReward = ({ reward }: Props) => {
   const { rewardCards, aasmState, weiAmount, coinAmount } = reward;
   const isClaimed = aasmState === 'claimed';
   const { main } = useAmountWithConversion({
-    amount: weiAmount,
-    unit: 'wei',
-    context: 'Lineup',
-    ethFirst: true,
+    monetaryAmount: {
+      referenceCurrency: SupportedCurrency.WEI,
+      [SupportedCurrency.WEI.toLowerCase()]: weiAmount,
+    },
+    primaryCurrency: Currency.ETH,
   });
   return (
     <Wrapper>

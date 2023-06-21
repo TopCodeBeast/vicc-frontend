@@ -23,6 +23,7 @@ const Root = styled(Link)`
 const Img = styled.div`
   img {
     max-height: 52px;
+    width: auto;
   }
 `;
 const Infos = styled.div`

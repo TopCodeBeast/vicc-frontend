@@ -1,21 +1,21 @@
 import { faHome, faShop } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSessionStorage } from 'react-use';
 
-import { Sport } from '__generated__/globalTypes';
-import { Diamond } from '@sorare/core/src/atoms/icons/Diamond';
-import { Jersey } from '@sorare/core/src/atoms/icons/Jersey';
+import { Sport } from '@core/__generated__/globalTypes';
+import { Diamond } from '@core/atoms/icons/Diamond';
+import { Jersey } from '@core/atoms/icons/Jersey';
 import {
   FOOTBALL_CLUB_SHOP,
   FOOTBALL_HOME,
   FOOTBALL_LOBBY,
   FOOTBALL_MARKET,
-} from '@sorare/core/src/constants/routes';
-import { useSportContext } from '@sorare/core/src/contexts/sport';
-import { useIsDesktop } from '@sorare/core/src/hooks/device/useIsDesktop';
-import useTouchScreen from '@sorare/core/src/hooks/device/useTouchScreen';
-import { useShowBottomBarNavigation } from '@sorare/core/src/lib/featureFlags';
-import { navLabels } from '@sorare/core/src/lib/glossary';
+} from '@core/constants/routes';
+import { useSportContext } from '@core/contexts/sport';
+import { useIsDesktop } from '@core/hooks/device/useIsDesktop';
+import useTouchScreen from '@core/hooks/device/useTouchScreen';
+import { SESSION_STORAGE, useSessionStorage } from '@core/hooks/useSessionStorage';
+import { useShowBottomBarNavigation } from '@core/lib/featureFlags';
+import { navLabels } from '@core/lib/glossary';
 
 const sportsNavigation = {
   [Sport.FOOTBALL]: [
@@ -49,13 +49,13 @@ const sportsNavigation = {
 };
 
 export const useBottomBarNavItems = () => {
-  const [sportContext] = useSessionStorage<Sport | undefined>('sport');
+  const { getValue: getSport } = useSessionStorage(SESSION_STORAGE.sport);
   const { sport } = useSportContext();
   const showBottomBarNavigation = useShowBottomBarNavigation();
   const isDesktop = useIsDesktop();
   const isMouseFriendlyDevice = !useTouchScreen();
   const isTouchDevice = !(isDesktop && isMouseFriendlyDevice);
-  const currentSport = sport || sportContext;
+  const currentSport = sport || getSport();
   const showBottomBarFor =
     isTouchDevice && showBottomBarNavigation && currentSport;
 

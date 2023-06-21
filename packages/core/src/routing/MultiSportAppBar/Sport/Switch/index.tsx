@@ -3,9 +3,9 @@ import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
-import { FOOTBALL_HOME, MLB_HOME, NBA_HOME } from '@sorare/core/src/constants/routes';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import { Sport } from '@core/__generated__/globalTypes';
+import { FOOTBALL_HOME, MLB_HOME, NBA_HOME } from '@core/constants/routes';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
 
 import { useAppBarContext } from '../../context';
 import { Baseball } from '../Baseball';

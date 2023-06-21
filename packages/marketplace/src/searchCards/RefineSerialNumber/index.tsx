@@ -9,8 +9,8 @@ import {
 } from '@sorare/core/src/lib/filters';
 import { powerAlgorithm } from '@sorare/core/src/lib/slider';
 
-import RangeSlider from '@sorare/marketplace/src/search/RangeSlider';
-import { makeRangeFilter } from '@sorare/marketplace/src/searchCards/RangeSlider';
+import RangeSlider from '@marketplace/search/RangeSlider';
+import { makeRangeFilter } from '@marketplace/searchCards/RangeSlider';
 
 import { jerseySerialWidget } from './RefineJerseySerial';
 

@@ -3,13 +3,13 @@ import { ChangeEvent, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Text14, Text16, Title3, Title4 } from '@sorare/core/src/atoms/typography';
-import { GraphQLResult, GraphqlForm, TextField } from 'components/form/Form';
-import ConnectPrivateWallet from 'components/wallet/ConnectPrivateWallet';
-import { ethereumAccounts } from '@sorare/core/src/contexts/currentUser/queries';
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
-import useBlockchainAccountData from '@sorare/core/src/hooks/useBlockchainAccountData';
+import { Text14, Text16, Title3, Title4 } from '@core/atoms/typography';
+import { GraphQLResult, GraphqlForm, TextField } from '@core/components/form/Form';
+import ConnectPrivateWallet from '@core/components/wallet/ConnectPrivateWallet';
+import { ethereumAccounts } from '@core/contexts/currentUser/queries';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
+import useMutation from '@core/hooks/graphql/useMutation';
+import useBlockchainAccountData from '@core/hooks/useBlockchainAccountData';
 
 import {
   AddEthereumAccountMutation,

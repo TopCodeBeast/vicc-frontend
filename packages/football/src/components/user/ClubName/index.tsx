@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { FOOTBALL_PLAYER_SHOW } from '@sorare/core/src/constants/routes';
 
-import ClubShield from '@sorare/football/src/components/user/ClubShield';
+import ClubShield from '@football/components/user/ClubShield';
 
 import { ClubName_user } from './__generated__/index.graphql';
 

@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 
-import { Sport } from '__generated__/globalTypes';
-import { Currency } from '@sorare/core/src/lib/fiat';
+import { Sport } from '@core/__generated__/globalTypes';
+import { Currency } from '@core/lib/fiat';
 
 import {
   ConfigQuery_config_bannerSet,
@@ -105,6 +105,7 @@ export interface ConfigContext {
   minimumReceiveWeiAmount: string;
   currentLocation: ConfigQuery_currentLocation;
   counts: ConfigQuery_config_counts;
+  walletChallenge: string;
 }
 
 export const configContext = createContext<ConfigContext | null>(null);

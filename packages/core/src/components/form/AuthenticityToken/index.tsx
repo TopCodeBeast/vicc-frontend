@@ -1,6 +1,6 @@
 import cookie from 'react-cookies';
 
-import { xsrfCookieName } from '@sorare/core/src/lib/http';
+import { xsrfCookieName } from '@core/lib/http';
 
 export const AuthenticityToken = () => {
   return (

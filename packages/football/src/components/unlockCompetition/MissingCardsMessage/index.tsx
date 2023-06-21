@@ -3,7 +3,7 @@ import { FormattedList, FormattedMessage, useIntl } from 'react-intl';
 
 import { scarcityMessages } from '@sorare/core/src/lib/scarcity';
 
-import { getMissingCards } from '@sorare/football/src/components/unlockCompetition/getMissingCards';
+import { getMissingCards } from '@football/components/unlockCompetition/getMissingCards';
 
 import { MissingCardsMessage_validity } from './__generated__/index.graphql';
 

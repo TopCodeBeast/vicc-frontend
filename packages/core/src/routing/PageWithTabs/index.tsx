@@ -9,14 +9,14 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Container } from '@sorare/core/src/atoms/container';
-import Body from '@sorare/core/src/atoms/layout/Body';
-import TabContainer from '@sorare/core/src/atoms/layout/TabContainer';
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { SecondaryTabs } from '@sorare/core/src/atoms/navigation/SecondaryTabs';
-import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
-import { relative } from '@sorare/core/src/lib/routing';
-import { theme } from '@sorare/core/src/style/theme';
+import { Container } from '@core/atoms/container';
+import Body from '@core/atoms/layout/Body';
+import TabContainer from '@core/atoms/layout/TabContainer';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import { SecondaryTabs } from '@core/atoms/navigation/SecondaryTabs';
+import { useBgLocation } from '@core/hooks/useBgLocation';
+import { relative } from '@core/lib/routing';
+import { theme } from '@core/style/theme';
 
 import useHandleBackwardCompatibility from './useHandleBackwardCompatibility';
 

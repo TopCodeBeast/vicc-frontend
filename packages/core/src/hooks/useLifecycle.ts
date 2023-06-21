@@ -1,9 +1,9 @@
 import { gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
 
-import { CommonDraftCampaignType, Sport } from '__generated__/globalTypes';
-import { AlgoliaCardIndexesName } from '@sorare/core/src/contexts/config';
-import { getInteractionContext } from '@sorare/core/src/lib/events';
+import { CommonDraftCampaignType, Sport } from '@core/__generated__/globalTypes';
+import { AlgoliaCardIndexesName } from '@core/contexts/config';
+import { getInteractionContext } from '@core/lib/events';
 
 import {
   UpdateLifecycleMutation,
@@ -92,6 +92,22 @@ const UPDATE_LIFECYCLE_MUTATION = gql`
         path
         message
         code
+      }
+    }
+  }
+`;
+
+// The lifecycle within useCurrentUserContext is not always up-to-date:
+// using that won't explicitly trigger another fetch upon rendering
+// + caching mechanism in apollo make state changes on the backend having
+// a lag to be reflected on the client.
+export const CURRENT_USER_LIFECYCLE_QUERY = gql`
+  query CurrentUserLifecycleQuery {
+    currentUser {
+      slug
+      userSettings {
+        id
+        lifecycle
       }
     }
   }

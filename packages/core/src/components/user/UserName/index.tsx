@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import styled from 'styled-components';
 
-import verifiedBadge from 'assets/user/verified_badge.png';
+import verifiedBadge from '@core/assets/user/verified_badge.png';
 
 import { Nickname } from '../Nickname';
 import { UserName_publicUserInfoInterface } from './__generated__/index.graphql';

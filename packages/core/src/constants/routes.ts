@@ -1,7 +1,7 @@
 import qs from 'qs';
 import { generatePath, matchPath } from 'react-router-dom';
 
-import { Sport } from '__generated__/globalTypes';
+import { Sport } from '@core/__generated__/globalTypes';
 
 import { API_ROOT } from '../config';
 
@@ -61,7 +61,11 @@ export const FOOTBALL_LEAGUE_SHOW_CARDS = `${FOOTBALL_LEAGUE_SHOW}/cards`;
 export const FOOTBALL_COUNTRY_SHOW = `${FOOTBALL_PATH}/countries/:slug`;
 export const FOOTBALL_CUSTOM_DECK_SHOW = `${FOOTBALL_PATH}/squads/:slug`;
 export const FOOTBALL_CUSTOM_DECK_EDIT = `${FOOTBALL_PATH}/squads/:name/edit`;
-export const FAQ = '/faq';
+export const LICENSED_PARTNERS = '/licensed-partners';
+export const LICENSED_PARTNERS_BY_SPORT = '/licensed-partners/:sport';
+export const LICENSED_PARTNERS_FOOTBALL_TAB =
+  '/licensed-partners/football/:tab';
+
 export const PRESS = '/press';
 export const PASSWORD_FORGOTTEN = '/password-forgotten';
 
@@ -508,8 +512,8 @@ const SHARED_PAGES = [
   MY_SORARE_WILDCARD,
   CAREERS,
   PRESS,
-  FAQ,
   TERMS,
+  LICENSED_PARTNERS,
   GAME_RULES,
   PRIVACY_POLICY,
   COOKIE_POLICY,

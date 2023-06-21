@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import styled from 'styled-components';
 
-import SocialUser from 'components/user/SocialUser';
+import SocialUser from '@core/components/user/SocialUser';
 
 import { TwitterUser_userProfile } from './__generated__/index.graphql';
 

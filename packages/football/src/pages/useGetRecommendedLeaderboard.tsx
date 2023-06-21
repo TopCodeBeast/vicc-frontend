@@ -4,9 +4,9 @@ import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import LineupToDiscover from '@sorare/football/src/components/lineup/LineupToDiscover';
-import { SEMI_PRO_TOURNAMENT_TYPES } from 'lib/leaderboard';
-import { isFreeUser } from 'lib/user';
+import LineupToDiscover from '@football/components/lineup/LineupToDiscover';
+import { SEMI_PRO_TOURNAMENT_TYPES } from '@football/lib/leaderboard';
+import { isFreeUser } from '@football/lib/user';
 
 import { RecommendedLeaderboardsQuery } from './__generated__/useGetRecommendedLeaderboard.graphql';
 

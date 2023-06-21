@@ -4,11 +4,11 @@ import { FC, cloneElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
-import HandledErrorBoundary from '@sorare/core/src/routing/HandledErrorBoundary';
-import { theme } from '@sorare/core/src/style/theme';
-import { OverrideClasses } from '@sorare/core/src/style/utils';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import { useBgLocation } from '@core/hooks/useBgLocation';
+import HandledErrorBoundary from '@core/routing/HandledErrorBoundary';
+import { theme } from '@core/style/theme';
+import { OverrideClasses } from '@core/style/utils';
 
 import CloseButton from './CloseButton';
 import HandledError from './HandledError';
@@ -25,6 +25,7 @@ const maxHeight = css`
 const Root = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
   ${maxHeight}
 `;
 const BodyWrapper = styled.div`
@@ -76,6 +77,8 @@ type Props = {
   maxWidth?: DialogProps['maxWidth'];
   fullScreen?: boolean;
   darkTheme?: boolean;
+  keepMounted?: DialogProps['keepMounted'];
+  disablePortal?: DialogProps['disablePortal'];
 };
 export const Dialog = ({
   children,
@@ -94,6 +97,7 @@ export const Dialog = ({
   maxWidth = 'xl',
   fullScreen,
   darkTheme,
+  ...rest
 }: Props) => {
   const navigate = useNavigate();
   const location = useBgLocation();
@@ -139,6 +143,7 @@ export const Dialog = ({
 
   return (
     <StyledDialog
+      {...rest}
       classes={{
         root: classes.root,
         paperWidthXl: classes.paperWidthXl,

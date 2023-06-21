@@ -24,11 +24,11 @@ import { groupBy } from '@sorare/core/src/lib/arrays';
 
 import useFacetCounts from '@sorare/marketplace/src/hooks/search/useFacetCounts';
 import useFacetedSearchCards from '@sorare/marketplace/src/hooks/search/useFacetedSearchCards';
-import { getCardPrice } from '@sorare/marketplace/src/hooks/useSortByPrice';
+import { useSortByPrice } from '@sorare/marketplace/src/hooks/useSortByPrice';
 import useFiltersCount from '@sorare/marketplace/src/search/FiltersManager/useFiltersCount';
 import { CardResultsProps } from '@sorare/marketplace/src/searchCards/AdvancedCardSearch/types';
 
-import CardPreviewGrid from '@sorare/football/src/components/card/CardPreviewGrid';
+import CardPreviewGrid from '@football/components/card/CardPreviewGrid';
 
 import { CardsQuery, CardsQueryVariables } from './__generated__/index.graphql';
 import useRecentCurrentUserCardsQuery from './useRecentCurrentUserCardsQuery';
@@ -36,6 +36,8 @@ import useRecentCurrentUserCardsQuery from './useRecentCurrentUserCardsQuery';
 type CardsQuery_cards = CardsQuery['football']['cards'][number];
 
 type Item = CardsQuery_cards & { stack?: StackProps };
+
+type Token = CardsQuery_cards['token'] & { stack?: StackProps };
 
 const cardFragment = gql`
   fragment CardResultsFromGraphQL_card on Card {
@@ -65,16 +67,6 @@ export const CARDS_QUERY = gql`
 const filterVisibleCards = (cards?: CardsQuery_cards[]) =>
   cards?.filter(card => card.visible);
 
-const getPrice = (item: Item) => {
-  return getCardPrice(item.token);
-};
-
-const sortByPrice = (tokens: Item[]) => {
-  return tokens.sort((a, b) => {
-    return getPrice(b) - getPrice(a);
-  });
-};
-
 const Root = styled.div`
   display: flex;
   flex-direction: column;
@@ -97,6 +89,8 @@ export const CardResultsFromGraphQL = (props: CardResultsProps) => {
   const { hits: hitsWithDistinct, results } = useHits<MarketplaceHit>();
   const { currentRefinement: page, nbPages, refine: setPage } = usePagination();
   const index = results?.index;
+
+  const sortByPrice = useSortByPrice<Token | Item>();
 
   const [sortedItems, setSortedItems] = useState<Item[] | null>(null);
   const { algoliaCardIndexes } = useConfigContext();
@@ -283,9 +277,18 @@ export const CardResultsFromGraphQL = (props: CardResultsProps) => {
       </Root>
     );
   }
+
+  const notSellableItems = sortedItems.filter(item => !item.token);
   const customSortedItems =
     results?.index === algoliaCardIndexes['Highest Price']
-      ? sortByPrice(sortedItems)
+      ? [
+          ...sortByPrice(sortedItems.map(({ token }) => token).filter(Boolean))
+            .map(token =>
+              sortedItems.find(item => token.assetId === item.assetId)
+            )
+            .filter(Boolean),
+          ...notSellableItems,
+        ]
       : sortedItems;
 
   return (

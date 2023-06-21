@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage, defineMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
-import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import idFromObject from '@sorare/core/src/gql/idFromObject';
-import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import LoadingButton from '@core/atoms/buttons/LoadingButton';
+import { Text14, Text16 } from '@core/atoms/typography';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import idFromObject from '@core/gql/idFromObject';
+import useMutation from '@core/hooks/graphql/useMutation';
+import { glossary } from '@core/lib/glossary';
 
 import {
   Devices_UserDevice,

@@ -1,18 +1,18 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
-import mlbLogo from 'assets/logos/mlb/mlb-monochrome.svg';
-import mlbpaLogo from 'assets/logos/mlb/mlbpa.svg';
-import nbaLogo from 'assets/logos/nba/nba-monochrome.svg';
-import nbpaLogo from 'assets/logos/nba/nbpa.svg';
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { LinkBox, LinkOverlay } from '@sorare/core/src/atoms/navigation/Box';
-import { useDefaultSportPages } from '@sorare/core/src/constants/routes';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import { sportsLabelsMessages } from '@sorare/core/src/lib/glossary';
-import { Link } from '@sorare/core/src/routing/Link';
-import { theme } from '@sorare/core/src/style/theme';
+import { Sport } from '@core/__generated__/globalTypes';
+import mlbLogo from '@core/assets/logos/mlb/mlb-monochrome.svg';
+import mlbpaLogo from '@core/assets/logos/mlb/mlbpa.svg';
+import nbaLogo from '@core/assets/logos/nba/nba-monochrome.svg';
+import nbpaLogo from '@core/assets/logos/nba/nbpa.svg';
+import Button from '@core/atoms/buttons/Button';
+import { LinkBox, LinkOverlay } from '@core/atoms/navigation/Box';
+import { useDefaultSportPages } from '@core/constants/routes';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import { sportsLabelsMessages } from '@core/lib/glossary';
+import { Link } from '@core/routing/Link';
+import { theme } from '@core/style/theme';
 
 import PlayerCardsAnimation from '../PlayerCardsAnimation';
 import logoMLS from './assets/logo-MLS.svg';

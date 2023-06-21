@@ -1,7 +1,7 @@
 import { Currency } from '@sorare/core/src/__generated__/globalTypes';
 import { CardHit } from '@sorare/core/src/lib/algolia';
 
-import { WalletPaymentMethod } from '@sorare/marketplace/src/components/buyActions/PaymentProvider/types';
+import { WalletPaymentMethod } from '@marketplace/components/buyActions/PaymentProvider/types';
 
 import {
   CardData,

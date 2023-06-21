@@ -1,10 +1,10 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { PrivateKeyRecoveryOptionMethodEnum } from '__generated__/globalTypes';
-import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
-import { useWalletContext } from '@sorare/core/src/contexts/wallet';
-import useSendRecoverKey from '@sorare/core/src/hooks/recovery/useSendRecoverKey';
+import { PrivateKeyRecoveryOptionMethodEnum } from '@core/__generated__/globalTypes';
+import { Text16, Title3 } from '@core/atoms/typography';
+import { useWalletContext } from '@core/contexts/wallet';
+import useSendRecoverKey from '@core/hooks/recovery/useSendRecoverKey';
 
 const Wrapper = styled.div`
   display: flex;

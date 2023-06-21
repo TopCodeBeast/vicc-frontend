@@ -6,9 +6,9 @@ import styled from 'styled-components';
 import GlareEffect from '@sorare/core/src/atoms/animations/GlareEffect';
 import { Text16, Text20 } from '@sorare/core/src/atoms/typography';
 
-import AverageScore from '@sorare/football/src/components/so5/AverageScore';
-import CardBonus from '@sorare/football/src/components/so5/CardProperties/CardBonus';
-import { positionShortNames } from 'lib/so5';
+import AverageScore from '@football/components/so5/AverageScore';
+import CardBonus from '@football/components/so5/CardProperties/CardBonus';
+import { positionShortNames } from '@football/lib/so5';
 
 import {
   PlayerProperties_card,

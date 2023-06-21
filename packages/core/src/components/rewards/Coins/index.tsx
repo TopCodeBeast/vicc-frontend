@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import styled, { keyframes } from 'styled-components';
 
-import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
-import { theme } from '@sorare/core/src/style/theme';
+import { FRONTEND_ASSET_HOST } from '@core/constants/assets';
+import { theme } from '@core/style/theme';
 
 const amountAnimation = keyframes`
   from {

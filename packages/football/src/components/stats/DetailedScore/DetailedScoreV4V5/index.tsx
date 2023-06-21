@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { Text14, Text16, Title5 } from '@sorare/core/src/atoms/typography';
 
-import { categoryLabels, splitScore, statLabels } from 'lib/scoring';
+import { categoryLabels, splitScore, statLabels } from '@football/lib/scoring';
 
 import { DetailedScoreV4V5_so5Score } from './__generated__/index.graphql';
 

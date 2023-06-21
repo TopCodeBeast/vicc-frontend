@@ -8,14 +8,14 @@ import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { useEventContext } from '@sorare/core/src/contexts/event';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
 import useLoggedCallback from '@sorare/core/src/hooks/useLoggedCallback';
+import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 
-import usePollAuction from '@sorare/marketplace/src/components/auction/usePollAuction';
-import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
-import useBestBidBelongsToUser from '@sorare/marketplace/src/hooks/auctions/useBestBidBelongsToUser';
-import useCannotTrade from '@sorare/marketplace/src/hooks/offers/useCannotTrade';
-import { auctionMinNextBid } from '@sorare/marketplace/src/lib/auctions';
+import usePollAuction from '@marketplace/components/auction/usePollAuction';
+import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
+import useBestBidBelongsToUser from '@marketplace/hooks/auctions/useBestBidBelongsToUser';
+import useCannotTrade from '@marketplace/hooks/offers/useCannotTrade';
+import { auctionMinNextBid } from '@marketplace/lib/auctions';
 
 import BidBundleSummary from '../BidBundleSummary';
 import BidTokenSummary from '../BidTokenSummary';
@@ -63,11 +63,11 @@ const BidField = ({
   stroke,
   color = 'blue',
 }: BidFieldProps) => {
+  const { toMonetaryAmount } = useMonetaryAmount();
   usePollAuction(auction);
   const [showBidConfirmationModal, setShowBidConfirmationModal] =
     useState(false);
   const { open, cancelled } = auction;
-  const { convertFromWei } = useCurrencyConverters();
   const { trackClickBid } = useMarketplaceContext();
   const cannotTrade = useCannotTrade();
   const cannotTradeToken = cannotTrade();
@@ -91,6 +91,11 @@ const BidField = ({
 
   const minNextBid = auctionMinNextBid(auction);
 
+  const minNextBidMonetary = toMonetaryAmount({
+    [auction.currency.toLowerCase()]: minNextBid,
+    referenceCurrency: auction.currency,
+  });
+
   return (
     <Root>
       <ActivateButtonTooltip
@@ -105,7 +110,7 @@ const BidField = ({
           onClick={() => {
             trackClickBid(
               auction,
-              convertFromWei(minNextBid, 'EUR'),
+              minNextBidMonetary,
               tokens.map(token => token.assetId),
               tokens[0].sport,
               trackingContext?.subPath
@@ -173,6 +178,7 @@ BidField.fragments = {
       bidsCount
       minNextBid
       privateMinNextBid
+      currency
       creditCardFee
       myLastBid {
         id

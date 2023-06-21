@@ -2,8 +2,8 @@ import { faClose } from '@fortawesome/pro-solid-svg-icons';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import { FullWidthContainer } from '@sorare/core/src/atoms/container';
+import IconButton from '@core/atoms/buttons/IconButton';
+import { FullWidthContainer } from '@core/atoms/container';
 
 import { Level } from '..';
 import { Message } from '../SnackMessage';

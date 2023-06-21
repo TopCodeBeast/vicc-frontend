@@ -1,19 +1,19 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import coinbase from 'assets/wallet/icon-coinbase.png';
-import metamask from 'assets/wallet/icon-metamask.png';
-import opera from 'assets/wallet/icon-opera.png';
-import phantom from 'assets/wallet/icon-phantom.svg';
-import portis from 'assets/wallet/icon-portis.png';
-import trustWallet from 'assets/wallet/icon-trustWallet.svg';
-import walletConnect from 'assets/wallet/icon-walletConnect.png';
-import ButtonsList, { ButtonProps } from '@sorare/core/src/atoms/buttons/ButtonsList';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { useWeb3Context } from '@sorare/core/src/contexts/web3';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import useToggle from '@sorare/core/src/hooks/useToggle';
+import coinbase from '@core/assets/wallet/icon-coinbase.png';
+import metamask from '@core/assets/wallet/icon-metamask.png';
+import opera from '@core/assets/wallet/icon-opera.png';
+import phantom from '@core/assets/wallet/icon-phantom.svg';
+import portis from '@core/assets/wallet/icon-portis.png';
+import trustWallet from '@core/assets/wallet/icon-trustWallet.svg';
+import walletConnect from '@core/assets/wallet/icon-walletConnect.png';
+import ButtonsList, { ButtonProps } from '@core/atoms/buttons/ButtonsList';
+import { Text16 } from '@core/atoms/typography';
+import { useWeb3Context } from '@core/contexts/web3';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import useToggle from '@core/hooks/useToggle';
 
 const StyledImg = styled.img`
   max-width: var(--quadruple-unit);

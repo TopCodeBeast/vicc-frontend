@@ -3,17 +3,17 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import CloseButton from '@sorare/core/src/atoms/buttons/CloseButton';
-import { Text16, Title2 } from '@sorare/core/src/atoms/typography';
-import Dialog from 'components/dialog';
+import Button from '@core/atoms/buttons/Button';
+import CloseButton from '@core/atoms/buttons/CloseButton';
+import { Text16, Title2 } from '@core/atoms/typography';
+import Dialog from '@core/components/dialog';
 import {
   FOOTBALL_LOBBY_UPCOMING,
   FOOTBALL_NEW_SIGNINGS,
-} from '@sorare/core/src/constants/routes';
-import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
-import { avoidOrphan } from '@sorare/core/src/lib/text';
-import { theme } from '@sorare/core/src/style/theme';
+} from '@core/constants/routes';
+import { useBgLocation } from '@core/hooks/useBgLocation';
+import { avoidOrphan } from '@core/lib/text';
+import { theme } from '@core/style/theme';
 
 import bundesliga from './assets/bundesliga.png';
 import laLiga from './assets/laliga.png';

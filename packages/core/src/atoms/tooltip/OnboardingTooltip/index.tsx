@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import TooltipContent from '@sorare/core/src/atoms/tooltip/TooltipContent';
-import { theme } from '@sorare/core/src/style/theme';
+import TooltipContent from '@core/atoms/tooltip/TooltipContent';
+import { theme } from '@core/style/theme';
 
 type Props = {
   message: ReactNode;

@@ -7,10 +7,13 @@ import { CardImg } from '@sorare/core/src/components/card/CardImg';
 import OpenItemDialogLink from '@sorare/core/src/components/link/OpenItemDialogLink';
 import { isListedOnMarket } from '@sorare/core/src/lib/cards';
 
-import CardPreview from '@sorare/football/src/components/collections/CardPreview';
-import CardScore from '@sorare/football/src/components/collections/CardScore';
+import CardPreview from '@football/components/collections/CardPreview';
+import CardScore from '@football/components/collections/CardScore';
 
-import { FulfilledSlot_userCardCollectionSlot } from './__generated__/index.graphql';
+import {
+  FulfilledSlot_cardCollection,
+  FulfilledSlot_userCardCollectionSlot,
+} from './__generated__/index.graphql';
 
 const Wrapper = styled.div`
   display: flex;
@@ -22,8 +25,13 @@ const Wrapper = styled.div`
 type Props = {
   bannerPictureUrl: string;
   userSlot: FulfilledSlot_userCardCollectionSlot;
+  cardCollection?: FulfilledSlot_cardCollection;
 };
-export const FulfilledSlot = ({ bannerPictureUrl, userSlot }: Props) => {
+export const FulfilledSlot = ({
+  bannerPictureUrl,
+  userSlot,
+  cardCollection,
+}: Props) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const { highlightedCardCollectionCard, slot } = userSlot;
 
@@ -50,6 +58,7 @@ export const FulfilledSlot = ({ bannerPictureUrl, userSlot }: Props) => {
         cardCollectionCard={highlightedCardCollectionCard}
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
+        cardCollection={cardCollection}
       />
     </Wrapper>
   );
@@ -82,5 +91,12 @@ FulfilledSlot.fragments = {
     }
     ${CardPreview.fragments.cardCollectionCard}
     ${isListedOnMarket.fragments.card}
+  `,
+  cardCollection: gql`
+    fragment FulfilledSlot_cardCollection on CardCollection {
+      slug
+      ...CardPreview_cardCollection
+    }
+    ${CardPreview.fragments.cardCollection}
   `,
 };

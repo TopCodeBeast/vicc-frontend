@@ -4,7 +4,7 @@ import {
   CustomRewardExperience,
   PaymentCurrency,
   Rarity,
-} from '__generated__/globalTypes';
+} from '@core/__generated__/globalTypes';
 
 import {
   hasEligibleRewards_so5RewardConfig,

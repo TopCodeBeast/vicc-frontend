@@ -1,6 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
 
-import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
+import useQuery from '@core/hooks/graphql/useQuery';
 
 import {
   Disable2FAMutation,

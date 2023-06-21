@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import Blockquote from '@sorare/core/src/atoms/layout/Blockquote';
-import { Text16, Title6 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
-import { theme } from '@sorare/core/src/style/theme';
+import Button from '@core/atoms/buttons/Button';
+import Blockquote from '@core/atoms/layout/Blockquote';
+import { Text16, Title6 } from '@core/atoms/typography';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useMutation from '@core/hooks/graphql/useMutation';
+import { theme } from '@core/style/theme';
 
 import {
   UnblockEmailMutation,

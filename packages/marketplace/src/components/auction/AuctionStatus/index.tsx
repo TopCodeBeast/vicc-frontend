@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 import DotsLoader from '@sorare/core/src/atoms/loader/DotsLoader';
 
-import ItemEndDate from '@sorare/marketplace/src/components/ItemPreview/ItemEndDate';
-import { AuctionBidsInfo } from '@sorare/marketplace/src/components/auction/Auction/AuctionDetails/AuctionBidsInfo';
+import ItemEndDate from '@marketplace/components/ItemPreview/ItemEndDate';
+import { AuctionBidsInfo } from '@marketplace/components/auction/Auction/AuctionDetails/AuctionBidsInfo';
 
 import { AuctionStatus_auction } from './__generated__/index.graphql';
 

@@ -1,9 +1,9 @@
 import { ElementType, ReactNode, forwardRef } from 'react';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import Button, { Props as ButtonProps } from '@sorare/core/src/atoms/buttons/Button';
-import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
-import useToggle from '@sorare/core/src/hooks/useToggle';
+import Button, { Props as ButtonProps } from '@core/atoms/buttons/Button';
+import ButtonBase from '@core/atoms/buttons/ButtonBase';
+import useToggle from '@core/hooks/useToggle';
 
 import ConfirmDialog from '../ConfirmDialog';
 

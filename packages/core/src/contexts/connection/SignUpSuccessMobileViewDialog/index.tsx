@@ -3,18 +3,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import Bold from '@sorare/core/src/atoms/typography/Bold';
+import Button from '@core/atoms/buttons/Button';
+import Dialog from '@core/atoms/layout/Dialog';
+import { Text16 } from '@core/atoms/typography';
+import Bold from '@core/atoms/typography/Bold';
 import {
   SIGNUP_WORKFLOW_VERSION_QUERY_PARAMETER,
   isVersion2OrGreater,
   isVersion4OrGreater,
-} from '@sorare/core/src/constants/mobile';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import useQueryString from '@sorare/core/src/hooks/useQueryString';
-import { theme } from '@sorare/core/src/style/theme';
+} from '@core/constants/mobile';
+import { useIntlContext } from '@core/contexts/intl';
+import useQueryString from '@core/hooks/useQueryString';
+import { theme } from '@core/style/theme';
 import 'style/drukFontFaces.css';
 
 import V4Body from './V4Body';

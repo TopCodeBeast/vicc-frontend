@@ -3,15 +3,15 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
-import Container from '@sorare/core/src/atoms/layout/Container';
-import SmallerStarBall from '@sorare/core/src/atoms/navigation/SmallerStarBall';
-import { LANDING } from '@sorare/core/src/constants/routes';
-import { useConnectionContext } from '@sorare/core/src/contexts/connection';
-import { useEventsContext } from '@sorare/core/src/contexts/events';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import Button from '@core/atoms/buttons/Button';
+import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import Container from '@core/atoms/layout/Container';
+import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
+import { LANDING } from '@core/constants/routes';
+import { useConnectionContext } from '@core/contexts/connection';
+import { useEventsContext } from '@core/contexts/events';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import { glossary } from '@core/lib/glossary';
 
 const Wrapper = styled.div`
   display: flex;

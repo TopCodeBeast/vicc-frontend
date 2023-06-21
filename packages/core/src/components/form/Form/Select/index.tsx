@@ -1,10 +1,10 @@
 import { FormEventHandler } from 'react';
 
-import { Text16 } from '@sorare/core/src/atoms/typography';
+import { Text16 } from '@core/atoms/typography';
 import SimpleSelect, {
   SimpleSelectOption,
   Props as SimpleSelectProps,
-} from 'components/form/Form/SimpleSelect';
+} from '@core/components/form/Form/SimpleSelect';
 
 import Field from '../Field';
 

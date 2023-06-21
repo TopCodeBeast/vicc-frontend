@@ -2,10 +2,10 @@ import qs from 'qs';
 import { forwardRef } from 'react';
 import styled from 'styled-components';
 
-import { getValue } from 'components/PersistsQueryStringParameters/storage';
+import { getValue } from '@core/components/PersistsQueryStringParameters/storage';
 import { API_ROOT } from 'config';
-import useAfterLoggedInTarget from '@sorare/core/src/hooks/useAfterLoggedInTarget';
-import useQueryString from '@sorare/core/src/hooks/useQueryString';
+import useAfterLoggedInTarget from '@core/hooks/useAfterLoggedInTarget';
+import useQueryString from '@core/hooks/useQueryString';
 
 import AuthenticityToken from '../../form/AuthenticityToken';
 import { Props } from './types';

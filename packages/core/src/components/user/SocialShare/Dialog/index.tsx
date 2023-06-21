@@ -12,23 +12,23 @@ import { useEffect, useRef, useState } from 'react';
 import { defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import RoundedButton from '@sorare/core/src/atoms/buttons/RoundedButton';
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { Text14, Title3 } from '@sorare/core/src/atoms/typography';
-import Scrollable from 'components/Scrollable';
-import Dialog from 'components/dialog';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useEventsContext } from '@sorare/core/src/contexts/events';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { useSportContext } from '@sorare/core/src/contexts/sport';
-import idFromObject from '@sorare/core/src/gql/idFromObject';
+import IconButton from '@core/atoms/buttons/IconButton';
+import RoundedButton from '@core/atoms/buttons/RoundedButton';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import { Text14, Title3 } from '@core/atoms/typography';
+import Scrollable from '@core/components/Scrollable';
+import Dialog from '@core/components/dialog';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useEventsContext } from '@core/contexts/events';
+import { useIntlContext } from '@core/contexts/intl';
+import { useSportContext } from '@core/contexts/sport';
+import idFromObject from '@core/gql/idFromObject';
 import useUtmParams, {
   UTM_CAMPAIGNS,
   UTM_MEDIUMS,
   UTM_SOURCES,
   getUtmTermFromSport,
-} from '@sorare/core/src/hooks/useUtmParams';
+} from '@core/hooks/useUtmParams';
 import {
   SocialShareEventContext,
   SocialShareEventName,
@@ -37,9 +37,9 @@ import {
   shareOnFacebookEvent,
   shareOnTwitterEvent,
   shareWithShareSheetEvent,
-} from '@sorare/core/src/lib/events';
-import { glossary } from '@sorare/core/src/lib/glossary';
-import { ImageVariations } from '@sorare/core/src/lib/share';
+} from '@core/lib/events';
+import { glossary } from '@core/lib/glossary';
+import { ImageVariations } from '@core/lib/share';
 
 import useShareSheet from '../useShareSheet';
 import { SocialShare_SocialPictures_Dialog } from './__generated__/index.graphql';

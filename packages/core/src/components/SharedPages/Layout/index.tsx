@@ -3,12 +3,12 @@ import { ReactNode, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { SmallContainer } from '@sorare/core/src/atoms/container';
-import TabContainer from '@sorare/core/src/atoms/layout/TabContainer';
-import { Title2 } from '@sorare/core/src/atoms/typography';
-import MultiSportAppBar from '@sorare/core/src/routing/MultiSportAppBar';
-import MultiSportBottomNavBar from '@sorare/core/src/routing/MultiSportBottomNavBar';
-import MultiSportFooter from '@sorare/core/src/routing/MultiSportFooter';
+import { SmallContainer } from '@core/atoms/container';
+import TabContainer from '@core/atoms/layout/TabContainer';
+import { Title2 } from '@core/atoms/typography';
+import MultiSportAppBar from '@core/routing/MultiSportAppBar';
+import MultiSportBottomNavBar from '@core/routing/MultiSportBottomNavBar';
+import MultiSportFooter from '@core/routing/MultiSportFooter';
 
 export type Tab = {
   value: string;

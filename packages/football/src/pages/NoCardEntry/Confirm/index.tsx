@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import useQueryString from '@sorare/core/src/hooks/useQueryString';
 
-import Form from '@sorare/football/src/pages/NoCardEntry/Form';
+import Form from '@football/pages/NoCardEntry/Form';
 
 import useConfirmSo5NoCardLineup from './useConfirmSo5NoCardLineup';
 

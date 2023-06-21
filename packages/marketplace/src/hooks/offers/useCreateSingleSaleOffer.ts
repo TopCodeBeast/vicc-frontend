@@ -5,7 +5,7 @@ import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 import useCreateEthMigration from '@sorare/core/src/hooks/starkware/useCreateEthMigration';
 import { generateDealId } from '@sorare/core/src/lib/deal';
 
-import { useSingleSaleOfferContext } from '@sorare/marketplace/src/contexts/singleSaleOffer';
+import { useSingleSaleOfferContext } from '@marketplace/contexts/singleSaleOffer';
 
 import {
   CreateSingleSaleOfferMutation,

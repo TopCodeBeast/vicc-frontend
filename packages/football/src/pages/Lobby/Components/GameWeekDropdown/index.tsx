@@ -16,7 +16,7 @@ import {
 } from '@sorare/core/src/constants/routes';
 import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery';
 
-import { isFixtureLive, isFixtureOpened } from 'lib/so5';
+import { isFixtureLive, isFixtureOpened } from '@football/lib/so5';
 
 import {
   Lobby_GameWeekDropdownHeader_so5Fixture,

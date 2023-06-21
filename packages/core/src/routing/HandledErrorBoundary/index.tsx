@@ -1,9 +1,9 @@
 import { Component, FC, ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { LANDING } from '@sorare/core/src/constants/routes';
-import { wrapError } from '@sorare/core/src/lib/error';
-import { ErrorProps, HandledError } from '@sorare/core/src/routing/HandledError';
+import { LANDING } from '@core/constants/routes';
+import { wrapError } from '@core/lib/error';
+import { ErrorProps, HandledError } from '@core/routing/HandledError';
 
 type Props = {
   children: ReactNode;

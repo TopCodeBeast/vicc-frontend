@@ -8,7 +8,7 @@ import AdvancedCardSearch, {
 } from '@sorare/marketplace/src/searchCards/AdvancedCardSearch';
 import { SearchTopic } from '@sorare/marketplace/src/searchCards/AdvancedCardSearch/types';
 
-import CardResultsFromGraphQL from '@sorare/football/src/components/searchCards/CardResultsFromGraphQL';
+import CardResultsFromGraphQL from '@football/components/searchCards/CardResultsFromGraphQL';
 
 export const CardSearch = (
   props: Omit<FullProps, 'CardResultsComponent' | 'sport'> & {

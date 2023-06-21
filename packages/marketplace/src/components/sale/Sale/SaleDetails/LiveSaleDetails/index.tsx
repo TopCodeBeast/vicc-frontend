@@ -22,17 +22,17 @@ import {
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import ItemEndDate from '@sorare/marketplace/src/components/ItemPreview/ItemEndDate';
+import ItemEndDate from '@marketplace/components/ItemPreview/ItemEndDate';
 import {
   ButtonContainer,
   TokenDetailsInfos,
   TokenDetailsRoot,
   TokenDetailsRow,
-} from '@sorare/marketplace/src/components/ItemPreview/ui';
-import TokenListingsCount from '@sorare/marketplace/src/components/TokenPreview/TokenListingsCount';
-import TokenOwner from '@sorare/marketplace/src/components/TokenPreview/TokenOwner';
-import BuyField from '@sorare/marketplace/src/components/buyActions/BuyField';
-import useGetTokenSingleSaleDetails from '@sorare/marketplace/src/hooks/offers/useGetTokenSingleSaleDetails';
+} from '@marketplace/components/ItemPreview/ui';
+import TokenListingsCount from '@marketplace/components/TokenPreview/TokenListingsCount';
+import TokenOwner from '@marketplace/components/TokenPreview/TokenOwner';
+import BuyField from '@marketplace/components/buyActions/BuyField';
+import useGetTokenSingleSaleDetails from '@marketplace/hooks/offers/useGetTokenSingleSaleDetails';
 
 import { SalePrice } from '../SalePrice';
 import {
@@ -138,7 +138,10 @@ export const LiveSaleDetails = ({
                     <TokenOwner token={token} withAvatar />
                   )}
                   {' • '}
-                  <ItemEndDate endDate={parseISO(sale.endDate)} />
+                  <ItemEndDate
+                    endDate={parseISO(sale.endDate)}
+                    withExplicitTime={isDesktopLayout}
+                  />
                 </StyledCaption>
               </TokenDetailsRow>
             </Wrapper>

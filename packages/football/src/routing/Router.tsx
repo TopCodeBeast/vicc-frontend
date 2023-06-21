@@ -7,8 +7,8 @@ import {
   tokenOfferSubscription,
 } from '@sorare/marketplace/src/lib/fragments';
 
-import UserDialog from '@sorare/football/src/components/user/UserDialog';
-import { useCheckRedirectToOnboarding } from 'hooks/onboarding/useCheckRedirectToOnboarding';
+import UserDialog from '@football/components/user/UserDialog';
+import { useCheckRedirectToOnboarding } from '@football/hooks/onboarding/useCheckRedirectToOnboarding';
 
 import AppSwitch from './AppSwitch';
 

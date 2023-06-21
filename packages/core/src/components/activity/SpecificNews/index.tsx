@@ -3,9 +3,9 @@ import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { SmallContainer } from '@sorare/core/src/atoms/container';
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
+import { SmallContainer } from '@core/atoms/container';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import useQuery from '@core/hooks/graphql/useQuery';
 
 import Announcement from '../Announcement';
 import {

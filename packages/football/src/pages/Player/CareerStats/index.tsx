@@ -8,7 +8,7 @@ import BlockHeader from '@sorare/core/src/atoms/layout/BlockHeader';
 import { Title6 } from '@sorare/core/src/atoms/typography';
 import { format as formatSeason } from '@sorare/core/src/lib/seasons';
 
-import SeasonStats from '@sorare/football/src/pages/Player/SeasonStats';
+import SeasonStats from '@football/pages/Player/SeasonStats';
 
 import { CareerStats_player } from './__generated__/index.graphql';
 

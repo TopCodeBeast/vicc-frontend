@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { theme } from '@sorare/core/src/style/theme';
+import { theme } from '@core/style/theme';
 
 const Wrapper = styled.div`
   perspective: 1000px;

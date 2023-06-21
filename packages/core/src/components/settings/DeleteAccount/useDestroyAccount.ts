@@ -1,7 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 
 // eslint-disable-next-line import/named
-import { destroyAccountInput } from '__generated__/globalTypes';
+import { destroyAccountInput } from '@core/__generated__/globalTypes';
 
 import {
   DestroyUserAccountMutation,

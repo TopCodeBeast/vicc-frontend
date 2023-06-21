@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Text14, Text18 } from '@sorare/core/src/atoms/typography';
+import { Text14, Text18 } from '@core/atoms/typography';
 
 const Wrapper = styled.div`
   background-color: var(--c-neutral-300);

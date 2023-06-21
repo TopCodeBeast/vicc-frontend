@@ -5,14 +5,15 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import {
-  Currency,
-  Fiat,
   Sport,
+  SupportedCurrency,
 } from '@sorare/core/src/__generated__/globalTypes';
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 
-import PaymentBoxAmountWithConversion from '@sorare/marketplace/src/components/buyActions/PaymentBox/AmountWithConversion';
+import { PaymentBoxAmountWithConversion } from '@marketplace/components/buyActions/PaymentBox/AmountWithConversion';
 
 import { SummaryTableTotal } from './SummaryTableTotal';
 import { AccountingLine, Row } from './ui';
@@ -42,13 +43,10 @@ const FeesDetails = styled.a`
 `;
 
 export type Props = {
-  subtotalWeiAmount: string;
-  subtotalAmountInFiat?: Fiat;
+  subtotalMonetaryAmount: MonetaryAmountOutput;
   fees: number;
-  feesWeiAmount: string;
-  feesFiatAmount?: Fiat;
-  totalWeiAmount: string;
-  totalFiatAmount?: Fiat;
+  feesMonetaryAmount: MonetaryAmountOutput;
+  totalMonetaryAmount: MonetaryAmountOutput;
   isFiat: boolean;
   isCreditCard: boolean;
   usingConversionCredit: boolean;
@@ -59,13 +57,10 @@ export type Props = {
 };
 
 export const SummaryTable = ({
-  subtotalWeiAmount,
-  subtotalAmountInFiat,
+  subtotalMonetaryAmount,
   fees,
-  feesWeiAmount,
-  feesFiatAmount,
-  totalWeiAmount,
-  totalFiatAmount,
+  feesMonetaryAmount,
+  totalMonetaryAmount,
   isFiat,
   isCreditCard,
   usingConversionCredit,
@@ -74,6 +69,7 @@ export const SummaryTable = ({
   hideSubtotal,
   sport,
 }: Props) => {
+  const { currency } = useCurrentUserContext();
   return (
     <Wrapper>
       {!hideSubtotal && (
@@ -87,10 +83,10 @@ export const SummaryTable = ({
             </Text16>
             {customAmountDisplay || (
               <PaymentBoxAmountWithConversion
-                amount={subtotalWeiAmount}
-                amountInFiat={subtotalAmountInFiat}
-                unit="wei"
-                context="SummaryTable — Subtotal"
+                monetaryAmount={{
+                  referenceCurrency: SupportedCurrency.WEI,
+                  ...subtotalMonetaryAmount,
+                }}
               />
             )}
           </AccountingLine>
@@ -105,7 +101,6 @@ export const SummaryTable = ({
                 defaultMessage="Credit card fees"
               />
               <Tooltip
-                arrow
                 interactive
                 placement="top"
                 title={
@@ -136,10 +131,10 @@ export const SummaryTable = ({
               </Tooltip>
             </Text16WithTooltip>
             <PaymentBoxAmountWithConversion
-              amount={feesWeiAmount}
-              amountInFiat={feesFiatAmount}
-              unit="wei"
-              context="creditCardFees"
+              monetaryAmount={{
+                referenceCurrency: SupportedCurrency.WEI,
+                ...feesMonetaryAmount,
+              }}
             />
           </AccountingLine>
         </Row>
@@ -153,7 +148,6 @@ export const SummaryTable = ({
                 defaultMessage="Transaction fee"
               />
               <Tooltip
-                arrow
                 interactive
                 placement="top"
                 title={
@@ -184,15 +178,15 @@ export const SummaryTable = ({
               </Tooltip>
             </Text16WithTooltip>
             <PaymentBoxAmountWithConversion
-              amount={feesWeiAmount}
-              amountInFiat={feesFiatAmount}
-              unit="wei"
-              context="fiatWalletFees"
+              monetaryAmount={{
+                referenceCurrency: SupportedCurrency.WEI,
+                ...feesMonetaryAmount,
+              }}
             />
           </AccountingLine>
         </Row>
       )}
-      {!customAmountDisplay && !isFiat && !hideFees && (
+      {!isFiat && !hideFees && (
         <Row>
           <AccountingLine>
             <Text16WithTooltip color="var(--c-neutral-1000)">
@@ -201,7 +195,6 @@ export const SummaryTable = ({
                 defaultMessage="Gas fees"
               />
               <Tooltip
-                arrow
                 interactive
                 placement="top"
                 title={
@@ -217,9 +210,10 @@ export const SummaryTable = ({
               </Tooltip>
             </Text16WithTooltip>
             <PaymentBoxAmountWithConversion
-              amount="0"
-              unit="wei"
-              context="GasFee"
+              monetaryAmount={{
+                referenceCurrency: SupportedCurrency.WEI,
+                [SupportedCurrency.WEI.toLowerCase()]: '0',
+              }}
             />
           </AccountingLine>
         </Row>
@@ -227,10 +221,9 @@ export const SummaryTable = ({
       <SummaryTableTotal
         usingConversionCredit={usingConversionCredit}
         sport={sport}
-        currency={isFiat ? Currency.FIAT : Currency.ETH}
+        currency={currency}
         customAmountDisplay={customAmountDisplay}
-        totalWeiAmount={totalWeiAmount}
-        totalFiatAmount={totalFiatAmount}
+        totalMonetaryAmount={totalMonetaryAmount}
       />
     </Wrapper>
   );

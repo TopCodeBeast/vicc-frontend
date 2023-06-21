@@ -5,7 +5,7 @@ import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import { InstantSearch } from '@sorare/core/src/components/search/InstantSearch';
 import { useConfigContext } from '@sorare/core/src/contexts/config';
 
-import { Lineup, Props as LineupProps } from '@sorare/football/src/components/lineup/Lineup';
+import { Lineup, Props as LineupProps } from '@football/components/lineup/Lineup';
 
 import WithLiveCardsOnSale from './WithLiveCardsOnSale';
 import { LineupToDiscover_so5Leaderboard } from './__generated__/index.graphql';

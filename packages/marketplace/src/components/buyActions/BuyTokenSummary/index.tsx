@@ -2,11 +2,12 @@ import { gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Fiat } from '@sorare/core/src/__generated__/globalTypes';
-import { Text14, Text16, Title5 } from '@sorare/core/src/atoms/typography';
-import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
+import { Title5 } from '@sorare/core/src/atoms/typography';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
+import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 
-import TokenSummary from '@sorare/marketplace/src/components/buyActions/TokenSummary';
+import TokenSummary from '@marketplace/components/buyActions/TokenSummary';
 
 import { BuyTokenSummary_token } from './__generated__/index.graphql';
 
@@ -20,31 +21,25 @@ const Price = styled.div`
 type Props = {
   token: BuyTokenSummary_token;
   withoutRecentSales?: boolean;
-  price?: {
-    weiAmount: string;
-    amountInFiat: Fiat;
-  };
+  monetaryAmount?: MonetaryAmountOutput;
 };
 
 export const BuyTokenSummary = ({
   token,
   withoutRecentSales = false,
-  price: customPrice,
+  monetaryAmount,
 }: Props) => {
-  const { main, exponent } = useAmountWithConversion({
-    amount:
-      customPrice?.weiAmount || token?.liveSingleSaleOffer?.priceWei || '0',
-    ...(customPrice?.amountInFiat && {
-      amountInFiat: customPrice?.amountInFiat,
-    }),
-    unit: 'wei',
-    context: 'BuyTokenSummary',
-  });
-
   const price = (
     <Price>
-      <Text16 color="var(--c-neutral-1000)">{main}</Text16>
-      {exponent && <Text14 color="var(--c-neutral-600)">{exponent}</Text14>}
+      <AmountWithConversion
+        monetaryAmount={{
+          referenceCurrency: SupportedCurrency.WEI,
+          [SupportedCurrency.WEI.toLowerCase()]:
+            monetaryAmount?.wei || token?.liveSingleSaleOffer?.priceWei || '0',
+          ...monetaryAmount,
+        }}
+        column
+      />
     </Price>
   );
 

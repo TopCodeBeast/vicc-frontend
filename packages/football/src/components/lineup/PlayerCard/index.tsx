@@ -9,15 +9,15 @@ import { Caption } from '@sorare/core/src/atoms/typography';
 import { CardImg } from '@sorare/core/src/components/card/CardImg';
 import { theme } from '@sorare/core/src/style/theme';
 
-import Captain from '@sorare/football/src/components/so5/Captain';
-import { LiveDot } from '@sorare/football/src/components/so5/LiveDot';
-import { useGetLabel as getPlayerScoreLabel } from '@sorare/football/src/components/stats/PlayerScore';
+import Captain from '@football/components/so5/Captain';
+import { LiveDot } from '@football/components/so5/LiveDot';
+import { useGetLabel as getPlayerScoreLabel } from '@football/components/stats/PlayerScore';
 import {
   PlayerScoreStatus,
   getPlayerScore,
   isGameLive,
   isGameScheduled,
-} from 'lib/so5';
+} from '@football/lib/so5';
 
 import { PlayerCard_so5Appearance } from './__generated__/index.graphql';
 

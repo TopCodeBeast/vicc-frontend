@@ -46,6 +46,9 @@ const customIgnoredErrors = [
 
   // skip rate limit errors
   /rate limit exceeded/,
+
+  // Ignore errors from API calls done while being logged out
+  /Not authorized to access/,
 ];
 
 const ignoredErrorPatterns = [

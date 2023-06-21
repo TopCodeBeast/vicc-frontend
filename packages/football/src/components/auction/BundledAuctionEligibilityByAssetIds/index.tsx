@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
-import ItemEligibility from '@sorare/football/src/components/card/ItemEligibility';
+import ItemEligibility from '@football/components/card/ItemEligibility';
 
 import { BundledAuctionEligibilityByAssetIdsQuery } from './__generated__/index.graphql';
 

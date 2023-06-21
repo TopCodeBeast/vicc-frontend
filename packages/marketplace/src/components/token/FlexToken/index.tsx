@@ -8,7 +8,7 @@ import UninteractiveToken, {
   DraggableProps,
 } from '@sorare/core/src/components/token/UninteractiveToken';
 
-import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
+import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
 
 import { FlexToken_token } from './__generated__/index.graphql';
 

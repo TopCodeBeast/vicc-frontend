@@ -6,14 +6,14 @@ import styled from 'styled-components';
 import {
   Currency as CurrencyType,
   FiatCurrency,
-} from '__generated__/globalTypes';
-import Select from '@sorare/core/src/atoms/inputs/Select';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import useUpdateCurrency from '@sorare/core/src/hooks/useUpdateCurrency';
-import { useFiatBalance } from '@sorare/core/src/hooks/wallets/useFiatBalance';
-import { useWalletPreferences } from '@sorare/core/src/hooks/wallets/useWalletPreferences';
-import { userAttributes } from '@sorare/core/src/lib/glossary';
+} from '@core/__generated__/globalTypes';
+import Select from '@core/atoms/inputs/Select';
+import { Text16 } from '@core/atoms/typography';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useUpdateCurrency from '@core/hooks/useUpdateCurrency';
+import { useFiatBalance } from '@core/hooks/wallets/useFiatBalance';
+import { useWalletPreferences } from '@core/hooks/wallets/useWalletPreferences';
+import { userAttributes } from '@core/lib/glossary';
 
 import SettingsSection from '../SettingsSection';
 

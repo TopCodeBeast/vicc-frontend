@@ -1,9 +1,9 @@
 import { gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
 
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useEventsContext } from '@sorare/core/src/contexts/events';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useEventsContext } from '@core/contexts/events';
+import useEvents from '@core/lib/events/useEvents';
 
 import {
   UpdateUserSettingsHideBalanceMutation,

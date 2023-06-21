@@ -6,7 +6,7 @@ import MultiSportAppBar from '@sorare/core/src/routing/MultiSportAppBar';
 import MultiSportBottomNavBar from '@sorare/core/src/routing/MultiSportBottomNavBar';
 import MultiSportFooter from '@sorare/core/src/routing/MultiSportFooter';
 
-import UnclaimedRewards from 'routing/AppBar/UnclaimedRewards';
+import UnclaimedRewards from '@football/routing/AppBar/UnclaimedRewards';
 
 const Root = styled.section`
   display: flex;

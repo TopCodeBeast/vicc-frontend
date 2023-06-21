@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 import { useCallback } from 'react';
 
-import { Sport } from '__generated__/globalTypes';
-import idFromObject from '@sorare/core/src/gql/idFromObject';
+import { Sport } from '@core/__generated__/globalTypes';
+import idFromObject from '@core/gql/idFromObject';
 
 import { useClaimReferralReward_referralReward } from './__generated__/useClaimReferralReward.graphql';
 import useSo5ClaimReferralReward from './useSo5ClaimReferralReward';

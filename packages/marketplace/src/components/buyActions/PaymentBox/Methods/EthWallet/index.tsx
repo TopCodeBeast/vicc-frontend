@@ -16,7 +16,7 @@ export const EthWallet = ({ withoutBalance }: Props) => {
       color="var(--c-brand-600)"
       icon={faEthereum}
       label={<FormattedMessage {...payment.sorareEthWallet} />}
-      balance={<UserBalance inline disableToggle context="PaymentBox" />}
+      balance={<UserBalance inline disableToggle />}
       withoutBalance={withoutBalance}
     />
   );

@@ -6,37 +6,28 @@ import styled from 'styled-components';
 import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import { Props as ButtonProps } from '@sorare/core/src/atoms/buttons/Button';
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
-import { Text14, Text16, Title5 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { Title5 } from '@sorare/core/src/atoms/typography';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 import { useEventContext } from '@sorare/core/src/contexts/event';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
 import useLoggedCallback from '@sorare/core/src/hooks/useLoggedCallback';
 import { Currency } from '@sorare/core/src/lib/currency';
 import { glossary, payment } from '@sorare/core/src/lib/glossary';
 
-import LazyPaymentProvider from '@sorare/marketplace/src/components/buyActions/LazyPaymentProvider';
-import PrimaryOfferTokensSummary from '@sorare/marketplace/src/components/primaryOffer/PrimaryOfferTokensSummary';
-import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
-import { useBuyConfirmationContext } from '@sorare/marketplace/src/contexts/buyingConfirmation';
-import useAcceptOffer from '@sorare/marketplace/src/hooks/offers/useAcceptOffer';
-import { useMarketplaceEvents } from '@sorare/marketplace/src/lib/events';
+import LazyPaymentProvider from '@marketplace/components/buyActions/LazyPaymentProvider';
+import PrimaryOfferTokensSummary from '@marketplace/components/primaryOffer/PrimaryOfferTokensSummary';
+import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
+import { useBuyConfirmationContext } from '@marketplace/contexts/buyingConfirmation';
+import useAcceptOffer from '@marketplace/hooks/offers/useAcceptOffer';
+import { useMarketplaceEvents } from '@marketplace/lib/events';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import BuyPrimaryOfferConfirmation from '../BuyPrimaryOfferConfirmation';
 import { PrimaryOfferBuyField_primaryOffer } from './__generated__/index.graphql';
 
-type PrimaryOfferBuyField_primaryOffer_priceFiat =
-  PrimaryOfferBuyField_primaryOffer['priceFiat'];
-
 interface Props {
   primaryOffer: PrimaryOfferBuyField_primaryOffer;
 }
-
-type LowercaseCurrencyCode = keyof Omit<
-  PrimaryOfferBuyField_primaryOffer_priceFiat,
-  '__typename'
->;
 
 const PriceWrapper = styled.div`
   text-align: right;
@@ -48,11 +39,7 @@ export const PrimaryOfferBuyField = ({
 }: Props & ButtonProps) => {
   const { id, nfts, priceFiat, priceWei } = primaryOffer;
   const [paymentStarted, setPaymentStarted] = useState(false);
-  const { formatNumber, formatWei } = useIntlContext();
   const track = useMarketplaceEvents();
-  const {
-    fiatCurrency: { code: preferredCurrencyCode },
-  } = useCurrentUserContext();
   const { setShowBuyingConfirmation } = useBuyConfirmationContext();
   const acceptOffer = useAcceptOffer();
   const { trackClickBuy } = useMarketplaceContext();
@@ -82,15 +69,6 @@ export const PrimaryOfferBuyField = ({
     return { err: errors };
   };
 
-  const price = formatNumber(
-    priceFiat[preferredCurrencyCode.toLowerCase() as LowercaseCurrencyCode] /
-      100,
-    {
-      style: 'currency',
-      currency: preferredCurrencyCode,
-    }
-  );
-
   const onBuyButtonClick = useLoggedCallback(() => {
     setPaymentStarted(true);
     trackClickBuy(
@@ -109,14 +87,16 @@ export const PrimaryOfferBuyField = ({
     onPaymentSuccess();
   };
 
-  const ethAmount = formatWei(priceWei);
-
   const customAmountDisplay = (
     <PriceWrapper>
-      <Text16 bold color="var(--c-neutral-1000)">
-        {price}
-      </Text16>
-      <Text14 color="var(--c-neutral-600)">{ethAmount}</Text14>
+      <AmountWithConversion
+        monetaryAmount={{
+          referenceCurrency: SupportedCurrency.WEI,
+          wei: priceWei,
+          ...priceFiat,
+        }}
+        column
+      />
     </PriceWrapper>
   );
   return (
@@ -137,7 +117,10 @@ export const PrimaryOfferBuyField = ({
             objectId: id,
             onSuccess: onPaymentSuccessWithTracking,
             onSubmit: buyWithEth,
-            priceInWei: priceWei,
+            price: {
+              amount: priceWei,
+              referenceCurrency: SupportedCurrency.WEI,
+            },
             cta: payment.confirmAndPay,
             canUseConversionCredit: true,
             currencies: [Currency.FIAT, Currency.ETH],
@@ -158,6 +141,7 @@ export const PrimaryOfferBuyField = ({
                 price={customAmountDisplay}
               />
             ),
+            customAmountDisplay: null,
             confirmationProviderStateProps: {
               primaryOfferId: id,
             },

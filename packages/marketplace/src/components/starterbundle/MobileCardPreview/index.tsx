@@ -6,9 +6,9 @@ import { Text14, Text18 } from '@sorare/core/src/atoms/typography';
 import OpenItemDialogLink from '@sorare/core/src/components/link/OpenItemDialogLink';
 import { getHumanReadableSerialNumber } from '@sorare/core/src/lib/cards';
 
-import { CardContainer } from '@sorare/marketplace/src/components/ItemPreview/ui';
-import FlexToken from '@sorare/marketplace/src/components/token/FlexToken';
-import { useMarketplaceContext } from '@sorare/marketplace/src/contexts/Marketplace';
+import { CardContainer } from '@marketplace/components/ItemPreview/ui';
+import FlexToken from '@marketplace/components/token/FlexToken';
+import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
 
 import { MobileCardPreview_token } from './__generated__/index.graphql';
 

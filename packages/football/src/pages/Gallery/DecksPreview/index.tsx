@@ -11,8 +11,8 @@ import { FOOTBALL_USER_GALLERY_SQUADS } from '@sorare/core/src/constants/routes'
 import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery';
 import { sortBy } from '@sorare/core/src/lib/arrays';
 
-import CustomDeckPreview from '@sorare/football/src/components/deck/CustomDeckPreview';
-import EmptyDecks from '@sorare/football/src/components/deck/EmptyDecks';
+import CustomDeckPreview from '@football/components/deck/CustomDeckPreview';
+import EmptyDecks from '@football/components/deck/EmptyDecks';
 
 import {
   DecksPreviewQuery,

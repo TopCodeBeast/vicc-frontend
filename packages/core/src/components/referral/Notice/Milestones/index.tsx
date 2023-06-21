@@ -6,20 +6,20 @@ import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { Text14, Text16, Text18, Title3 } from '@sorare/core/src/atoms/typography';
-import CardBack from 'components/card/Back';
-import OpenItemDialogLink from 'components/link/OpenItemDialogLink';
-import { ClaimReferralRewardDialog } from 'components/referral/ClaimReferralRewardDialog';
-import UninteractiveToken from 'components/token/UninteractiveToken';
-import Avatar from 'components/user/Avatar';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useReferralReward } from '@sorare/core/src/hooks/useReferralReward';
-import useToggle from '@sorare/core/src/hooks/useToggle';
-import { scarcityNames } from '@sorare/core/src/lib/cards';
-import { glossary } from '@sorare/core/src/lib/glossary';
-import { qualityNames } from '@sorare/core/src/lib/players';
+import { Sport } from '@core/__generated__/globalTypes';
+import Button from '@core/atoms/buttons/Button';
+import { Text14, Text16, Text18, Title3 } from '@core/atoms/typography';
+import CardBack from '@core/components/card/Back';
+import OpenItemDialogLink from '@core/components/link/OpenItemDialogLink';
+import { ClaimReferralRewardDialog } from '@core/components/referral/ClaimReferralRewardDialog';
+import UninteractiveToken from '@core/components/token/UninteractiveToken';
+import Avatar from '@core/components/user/Avatar';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useReferralReward } from '@core/hooks/useReferralReward';
+import useToggle from '@core/hooks/useToggle';
+import { scarcityNames } from '@core/lib/cards';
+import { glossary } from '@core/lib/glossary';
+import { qualityNames } from '@core/lib/players';
 
 import { Milestones_referralMilestoneReward } from './__generated__/index.graphql';
 

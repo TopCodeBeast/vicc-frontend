@@ -7,7 +7,7 @@ import Dialog from '@sorare/core/src/components/dialog';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { theme } from '@sorare/core/src/style/theme';
 
-import MatchView from '@sorare/football/src/components/MatchView';
+import MatchView from '@football/components/MatchView';
 
 const DialogContainer = styled.div`
   display: flex;

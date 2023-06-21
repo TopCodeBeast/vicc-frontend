@@ -1,7 +1,7 @@
 import cookie from 'react-cookies';
 
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import { useLocationChanged } from '@sorare/core/src/hooks/useLocationChanged';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import { useLocationChanged } from '@core/hooks/useLocationChanged';
 
 import { VERSION } from '../../config';
 import isOutdated from './isOutdated';

@@ -2,25 +2,25 @@ import { gql } from '@apollo/client';
 import classNames from 'classnames';
 import { isPast, parseISO } from 'date-fns';
 
-import AmountWithConversion from '@sorare/core/src/components/buyActions/AmountWithConversion';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 import SorareUser from '@sorare/core/src/components/user/SorareUser';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
-import ItemPrice from '@sorare/marketplace/src/components/ItemPreview/ItemPrice';
-import { ItemSpecialRewardBadge } from '@sorare/marketplace/src/components/ItemPreview/ItemSpecialRewardBadge';
+import ItemPrice from '@marketplace/components/ItemPreview/ItemPrice';
+import { ItemSpecialRewardBadge } from '@marketplace/components/ItemPreview/ItemSpecialRewardBadge';
 import {
   ButtonContainer,
   TokenDetailsInfos,
   TokenDetailsRoot,
   TokenDetailsRow,
-} from '@sorare/marketplace/src/components/ItemPreview/ui';
-import { AuctionStatus } from '@sorare/marketplace/src/components/auction/AuctionStatus';
-import BidField from '@sorare/marketplace/src/components/buyActions/BidField';
-import useTokenTakesPartPromotionalEvent from '@sorare/marketplace/src/hooks/offers/useTokenTakesPartPromotionalEvent';
+} from '@marketplace/components/ItemPreview/ui';
+import { AuctionStatus } from '@marketplace/components/auction/AuctionStatus';
+import BidField from '@marketplace/components/buyActions/BidField';
+import useTokenTakesPartPromotionalEvent from '@marketplace/hooks/offers/useTokenTakesPartPromotionalEvent';
 import {
   auctionCurrentPrice,
   promotionalEventsExcludeSpecialRewardBadge,
-} from '@sorare/marketplace/src/lib/auctions';
+} from '@marketplace/lib/auctions';
 
 import { AuctionWinner } from './AuctionWinner';
 import { AuctionDetails_auction } from './__generated__/index.graphql';
@@ -47,7 +47,8 @@ export const AuctionDetails = ({
   } = useFeatureFlags();
   const takesPartInEvent = useTokenTakesPartPromotionalEvent();
 
-  const weiPrice = auctionCurrentPrice(auction);
+  const currentPrice = auctionCurrentPrice(auction);
+  const { currency } = auction;
   const endDate = auction.endDate && parseISO(auction.endDate);
   const hasEnded = endDate && isPast(endDate);
   const tokens = auction.nfts;
@@ -62,14 +63,9 @@ export const AuctionDetails = ({
         <div>
           <TokenDetailsRow>
             {!useConversionRate && hasEnded && auction.bestBid ? (
-              <AmountWithConversion
-                context="MySorareAuctionEnded"
-                amount={auction.bestBid.amount}
-                amountInFiat={auction.bestBid.amountInFiat}
-                unit="wei"
-              />
+              <AmountWithConversion monetaryAmount={auction.bestBid.amounts} />
             ) : (
-              <ItemPrice wei={weiPrice} />
+              <ItemPrice amount={currentPrice} referenceCurrency={currency} />
             )}
           </TokenDetailsRow>
           {promotionalEvent &&
@@ -109,12 +105,15 @@ AuctionDetails.fragments = {
   auction: gql`
     fragment AuctionDetails_auction on TokenAuction {
       id
+      currency
       bestBid {
-        amount
-        amountInFiat {
+        id
+        amounts {
           eur
           gbp
           usd
+          wei
+          referenceCurrency
         }
       }
       nfts {

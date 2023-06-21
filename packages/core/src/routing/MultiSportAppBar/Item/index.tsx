@@ -6,14 +6,14 @@ import { ReactElement } from 'react-markdown/lib/react-markdown';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Sport } from '__generated__/globalTypes';
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { Fade } from '@sorare/core/src/atoms/ui/Transition';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import useTouchScreen from '@sorare/core/src/hooks/device/useTouchScreen';
-import { MenuVisibility } from '@sorare/core/src/lib/menu';
-import { matchLocation } from '@sorare/core/src/lib/urls';
-import { theme } from '@sorare/core/src/style/theme';
+import { Sport } from '@core/__generated__/globalTypes';
+import Button from '@core/atoms/buttons/Button';
+import { Fade } from '@core/atoms/ui/Transition';
+import { useIntlContext } from '@core/contexts/intl';
+import useTouchScreen from '@core/hooks/device/useTouchScreen';
+import { MenuVisibility } from '@core/lib/menu';
+import { matchLocation } from '@core/lib/urls';
+import { theme } from '@core/style/theme';
 
 import AppBarMenu, { MenuItems } from '../Menu';
 import { useAppBarContext } from '../context';
@@ -126,11 +126,7 @@ const DesktopItem = ({
 
   return (
     <MenuButton {...buttonContainerProps}>
-      <AppBarButton
-        {...buttonProps}
-        {...(forceActive ? { active: true } : {})}
-        disableRipple
-      >
+      <AppBarButton {...buttonProps} {...(forceActive ? { active: true } : {})}>
         {children}
       </AppBarButton>
       {subMenu && (

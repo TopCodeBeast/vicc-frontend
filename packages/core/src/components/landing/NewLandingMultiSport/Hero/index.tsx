@@ -6,16 +6,18 @@ import { defineMessages, useIntl } from 'react-intl';
 import { animated, useSpring, useTransition } from '@react-spring/web';
 import styled from 'styled-components';
 
-import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
-import { Text16, Text18 } from '@sorare/core/src/atoms/typography';
-import { ContentContainer } from 'components/landing/NewLandingMultiSport/ui';
+import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { Text16, Text18 } from '@core/atoms/typography';
+import { ContentContainer } from '@core/components/landing/NewLandingMultiSport/ui';
 import {
   messages as globalMessages,
   useHeroAnimationTimings,
-} from 'components/landing/NewLandingMultiSport/utils';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { theme } from '@sorare/core/src/style/theme';
+} from '@core/components/landing/NewLandingMultiSport/utils';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import { theme } from '@core/style/theme';
 
+import { PlayNowBanner } from './PlayNowBanner';
 import heroBackgroundVideo from './assets/heroBackgroundVideo.webm';
 import heroVideoPoster from './assets/heroVideoPoster.jpg';
 import slideShow1 from './assets/slideShow_1.jpg';
@@ -47,7 +49,10 @@ const Ratio16by9 = styled.div`
   padding-bottom: 100vh;
 
   @media (min-width: ${theme.breakpoints.values.laptop}px) {
-    padding-bottom: min(100vh, calc(100% / (1400 / 900)));
+    padding-bottom: min(
+      100vh,
+      calc(100% / (1400 / 900) - var(--navbar-height-mobile))
+    );
   }
 `;
 
@@ -189,6 +194,10 @@ const CTAWrapper = styled.div`
   }
 `;
 
+const MainContent = styled.div`
+  width: 100%;
+`;
+
 const ScrollDown = styled.div`
   display: flex;
   align-items: center;
@@ -198,8 +207,10 @@ const ScrollDown = styled.div`
 
 export const Hero = () => {
   const { formatMessage } = useIntl();
+  const { currentUser } = useCurrentUserContext();
   const { firstBatch, secondBatch } = useHeroAnimationTimings();
-  const { up: isDesktop } = useScreenSize('laptop');
+  const { up: isDesktop } = useScreenSize('desktop');
+  const { up: isLaptop } = useScreenSize('laptop');
   const { up: isTabletOrDesktop } = useScreenSize('tablet');
   const [index, setIndex] = useState(0);
 
@@ -218,7 +229,7 @@ export const Hero = () => {
     };
   } else if (firstBatch) {
     animationValues = {
-      transform: 'translateY(-75%)',
+      transform: isDesktop ? 'translateY(-80%)' : 'translateY(-130%)',
       opacity: 1,
     };
   } else {
@@ -264,7 +275,7 @@ export const Hero = () => {
   return (
     <Ratio16by9>
       <Wrapper>
-        {isDesktop ? (
+        {isLaptop ? (
           <Video autoPlay loop muted playsInline poster={heroVideoPoster}>
             <source src={heroBackgroundVideo} type="video/webm" />
           </Video>
@@ -273,32 +284,37 @@ export const Hero = () => {
             <SlideShow style={{ ...props, backgroundImage: `url(${item})` }} />
           ))
         )}
-        <BigLogoWrapper style={isDesktop ? animation : {}}>
+        <BigLogoWrapper style={isLaptop ? animation : {}}>
           <BigLogo />
         </BigLogoWrapper>
-        <ContentContainer>
-          <TextContent style={textContentAnimation}>
-            <Title>{formatMessage(messages.title, { br: <br /> })}</Title>
-            <SubTitle>{formatMessage(messages.subtitle)}</SubTitle>
-            {isTabletOrDesktop && (
-              <CTAWrapper
-                className={classNames({ animated: isDesktop && secondBatch })}
-              >
-                <Text18>{formatMessage(globalMessages.ScrollDownCTA)}</Text18>
-                <ScrollDown>
-                  <Text18>{formatMessage(messages.scroll)}</Text18>
-                  <animated.div
-                    style={{
-                      transform: bounce.y.to(y => `translateY(${y}px)`),
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faArrowDownLong} />
-                  </animated.div>
-                </ScrollDown>
-              </CTAWrapper>
-            )}
-          </TextContent>
-        </ContentContainer>
+        <MainContent>
+          <ContentContainer>
+            <TextContent style={textContentAnimation}>
+              <Title>{formatMessage(messages.title, { br: <br /> })}</Title>
+              <SubTitle>{formatMessage(messages.subtitle)}</SubTitle>
+              {isTabletOrDesktop && !currentUser && (
+                <CTAWrapper
+                  className={classNames({
+                    animated: isLaptop && secondBatch,
+                  })}
+                >
+                  <Text18>{formatMessage(globalMessages.ScrollDownCTA)}</Text18>
+                  <ScrollDown>
+                    <Text18>{formatMessage(messages.scroll)}</Text18>
+                    <animated.div
+                      style={{
+                        transform: bounce.y.to(y => `translateY(${y}px)`),
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faArrowDownLong} />
+                    </animated.div>
+                  </ScrollDown>
+                </CTAWrapper>
+              )}
+            </TextContent>
+          </ContentContainer>
+          {currentUser && <PlayNowBanner />}
+        </MainContent>
       </Wrapper>
     </Ratio16by9>
   );

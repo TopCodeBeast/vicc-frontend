@@ -12,9 +12,9 @@ import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useSafePreviousNavigate from '@sorare/core/src/hooks/useSafePreviousNavigate';
 import { theme } from '@sorare/core/src/style/theme';
 
-import ClubShopButton from '@sorare/football/src/components/clubShop/ClubShopButton';
-import CoinAmount from '@sorare/football/src/components/user/CoinAmount';
-import OnboardingDialog from '@sorare/football/src/pages/ClubShop/OnboardingDialog';
+import ClubShopButton from '@football/components/clubShop/ClubShopButton';
+import CoinAmount from '@football/components/user/CoinAmount';
+import OnboardingDialog from '@football/pages/ClubShop/OnboardingDialog';
 
 import bannerBg from './assets/banner.png';
 

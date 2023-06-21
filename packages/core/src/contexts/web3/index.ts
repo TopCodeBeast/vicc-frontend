@@ -1,7 +1,7 @@
 import { Web3Provider } from '@coinbase/wallet-sdk/dist/provider/Web3Provider';
 import { createContext, useContext } from 'react';
 
-import { EthereumSetupStatus, Wallet } from '@sorare/core/src/lib/web3';
+import { EthereumSetupStatus, Wallet } from '@core/lib/web3';
 
 export interface Web3ContextType {
   currentProvider: any;

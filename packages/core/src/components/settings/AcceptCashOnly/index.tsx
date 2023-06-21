@@ -3,13 +3,13 @@ import { useMemo, useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import { MarketplacePreference, Sport } from '__generated__/globalTypes';
-import Switch from '@sorare/core/src/atoms/inputs/Switch';
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { ConfirmDialog } from 'components/form/ConfirmDialog';
-import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
-import useUpdateUserProfile from '@sorare/core/src/hooks/useUpdateUserProfile';
-import { sportsLabelsMessages } from '@sorare/core/src/lib/glossary';
+import { MarketplacePreference, Sport } from '@core/__generated__/globalTypes';
+import Switch from '@core/atoms/inputs/Switch';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import { ConfirmDialog } from '@core/components/form/ConfirmDialog';
+import useQuery from '@core/hooks/graphql/useQuery';
+import useUpdateUserProfile from '@core/hooks/useUpdateUserProfile';
+import { sportsLabelsMessages } from '@core/lib/glossary';
 
 import SettingsSection from '../SettingsSection';
 import {

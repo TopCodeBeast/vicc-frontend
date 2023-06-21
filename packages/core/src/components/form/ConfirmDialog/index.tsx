@@ -2,10 +2,10 @@ import { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import Button, { Props as ButtonProps } from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import Button, { Props as ButtonProps } from '@core/atoms/buttons/Button';
+import Dialog from '@core/atoms/layout/Dialog';
+import { Text16 } from '@core/atoms/typography';
+import { glossary } from '@core/lib/glossary';
 
 type Props = {
   onConfirm: () => void;

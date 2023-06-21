@@ -1,8 +1,8 @@
 import { defineMessages } from 'react-intl';
 
-import UpsertCustomDeckDialog from 'components/deck/UpsertCustomDeckDialog';
-import useDeleteDeck from '@sorare/core/src/hooks/decks/useDeleteDeck';
-import useEditDeck from '@sorare/core/src/hooks/decks/useEditDeck';
+import UpsertCustomDeckDialog from '@core/components/deck/UpsertCustomDeckDialog';
+import useDeleteDeck from '@core/hooks/decks/useDeleteDeck';
+import useEditDeck from '@core/hooks/decks/useEditDeck';
 
 type Props = {
   open: boolean;

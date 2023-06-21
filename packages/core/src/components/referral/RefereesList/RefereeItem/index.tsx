@@ -5,17 +5,17 @@ import { parseISO } from 'date-fns';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
-import OpenItemDialogLink from 'components/link/OpenItemDialogLink';
-import { ClaimReferralRewardDialog } from 'components/referral/ClaimReferralRewardDialog';
-import UninteractiveToken from 'components/token/UninteractiveToken';
-import { GalleryLink } from 'components/user/GalleryLink';
-import { Nickname } from 'components/user/Nickname';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { useReferralReward } from '@sorare/core/src/hooks/useReferralReward';
-import useToggle from '@sorare/core/src/hooks/useToggle';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import Button from '@core/atoms/buttons/Button';
+import { Text14, Text16 } from '@core/atoms/typography';
+import OpenItemDialogLink from '@core/components/link/OpenItemDialogLink';
+import { ClaimReferralRewardDialog } from '@core/components/referral/ClaimReferralRewardDialog';
+import UninteractiveToken from '@core/components/token/UninteractiveToken';
+import { GalleryLink } from '@core/components/user/GalleryLink';
+import { Nickname } from '@core/components/user/Nickname';
+import { useIntlContext } from '@core/contexts/intl';
+import { useReferralReward } from '@core/hooks/useReferralReward';
+import useToggle from '@core/hooks/useToggle';
+import { glossary } from '@core/lib/glossary';
 
 import { ReferralStatus } from './ReferralStatus';
 import { RefereeItem_referral } from './__generated__/index.graphql';

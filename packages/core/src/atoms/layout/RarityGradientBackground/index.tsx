@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
-import { scarcityNames } from '@sorare/core/src/lib/cards';
+import { scarcityNames } from '@core/lib/cards';
 
 const Root = styled.div`
   isolation: isolate;

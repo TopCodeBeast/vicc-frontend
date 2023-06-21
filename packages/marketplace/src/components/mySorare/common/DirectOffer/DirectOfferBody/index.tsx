@@ -12,8 +12,8 @@ import { isType } from '@sorare/core/src/gql';
 import { tradeLabels } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
 
-import EthereumCard from '@sorare/marketplace/src/components/offer/EthereumCard';
-import useMarketFeesHelperStatus from '@sorare/marketplace/src/hooks/useMarketFeesHelperStatus';
+import EthereumCard from '@marketplace/components/offer/EthereumCard';
+import useMarketFeesHelperStatus from '@marketplace/hooks/useMarketFeesHelperStatus';
 
 import CardOffer from '../../CardOffer';
 import CardsChanged from '../CardsChanged';
@@ -49,7 +49,6 @@ const messages = defineMessages({
 
 type Props = {
   offer: MySorareDirectOfferBody_tokenOffer;
-  counteredOffer?: MySorareDirectOfferBody_tokenOffer | null;
   counterpartUser: MySorareDirectOfferBody_publicUserInfoInterface;
   isCurrentUserSender: boolean;
   validationMessages?: Record<string, ReactNode>;
@@ -125,7 +124,6 @@ const CardChanged = styled(Text14)`
 
 const DirectOfferBody = ({
   offer,
-  counteredOffer,
   counterpartUser,
   isCurrentUserSender,
   validationMessages,
@@ -136,7 +134,7 @@ const DirectOfferBody = ({
     isCurrentUserSender
   );
 
-  const { sender, senderSide, receiver, receiverSide } = offer;
+  const { sender, senderSide, receiver, receiverSide, counteredOffer } = offer;
 
   if (!isType(sender, 'User') || !receiver || !isType(receiver, 'User')) {
     return null;
@@ -189,7 +187,6 @@ const DirectOfferBody = ({
       {counteredOffer && (
         <CardsChanged
           offer={offer}
-          counteredOffer={counteredOffer}
           counterpartUser={counterpartUser}
           isCurrentUserSender={isCurrentUserSender}
         />

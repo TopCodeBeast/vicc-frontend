@@ -3,8 +3,8 @@ import { ReactNode } from 'react';
 import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import styled from 'styled-components';
 
-import { Text16, Title4 } from '@sorare/core/src/atoms/typography';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import { Text16, Title4 } from '@core/atoms/typography';
+import { glossary } from '@core/lib/glossary';
 
 const SingleDescription = ({
   description,

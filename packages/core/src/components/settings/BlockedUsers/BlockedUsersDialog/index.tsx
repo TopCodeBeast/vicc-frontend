@@ -3,15 +3,15 @@ import { useCallback, useMemo } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import LoadMoreButton from '@sorare/core/src/atoms/buttons/LoadMoreButton';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { Text16, Title5 } from '@sorare/core/src/atoms/typography';
-import Avatar from 'components/user/Avatar';
-import { Nickname } from 'components/user/Nickname';
-import { extractConnectionData } from '@sorare/core/src/gql/extractData';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import useCurrentUserPaginatedQuery from '@sorare/core/src/hooks/graphql/useCurrentUserPaginatedQuery';
+import Button from '@core/atoms/buttons/Button';
+import LoadMoreButton from '@core/atoms/buttons/LoadMoreButton';
+import Dialog from '@core/atoms/layout/Dialog';
+import { Text16, Title5 } from '@core/atoms/typography';
+import Avatar from '@core/components/user/Avatar';
+import { Nickname } from '@core/components/user/Nickname';
+import { extractConnectionData } from '@core/gql/extractData';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import useCurrentUserPaginatedQuery from '@core/hooks/graphql/useCurrentUserPaginatedQuery';
 
 import {
   BlockedUsersQuery,

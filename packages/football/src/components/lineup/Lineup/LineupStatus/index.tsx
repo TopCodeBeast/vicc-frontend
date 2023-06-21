@@ -6,7 +6,7 @@ import { Text16 } from '@sorare/core/src/atoms/typography';
 import { Chip } from '@sorare/core/src/atoms/ui/Chip';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import Points from '@sorare/football/src/components/so5/Points';
+import Points from '@football/components/so5/Points';
 
 import { LineupStatus_so5Lineup } from './__generated__/index.graphql';
 

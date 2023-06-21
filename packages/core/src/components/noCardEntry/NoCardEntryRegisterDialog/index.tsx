@@ -4,12 +4,12 @@ import { ReactNode } from 'react';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
-import Dialog from 'components/dialog';
-import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import IconButton from '@core/atoms/buttons/IconButton';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import { Text16, Title3 } from '@core/atoms/typography';
+import Dialog from '@core/components/dialog';
+import { glossary } from '@core/lib/glossary';
+import { theme } from '@core/style/theme';
 
 const DialogContainer = styled.div`
   display: flex;

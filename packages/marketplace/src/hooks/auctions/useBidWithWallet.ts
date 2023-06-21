@@ -23,6 +23,11 @@ const BID_WITH_WALLET_MUTATION = gql`
       tokenBid {
         id
         amount
+        amountInFiat {
+          eur
+          gbp
+          usd
+        }
         auction {
           id
           currentPrice
@@ -31,6 +36,7 @@ const BID_WITH_WALLET_MUTATION = gql`
           endDate
           minNextBid
           privateMinNextBid
+          currency
           bestBid {
             id
             bidder {
@@ -44,8 +50,15 @@ const BID_WITH_WALLET_MUTATION = gql`
           }
           myBestBid {
             id
-            maximumAmount
             fiatPayment
+            maximumAmount
+            maximumAmounts {
+              eur
+              gbp
+              referenceCurrency
+              usd
+              wei
+            }
           }
         }
       }

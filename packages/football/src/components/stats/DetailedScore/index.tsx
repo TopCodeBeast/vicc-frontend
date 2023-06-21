@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { statLabels } from 'lib/scoring';
+import { statLabels } from '@football/lib/scoring';
 
 import DetailedScoreV4V5 from './DetailedScoreV4V5';
 import { DetailedScore_so5Score } from './__generated__/index.graphql';

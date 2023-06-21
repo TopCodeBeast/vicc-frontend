@@ -7,7 +7,6 @@ import {
   FormattedMessage,
   MessageDescriptor,
   defineMessages,
-  useIntl,
 } from 'react-intl';
 import styled from 'styled-components';
 
@@ -16,7 +15,8 @@ import Button from '@sorare/core/src/atoms/buttons/Button';
 import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import Blockquote from '@sorare/core/src/atoms/layout/Blockquote';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
+import { Text16 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@sorare/core/src/components/dialog';
 import { InstantBlockchainCardSearch } from '@sorare/core/src/components/search/InstantSearch';
 import { useSportContext } from '@sorare/core/src/contexts/sport';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
@@ -29,7 +29,7 @@ import {
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
 
-import SearchBox from '@sorare/marketplace/src/search/SearchBox';
+import SearchBox from '@marketplace/search/SearchBox';
 
 import CardRow from '../CardRow';
 
@@ -200,11 +200,17 @@ const CardPicker = ({ selectedCards, setSelectedCards }: PrivateProps) => {
   );
 };
 
-const DoneBn = styled(Button)`
-  width: 100%;
+const CenteredText16 = styled(Text16)`
+  text-align: center;
 `;
 const DialogContent = styled.div`
-  margin: 0 20px 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--triple-unit);
+`;
+const CtaWrapper = styled.div`
+  box-shadow: 0px 14px 50px rgba(0, 0, 0, 0.2);
+  padding: var(--triple-unit);
 `;
 
 export const CardPickerDialog = ({
@@ -215,7 +221,6 @@ export const CardPickerDialog = ({
   confirmSelectedCards,
   counterOfferSport,
 }: Props) => {
-  const { formatMessage } = useIntl();
   const [selectedCards, setSelectedCards] =
     useState<CardHitType[]>(defaultSelectedCards);
   const onConfirmCb = useCallback(
@@ -232,30 +237,37 @@ export const CardPickerDialog = ({
   return (
     <Dialog
       open
+      maxWidth="xs"
+      fullWidth
       onBack={onClose}
-      title={formatMessage(title)}
-      noMargin
-      shadowFooter
-      footer={
-        <DoneBn color="blue" medium onClick={onConfirmCb}>
-          <FormattedMessage {...glossary.done} />
-        </DoneBn>
+      title={
+        <CenteredText16>
+          <FormattedMessage {...title} />
+        </CenteredText16>
       }
-    >
-      <DialogContent>
-        <InstantBlockchainCardSearch
-          analyticsTags={['NewOffer']}
-          defaultFilters={filters}
-          sport={counterOfferSport || sport!}
-          attributesToRetrieve={['*']}
-        >
-          <CardPicker
-            selectedCards={selectedCards}
-            setSelectedCards={setSelectedCards}
-          />
-        </InstantBlockchainCardSearch>
-      </DialogContent>
-    </Dialog>
+      body={
+        <DialogContent>
+          <InstantBlockchainCardSearch
+            analyticsTags={['NewOffer']}
+            defaultFilters={filters}
+            sport={counterOfferSport || sport!}
+            attributesToRetrieve={['*']}
+          >
+            <CardPicker
+              selectedCards={selectedCards}
+              setSelectedCards={setSelectedCards}
+            />
+          </InstantBlockchainCardSearch>
+        </DialogContent>
+      }
+      footer={
+        <CtaWrapper>
+          <Button color="blue" medium onClick={onConfirmCb} fullWidth>
+            <FormattedMessage {...glossary.done} />
+          </Button>
+        </CtaWrapper>
+      }
+    />
   );
 };
 

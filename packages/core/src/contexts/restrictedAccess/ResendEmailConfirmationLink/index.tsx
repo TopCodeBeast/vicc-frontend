@@ -1,7 +1,7 @@
 import { ButtonBaseProps } from '@material-ui/core';
 import styled from 'styled-components';
 
-import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
+import ButtonBase from '@core/atoms/buttons/ButtonBase';
 
 const StyledButton = styled(ButtonBase)`
   display: block;

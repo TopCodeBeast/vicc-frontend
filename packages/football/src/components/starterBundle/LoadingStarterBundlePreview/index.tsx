@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import DotsLoader from '@sorare/core/src/atoms/loader/DotsLoader';
 
-import UninteractiveStarterBundlePreviewSkeleton from '@sorare/football/src/components/starterBundle/UninteractiveStarterBundlePreviewSkeleton';
+import UninteractiveStarterBundlePreviewSkeleton from '@football/components/starterBundle/UninteractiveStarterBundlePreviewSkeleton';
 
 const Line = styled.div`
   display: flex;

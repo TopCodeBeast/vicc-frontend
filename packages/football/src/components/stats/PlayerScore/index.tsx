@@ -14,8 +14,8 @@ import { Chip } from '@sorare/core/src/atoms/ui/Chip';
 import { playerGameStatusLabels } from '@sorare/core/src/lib/glossary';
 import { Color } from '@sorare/core/src/style/types';
 
-import { DidNotPlayLabel, NoGameLabel } from '@sorare/football/src/components/stats/PlayingLabel';
-import { PlayerScoreStatus } from 'lib/so5';
+import { DidNotPlayLabel, NoGameLabel } from '@football/components/stats/PlayingLabel';
+import { PlayerScoreStatus } from '@football/lib/so5';
 
 export type Props = {
   score?: number | null;
@@ -147,7 +147,6 @@ export const PlayerScore = (props: Props) => {
 
   return (
     <Tooltip
-      arrow
       placement="bottom"
       enterTouchDelay={0}
       title={

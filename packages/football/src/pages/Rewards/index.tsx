@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import { Breadcrumbs } from '@material-ui/core';
 import { useCallback, useMemo } from 'react';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import { generatePath, useNavigate, useParams } from 'react-router-dom';
@@ -9,18 +8,16 @@ import {
   CardQuality,
   Rarity,
 } from '@sorare/core/src/__generated__/globalTypes';
-import Body from '@sorare/core/src/atoms/layout/Body';
-import LayoutContainer from '@sorare/core/src/atoms/layout/Container';
+import { Container } from '@sorare/core/src/atoms/container';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { Title3, Title6 } from '@sorare/core/src/atoms/typography';
+import { Title2, Title6 } from '@sorare/core/src/atoms/typography';
 import { REWARDS } from '@sorare/core/src/constants/routes';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { scarcityNames } from '@sorare/core/src/lib/cards';
 import { qualityNames } from '@sorare/core/src/lib/players';
 import Tree from '@sorare/core/src/routing/Tree';
-import { theme } from '@sorare/core/src/style/theme';
 
-import { orderLeagues } from 'lib/so5';
+import { orderLeagues } from '@football/lib/so5';
 
 import Data from './Data';
 import {
@@ -31,15 +28,11 @@ import {
 type RewardPoolQuery_so5League_so5Fixture_so5Leagues =
   RewardPoolQuery['football']['so5']['so5League']['so5Fixture']['so5Leagues'][number];
 
-const Container = styled(LayoutContainer)`
-  margin-bottom: var(--quadruple-unit);
-  padding: 0;
-  @media (min-width: ${theme.breakpoints.values.mobile}px) {
-    margin-bottom: calc(var(--unit) * 8);
-  }
-`;
-const TitleContainer = styled(LayoutContainer)`
-  margin-bottom: calc(6 * var(--unit));
+const Breadcrumbs = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--unit);
+  flex-wrap: wrap;
 `;
 const Content = styled.div`
   display: flex;
@@ -198,8 +191,7 @@ export const Rewards = () => {
           so5LeagueSlug: so5LeagueSlugs[league],
           rarity: rarities[rarityName!] || rarity,
           quality: qualities[qualityName!].toLowerCase(),
-        }),
-        { replace: true }
+        })
       );
     },
     [navigate, so5LeagueSlugs, rarity]
@@ -228,45 +220,42 @@ export const Rewards = () => {
   ];
 
   return (
-    <Body paddingTop="page">
-      <Container>
-        <Tree
-          schema={schema}
-          selected={selected}
-          onSelect={onSelect}
-          title={
-            <TitleContainer>
-              <Breadcrumbs separator="/">
-                <Title3 color="var(--c-neutral-900)">
-                  {formatMessage(messages.gameWeek, {
-                    gameWeek: so5Fixture.gameWeek,
-                  })}
-                </Title3>
-                <Title3 color="var(--c-neutral-600)">
-                  {so5League!.displayName}
-                </Title3>
-              </Breadcrumbs>
-            </TitleContainer>
-          }
-        >
-          <Content>
-            {Boolean(rewardPool.length) && rewardPoolComputedAt && (
-              <Title6 color="var(--c-neutral-1000)">
-                <FormattedMessage
-                  id="rewards.warning.lastUpdated"
-                  defaultMessage="Players are eligible to change tiers until Game Week closing. Last Updated: {date} at {time}"
-                  values={{
-                    date: formatDate(rewardPoolComputedAt),
-                    time: formatTime(rewardPoolComputedAt),
-                  }}
-                />
-              </Title6>
-            )}
-            <Data rarity={rarity} players={rewardPool} />
-          </Content>
-        </Tree>
-      </Container>
-    </Body>
+    <Container>
+      <Tree
+        schema={schema}
+        selected={selected}
+        onSelect={onSelect}
+        title={
+          <Breadcrumbs>
+            <Title2 color="var(--c-neutral-900)">
+              {formatMessage(messages.gameWeek, {
+                gameWeek: so5Fixture.gameWeek,
+              })}
+            </Title2>
+            <Title2 color="var(--c-neutral-900)">/</Title2>
+            <Title2 color="var(--c-neutral-600)">
+              {so5League!.displayName}
+            </Title2>
+          </Breadcrumbs>
+        }
+      >
+        <Content>
+          {Boolean(rewardPool.length) && rewardPoolComputedAt && (
+            <Title6 color="var(--c-neutral-1000)">
+              <FormattedMessage
+                id="rewards.warning.lastUpdated"
+                defaultMessage="Players are eligible to change tiers until Game Week closing. Last Updated: {date} at {time}"
+                values={{
+                  date: formatDate(rewardPoolComputedAt),
+                  time: formatTime(rewardPoolComputedAt),
+                }}
+              />
+            </Title6>
+          )}
+          <Data rarity={rarity} players={rewardPool} />
+        </Content>
+      </Tree>
+    </Container>
   );
 };
 

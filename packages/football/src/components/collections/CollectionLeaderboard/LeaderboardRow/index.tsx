@@ -8,9 +8,9 @@ import Avatar from '@sorare/core/src/components/user/Avatar';
 import { Nickname } from '@sorare/core/src/components/user/Nickname';
 import { FOOTBALL_USER_CARD_COLLECTION_CARDS } from '@sorare/core/src/constants/routes';
 
-import { CardsNumber } from '@sorare/football/src/components/collections/CardsNumber';
-import { Score } from '@sorare/football/src/components/collections/Score';
-import ClubShield from '@sorare/football/src/components/user/ClubShield';
+import { CardsNumber } from '@football/components/collections/CardsNumber';
+import { Score } from '@football/components/collections/Score';
+import ClubShield from '@football/components/user/ClubShield';
 
 import { LeaderboardRow_userCardCollection } from './__generated__/index.graphql';
 

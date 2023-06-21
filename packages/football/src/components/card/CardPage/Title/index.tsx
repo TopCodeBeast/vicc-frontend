@@ -32,9 +32,9 @@ import { useUseCustomLists } from '@sorare/core/src/lib/featureFlags';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { isA } from '@sorare/core/src/lib/gql';
 
-import Boosts from '@sorare/football/src/components/card/CardPage/Boosts';
-import CardTitle from '@sorare/football/src/components/card/CardTitle';
-import { socialSharingMessages } from 'lib/so5';
+import Boosts from '@football/components/card/CardPage/Boosts';
+import CardTitle from '@football/components/card/CardTitle';
+import { socialSharingMessages } from '@football/lib/so5';
 
 import CardLevelPreview from './CardLevelPreview';
 import { CardPageTitle_card } from './__generated__/index.graphql';

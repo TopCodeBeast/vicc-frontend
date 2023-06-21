@@ -16,7 +16,7 @@ import { sameArrays } from '@sorare/core/src/lib/arrays';
 import { isType } from '@sorare/core/src/lib/gql';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { ShopItemLogo } from '@sorare/football/src/components/userGroup/form/AvatarInput/types';
+import { ShopItemLogo } from '@football/components/userGroup/form/AvatarInput/types';
 
 import FilterBy from './FilterBy';
 import Item from './Item';

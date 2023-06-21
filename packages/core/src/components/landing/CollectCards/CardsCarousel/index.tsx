@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { animated, useSprings } from '@react-spring/web';
 import styled from 'styled-components';
 
-import Waypoint from '@sorare/core/src/atoms/animations/Waypoint';
-import Carousel from '@sorare/core/src/atoms/layout/Carousel';
-import { theme } from '@sorare/core/src/style/theme';
+import Waypoint from '@core/atoms/animations/Waypoint';
+import Carousel from '@core/atoms/layout/Carousel';
+import { theme } from '@core/style/theme';
 
 interface Img {
   src: string;

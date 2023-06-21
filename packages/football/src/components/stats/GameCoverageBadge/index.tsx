@@ -9,7 +9,7 @@ import {
   LowCoverageLabel,
   NotCoveredLabel,
   UncertainCoverageLabel,
-} from '@sorare/football/src/components/stats/PlayingLabel';
+} from '@football/components/stats/PlayingLabel';
 
 export const GameCoverageBadge = ({
   coverageStatus,
@@ -21,7 +21,6 @@ export const GameCoverageBadge = ({
   if (coverageStatus === GameCoverageStatus.UNCERTAIN)
     return (
       <Tooltip
-        arrow
         placement="bottom"
         enterTouchDelay={0}
         title={
@@ -38,7 +37,6 @@ export const GameCoverageBadge = ({
   if (coverageStatus === GameCoverageStatus.LOW)
     return (
       <Tooltip
-        arrow
         placement="bottom"
         enterTouchDelay={0}
         title={

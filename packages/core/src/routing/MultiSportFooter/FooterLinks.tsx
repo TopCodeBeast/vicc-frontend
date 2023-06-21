@@ -2,24 +2,24 @@ import { useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { HREF_HELP, HREF_MEDIUM } from '@sorare/core/src/constants/externalLinks';
+import { Text16 } from '@core/atoms/typography';
+import { HREF_HELP, HREF_MEDIUM } from '@core/constants/externalLinks';
 import {
   AFFILIATE_PROGRAM,
   CAREERS,
-  FAQ,
   FOOTBALL_MARKET,
   GAME_RULES,
   INVITE,
+  LICENSED_PARTNERS,
   MLB_MARKET,
   NBA_MARKET,
   PRESS,
   PRIVACY_POLICY,
   TERMS,
-} from '@sorare/core/src/constants/routes';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { navLabels } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+} from '@core/constants/routes';
+import useEvents from '@core/lib/events/useEvents';
+import { navLabels } from '@core/lib/glossary';
+import { theme } from '@core/style/theme';
 
 const FooterLink = styled(Text16)`
   display: block;
@@ -129,7 +129,7 @@ export const FooterLinks = () => {
         >
           {formatMessage(navLabels.help)}
         </FooterLink>
-        <FooterLink as={Link} to={`${FAQ}?selection=Clubs`}>
+        <FooterLink as={Link} to={LICENSED_PARTNERS}>
           {formatMessage(navLabels.licensedPartners)}
         </FooterLink>
         <FooterLink

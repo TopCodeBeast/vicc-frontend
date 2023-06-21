@@ -3,16 +3,16 @@ import Helmet from 'react-helmet';
 import { useIntl } from 'react-intl';
 import { useLocation } from 'react-router-dom';
 
-import { Sport } from '__generated__/globalTypes';
-import { APP_STORE_ID, APP_STORE_NAME } from '@sorare/core/src/constants/apps';
-import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
-import useIsMlbPage from '@sorare/core/src/hooks/useIsMlbPage';
-import useIsNBAPage from '@sorare/core/src/hooks/useIsNBAPage';
-import useSharedAccrossSportsPage from '@sorare/core/src/hooks/useSharedAccrossSportsPage';
-import { metadatas as baseballMetadatas } from '@sorare/core/src/lib/seo/baseball';
-import { metadatas as commonMetadatas } from '@sorare/core/src/lib/seo/common';
-import { metadatas as footballMetadatas } from '@sorare/core/src/lib/seo/football';
-import { metadatas as nbaMetadatas } from '@sorare/core/src/lib/seo/nba';
+import { Sport } from '@core/__generated__/globalTypes';
+import { APP_STORE_ID, APP_STORE_NAME } from '@core/constants/apps';
+import { FRONTEND_ASSET_HOST } from '@core/constants/assets';
+import useIsMlbPage from '@core/hooks/useIsMlbPage';
+import useIsNBAPage from '@core/hooks/useIsNBAPage';
+import useSharedAccrossSportsPage from '@core/hooks/useSharedAccrossSportsPage';
+import { metadatas as baseballMetadatas } from '@core/lib/seo/baseball';
+import { metadatas as commonMetadatas } from '@core/lib/seo/common';
+import { metadatas as footballMetadatas } from '@core/lib/seo/football';
+import { metadatas as nbaMetadatas } from '@core/lib/seo/nba';
 
 import SeoContextProvider, { Options } from '.';
 

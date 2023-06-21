@@ -2,13 +2,16 @@ import Big from 'bignumber.js';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { MarketplacePromotionalEvent } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  MarketplacePromotionalEvent,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import { ItemSpecialRewardBadge } from '@sorare/marketplace/src/components/ItemPreview/ItemSpecialRewardBadge';
-import AuctionTimeLeft from '@sorare/marketplace/src/components/auction/AuctionTimeLeft';
+import { ItemSpecialRewardBadge } from '@marketplace/components/ItemPreview/ItemSpecialRewardBadge';
+import AuctionTimeLeft from '@marketplace/components/auction/AuctionTimeLeft';
 
 const Column = styled.div`
   display: flex;
@@ -41,9 +44,10 @@ export const SingleSaleOfferDetails = ({
   const amount =
     privatePrice && new Big(privatePrice).gt(price) ? privatePrice : price;
   const { main, exponent } = useAmountWithConversion({
-    context: 'SingleSaleOfferDetails',
-    amount,
-    unit: 'wei',
+    monetaryAmount: {
+      referenceCurrency: SupportedCurrency.WEI,
+      [SupportedCurrency.WEI.toLowerCase()]: amount,
+    },
   });
   return (
     <Column>

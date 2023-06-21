@@ -4,16 +4,16 @@ import { animated, config, useSpring } from '@react-spring/web';
 import styled from 'styled-components';
 
 import useFontFaceObserver from '@sorare/use-font-face-observer';
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { Text18 } from '@sorare/core/src/atoms/typography';
-import { RotatingStarball } from 'components/RotatingStarball';
-import { useConfigContext } from '@sorare/core/src/contexts/config';
-import { useConnectionContext } from '@sorare/core/src/contexts/connection';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import useIsVisibleInViewport from '@sorare/core/src/hooks/useIsVisibleInViewport';
-import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { theme } from '@sorare/core/src/style/theme';
-import { hideScrollbar } from '@sorare/core/src/style/utils';
+import Button from '@core/atoms/buttons/Button';
+import { Text18 } from '@core/atoms/typography';
+import { RotatingStarball } from '@core/components/RotatingStarball';
+import { useConfigContext } from '@core/contexts/config';
+import { useConnectionContext } from '@core/contexts/connection';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import useIsVisibleInViewport from '@core/hooks/useIsVisibleInViewport';
+import useEvents from '@core/lib/events/useEvents';
+import { theme } from '@core/style/theme';
+import { hideScrollbar } from '@core/style/utils';
 
 import 'style/drukFontFaces.css';
 

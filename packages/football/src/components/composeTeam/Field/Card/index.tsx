@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import { stroke } from '@sorare/core/src/style/utils';
 
-import CaptainToggle from '@sorare/football/src/components/so5/ComposeTeam/responsive/CaptainToggle';
+import CaptainToggle from '@football/components/so5/ComposeTeam/responsive/CaptainToggle';
 
 const CaptainWrapper = styled.div`
   position: absolute;

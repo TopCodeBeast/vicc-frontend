@@ -3,7 +3,7 @@ import { parseISO } from 'date-fns';
 import styled from 'styled-components';
 
 import { Caption, Text14 } from '@sorare/core/src/atoms/typography';
-import AmountWithConversion from '@sorare/core/src/components/buyActions/AmountWithConversion';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 import Avatar from '@sorare/core/src/components/user/Avatar';
 import {
   GalleryLink,
@@ -12,6 +12,7 @@ import {
 import UserName from '@sorare/core/src/components/user/UserName';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { isA } from '@sorare/core/src/lib/gql';
+import { MonetaryAmountCurrency } from '@sorare/core/src/lib/monetaryAmount';
 
 import { Bid_tokenBid } from './__generated__/index.graphql';
 
@@ -47,9 +48,10 @@ const Content = styled.div`
 `;
 
 const Bid = ({
-  bid: { amount, createdAt, bidder },
+  bid: { amounts, createdAt, bidder },
   displayAbsoluteDate,
 }: Props) => {
+  const { referenceCurrency } = amounts;
   const { formatDate, formatDistanceToNow } = useIntlContext();
   const galleryLinkPath = useCurrentSportGallery();
 
@@ -78,7 +80,13 @@ const Bid = ({
           </Caption>
         </div>
       </Content>
-      <AmountWithConversion amount={amount} unit="wei" context="Bid" />
+      <AmountWithConversion
+        monetaryAmount={{
+          referenceCurrency,
+          [referenceCurrency.toLowerCase()]:
+            amounts[referenceCurrency.toLowerCase() as MonetaryAmountCurrency],
+        }}
+      />
     </Root>
   );
 };
@@ -87,7 +95,13 @@ Bid.fragments = {
   tokenBid: gql`
     fragment Bid_tokenBid on TokenBid {
       id
-      amount
+      amounts {
+        eur
+        gbp
+        usd
+        wei
+        referenceCurrency
+      }
       createdAt
       bidder {
         ... on User {

@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { Text16 } from '@core/atoms/typography';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 
 import SettingsSection from '../SettingsSection';
 

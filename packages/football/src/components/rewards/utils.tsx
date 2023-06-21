@@ -15,7 +15,7 @@ import { FOOTBALL_CLUB_SHOP } from '@sorare/core/src/constants/routes';
 import { scarcityNames } from '@sorare/core/src/lib/cards';
 import { withFragments } from '@sorare/core/src/lib/gql';
 
-import { RewardHeader } from '@sorare/football/src/components/rewards/Header';
+import { RewardHeader } from '@football/components/rewards/Header';
 
 import { formatReward_so5Reward } from './__generated__/utils.graphql';
 

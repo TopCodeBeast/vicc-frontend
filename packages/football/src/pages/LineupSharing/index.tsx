@@ -22,11 +22,11 @@ import { lineupPositions } from '@sorare/core/src/lib/players';
 import MultiSportAppBar from '@sorare/core/src/routing/MultiSportAppBar';
 import { theme } from '@sorare/core/src/style/theme';
 
-import Field from '@sorare/football/src/components/composeTeam/Field';
-import { LineupDate } from '@sorare/football/src/components/lineup/LineupDate';
-import CaptainToggle from '@sorare/football/src/components/so5/ComposeTeam/responsive/CaptainToggle';
-import { useFootballEvents } from 'lib/events';
-import { getAppearancesByPosition } from 'lib/so5';
+import Field from '@football/components/composeTeam/Field';
+import { LineupDate } from '@football/components/lineup/LineupDate';
+import CaptainToggle from '@football/components/so5/ComposeTeam/responsive/CaptainToggle';
+import { useFootballEvents } from '@football/lib/events';
+import { getAppearancesByPosition } from '@football/lib/so5';
 
 import { LineupSharingQuery } from './__generated__/index.graphql';
 

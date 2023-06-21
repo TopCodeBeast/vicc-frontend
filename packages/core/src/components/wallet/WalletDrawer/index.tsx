@@ -17,23 +17,24 @@ import {
   Toggle,
   WalletIsLocked,
 } from '@sorare/wallet-shared';
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { Title6 } from '@sorare/core/src/atoms/typography';
-import { DeviceNeedsConfirming } from 'components/devices/DeviceNeedsConfirming';
-import { useBlockchainContext } from '@sorare/core/src/contexts/blockchain';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useMessagingContext } from '@sorare/core/src/contexts/wallet';
-import WalletPlaceholder from '@sorare/core/src/contexts/wallet/Placeholder';
-import { WalletTab, useWalletDrawerContext } from '@sorare/core/src/contexts/walletDrawer';
-import useWalletNeedsRecover from '@sorare/core/src/hooks/recovery/useWalletNeedsRecover';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import { nullAddress } from '@sorare/core/src/lib/ethereum';
-import { wallet } from '@sorare/core/src/lib/glossary';
-import { lazy } from '@sorare/core/src/lib/retry';
-import { theme } from '@sorare/core/src/style/theme';
+import IconButton from '@core/atoms/buttons/IconButton';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import { Title6 } from '@core/atoms/typography';
+import { DeviceNeedsConfirming } from '@core/components/devices/DeviceNeedsConfirming';
+import { useBlockchainContext } from '@core/contexts/blockchain';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useMessagingContext } from '@core/contexts/wallet';
+import WalletPlaceholder from '@core/contexts/wallet/Placeholder';
+import { WalletTab, useWalletDrawerContext } from '@core/contexts/walletDrawer';
+import useWalletNeedsRecover from '@core/hooks/recovery/useWalletNeedsRecover';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
+import { nullAddress } from '@core/lib/ethereum';
+import { wallet } from '@core/lib/glossary';
+import { lazy } from '@core/lib/retry';
+import { theme } from '@core/style/theme';
 
 import { WalletNeedsRecover } from '../WalletNeedsRecover';
+import Wallet2FA from '../WalletTwoFA';
 import DrawerWithNavigation from './DrawerWithNavigation';
 
 const BankEthAccounting = lazy(async () => import('../BankEthAccounting'));
@@ -324,6 +325,7 @@ export const WalletDrawer = () => {
           </WalletFrame>
         )}
       </Content>
+      <Wallet2FA />
     </DrawerWithNavigation>
   );
 };

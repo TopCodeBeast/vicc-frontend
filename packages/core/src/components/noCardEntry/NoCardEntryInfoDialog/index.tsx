@@ -2,12 +2,12 @@ import { ReactNode, useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
-import Dialog from 'components/dialog';
-import VerifyPhoneNumber from 'components/user/VerifyPhoneNumber';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { theme } from '@sorare/core/src/style/theme';
+import Button from '@core/atoms/buttons/Button';
+import { Text16, Title3 } from '@core/atoms/typography';
+import Dialog from '@core/components/dialog';
+import VerifyPhoneNumber from '@core/components/user/VerifyPhoneNumber';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { theme } from '@core/style/theme';
 
 const Body = styled.div`
   display: flex;

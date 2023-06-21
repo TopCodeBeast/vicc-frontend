@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
 import { theme } from '@sorare/core/src/style/theme';
 
-import FlexCard from '@sorare/football/src/components/card/FlexCard';
+import FlexCard from '@football/components/card/FlexCard';
 
 import { EditableDeckCard_deckCard } from './__generated__/index.graphql';
 

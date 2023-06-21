@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { Text16, Title5 } from '@sorare/core/src/atoms/typography';
-import Bold from '@sorare/core/src/atoms/typography/Bold';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import Button from '@core/atoms/buttons/Button';
+import Dialog from '@core/atoms/layout/Dialog';
+import { Text16, Title5 } from '@core/atoms/typography';
+import Bold from '@core/atoms/typography/Bold';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import { glossary } from '@core/lib/glossary';
 
 const messages = defineMessages({
   title: {

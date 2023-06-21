@@ -1,8 +1,8 @@
 import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import styled from 'styled-components';
 
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import { theme } from '@sorare/core/src/style/theme';
+import { Text16 } from '@core/atoms/typography';
+import { theme } from '@core/style/theme';
 
 interface Props {
   message: MessageDescriptor;

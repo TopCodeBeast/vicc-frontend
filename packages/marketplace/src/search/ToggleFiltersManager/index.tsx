@@ -1,6 +1,6 @@
 import { FilterButton } from '@sorare/core/src/components/search/FilterButton';
 
-import useFiltersCount from '@sorare/marketplace/src/search/FiltersManager/useFiltersCount';
+import useFiltersCount from '@marketplace/search/FiltersManager/useFiltersCount';
 
 interface ToggleFiltersManagerProps {
   toggleFilters: () => void;

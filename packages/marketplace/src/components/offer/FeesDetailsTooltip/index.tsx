@@ -6,8 +6,8 @@ import styled from 'styled-components';
 import { Currency } from '@sorare/core/src/__generated__/globalTypes';
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 
-import useFormatWithCurrency from '@sorare/marketplace/src/hooks/useFormatWithCurrency';
-import { MarketFeeStatus } from '@sorare/marketplace/src/hooks/useMarketFeesHelperStatus';
+import useFormatWithCurrency from '@marketplace/hooks/useFormatWithCurrency';
+import { MarketFeeStatus } from '@marketplace/hooks/useMarketFeesHelperStatus';
 
 import FeesTooltipFromProps from '../FeesTooltipFromProps';
 
@@ -90,7 +90,6 @@ const FeesDetailsTooltip = ({
   return (
     <Container>
       <Tooltip
-        arrow
         enterTouchDelay={0}
         interactive
         placement="top"

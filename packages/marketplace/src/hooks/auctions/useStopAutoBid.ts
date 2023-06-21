@@ -22,6 +22,7 @@ const STOP_AUTO_BID_MUTATION = gql`
           endDate
           minNextBid
           privateMinNextBid
+          currency
           autoBid
           bestBid {
             id

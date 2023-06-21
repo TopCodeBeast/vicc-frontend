@@ -1,22 +1,31 @@
 import { faArrowDownLong, faPlus } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useIntl } from 'react-intl';
+import { defineMessages, useIntl } from 'react-intl';
+import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
-import premierLeague from 'assets/logos/football/EPL.svg';
-import mls from 'assets/logos/football/MLS.svg';
-import bundesliga from 'assets/logos/football/bundesliga.svg';
-import cinch from 'assets/logos/football/cinchPremiership-monochrome.svg';
-import eredivisie from 'assets/logos/football/eredivisie-monochrome.svg';
-import laLiga from 'assets/logos/football/laLiga.svg';
-import serieA from 'assets/logos/football/serieA.svg';
-import mlb from 'assets/logos/mlb/mlb.svg';
-import nba from 'assets/logos/nba/nba.svg';
-import { Text14, Text18 } from '@sorare/core/src/atoms/typography';
-import { ContentContainer } from 'components/landing/NewLandingMultiSport/ui';
-import { messages as globalMessages } from 'components/landing/NewLandingMultiSport/utils';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { theme } from '@sorare/core/src/style/theme';
+import premierLeague from '@core/assets/logos/football/EPL.svg';
+import mls from '@core/assets/logos/football/MLS.svg';
+import bundesliga from '@core/assets/logos/football/bundesliga.svg';
+import cinch from '@core/assets/logos/football/cinchPremiership-monochrome.svg';
+import eredivisie from '@core/assets/logos/football/eredivisie-monochrome.svg';
+import laLiga from '@core/assets/logos/football/laLiga.svg';
+import serieA from '@core/assets/logos/football/serieA.svg';
+import mlb from '@core/assets/logos/mlb/mlb.svg';
+import nba from '@core/assets/logos/nba/nba.svg';
+import { Text14, Text18 } from '@core/atoms/typography';
+import { ContentContainer } from '@core/components/landing/NewLandingMultiSport/ui';
+import { messages as globalMessages } from '@core/components/landing/NewLandingMultiSport/utils';
+import { LICENSED_PARTNERS_FOOTBALL_TAB } from '@core/constants/routes';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import { theme } from '@core/style/theme';
+
+const messages = defineMessages({
+  moreLeagues: {
+    id: 'Landing.LeaguesBlock.Moreleagues',
+    defaultMessage: 'More leagues',
+  },
+});
 
 const Wrapper = styled.div``;
 
@@ -47,6 +56,22 @@ const LeagueBlock = styled.div`
   border-radius: var(--unit);
   background: rgba(255, 255, 255, 0.07);
   text-align: center;
+`;
+
+const MoreLeaguesLink = styled(LeagueBlock)`
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+  color: var(--c-neutral-100);
+
+  &:hover {
+    opacity: 0.8;
+    color: var(--c-neutral-100);
+  }
+
+  &:visited {
+    color: var(--c-neutral-100);
+  }
 `;
 
 const LeagueName = styled(Text14)`
@@ -142,12 +167,19 @@ export const LeaguesBlock = () => {
             <LeagueName>{name}</LeagueName>
           </LeagueBlock>
         ))}
-        <LeagueBlock>
+        <MoreLeaguesLink
+          as="a"
+          target="_blank"
+          rel="noreferrer"
+          href={generatePath(LICENSED_PARTNERS_FOOTBALL_TAB, {
+            tab: 'competitions',
+          })}
+        >
           <MoreLeaguesIcon>
             <FontAwesomeIcon icon={faPlus} />
           </MoreLeaguesIcon>
-          <LeagueName>More Leagues</LeagueName>
-        </LeagueBlock>
+          <LeagueName>{formatMessage(messages.moreLeagues)}</LeagueName>
+        </MoreLeaguesLink>
       </LeagueWrapper>
     </Wrapper>
   );

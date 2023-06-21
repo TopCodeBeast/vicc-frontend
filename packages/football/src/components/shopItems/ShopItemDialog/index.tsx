@@ -15,8 +15,8 @@ import Dialog from '@sorare/core/src/components/dialog';
 import { FOOTBALL_CLUB_SHOP } from '@sorare/core/src/constants/routes';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
-import ShopItemPicker from '@sorare/football/src/components/shopItems/ShopItemPicker';
-import { ShopItemLogo } from '@sorare/football/src/components/userGroup/form/AvatarInput/types';
+import ShopItemPicker from '@football/components/shopItems/ShopItemPicker';
+import { ShopItemLogo } from '@football/components/userGroup/form/AvatarInput/types';
 
 const DialogContainer = styled.div`
   display: flex;

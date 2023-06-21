@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components';
 
-import { glossary } from '@sorare/core/src/lib/glossary';
+import { glossary } from '@core/lib/glossary';
 
 import loadingSVGUrl from './loading.svg';
 

@@ -23,7 +23,7 @@ import { glossary } from '@sorare/core/src/lib/glossary';
 import DivisionLogo from '@sorare/football/src/components/so5/DivisionLogo';
 import Points from '@sorare/football/src/components/so5/Points';
 import So5LineupAppearance from '@sorare/football/src/components/so5/So5LineupAppearance';
-import { socialSharingMessages } from 'lib/so5';
+import { socialSharingMessages } from '@football/lib/so5';
 
 import {
   So5RankingDetailsQuery,

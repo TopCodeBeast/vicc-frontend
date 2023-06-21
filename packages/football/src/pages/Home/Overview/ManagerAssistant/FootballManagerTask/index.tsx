@@ -23,7 +23,7 @@ import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { Link } from '@sorare/core/src/routing/Link';
 
-import { useFootballEvents } from 'lib/events';
+import { useFootballEvents } from '@football/lib/events';
 
 import {
   ClaimFootballManagerTaskMutation,
@@ -150,6 +150,11 @@ export const FootballManagerTask = ({ task, leaderboards }: Props) => {
   >(DECLARE_FOOTBALL_MANAGER_TASK_MUTATION);
 
   const taskData = tasksData[task.taskSlug];
+
+  if (!taskData) {
+    return null;
+  }
+
   const taskDescription = isDesktop
     ? taskData.desktopDescription
     : taskData.mobileDescription;

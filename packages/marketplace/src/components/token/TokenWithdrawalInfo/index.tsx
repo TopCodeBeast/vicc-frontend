@@ -5,10 +5,14 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
+import {
+  Currency,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Text16 } from '@sorare/core/src/atoms/typography';
-import AmountWithConversion from '@sorare/core/src/components/buyActions/AmountWithConversion';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 import UserBalance from '@sorare/core/src/components/wallet/UserBalance';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
@@ -18,7 +22,7 @@ import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConvers
 import useUnquantizeAmount from '@sorare/core/src/hooks/useUnquantizeAmount';
 import { isAddress } from '@sorare/core/src/lib/ethereum';
 
-import { TokenName } from '@sorare/marketplace/src/components/token/TokenName';
+import { TokenName } from '@marketplace/components/token/TokenName';
 
 import {
   CreateTokenWithdrawalMutation,
@@ -78,10 +82,11 @@ const ExponentXL = styled(Text16)`
 
 const FeeAmount = ({ feeAmount }: { feeAmount: string }) => {
   const { main, exponent } = useAmountWithConversion({
-    unit: 'wei',
-    amount: feeAmount,
-    context: 'CardWithdrawalInfo.totalPrice',
-    ethFirst: true,
+    monetaryAmount: {
+      referenceCurrency: SupportedCurrency.WEI,
+      [SupportedCurrency.WEI.toLowerCase()]: feeAmount,
+    },
+    primaryCurrency: Currency.ETH,
   });
   return (
     <Column>
@@ -243,13 +248,14 @@ const TokenWithdrawalInfo = ({ token, transferRequest, onComplete }: Props) => {
                 </Label>
               </Tooltip>
               <AmountWithConversion
-                unit="wei"
-                context="CardWithdrawalInfo.mintingFee"
-                amount={new Big(feeAmount)
-                  .multipliedBy(MINTING_COST_RATIO)
-                  .toString()}
+                monetaryAmount={{
+                  referenceCurrency: SupportedCurrency.WEI,
+                  [SupportedCurrency.WEI.toLowerCase()]: new Big(feeAmount)
+                    .multipliedBy(MINTING_COST_RATIO)
+                    .toString(),
+                }}
+                primaryCurrency={Currency.ETH}
                 withApproxSymbol
-                ethFirst
               />
             </div>
             <div>
@@ -269,13 +275,14 @@ const TokenWithdrawalInfo = ({ token, transferRequest, onComplete }: Props) => {
                 </Label>
               </Tooltip>
               <AmountWithConversion
-                unit="wei"
-                context="CardWithdrawalInfo.withdrawalFee"
-                amount={new Big(feeAmount)
-                  .multipliedBy(ethereumOwner ? 1 : 1 - MINTING_COST_RATIO)
-                  .toString()}
+                monetaryAmount={{
+                  referenceCurrency: SupportedCurrency.WEI,
+                  [SupportedCurrency.WEI.toLowerCase()]: new Big(feeAmount)
+                    .multipliedBy(ethereumOwner ? 1 : 1 - MINTING_COST_RATIO)
+                    .toString(),
+                }}
+                primaryCurrency={Currency.ETH}
                 withApproxSymbol
-                ethFirst
               />
             </div>
           </>
@@ -356,7 +363,7 @@ const TokenWithdrawalInfo = ({ token, transferRequest, onComplete }: Props) => {
               defaultMessage="Balance"
             />
           </Text16>
-          <UserBalance context="CardWithdrawalInfo.availableBalance" inline />
+          <UserBalance inline />
         </div>
       </Bottom>
     </div>

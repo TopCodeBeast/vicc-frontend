@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import { ReactNode, useEffect, useMemo } from 'react';
 
-import useToggle from '@sorare/core/src/hooks/useToggle';
+import useToggle from '@core/hooks/useToggle';
 
 import Content from './Content';
 

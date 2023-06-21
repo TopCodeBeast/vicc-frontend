@@ -6,11 +6,14 @@ import { ReactNode, useCallback, useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  Sport,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Text14, Title6 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@sorare/core/src/components/dialog';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import Warning from '@sorare/core/src/contexts/intl/Warning';
 import { useSentryContext } from '@sorare/core/src/contexts/sentry';
@@ -19,14 +22,15 @@ import { useSportContext } from '@sorare/core/src/contexts/sport';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 import { CardHit, tokenHitFragment } from '@sorare/core/src/lib/algolia';
 import { tradeLabels } from '@sorare/core/src/lib/glossary';
 import { toWei } from '@sorare/core/src/lib/wei';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { WalletPaymentMethod } from '@sorare/marketplace/src/components/buyActions/PaymentProvider/types';
-import useHasInsufficientFundsInWallets from '@sorare/marketplace/src/hooks/useHasInsufficientFundsInWallets';
-import useMarketFeesHelperStatus from '@sorare/marketplace/src/hooks/useMarketFeesHelperStatus';
+import { WalletPaymentMethod } from '@marketplace/components/buyActions/PaymentProvider/types';
+import useHasInsufficientFundsInWallets from '@marketplace/hooks/useHasInsufficientFundsInWallets';
+import useMarketFeesHelperStatus from '@marketplace/hooks/useMarketFeesHelperStatus';
 
 import CardPicker from '../CardPicker';
 import OfferSide from '../OfferSide';
@@ -57,29 +61,31 @@ const Container = styled.div`
   margin: 0;
   width: 100%;
   @media (min-width: ${theme.breakpoints.values.tablet}px) {
-    width: calc(
-      ${theme.breakpoints.values.tablet}px - var(--double-and-a-half-unit)
-    );
+    width: max-content;
   }
 `;
-
+const CenteredTitle6 = styled(Title6)`
+  text-align: center;
+`;
 const WarningContainer = styled.div`
   padding: var(--double-unit);
 `;
-
 const ETHOnlyWarningContainer = styled.div`
   display: inline-flex;
   gap: var(--double-unit);
   align-items: center;
 `;
-
 const Row = styled.div`
   display: flex;
   flex-direction: column;
   & > :not(:first-child) {
     border-top: ${theme.borders.grey};
   }
+  & > :last-child {
+    margin-bottom: var(--double-unit);
+  }
   & > * {
+    padding: var(--double-unit) var(--triple-unit);
     flex-grow: 1;
     width: 100%;
   }
@@ -90,6 +96,11 @@ const Row = styled.div`
     flex-direction: row;
     align-items: flex-start;
   }
+`;
+const ActionWrapper = styled.div`
+  padding: var(--triple-unit);
+  margin-top: auto;
+  box-shadow: 0px 14px 50px rgba(0, 0, 0, 0.2);
 `;
 
 interface Props<DATA, QUERY_RESULT extends { tokens: { nfts: DATA[] } }>
@@ -159,6 +170,7 @@ const BuildingPage = <
     flags: { useNewWallet = false },
   } = useFeatureFlags();
 
+  const { toMonetaryAmount } = useMonetaryAmount();
   const setConfirming = useCallback(
     () => dispatch(switchToConfirming),
     [dispatch]
@@ -176,7 +188,12 @@ const BuildingPage = <
   } = state;
   const hasInsufficientFundsInWallets = useHasInsufficientFundsInWallets();
   const { insufficientFundsInEthWallet, insufficientFundsInFiatWallet } =
-    hasInsufficientFundsInWallets(toWei(sendEth));
+    hasInsufficientFundsInWallets(
+      toMonetaryAmount({
+        wei: toWei(sendEth),
+        referenceCurrency: SupportedCurrency.WEI,
+      })
+    );
   const invalid =
     !valid ||
     (useNewWallet &&
@@ -413,13 +430,11 @@ const BuildingPage = <
   return (
     <Dialog
       open
+      maxWidth="sm"
       onClose={onClose}
-      noMargin
-      shadowFooter
       fullScreen={!isTablet}
-      headerCentered
       title={
-        <Title6>
+        <CenteredTitle6>
           <FormattedMessage
             {...(counterOfferId
               ? tradeLabels.counterOfferWith
@@ -428,76 +443,80 @@ const BuildingPage = <
               nickname: to.nickname,
             }}
           />
-        </Title6>
+        </CenteredTitle6>
       }
-      footer={renderCta()}
-    >
-      <Container>
-        {counterOfferId && (
-          <WarningContainer>
-            <Warning variant="yellow" message={messages.counterOfferWarning} />
-          </WarningContainer>
-        )}
-        <Row>
-          <OfferSide
-            cards={sendCards}
-            cardsData={cardsData}
-            setCards={setSendCards}
-            title={sender}
-            toggleAddCardOpened={openSendCardSelectionPopup}
-            isOwnSide
-            addCardDisabledWarning={
-              !!cashOnlyOffersSportPreference?.value && (
-                <Warning variant="yellow">
-                  <ETHOnlyWarningContainer>
-                    <FontAwesomeIcon icon={faCircleInfo} size="1x" />
-                    <Text14>
-                      <FormattedMessage
-                        id="NewOfferBuilder.OfferSide.managerOnlyAcceptingETH"
-                        defaultMessage="{manager} is only accepting ETH on this trade."
-                        values={{
-                          manager: to.nickname,
-                        }}
-                      />
-                    </Text14>
-                  </ETHOnlyWarningContainer>
-                </Warning>
-              )
-            }
-          >
-            <AmountInput state={state} dispatch={dispatch} />
-            {useNewWallet && sendEth > 0 && (
-              <TradePaymentMethods
-                state={state}
-                dispatch={dispatch}
-                onClose={onClose}
+      body={
+        <Container>
+          {counterOfferId && (
+            <WarningContainer>
+              <Warning
+                variant="yellow"
+                message={messages.counterOfferWarning}
               />
-            )}
-          </OfferSide>
-          <OfferSide
-            cards={receiveCards}
-            cardsData={cardsData}
-            setCards={setReceiveCards}
-            title={receiver}
-            toggleAddCardOpened={openReceiveCardSelectionPopup}
-            displayMinPrices
-          >
-            {counterOfferId && !lockReceiveEthInput && (
-              <AmountInput
-                state={state}
-                dispatch={dispatch}
-                receiver
-                counterOfferSport={counterOfferSport}
-                marketFeeStatus={marketFeeStatus}
-              />
-            )}
-          </OfferSide>
-        </Row>
-        <Row>
-          <InputDuration state={state} dispatch={dispatch} to={to} />
-        </Row>
-      </Container>
-    </Dialog>
+            </WarningContainer>
+          )}
+          <Row>
+            <OfferSide
+              cards={sendCards}
+              cardsData={cardsData}
+              setCards={setSendCards}
+              title={sender}
+              toggleAddCardOpened={openSendCardSelectionPopup}
+              isOwnSide
+              addCardDisabledWarning={
+                !!cashOnlyOffersSportPreference?.value && (
+                  <Warning variant="yellow">
+                    <ETHOnlyWarningContainer>
+                      <FontAwesomeIcon icon={faCircleInfo} size="1x" />
+                      <Text14>
+                        <FormattedMessage
+                          id="NewOfferBuilder.OfferSide.managerOnlyAcceptingETH"
+                          defaultMessage="{manager} is only accepting ETH on this trade."
+                          values={{
+                            manager: to.nickname,
+                          }}
+                        />
+                      </Text14>
+                    </ETHOnlyWarningContainer>
+                  </Warning>
+                )
+              }
+            >
+              <AmountInput state={state} dispatch={dispatch} />
+              {useNewWallet && sendEth > 0 && (
+                <TradePaymentMethods
+                  state={state}
+                  dispatch={dispatch}
+                  onClose={onClose}
+                />
+              )}
+            </OfferSide>
+            <OfferSide
+              cards={receiveCards}
+              cardsData={cardsData}
+              setCards={setReceiveCards}
+              title={receiver}
+              toggleAddCardOpened={openReceiveCardSelectionPopup}
+              displayMinPrices
+            >
+              {counterOfferId && !lockReceiveEthInput && (
+                <AmountInput
+                  state={state}
+                  dispatch={dispatch}
+                  receiver
+                  counterOfferSport={counterOfferSport}
+                  marketFeeStatus={marketFeeStatus}
+                />
+              )}
+            </OfferSide>
+          </Row>
+          <Row>
+            <InputDuration state={state} dispatch={dispatch} to={to} />
+          </Row>
+          <ActionWrapper>{renderCta()}</ActionWrapper>
+        </Container>
+      }
+    />
   );
 };
 

@@ -7,7 +7,7 @@ import {
   resolvePath,
 } from 'react-router-dom';
 
-import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
+import { useBgLocation } from '@core/hooks/useBgLocation';
 
 // dialogRoutes are made for 2 things:
 // - Dialogs that should be available from anywhere in the app from a specific URL

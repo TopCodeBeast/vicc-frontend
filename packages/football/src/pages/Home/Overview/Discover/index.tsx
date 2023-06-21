@@ -6,11 +6,11 @@ import { generatePath } from 'react-router-dom';
 import { Rarity } from '@sorare/core/src/__generated__/globalTypes';
 import { FOOTBALL_LOBBY_UPCOMING } from '@sorare/core/src/constants/routes';
 
-import { HomeBlock } from '@sorare/football/src/components/Home/Block';
-import { ItemRows } from '@sorare/football/src/components/Home/ItemRows';
-import { SeeAllButton } from '@sorare/football/src/components/Home/SeeAllButton';
-import { Lineup } from '@sorare/football/src/components/lineup/Lineup';
-import { sortLeaderboardsByTournamentType } from 'lib/so5';
+import { HomeBlock } from '@football/components/Home/Block';
+import { ItemRows } from '@football/components/Home/ItemRows';
+import { SeeAllButton } from '@football/components/Home/SeeAllButton';
+import { Lineup } from '@football/components/lineup/Lineup';
+import { sortLeaderboardsByTournamentType } from '@football/lib/so5';
 
 import { Discover_leaderboard } from './__generated__/index.graphql';
 

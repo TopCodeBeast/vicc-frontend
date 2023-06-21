@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { SecondaryTabs } from '@sorare/core/src/atoms/navigation/SecondaryTabs';
+import { SecondaryTabs } from '@core/atoms/navigation/SecondaryTabs';
 
 const StyledSecondaryTabs = styled(SecondaryTabs)<{
   badgeColor?: string;

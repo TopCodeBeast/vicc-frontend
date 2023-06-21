@@ -3,10 +3,10 @@ import styled from 'styled-components';
 
 import { GameCoverageStatus } from '@sorare/core/src/__generated__/globalTypes';
 
-import { Game } from '@sorare/football/src/components/stats/Game';
-import GameCoverageBadge from '@sorare/football/src/components/stats/GameCoverageBadge';
-import PlayerScore from '@sorare/football/src/components/stats/PlayerScore';
-import { GameEventStatus, getPlayerScore } from 'lib/so5';
+import { Game } from '@football/components/stats/Game';
+import GameCoverageBadge from '@football/components/stats/GameCoverageBadge';
+import PlayerScore from '@football/components/stats/PlayerScore';
+import { GameEventStatus, getPlayerScore } from '@football/lib/so5';
 
 import {
   PlayerGame_game,

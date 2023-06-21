@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { ReferralState } from '__generated__/globalTypes';
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import Pagination from '@sorare/core/src/atoms/navigation/Pagination';
-import { Text18 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { ReferralState } from '@core/__generated__/globalTypes';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import Pagination from '@core/atoms/navigation/Pagination';
+import { Text18 } from '@core/atoms/typography';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 
 import { RefereeItem } from './RefereeItem';
 import {

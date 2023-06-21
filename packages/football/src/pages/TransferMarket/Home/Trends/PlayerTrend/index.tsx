@@ -9,11 +9,11 @@ import { LEGACY_PLAYER_SHOW } from '@sorare/core/src/constants/routes';
 import { useSportContext } from '@sorare/core/src/contexts/sport';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 
-import { Trend } from '@sorare/football/src/pages/TransferMarket/Home/Trends/Trend';
+import { Trend } from '@football/pages/TransferMarket/Home/Trends/Trend';
 import {
   TrendDescription,
   TrendTitle,
-} from '@sorare/football/src/pages/TransferMarket/Home/Trends/ui';
+} from '@football/pages/TransferMarket/Home/Trends/ui';
 
 import { PlayerTrend_player } from './__generated__/index.graphql';
 

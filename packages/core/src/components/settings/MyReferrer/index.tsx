@@ -1,12 +1,12 @@
 import { defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import Avatar from 'components/user/Avatar';
-import { GalleryLink } from 'components/user/GalleryLink';
-import { Nickname } from 'components/user/Nickname';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
+import { Text16 } from '@core/atoms/typography';
+import Avatar from '@core/components/user/Avatar';
+import { GalleryLink } from '@core/components/user/GalleryLink';
+import { Nickname } from '@core/components/user/Nickname';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useIntlContext } from '@core/contexts/intl';
 
 import SettingsSection from '../SettingsSection';
 

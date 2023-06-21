@@ -6,8 +6,8 @@ import { Game as CoreGame } from '@sorare/core/src/components/Game';
 import { CLUB_PLACEHOLDER } from '@sorare/core/src/constants/assets';
 import { flagUrl } from '@sorare/core/src/lib/territories';
 
-import MatchViewDialog from '@sorare/football/src/components/stats/MatchViewDialog';
-import { GameEventStatus } from 'lib/so5';
+import MatchViewDialog from '@football/components/stats/MatchViewDialog';
+import { GameEventStatus } from '@football/lib/so5';
 
 import { StatusRow, StatusRowProps } from './StatusRow';
 import { TeamRow } from './TeamRow';

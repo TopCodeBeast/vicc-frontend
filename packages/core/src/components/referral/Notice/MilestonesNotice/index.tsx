@@ -8,15 +8,15 @@ import {
   Rarity,
   ReferralState,
   Sport,
-} from '__generated__/globalTypes';
-import { RainbowBox } from '@sorare/core/src/atoms/layout/RainbowBox';
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { Text18, Title3 } from '@sorare/core/src/atoms/typography';
-import CardBack from 'components/card/Back';
-import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
-import { qualityNames } from '@sorare/core/src/lib/players';
-import { CARDS_REQUIREMENTS_BY_SPORT } from '@sorare/core/src/lib/referral';
-import { scarcityMessages } from '@sorare/core/src/lib/scarcity';
+} from '@core/__generated__/globalTypes';
+import { RainbowBox } from '@core/atoms/layout/RainbowBox';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import { Text18, Title3 } from '@core/atoms/typography';
+import CardBack from '@core/components/card/Back';
+import useQuery from '@core/hooks/graphql/useQuery';
+import { qualityNames } from '@core/lib/players';
+import { CARDS_REQUIREMENTS_BY_SPORT } from '@core/lib/referral';
+import { scarcityMessages } from '@core/lib/scarcity';
 
 import { Milestones } from '../Milestones';
 import { messages } from '../messages';

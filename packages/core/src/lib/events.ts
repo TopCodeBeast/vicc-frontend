@@ -1,9 +1,9 @@
 import qs from 'qs';
 import { matchPath } from 'react-router-dom';
 
-import { Sport as SportType } from '__generated__/globalTypes';
-import { SEARCH_PARAMS } from 'components/search/InstantSearch/types';
-import { Sport } from '@sorare/core/src/protos/events/shared/events';
+import { Sport as SportType } from '@core/__generated__/globalTypes';
+import { SEARCH_PARAMS } from '@core/components/search/InstantSearch/types';
+import { Sport } from '@core/protos/events/shared/events';
 
 import {
   ACTIVITY_NEWS_SHOW,

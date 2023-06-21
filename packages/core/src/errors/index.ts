@@ -1,8 +1,8 @@
-import MutationError, { NAME as MUTATION_ERROR } from 'errors/mutation';
-import NetworkError, { NAME as NETWORK_ERROR } from 'errors/network';
+import MutationError, { NAME as MUTATION_ERROR } from '@core/errors/mutation';
+import NetworkError, { NAME as NETWORK_ERROR } from '@core/errors/network';
 import WalletAccessError, {
   NAME as WALLET_ACCESS_ERROR,
-} from 'errors/walletAccess';
+} from '@core/errors/walletAccess';
 import { Await } from 'types';
 
 import BankApprovalError, { NAME as BANK_APPROVAL_ERROR } from './bankApproval';

@@ -14,7 +14,7 @@ import {
   isFixtureStarted,
   notStartedLineupSharingMessages,
   startedLineupSharingMessages,
-} from 'lib/so5';
+} from '@football/lib/so5';
 
 import {
   generateLineupSharingTitle_so5Fixture,

@@ -9,8 +9,8 @@ import {
 import styled from 'styled-components';
 
 import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import { Text14, Title5 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@sorare/core/src/components/dialog';
 import { Nickname } from '@sorare/core/src/components/user/Nickname';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { theme } from '@sorare/core/src/style/theme';
@@ -71,6 +71,10 @@ const SeeDetails = styled(ButtonBase)`
   text-decoration: underline;
 `;
 
+const Body = styled.div`
+  padding: var(--triple-unit);
+`;
+
 const DialogContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -87,6 +91,10 @@ const DialogContent = styled.div`
       width: 50%;
     }
   }
+`;
+
+const CenteredTitle5 = styled(Title5)`
+  text-align: center;
 `;
 
 const Subtitle = styled(Text14)`
@@ -145,12 +153,10 @@ const CardsColumn = ({
 
 const CardsChanged = ({
   offer,
-  counteredOffer,
   counterpartUser,
   isCurrentUserSender,
 }: {
   offer: CardsChanged_tokenOffer;
-  counteredOffer: CardsChanged_tokenOffer;
   counterpartUser: CardsChanged_user;
   isCurrentUserSender: boolean;
 }) => {
@@ -164,7 +170,9 @@ const CardsChanged = ({
   const {
     receivedCards: counteredOfferReceivedCards,
     sendCards: counteredOfferSendCards,
-  } = getCardsDetails(counteredOffer, !isCurrentUserSender);
+  } = getCardsDetails(offer.counteredOffer, !isCurrentUserSender);
+
+  const hasCounterOffer = !!offer.counteredOffer;
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const receivedCardsAdded = compareCardsArray<
@@ -201,6 +209,8 @@ const CardsChanged = ({
   const addedCardsToDisplay =
     selectedTab === 0 ? sendCardsAdded : receivedCardsAdded;
 
+  if (!hasCounterOffer) return null;
+
   return (
     <div>
       <Subtitle>
@@ -218,79 +228,96 @@ const CardsChanged = ({
       </Subtitle>
 
       <Dialog
-        title={
-          <Title5>
-            <FormattedMessage {...messages.title} />
-          </Title5>
-        }
-        maxWidth="xl"
         open={dialogOpen}
+        maxWidth="sm"
+        fullWidth
         onClose={() => setDialogOpen(false)}
-      >
-        <DialogSubtitle>
-          <FormattedMessage
-            {...messages.dialogSubtitle}
-            values={{ user: senderUserText }}
-          />
-        </DialogSubtitle>
-        <Tabs>
-          <ButtonBase
-            className={classNames({ active: selectedTab === 0 })}
-            onClick={() => {
-              setSelectedTab(0);
-            }}
-          >
-            <FormattedMessage
-              id="CardsChanged.yourCards"
-              defaultMessage="Your cards"
-            />
-          </ButtonBase>
-          <ButtonBase
-            className={classNames({ active: selectedTab === 1 })}
-            onClick={() => {
-              setSelectedTab(1);
-            }}
-          >
-            <FormattedMessage
-              id="CardsChanged.otherPathCards"
-              defaultMessage="{user} cards"
-              values={{
-                user: <Nickname user={counterpartUser} />,
-              }}
-            />
-          </ButtonBase>
-        </Tabs>
-        <DialogContent>
-          <CardsColumn title={messages.removed} cards={removedCardsToDisplay} />
-          <CardsColumn title={messages.added} cards={addedCardsToDisplay} />
-        </DialogContent>
-      </Dialog>
+        title={
+          <CenteredTitle5>
+            <FormattedMessage {...messages.title} />
+          </CenteredTitle5>
+        }
+        body={
+          <Body>
+            <DialogSubtitle>
+              <FormattedMessage
+                {...messages.dialogSubtitle}
+                values={{ user: senderUserText }}
+              />
+            </DialogSubtitle>
+            <Tabs>
+              <ButtonBase
+                className={classNames({ active: selectedTab === 0 })}
+                onClick={() => {
+                  setSelectedTab(0);
+                }}
+              >
+                <FormattedMessage
+                  id="CardsChanged.yourCards"
+                  defaultMessage="Your cards"
+                />
+              </ButtonBase>
+              <ButtonBase
+                className={classNames({ active: selectedTab === 1 })}
+                onClick={() => {
+                  setSelectedTab(1);
+                }}
+              >
+                <FormattedMessage
+                  id="CardsChanged.otherPathCards"
+                  defaultMessage="{user} cards"
+                  values={{
+                    user: <Nickname user={counterpartUser} />,
+                  }}
+                />
+              </ButtonBase>
+            </Tabs>
+            <DialogContent>
+              <CardsColumn
+                title={messages.removed}
+                cards={removedCardsToDisplay}
+              />
+              <CardsColumn title={messages.added} cards={addedCardsToDisplay} />
+            </DialogContent>
+          </Body>
+        }
+      />
     </div>
   );
 };
+
+const offerFragment = gql`
+  fragment CardsChangedOffer_tokenOffer on TokenOffer {
+    senderSide {
+      id
+      nfts {
+        assetId
+        slug
+        ...CardOffer_token
+      }
+    }
+    receiverSide {
+      id
+      nfts {
+        assetId
+        slug
+        ...CardOffer_token
+      }
+    }
+  }
+`;
 
 CardsChanged.fragments = {
   tokenOffer: gql`
     fragment CardsChanged_tokenOffer on TokenOffer {
       id
-      senderSide {
+      ...CardsChangedOffer_tokenOffer
+      counteredOffer {
         id
-        nfts {
-          assetId
-          slug
-          ...CardOffer_token
-        }
-      }
-      receiverSide {
-        id
-        nfts {
-          assetId
-          slug
-          ...CardOffer_token
-        }
+        ...CardsChangedOffer_tokenOffer
       }
     }
-    ${CardOffer.fragments.token}
+    ${offerFragment}
   `,
   user: gql`
     fragment CardsChanged_user on PublicUserInfoInterface {

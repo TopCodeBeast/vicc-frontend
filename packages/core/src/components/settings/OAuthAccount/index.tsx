@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Text16 } from '@sorare/core/src/atoms/typography';
-import OAuthButton from 'components/user/OAuthButton';
-import Disconnect from 'components/user/OAuthDisconnect';
-import { theme } from '@sorare/core/src/style/theme';
+import { Text16 } from '@core/atoms/typography';
+import OAuthButton from '@core/components/user/OAuthButton';
+import Disconnect from '@core/components/user/OAuthDisconnect';
+import { theme } from '@core/style/theme';
 
 interface Props {
   nickname: string | null;

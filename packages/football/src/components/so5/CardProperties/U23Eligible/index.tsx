@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 
-import U23EligibleIcon from '@sorare/football/src/components/so5/CardProperties/U23EligibleIcon';
+import U23EligibleIcon from '@football/components/so5/CardProperties/U23EligibleIcon';
 
 const U23Eligible = () => {
   return (

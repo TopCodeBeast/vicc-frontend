@@ -5,12 +5,13 @@ import { useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import Block from '@sorare/core/src/atoms/layout/Block';
 import { Caption } from '@sorare/core/src/atoms/typography';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 import useTokenBelongsToUser from '@sorare/core/src/hooks/useTokenBelongsToUser';
 
-import SetupMinimumPriceDialog from '@sorare/marketplace/src/components/offer/SetupMinimumPriceDialog';
+import SetupMinimumPriceDialog from '@marketplace/components/offer/SetupMinimumPriceDialog';
 
 import { MinimumPrice_token } from './__generated__/index.graphql';
 
@@ -46,9 +47,10 @@ const Exponent = styled(Caption)`
 
 const MinPriceAmount = ({ minPrice }: { minPrice: string }) => {
   const { main, exponent } = useAmountWithConversion({
-    amount: minPrice,
-    unit: 'wei',
-    context: 'MinimumPrice',
+    monetaryAmount: {
+      referenceCurrency: SupportedCurrency.WEI,
+      [SupportedCurrency.WEI.toLowerCase()]: minPrice,
+    },
   });
   return (
     <Line>

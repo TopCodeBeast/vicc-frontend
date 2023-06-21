@@ -46,7 +46,7 @@ export default () => {
     BuyDeliverableShopItemMutation,
     BuyDeliverableShopItemMutationVariables
   >(BUY_DELIVERABLE_SHOP_ITEM_MUTATION, {
-    showErrorsInForm: true,
+    showErrorsWithSnackNotification: true,
   });
 
   return async (input: buyDeliverableShopItemInput) =>

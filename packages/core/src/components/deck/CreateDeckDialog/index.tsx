@@ -1,9 +1,9 @@
 import { defineMessages } from 'react-intl';
 import { generatePath, useLocation, useNavigate } from 'react-router-dom';
 
-import UpsertCustomDeckDialog from 'components/deck/UpsertCustomDeckDialog';
-import { FOOTBALL_CUSTOM_DECK_EDIT } from '@sorare/core/src/constants/routes';
-import useCreateDeck from '@sorare/core/src/hooks/decks/useCreateDeck';
+import UpsertCustomDeckDialog from '@core/components/deck/UpsertCustomDeckDialog';
+import { FOOTBALL_CUSTOM_DECK_EDIT } from '@core/constants/routes';
+import useCreateDeck from '@core/hooks/decks/useCreateDeck';
 
 type Props = {
   open: boolean;

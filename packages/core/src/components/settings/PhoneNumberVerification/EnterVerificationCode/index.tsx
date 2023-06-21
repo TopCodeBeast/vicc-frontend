@@ -2,15 +2,15 @@ import { Suspense, useCallback, useEffect, useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import enterVerificationCode from 'assets/user/enter_verification_code.svg';
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { Text16, Title4 } from '@sorare/core/src/atoms/typography';
-import Bold from '@sorare/core/src/atoms/typography/Bold';
-import { type GraphQLResult, GraphqlForm } from 'components/form/Form';
-import { errorMessages } from 'components/user/VerifyPhoneNumber/i18n';
-import { PHONE_VERIFICATION_CODE_LENGTH } from '@sorare/core/src/constants/verificationCode';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import enterVerificationCode from '@core/assets/user/enter_verification_code.svg';
+import Button from '@core/atoms/buttons/Button';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import { Text16, Title4 } from '@core/atoms/typography';
+import Bold from '@core/atoms/typography/Bold';
+import { type GraphQLResult, GraphqlForm } from '@core/components/form/Form';
+import { errorMessages } from '@core/components/user/VerifyPhoneNumber/i18n';
+import { PHONE_VERIFICATION_CODE_LENGTH } from '@core/constants/verificationCode';
+import { glossary } from '@core/lib/glossary';
 
 import VerificationCodeInput from './VerificationCodeInput';
 

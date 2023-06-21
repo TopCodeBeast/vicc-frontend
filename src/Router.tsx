@@ -17,9 +17,11 @@ import {
   CONTENT_PREVIEW_WILDCARD,
   COOKIE_POLICY,
   DEBUG_DEVICE,
-  FAQ,
   GAME_RULES,
   LANDING,
+  LICENSED_PARTNERS,
+  LICENSED_PARTNERS_BY_SPORT,
+  LICENSED_PARTNERS_FOOTBALL_TAB,
   LINK,
   LOCKEDON,
   MLB_LOCKEDON,
@@ -42,6 +44,10 @@ import {
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 import { Lifecycle } from '@sorare/core/src/hooks/useLifecycle';
+import {
+  SESSION_STORAGE,
+  useSessionStorage,
+} from '@sorare/core/src/hooks/useSessionStorage';
 import { lazy } from '@sorare/core/src/lib/retry';
 import { DarkTheme } from '@sorare/core/src/routing/DarkTheme';
 import { EnsureTopVisibleOnMount } from '@sorare/core/src/routing/EnsureTopVisibleOnMount';
@@ -55,7 +61,9 @@ import RedirectRouter from 'RedirectRouter';
 
 const Activity = lazy(async () => import('@sorare/shared-pages/src/Activity'));
 const Careers = lazy(async () => import('@sorare/shared-pages/src/Careers'));
-const Faq = lazy(async () => import('@sorare/shared-pages/src/Faq'));
+const LicensedPartners = lazy(
+  async () => import('@sorare/shared-pages/src/LicensedPartners')
+);
 const AffiliateProgram = lazy(
   async () => import('@sorare/shared-pages/src/AffiliateProgram')
 );
@@ -148,11 +156,11 @@ const AppsRouter = () => {
 export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
   const { currentUser } = useCurrentUserContext();
 
-  const sessionSport = sessionStorage.getItem('sport');
+  const { getValue: getSport } = useSessionStorage(SESSION_STORAGE.sport);
+  const sessionSport = getSport();
   const sport =
-    sessionSport && !sessionSport.includes('undefined')
-      ? (JSON.parse(sessionSport) as Sport)
-      : (currentUser?.userSettings?.lifecycle as Lifecycle)?.lastVisitedSport;
+    sessionSport ||
+    (currentUser?.userSettings?.lifecycle as Lifecycle)?.lastVisitedSport;
 
   const SharedPagesTheme = sport === Sport.FOOTBALL ? DarkTheme : Fragment;
 
@@ -204,14 +212,21 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
             </AppLayout>
           }
         />
-        <Route
-          path={FAQ}
-          element={
-            <AppLayout>
-              <Faq />
-            </AppLayout>
-          }
-        />
+        {[
+          LICENSED_PARTNERS,
+          LICENSED_PARTNERS_BY_SPORT,
+          LICENSED_PARTNERS_FOOTBALL_TAB,
+        ].map(path => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <DarkTheme>
+                <LicensedPartners />
+              </DarkTheme>
+            }
+          />
+        ))}
         <Route
           path={CAREERS}
           element={

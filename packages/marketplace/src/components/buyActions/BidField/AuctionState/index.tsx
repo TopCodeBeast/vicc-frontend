@@ -3,6 +3,7 @@ import { parseISO } from 'date-fns';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
+import { Currency } from '@sorare/core/src/__generated__/globalTypes';
 import { Text14 } from '@sorare/core/src/atoms/typography';
 import Bold from '@sorare/core/src/atoms/typography/Bold';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
@@ -22,14 +23,16 @@ const AuctionState = ({
   displayEth: boolean;
   auction: AuctionState_tokenAuction;
 }) => {
-  const { bidsCount, currentPrice, endDate } = auction;
+  const { bidsCount, currentPrice, currency, endDate } = auction;
   const { isEnded, message } = useTimeLeft(parseISO(endDate));
   const { main: ethAmount, exponent: fiatAmount } = useAmountWithConversion({
-    amount: currentPrice,
-    ethFirst: true,
-    unit: 'wei',
-    context: 'AuctionState',
+    monetaryAmount: {
+      referenceCurrency: currency,
+      [currency.toLowerCase()]: currentPrice,
+    },
+    primaryCurrency: Currency.ETH,
   });
+
   return (
     <AuctionStateContainer>
       <Text14>
@@ -77,6 +80,7 @@ AuctionState.fragments = {
       bidsCount
       endDate
       currentPrice
+      currency
     }
   `,
 };

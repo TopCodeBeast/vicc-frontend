@@ -5,15 +5,16 @@ import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { MonetaryAmount, Sport } from '__generated__/globalTypes';
-import Container from '@sorare/core/src/atoms/layout/Container';
-import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
-import { AUCTION_MARKET_URL, STARTER_BUNDLES_URL } from '@sorare/core/src/constants/routes';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { sportsLabelsMessages } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { MonetaryAmount, Sport } from '@core/__generated__/globalTypes';
+import Container from '@core/atoms/layout/Container';
+import { Text14, Text16 } from '@core/atoms/typography';
+import { AUCTION_MARKET_URL, STARTER_BUNDLES_URL } from '@core/constants/routes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useIntlContext } from '@core/contexts/intl';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import { sportsLabelsMessages } from '@core/lib/glossary';
+import { MonetaryAmountCurrency } from '@core/lib/monetaryAmount';
+import { theme } from '@core/style/theme';
 
 import { TermsDialog } from '../TermsDialog';
 import coins from '../assets/coins.png';
@@ -89,11 +90,12 @@ export const DumbConversionCreditBanner = ({
 
   const expiring = formatDistanceToNowStrict(parseISO(endDate));
 
-  const currencyCode = fiatCurrency.code.toLowerCase();
+  const currencyCode = fiatCurrency.code.toLowerCase() as Exclude<
+    MonetaryAmountCurrency,
+    'wei'
+  >;
   const maxDiscountInFiat =
-    (currencyCode in maxDiscount &&
-      maxDiscount?.[currencyCode as keyof MonetaryAmount]) ||
-    0;
+    ((currencyCode in maxDiscount && maxDiscount?.[currencyCode]) || 0) / 100;
 
   return (
     <Banner className={classNames({ rounded })}>

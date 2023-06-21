@@ -4,9 +4,9 @@ import {
   ConversionCreditCampaign,
   ConversionCreditCampaignStatus,
   Sport,
-} from '__generated__/globalTypes';
-import { useSportContext } from '@sorare/core/src/contexts/sport';
-import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
+} from '@core/__generated__/globalTypes';
+import { useSportContext } from '@core/contexts/sport';
+import useMonetaryAmount from '@core/hooks/useMonetaryAmount';
 
 import { SESSION_STORAGE, useSessionStorage } from './useSessionStorage';
 
@@ -34,9 +34,9 @@ export const useSignupConversionCreditCampaign = ():
   return {
     ...campaign,
     maxDiscount: {
-      eur: amounts.eur / 100,
-      usd: amounts.usd / 100,
-      gbp: amounts.gbp / 100,
+      eur: amounts.eur,
+      usd: amounts.usd,
+      gbp: amounts.gbp,
       wei: amounts.wei,
     },
   } as ConversionCreditCampaign & {

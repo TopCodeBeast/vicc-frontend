@@ -9,22 +9,22 @@ import {
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { Actions } from '@sorare/core/src/atoms/layout/Dialog';
-import { Title4, Title5 } from '@sorare/core/src/atoms/typography';
+import Button from '@core/atoms/buttons/Button';
+import { Actions } from '@core/atoms/layout/Dialog';
+import { Title4, Title5 } from '@core/atoms/typography';
 import {
   GraphQLResult,
   GraphqlForm,
   SubmitButtonProps,
-} from 'components/form/Form';
-import { GAME_RULES } from '@sorare/core/src/constants/routes';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import useFetch from '@sorare/core/src/hooks/useFetch';
-import useIsVisibleInViewport from '@sorare/core/src/hooks/useIsVisibleInViewport';
-import useToggle from '@sorare/core/src/hooks/useToggle';
-import { fileUrl } from '@sorare/core/src/lib/gitlab';
-import LazyMarkdown from '@sorare/core/src/routing/LazyMarkdown';
-import { theme } from '@sorare/core/src/style/theme';
+} from '@core/components/form/Form';
+import { GAME_RULES } from '@core/constants/routes';
+import { useIntlContext } from '@core/contexts/intl';
+import useFetch from '@core/hooks/useFetch';
+import useIsVisibleInViewport from '@core/hooks/useIsVisibleInViewport';
+import useToggle from '@core/hooks/useToggle';
+import { fileUrl } from '@core/lib/gitlab';
+import LazyMarkdown from '@core/routing/LazyMarkdown';
+import { theme } from '@core/style/theme';
 
 import AcceptAgeLimit from '../AcceptAgeLimit';
 import AcceptTermsAndPrivacyPolicy from '../AcceptTermsAndPrivacyPolicy';

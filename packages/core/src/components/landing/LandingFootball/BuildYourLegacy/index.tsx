@@ -2,10 +2,10 @@ import { ReactNode, useState } from 'react';
 import { animated, useSpring } from '@react-spring/web';
 import styled from 'styled-components';
 
-import WaypointComponent from '@sorare/core/src/atoms/animations/Waypoint';
-import Container from '@sorare/core/src/atoms/layout/Container';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { theme } from '@sorare/core/src/style/theme';
+import WaypointComponent from '@core/atoms/animations/Waypoint';
+import Container from '@core/atoms/layout/Container';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import { theme } from '@core/style/theme';
 
 import { BackgroundOverlay } from '../ui';
 

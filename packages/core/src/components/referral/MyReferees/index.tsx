@@ -4,15 +4,15 @@ import { useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { ReferralState } from '__generated__/globalTypes';
-import RadioGroup from '@sorare/core/src/atoms/inputs/RadioGroup';
-import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
-import { Title4 } from '@sorare/core/src/atoms/typography';
-import FilterInDropdown from 'components/FilterInDropdown';
-import RefereesList from 'components/referral/RefereesList';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { sportsLabelsMessages } from '@sorare/core/src/lib/glossary';
+import { ReferralState } from '@core/__generated__/globalTypes';
+import RadioGroup from '@core/atoms/inputs/RadioGroup';
+import Tooltip from '@core/atoms/tooltip/Tooltip';
+import { Title4 } from '@core/atoms/typography';
+import FilterInDropdown from '@core/components/FilterInDropdown';
+import RefereesList from '@core/components/referral/RefereesList';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useIntlContext } from '@core/contexts/intl';
+import { sportsLabelsMessages } from '@core/lib/glossary';
 
 import { messages } from './messages';
 

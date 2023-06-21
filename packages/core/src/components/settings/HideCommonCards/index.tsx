@@ -1,9 +1,9 @@
 import { defineMessages } from 'react-intl';
 
-import Switch from '@sorare/core/src/atoms/inputs/Switch';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
-import { GraphQLError, formatGqlErrors } from '@sorare/core/src/lib/gql';
+import Switch from '@core/atoms/inputs/Switch';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useSnackNotificationContext } from '@core/contexts/snackNotification';
+import { GraphQLError, formatGqlErrors } from '@core/lib/gql';
 
 import SettingsSection from '../SettingsSection';
 import useToggleHideCommonCards from './useToggleHideCommonCards';

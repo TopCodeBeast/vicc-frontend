@@ -3,7 +3,7 @@ import { animated, config, useSpring } from '@react-spring/web';
 import { Waypoint } from 'react-waypoint';
 import styled from 'styled-components';
 
-import { theme } from '@sorare/core/src/style/theme';
+import { theme } from '@core/style/theme';
 
 import BG from './assets/BG.png';
 

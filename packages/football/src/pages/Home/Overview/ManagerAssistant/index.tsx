@@ -17,9 +17,9 @@ import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 import { theme } from '@sorare/core/src/style/theme';
 
-import { HomeBlock } from '@sorare/football/src/components/Home/Block';
-import { EmptyBlock } from '@sorare/football/src/components/Home/ItemRows';
-import { useFootballEvents } from 'lib/events';
+import { HomeBlock } from '@football/components/Home/Block';
+import { EmptyBlock } from '@football/components/Home/ItemRows';
+import { useFootballEvents } from '@football/lib/events';
 
 import { FootballManagerTask } from './FootballManagerTask';
 import {

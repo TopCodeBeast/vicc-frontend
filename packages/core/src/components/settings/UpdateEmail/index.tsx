@@ -2,20 +2,20 @@ import { useRef, useState } from 'react';
 import { FormattedMessage, defineMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { Text14, Text16, Title5 } from '@sorare/core/src/atoms/typography';
-import TwoFactAuthDialog from 'components/TwoFactAuth/TwoFactAuthDialog';
-import { RestForm, RestResult, TextField } from 'components/form/Form';
-import { GoogleReCAPTCHA, ReCAPTCHA } from 'components/recaptcha';
-import DisabledEmailWarning from 'components/user/DisabledEmailWarning';
-import { UpdateUserEmailAttributes } from '@sorare/core/src/contexts/auth';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { useWalletContext } from '@sorare/core/src/contexts/wallet';
-import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { glossary, userAttributes } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import Button from '@core/atoms/buttons/Button';
+import Dialog from '@core/atoms/layout/Dialog';
+import { Text14, Text16, Title5 } from '@core/atoms/typography';
+import TwoFADialog from '@core/components/TwoFA/TwoFADialog';
+import { RestForm, RestResult, TextField } from '@core/components/form/Form';
+import { GoogleReCAPTCHA, ReCAPTCHA } from '@core/components/recaptcha';
+import DisabledEmailWarning from '@core/components/user/DisabledEmailWarning';
+import { UpdateUserEmailAttributes } from '@core/contexts/auth';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useIntlContext } from '@core/contexts/intl';
+import { useWalletContext } from '@core/contexts/wallet';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import { glossary, userAttributes } from '@core/lib/glossary';
+import { theme } from '@core/style/theme';
 
 import UpdateEmailDialog from './UpdateEmailDialog';
 
@@ -38,6 +38,7 @@ const UpdateEmail = () => {
   const [openDialogEmail, setOpenDialogEmail] = useState<string | null>(null);
   const [openDialogForm, setOpenDialogForm] = useState<boolean>(false);
   const [open2FA, setOpen2FA] = useState<boolean>(false);
+  const [hasChanged, setHasChanged] = useState(false);
   const [twoFACallback, setTwoFACallback] = useState<{
     resolve: any;
     reject: any;
@@ -128,7 +129,10 @@ const UpdateEmail = () => {
           onSubmit={(values, onResult) => {
             submitUpdateUser(values, onResult);
           }}
-          onSuccess={() => {}}
+          onChange={values => {
+            setHasChanged(email !== values.email);
+          }}
+          onSuccess={() => setOpenDialogForm(false)}
           render={(Error, SubmitButton) => (
             <>
               <Error code />
@@ -138,7 +142,7 @@ const UpdateEmail = () => {
                 label={formatMessage(userAttributes.email)}
               />
               <ReCAPTCHA ref={recaptchaRef} />
-              <SubmitButton color="blue">
+              <SubmitButton color="blue" disabled={!hasChanged}>
                 <FormattedMessage {...message} />
               </SubmitButton>
             </>
@@ -146,7 +150,7 @@ const UpdateEmail = () => {
         />
       </Dialog>
       {otpRequiredForLogin && (
-        <TwoFactAuthDialog
+        <TwoFADialog
           onSubmit={(values, onResult) => {
             twoFACallback?.resolve(values.otpAttempt);
             onResult(values);

@@ -7,9 +7,12 @@ import {
 } from 'react-intl';
 import styled from 'styled-components';
 
-import { Fiat } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  MonetaryAmount,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import { Text14 } from '@sorare/core/src/atoms/typography';
-import AmountWithConversion from '@sorare/core/src/components/buyActions/AmountWithConversion';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 import { useTimeLeft } from '@sorare/core/src/hooks/useTimeLeft';
 
 import { BidResume_tokenAuction } from './__generated__/index.graphql';
@@ -57,11 +60,13 @@ const Cell = styled.div`
 const AmountCell = ({
   title,
   amount,
-  amountInFiat,
+  maximumAmounts,
+  referenceCurrency,
 }: {
   title: MessageDescriptor;
+  referenceCurrency: SupportedCurrency;
   amount: string;
-  amountInFiat?: Fiat;
+  maximumAmounts?: MonetaryAmount;
 }) => {
   return (
     <Cell>
@@ -69,11 +74,12 @@ const AmountCell = ({
         <FormattedMessage {...title} />
       </Text14>
       <AmountWithConversion
-        amount={amount}
-        amountInFiat={amountInFiat}
+        monetaryAmount={{
+          referenceCurrency,
+          [referenceCurrency.toLowerCase()]: amount,
+          ...maximumAmounts,
+        }}
         column
-        unit="wei"
-        context="bidConfirmation"
       />
     </Cell>
   );
@@ -89,11 +95,17 @@ const BidResume = ({ auction }: { auction: BidResume_tokenAuction }) => {
         <AmountCell
           title={messages.yourCurrentBid}
           amount={auction.currentPrice}
+          referenceCurrency={auction.currency}
         />
         {auction.autoBid && (
           <AmountCell
             title={messages.yourMaxBid}
             amount={auction.myBestBid?.maximumAmount || auction.currentPrice}
+            maximumAmounts={auction.myBestBid?.maximumAmounts}
+            referenceCurrency={
+              auction.myBestBid?.maximumAmounts.referenceCurrency ||
+              auction.currency
+            }
           />
         )}
       </FirstRow>
@@ -116,6 +128,7 @@ BidResume.fragments = {
       bidsCount
       endDate
       currentPrice
+      currency
       autoBid
       bestBid {
         id
@@ -123,6 +136,13 @@ BidResume.fragments = {
       myBestBid {
         id
         maximumAmount
+        maximumAmounts {
+          referenceCurrency
+          eur
+          wei
+          usd
+          gbp
+        }
       }
     }
   `,

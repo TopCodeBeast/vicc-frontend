@@ -2,11 +2,11 @@ import { faStar } from '@fortawesome/pro-solid-svg-icons';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import Button from '@sorare/core/src/atoms/buttons/Button';
-import { Caption, Title3 } from '@sorare/core/src/atoms/typography';
-import createLink from '@sorare/core/src/atoms/typography/Link';
-import { TERMS } from '@sorare/core/src/constants/routes';
-import { glossary } from '@sorare/core/src/lib/glossary';
+import Button from '@core/atoms/buttons/Button';
+import { Caption, Title3 } from '@core/atoms/typography';
+import createLink from '@core/atoms/typography/Link';
+import { TERMS } from '@core/constants/routes';
+import { glossary } from '@core/lib/glossary';
 
 import ReinsuranceItem from '../ReinsuranceItem';
 import { StaticCashBalance } from '../StaticCashBalance';

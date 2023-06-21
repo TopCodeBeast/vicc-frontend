@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 import { ReactNode, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import { Text14 } from '@sorare/core/src/atoms/typography';
 import ManagerTaskTooltip from '@sorare/core/src/components/onboarding/managerTask/ManagerTaskTooltip';
 import MarketplaceOnboardingTask, {
@@ -20,7 +21,7 @@ import { StackProps, assetIdFromHit } from '@sorare/core/src/lib/algolia';
 import { groupBy } from '@sorare/core/src/lib/arrays';
 import { formatScarcity } from '@sorare/core/src/lib/cards';
 
-import useFacetedSearchCards from '@sorare/marketplace/src/hooks/search/useFacetedSearchCards';
+import useFacetedSearchCards from '@marketplace/hooks/search/useFacetedSearchCards';
 
 import { TokenContent } from './TokenContent';
 import {
@@ -68,9 +69,11 @@ const ATTRIBUTES_TO_RETRIEVE = ['objectID', 'asset_id', 'sport'];
 
 const TooltipDescription = ({ token }: { token: Token_token }) => {
   const { main } = useAmountWithConversion({
-    context: 'OpenAuction',
-    amount: token.liveSingleSaleOffer?.priceWei || '0',
-    unit: 'wei',
+    monetaryAmount: {
+      referenceCurrency: SupportedCurrency.WEI,
+      [SupportedCurrency.WEI.toLowerCase()]:
+        token.liveSingleSaleOffer?.priceWei || '0',
+    },
   });
 
   return (

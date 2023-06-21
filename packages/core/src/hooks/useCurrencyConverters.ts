@@ -1,10 +1,10 @@
 import Big from 'bignumber.js';
 import { useCallback } from 'react';
 
-import { useConfigContext } from '@sorare/core/src/contexts/config';
-import { CurrencyCode } from '@sorare/core/src/lib/fiat';
-import { asObject } from '@sorare/core/src/lib/json';
-import { ETH_DECIMAL_PLACES, WEI_DECIMAL_PLACES } from '@sorare/core/src/lib/wei';
+import { useConfigContext } from '@core/contexts/config';
+import { CurrencyCode } from '@core/lib/fiat';
+import { asObject } from '@core/lib/json';
+import { ETH_DECIMAL_PLACES, WEI_DECIMAL_PLACES } from '@core/lib/wei';
 
 export default () => {
   const { exchangeRate } = useConfigContext();
