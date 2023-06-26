@@ -1,7 +1,7 @@
 import * as braze from '@braze/web-sdk';
 import { useEffect } from 'react';
 
-import { BRAZE_API_KEY, BRAZE_SDK_ENDPOINT } from 'config';
+import { BRAZE_API_KEY, BRAZE_SDK_ENDPOINT } from '@core/config';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import idFromObject from '@core/gql/idFromObject';
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { ReactNode } from 'react';
 
-import { isForcedEnv, isProduction } from 'config';
+import { isForcedEnv, isProduction } from '@core/config';
 
 import EventsContextProvider from '.';
 

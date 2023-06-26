@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 import styled from 'styled-components';
 
 import { getValue } from '@core/components/PersistsQueryStringParameters/storage';
-import { API_ROOT } from 'config';
+import { API_ROOT } from '@core/config';
 import useAfterLoggedInTarget from '@core/hooks/useAfterLoggedInTarget';
 import useQueryString from '@core/hooks/useQueryString';
 

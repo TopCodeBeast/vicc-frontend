@@ -27,3 +27,4 @@ interface Array<T> {
 }
 
 type ISO8601DateTime = Date;
+type JSON = Json;

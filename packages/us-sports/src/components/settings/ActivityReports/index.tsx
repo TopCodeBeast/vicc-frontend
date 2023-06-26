@@ -11,8 +11,8 @@ const US_ACTIVITY_REPORTS_QUERY = gql`
   query UsActivityReportsQuery {
     currentUser {
       slug
-      nbaLast30DaysLineupsCount
-      baseballLast30DaysLineupsCount
+      # nbaLast30DaysLineupsCount
+      # baseballLast30DaysLineupsCount
     }
   }
 `;

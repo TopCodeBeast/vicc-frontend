@@ -5,10 +5,10 @@ import {
   SOFE_API_ROOT,
   US_SPORTS_API_PATH,
   US_SPORTS_API_ROOT,
-} from 'config';
+} from '@core/config';
 import { useSnackNotificationContext } from '@core/contexts/snackNotification';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
-import { getUsSportsApolloClient } from '@core/lib/usSportsGraphql/client';
+// import { getUsSportsApolloClient } from '@core/lib/usSportsGraphql/client';
 
 import { useDebugLink } from './useDebugLink';
 import { useTMLink } from './useTMLink';
@@ -28,11 +28,12 @@ export const useUSSportsApolloClient = () => {
   }${path}`;
 
   return useMemo(() => {
-    return getUsSportsApolloClient({
-      showNotification,
-      debugLink,
-      tmLink,
-      uri,
-    });
+    return null;
+    // return getUsSportsApolloClient({
+    //   showNotification,
+    //   debugLink,
+    //   tmLink,
+    //   uri,
+    // });
   }, [showNotification, debugLink, tmLink, uri]);
 };

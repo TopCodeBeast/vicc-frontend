@@ -10,7 +10,7 @@ import {
 import type { Consumer } from '@rails/actioncable';
 import { print } from 'graphql';
 
-import { IS_TEST_RUNNER } from 'config';
+import { IS_TEST_RUNNER } from '@core/config';
 
 type RequestResult = FetchResult<
   { [key: string]: any },

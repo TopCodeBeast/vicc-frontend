@@ -11,29 +11,29 @@ import { isA } from 'gql';
 import idFromObject from '@core/gql/idFromObject';
 import { getPositionInitials as getMLBPositionInitials } from '@core/lib/baseball';
 import { getPositionInitials as getNBAPositionInitials } from '@core/lib/nba';
-import {
-  BaseballReferralRewardsQuery,
-  BaseballReferralRewardsQueryVariables,
-  NBAReferralRewardsQuery,
-} from '@core/lib/usSportsGraphql/__generated__/queries.graphql';
-import {
-  BASEBALL_REFERRAL_REWARDS_QUERY,
-  NBA_REFERRAL_REWARDS_QUERY,
-} from '@core/lib/usSportsGraphql/queries';
+// import {
+//   BaseballReferralRewardsQuery,
+//   BaseballReferralRewardsQueryVariables,
+//   NBAReferralRewardsQuery,
+// } from '@core/lib/usSportsGraphql/__generated__/queries.graphql';
+// import {
+//   BASEBALL_REFERRAL_REWARDS_QUERY,
+//   NBA_REFERRAL_REWARDS_QUERY,
+// } from '@core/lib/usSportsGraphql/queries';
 
 import { useReferralReward_referralReward } from './__generated__/useReferralReward.graphql';
 import { useBaseballQuery } from './graphql/baseball';
 import { useClaimReferralReward } from './referral/useClaimReferralReward';
 
-const referralRewardsQueryBySport = {
-  [Sport.BASEBALL]: BASEBALL_REFERRAL_REWARDS_QUERY,
-  [Sport.NBA]: NBA_REFERRAL_REWARDS_QUERY,
-  [Sport.FOOTBALL]: undefined,
-};
+// const referralRewardsQueryBySport = {
+//   [Sport.BASEBALL]: BASEBALL_REFERRAL_REWARDS_QUERY,
+//   [Sport.NBA]: NBA_REFERRAL_REWARDS_QUERY,
+//   [Sport.FOOTBALL]: undefined,
+// };
 
-type BaseballReferralRewardsQuery_usSportReferralRewards = NonNullable<
-  BaseballReferralRewardsQuery['usSportReferralRewards']
->[number];
+// type BaseballReferralRewardsQuery_usSportReferralRewards = NonNullable<
+//   BaseballReferralRewardsQuery['usSportReferralRewards']
+// >[number];
 
 export const useReferralReward = (
   reward: useReferralReward_referralReward | null

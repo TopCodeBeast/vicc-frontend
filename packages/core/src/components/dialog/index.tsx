@@ -154,7 +154,7 @@ export const Dialog = ({
       }}
       scroll={scroll}
       fullScreen={!isLaptop || fullScreen}
-      maxWidth={!fullScreen && maxWidth}
+      maxWidth={!fullScreen ? maxWidth : false}
       fullWidth={fullWidth}
       open={!!open}
       onMouseDown={clickDown}

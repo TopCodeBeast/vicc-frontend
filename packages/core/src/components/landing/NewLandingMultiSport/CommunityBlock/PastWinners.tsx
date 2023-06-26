@@ -12,14 +12,14 @@ import useScreenSize from '@core/hooks/device/useScreenSize';
 import useQuery from '@core/hooks/graphql/useQuery';
 import { useUSSportsQuery } from '@core/hooks/graphql/useUSSportsQuery';
 import { Scarcity } from '@core/lib/cards';
-import {
-  BaseballPastWinnerQuery,
-  NBAPastWinnerQuery,
-} from '@core/lib/usSportsGraphql/__generated__/queries.graphql';
-import {
-  BASEBALL_PAST_WINNER_QUERY,
-  NBA_PAST_WINNER_QUERY,
-} from '@core/lib/usSportsGraphql/queries';
+// import {
+//   BaseballPastWinnerQuery,
+//   NBAPastWinnerQuery,
+// } from '@core/lib/usSportsGraphql/__generated__/queries.graphql';
+// import {
+//   BASEBALL_PAST_WINNER_QUERY,
+//   NBA_PAST_WINNER_QUERY,
+// } from '@core/lib/usSportsGraphql/queries';
 import { theme } from '@core/style/theme';
 
 import {
@@ -234,7 +234,7 @@ type Props = {
 };
 
 export const NBAPastWinners = ({ leaderboardSlug }: Props) => {
-  const { data } = useUSSportsQuery<NBAPastWinnerQuery>(NBA_PAST_WINNER_QUERY);
+  /*const { data } = useUSSportsQuery<NBAPastWinnerQuery>(NBA_PAST_WINNER_QUERY);
 
   const lastLeaderboard = data?.nbaPastFixtures.nodes[0]?.leaderboards?.find(
     leaderboard => leaderboard.slug.includes(leaderboardSlug)
@@ -257,11 +257,12 @@ export const NBAPastWinners = ({ leaderboardSlug }: Props) => {
         imageUrl: card.card.fullImageUrl,
       }))}
     />
-  );
+  );*/
+  return <>NBAPastWinners</>
 };
 
 export const BaseballPastWinners = ({ leaderboardSlug }: Props) => {
-  const { data } = useUSSportsQuery<BaseballPastWinnerQuery>(
+  /*const { data } = useUSSportsQuery<BaseballPastWinnerQuery>(
     BASEBALL_PAST_WINNER_QUERY
   );
 
@@ -287,7 +288,8 @@ export const BaseballPastWinners = ({ leaderboardSlug }: Props) => {
         imageUrl: card.card.fullImageUrl,
       }))}
     />
-  );
+  );*/
+  return <>BaseballPastWinners</>
 };
 
 const FOOTBALL_PAST_LEADERBOARD_SLUG_QUERY = gql`
