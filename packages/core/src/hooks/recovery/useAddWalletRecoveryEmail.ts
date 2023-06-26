@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useCallback } from 'react';
 
-import { PrivateKeyRecoveryInput } from '@core/__generated__/globalTypes';
+import { PrivateKeyRecoveryInput } from '__generated__/globalTypes';
 import { walletRecovery } from '@core/contexts/currentUser/queries';
 import useMutation from '@core/hooks/graphql/useMutation';
 

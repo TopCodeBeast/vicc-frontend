@@ -1,4 +1,4 @@
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 
 export const HREF_HELP = 'https://help.sorare.com';
 export const HREF_MEDIUM = 'https://medium.com/sorare';

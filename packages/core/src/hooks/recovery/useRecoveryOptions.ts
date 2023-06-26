@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import {
   PrivateKeyRecoveryOptionMethodEnum,
   PrivateKeyRecoveryOptionStatusEnum,
-} from '@core/__generated__/globalTypes';
+} from '__generated__/globalTypes';
 import { CurrentUser, useCurrentUserContext } from '@core/contexts/currentUser';
 
 export type RecoveryOption = NonNullable<

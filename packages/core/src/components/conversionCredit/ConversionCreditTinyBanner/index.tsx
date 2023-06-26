@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import { ChevronRightBold } from '@core/atoms/icons/ChevronRightBold';
 import { Text14, Text16 } from '@core/atoms/typography';
 import { useCurrentUserContext } from '@core/contexts/currentUser';

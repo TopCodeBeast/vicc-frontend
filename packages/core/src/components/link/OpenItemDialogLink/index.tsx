@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import {
   LEGACY_BUNDLED_AUCTION,
   LEGACY_CARD_SHOW,

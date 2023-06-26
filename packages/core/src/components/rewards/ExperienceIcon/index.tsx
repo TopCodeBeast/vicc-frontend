@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import styled from 'styled-components';
 
-import { CustomRewardExperience } from '@core/__generated__/globalTypes';
+import { CustomRewardExperience } from '__generated__/globalTypes';
 import experiences from '@core/assets/rewards/experiences.png';
 import jerseys from '@core/assets/rewards/jerseys.png';
 import merch from '@core/assets/rewards/merch.png';

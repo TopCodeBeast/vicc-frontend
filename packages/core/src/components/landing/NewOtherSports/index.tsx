@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import mlbLogoSrc from '@core/assets/logos/mlb/mlb.svg';
 import mlbpaLogoSrc from '@core/assets/logos/mlb/mlbpa.svg';
 import nbaLogoSrc from '@core/assets/logos/nba/nba.svg';

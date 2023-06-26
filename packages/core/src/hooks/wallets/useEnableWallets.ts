@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-import { EnabledWallet } from '@core/__generated__/globalTypes';
+import { EnabledWallet } from '__generated__/globalTypes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useSnackNotificationContext } from '@core/contexts/snackNotification';
 import useMutation from '@core/hooks/graphql/useMutation';

@@ -1,6 +1,6 @@
 import { defineMessages } from 'react-intl';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import { useSportContext } from '@core/contexts/sport';
 import { useConversionCredit } from '@core/hooks/useConversionCredit';
 

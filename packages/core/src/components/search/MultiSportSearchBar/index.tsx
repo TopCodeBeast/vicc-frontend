@@ -1,6 +1,6 @@
 import { FunctionComponent, useState } from 'react';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import { AlgoliaIndexes } from '@core/contexts/config';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { Lifecycle } from '@core/hooks/useLifecycle';

@@ -6,7 +6,7 @@ import { ReactElement } from 'react-markdown/lib/react-markdown';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import Button from '@core/atoms/buttons/Button';
 import { Fade } from '@core/atoms/ui/Transition';
 import { useIntlContext } from '@core/contexts/intl';

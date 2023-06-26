@@ -6,7 +6,8 @@ export type Reward = {
   backgroundText: Rarity | '';
   header: React.ReactElement;
   back: React.ReactElement;
-  front: React.ReactElement;
+  front: ((isClaimed?: boolean) => JSX.Element) | JSX.Element;
   teasers: React.ReactElement[];
   claimed: boolean;
+  drawerContent?: any;
 };

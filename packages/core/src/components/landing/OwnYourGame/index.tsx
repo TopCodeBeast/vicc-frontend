@@ -4,7 +4,7 @@ import { animated, config, useSpring } from '@react-spring/web';
 import shuffle from 'shuffle-array';
 import styled from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import { BackgroundAnimation } from '@core/atoms/animations/Background';
 import Container from '@core/atoms/layout/Container';
 import { useDefaultSportPages } from '@core/constants/routes';

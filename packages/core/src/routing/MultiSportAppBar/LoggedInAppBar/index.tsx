@@ -13,7 +13,7 @@ import { Link, generatePath, useNavigate } from 'react-router-dom';
 import { animated, useSpring } from '@react-spring/web';
 import styled, { css } from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import { Container, FullWidth } from '@core/atoms/container';
 import { SorareLogo } from '@core/atoms/icons/SorareLogo';
 import { Text16, text16 } from '@core/atoms/typography';

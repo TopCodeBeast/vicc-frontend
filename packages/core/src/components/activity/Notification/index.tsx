@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-import { isType } from 'gql';
+import { isType } from '@core/gql';
 
 import { AnnouncementNotification } from './AnnouncementNotification';
 import { AuctionNotification } from './AuctionNotification';

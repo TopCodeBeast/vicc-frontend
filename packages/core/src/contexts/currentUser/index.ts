@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import { Currency, FiatWalletAccount } from '@core/__generated__/globalTypes';
+import { Currency, FiatWalletAccount } from '__generated__/globalTypes';
 import { Currency as FiatCurrency } from '@core/lib/fiat';
 
 import { SignInMutation } from './__generated__/queries.graphql';

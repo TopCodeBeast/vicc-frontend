@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 
-import { FiatCurrency, SupportedCurrency } from '@core/__generated__/globalTypes';
+import { FiatCurrency, SupportedCurrency } from '__generated__/globalTypes';
 
 import { CurrencyCode } from './fiat';
 

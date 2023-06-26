@@ -1,6 +1,6 @@
 import { MessageDescriptor, defineMessages } from 'react-intl';
 
-import { OwnerTransfer } from '@core/__generated__/globalTypes';
+import { OwnerTransfer } from '__generated__/globalTypes';
 
 const messages = defineMessages<
   Exclude<OwnerTransfer, OwnerTransfer.SINGLE_BUY_OFFER>,

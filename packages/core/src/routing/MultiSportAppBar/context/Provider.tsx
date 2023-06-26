@@ -1,6 +1,6 @@
 import { ReactNode, useCallback, useEffect, useState } from 'react';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import { useSportContext } from '@core/contexts/sport';
 import { useIsDesktop } from '@core/hooks/device/useIsDesktop';
 import useTouchScreen from '@core/hooks/device/useTouchScreen';

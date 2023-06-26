@@ -1,7 +1,7 @@
 import qs from 'qs';
 import { matchPath } from 'react-router-dom';
 
-import { Sport as SportType } from '@core/__generated__/globalTypes';
+import { Sport as SportType } from '__generated__/globalTypes';
 import { SEARCH_PARAMS } from '@core/components/search/InstantSearch/types';
 import { Sport } from '@core/protos/events/shared/events';
 

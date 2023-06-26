@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import { PrivateKeyRecoveryOptionStatusEnum } from '@core/__generated__/globalTypes';
+import { PrivateKeyRecoveryOptionStatusEnum } from '__generated__/globalTypes';
 import Button from '@core/atoms/buttons/Button';
 import IconButton from '@core/atoms/buttons/IconButton';
 import DialogWithNavigation from '@core/atoms/layout/DialogWithNavigation';

@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import Button from '@core/atoms/buttons/Button';
 import { Text14, Text16, Text18, Title3 } from '@core/atoms/typography';
 import CardBack from '@core/components/card/Back';

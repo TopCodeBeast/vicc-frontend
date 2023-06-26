@@ -5,7 +5,7 @@ import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { MonetaryAmount, Sport } from '@core/__generated__/globalTypes';
+import { MonetaryAmount, Sport } from '__generated__/globalTypes';
 import Container from '@core/atoms/layout/Container';
 import { Text14, Text16 } from '@core/atoms/typography';
 import { AUCTION_MARKET_URL, STARTER_BUNDLES_URL } from '@core/constants/routes';

@@ -4,7 +4,7 @@ import {
   ConversionCreditCampaign,
   MonetaryAmount,
   Sport,
-} from '@core/__generated__/globalTypes';
+} from '__generated__/globalTypes';
 
 export enum SESSION_STORAGE {
   sport = 'sport',

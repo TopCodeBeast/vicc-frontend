@@ -1,7 +1,7 @@
 import { faHome, faShop } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import { Diamond } from '@core/atoms/icons/Diamond';
 import { Jersey } from '@core/atoms/icons/Jersey';
 import {

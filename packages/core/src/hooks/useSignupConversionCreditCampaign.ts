@@ -4,7 +4,7 @@ import {
   ConversionCreditCampaign,
   ConversionCreditCampaignStatus,
   Sport,
-} from '@core/__generated__/globalTypes';
+} from '__generated__/globalTypes';
 import { useSportContext } from '@core/contexts/sport';
 import useMonetaryAmount from '@core/hooks/useMonetaryAmount';
 

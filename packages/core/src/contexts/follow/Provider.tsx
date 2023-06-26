@@ -1,7 +1,7 @@
 import { gql, useLazyQuery } from '@apollo/client';
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 
 import FollowContextProvider from '.';
 import {

@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Rarity } from '@core/__generated__/globalTypes';
+import { Rarity } from '__generated__/globalTypes';
 import ScarcityIcon from '@core/atoms/icons/ScarcityIcon';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import { Text16, TypographyVariant } from '@core/atoms/typography';

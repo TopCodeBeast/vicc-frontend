@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import { Currency } from '@core/lib/fiat';
 
 import {

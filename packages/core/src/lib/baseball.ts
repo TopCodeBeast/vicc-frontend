@@ -1,4 +1,4 @@
-import { BaseballPlayerPosition } from '@core/__generated__/usSportsGlobalTypes';
+import { BaseballPlayerPosition } from '__generated__/usSportsGlobalTypes';
 
 export type Scarcity = 'common' | 'limited' | 'rare' | 'super_rare' | 'unique';
 

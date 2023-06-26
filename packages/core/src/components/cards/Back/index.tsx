@@ -2,8 +2,8 @@ import { HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
-import { CardRarity } from '@core/__generated__/usSportsGlobalTypes';
+import { Sport } from '__generated__/globalTypes';
+import { CardRarity } from '__generated__/usSportsGlobalTypes';
 import { proxyUrl } from '@core/atoms/ui/ResponsiveImg';
 import Shine from '@core/atoms/ui/Shine';
 import { FRONTEND_ASSET_HOST } from '@core/constants/assets';

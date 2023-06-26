@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import { SorareLogo } from '@core/atoms/icons/SorareLogo';
 import { Caption, Text14 } from '@core/atoms/typography';
 import UninteractiveToken from '@core/components/token/UninteractiveToken';

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import {
   Currency as CurrencyType,
   FiatCurrency,
-} from '@core/__generated__/globalTypes';
+} from '__generated__/globalTypes';
 import Select from '@core/atoms/inputs/Select';
 import { Text16 } from '@core/atoms/typography';
 import { useCurrentUserContext } from '@core/contexts/currentUser';

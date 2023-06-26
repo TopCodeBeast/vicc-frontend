@@ -7,7 +7,7 @@ import {
 } from 'react-intl';
 import styled from 'styled-components';
 
-import { Delivery } from '@core/__generated__/globalTypes';
+import { Delivery } from '__generated__/globalTypes';
 import LoadingButton from '@core/atoms/buttons/LoadingButton';
 import { Text14, Text16, Title3 } from '@core/atoms/typography';
 import { useCurrentUserContext } from '@core/contexts/currentUser';

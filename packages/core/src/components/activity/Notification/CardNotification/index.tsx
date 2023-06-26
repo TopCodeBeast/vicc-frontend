@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { FormattedMessage, defineMessages } from 'react-intl';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import Bold from '@core/atoms/typography/Bold';
 import { DumbNotification } from '@core/components/activity/DumbNotification';
 import { LEGACY_CARD_SHOW } from '@core/constants/routes';

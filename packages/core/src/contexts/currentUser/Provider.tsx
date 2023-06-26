@@ -2,7 +2,7 @@ import { useSubscription } from '@apollo/client';
 import Big from 'bignumber.js';
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Currency } from '@core/__generated__/globalTypes';
+import { Currency } from '__generated__/globalTypes';
 import createLink from '@core/atoms/typography/Link';
 import { SETTINGS_SECURITY } from '@core/constants/routes';
 import { isType } from 'gql';

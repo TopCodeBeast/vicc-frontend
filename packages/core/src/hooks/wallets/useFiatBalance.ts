@@ -1,4 +1,4 @@
-import { FiatCurrency } from '@core/__generated__/globalTypes';
+import { FiatCurrency } from '__generated__/globalTypes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useIntlContext } from '@core/contexts/intl';
 

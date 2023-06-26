@@ -1,7 +1,7 @@
 import { ReactElement } from 'react-markdown/lib/react-markdown';
 import styled from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import { SorareLogo } from '@core/atoms/icons/SorareLogo';
 import StarBall from '@core/atoms/icons/StarBall';
 

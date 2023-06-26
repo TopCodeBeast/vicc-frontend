@@ -1,4 +1,4 @@
-import { UserWalletStatusEnum } from '@core/__generated__/globalTypes';
+import { UserWalletStatusEnum } from '__generated__/globalTypes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 
 export const useWalletNeedsRecover = () => {

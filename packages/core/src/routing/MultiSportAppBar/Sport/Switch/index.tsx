@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import { FOOTBALL_HOME, MLB_HOME, NBA_HOME } from '@core/constants/routes';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 

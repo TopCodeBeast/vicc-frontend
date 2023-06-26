@@ -2,7 +2,7 @@ import { faEye, faEyeSlash } from '@fortawesome/pro-solid-svg-icons';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { SupportedCurrency } from '@core/__generated__/globalTypes';
+import { SupportedCurrency } from '__generated__/globalTypes';
 import IconButton from '@core/atoms/buttons/IconButton';
 import { Text14, Text16 } from '@core/atoms/typography';
 import Dots from '@core/atoms/ui/Dots';

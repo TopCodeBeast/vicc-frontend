@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/client';
 import Favico from 'favico.js';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { NotificationCategoryInput, Sport } from '@core/__generated__/globalTypes';
+import { NotificationCategoryInput, Sport } from '__generated__/globalTypes';
 import { allGroups } from '@core/components/activity/constants';
 import { flattenGroups } from '@core/components/activity/utils';
 import { useCurrentUserContext } from '@core/contexts/currentUser';

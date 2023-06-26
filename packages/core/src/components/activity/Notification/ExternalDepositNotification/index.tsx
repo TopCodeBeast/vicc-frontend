@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { FormattedMessage, defineMessages } from 'react-intl';
 
-import { ExternalDepositNotificationStatus } from '@core/__generated__/globalTypes';
+import { ExternalDepositNotificationStatus } from '__generated__/globalTypes';
 import { DumbNotification } from '@core/components/activity/DumbNotification';
 import { useIntlContext } from '@core/contexts/intl';
 import { useWalletDrawerContext } from '@core/contexts/walletDrawer';

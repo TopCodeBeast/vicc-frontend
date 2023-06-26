@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Currency, SupportedCurrency } from '@core/__generated__/globalTypes';
+import { Currency, SupportedCurrency } from '__generated__/globalTypes';
 import { Caption, Title3 } from '@core/atoms/typography';
 import Dots from '@core/atoms/ui/Dots';
 import { useCurrentUserContext } from '@core/contexts/currentUser';

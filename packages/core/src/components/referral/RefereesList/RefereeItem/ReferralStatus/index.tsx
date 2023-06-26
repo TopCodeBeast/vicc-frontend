@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import Button from '@core/atoms/buttons/Button';
 import { Ball } from '@core/atoms/icons/Ball';
 import { Text14 } from '@core/atoms/typography';

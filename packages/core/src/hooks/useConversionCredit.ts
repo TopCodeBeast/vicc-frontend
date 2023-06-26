@@ -7,7 +7,7 @@ import {
   ConversionCreditStatus,
   MonetaryAmount,
   Sport,
-} from '@core/__generated__/globalTypes';
+} from '__generated__/globalTypes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useMonetaryAmount from '@core/hooks/useMonetaryAmount';
 

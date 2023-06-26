@@ -1,4 +1,4 @@
-import { EnabledWallet } from '@core/__generated__/globalTypes';
+import { EnabledWallet } from '__generated__/globalTypes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 

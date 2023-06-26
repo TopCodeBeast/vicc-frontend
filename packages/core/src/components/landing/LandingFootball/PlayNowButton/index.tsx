@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import Button, { Props } from '@core/atoms/buttons/Button';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 import useEvents from '@core/lib/events/useEvents';

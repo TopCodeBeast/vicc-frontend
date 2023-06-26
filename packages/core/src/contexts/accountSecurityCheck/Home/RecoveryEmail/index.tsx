@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { PrivateKeyRecoveryOptionStatusEnum } from '@core/__generated__/globalTypes';
+import { PrivateKeyRecoveryOptionStatusEnum } from '__generated__/globalTypes';
 import { Text14, Text16, Title6 } from '@core/atoms/typography';
 import {
   SecurityCheckTab,

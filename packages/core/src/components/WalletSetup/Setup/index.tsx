@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { EnabledWallet } from '@core/__generated__/globalTypes';
+import { EnabledWallet } from '__generated__/globalTypes';
 import Button from '@core/atoms/buttons/Button';
 import LoadingButton from '@core/atoms/buttons/LoadingButton';
 import { Text14, Text16, Title3 } from '@core/atoms/typography';

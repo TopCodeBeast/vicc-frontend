@@ -4,7 +4,7 @@ import { relayStylePagination } from '@apollo/client/utilities';
 import { mergeDeep } from '@apollo/client/utilities/common/mergeDeep';
 import { Reference } from '@apollo/client/utilities/graphql/storeUtils';
 
-import { So5LineupConnection, So5LineupEdge } from '@core/__generated__/globalTypes';
+import { So5LineupConnection, So5LineupEdge } from '__generated__/globalTypes';
 
 // Cached data has an extra __ref property that allows links between elements of the cache. They are unique identifiers in the cache
 type CachedSo5LineupEdge = So5LineupEdge & { node: Reference };

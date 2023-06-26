@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import { MarketplacePreference, Sport } from '@core/__generated__/globalTypes';
+import { MarketplacePreference, Sport } from '__generated__/globalTypes';
 import Switch from '@core/atoms/inputs/Switch';
 import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
 import { ConfirmDialog } from '@core/components/form/ConfirmDialog';

@@ -2,7 +2,7 @@ import isMobileWeb from 'is-mobile';
 import { useContext, useEffect, useState } from 'react';
 
 import { MessagingContext, SignUp } from '@sorare/wallet-shared';
-import { SignupPlatform } from '@core/__generated__/globalTypes';
+import { SignupPlatform } from '__generated__/globalTypes';
 import { AcceptTermsInfo, useConnectionContext } from '@core/contexts/connection';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useSignUp from '@core/hooks/auth/useSignUp';

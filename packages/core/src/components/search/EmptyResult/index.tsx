@@ -1,6 +1,6 @@
 import { FormattedMessage, defineMessages } from 'react-intl';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import Button from '@core/atoms/buttons/Button';
 import { Text16 } from '@core/atoms/typography';
 

@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import { CardQuality, Rarity, Sport } from '@core/__generated__/globalTypes';
+import { CardQuality, Rarity, Sport } from '__generated__/globalTypes';
 import { Ball } from '@core/atoms/icons/Ball';
 import { MLBBall } from '@core/atoms/icons/MLBBall';
 import { NBABall } from '@core/atoms/icons/NBABall';

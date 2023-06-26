@@ -1,7 +1,7 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import mlbLogo from '@core/assets/logos/mlb/mlb-monochrome.svg';
 import mlbpaLogo from '@core/assets/logos/mlb/mlbpa.svg';
 import nbaLogo from '@core/assets/logos/nba/nba-monochrome.svg';

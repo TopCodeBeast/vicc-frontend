@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
 import { CreateWalletRecovery } from '@sorare/wallet-shared';
-import { PrivateKeyRecoveryOptionStatusEnum } from '@core/__generated__/globalTypes';
+import { PrivateKeyRecoveryOptionStatusEnum } from '__generated__/globalTypes';
 import { Text14, Text16, Title3 } from '@core/atoms/typography';
 import TwoFADialog from '@core/components/TwoFA/TwoFADialog';
 import { GraphQLResult, GraphqlForm, TextField } from '@core/components/form/Form';

@@ -8,6 +8,22 @@ export interface Dict<T> {
   [key: string]: T;
 }
 
+export interface StartCase<T> {
+  //TODO
+}
+
 export type Nullable<T> = T | null;
 
-export type TokenComponentType = any;
+type AuctionNFT = {
+  assetId: string
+}
+
+type TokenComponentTypeProps = {
+  assetId: string;
+  auction: {
+    nfts: AuctionNFT[];
+  }
+}
+
+export type TokenComponentType = (params: TokenComponentTypeProps) => React.ReactNode;
+

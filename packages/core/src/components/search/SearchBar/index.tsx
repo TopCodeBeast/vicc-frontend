@@ -6,7 +6,7 @@ import { generatePath, useNavigate } from 'react-router-dom';
 import { useDebounce } from 'react-use';
 import styled, { css } from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import Button from '@core/atoms/buttons/Button';
 import SearchInput from '@core/atoms/inputs/SearchInput';
 import { Caption } from '@core/atoms/typography';

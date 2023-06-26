@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import {
   SignupPlatform,
   SorarePrivateKeyAttributes,
-} from '@core/__generated__/globalTypes';
+} from '__generated__/globalTypes';
 import { getValue } from '@core/components/PersistsQueryStringParameters/storage';
 import { useConfigContext } from '@core/contexts/config';
 import { useConnectionContext } from '@core/contexts/connection';

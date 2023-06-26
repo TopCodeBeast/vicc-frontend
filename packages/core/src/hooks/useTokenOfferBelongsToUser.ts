@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-import { User } from '@core/__generated__/globalTypes';
+import { User } from '__generated__/globalTypes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { isA } from '@core/lib/gql';
 

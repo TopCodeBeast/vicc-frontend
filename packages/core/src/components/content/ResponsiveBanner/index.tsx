@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { So5LeaderboardType } from '@core/__generated__/globalTypes';
+import { So5LeaderboardType } from '__generated__/globalTypes';
 import { useConfigContext } from '@core/contexts/config';
 import ErrorBoundary from '@core/contexts/sentry/ErrorBoundary';
 import { EventsType } from '@core/lib/events/EventsType';

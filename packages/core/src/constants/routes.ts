@@ -1,7 +1,7 @@
 import qs from 'qs';
 import { generatePath, matchPath } from 'react-router-dom';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 
 import { API_ROOT } from '../config';
 

@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import { Rarity, So5LeaderboardRarity } from '@core/__generated__/globalTypes';
+import { Rarity, So5LeaderboardRarity } from '__generated__/globalTypes';
 
 import { User } from '../User';
 

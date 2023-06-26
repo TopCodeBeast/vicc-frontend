@@ -1,7 +1,7 @@
 import { HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-import { Rarity } from '@core/__generated__/globalTypes';
+import { Rarity } from '__generated__/globalTypes';
 import Shine from '@core/atoms/ui/Shine';
 import { CARD_BORDER_RADIUS } from '@core/lib/cards';
 

@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useMemo } from 'react';
 import { useInterval } from 'react-use';
 
 import useFontFaceObserver from '@sorare/use-font-face-observer';
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
 import { useGraphqlContext } from '@core/contexts/graphql';
 import { useTMContext } from '@core/contexts/tm';

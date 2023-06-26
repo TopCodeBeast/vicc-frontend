@@ -3,7 +3,7 @@
 
 import { defineMessages } from 'react-intl';
 
-import { CardQuality, Position } from '@core/__generated__/globalTypes';
+import { CardQuality, Position } from '__generated__/globalTypes';
 
 import {
   LenientPolicy,

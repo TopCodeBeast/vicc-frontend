@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { ReferralState } from '@core/__generated__/globalTypes';
+import { ReferralState } from '__generated__/globalTypes';
 import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
 import Pagination from '@core/atoms/navigation/Pagination';
 import { Text18 } from '@core/atoms/typography';

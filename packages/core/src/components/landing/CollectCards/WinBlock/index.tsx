@@ -1,9 +1,9 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import { CardRarity } from '@core/__generated__/usSportsGlobalTypes';
+import { CardRarity } from '__generated__/usSportsGlobalTypes';
 import { USSportCardBack } from '@core/components/cards/Back';
 import { useIntlContext } from '@core/contexts/intl';
 import { theme } from '@core/style/theme';

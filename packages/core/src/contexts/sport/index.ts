@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import { Params } from 'react-router-dom';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 
 export type GenerateSportPathFunctionType = (
   path: string,

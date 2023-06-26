@@ -1,4 +1,4 @@
-import { Currency } from '@core/__generated__/globalTypes';
+import { Currency } from '__generated__/globalTypes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useIntlContext } from '@core/contexts/intl';
 import { MonetaryAmountParams } from '@core/lib/monetaryAmount';

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import {
   PrivateKeyRecoveryOption,
   PrivateKeyRecoveryOptionMethodEnum,
-} from '@core/__generated__/globalTypes';
+} from '__generated__/globalTypes';
 import LoadingButton from '@core/atoms/buttons/LoadingButton';
 import Radio from '@core/atoms/inputs/Radio';
 import { Text14, Text16, Title3 } from '@core/atoms/typography';

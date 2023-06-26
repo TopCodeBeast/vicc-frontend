@@ -26,5 +26,6 @@ interface Array<T> {
   filter<S extends T>(predicate: BooleanConstructor, thisArg?: any): Exclude<S, Falsy>[];
 }
 
+type ISO8601Date = Date;
 type ISO8601DateTime = Date;
-type JSON = Json;
+type Json = JSON;

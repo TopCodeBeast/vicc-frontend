@@ -8,7 +8,7 @@ import {
   Rarity,
   ReferralState,
   Sport,
-} from '@core/__generated__/globalTypes';
+} from '__generated__/globalTypes';
 import { RainbowBox } from '@core/atoms/layout/RainbowBox';
 import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
 import { Text18, Title3 } from '@core/atoms/typography';

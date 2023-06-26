@@ -1,7 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
 
-import { CommonDraftCampaignType, Sport } from '@core/__generated__/globalTypes';
+import { CommonDraftCampaignType, Sport } from '__generated__/globalTypes';
 import { AlgoliaCardIndexesName } from '@core/contexts/config';
 import { getInteractionContext } from '@core/lib/events';
 

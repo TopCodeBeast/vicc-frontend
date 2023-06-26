@@ -9,7 +9,7 @@ import {
   Sport,
   Tradeable,
   WalletStatus,
-} from '@core/__generated__/globalTypes';
+} from '__generated__/globalTypes';
 import { AlgoliaCardIndexesNames } from '@core/contexts/config';
 import idFromObject from '@core/gql/idFromObject';
 

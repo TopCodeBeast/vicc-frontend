@@ -2,7 +2,7 @@ import { Divider, Drawer, DrawerProps } from '@material-ui/core';
 import { animated, config, useSpring } from '@react-spring/web';
 import styled, { css } from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import ButtonBase from '@core/atoms/buttons/ButtonBase';
 import { ChevronDownBold } from '@core/atoms/icons/ChevronDownBold';
 import { CloseBold } from '@core/atoms/icons/CloseBold';

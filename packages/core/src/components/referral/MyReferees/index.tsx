@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { ReferralState } from '@core/__generated__/globalTypes';
+import { ReferralState } from '__generated__/globalTypes';
 import RadioGroup from '@core/atoms/inputs/RadioGroup';
 import Tooltip from '@core/atoms/tooltip/Tooltip';
 import { Title4 } from '@core/atoms/typography';

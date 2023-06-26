@@ -3,7 +3,7 @@ import Helmet from 'react-helmet';
 import { useIntl } from 'react-intl';
 import { useLocation } from 'react-router-dom';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import { APP_STORE_ID, APP_STORE_NAME } from '@core/constants/apps';
 import { FRONTEND_ASSET_HOST } from '@core/constants/assets';
 import useIsMlbPage from '@core/hooks/useIsMlbPage';

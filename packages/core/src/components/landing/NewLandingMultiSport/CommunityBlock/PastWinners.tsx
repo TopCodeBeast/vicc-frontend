@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { LeaderboardRarity } from '@core/__generated__/usSportsGlobalTypes';
+import { LeaderboardRarity } from '__generated__/usSportsGlobalTypes';
 import { Text14 } from '@core/atoms/typography';
 import { proxyUrl } from '@core/atoms/ui/ResponsiveImg';
 import { PictureAvatar, PlaceHolderAvatar } from '@core/components/user/Avatar';

@@ -1,7 +1,7 @@
 import { gql, useApolloClient } from '@apollo/client';
 import { useState } from 'react';
 
-import { PrivateKeyRecoveryOption } from '@core/__generated__/globalTypes';
+import { PrivateKeyRecoveryOption } from '__generated__/globalTypes';
 import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
 import { useWalletContext } from '@core/contexts/wallet';
 import useMutation from '@core/hooks/graphql/useMutation';

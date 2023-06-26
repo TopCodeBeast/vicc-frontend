@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { MonetaryAmount } from '@core/__generated__/globalTypes';
+import { MonetaryAmount } from '__generated__/globalTypes';
 import { useConfigContext } from '@core/contexts/config';
 import MonetaryAmountClass, { MonetaryAmountParams } from '@core/lib/monetaryAmount';
 

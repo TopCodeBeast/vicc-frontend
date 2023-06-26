@@ -1,4 +1,4 @@
-import { StartCase } from 'types';
+import { StartCase } from '@core/types';
 
 const toStartCase = <T extends string>(s: T): StartCase<T> => {
   return (

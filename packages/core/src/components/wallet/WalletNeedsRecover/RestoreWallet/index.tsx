@@ -1,7 +1,7 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { PrivateKeyRecoveryOptionMethodEnum } from '@core/__generated__/globalTypes';
+import { PrivateKeyRecoveryOptionMethodEnum } from '__generated__/globalTypes';
 import { Text16, Title3 } from '@core/atoms/typography';
 import { useWalletContext } from '@core/contexts/wallet';
 import useSendRecoverKey from '@core/hooks/recovery/useSendRecoverKey';

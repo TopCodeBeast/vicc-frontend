@@ -10,10 +10,10 @@ import styled from 'styled-components';
 
 import { range } from '@sorare/core/src/lib/arrays';
 
-import playerPlaceholder from 'assets/players/placeholder.png';
-import WhistleIcon from 'assets/stats/WhistleIcon';
-import glove from 'assets/stats/glove.svg';
-import shoe from 'assets/stats/shoe.svg';
+import playerPlaceholder from '@football/assets/players/placeholder.png';
+import WhistleIcon from '@football/assets/stats/WhistleIcon';
+import glove from '@football/assets/stats/glove.svg';
+import shoe from '@football/assets/stats/shoe.svg';
 import PlayerScore from '@football/components/stats/PlayerScore';
 import { statLabels } from '@football/lib/scoring';
 

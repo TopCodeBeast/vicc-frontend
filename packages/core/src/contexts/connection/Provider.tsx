@@ -3,7 +3,7 @@ import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { OnBackForgotPassword } from '@sorare/wallet-shared';
-import { TermsAndConditionsStatus } from '@core/__generated__/globalTypes';
+import { TermsAndConditionsStatus } from '__generated__/globalTypes';
 import { GoogleReCAPTCHA, ReCAPTCHA } from '@core/components/recaptcha';
 import { TERMS } from '@core/constants/routes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';

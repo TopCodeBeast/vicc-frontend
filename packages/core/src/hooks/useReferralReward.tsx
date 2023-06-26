@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 import { useMemo } from 'react';
 
-import { ShippingState, Sport } from '@core/__generated__/globalTypes';
-import { RewardState } from '@core/__generated__/usSportsGlobalTypes';
+import { ShippingState, Sport } from '__generated__/globalTypes';
+import { RewardState } from '__generated__/usSportsGlobalTypes';
 import { Title3 } from '@core/atoms/typography';
 import { CardBack as CardBackFootball } from '@core/components/card/Back/Football';
 import { USSportCardBack } from '@core/components/cards/Back';

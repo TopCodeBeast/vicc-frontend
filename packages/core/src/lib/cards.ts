@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import { isFuture, parseISO } from 'date-fns';
 import { RefinementListItem } from 'instantsearch.js/es/connectors/refinement-list/connectRefinementList';
 
-import { OfferType, Sport } from '@core/__generated__/globalTypes';
+import { OfferType, Sport } from '__generated__/globalTypes';
 
 import {
   isListedOnMarket_card,

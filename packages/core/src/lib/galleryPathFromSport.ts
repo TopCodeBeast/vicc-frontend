@@ -1,6 +1,6 @@
 import { generatePath } from 'react-router-dom';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import {
   FOOTBALL_USER_GALLERY,
   MLB_USER_GALLERY,

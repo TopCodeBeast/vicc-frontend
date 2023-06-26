@@ -2,7 +2,7 @@ import { Divider } from '@material-ui/core';
 import { useMemo, useState } from 'react';
 import { FormattedMessage, defineMessage } from 'react-intl';
 
-import { Sport } from '@core/__generated__/globalTypes';
+import { Sport } from '__generated__/globalTypes';
 import { Ball } from '@core/atoms/icons/Ball';
 import { MLBBall } from '@core/atoms/icons/MLBBall';
 import { NBABall } from '@core/atoms/icons/NBABall';
