@@ -57,69 +57,69 @@ import { RoutesWithDialogs } from '@sorare/core/src/routing/Router';
 import { AppLayout } from '@sorare/us-sports/src/components/AppLayout';
 
 import Landing from '@sorare/shared-pages/src/Landing';
-import RedirectRouter from 'RedirectRouter';
+import RedirectRouter from './RedirectRouter';
 
-const Activity = lazy(async () => import('@sorare/shared-pages/src/Activity'));
-const Careers = lazy(async () => import('@sorare/shared-pages/src/Careers'));
-const LicensedPartners = lazy(
-  async () => import('@sorare/shared-pages/src/LicensedPartners')
-);
-const AffiliateProgram = lazy(
-  async () => import('@sorare/shared-pages/src/AffiliateProgram')
-);
+// const Activity = lazy(async () => import('@sorare/shared-pages/src/Activity'));
+// const Careers = lazy(async () => import('@sorare/shared-pages/src/Careers'));
+// const LicensedPartners = lazy(
+//   async () => import('@sorare/shared-pages/src/LicensedPartners')
+// );
+// const AffiliateProgram = lazy(
+//   async () => import('@sorare/shared-pages/src/AffiliateProgram')
+// );
 const Dialog = lazy(
   async () => import('@sorare/core/src/components/dialog/index')
 );
 const WalletDrawer = lazy(
   async () => import('@sorare/core/src/components/wallet/WalletDrawer')
 );
-const Press = lazy(async () => import('@sorare/shared-pages/src/Press'));
+// const Press = lazy(async () => import('@sorare/shared-pages/src/Press'));
 const BlockchainProvider = lazy(
   async () => import('@sorare/core/src/contexts/blockchain/Provider')
 );
 const Web3Provider = lazy(
   async () => import('@sorare/core/src/contexts/web3/Provider')
 );
-const ConfirmDevice = lazy(
-  async () => import('@sorare/shared-pages/src/ConfirmDevice')
-);
-const ConfirmEmail = lazy(
-  async () => import('@sorare/shared-pages/src/ConfirmEmail')
-);
-const Redirect = lazy(async () => import('@sorare/shared-pages/src/Link'));
-const DebugDevice = lazy(
-  async () => import('@sorare/shared-pages/src/DebugDevice')
-);
+// const ConfirmDevice = lazy(
+//   async () => import('@sorare/shared-pages/src/ConfirmDevice')
+// );
+// const ConfirmEmail = lazy(
+//   async () => import('@sorare/shared-pages/src/ConfirmEmail')
+// );
+// const Redirect = lazy(async () => import('@sorare/shared-pages/src/Link'));
+// const DebugDevice = lazy(
+//   async () => import('@sorare/shared-pages/src/DebugDevice')
+// );
 
-const MobileSignUp = lazy(
-  async () => import('@sorare/shared-pages/src/MobileSignUp')
-);
-const PrivacyPolicy = lazy(
-  async () => import('@sorare/shared-pages/src/PrivacyPolicy')
-);
-const CookiePolicy = lazy(
-  async () => import('@sorare/shared-pages/src/CookiePolicy')
-);
-const Terms = lazy(async () => import('@sorare/shared-pages/src/Terms'));
-const ContentPreview = lazy(
-  async () => import('@sorare/shared-pages/src/ContentPreview')
-);
+// const MobileSignUp = lazy(
+//   async () => import('@sorare/shared-pages/src/MobileSignUp')
+// );
+// const PrivacyPolicy = lazy(
+//   async () => import('@sorare/shared-pages/src/PrivacyPolicy')
+// );
+// const CookiePolicy = lazy(
+//   async () => import('@sorare/shared-pages/src/CookiePolicy')
+// );
+// const Terms = lazy(async () => import('@sorare/shared-pages/src/Terms'));
+// const ContentPreview = lazy(
+//   async () => import('@sorare/shared-pages/src/ContentPreview')
+// );
 
-const OAuth = lazy(async () => import('@sorare/shared-pages/src/OAuth'));
+// const OAuth = lazy(async () => import('@sorare/shared-pages/src/OAuth'));
 
-const GameRules = lazy(
-  async () => import('@sorare/shared-pages/src/GameRules')
-);
-const VerifyIdentity = lazy(
-  async () => import('@sorare/shared-pages/src/VerifyIdentity')
-);
-const PromoSignup = lazy(
-  async () => import('@sorare/shared-pages/src/PromoSignup')
-);
-const PromoClaim = lazy(
-  async () => import('@sorare/shared-pages/src/PromoClaim')
-);
-const MySorare = lazy(async () => import('@sorare/shared-pages/src/MySorare'));
+// const GameRules = lazy(
+//   async () => import('@sorare/shared-pages/src/GameRules')
+// );
+// const VerifyIdentity = lazy(
+//   async () => import('@sorare/shared-pages/src/VerifyIdentity')
+// );
+// const PromoSignup = lazy(
+//   async () => import('@sorare/shared-pages/src/PromoSignup')
+// );
+// const PromoClaim = lazy(
+//   async () => import('@sorare/shared-pages/src/PromoClaim')
+// );
+// const MySorare = lazy(async () => import('@sorare/shared-pages/src/MySorare'));
 const Settings = lazy(async () => import('@sorare/shared-pages/src/Settings'));
 // const BaseballRoot = lazy(async () => import('@sorare/baseball/src/main'));
 const FootballRoot = lazy(async () => import('@sorare/football/src/main'));
@@ -196,7 +196,7 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
         )}
       >
         <Route path={LANDING} element={<Landing />} />
-        <Route
+        {/* <Route
           path={AFFILIATE_PROGRAM}
           element={
             <AppLayout>
@@ -235,10 +235,10 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
             </AppLayout>
           }
         />
-        <Route path={GAME_RULES} element={<GameRules />} />
+        <Route path={GAME_RULES} element={<GameRules />} /> */}
         <Route path={ACCEPT_INVITATION} element={<Landing />} />
         <Route path={REFERRER_LINK} element={<Landing />} />
-        <Route path={MOBILE_SIGN_UP} element={<MobileSignUp />} />
+        {/* <Route path={MOBILE_SIGN_UP} element={<MobileSignUp />} />
         <Route path={TERMS} element={<Terms />} />
         <Route path={PRIVACY_POLICY} element={<PrivacyPolicy />} />
         <Route path={COOKIE_POLICY} element={<CookiePolicy />} />
@@ -263,7 +263,7 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
               <OAuth />
             </RequireAuth>
           }
-        />
+        /> */}
         <Route
           path={SETTINGS_HOME}
           element={
@@ -272,7 +272,7 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
             </EnsureTopVisibleOnMount>
           }
         />
-        <Route
+        {/* <Route
           path={ACTIVITY}
           element={
             <RequireAuth>
@@ -289,7 +289,7 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
               <Activity tab="news" />
             </SharedPagesTheme>
           }
-        />
+        /> */}
         <Route
           path={SETTINGS_WILDCARD}
           element={
@@ -306,7 +306,7 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
           path={MY_SORARE_HOME}
           element={<Navigate to={MY_SORARE_NEW} replace />}
         />
-        <Route
+        {/* <Route
           path={MY_SORARE_WILDCARD}
           element={
             <RequireAuth>
@@ -332,7 +332,7 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
               <PromoClaim />
             </RequireAuth>
           }
-        />
+        /> */}
         <Route
           path={'/*'}
           element={
