@@ -8,7 +8,7 @@ import toSnakeCase from '@core/lib/toSnakeCase';
 import * as platformEvents from '@core/protos/events/platform/web/events';
 import { sportToJSON } from '@core/protos/events/shared/events';
 import * as so5Events from '@core/protos/events/so5/web/events';
-import { StartCase, StringKeysOf } from 'types';
+import { StartCase, StringKeysOf } from '@core/types';
 
 import { EventsType, WithOptionalCommonProperties } from './EventsType';
 
@@ -68,7 +68,6 @@ const useEvents = () => {
             // which transform keys to snake case & rounds numbers
             // @ts-expect-error unresolved key issue
             protosEvents[event](rest[0])),
-          // @ts-expect-error unresolved key issue
           sport: rest[0]?.sport || sportToJSON(getSport()),
         });
         return;

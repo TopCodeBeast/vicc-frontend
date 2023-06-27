@@ -2,7 +2,7 @@ import React from 'react';
 
 type FontFace = {
   family: string;
-  weight: string;
+  weight?: string;
 };
 
 type FontOptions = {

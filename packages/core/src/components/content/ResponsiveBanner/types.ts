@@ -21,6 +21,7 @@ export type SlideProps = {
   primaryButton: {
     label: string;
     url: string;
+    openDialog?: boolean;
   };
   secondaryButton?: {
     label: string;

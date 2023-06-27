@@ -7,18 +7,22 @@ export interface Actions<T> {
   type: string;
 };
 
-export type CardDataType = any;
+export interface CardData<T> extends Actions<T> {
 
-export interface RefreshCardData<T> {
-  cardData: CardDataType[];
 };
 
-export type SetCurrencyAndPaymentMethod = {
+export type CardDataType = any;
+
+export interface RefreshCardData<T> extends CardData<T> {
+  cardData: CardData<T>;
+};
+
+export interface SetCurrencyAndPaymentMethod extends Actions<string> {
   paymentMethod: any;
   currency: any;
 };
 
-export type SetDuration = {
+export interface SetDuration extends Actions<string> {
   duration: number;
 };
 
