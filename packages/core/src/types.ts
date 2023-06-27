@@ -20,10 +20,10 @@ type AuctionNFT = {
 
 type TokenComponentTypeProps = {
   assetId: string;
-  auction: {
+  auction?: {
     nfts: AuctionNFT[];
   }
 }
 
-export type TokenComponentType = (params: TokenComponentTypeProps) => React.ReactNode;
+export type TokenComponentType = (params: TokenComponentTypeProps) => JSX.Element;
 

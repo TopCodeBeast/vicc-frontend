@@ -15,7 +15,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
     "paths": {
       "@sorare/*": [ "packages/*"],
       "@core/*": [ "packages/core/src/*"],

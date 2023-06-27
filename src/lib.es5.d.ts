@@ -15,7 +15,7 @@
 /** See https://stackoverflow.com/a/51390763/1470607  */
 type Falsy = false | 0 | "" | null | undefined;
 
-type Nullable<T> = T | null;
+type Nullable<T> = T | null | undefined;
 
 interface Array<T> {
   /**
@@ -29,3 +29,4 @@ interface Array<T> {
 type ISO8601Date = Date;
 type ISO8601DateTime = Date;
 type Json = JSON;
+type WeiAmount = any;

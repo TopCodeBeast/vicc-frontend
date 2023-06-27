@@ -10,7 +10,7 @@ import { PictureAvatar, PlaceHolderAvatar } from '@core/components/user/Avatar';
 import idFromObject from '@core/gql/idFromObject';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 import useQuery from '@core/hooks/graphql/useQuery';
-import { useUSSportsQuery } from '@core/hooks/graphql/useUSSportsQuery';
+// import { useUSSportsQuery } from '@core/hooks/graphql/useUSSportsQuery';
 import { Scarcity } from '@core/lib/cards';
 // import {
 //   BaseballPastWinnerQuery,

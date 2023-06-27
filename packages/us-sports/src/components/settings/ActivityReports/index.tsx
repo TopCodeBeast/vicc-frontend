@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { Text16 } from '@sorare/core/src/atoms/typography';
 
-import { useUSSportsQuery } from '@us-sports/hooks/graphql';
+// import { useUSSportsQuery } from '@us-sports/hooks/graphql';
 
 import { UsActivityReportsQuery } from './__generated__/index.graphql';
 
@@ -18,7 +18,7 @@ const US_ACTIVITY_REPORTS_QUERY = gql`
 `;
 
 export const ActivityReports = () => {
-  const { data, loading } = useUSSportsQuery<UsActivityReportsQuery>(
+  /*const { data, loading } = useUSSportsQuery<UsActivityReportsQuery>(
     US_ACTIVITY_REPORTS_QUERY
   );
 
@@ -44,6 +44,7 @@ export const ActivityReports = () => {
         />
       </Text16>
     </>
-  );
+  );*/
+  return <>ActivityReports</>;
 };
 export default ActivityReports;

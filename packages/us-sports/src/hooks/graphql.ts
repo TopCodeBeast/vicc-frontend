@@ -15,7 +15,7 @@ import {
 } from '@sorare/core/src/hooks/graphql/usePaginatedQuery';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
-export const useUSSportsQuery: typeof useQuery = (query, options) => {
+/*export const useUSSportsQuery: typeof useQuery = (query, options) => {
   const usSportsApolloClient = useUSSportsApolloClient();
   return useQuery(query, { ...options, client: usSportsApolloClient });
 };
@@ -112,4 +112,4 @@ export const useEvictQueryCache = (queryKey: string) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-};
+};*/

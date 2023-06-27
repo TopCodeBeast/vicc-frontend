@@ -27,7 +27,7 @@ export const useBaseballMutation: typeof useMutation = (mutation, options) => {
   return useMutation(mutation, { ...options, client: baseballApolloClient });
 };
 
-export const useEvictQueryCache = (queryKey: string) => {
+/*export const useEvictQueryCache = (queryKey: string) => {
   const baseballApolloClient = useUSSportsApolloClient();
   const matchKey = new RegExp(`^${queryKey}`);
   const { cache } = baseballApolloClient;
@@ -50,7 +50,7 @@ export const useEvictQueryCache = (queryKey: string) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-};
+};*/
 
 export const usePaginatedBaseballQuery = <
   TData = any,
