@@ -259,7 +259,7 @@ export const CardPreviewGrid = (props: Props) => {
   );
 };
 
-const Memoized = memo(CardPreviewGrid);
+const Memoized: any = memo(CardPreviewGrid);
 
 const cardFragment = gql`
   fragment CardPreviewGrid_card on Card {

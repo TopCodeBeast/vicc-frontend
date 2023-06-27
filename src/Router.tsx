@@ -121,9 +121,9 @@ const PromoClaim = lazy(
 );
 const MySorare = lazy(async () => import('@sorare/shared-pages/src/MySorare'));
 const Settings = lazy(async () => import('@sorare/shared-pages/src/Settings'));
-const BaseballRoot = lazy(async () => import('@sorare/baseball/src/main'));
+// const BaseballRoot = lazy(async () => import('@sorare/baseball/src/main'));
 const FootballRoot = lazy(async () => import('@sorare/football/src/main'));
-const NBARoot = lazy(async () => import('@sorare/nba/src/main'));
+// const NBARoot = lazy(async () => import('@sorare/nba/src/main'));
 
 export const BlockchainProviders = ({ children }: { children: ReactNode }) => {
   return (
@@ -142,8 +142,8 @@ const AppsRouter = () => {
   const bgLocation = useBgLocation();
   return (
     <Routes location={bgLocation}>
-      <Route path="/nba/*" element={<NBARoot />} />
-      <Route path={'/mlb/*'} element={<BaseballRoot />} />
+      {/* <Route path="/nba/*" element={<NBARoot />} />
+      <Route path={'/mlb/*'} element={<BaseballRoot />} /> */}
       <Route path={'/*'} element={<FootballRoot />} />
     </Routes>
   );

@@ -46,4 +46,5 @@ export type CardResultsProps = {
   topic: SearchTopic;
   hideSorareUser: boolean;
   stackable: any;
+  showDesktopFilter: boolean;
 };

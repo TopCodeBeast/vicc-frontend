@@ -12,7 +12,7 @@ interface TokenAuction {
   endDate: string;
 }
 export interface Card extends GqlType {
-  assetId: string | null;
+  assetId?: string | null;
   liveSingleSaleOffer?: {
     priceWei: string;
   } | null;
