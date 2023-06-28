@@ -8,8 +8,8 @@ export type SlideProps = {
   description: string;
   backgroundImage: string;
   mobileBackgroundImage: string;
-  dark: boolean;
-  auctionDrop: {
+  dark?: boolean | null;
+  auctionDrop?: {
     start: Date;
     end: Date;
     isEnded: boolean;
