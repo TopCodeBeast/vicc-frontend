@@ -45,7 +45,7 @@ export const CollectionSlots = ({ cardCollection, slots, readOnly }: Props) => {
   );
   return (
     <Wrapper>
-      {slots.map(slot => {
+      {slots.map((slot: any) => {
         if (isType(slot, 'UserCardCollectionSlot')) {
           const isFilled = slot.cardCollectionCardsCount > 0;
           return isFilled ? (

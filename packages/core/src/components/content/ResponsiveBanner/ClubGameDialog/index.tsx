@@ -15,13 +15,13 @@ import { useBgLocation } from '@core/hooks/useBgLocation';
 import { avoidOrphan } from '@core/lib/text';
 import { laptopAndAbove } from '@core/style/mediaQuery';
 
-import bundesliga from './assets/bundesliga.png';
-import laLiga from './assets/laliga.png';
-import ligue1 from './assets/ligue_1.png';
-import mls from './assets/mls.png';
-import premierLeague from './assets/premier_league.png';
-import serieA from './assets/serie_a.png';
-import tournamentList from './assets/tournaments_list.png';
+import bundesliga from '@core/assets/bundesliga.png';
+import laLiga from '@core/assets/laliga.png';
+import ligue1 from '@core/assets/ligue_1.png';
+import mls from '@core/assets/mls.png';
+import premierLeague from '@core/assets/premier_league.png';
+import serieA from '@core/assets/serie_a.png';
+import tournamentList from '@core/assets/tournaments_list.png';
 
 const DialogContainer = styled.div`
   display: flex;
