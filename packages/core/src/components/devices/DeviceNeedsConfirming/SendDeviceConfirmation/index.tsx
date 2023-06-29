@@ -153,7 +153,7 @@ const SendDeviceConfirmation = () => {
       </LoadingButton>
       <Text14>
         {formatMessage(messages.troubleshooting, {
-          link: makeRefetchLink(refetch),
+          link: makeRefetchLink(refetch) as any,
         })}
       </Text14>
     </Wrapper>

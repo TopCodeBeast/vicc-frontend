@@ -10,6 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "strictNullChecks": false,
+    "noImplicitAny": false,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "Node",
@@ -29,7 +30,8 @@
     }
   },
   "include": [
-    "lib.es5.d.ts",
+    "lib/lib.es5.d.ts",
+    "lib/react.d.ts",
     "packages",
     "src"
   ],

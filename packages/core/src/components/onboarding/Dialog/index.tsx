@@ -63,11 +63,17 @@ export const DialogOnboarding = ({
   }, [open]);
 
   const onNext = () =>
-    updateDOM(() =>
-      isLastStep
-        ? onDone?.() || onClose?.()
-        : setStep(n => (n + 1) % steps.length)
-    );
+    updateDOM(() => { //Fixed type error
+      if (isLastStep) {
+        if (onDone) {
+          onDone()
+        } else if (onClose) {
+          onClose();
+        }
+      } else {
+        setStep(n => (n + 1) % steps.length)
+      }
+    });
 
   const currentStep = steps[step];
   const currentStepElement =

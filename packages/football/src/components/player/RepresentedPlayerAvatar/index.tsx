@@ -6,11 +6,11 @@ import DumbPlayerAvatar from '@sorare/core/src/components/player/DumbPlayerAvata
 type Props = {
   player: {
     displayName: string;
-    squaredPictureUrl: string | null;
+    squaredPictureUrl?: string | null; //Modified
   };
   representativePlayer: {
     displayName: string;
-    avatarPictureUrl: string | null;
+    avatarPictureUrl?: string | null; //Modified
   };
 };
 

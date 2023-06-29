@@ -69,7 +69,7 @@ const itemRoute = (item: Item) => {
       };
     default:
       // never reached
-      return { route: undefined, params: {} };
+      return { route: '', params: {} };
   }
 };
 

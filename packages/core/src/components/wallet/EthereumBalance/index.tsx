@@ -54,7 +54,7 @@ const WalletButton = ({
     return (
       <IconButton
         icon={faWallet}
-        disableRipple={small}
+        // disableRipple={small} //TODO***
         onClick={toggleDrawer}
         className="light-theme"
         color={compact ? 'transparent' : 'dark'}
@@ -69,7 +69,7 @@ const WalletButton = ({
       medium={medium}
       small={small}
       className="light-theme"
-      disableRipple={small}
+      // disableRipple={small} //TODO***
     >
       {!compact && (
         <Text16 bold>

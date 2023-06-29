@@ -33,7 +33,7 @@ const computeSendMinimumPrice: <T extends CardDataType>(
   if (sendCards.length > 0) {
     return zero;
   }
-  return receiveCards.reduce((prev: Big, curr: any) => {
+  return receiveCards.reduce((prev: Big, curr) => {
     const cardMinPrice = cardsData[curr.objectID]?.publicMinPrice;
     if (!cardMinPrice) return prev;
     const cardMinPriceBig = new Big(cardMinPrice || 0);
@@ -120,7 +120,7 @@ export const init = <T extends CardDataType>({
     receiveCards: initialReceiveCards.map(convertToAlgoliaCardHit),
     receiveMarketFeesEth: initialReceiveMarketFeesEth || 0,
     cardsData: [...initialSendCards, ...initialReceiveCards].reduce(
-      (prev: Record<string, T>, curr: any) => {
+      (prev: Record<string, T>, curr) => {
         const algoliaObjectId = buildAlgoliaObjectId(curr);
         prev[algoliaObjectId] = curr;
         return prev;

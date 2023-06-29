@@ -113,7 +113,7 @@ export const Pagination = ({ currentPage, pages, onSelect }: Props) => {
               id: 'pagination.of',
               defaultMessage: 'of <b>{pages}</b>',
             },
-            { pages, b: Bold }
+            { pages, b: Bold as any } //TODO***
           )}
         </span>
       </PageInfo>
