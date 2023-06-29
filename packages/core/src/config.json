@@ -1,6 +1,6 @@
 {
   "development": {
-    "backendHost": "",
+    "backendHost": "https://api.sorare.com",
     "brazeApiKey": "",
     "brazeSdkEndpoint": "",
     "walletUrl": "",
@@ -19,7 +19,7 @@
     }
   },
   "staging": {
-    "backendHost": "",
+    "backendHost": "https://api.sorare.com",
     "brazeApiKey": "",
     "brazeSdkEndpoint": "",
     "walletUrl": "",
@@ -38,7 +38,7 @@
     }
   },
   "production": {
-    "backendHost": "",
+    "backendHost": "https://api.sorare.com",
     "brazeApiKey": "",
     "brazeSdkEndpoint": "",
     "walletUrl": "",
@@ -57,7 +57,7 @@
     }
   },
   "mockprod": {
-    "backendHost": "",
+    "backendHost": "https://api.sorare.com",
     "brazeApiKey": "",
     "brazeSdkEndpoint": "",
     "walletUrl": "",

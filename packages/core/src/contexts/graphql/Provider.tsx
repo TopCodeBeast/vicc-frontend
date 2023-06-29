@@ -300,7 +300,7 @@ export const GraphqlProvider = ({
     const seonStatus = {
       available: true,
     };
-    if (window.seon && sessionId) {
+    /*if (window.seon && sessionId) {
       window.seon.config({
         session_id: sessionId,
         audio_fingerprint: true,
@@ -333,7 +333,7 @@ export const GraphqlProvider = ({
           )
         );
       }
-    }
+    }*/
     return () => {
       seonStatus.available = false;
     };
@@ -396,7 +396,7 @@ export const GraphqlProvider = ({
             addBreadcrumb({ level: 'debug', data: { networkError } });
             showNotification('errors', { errors: [networkError.message] });
           }
-          if ('statusCode' in networkError && networkError.statusCode === 503) {
+          /*if ('statusCode' in networkError && networkError.statusCode === 503) {
             const { start, end, msg } = (networkError as ServerError).result
               .maintenance;
 
@@ -407,14 +407,14 @@ export const GraphqlProvider = ({
                 msg,
               });
             }
-          }
+          }*/
         }
         if (graphQLErrors) {
           const messages = graphQLErrors.map(e => e.message);
           showNotification('errors', { errors: messages });
         }
 
-        if (
+        /*if (
           !disableGraphQLErrorsReport &&
           (graphQLErrors || (networkError as ServerError)?.result?.message) &&
           // HTTP 500 errors are already logged in the backend
@@ -447,7 +447,7 @@ export const GraphqlProvider = ({
               );
             }
           });
-        }
+        }*/
 
         return undefined;
       }
@@ -564,7 +564,7 @@ export const GraphqlProvider = ({
     });
 
     const noOperationStore =
-      process.env.PLAYGROUND === 'true' || IS_TEST_RUNNER;
+      import.meta.env.PLAYGROUND === 'true' || IS_TEST_RUNNER;
 
     return ApolloLink.from(
       [
@@ -572,9 +572,6 @@ export const GraphqlProvider = ({
         tmLink,
         afterwareLink,
         authLink,
-        !isForcedEnv() &&
-          !noOperationStore &&
-          OperationStoreClient().apolloLink,
         useOfflineSupport && retryLink,
         onErrorLink,
         httpLink,
