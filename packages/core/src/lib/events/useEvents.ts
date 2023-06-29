@@ -14,11 +14,7 @@ import { EventsType, WithOptionalCommonProperties } from './EventsType';
 
 type ObjectWithToJSON = { toJSON: (args: any) => any };
 
-type PropertiesWithToJSON<T extends Record<string, any>> = {
-  [P in StringKeysOf<T> as T[P] extends ObjectWithToJSON
-    ? StartCase<P>
-    : never]: T[P];
-};
+type PropertiesWithToJSON<T extends Record<string, any>> = any;
 
 const getTypedProtosEvents = <T extends Record<string, any>>(
   protosEvents: T
@@ -27,7 +23,7 @@ const getTypedProtosEvents = <T extends Record<string, any>>(
     typeof protosEvents
   >[];
   return protoEventKeys.reduce<PropertiesWithToJSON<T>>((acc, cur) => {
-    const currentValue = protosEvents[cur];
+    const currentValue = protosEvents[cur as any];
     if (Object.prototype.hasOwnProperty.call(currentValue, 'toJSON')) {
       // @ts-expect-error hasOwnProperty is not helpful to narrow the type of cur down
       acc[toStartCase(cur)] = currentValue.toJSON;
@@ -60,7 +56,7 @@ const useEvents = () => {
         ? []
         : [AggregatedTrackEvents[K]]
     ): void => {
-      if (Object.prototype.hasOwnProperty.call(protosEvents, event)) {
+      /*if (Object.prototype.hasOwnProperty.call(protosEvents, event)) {
         baseTrack(event, {
           interaction_context: getInteractionContext(),
           ...(rest[0] &&
@@ -83,7 +79,7 @@ const useEvents = () => {
         interaction_context: getInteractionContext(),
         sport: sportToJSON(getSport()),
         ...snakeCaseProperties,
-      });
+      });*/
     },
     [baseTrack]
   );

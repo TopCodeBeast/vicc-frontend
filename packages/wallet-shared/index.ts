@@ -1,2 +1,2 @@
 export * from './src/contexts/messaging';
-export * from './src/lib/deferred';
+export { default as Deferred } from './src/lib/deferred';

@@ -82,6 +82,7 @@ export const ClaimReferralRewardDialog = ({
   );
 };
 
+/*******************************Modifed */
 ClaimReferralRewardDialog.fragments = {
   referralReward: gql`
     fragment ClaimReferralRewardDialog_referralReward on ReferralReward {
@@ -91,8 +92,6 @@ ClaimReferralRewardDialog.fragments = {
         slug
         pictureUrl(derivative: "tinified")
       }
-      ...useReferralReward_referralReward
     }
-    ${useReferralReward.fragments.referralReward}
   `,
 };

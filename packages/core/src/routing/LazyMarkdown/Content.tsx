@@ -9,8 +9,8 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
   word-break: break-word;
   h1 {
     margin-bottom: var(--unit);
-    font-size: ${theme.fontSize.bigger}px;
-    line-height: ${theme.lineHeight.bigger};
+    font-size: 16px;
+    line-height: 12;
     font-weight: 700;
     letter-spacing: -0.04em;
   }
@@ -22,8 +22,8 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
     margin-top: var(--unit);
   }
   h2 {
-    font-size: ${theme.fontSize.big}px;
-    line-height: ${theme.lineHeight.big};
+    font-size: 16px;
+    line-height: 12;
     margin: calc(2 * var(--double-unit)) 0 var(--unit);
     letter-spacing: -0.04em;
   }
@@ -31,8 +31,8 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
   ul,
   li {
     font-weight: 400;
-    font-size: ${theme.fontSize.medium}px;
-    line-height: ${theme.lineHeight.normal};
+    font-size: 16px;
+    line-height: 12;
     letter-spacing: -0.03em;
   }
 

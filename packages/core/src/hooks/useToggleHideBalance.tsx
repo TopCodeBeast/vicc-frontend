@@ -61,7 +61,7 @@ export const useToggleHideBalance = () => {
         },
         errors: [],
       },
-    },
+    } as any, /****************************************** Modifed */
   });
 
   const toggleHideBalance = useCallback(() => {

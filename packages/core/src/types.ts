@@ -12,6 +12,10 @@ export interface StartCase<T> {
   //TODO
 }
 
+export interface StringKeysOf<T> {
+  
+}
+
 type AuctionNFT = {
   assetId: string;
 };

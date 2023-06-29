@@ -14,7 +14,7 @@ import {
   useNavigationType,
 } from 'react-router-dom';
 
-import { SOFE_API_PATH, SOFE_API_ROOT } from 'config';
+import { SOFE_API_PATH, SOFE_API_ROOT } from '@core/config';
 
 // See https://gist.github.com/impressiver/5092952
 const communityIgnoredErrors = [
