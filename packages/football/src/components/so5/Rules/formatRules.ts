@@ -29,15 +29,9 @@ import {
   getSeasonsRule,
   getSerialNumberRule,
 } from './helpers';
+import getCardBonusRule from './helpers/getCardBonusRule';
 import getSumOfAverageScoresRule from './helpers/getSumOfAverageScoresRule';
 import { FormatRule } from './types';
-
-type Rules_so5Leaderboard_displayedRules = NonNullable<
-  Rules_so5Leaderboard['displayedRules']
->;
-
-type Rules_so5Leaderboard_engineConfiguration =
-  Rules_so5Leaderboard['engineConfiguration'];
 
 export function getErrorFrom(errors: Errors, id: string) {
   if (!errors) {
@@ -51,76 +45,84 @@ export function getErrorFrom(errors: Errors, id: string) {
 }
 
 export const formatRules = withFragments(
-  (
-    displayedRules: Rules_so5Leaderboard_displayedRules | null,
-    errors: Errors,
-    engineConfiguration: Rules_so5Leaderboard_engineConfiguration | null,
-    intl: IntlShape
-  ) => {
+  (so5Leaderboard: Rules_so5Leaderboard, errors: Errors, intl: IntlShape) => {
+    const { displayedRules, engineConfiguration } = so5Leaderboard || {};
     if (!displayedRules) {
       return [];
     }
-    return HANDLED_RULES.flatMap((rule): FormatRule | FormatRule[] => {
-      const error = getErrorFrom(errors, rule);
-      switch (rule) {
-        case 'seasons':
-          return getSeasonsRule(displayedRules[rule], error);
-        case 'leagues':
-          return getLeaguesRule(displayedRules[rule], error);
-        case 'competitions':
-          return getCompetitionsRule(displayedRules[rule], error);
-        case 'internationalCompetitions':
-          return getInternationalCompetitionsRule(displayedRules[rule], error);
-        case 'notDomesticCompetitions':
-          return getNotDomesticCompetitionsRule(displayedRules[rule], error);
-        case 'activeClubs':
-          return getActiveClubsRule(displayedRules[rule], error);
-        case 'sameNationality':
-          return getSameNationalityRule(displayedRules[rule], error);
-        case 'serialNumber':
-          return getSerialNumberRule(displayedRules[rule], error);
-        case 'nationalities':
-          return getNationalitiesRule(displayedRules[rule], error);
-        case 'notNationalities':
-          return getNotNationalitiesRule(displayedRules[rule], error);
-        case 'atLeastOfCompetitions':
-          return getAtLeastOfCompetitionsRule(displayedRules[rule], error);
-        case 'atLeastOfClubs':
-          return getAtLeastOfClubsRule(displayedRules[rule], error);
-        case 'age':
-          return getAgeRule(displayedRules[rule], error, intl);
-        case 'captainRarities':
-          return getCaptainRule(
-            displayedRules[rule],
-            error,
-            engineConfiguration
-          );
-        case 'sameActiveClub':
-          return getSameActiveClubRule(displayedRules[rule], error);
-        case 'minimumPlayersAverageScore':
-          return getMinimumPlayersAverageScoreRule(displayedRules[rule], error);
-        case 'maximumPlayersAverageScore':
-          return getMaximumPlayersAverageScoreRule(displayedRules[rule], error);
-        case 'rarityLimits':
-          return getRarityLimitsRule(
-            displayedRules[rule],
-            error || getErrorFrom(errors, 'Scarcity'),
-            engineConfiguration
-          );
-        case 'allowLegend':
-          return getAllowLegend(!!displayedRules[rule], error);
-        case 'cardEditionsCount': {
-          return getCardEditionsCountRule(
-            displayedRules.cardEditionsCount,
-            error
-          );
+    return [
+      ...HANDLED_RULES.flatMap((rule): FormatRule | FormatRule[] => {
+        const error = getErrorFrom(errors, rule);
+        switch (rule) {
+          case 'seasons':
+            return getSeasonsRule(displayedRules[rule], error);
+          case 'leagues':
+            return getLeaguesRule(displayedRules[rule], error);
+          case 'competitions':
+            return getCompetitionsRule(displayedRules[rule], error);
+          case 'internationalCompetitions':
+            return getInternationalCompetitionsRule(
+              displayedRules[rule],
+              error
+            );
+          case 'notDomesticCompetitions':
+            return getNotDomesticCompetitionsRule(displayedRules[rule], error);
+          case 'activeClubs':
+            return getActiveClubsRule(displayedRules[rule], error);
+          case 'sameNationality':
+            return getSameNationalityRule(displayedRules[rule], error);
+          case 'serialNumber':
+            return getSerialNumberRule(displayedRules[rule], error);
+          case 'nationalities':
+            return getNationalitiesRule(displayedRules[rule], error);
+          case 'notNationalities':
+            return getNotNationalitiesRule(displayedRules[rule], error);
+          case 'atLeastOfCompetitions':
+            return getAtLeastOfCompetitionsRule(displayedRules[rule], error);
+          case 'atLeastOfClubs':
+            return getAtLeastOfClubsRule(displayedRules[rule], error);
+          case 'age':
+            return getAgeRule(displayedRules[rule], error, intl);
+          case 'captainRarities':
+            return getCaptainRule(
+              displayedRules[rule],
+              error,
+              engineConfiguration
+            );
+          case 'sameActiveClub':
+            return getSameActiveClubRule(displayedRules[rule], error);
+          case 'minimumPlayersAverageScore':
+            return getMinimumPlayersAverageScoreRule(
+              displayedRules[rule],
+              error
+            );
+          case 'maximumPlayersAverageScore':
+            return getMaximumPlayersAverageScoreRule(
+              displayedRules[rule],
+              error
+            );
+          case 'rarityLimits':
+            return getRarityLimitsRule(
+              displayedRules[rule],
+              error || getErrorFrom(errors, 'Scarcity'),
+              engineConfiguration
+            );
+          case 'allowLegend':
+            return getAllowLegend(!!displayedRules[rule], error);
+          case 'cardEditionsCount': {
+            return getCardEditionsCountRule(
+              displayedRules.cardEditionsCount,
+              error
+            );
+          }
+          case 'sumOfAverageScores':
+            return getSumOfAverageScoresRule(displayedRules[rule], error);
+          default:
+            return [];
         }
-        case 'sumOfAverageScores':
-          return getSumOfAverageScoresRule(displayedRules[rule], error);
-        default:
-          return [];
-      }
-    });
+      }),
+      ...getCardBonusRule(so5Leaderboard),
+    ].filter(Boolean);
   },
   {
     so5Leaderboard: gql`
@@ -147,6 +149,7 @@ export const formatRules = withFragments(
         ...GetCardEditionsCountRule
         ...GetAllowLegendRule
         ...GetSumOfAverageScoresRule
+        ...getCardBonusRule_so5Leaderboard
       }
       ${getSeasonsRule.fragments.rule}
       ${getLeaguesRule.fragments.rule}
@@ -169,6 +172,7 @@ export const formatRules = withFragments(
       ${getCardEditionsCountRule.fragments.rule}
       ${getAllowLegend.fragments.rule}
       ${getSumOfAverageScoresRule.fragments.rule}
+      ${getCardBonusRule.fragments.so5Leaderboard}
     `,
   }
 );

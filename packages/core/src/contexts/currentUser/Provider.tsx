@@ -2,10 +2,14 @@ import { useSubscription } from '@apollo/client';
 import Big from 'bignumber.js';
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Currency } from '__generated__/globalTypes';
+import {
+  Currency,
+  DeviceWasUpdatedEvent,
+  EnabledWallet,
+} from '__generated__/globalTypes';
 import createLink from '@core/atoms/typography/Link';
 import { SETTINGS_SECURITY } from '@core/constants/routes';
-import { isType } from '@core/gql';
+import { isType } from 'gql';
 import idFromObject from '@core/gql/idFromObject';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import { currencies } from '@core/lib/fiat';
@@ -18,8 +22,12 @@ import { useEventsContext } from '../events';
 import { useSentryContext } from '../sentry';
 import { useSessionContext } from '../session';
 import { useSnackNotificationContext } from '../snackNotification';
+import {
+  onDeviceWasUpdated,
+  onDeviceWasUpdatedVariables,
+} from './__generated__/queries.graphql';
 import CurrentUserContextProvider, { SignInArgs } from './index';
-import { subscription } from './queries';
+import { onDeviceSubscription, subscription } from './queries';
 import useRedirectAfterSignIn from './useRedirectAfterSignIn';
 import useSignIn from './useSignIn';
 
@@ -31,6 +39,9 @@ interface Props {
  * Provides the current logged in user.
  */
 export const CurrentUserProvider = ({ children }: Props) => {
+  const {
+    flags: { useNewWallet = false },
+  } = useFeatureFlags();
   const { setSessionId, setApiKey } = useSessionContext();
   const { identify: identifyAnalytics } = useEventsContext();
   const { identifyUser: identifySentryUser } = useSentryContext();
@@ -63,6 +74,28 @@ export const CurrentUserProvider = ({ children }: Props) => {
       },
     },
   });
+
+  const currentDeviceConfirmed = currentUser?.confirmedDevice;
+  const currentDeviceId = currentUser?.currentDevice?.id;
+  useSubscription<onDeviceWasUpdated, onDeviceWasUpdatedVariables>(
+    onDeviceSubscription,
+    {
+      skip: !currentDeviceId || !!currentDeviceConfirmed,
+      onData: ({ data: { data } }) => {
+        if (data) {
+          const { deviceWasUpdated } = data;
+          if (
+            deviceWasUpdated &&
+            deviceWasUpdated.eventType === DeviceWasUpdatedEvent.confirmed &&
+            deviceWasUpdated.id === currentDeviceId
+          ) {
+            showNotification('deviceSuccessfullyConfirmed');
+            refetch();
+          }
+        }
+      },
+    }
+  );
 
   const signIn = useCallback(
     async (args: SignInArgs) => {
@@ -185,10 +218,28 @@ export const CurrentUserProvider = ({ children }: Props) => {
     fiatWalletAccountable,
   ]);
 
-  const currency = useMemo(
-    () => currentUser?.userSettings.currency || Currency.FIAT,
-    [currentUser]
+  const enabledWallets = currentUser?.profile.enabledWallets || undefined;
+
+  const hasMigratedAndSetupWallets = useNewWallet && !!enabledWallets;
+
+  const showEthWallet = hasMigratedAndSetupWallets
+    ? enabledWallets.includes(EnabledWallet.ETH)
+    : true;
+
+  const showFiatWallet = !!(
+    useNewWallet && enabledWallets?.includes(EnabledWallet.FIAT)
   );
+
+  const onlyShowFiatCurrency = !!(
+    useNewWallet &&
+    showFiatWallet &&
+    !showEthWallet
+  );
+
+  const currency = useMemo(() => {
+    if (onlyShowFiatCurrency) return Currency.FIAT;
+    return currentUser?.userSettings.currency || Currency.FIAT;
+  }, [currentUser?.userSettings.currency, onlyShowFiatCurrency]);
 
   const displayEth = useMemo(
     () =>
@@ -211,6 +262,13 @@ export const CurrentUserProvider = ({ children }: Props) => {
         refetch,
         signIn,
         blockchainCardsCount,
+        walletPreferences: {
+          enabledWallets,
+          showEthWallet,
+          showFiatWallet,
+          hasMigratedAndSetupWallets,
+          onlyShowFiatCurrency,
+        },
       }}
     >
       {children}

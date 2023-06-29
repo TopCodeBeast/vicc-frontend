@@ -5,9 +5,12 @@ import { Text16 } from '@sorare/core/src/atoms/typography';
 import Avatar from '@sorare/core/src/components/user/Avatar';
 import { Nickname } from '@sorare/core/src/components/user/Nickname';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { theme } from '@sorare/core/src/style/theme';
+import {
+  desktopAndAbove,
+  tabletAndAbove,
+} from '@sorare/core/src/style/mediaQuery';
 
-import ClubShield from '@sorare/football/src/components/user/ClubShield';
+import ClubShield from '@football/components/user/ClubShield';
 
 import {
   Row_so5UserGroupMembership,
@@ -31,18 +34,18 @@ const Root = styled.button.attrs(({ $highlight }: { $highlight: boolean }) => ({
     'manager manager score total'
     'manager manager score total';
   background-color: var(--c-neutral-300);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   text-align: left;
   color: inherit;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-template-columns: 58px 10fr 1fr 1fr;
     padding: var(--double-unit) var(--unit);
     grid-template-areas:
       'rank manager score total'
       'rank manager score total';
   }
-  @media (min-width: ${theme.breakpoints.values.desktop}px) {
+  @media ${desktopAndAbove} {
     grid-template-columns: 58px 15fr 1fr 1fr;
     padding: var(--double-unit) var(--unit);
   }
@@ -68,7 +71,7 @@ const AvatarWrapper = styled.div`
 `;
 const Rank = styled.div`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: block;
     grid-area: rank;
     text-align: center;
@@ -77,7 +80,7 @@ const Rank = styled.div`
 `;
 const RankOnMobile = styled.div`
   grid-area: 'rank';
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: none;
   }
 `;
@@ -93,7 +96,7 @@ const Manager = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-template-areas:
       'avatar name'
       'avatar club';
@@ -108,7 +111,7 @@ const Name = styled.div`
 `;
 const Club = styled.div`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-area: club;
     display: flex;
     align-items: center;

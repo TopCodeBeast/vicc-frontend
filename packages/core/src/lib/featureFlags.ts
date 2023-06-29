@@ -20,19 +20,6 @@ export const useUseCustomLists = () => {
   return useCustomLists;
 };
 
-export const useUseHomeTimelineLayout = () => {
-  const {
-    flags: {
-      useHomeTimelineLayout = 'out',
-      useHomeTimelineLayoutExistingUsers = false,
-    },
-  } = useFeatureFlags();
-
-  return (
-    useHomeTimelineLayout === 'treatment' || useHomeTimelineLayoutExistingUsers
-  );
-};
-
 export const useShowBottomBarNavigation = () => {
   const {
     flags: { useShowBottomBarNavigation: showBottomBarNavigation = false },

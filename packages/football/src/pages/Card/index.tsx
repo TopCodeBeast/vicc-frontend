@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 import { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { GAME_WIDTH_WITH_GAP } from '@sorare/core/src/components/player/FixtureChart';
 import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery';
 import useInfiniteScroll from '@sorare/core/src/hooks/useInfiniteScroll';
 import { useTitleAndDescription } from '@sorare/core/src/hooks/useTitleAndDescription';
@@ -14,7 +15,12 @@ import CardPageContent from '@football/components/card/CardPage';
 import { CardQuery, CardQueryVariables } from './__generated__/index.graphql';
 
 export const CARD_QUERY = gql`
-  query CardQuery($slug: String!, $bidCursor: String, $scoreCursor: String) {
+  query CardQuery(
+    $slug: String!
+    $bidCursor: String
+    $scoreCursor: String
+    $first: Int
+  ) {
     football {
       card(slug: $slug) {
         slug
@@ -38,6 +44,10 @@ export const CARD_QUERY = gql`
 
 export const CardPage = () => {
   const { slug } = useParams();
+  const scoresLimit = Math.min(
+    Math.ceil(window.innerWidth / GAME_WIDTH_WITH_GAP),
+    26
+  );
   const {
     data,
     loading,
@@ -45,6 +55,7 @@ export const CardPage = () => {
   } = usePaginatedQuery<CardQuery, CardQueryVariables>(CARD_QUERY, {
     variables: {
       slug: slug!,
+      first: scoresLimit,
     },
     skip: !slug,
     connection: 'TokenBidConnection',
@@ -57,12 +68,14 @@ export const CardPage = () => {
         {
           slug: slug!,
           scoreCursor: data?.football.card?.allSo5Scores?.pageInfo.endCursor,
+          first: scoresLimit,
         },
         'So5ScoreConnection'
       );
     }, [
       data?.football.card.allSo5Scores.pageInfo.endCursor,
       slug,
+      scoresLimit,
       loadMoreBids,
     ]),
     !!data?.football.card?.allSo5Scores?.pageInfo.hasNextPage,

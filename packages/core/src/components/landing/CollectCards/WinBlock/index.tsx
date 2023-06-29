@@ -6,7 +6,7 @@ import { Sport } from '__generated__/globalTypes';
 import { CardRarity } from '__generated__/usSportsGlobalTypes';
 import { USSportCardBack } from '@core/components/cards/Back';
 import { useIntlContext } from '@core/contexts/intl';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { SectionText } from '../SectionText';
 
@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   row-gap: var(--double-unit);
   column-gap: calc(10 * var(--unit));
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     column-gap: calc(21 * var(--unit));
   }
@@ -31,7 +31,7 @@ const FieldWrapper = styled.div`
   justify-content: space-evenly;
 
   margin-bottom: 50px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     min-width: 300px;
     margin-bottom: 0px;
     flex: 3 1 0;
@@ -45,7 +45,7 @@ const CardShadow = styled(USSportCardBack)`
 const UniqueCard = styled(CardShadow).attrs({ scarcity: CardRarity.unique })`
   z-index: 1;
   max-height: 109px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     max-height: 203px;
   }
 `;
@@ -54,7 +54,7 @@ const LimitedCard = styled(CardShadow).attrs({ scarcity: CardRarity.limited })`
   z-index: 2;
   max-height: 130px;
   margin-left: -50px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     max-height: 243px;
     margin-left: -80px;
   }
@@ -64,7 +64,7 @@ const RareCard = styled(CardShadow).attrs({ scarcity: CardRarity.rare })`
   z-index: 3;
   max-height: 148px;
   margin-left: -45px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     max-height: 270px;
     margin-left: -90px;
   }
@@ -74,7 +74,7 @@ const CommonCard = styled(CardShadow).attrs({ scarcity: CardRarity.common })`
   z-index: 2;
   max-height: 130px;
   margin-left: -40px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     max-height: 243px;
     margin-left: -80px;
   }
@@ -86,7 +86,7 @@ const SuperRareCard = styled(CardShadow).attrs({
   z-index: 1;
   max-height: 94px;
   margin-left: -50px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     max-height: 176px;
     margin-left: -80px;
   }

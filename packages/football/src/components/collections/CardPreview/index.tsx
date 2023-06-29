@@ -4,23 +4,22 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import GlareEffect from '@sorare/core/src/atoms/animations/GlareEffect';
-import CloseButton from '@sorare/core/src/atoms/buttons/CloseButton';
 import Gauge from '@sorare/core/src/atoms/ui/GaugeV2';
-import Dialog from '@sorare/core/src/components/dialog';
-import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
-import { isListedOnMarket } from '@sorare/core/src/lib/cards';
-import { theme } from '@sorare/core/src/style/theme';
-
-import useCancelOffer from '@sorare/marketplace/src/hooks/offers/useCancelOffer';
-
-import CardScore from '@football/components/collections/CardScore';
-import CollectionBackground from '@football/components/collections/CollectionBackground';
+import CardScore from '@sorare/core/src/components/collections/CardScore';
 import DetailedScoreLine, {
   DetailedScoreKey,
   detailedScores,
-} from '@football/components/collections/DetailedScoreLine';
+} from '@sorare/core/src/components/collections/DetailedScoreLine';
+import Warning from '@sorare/core/src/components/collections/Warning';
+import Dialog from '@sorare/core/src/components/dialog';
+import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
+import { isListedOnMarket } from '@sorare/core/src/lib/cards';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
+
+import useCancelOffer from '@sorare/marketplace/src/hooks/offers/useCancelOffer';
+
+import CollectionBackground from '@football/components/collections/CollectionBackground';
 import DetailsDialogBanner from '@football/components/collections/DetailsDialogBanner';
-import Warning from '@football/components/collections/Warning';
 
 import {
   CardPreview_cardCollection,
@@ -34,7 +33,7 @@ const DialogContainer = styled(CollectionBackground)`
   align-items: center;
   gap: var(--double-unit);
   padding: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     width: 480px;
   }
 `;
@@ -119,58 +118,68 @@ const CardPreview = ({
     (date2.valueOf() - date1.valueOf()) / (1000 * 60 * 60 * 24);
 
   return (
-    <Dialog darkTheme maxWidth="sm" open={open} onClose={onClose}>
-      <DialogContainer bannerPictureUrl={bannerPictureUrl}>
-        <ActionButtonsWrapper>
-          <CloseButton onClose={onClose} />
-        </ActionButtonsWrapper>
-        <CardImageWrapper>
-          <GlareEffect pictureUrl={card.pictureUrl} />
-        </CardImageWrapper>
-        <CardScore
-          score={unlisted ? theoricalScore : total}
-          listed={displayWarning}
-        />
-        <Bonuses>
-          {Object.entries(scores).map(([key, value]) => {
-            if (!value && key === 'holding' && remainingDays > 0)
+    <Dialog
+      darkTheme
+      open={open}
+      maxWidth="sm"
+      onClose={onClose}
+      hideHeader
+      body={({ CloseButton }) => (
+        <DialogContainer bannerPictureUrl={bannerPictureUrl}>
+          <ActionButtonsWrapper>
+            <CloseButton onClose={onClose} />
+          </ActionButtonsWrapper>
+          <CardImageWrapper>
+            <GlareEffect pictureUrl={card.pictureUrl} />
+          </CardImageWrapper>
+          <CardScore
+            score={unlisted ? theoricalScore : total}
+            listed={displayWarning}
+          />
+          <Bonuses>
+            {Object.entries(scores).map(([key, value]) => {
+              if (!value && key === 'holding' && remainingDays > 0) {
+                return (
+                  <DetailedScoreLine
+                    key={key}
+                    listed={displayWarning}
+                    {...detailedScores[key as DetailedScoreKey]}
+                    explanation={
+                      <>
+                        {detailedScores[key as DetailedScoreKey].explanation}
+                        {remainingDays > 0 && (
+                          <Progression>
+                            <DaysLeft>{Math.ceil(remainingDays)}/90</DaysLeft>
+                            <Gauge
+                              percentage={`${(remainingDays * 100) / 90}%`}
+                            />
+                          </Progression>
+                        )}
+                      </>
+                    }
+                    value={0}
+                  />
+                );
+              }
+              if (!value) {
+                return null;
+              }
               return (
-                <DetailedScoreLine
-                  key={key}
-                  listed={displayWarning}
-                  {...detailedScores[key as DetailedScoreKey]}
-                  explanation={
-                    <>
-                      {detailedScores[key as DetailedScoreKey].explanation}
-                      {remainingDays > 0 && (
-                        <Progression>
-                          <DaysLeft>{Math.ceil(remainingDays)}/90</DaysLeft>
-                          <Gauge
-                            percentage={`${(remainingDays * 100) / 90}%`}
-                          />
-                        </Progression>
-                      )}
-                    </>
-                  }
-                  value={0}
-                />
+                key in detailedScores && (
+                  <DetailedScoreLine
+                    key={key}
+                    listed={displayWarning}
+                    {...detailedScores[key as DetailedScoreKey]}
+                  />
+                )
               );
-            if (!value) return null;
-            return (
-              key in detailedScores && (
-                <DetailedScoreLine
-                  key={key}
-                  listed={displayWarning}
-                  {...detailedScores[key as DetailedScoreKey]}
-                />
-              )
-            );
-          })}
-        </Bonuses>
-        {displayWarning && <Warning onClick={onUnlist} loading={unlisting} />}
-        <DetailsDialogBanner cardCollection={cardCollection} />
-      </DialogContainer>
-    </Dialog>
+            })}
+          </Bonuses>
+          {displayWarning && <Warning onClick={onUnlist} loading={unlisting} />}
+          <DetailsDialogBanner cardCollection={cardCollection} />
+        </DialogContainer>
+      )}
+    />
   );
 };
 

@@ -28,13 +28,13 @@ const Rewards = styled.div`
   white-space: nowrap;
   overflow: hidden;
   flex-wrap: wrap;
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
 `;
 
 const ProjectedRewardsWrapper = styled.div`
   background: var(--c-brand-600);
   border: 2px solid transparent;
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   width: 100%;
   & > ${Rewards} {
     background: linear-gradient(

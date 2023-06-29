@@ -33,9 +33,9 @@ const messages = defineMessages({
     id: 'CardBonus.captain',
     defaultMessage: 'Captain bonus',
   },
-  xp: {
-    id: 'CardBonus.xp',
-    defaultMessage: 'XP bonus',
+  levelBonus: {
+    id: 'CardBonus.levelBonus',
+    defaultMessage: 'Lvl {level} bonus',
   },
   scarcity: {
     id: 'CardBonus.scarcity',
@@ -108,7 +108,7 @@ export const CardBonus = (props: Props) => {
   } = props;
   const { formatMessage } = useIntlContext();
 
-  const { powerBreakdown, season, powerMalusAfterTransfer } = card;
+  const { powerBreakdown, season, powerMalusAfterTransfer, grade } = card;
   const renderValue = useRenderValue();
   const isCaptain = captain === true;
   const captainBonus = isCaptain ? engineConfiguration?.captain : null;
@@ -139,7 +139,7 @@ export const CardBonus = (props: Props) => {
             negative: val.lt(0),
           })}
         >
-          {renderValue(val)}
+          {renderValue(val)}%
         </Value>
       </Row>
     );
@@ -155,7 +155,10 @@ export const CardBonus = (props: Props) => {
             {!new Big(powerBreakdown.season).eq(0) &&
               renderRow(format(season), powerBreakdown.season)}
             {!new Big(powerBreakdown.xp).eq(0) &&
-              renderRow(formatMessage(messages.xp), powerBreakdown.xp)}
+              renderRow(
+                formatMessage(messages.levelBonus, { level: grade }),
+                powerBreakdown.xp
+              )}
             {!new Big(powerBreakdown.scarcity).eq(0) &&
               renderRow(
                 formatMessage(messages.scarcity),
@@ -203,6 +206,7 @@ CardBonus.fragments = {
       rarity
       power
       powerMalusAfterTransfer
+      grade
       season {
         startYear
       }
@@ -221,6 +225,7 @@ CardBonus.fragments = {
       rarity
       power(so5LeaderboardSlug: $so5LeaderboardSlug)
       powerMalusAfterTransfer
+      grade
       season {
         startYear
       }

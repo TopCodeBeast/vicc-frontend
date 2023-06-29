@@ -9,11 +9,12 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
 import { range } from '@sorare/core/src/lib/arrays';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
-import playerPlaceholder from '@football/assets/players/placeholder.png';
-import WhistleIcon from '@football/assets/stats/WhistleIcon';
-import glove from '@football/assets/stats/glove.svg';
-import shoe from '@football/assets/stats/shoe.svg';
+import playerPlaceholder from 'assets/players/placeholder.png';
+import WhistleIcon from 'assets/stats/WhistleIcon';
+import glove from 'assets/stats/glove.svg';
+import shoe from 'assets/stats/shoe.svg';
 import PlayerScore from '@football/components/stats/PlayerScore';
 import { statLabels } from '@football/lib/scoring';
 
@@ -28,14 +29,18 @@ const Root = styled.div`
 `;
 const PlayerImage = styled.div`
   position: relative;
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
   border-radius: 100%;
   border: 3px solid var(--c-static-neutral-300);
   background-position: center center;
   background-size: contain;
   background-color: var(--c-static-neutral-100);
   background-repeat: no-repeat;
+  @media ${tabletAndAbove} {
+    width: 48px;
+    height: 48px;
+  }
 `;
 const PlayerScoreWrapper = styled.div`
   z-index: 1;

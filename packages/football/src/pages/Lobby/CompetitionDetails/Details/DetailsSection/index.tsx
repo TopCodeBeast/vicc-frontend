@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import { Ball } from '@sorare/core/src/atoms/icons/Ball';
 import { Title5 } from '@sorare/core/src/atoms/typography';
-import { theme } from '@sorare/core/src/style/theme';
 
 type Props = {
   title: MessageDescriptor;
@@ -17,7 +16,7 @@ const Line = styled.header`
   align-items: center;
 `;
 const Rules = styled.div`
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   margin: var(--double-unit) 0 var(--triple-unit) 0;
   display: flex;
   flex-direction: column;

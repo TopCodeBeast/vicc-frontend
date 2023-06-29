@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import ButtonBase from '@core/atoms/buttons/ButtonBase';
 import BlockHeader from '@core/atoms/layout/BlockHeader';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 type BlockProps = {
   id?: string;
@@ -29,7 +29,7 @@ type BlockProps = {
 const Root = styled.div`
   flex-grow: 1;
   padding: 20px;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     padding: var(--intermediate-unit);
   }
   background: var(--c-neutral-300);

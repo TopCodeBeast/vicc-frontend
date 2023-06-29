@@ -16,6 +16,7 @@ interface Props {
 const Root = styled.img`
   height: 32px;
   width: 32px;
+  object-fit: contain;
   &.medium {
     height: 24px;
     width: 24px;

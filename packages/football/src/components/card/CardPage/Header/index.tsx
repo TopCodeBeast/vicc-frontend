@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import GlareEffect from '@sorare/core/src/atoms/animations/GlareEffect';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import CardProperties from '@football/components/so5/CardProperties';
 
@@ -20,7 +20,7 @@ const Root = styled.div`
   flex-shrink: 0;
   position: relative;
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     height: auto;
     flex-grow: 1;
   }

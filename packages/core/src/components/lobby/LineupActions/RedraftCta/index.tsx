@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import Tooltip from '@core/atoms/tooltip/Tooltip';
 import { Text14 } from '@core/atoms/typography';
 import { fantasy } from '@core/lib/glossary';
-import { theme } from '@core/style/theme';
+import { mobileAndAbove } from '@core/style/mediaQuery';
 
 import { LineupActionCta } from '../LineupActionCta';
 
@@ -15,7 +15,7 @@ const RedraftCtaMessage = styled.span<{ $hideLabelOnMobile: boolean }>`
   display: ${({ $hideLabelOnMobile }) =>
     $hideLabelOnMobile ? 'none' : 'initial'};
 
-  @media (min-width: ${theme.breakpoints.values.mobile}px) {
+  @media ${mobileAndAbove} {
     display: initial;
     margin-left: var(--unit);
   }

@@ -8,7 +8,7 @@ import Dots from '@core/atoms/layout/Dots';
 import Dialog from '@core/components/dialog';
 import useTransitionApi from '@core/hooks/useTransitionApi';
 import { glossary } from '@core/lib/glossary';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 import Footer from './Footer';
 
@@ -20,7 +20,7 @@ const DialogContent = styled.div`
   view-transition-name: onboarding-dialog-content;
   /* For mobile, ensures buttons are at bottom of screen */
   height: 100%;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     width: 480px;
   }
 `;
@@ -63,7 +63,7 @@ export const DialogOnboarding = ({
   }, [open]);
 
   const onNext = () =>
-    updateDOM(() => { //Fixed type error
+    updateDOM(() => { //********Fixed type error
       if (isLastStep) {
         if (onDone) {
           onDone()

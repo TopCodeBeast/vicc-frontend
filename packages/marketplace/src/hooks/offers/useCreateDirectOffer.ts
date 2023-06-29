@@ -18,14 +18,11 @@ import {
 } from './__generated__/useCreateDirectOffer.graphql';
 import useApproveMigrator from './useApproveMigrator';
 import useMigrateCards from './useMigrateCards';
-import useSignNewOffer from './useSignNewOffer';
+import usePrepareOffer from './usePrepareOffer';
 
 const CREATE_DIRECT_OFFER_MUTATION = gql`
   mutation CreateDirectOfferMutation($input: createDirectOfferInput!) {
     createDirectOffer(input: $input) {
-      offer {
-        id
-      }
       tokenOffer {
         id
         counteredOffer {
@@ -51,7 +48,7 @@ const useCreateDirectOffer = () => {
   const approveMigrator = useApproveMigrator();
   const migrateCards = useMigrateCards();
   const createEthMigration = useCreateEthMigration();
-  const signNewOffer = useSignNewOffer();
+  const prepareOffer = usePrepareOffer();
 
   return useCallback(
     async (
@@ -70,14 +67,14 @@ const useCreateDirectOffer = () => {
         await createEthMigration();
         const migrationData = await migrateCards(sendTokens);
 
-        const { signedLimitOrders, errors } = await signNewOffer(
-          OfferType.DIRECT_OFFER,
-          sendTokens.map(t => t.assetId!),
-          receiveTokens.map(t => t.assetId!),
+        const { legacySignedLimitOrders, errors } = await prepareOffer({
+          type: OfferType.DIRECT_OFFER,
+          sendAssetIds: sendTokens.map(t => t.assetId!),
+          receiveAssetIds: receiveTokens.map(t => t.assetId!),
           sendWeiAmount,
           receiveWeiAmount,
-          receiver.slug
-        );
+          receiverSlug: receiver.slug,
+        });
 
         if (errors?.length) return errors;
 
@@ -90,7 +87,7 @@ const useCreateDirectOffer = () => {
               receiverSlug: receiver.slug,
               sendWeiAmount,
               ...(counteredOfferId && { receiveWeiAmount }),
-              starkSignatures: signedLimitOrders,
+              starkSignatures: legacySignedLimitOrders,
               migrationData,
               duration,
               counteredOfferId,
@@ -126,8 +123,8 @@ const useCreateDirectOffer = () => {
       createEthMigration,
       createOffer,
       migrateCards,
+      prepareOffer,
       showNotification,
-      signNewOffer,
     ]
   );
 };

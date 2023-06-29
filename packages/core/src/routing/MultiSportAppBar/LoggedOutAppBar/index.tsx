@@ -8,7 +8,7 @@ import { useConnectionContext } from '@core/contexts/connection';
 import { useIntlContext } from '@core/contexts/intl';
 import useEvents from '@core/lib/events/useEvents';
 import { glossary } from '@core/lib/glossary';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 const Wrapper = styled.div`
   height: var(--navbar-height-mobile);
@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   align-items: center;
   padding: 0 var(--unit);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding: 0;
     height: var(--navbar-height-desktop);
   }

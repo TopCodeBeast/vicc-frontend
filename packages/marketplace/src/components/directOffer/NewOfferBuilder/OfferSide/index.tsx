@@ -9,7 +9,6 @@ import Button from '@sorare/core/src/atoms/buttons/Button';
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { CardHit } from '@sorare/core/src/lib/algolia';
-import { theme } from '@sorare/core/src/style/theme';
 
 import PriceHistoryTooltip from '@marketplace/components/price/PriceHistoryTooltip';
 import { TokenTransferValidator } from '@marketplace/components/token/TokenTransferValidator';
@@ -58,7 +57,7 @@ const SectionHeader = styled.div`
 
 const CardWrapper = styled.div`
   background: var(--c-neutral-300);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
 `;
 
 const InlineCards = styled.div`

@@ -8,7 +8,6 @@ import Dropdown from '@core/atoms/dropdowns/Dropdown';
 import { Text16 } from '@core/atoms/typography';
 import { LOCALE_KEY, localeConfig } from '@core/contexts/intl';
 import useEvents from '@core/lib/events/useEvents';
-import { theme } from '@core/style/theme';
 
 import { useSetLocale } from './useSetLocale';
 
@@ -35,7 +34,7 @@ const Button = styled(ButtonBase)`
   cursor: pointer;
   border: none;
   padding: var(--unit) var(--double-unit);
-  border-radius: ${theme.radius.chip};
+  border-radius: var(--quadruple-unit);
   background: var(--c-neutral-100);
   color: var(--c-neutral-1000);
   &:focus {

@@ -20,6 +20,7 @@ import FootballFieldLines from './FootballFieldLines';
 import { FootballField_game } from './__generated__/index.graphql';
 
 const Root = styled.div`
+  overflow: hidden;
   position: relative;
   display: flex;
   justify-content: center;

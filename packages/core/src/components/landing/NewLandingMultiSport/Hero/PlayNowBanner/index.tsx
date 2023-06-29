@@ -14,7 +14,7 @@ import { Text18 } from '@core/atoms/typography';
 import { ContentContainer } from '@core/components/landing/NewLandingMultiSport/ui';
 import { FOOTBALL_PATH, MLB_PATH, NBA_PATH } from '@core/constants/routes';
 import { sportsLabelsMessages } from '@core/lib/glossary';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
 import { hideScrollbar } from '@core/style/utils';
 
 import playNowBaseball from './assets/playNowBaseball.jpg';
@@ -40,11 +40,11 @@ const Wrapper = styled(ContentContainer)`
     calc(var(--double-and-a-half-unit) * 3) auto;
   grid-template-columns: repeat(3, minmax(320px, 1fr));
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     margin: var(--double-and-a-half-unit) auto
       calc(var(--double-and-a-half-unit) * 2) auto;
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     margin: var(--double-and-a-half-unit) auto;
   }
 `;

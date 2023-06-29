@@ -31,7 +31,7 @@ import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import { nullAddress } from '@core/lib/ethereum';
 import { wallet } from '@core/lib/glossary';
 import { lazy } from '@core/lib/retry';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { WalletNeedsRecover } from '../WalletNeedsRecover';
 import Wallet2FA from '../WalletTwoFA';
@@ -110,7 +110,7 @@ const CustomButton = styled(IconButton)<{ $hideOnDesktop?: boolean }>`
   ${props =>
     props.$hideOnDesktop
       ? `
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: none;
   } `
       : ''}
@@ -227,7 +227,7 @@ export const WalletDrawer = () => {
 
   if (!currentUser) return null;
 
-  const { sorarePrivateKey, sorareAddress, starkKey } = currentUser;
+  const { sorareAddress, starkKey } = currentUser;
 
   const handleClick = () => {
     setCurrentTab(WalletTab.SETTINGS);
@@ -295,13 +295,12 @@ export const WalletDrawer = () => {
       contentTitle={<WalletTitle {...{ walletIsLocked, currentTab }} />}
     >
       <Content>
-        {sorarePrivateKey && drawerOpened && !walletOpened && (
+        {!walletNeedsRecover && drawerOpened && !walletOpened && (
           <Accounting>
             <Suspense fallback={<LoadingIndicator />}>
               {/* <BankEthAccounting
                 settingsButton={
-                  currentTab === WalletTab.HOME &&
-                  !walletNeedsRecover && (
+                  currentTab === WalletTab.HOME && (
                     <CustomButton
                       color="white"
                       icon={faGear}

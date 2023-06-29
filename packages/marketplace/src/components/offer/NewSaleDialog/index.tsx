@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { FormattedMessage, defineMessages } from 'react-intl';
 
-import { Sport } from '@sorare/core/src/__generated__/globalTypes';
+import { AmountInput, Sport } from '@sorare/core/src/__generated__/globalTypes';
 import { Caption } from '@sorare/core/src/atoms/typography';
 import useSnackErrorHandler from '@sorare/core/src/hooks/useSnackErrorHandler';
 
@@ -42,17 +42,20 @@ const NewSaleDialog = ({ token, onClose, open, initialWeiAmount }: Props) => {
   const snackErrorHandler = useSnackErrorHandler();
 
   const submit = async ({
-    weiAmount,
+    amountInput,
     duration,
+    legacyWeiAmount,
   }: {
-    weiAmount: string;
+    amountInput: AmountInput;
+    legacyWeiAmount: string;
     duration?: number;
   }) => {
-    const errors = await snackErrorHandler(createOffer)(
-      weiAmount,
+    const errors = await snackErrorHandler(createOffer)({
+      amountInput,
+      legacyWeiAmount,
       token,
-      duration
-    );
+      duration,
+    });
     if (!errors.result) {
       onClose();
     }

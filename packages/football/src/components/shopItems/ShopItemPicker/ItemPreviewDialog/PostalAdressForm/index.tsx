@@ -192,7 +192,8 @@ const PostalAdressForm = ({ item, selectedSize, nextStep }: Props) => {
       shopItemId: item.id,
       shirtSize: selectedSize,
       postalAddress: {
-        fullName: `${attributes.first_name} ${attributes.last_name}`,
+        firstName: attributes.first_name,
+        lastName: attributes.last_name,
         company: attributes.company,
         streetAddress: attributes.address,
         additionalAddress: attributes.additional_address,

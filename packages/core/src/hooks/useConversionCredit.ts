@@ -40,6 +40,7 @@ export const useConversionCredit = (
       !sportConversionCredit?.sport ||
       ![
         ConversionCreditStatus.CLAIMED,
+        ConversionCreditStatus.RECLAIMED,
         ConversionCreditStatus.CREATED,
       ].includes(sportConversionCredit.status) ||
       isPast(parseISO(sportConversionCredit.endDate))

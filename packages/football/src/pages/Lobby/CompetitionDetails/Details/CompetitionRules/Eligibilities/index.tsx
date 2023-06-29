@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
 
 import Bold from '@sorare/core/src/atoms/typography/Bold';
 
@@ -11,7 +12,11 @@ import EligibilityIcon from './EligibilityIcon';
 import { Eligibilities_so5Leaderboard } from './__generated__/index.graphql';
 import { formatEligibilityRules } from './formatEligibilityRules';
 
-type Eligibilities_so5Leaderboard_rules = Eligibilities_so5Leaderboard['rules'];
+const Wrapper = styled.div`
+  padding-top: var(--double-unit);
+`;
+type Eligibilities_so5Leaderboard_rules =
+  Eligibilities_so5Leaderboard['displayedRules'];
 const hasEligibilities = (
   rules?: Eligibilities_so5Leaderboard_rules | null,
   excludeProps?: string[]
@@ -41,13 +46,16 @@ type Props = {
 };
 
 const Eligibilities = ({ so5Leaderboard, errors = [] }: Props) => {
-  if (!hasEligibilities(so5Leaderboard.rules)) {
+  if (!hasEligibilities(so5Leaderboard.displayedRules)) {
     return null;
   }
 
-  const formattedRules = formatEligibilityRules(so5Leaderboard.rules, errors);
+  const formattedRules = formatEligibilityRules(
+    so5Leaderboard.displayedRules,
+    errors
+  );
   return (
-    <>
+    <Wrapper>
       {formattedRules.map(rule => {
         if (rule?.defaultMessage) {
           return (
@@ -73,7 +81,7 @@ const Eligibilities = ({ so5Leaderboard, errors = [] }: Props) => {
         }
         return null;
       })}
-    </>
+    </Wrapper>
   );
 };
 

@@ -2,11 +2,14 @@ import { gql } from '@apollo/client';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
+import ecusson from '@sorare/core/src/assets/user/ecusson.png';
 import { Text16 } from '@sorare/core/src/atoms/typography';
+import ActiveUserAvatar from '@sorare/core/src/components/user/ActiveUserAvatar';
+import { ActiveUserAvatar_user } from '@sorare/core/src/components/user/ActiveUserAvatar/__generated__/index.graphql';
+// eslint-disable-next-line sorare/no-unrendered-component-imports
 import Avatar from '@sorare/core/src/components/user/Avatar';
 import {
   Avatar_ethereumAccount,
-  Avatar_publicUserInfoInterface,
   Avatar_starkwareAccount,
 } from '@sorare/core/src/components/user/Avatar/__generated__/index.graphql';
 import {
@@ -56,14 +59,22 @@ export const OwnerAccount = ({ children, account }: Props) => {
 
   const renderOwnerAccount = (
     user:
-      | Avatar_publicUserInfoInterface
+      | ActiveUserAvatar_user
       | Avatar_ethereumAccount
       | Avatar_starkwareAccount,
     owner: ReactNode
   ) => {
     return (
       <Root>
-        <Avatar user={user} />
+        {isA<ActiveUserAvatar_user>('User', user) ? (
+          <ActiveUserAvatar
+            user={user}
+            variant="medium"
+            placeholderUrl={ecusson}
+          />
+        ) : (
+          <Avatar user={user} variant="medium" />
+        )}
         <Content>
           {children}
           <Owner>{owner}</Owner>
@@ -127,7 +138,7 @@ OwnerAccount.fragments = {
         ... on User {
           slug
           ...UserName_publicUserInfoInterface
-          ...Avatar_publicUserInfoInterface
+          ...ActiveUserAvatar_user
           ...GalleryLink_publicUserInfoInterface
         }
       }
@@ -145,7 +156,7 @@ OwnerAccount.fragments = {
       }
     }
     ${UserName.fragments.user}
-    ${Avatar.fragments.publicUserInfoInterface}
+    ${ActiveUserAvatar.fragments.user}
     ${Avatar.fragments.ethereumAccount}
     ${Avatar.fragments.starkwareAccount}
     ${GalleryLink.fragments.user}

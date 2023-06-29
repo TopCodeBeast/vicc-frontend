@@ -7,7 +7,7 @@ import mix from 'assets/balls/mix.png';
 import rare from 'assets/balls/rare.svg';
 import super_rare from 'assets/balls/super_rare.svg';
 import unique from 'assets/balls/unique.svg';
-import { scarcityMessages } from '@sorare/core/src/lib/scarcity';
+import { scarcityMessages } from '@core/lib/scarcity';
 
 const Root = styled.span`
   display: flex;

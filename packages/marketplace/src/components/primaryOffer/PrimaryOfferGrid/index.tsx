@@ -9,10 +9,10 @@ import { Empty } from '@sorare/core/src/components/cards/Empty';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { range } from '@sorare/core/src/lib/arrays';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import EmptyMarket from '@marketplace/components/market/Empty/EmptyMarket';
-import { Grid, GridItem } from '@marketplace/components/market/Grid';
+import { Grid } from '@marketplace/components/market/Grid';
 import PrimaryOfferPreview, {
   LoadingPrimaryOfferPreview,
 } from '@marketplace/components/primaryOffer/PrimaryOfferPreview';
@@ -28,14 +28,14 @@ type PrimaryOffersByIdsQuery_tokens_primaryOffers =
 const MAX_AUTO_NEXT_PAGE = 5;
 
 const StyledGrid = styled(Grid)`
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 `;
 
-const StyledGridItem = styled(GridItem)`
+const StyledGridItem = styled.div`
   background-color: var(--c-neutral-200);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   overflow: hidden;
 `;
 

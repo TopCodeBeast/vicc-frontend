@@ -25,6 +25,7 @@ import {
 } from '@sorare/core/src/constants/routes';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import { Link } from '@sorare/core/src/routing/Link';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 import { theme } from '@sorare/core/src/style/theme';
 
 import { Rewards } from '@football/components/lineup/Rewards';
@@ -55,7 +56,7 @@ const UserGrey = styled(User)`
 `;
 const TooltipWrapper = styled.span`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: flex;
     color: var(--c-neutral-600);
   }
@@ -119,7 +120,7 @@ const ParticipantsAndRewards = styled(Cell)`
 `;
 const Prize = styled(Cell)`
   margin-bottom: var(--half-unit);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     margin-bottom: 0;
   }
 `;

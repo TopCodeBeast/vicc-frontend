@@ -9,11 +9,14 @@ import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Empty } from '@sorare/core/src/components/cards/Empty';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import useInfiniteScroll from '@sorare/core/src/hooks/useInfiniteScroll';
-import { theme } from '@sorare/core/src/style/theme';
+import {
+  laptopAndAbove,
+  tabletAndAbove,
+} from '@sorare/core/src/style/mediaQuery';
 
-import { useLoadMore } from '@sorare/football/src/hooks/useLoadMore';
-import { Player } from '@sorare/football/src/pages/Lobby/Components/Player';
-import { ShowMoreButton } from '@sorare/football/src/pages/Lobby/Components/ShowMoreButton';
+import { useLoadMore } from '@football/hooks/useLoadMore';
+import { Player } from '@football/pages/Lobby/Components/Player';
+import { ShowMoreButton } from '@football/pages/Lobby/Components/ShowMoreButton';
 
 import { LobbyMyPlayersQuery } from './__generated__/index.graphql';
 
@@ -31,10 +34,10 @@ const PlayersWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     grid-template-columns: repeat(3, 1fr);
   }
 `;

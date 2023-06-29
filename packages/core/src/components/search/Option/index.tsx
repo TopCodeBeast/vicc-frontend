@@ -6,7 +6,7 @@ import Checkbox from '@core/atoms/inputs/Checkbox';
 import SimpleRadio from '@core/atoms/inputs/SimpleRadio';
 import { LinkBox, LinkOther, LinkOverlay } from '@core/atoms/navigation/Box';
 import { Caption, Text14 } from '@core/atoms/typography';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 type Props = {
   label: string;
@@ -26,7 +26,7 @@ const Root = styled(LinkBox)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     height: var(--quadruple-unit);
   }
 `;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import Header from './Header';
 import Tabs from './Tabs';
@@ -12,7 +12,7 @@ const Root = styled.div`
   flex: 1;
   overflow: hidden;
   background: var(--c-neutral-100);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     gap: 0;
   }
 `;

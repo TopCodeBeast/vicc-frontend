@@ -8,7 +8,6 @@ import styled from 'styled-components';
 
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import { Text16 } from '@sorare/core/src/atoms/typography';
-import { theme } from '@sorare/core/src/style/theme';
 
 import Context from '@football/components/so5/ComposeTeam/Context';
 import { ContextProvider_so5Lineup } from '@football/components/so5/ComposeTeam/ContextProvider/__generated__/index.graphql';
@@ -33,7 +32,7 @@ type Props = {
 const Root = styled.div`
   outline: 2px solid transparent;
   overflow: hidden;
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
   background-color: var(--c-neutral-200);
   cursor: pointer;
@@ -54,7 +53,7 @@ const Root = styled.div`
     opacity: 0.9;
   }
   &:hover {
-    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-200);
   }
 `;
 const Row = styled.div`

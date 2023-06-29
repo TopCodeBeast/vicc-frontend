@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
 import Button from '@core/atoms/buttons/Button';
-import { theme } from '@core/style/theme';
+import { mobileAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
 
 export const LineupActionCta = styled(Button).attrs({
   medium: true,
 })`
-  @media (min-width: ${theme.breakpoints.values.mobile}px) {
+  @media ${mobileAndAbove} {
     width: auto;
   }
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     width: auto;
     max-width: 100%;
   }

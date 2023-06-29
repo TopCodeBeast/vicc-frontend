@@ -10,10 +10,6 @@ import {
 export const REJECT_OFFER_MUTATION = gql`
   mutation RejectOfferMutation($input: rejectOfferInput!) {
     rejectOffer(input: $input) {
-      offer {
-        id
-        aasmState
-      }
       tokenOffer {
         id
         status

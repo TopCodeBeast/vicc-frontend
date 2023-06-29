@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import styled from 'styled-components';
 
 import { So5Tournament } from '@sorare/core/src/__generated__/globalTypes';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import CardRewards from '@football/pages/Home/ClubHonors/CardRewards';
 
@@ -47,7 +47,7 @@ const LeaderboardRewards = styled.button`
       ),
       var(--c-neutral-300);
   }
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-template-areas: 'logo name trophies';
   }
 `;

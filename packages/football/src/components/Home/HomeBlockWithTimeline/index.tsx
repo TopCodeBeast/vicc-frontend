@@ -50,7 +50,7 @@ const Delayable = styled.div`
       position: absolute;
       content: '';
       background: rgba(var(--c-rgb-neutral-200), 0.23);
-      border-radius: ${theme.radius.xxs}px;
+      border-radius: var(--half-unit);
     }
   }
 `;

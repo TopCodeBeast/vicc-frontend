@@ -28,7 +28,7 @@ import useLifecycle, { LIFECYCLE, Lifecycle } from '@core/hooks/useLifecycle';
 import useEvents from '@core/lib/events/useEvents';
 import { glossary, sportsLabelsMessages } from '@core/lib/glossary';
 import { sportFromJSON } from '@core/protos/events/shared/events';
-import { theme } from '@core/style/theme';
+import { desktopAndAbove } from '@core/style/mediaQuery';
 import { OverrideClasses } from '@core/style/utils';
 
 import ClubSuggestion from '../ClubSuggestion';
@@ -91,7 +91,7 @@ const messages = defineMessages({
 });
 
 const SectionTitle = styled(Caption)`
-  padding: var(--unit) var(--unit) 0px 0px;
+  margin-bottom: var(--half-unit);
 `;
 
 const [StyledAutosuggest, classes] = OverrideClasses(Autosuggest, null, {
@@ -102,15 +102,16 @@ const [StyledAutosuggest, classes] = OverrideClasses(Autosuggest, null, {
     width: 100%;
   `,
   suggestionsContainerOpen: css`
-    margin: 10px -50px;
-    width: 100%;
+    margin: var(--double-unit) -50px 0;
+    width: calc(100% + 50px);
     left: 0;
     right: 0;
-    box-shadow: none;
-    @media (min-width: ${theme.breakpoints.values.desktop}px) {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      margin: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--unit);
+    @media ${desktopAndAbove} {
+      margin: var(--double-unit) 0 0;
+      width: 100%;
     }
   `,
   suggestionsList: css`
@@ -132,7 +133,7 @@ const TabsContainer = styled.div`
   gap: 10px;
   flex-direction: column;
   margin-left: -50px;
-  @media (min-width: ${theme.breakpoints.values.desktop}px) {
+  @media ${desktopAndAbove} {
     margin-left: 0;
   }
 `;
@@ -177,12 +178,15 @@ export const SearchBar = ({
     : [];
 
   const getMaxResults = (index: string, defaultValue = 2) => {
-    return Math.max(
-      truncatedLatestSearchedItems.filter(
-        latestSearchedItem => latestSearchedItem.index === index
-      ).length,
-      defaultValue
-    );
+    const formerSearchesInThisIndex = truncatedLatestSearchedItems.filter(
+      latestSearchedItem => latestSearchedItem.index === index
+    ).length;
+
+    if (formerSearchesInThisIndex > defaultValue) {
+      // cap it to max 5 results
+      return Math.min(formerSearchesInThisIndex, 5);
+    }
+    return defaultValue;
   };
 
   const indexConfig = {
@@ -432,7 +436,7 @@ export const SearchBar = ({
       inputProps={{
         value: search,
         placeholder: formatMessage(glossary.search),
-        onChange: (event, { newValue }: any) => {
+        onChange: (event, { newValue }) => {
           setSearch(newValue);
         },
         autoFocus: true,
@@ -458,11 +462,9 @@ export const SearchBar = ({
           />
           {sortedSports && sortedSports.length > 0 && (
             <TabsContainer>
-              <div>
-                <Caption color="var(--c-neutral-600)">
-                  <FormattedMessage {...messages.tabsTitle} />
-                </Caption>
-              </div>
+              <Caption color="var(--c-neutral-600)">
+                <FormattedMessage {...messages.tabsTitle} />
+              </Caption>
               <Tabs>
                 {sortedSports.map((sport: Sport) => (
                   <Button

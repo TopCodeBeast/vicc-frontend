@@ -9,7 +9,7 @@ import { forwardRef } from 'react';
 import styled from 'styled-components';
 
 import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import FlexCard from '@football/components/card/FlexCard';
 
@@ -44,7 +44,7 @@ const RemoveCard = styled(Fab)`
   ${Root}:hover & {
     opacity: 1;
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     opacity: 0;
   }
 `;

@@ -1,14 +1,14 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   font-family: 'apercu-pro';
   padding: 0 calc(6 * var(--unit));
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex: 5 1 0;
     padding: 0;
     max-width: 400px;
@@ -21,7 +21,7 @@ const HeadingWrapper = styled.h2`
   line-height: 100%;
   margin: 0;
   margin-bottom: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font-size: 60px;
     margin-bottom: var(--quadruple-unit);
   }
@@ -32,7 +32,7 @@ const SubHeading = styled.div`
   font-size: 14px;
   line-height: 150%;
   color: var(--c-neutral-600);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font-size: 18px;
   }
 `;

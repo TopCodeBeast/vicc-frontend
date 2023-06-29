@@ -29,6 +29,7 @@ import {
   RefineTeam,
 } from '@sorare/marketplace/src/searchCards';
 
+import LongLiveTheSquads from '@football/components/dialogs/LongLiveTheSquads';
 import AdvancedCardSearch from '@football/components/searchCards/AdvancedCardSearch';
 import { RefineFootballPosition } from '@football/components/searchCards/RefinePosition';
 import ReferralBar from '@football/components/user/ReferralBar';
@@ -78,24 +79,27 @@ export const Cards = ({ user, readOnly }: Props) => {
   const filters = useDefaultFilters({ userId: idFromObject(user.id) });
 
   return (
-    <AdvancedCardSearch
-      analyticsTags={['Gallery', 'Football']}
-      defaultFilters={filters}
-      cardFilters={cardFilters}
-      sorts={[
-        'Cards New',
-        'Cards Highest Average Score',
-        'Cards Highest Price',
-        'Cards Lowest Price',
-        'Cards Player Name',
-      ]}
-      includeCommonCards={includeCommonCards}
-      hideOwner
-      galleryOwnerSlug={user.slug}
-      editableLists={!readOnly}
-    >
-      {!readOnly && <ReferralBar smallBorder />}
-    </AdvancedCardSearch>
+    <>
+      <AdvancedCardSearch
+        analyticsTags={['Gallery', 'Football']}
+        defaultFilters={filters}
+        cardFilters={cardFilters}
+        sorts={[
+          'Cards New',
+          'Cards Highest Average Score',
+          'Cards Highest Price',
+          'Cards Lowest Price',
+          'Cards Player Name',
+        ]}
+        includeCommonCards={includeCommonCards}
+        hideOwner
+        galleryOwnerSlug={user.slug}
+        editableLists={!readOnly}
+      >
+        {!readOnly && <ReferralBar context="gallery" smallBorder />}
+      </AdvancedCardSearch>
+      <LongLiveTheSquads />
+    </>
   );
 };
 

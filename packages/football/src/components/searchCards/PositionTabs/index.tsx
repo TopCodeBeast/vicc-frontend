@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Position } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { positionShortNames } from '@football/lib/so5';
 
@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   display: flex;
   gap: var(--half-unit);
   flex: 1;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex: none;
   }
 `;
@@ -21,7 +21,7 @@ const StyledButton = styled(Button)`
     min-width: unset;
     padding: 0 var(--half-unit);
     flex: 1;
-    @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    @media ${tabletAndAbove} {
       padding: 0 var(--intermediate-unit);
     }
   }
@@ -47,6 +47,7 @@ export const PositionTabs = ({
             key={position}
             onClick={() => onClick(position)}
             small
+            disableDebounce
             color={isSelected ? 'darkGray' : 'gray'}
           >
             <FormattedMessage {...positionShortNames[position]} />

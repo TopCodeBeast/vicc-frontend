@@ -4,7 +4,8 @@ import { Waypoint } from 'react-waypoint';
 import styled from 'styled-components';
 
 import { Text18 } from '@core/atoms/typography';
-import { theme } from '@core/style/theme';
+import { drukwideSuper } from '@core/components/marketing/typography';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import football1x from './assets/football-1x.png';
 import football2x from './assets/football-2x.png';
@@ -27,14 +28,14 @@ const Wrapper = styled.section`
   padding: 0 var(--unit) calc(5 * var(--unit));
   padding-bottom: calc(5 * var(--unit));
   align-items: center;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding-left: 0;
     padding-right: 0;
   }
 `;
 
 const Title = styled.h3`
-  ${theme.styledFonts.drukWideSuper}
+  ${drukwideSuper}
   font-size: 30px;
   line-height: 100%;
   margin: calc(5 * var(--unit)) 0 var(--double-unit);
@@ -83,7 +84,7 @@ const GridList = styled.ul`
   & *:nth-child(8) {
     grid-area: h;
   }
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-template-areas: none;
     grid-template-columns: repeat(8, 1fr);
     * {

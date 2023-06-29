@@ -35,6 +35,13 @@ const STOP_AUTO_BID_MUTATION = gql`
           myBestBid {
             id
             maximumAmount
+            maximumAmounts {
+              referenceCurrency
+              eur
+              wei
+              usd
+              gbp
+            }
           }
         }
       }

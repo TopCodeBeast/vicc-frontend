@@ -15,7 +15,7 @@ import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useQueryString from '@sorare/core/src/hooks/useQueryString';
 import { StackProps } from '@sorare/core/src/lib/algolia';
 import { isA } from '@sorare/core/src/lib/gql';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 import { OverrideClasses } from '@sorare/core/src/style/utils';
 
 import Empty from '@sorare/marketplace/src/components/market/Empty';
@@ -60,7 +60,7 @@ const [Drawer, classes] = OverrideClasses(MuiDrawer, null, {
   paper: css`
     width: 100%;
     background-color: var(--c-neutral-200);
-    @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    @media ${tabletAndAbove} {
       width: 380px;
     }
   `,
@@ -259,7 +259,7 @@ export const CardPreviewGrid = (props: Props) => {
   );
 };
 
-const Memoized: any = memo(CardPreviewGrid);
+const Memoized = memo(CardPreviewGrid);
 
 const cardFragment = gql`
   fragment CardPreviewGrid_card on Card {

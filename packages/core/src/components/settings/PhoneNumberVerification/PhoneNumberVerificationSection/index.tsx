@@ -150,7 +150,7 @@ const PhoneNumberVerificationSection = ({
           {isEnterVerificationCodeStatus(state) && (
             <EnterVerificationCode
               resendVerificationCode={async () =>
-                verifyPhoneNumber(state.unverifiedPhoneNumber!).then(
+                verifyPhoneNumber(state.unverifiedPhoneNumber!).then( //Modified******
                   res => res || []
                 )
               }

@@ -1,7 +1,7 @@
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { MixedFontTitle } from '../ui';
 
@@ -21,7 +21,7 @@ const StyledMixedFontTitle = styled(MixedFontTitle)`
   span {
     font-size: 30px;
   }
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font-size: 70px;
 
     span {

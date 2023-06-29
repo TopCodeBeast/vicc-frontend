@@ -7,7 +7,7 @@ import { LANDING } from '@core/constants/routes';
 import { useSnackNotificationContext } from '@core/contexts/snackNotification';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 import useEvents from '@core/lib/events/useEvents';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import {
   PromptTermsCallback,
@@ -38,7 +38,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: row;
   max-height: calc(100vh - var(--dialog-header-height));
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     max-height: calc(100vh - var(--dialog-header-height) - 40px);
   }
 `;

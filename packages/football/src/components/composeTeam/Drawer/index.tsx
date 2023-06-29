@@ -6,7 +6,7 @@ import {
   Props as DumbDrawerProps,
 } from '@sorare/core/src/atoms/layout/Drawer';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { theme } from '@sorare/core/src/style/theme';
+import { desktopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 const DrawerContent = styled(animated.aside)`
   color: var(--c-neutral-1000);
@@ -14,7 +14,7 @@ const DrawerContent = styled(animated.aside)`
   z-index: 1;
   overflow: auto;
   width: 340px;
-  @media (min-width: ${theme.breakpoints.values.desktop}px) {
+  @media ${desktopAndAbove} {
     width: 440px;
   }
 `;

@@ -4,7 +4,6 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import styled, { keyframes } from 'styled-components';
 
 import { FRONTEND_ASSET_HOST } from '@core/constants/assets';
-import { theme } from '@core/style/theme';
 
 const amountAnimation = keyframes`
   from {
@@ -23,7 +22,7 @@ const Root = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: ${theme.radius.sm}px;
+  border-radius: var(--intermediate-unit);
   aspect-ratio: var(--card-aspect-ratio);
   background: center / cover no-repeat
     url(${FRONTEND_ASSET_HOST}/animations/coin_reveal_placeholder.png);

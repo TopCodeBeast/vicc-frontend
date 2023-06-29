@@ -4,7 +4,7 @@ import { Waypoint } from 'react-waypoint';
 import styled from 'styled-components';
 
 import { useIntlContext } from '@core/contexts/intl';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { SectionText } from '../SectionText';
 import Field from './Field';
@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   row-gap: 0;
   column-gap: calc(10 * var(--unit));
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     column-gap: calc(21 * var(--unit));
   }
@@ -29,7 +29,7 @@ const FieldWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     min-width: 300px;
     flex: 3 1 0;
     margin-bottom: 0px;

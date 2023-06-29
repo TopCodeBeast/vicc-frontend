@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { OwnerTransfer } from '@sorare/core/src/__generated__/globalTypes';
 import Since from '@sorare/core/src/contexts/intl/Since';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { theme } from '@sorare/core/src/style/theme';
 
 import ItemUser from '@sorare/marketplace/src/components/ItemPreview/ItemUser';
 import TokenTransferTypeIcon from '@sorare/marketplace/src/components/token/TokenTransferTypeIcon';
@@ -16,27 +15,29 @@ import CardProperties from '@football/components/so5/CardProperties';
 import { CommonCardPreview_card } from './__generated__/index.graphql';
 
 const MobileCommonCardContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: min-content 1fr;
   width: 100%;
   align-items: center;
-  gap: ${theme.spacing()}px;
+  gap: var(--unit);
 `;
 
 const MobileCommonCardImgContainer = styled.div`
-  width: ${theme.cardGrid.card.mobileWidth}px;
+  width: var(--card-mobile-width);
 `;
 const MobileCardData = styled.div`
   display: flex;
   flex-grow: 1;
   flex-direction: column;
   gap: var(--half-unit);
+  overflow: hidden;
 `;
 
 const CardFrame = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border-radius: ${theme.shape.borderRadius}px;
+  border-radius: var(--unit);
   gap: var(--intermediate-unit);
 `;
 const CardDetails = styled.div`

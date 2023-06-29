@@ -83,7 +83,7 @@ export const Country = () => {
 
   return (
     <PageContextProvider value={{ object: country }}>
-      <Body paddingTop="page">
+      <Body>
         <Wrapper>
           <Header>
             <CountryHeader>

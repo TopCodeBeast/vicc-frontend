@@ -2,13 +2,12 @@ import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import styled from 'styled-components';
 
 import Button from '@sorare/core/src/atoms/buttons/Button';
-import CloseButton from '@sorare/core/src/atoms/buttons/CloseButton';
 import { Text16, Title2 } from '@sorare/core/src/atoms/typography';
 import Dialog from '@sorare/core/src/components/dialog';
 import { OneTimeDialog } from '@sorare/core/src/contexts/oneTimeDialog/Provider';
 import { LIFECYCLE } from '@sorare/core/src/hooks/useLifecycle';
 import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 const Cover = styled.div<{ img: string; imgDesktop: string }>`
   background-position: center;
@@ -16,14 +15,14 @@ const Cover = styled.div<{ img: string; imgDesktop: string }>`
   aspect-ratio: 1;
   ${({ img }) => `background-image: url(${img});`}
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     aspect-ratio: 2;
     ${({ imgDesktop }) => `background-image: url(${imgDesktop});`}
   }
 `;
 
 const Content = styled.div`
-  padding: var(--double-unit);
+  padding: var(--triple-unit);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -31,7 +30,7 @@ const Content = styled.div`
 
   > *:last-child {
     margin-top: var(--double-unit);
-    @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    @media ${tabletAndAbove} {
       align-self: center;
     }
   }
@@ -40,8 +39,8 @@ const Content = styled.div`
 const CloseButtonWrapper = styled.div`
   position: absolute;
   z-index: 1;
-  top: var(--double-unit);
-  right: var(--double-unit);
+  top: var(--triple-unit);
+  right: var(--triple-unit);
 `;
 
 export const OnboardingDialog = ({
@@ -60,25 +59,32 @@ export const OnboardingDialog = ({
   onClose: () => void;
 }) => {
   return (
-    <Dialog maxWidth="sm" open={open} onClose={onClose} darkTheme>
-      <>
-        <CloseButtonWrapper>
-          <CloseButton onClose={onClose} />
-        </CloseButtonWrapper>
-        <Cover img={img} imgDesktop={imgDesktop} />
-        <Content>
-          <Title2>
-            <FormattedMessage {...title} />
-          </Title2>
-          <Text16 color="var(--c-neutral-500)">
-            <FormattedMessage {...description} />
-          </Text16>
-          <Button medium color="blue" onClick={onClose}>
-            <FormattedMessage {...glossary.discover} />
-          </Button>
-        </Content>
-      </>
-    </Dialog>
+    <Dialog
+      darkTheme
+      open={open}
+      maxWidth="sm"
+      hideHeader
+      onClose={onClose}
+      body={({ CloseButton }) => (
+        <>
+          <CloseButtonWrapper>
+            <CloseButton onClose={onClose} />
+          </CloseButtonWrapper>
+          <Cover img={img} imgDesktop={imgDesktop} />
+          <Content>
+            <Title2>
+              <FormattedMessage {...title} />
+            </Title2>
+            <Text16 color="var(--c-neutral-500)">
+              <FormattedMessage {...description} />
+            </Text16>
+            <Button medium color="blue" onClick={onClose}>
+              <FormattedMessage {...glossary.discover} />
+            </Button>
+          </Content>
+        </>
+      )}
+    />
   );
 };
 

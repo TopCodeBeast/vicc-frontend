@@ -14,7 +14,7 @@ import { useIntlContext } from '@core/contexts/intl';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 import { sportsLabelsMessages } from '@core/lib/glossary';
 import { MonetaryAmountCurrency } from '@core/lib/monetaryAmount';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { TermsDialog } from '../TermsDialog';
 import coins from '../assets/coins.png';
@@ -35,7 +35,7 @@ const Content = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: var(--unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row-reverse;
     justify-content: center;
   }
@@ -43,7 +43,7 @@ const Content = styled.div`
 const TextContent = styled.div`
   display: flex;
   flex-direction: column;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row-reverse;
     gap: var(--unit);
   }

@@ -8,7 +8,7 @@ export const SorareLogo = ({ className, variant = 'white' }: Props) => {
     <svg
       width="80"
       height="14"
-      viewBox="0 0 80 14"
+      viewBox="0 0 79.5947 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}

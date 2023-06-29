@@ -35,7 +35,7 @@ const ManagersSales = ({
       img={cover}
       imgDesktop={coverDesktop}
       lifecycleKey={LIFECYCLE.sawManagersSalesOnboarding}
-      show={data?.currentUser?.boughtSingleSaleOffers?.totalCount === 0}
+      show={data?.currentUser?.boughtSingleSaleTokenOffers?.totalCount === 0}
       onClick={onClick}
       open={open}
     />

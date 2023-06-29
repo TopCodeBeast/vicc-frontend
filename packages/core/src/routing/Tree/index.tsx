@@ -10,7 +10,7 @@ import { Text16 } from '@core/atoms/typography';
 import { useIntlContext } from '@core/contexts/intl';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 import useToggle from '@core/hooks/useToggle';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 export type Selection = [string, string | undefined, string | undefined];
 type SubSection = Record<string, undefined | string[]>;
@@ -45,7 +45,7 @@ const SideBar = styled.div`
   button {
     text-align: left;
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     min-width: 220px;
     border-bottom: none;
   }
@@ -71,7 +71,7 @@ const Selected = styled.button`
   color: var(--c-neutral-1000);
 `;
 const Container = styled.div`
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: flex;
   }
 `;

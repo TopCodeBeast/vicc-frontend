@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useKey } from 'react-use';
 import styled, { keyframes } from 'styled-components';
 
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 // Don't slow down tests
 const VIDEO_TIMEOUT = process.env.NODE_ENV === 'test' ? 10 : 3000;
@@ -39,13 +39,13 @@ const Wrapper = styled.div`
   background: var(--c-neutral-1000);
   isolation: isolate;
   flex-direction: column;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     flex-direction: row;
   }
 `;
 const LineupPicker = styled.aside`
   z-index: 1;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     border-right: 1px solid var(--c-neutral-200);
     background: var(--c-neutral-100);
   }
@@ -55,7 +55,7 @@ const LineupPickerContent = styled.div`
   flex-direction: column;
   gap: var(--double-unit);
   background: var(--c-neutral-100);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     opacity: 0;
     animation: ${slideIn} 1s ease-in-out forwards var(--delay, 0.4s);
   }
@@ -68,7 +68,7 @@ const MainWrapper = styled.main`
 `;
 const LineupHeader = styled.header`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: block;
     width: 100%;
     opacity: 0;
@@ -94,7 +94,7 @@ const Lineup = styled.div`
   > * {
     z-index: 2;
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     &:before {
       position: absolute;
       inset: 0;

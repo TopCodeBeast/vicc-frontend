@@ -17,7 +17,7 @@ import {
 import { FOOTBALL_DRAFT } from '@sorare/core/src/constants/routes';
 import { useGeneratePathWithSearch } from '@sorare/core/src/hooks/useGeneratePathWithSearch';
 import { fantasy } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import {
   LeagueRow_commonDraftCampaign,
@@ -46,7 +46,7 @@ const ContentWrapper = styled.div`
   align-items: end;
   gap: var(--double-unit);
   flex: 1;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     align-items: center;
   }
 `;
@@ -55,7 +55,7 @@ const ContentTitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     gap: var(--half-unit);
   }
 `;
@@ -80,7 +80,7 @@ const AlreadyJoinedText = styled.div`
   position:absolute;
   top: var(--double-unit);
   right: calc(2.5 * var(--unit));
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     position: static;
     ${text14}
   }
@@ -91,7 +91,7 @@ const AlreadyJoinedText = styled.div`
 
 const Title = styled.div`
   ${text16}
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     ${text18}
   }
   white-space: nowrap;

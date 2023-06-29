@@ -20,7 +20,7 @@ import useRedirectToLogIn from '@sorare/core/src/hooks/auth/useRedirectToLogIn';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { lineupPositions } from '@sorare/core/src/lib/players';
 import MultiSportAppBar from '@sorare/core/src/routing/MultiSportAppBar';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import Field from '@football/components/composeTeam/Field';
 import { LineupDate } from '@football/components/lineup/LineupDate';
@@ -37,7 +37,7 @@ const Root = styled(RarityGradientBackground)`
   flex-direction: column;
   height: var(--100vh);
   overflow: scroll;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     &:before {
       position: fixed;
       inset: 0;

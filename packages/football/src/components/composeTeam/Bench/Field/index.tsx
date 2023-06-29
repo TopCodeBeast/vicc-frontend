@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { LineupPosition } from '@sorare/core/src/lib/players';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import CardPlaceholderInfo from '@football/components/card/CardPlaceholderInfo';
 
@@ -14,7 +14,7 @@ const FieldWrapper = styled.div`
   position: sticky;
   bottom: 0;
   background: var(--c-static-neutral-900);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     position: initial;
     bottom: unset;
     background: unset;
@@ -28,7 +28,7 @@ const BenchContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: var(--intermediate-unit) var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     padding: 0;
   }
 `;
@@ -36,7 +36,7 @@ const BenchContentWrapper = styled.div`
 const CapBarWrapper = styled.div`
   flex: 1;
   padding-bottom: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     padding-bottom: 0;
   }
 `;

@@ -6,7 +6,6 @@ import styled from 'styled-components';
 
 import { useBgLocation } from '@core/hooks/useBgLocation';
 import { useIsInModal } from '@core/hooks/useIsInModal';
-import { theme } from '@core/style/theme';
 
 export type SecondaryTabsProps = {
   items: {
@@ -75,7 +74,7 @@ const Badge = styled.span`
   color: var(--badge);
   min-width: 1.5em;
   height: 1.5em;
-  border-radius: ${theme.radius.chip};
+  border-radius: var(--quadruple-unit);
   padding: 0 var(--unit);
 `;
 
@@ -95,7 +94,7 @@ const LinkWrapper = styled(Link)`
   background: var(--linkBg);
   line-height: 28px;
   border: 2px solid var(--linkBorder);
-  border-radius: ${theme.radius.chip};
+  border-radius: var(--quadruple-unit);
   text-decoration: none;
   scroll-snap-align: center;
   white-space: nowrap;
@@ -127,7 +126,7 @@ const ActiveLinkWrapper = styled(LinkWrapper)`
   color: var(--activeLink);
   background: var(--activeLinkBg);
   border: 2px solid var(--activeLinkBorder);
-  border-radius: ${theme.radius.chip};
+  border-radius: var(--quadruple-unit);
   & ${IconWrapper} {
     color: var(--activeIcon);
   }

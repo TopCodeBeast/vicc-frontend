@@ -17,7 +17,6 @@ import { useWalletDrawerContext } from '@core/contexts/walletDrawer';
 import useWalletNeedsRecover from '@core/hooks/recovery/useWalletNeedsRecover';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import { useFiatBalance } from '@core/hooks/wallets/useFiatBalance';
-import { useWalletPreferences } from '@core/hooks/wallets/useWalletPreferences';
 import { RoundingMode, fromWei } from '@core/lib/wei';
 
 type EthereumBalanceProps = {
@@ -58,7 +57,10 @@ const WalletButton = ({
 }: WalletButtonProps) => {
   const { formatNumber, formatWei } = useIntlContext();
   const { availableBalance } = currentUser;
-  const { showEthWallet, showFiatWallet } = useWalletPreferences();
+  const {
+    walletPreferences: { showEthWallet, showFiatWallet },
+  } = useCurrentUserContext();
+
   const {
     hasActiveFiatBalance,
     availableBalance: availableFiatBalance,

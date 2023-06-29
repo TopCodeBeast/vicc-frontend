@@ -1,7 +1,7 @@
 import { createRef, useMemo } from 'react';
 import { useInstantSearch } from 'react-instantsearch-hooks-web';
 import { FormattedMessage, defineMessages } from 'react-intl';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import { Portal } from '@sorare/core/src/atoms/layout/Portal';
 import { Text16 } from '@sorare/core/src/atoms/typography';
@@ -18,7 +18,7 @@ import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 import { FILTERS, FilterWidget } from '@sorare/core/src/lib/filters';
 import useBottomBarNavItems from '@sorare/core/src/routing/MultiSportBottomNavBar/useBottomBarNavItems';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { ActiveFilters } from '@marketplace/search/ActiveFilters';
 import { SavedFilters } from '@marketplace/search/SavedFilters';
@@ -63,6 +63,13 @@ const messages = defineMessages({
   },
 });
 
+const NoSmoothScrollStyle = createGlobalStyle`
+  html {
+    /* overrides the default scroll behavior we have in global style.css */
+    scroll-behavior: initial;
+  }
+`;
+
 const Root = styled.div`
   gap: var(--triple-unit);
   display: flex;
@@ -80,7 +87,7 @@ const TitleContainer = styled.div`
     display: inline;
     margin-right: var(--unit);
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: inline-flex;
     align-items: baseline;
     gap: var(--unit);
@@ -178,7 +185,7 @@ export const SearchLayout = (props: Props) => {
       // but Algolia components do not handle navigation through
       // React router so we can not detected pagination change
       // on router level
-      window.scrollTo({ top: ref.current.offsetTop - 100, behavior: 'smooth' });
+      window.scrollTo({ top: ref.current.offsetTop - 100, behavior: 'auto' });
     }
   };
 
@@ -195,6 +202,7 @@ export const SearchLayout = (props: Props) => {
 
   return (
     <Root ref={ref}>
+      <NoSmoothScrollStyle />
       {(title || subtitle) && (
         <Heading>
           {title && (

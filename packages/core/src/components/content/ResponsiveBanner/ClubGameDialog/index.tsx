@@ -13,7 +13,7 @@ import {
 } from '@core/constants/routes';
 import { useBgLocation } from '@core/hooks/useBgLocation';
 import { avoidOrphan } from '@core/lib/text';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 import bundesliga from './assets/bundesliga.png';
 import laLiga from './assets/laliga.png';
@@ -26,7 +26,7 @@ import tournamentList from './assets/tournaments_list.png';
 const DialogContainer = styled.div`
   display: flex;
   flex-direction: column;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     width: 480px;
   }
 `;
@@ -45,7 +45,7 @@ const Header = styled.div`
 `;
 const TeamImage = styled.img`
   height: 40px;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     height: 50px;
   }
 `;

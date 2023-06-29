@@ -7,6 +7,7 @@ import styled, { css } from 'styled-components';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 import { useBgLocation } from '@core/hooks/useBgLocation';
 import HandledErrorBoundary from '@core/routing/HandledErrorBoundary';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
 import { OverrideClasses } from '@core/style/utils';
 
@@ -15,18 +16,10 @@ import HandledError from './HandledError';
 import Header from './Header';
 import useIsScrolling from './useIsScrolling';
 
-const maxHeight = css`
-  max-height: 100%;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
-    max-height: calc(100vh - 80px);
-  }
-`;
-
 const Root = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  ${maxHeight}
 `;
 const BodyWrapper = styled.div`
   height: 100%;
@@ -39,16 +32,15 @@ const [StyledDialog, classes] = OverrideClasses(MUIDialog, null, {
   `,
   paper: css`
     background-color: var(--c-dialog-background);
-    ${maxHeight}
   `,
   fullHeight: css`
-    @media (min-width: ${theme.breakpoints.values.laptop}px) {
-      min-height: calc(100vh - 40px);
+    @media ${laptopAndAbove} {
+      min-height: calc(100vh - 80px);
     }
   `,
   paperWidthXl: css`
     width: ${theme.breakpoints.values.desktop}px;
-    @media (min-width: ${theme.breakpoints.values.laptop}px) {
+    @media ${laptopAndAbove} {
       display: inline-flex;
       flex-direction: column;
       border-radius: 20px;
@@ -124,7 +116,7 @@ export const Dialog = ({
     <Root>
       <div>
         {showHeader && (
-          <Header onBack={onBack} title={title} onClose={onClose} />
+          <Header onBack={onBack} title={title} onClose={closeDialog} />
         )}
       </div>
       <BodyWrapper>
@@ -154,7 +146,7 @@ export const Dialog = ({
       }}
       scroll={scroll}
       fullScreen={!isLaptop || fullScreen}
-      maxWidth={!fullScreen ? maxWidth : false}
+      maxWidth={!fullScreen ? maxWidth : false} //Modifed****
       fullWidth={fullWidth}
       open={!!open}
       onMouseDown={clickDown}

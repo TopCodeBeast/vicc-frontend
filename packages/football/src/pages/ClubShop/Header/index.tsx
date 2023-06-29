@@ -10,7 +10,10 @@ import { Text14, Title2 } from '@sorare/core/src/atoms/typography';
 import { FOOTBALL_HOME } from '@sorare/core/src/constants/routes';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useSafePreviousNavigate from '@sorare/core/src/hooks/useSafePreviousNavigate';
-import { theme } from '@sorare/core/src/style/theme';
+import {
+  laptopAndAbove,
+  tabletAndAbove,
+} from '@sorare/core/src/style/mediaQuery';
 
 import ClubShopButton from '@football/components/clubShop/ClubShopButton';
 import CoinAmount from '@football/components/user/CoinAmount';
@@ -27,11 +30,11 @@ const MainContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     align-items: stretch;
     padding: var(--unit);
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     align-items: stretch;
     padding: var(--unit) 0;
   }
@@ -44,7 +47,7 @@ const NavigationBar = styled.div`
 `;
 const BackButtonWrapper = styled.div`
   display: block;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: none;
   }
 `;
@@ -53,7 +56,7 @@ const FlexContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 0 var(--unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     justify-content: space-between;
     padding: 0;

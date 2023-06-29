@@ -9,7 +9,7 @@ import {
   FOOTBALL_CLUB_SHOW,
   FOOTBALL_LEAGUE_SHOW,
 } from '@sorare/core/src/constants/routes';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 import { createVar } from '@sorare/core/src/style/utils';
 
 import placeholder from 'assets/players/placeholder.png';
@@ -23,7 +23,7 @@ const backgroundImgVar = createVar();
 
 const HeaderContainer = styled.div`
   position: relative;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding-left: 260px;
   }
   &::before {
@@ -35,7 +35,7 @@ const HeaderContainer = styled.div`
     background-size: auto 60%;
     mask-image: linear-gradient(to top, transparent 40%, black 60%);
     content: '';
-    @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    @media ${tabletAndAbove} {
       mask-image: linear-gradient(to top, transparent 0%, black 50%);
       background-size: auto 100%;
       background-position: left bottom;
@@ -51,7 +51,7 @@ const InformationRoot = styled.div`
   text-align: center;
   padding: 0;
   height: 350px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     height: 230px;
     text-align: left;
     justify-content: flex-start;
@@ -68,13 +68,13 @@ const LeftContent = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: var(--triple-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding-bottom: 0;
   }
 `;
 const NamePositionClub = styled.div`
   padding-bottom: 10px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding-bottom: 20px;
   }
 `;
@@ -84,7 +84,7 @@ const ClubSeparator = styled(Title3)`
 const Cta = styled.div`
   margin-top: 10px;
   justify-content: center;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     margin-top: 20px;
     justify-content: flex-start;
   }

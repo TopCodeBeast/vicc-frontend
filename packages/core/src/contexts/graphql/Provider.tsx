@@ -460,6 +460,10 @@ export const GraphqlProvider = ({
         max: Infinity,
       },
       attempts(count, _operation, error) {
+        if (typeof (error as ServerError)?.statusCode === 'number') {
+          return false;
+        }
+
         return !!error && count < MAX_RETRIES;
       },
     });

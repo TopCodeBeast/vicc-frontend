@@ -16,7 +16,7 @@ import {
 } from '@sorare/core/src/lib/cards';
 import { FILTERS, TOGGLE_FILTERS } from '@sorare/core/src/lib/filters';
 import { filters } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
 import {
@@ -42,7 +42,7 @@ const Container = styled.div`
     flex: none;
   }
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-wrap: wrap;
     & > * {
       flex: initial;

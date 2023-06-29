@@ -13,7 +13,7 @@ import {
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import { fantasy, glossary } from '@sorare/core/src/lib/glossary';
 import { Link } from '@sorare/core/src/routing/Link';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import DropdownActions from '@football/components/lineup/DropdownActions';
 import { useFootballEvents } from '@football/lib/events';
@@ -29,7 +29,7 @@ const Wrapper = styled.div`
   align-items: center;
   gap: var(--half-unit);
   justify-content: flex-end;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     padding: 0 var(--intermediate-unit);
   }
 `;

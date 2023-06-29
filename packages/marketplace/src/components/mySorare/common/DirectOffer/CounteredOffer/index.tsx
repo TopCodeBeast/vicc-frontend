@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { Text16, Title6 } from '@sorare/core/src/atoms/typography';
 import { Nickname } from '@sorare/core/src/components/user/Nickname';
 import useToggle from '@sorare/core/src/hooks/useToggle';
-import { theme } from '@sorare/core/src/style/theme';
 
 import DirectOfferBody from '../DirectOfferBody';
 import {
@@ -27,7 +26,7 @@ const Offer = styled.div`
   background-color: var(--c-neutral-300);
   padding: var(--double-unit);
   gap: var(--double-unit);
-  border-radius: ${theme.radius.sm}px;
+  border-radius: var(--intermediate-unit);
 `;
 const Button = styled.button`
   color: var(--c-brand-600);
@@ -38,7 +37,7 @@ const Warning = styled(Text16)`
   background-color: rgba(var(--c-rgb-yellow-600), 0.25);
   color: var(--c-neutral-1000);
   font-weight: 400;
-  border-radius: ${theme.radius.sm}px;
+  border-radius: var(--intermediate-unit);
 `;
 
 const StyledCollapse = styled(Collapse)`

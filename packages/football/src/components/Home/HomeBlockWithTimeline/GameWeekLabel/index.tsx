@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { Jersey } from '@sorare/core/src/atoms/icons/Jersey';
 import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
 import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
 import { stroke } from '@sorare/core/src/style/utils';
 
 import { LiveDot } from '@football/components/so5/LiveDot';
@@ -16,7 +15,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: ${theme.radius.sm}px;
+  border-radius: var(--intermediate-unit);
   width: calc(6 * var(--unit));
   height: calc(6 * var(--unit));
   background: var(--c-neutral-400);
@@ -29,7 +28,7 @@ const IconWrapper = styled.div`
   right: -8px;
   background: var(--c-neutral-100);
   display: flex;
-  border-radius: ${theme.radius.sm}px;
+  border-radius: var(--intermediate-unit);
   border: 3px solid var(--c-neutral-100);
   &.upcoming {
     color: var(--c-brand-300);

@@ -5,7 +5,6 @@ import ResponsiveImg, {
   ValidWidths,
   getClosestStandardWidth,
 } from '@core/atoms/ui/ResponsiveImg';
-import { theme } from '@core/style/theme';
 
 const WIDTH = 21;
 const HEIGHT = 34;
@@ -15,7 +14,7 @@ export const placeholderCss = css`
   background: var(--c-neutral-300) url(${cardPlaceholder}) no-repeat center;
   background-size: cover;
   background-position: top center;
-  border-radius: ${theme.radius.xs}px;
+  border-radius: var(--unit);
   content: '';
   inset: 0;
   z-index: -1;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { SorareLogo } from '@core/atoms/icons/SorareLogo';
 import StarBall from '@core/atoms/icons/StarBall';
 import Container from '@core/atoms/layout/Container';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { BuildYourLegacyTitle } from '../BuildYourLegacyTitle';
 import PlayNowButton from '../PlayNowButton';
@@ -25,7 +25,7 @@ const Content = styled.div<{ backgroundImage?: string }>`
   background-image: ${({ backgroundImage }) =>
     backgroundImage ? `url(${backgroundImage})` : 'none'};
   align-items: center;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding: 164px var(--double-unit);
   }
 `;

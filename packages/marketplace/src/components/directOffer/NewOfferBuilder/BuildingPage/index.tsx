@@ -26,7 +26,7 @@ import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 import { CardHit, tokenHitFragment } from '@sorare/core/src/lib/algolia';
 import { tradeLabels } from '@sorare/core/src/lib/glossary';
 import { toWei } from '@sorare/core/src/lib/wei';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { WalletPaymentMethod } from '@marketplace/components/buyActions/PaymentProvider/types';
 import useHasInsufficientFundsInWallets from '@marketplace/hooks/useHasInsufficientFundsInWallets';
@@ -57,12 +57,11 @@ const StyledTooltip = styled(Tooltip)`
 `;
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   padding: 0 0 calc(var(--marginBottom) * 1px);
   margin: 0;
-  width: 100%;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
-    width: max-content;
-  }
 `;
 const CenteredTitle6 = styled(Title6)`
   text-align: center;
@@ -79,7 +78,7 @@ const Row = styled.div`
   display: flex;
   flex-direction: column;
   & > :not(:first-child) {
-    border-top: ${theme.borders.grey};
+    border-top: 1px solid var(--c-neutral-300);
   }
   & > :last-child {
     margin-bottom: var(--double-unit);
@@ -89,7 +88,7 @@ const Row = styled.div`
     flex-grow: 1;
     width: 100%;
   }
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     & > :not(:first-child) {
       border-top: none;
     }
@@ -430,7 +429,7 @@ const BuildingPage = <
   return (
     <Dialog
       open
-      maxWidth="sm"
+      maxWidth="md"
       onClose={onClose}
       fullScreen={!isTablet}
       title={

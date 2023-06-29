@@ -12,7 +12,10 @@ import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Empty } from '@sorare/core/src/components/cards/Empty';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useInfiniteScroll from '@sorare/core/src/hooks/useInfiniteScroll';
-import { theme } from '@sorare/core/src/style/theme';
+import {
+  desktopAndAbove,
+  laptopAndAbove,
+} from '@sorare/core/src/style/mediaQuery';
 
 import { Lineup } from '@football/components/lineup/Lineup';
 import LineupToDiscover from '@football/components/lineup/LineupToDiscover';
@@ -34,10 +37,10 @@ const Lineups = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (min-width: ${theme.breakpoints.values.desktop}px) {
+  @media ${desktopAndAbove} {
     grid-template-columns: repeat(3, 1fr);
   }
 `;

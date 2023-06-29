@@ -2,7 +2,11 @@ import { useCallback } from 'react';
 
 import { MonetaryAmount } from '__generated__/globalTypes';
 import { useConfigContext } from '@core/contexts/config';
-import MonetaryAmountClass, { MonetaryAmountParams } from '@core/lib/monetaryAmount';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import MonetaryAmountClass, {
+  MonetaryAmountParams,
+  getFiatMonetaryAmountIndex,
+} from '@core/lib/monetaryAmount';
 
 type NonNullableObj<T> = { [K in keyof T]: NonNullable<T[K]> };
 
@@ -13,6 +17,9 @@ export type MonetaryAmountOutput = Omit<
 
 const useMonetaryAmount = () => {
   const { exchangeRate } = useConfigContext();
+  const {
+    fiatCurrency: { code },
+  } = useCurrentUserContext();
 
   const toMonetaryAmount = useCallback(
     (params: MonetaryAmountParams): MonetaryAmountOutput => {
@@ -23,7 +30,13 @@ const useMonetaryAmount = () => {
     [exchangeRate.rates.eth]
   );
 
-  return { toMonetaryAmount };
+  const getUserFiatAmount = useCallback(
+    (monetaryAmount: MonetaryAmountOutput) =>
+      monetaryAmount[getFiatMonetaryAmountIndex(code)],
+    [code]
+  );
+
+  return { toMonetaryAmount, getUserFiatAmount };
 };
 
 export default useMonetaryAmount;

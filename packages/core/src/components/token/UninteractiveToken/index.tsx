@@ -12,7 +12,7 @@ import styled from 'styled-components';
 
 import { ValidWidths } from '@core/atoms/ui/ResponsiveImg';
 import { CardImg, CardImgLoadingWrapper } from '@core/components/card/CardImg';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 export type DraggableProps = HTMLAttributes<HTMLDivElement>;
 
@@ -23,7 +23,7 @@ interface ClickHandlerProps {
 interface IProps {
   token: {
     slug: string;
-    pictureUrl?: string | null;
+    pictureUrl?: string | null; //Modified*****
   };
   draggableProps?: DraggableProps;
   width?: ValidWidths;
@@ -44,7 +44,7 @@ const Bars = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     opacity: 0;
   }
 `;

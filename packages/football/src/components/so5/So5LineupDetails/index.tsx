@@ -20,9 +20,9 @@ import {
 } from '@sorare/core/src/lib/events';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import DivisionLogo from '@sorare/football/src/components/so5/DivisionLogo';
-import Points from '@sorare/football/src/components/so5/Points';
-import So5LineupAppearance from '@sorare/football/src/components/so5/So5LineupAppearance';
+import DivisionLogo from '@football/components/so5/DivisionLogo';
+import Points from '@football/components/so5/Points';
+import So5LineupAppearance from '@football/components/so5/So5LineupAppearance';
 import { socialSharingMessages } from '@football/lib/so5';
 
 import {

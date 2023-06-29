@@ -1,8 +1,6 @@
 import { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
-import { theme } from '@core/style/theme';
-
 import Checkbox from '../Checkbox';
 
 const Label = styled.label<{ rounded: boolean }>`
@@ -10,7 +8,7 @@ const Label = styled.label<{ rounded: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: ${theme.spacing(2)}px;
+  gap: var(--double-unit);
   white-space: nowrap;
   cursor: pointer;
   font-size: 16px;

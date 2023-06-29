@@ -1,18 +1,12 @@
 import { useCallback } from 'react';
-import { FormattedMessage, defineMessages } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 
 import { Sport } from '__generated__/globalTypes';
 import Button, { Props } from '@core/atoms/buttons/Button';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 import useEvents from '@core/lib/events/useEvents';
-
-const messages = defineMessages({
-  playNow: {
-    id: 'LandingContent.playNow',
-    defaultMessage: 'Play now',
-  },
-});
+import { glossary } from '@core/lib/glossary';
 
 const PlayNowButton = (props: Props) => {
   const { up: isTablet } = useScreenSize('tablet');
@@ -33,7 +27,7 @@ const PlayNowButton = (props: Props) => {
 
   return (
     <Button color="black" medium={!isTablet} onClick={onClick} {...rest}>
-      <FormattedMessage {...messages.playNow} />
+      <FormattedMessage {...glossary.playNow} />
     </Button>
   );
 };

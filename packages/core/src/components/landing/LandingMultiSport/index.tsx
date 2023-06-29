@@ -14,7 +14,7 @@ import { Lifecycle } from '@core/hooks/useLifecycle';
 import useEvents from '@core/lib/events/useEvents';
 import MultiSportAppBar from '@core/routing/MultiSportAppBar';
 import MultiSportFooter from '@core/routing/MultiSportFooter';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { ChooseYourSport } from '../ChooseYourSport';
 import { CollectBlock } from '../CollectCards/CollectBlock';
@@ -43,7 +43,7 @@ const Spaced = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     gap: calc(5 * var(--unit));
   }
 `;

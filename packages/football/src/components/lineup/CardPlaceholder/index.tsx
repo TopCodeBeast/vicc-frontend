@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import { Rarity } from '@sorare/core/src/__generated__/globalTypes';
-import { theme } from '@sorare/core/src/style/theme';
 
 import PlaceholderIcon from './PlaceholderIcon';
 
@@ -51,7 +50,7 @@ const Wrapper = styled.div`
   }
   color: var(--c-neutral-1000);
   aspect-ratio: var(--card-aspect-ratio);
-  border-radius: ${theme.radius.xs}px;
+  border-radius: var(--unit);
   display: flex;
   align-items: center;
   justify-content: center;

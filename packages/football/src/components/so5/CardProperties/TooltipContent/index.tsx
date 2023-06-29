@@ -12,7 +12,7 @@ interface Props {
 
 const Root = styled.div`
   text-align: left;
-  color: var(--c-neutral-100);
+  color: var(--c-neutral-1000);
 `;
 export const TooltipContent = (props: Props) => {
   const { title, description, content } = props;

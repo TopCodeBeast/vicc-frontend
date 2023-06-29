@@ -19,15 +19,11 @@ import {
   FOOTBALL_USER_GALLERY_WILDCARD,
 } from '@sorare/core/src/constants/routes';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
-import {
-  useUseCustomLists,
-  useUseHomeTimelineLayout,
-} from '@sorare/core/src/lib/featureFlags';
+import { useUseCustomLists } from '@sorare/core/src/lib/featureFlags';
 import { galleryTabs } from '@sorare/core/src/lib/glossary';
 import { lazy } from '@sorare/core/src/lib/retry';
 import { RootRoutes } from '@sorare/core/src/routing/RootRoutes';
 
-import { RewardsBanner } from '@football/components/rewards/Banner';
 import Header from '@football/components/user/Header';
 import Overview from '@football/pages/Gallery/Overview';
 
@@ -57,7 +53,6 @@ const Network = lazy(async () => import('@football/pages/Home/Network'));
 
 export const Tabs = ({ user, isOwnPage }: Props) => {
   const useCustomLists = useUseCustomLists();
-  const useHomeTimelineLayout = useUseHomeTimelineLayout();
   const { formatMessage } = useIntl();
   const bgLocation = useBgLocation(true);
   const { slug } = user;
@@ -116,11 +111,6 @@ export const Tabs = ({ user, isOwnPage }: Props) => {
     <Root>
       <Header user={user} readOnly={!isOwnPage} />
       <Body>
-        {!useHomeTimelineLayout && isOwnPage && (
-          <RewardsBanner
-            rewards={(user as HomeTabs_currentUser).unclaimedSo5Rewards || []}
-          />
-        )}
         <NavigationTabs items={tabItems} />
         <Content>
           <RootRoutes location={bgLocation}>
@@ -166,15 +156,10 @@ Tabs.fragments = {
     fragment HomeTabs_currentUser on CurrentUser {
       id
       slug
-      unclaimedSo5Rewards {
-        slug
-        ...RewardsBanner_so5Reward
-      }
       ...UserHeader_currentUser
       ...Overview_publicUserInfoInterface
     }
     ${Header.fragments.currentUser}
-    ${RewardsBanner.fragments.so5Reward}
     ${Overview.fragments.user}
   `,
   publicUserInfoInterface: gql`

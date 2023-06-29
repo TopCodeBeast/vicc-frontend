@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 import styled, { css } from 'styled-components';
 
 import { proxyUrl } from '@sorare/core/src/atoms/ui/ResponsiveImg';
-import { theme } from '@sorare/core/src/style/theme';
 
 import defaultBanner from 'assets/club/banner_none.jpg';
 
@@ -10,10 +9,10 @@ import { Banner_user } from './__generated__/index.graphql';
 
 type Props = {
   user: Banner_user;
-  rounded?: keyof (typeof theme)['radius'];
+  rounded?: boolean;
 };
 
-const Root = styled.div<{ rounded?: keyof (typeof theme)['radius'] }>`
+const Root = styled.div<{ rounded?: boolean }>`
   position: absolute;
   inset: 0;
   width: 100%;
@@ -25,7 +24,7 @@ const Root = styled.div<{ rounded?: keyof (typeof theme)['radius'] }>`
   ${props =>
     props.rounded &&
     css`
-      border-radius: ${theme.radius[props.rounded]}px;
+      border-radius: var(--intermediate-unit);
     `}
 
   &:after {
@@ -41,7 +40,7 @@ const Root = styled.div<{ rounded?: keyof (typeof theme)['radius'] }>`
           rgba(0, 0, 0, 0.4) 0%,
           var(--c-static-neutral-900) 63%
         );
-        border-radius: ${theme.radius[props.rounded]}px;
+        border-radius: var(--intermediate-unit);
       `}
   }
 `;

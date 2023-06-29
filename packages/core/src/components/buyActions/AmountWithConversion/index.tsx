@@ -22,12 +22,14 @@ const Exponent = styled(Text14)`
 export type Props = UseAmountWithConversionProps & {
   column?: boolean;
   withApproxSymbol?: boolean;
+  hideExponent?: boolean;
 };
 
 export const AmountWithConversion = (props: Props) => {
   const {
     column = false,
     withApproxSymbol = false,
+    hideExponent = false,
     ...useAmountWithConversionProps
   } = props;
   const { main, exponent } = useAmountWithConversion(
@@ -36,7 +38,7 @@ export const AmountWithConversion = (props: Props) => {
   return (
     <Line $column={column}>
       {main && <Title6 color="var(--c-neutral-1000)">{main}</Title6>}
-      {exponent && (
+      {!hideExponent && exponent && (
         <Exponent>
           {withApproxSymbol && '≈ '}
           {exponent}

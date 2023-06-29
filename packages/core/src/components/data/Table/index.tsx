@@ -4,11 +4,11 @@ import { ReactNode, useState } from 'react';
 import styled from 'styled-components';
 
 import { LinkBox, LinkOther } from '@core/atoms/navigation/Box';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 const Header = styled.header`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: grid;
     grid-template-columns: var(--columns);
     grid-template-areas: var(--areas);
@@ -38,7 +38,7 @@ export const Line = styled(LinkBox)`
     border-radius: var(--unit);
     border-bottom: none;
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     overflow: visible;
     &:hover,
     &:focus-within {
@@ -73,7 +73,7 @@ export const Cell = styled.article<Cell>`
   align-items: center;
   justify-content: ${({ align = 'left' }) => align};
   gap: var(--half-unit);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: ${({ hideOnDesktop }) => (hideOnDesktop ? 'none' : 'flex')};
   }
 `;

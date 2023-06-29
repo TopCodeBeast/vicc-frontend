@@ -8,11 +8,11 @@ import styled from 'styled-components';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
 import Bold from '@sorare/core/src/atoms/typography/Bold';
+import { Score } from '@sorare/core/src/components/collections/Score';
 import { FOOTBALL_USER_CARD_COLLECTION_CARDS } from '@sorare/core/src/constants/routes';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 
 import { ScarcityLabel } from '@football/components/collections/ScarcityLabel';
-import { Score } from '@football/components/collections/Score';
 
 import { Requirements_shopItem } from './__generated__/index.graphql';
 

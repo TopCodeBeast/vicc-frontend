@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import background from './Field.svg';
 import FieldPlayer from './FieldPlayer';
@@ -30,7 +30,7 @@ const Row = styled.div`
 const FirstRow = styled(Row)`
   gap: calc(5 * var(--unit));
   top: -45px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     top: -45px;
   }
 `;
@@ -38,7 +38,7 @@ const FirstRow = styled(Row)`
 const SecondRow = styled(Row)`
   gap: calc(13 * var(--unit));
   top: -55px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     top: -40px;
   }
 `;
@@ -46,7 +46,7 @@ const SecondRow = styled(Row)`
 const ThirdRow = styled(Row)`
   gap: calc(5 * var(--unit));
   top: -100px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     top: -70px;
   }
 `;

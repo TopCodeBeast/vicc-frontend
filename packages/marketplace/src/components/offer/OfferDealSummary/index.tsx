@@ -12,7 +12,7 @@ import { Text14, Text16, Text20 } from '@sorare/core/src/atoms/typography';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import SelectedPaymentMethodForConfirmation from '@marketplace/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
 import { WalletPaymentMethod } from '@marketplace/components/buyActions/PaymentProvider/types';
@@ -106,7 +106,7 @@ const WarningWrapper = styled.div`
 const ItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   background: var(--c-neutral-300);
   padding: var(--double-unit);
   gap: var(--half-unit);
@@ -279,7 +279,7 @@ const OfferRow = styled.div`
   display: flex;
   gap: var(--double-unit);
   flex-direction: column;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     padding-bottom: var(--double-unit);
     border-bottom: var(--c-neutral-300) solid 1px;

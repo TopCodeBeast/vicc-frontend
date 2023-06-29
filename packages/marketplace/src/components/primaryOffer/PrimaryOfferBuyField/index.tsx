@@ -8,6 +8,7 @@ import { Props as ButtonProps } from '@sorare/core/src/atoms/buttons/Button';
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
 import { Title5 } from '@sorare/core/src/atoms/typography';
 import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useEventContext } from '@sorare/core/src/contexts/event';
 import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
 import useLoggedCallback from '@sorare/core/src/hooks/useLoggedCallback';
@@ -45,6 +46,11 @@ export const PrimaryOfferBuyField = ({
   const { trackClickBuy } = useMarketplaceContext();
   const { convertFromWei } = useCurrencyConverters();
   const trackingContext = useEventContext();
+
+  const {
+    currency,
+    fiatCurrency: { code },
+  } = useCurrentUserContext();
 
   const onPaymentSuccess = useCallback(() => {
     setShowBuyingConfirmation(true);
@@ -87,18 +93,34 @@ export const PrimaryOfferBuyField = ({
     onPaymentSuccess();
   };
 
-  const customAmountDisplay = (
-    <PriceWrapper>
-      <AmountWithConversion
-        monetaryAmount={{
-          referenceCurrency: SupportedCurrency.WEI,
-          wei: priceWei,
-          ...priceFiat,
-        }}
-        column
+  const referenceCurrency =
+    currency === Currency.ETH
+      ? SupportedCurrency.WEI
+      : (code as SupportedCurrency);
+
+  const OrderSummaryComponent = useCallback(
+    ({ isFiat }: { isFiat: boolean }) => (
+      <PrimaryOfferTokensSummary
+        tokens={nfts}
+        price={
+          <PriceWrapper>
+            <AmountWithConversion
+              monetaryAmount={{
+                wei: priceWei,
+                ...priceFiat,
+                referenceCurrency,
+              }}
+              primaryCurrency={isFiat ? Currency.FIAT : Currency.ETH}
+              hideExponent
+              column
+            />
+          </PriceWrapper>
+        }
       />
-    </PriceWrapper>
+    ),
+    [nfts, priceFiat, priceWei, referenceCurrency]
   );
+
   return (
     <>
       <LoadingButton
@@ -114,12 +136,14 @@ export const PrimaryOfferBuyField = ({
       {paymentStarted && (
         <LazyPaymentProvider
           paymentProps={{
+            canChangeRefCurrency: true,
             objectId: id,
             onSuccess: onPaymentSuccessWithTracking,
             onSubmit: buyWithEth,
             price: {
-              amount: priceWei,
-              referenceCurrency: SupportedCurrency.WEI,
+              referenceCurrency,
+              wei: priceWei,
+              ...priceFiat,
             },
             cta: payment.confirmAndPay,
             canUseConversionCredit: true,
@@ -135,12 +159,7 @@ export const PrimaryOfferBuyField = ({
                 <FormattedMessage {...payment.paymentBoxTitle} />
               </Title5>
             ),
-            orderSummary: (
-              <PrimaryOfferTokensSummary
-                tokens={nfts}
-                price={customAmountDisplay}
-              />
-            ),
+            OrderSummary: OrderSummaryComponent,
             customAmountDisplay: null,
             confirmationProviderStateProps: {
               primaryOfferId: id,

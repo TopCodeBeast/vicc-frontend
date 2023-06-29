@@ -12,7 +12,7 @@ import {
 } from '@core/components/landing/LandingFootball/ui';
 import MidfieldLine from '@core/components/landing/MidfieldLine';
 import { range } from '@core/lib/arrays';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 const messages = defineMessages({
   title: {
@@ -48,7 +48,7 @@ const Img = styled(animated.img).attrs({
 const Pitch = styled.div`
   margin-top: calc(5 * var(--unit));
   text-align: center;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     margin-top: calc(9 * var(--unit));
   }
 `;
@@ -59,7 +59,7 @@ const Row = styled.div`
   gap: 20px;
 
   --starballSize: calc(10 * var(--unit));
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     gap: calc(7 * var(--unit));
     --starballSize: 140px;
   }
@@ -67,7 +67,7 @@ const Row = styled.div`
   & > * {
     width: calc(33% - 15px);
 
-    @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    @media ${tabletAndAbove} {
       width: 200px;
     }
   }
@@ -76,7 +76,7 @@ const Row = styled.div`
 const Section = styled(Container)`
   padding-top: 60px;
   padding-bottom: 60px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding-top: 100px;
     padding-bottom: 100px;
   }

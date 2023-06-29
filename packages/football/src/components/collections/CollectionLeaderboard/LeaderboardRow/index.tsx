@@ -4,12 +4,12 @@ import { Link, generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Caption, Text14 } from '@sorare/core/src/atoms/typography';
+import { Score } from '@sorare/core/src/components/collections/Score';
 import Avatar from '@sorare/core/src/components/user/Avatar';
 import { Nickname } from '@sorare/core/src/components/user/Nickname';
 import { FOOTBALL_USER_CARD_COLLECTION_CARDS } from '@sorare/core/src/constants/routes';
 
 import { CardsNumber } from '@football/components/collections/CardsNumber';
-import { Score } from '@football/components/collections/Score';
 import ClubShield from '@football/components/user/ClubShield';
 
 import { LeaderboardRow_userCardCollection } from './__generated__/index.graphql';

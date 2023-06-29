@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import { glossary } from '@core/lib/glossary';
-import { theme } from '@core/style/theme';
 import { OverrideClasses } from '@core/style/utils';
 
 import { Level, SnackNotificationOptions } from '..';
@@ -47,7 +46,6 @@ const [Root, classes] = OverrideClasses(
       backdrop-filter: blur(2px);
       color: var(--c-neutral-1000);
       flex-wrap: nowrap;
-      max-width: ${theme.breakpoints.values.desktop - theme.spacing(2)};
       padding: 15px 15px;
       width: max-content;
       word-break: break-word;

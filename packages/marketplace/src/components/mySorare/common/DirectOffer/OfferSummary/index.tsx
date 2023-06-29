@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 import { theme } from '@sorare/core/src/style/theme';
 
 import { OfferUser } from '@marketplace/components/directOffer/NewOfferBuilder/OfferUser';
@@ -31,7 +32,7 @@ const Summary = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 calc(var(--double-and-a-half-unit * -1));
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     min-width: calc(
       ${theme.breakpoints.values.tablet}px - var(--double-and-a-half-unit)
     );

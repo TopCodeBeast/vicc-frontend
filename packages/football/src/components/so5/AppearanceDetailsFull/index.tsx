@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 import styled from 'styled-components';
 
-import AppearanceDetails from '@sorare/football/src/components/so5/AppearanceDetails';
-import ViewAllDetailedScore from '@sorare/football/src/components/stats/ViewAllDetailedScore';
+import AppearanceDetails from '@football/components/so5/AppearanceDetails';
+import ViewAllDetailedScore from '@football/components/stats/ViewAllDetailedScore';
 
 import {
   AppearanceDetailsFull_player,

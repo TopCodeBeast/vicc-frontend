@@ -60,7 +60,8 @@ type PaymentContext = {
       | DisposableCard
       | PaymentMethod
       | WalletPaymentMethod
-      | null
+      | null,
+    enablePaymentRequest?: boolean
   ) => void;
   fees: number;
   usingConversionCredit: boolean;
@@ -77,6 +78,8 @@ type PaymentContext = {
   insufficientFundsInEthWallet: boolean;
   insufficientFundsInFiatWallet: boolean;
   referenceCurrency: SupportedCurrency;
+  setReferenceCurrency: (c: SupportedCurrency) => void;
+  canChangeRefCurrency?: boolean;
 };
 
 export const paymentContext = createContext<PaymentContext | null>(null);

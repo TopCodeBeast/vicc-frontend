@@ -17,7 +17,7 @@ import {
 } from '@sorare/core/src/contexts/config';
 import { FilterWidget } from '@sorare/core/src/lib/filters';
 import { filters, sorts as sortsMessages } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { useClearAllFilters } from '@marketplace/search/ClearAllFilters';
 import useFiltersCount from '@marketplace/search/FiltersManager/useFiltersCount';
@@ -52,7 +52,7 @@ const ButtonsWrapper = styled.div`
   gap: var(--unit);
   padding: var(--unit);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
   }
 `;

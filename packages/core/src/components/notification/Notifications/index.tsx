@@ -14,14 +14,14 @@ import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useInGameNotificationContext } from '@core/contexts/inGameNotification';
 import useToggle from '@core/hooks/useToggle';
 import MenuIconButton from '@core/routing/MultiSportAppBar/MenuIconButton';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 import { OverrideClasses } from '@core/style/utils';
 
 const [Drawer, classes] = OverrideClasses(MuiDrawer, null, {
   paper: css`
     width: 100%;
     background-color: var(--c-neutral-200);
-    @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    @media ${tabletAndAbove} {
       width: 370px;
     }
   `,

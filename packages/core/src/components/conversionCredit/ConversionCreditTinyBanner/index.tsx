@@ -12,7 +12,7 @@ import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useIntlContext } from '@core/contexts/intl';
 import { useConversionCredit } from '@core/hooks/useConversionCredit';
 import { MonetaryAmountCurrency } from '@core/lib/monetaryAmount';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { TermsDialog } from '../TermsDialog';
 import coins from '../assets/coins.png';
@@ -45,7 +45,7 @@ const Content = styled.div`
 `;
 const StyledChevronRightBold = styled(ChevronRightBold)`
   color: var(--c-static-neutral-100);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: none;
   }
 `;
@@ -54,7 +54,7 @@ const TermsLink = styled.button`
   &:not(.forceShowTerms) {
     display: none;
   }
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: inline;
   }
 `;

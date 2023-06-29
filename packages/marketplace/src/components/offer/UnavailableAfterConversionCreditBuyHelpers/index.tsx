@@ -68,7 +68,7 @@ const UnavailableAfterConversionCreditBuyHelpers = ({ token }: Props) => {
           <FormattedMessage
             id="UnavailableAfterConversionCreditBuyHelpers.tooltip"
             defaultMessage="This Card was bought using a credit and can’t be listed for sale for {days} days."
-            values={{ days: 7 }}
+            values={{ days: 14 }}
           />
         }
       >

@@ -19,7 +19,6 @@ import { scarcityNames } from '@sorare/core/src/lib/cards';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { asObject } from '@sorare/core/src/lib/json';
 import { getCardRewards } from '@sorare/core/src/lib/rewards';
-import { theme } from '@sorare/core/src/style/theme';
 
 import textureImage from 'assets/lobby/texture.png';
 import trophyImage from 'assets/lobby/trophy.png';
@@ -61,7 +60,7 @@ const PrizePoolWrapper = styled.div<{ rarity: Rarity | undefined }>`
   display: flex;
   flex-direction: column;
   isolation: isolate;
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   overflow: hidden;
   position: relative;
   background: ${({ rarity }) => {
@@ -71,7 +70,7 @@ const PrizePoolWrapper = styled.div<{ rarity: Rarity | undefined }>`
   }};
   color: var(--c-static-neutral-100);
   &:before {
-    border-radius: ${theme.radius.md}px;
+    border-radius: var(--double-unit);
     content: '';
     inset: 1px;
     position: absolute;
@@ -93,7 +92,7 @@ const PrizePoolWrapper = styled.div<{ rarity: Rarity | undefined }>`
 const PrizePoolInnerWrapper = styled.div`
   flex: 1;
   padding: var(--quadruple-unit) var(--double-unit);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   display: flex;
   flex-direction: column;
   gap: var(--unit);

@@ -5,14 +5,14 @@ import { AddToCalendarButton } from '@core/atoms/buttons/AddToCalendarButton';
 import CloseButton from '@core/atoms/buttons/CloseButton';
 import { Text16, Text20 } from '@core/atoms/typography';
 import Dialog from '@core/components/dialog';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 const DialogContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     width: 480px;
   }
 `;

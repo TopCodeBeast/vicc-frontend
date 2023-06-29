@@ -22,7 +22,7 @@ import useToggle from '@sorare/core/src/hooks/useToggle';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { isA } from '@sorare/core/src/lib/gql';
 import { CARDS_REQUIREMENTS_BY_SPORT } from '@sorare/core/src/lib/referral';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import ReferralCampaignTitle from '@football/components/user/ReferralCampaignTitle';
 
@@ -106,6 +106,7 @@ const REFERRAL_BAR_QUERY = gql`
 
 type OuterProps = {
   smallBorder?: boolean;
+  context: 'gallery' | 'invite';
 };
 
 interface Props extends OuterProps {
@@ -116,6 +117,7 @@ interface Props extends OuterProps {
 interface ReferralCampaignAnnouncementProps {
   referralCampaign: ReferralBarQuery_config_referralCampaign;
   smallBorder?: boolean;
+  context: 'gallery' | 'invite';
 }
 
 const messages = defineMessages({
@@ -183,7 +185,7 @@ const Header = styled.div`
   align-items: center;
   gap: 20px;
   margin-bottom: 20px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     text-align: left;
   }
@@ -301,13 +303,14 @@ const AnnouncementIcon = styled.img`
 const ReferralCampaignAnnouncement = (
   props: ReferralCampaignAnnouncementProps
 ) => {
-  const { referralCampaign, smallBorder } = props;
+  const { referralCampaign, context, smallBorder } = props;
   return (
     <Root className={classNames({ smallBorder })}>
       <AnnouncementRoot>
         <ReferralCampaignTitle
           referralCampaign={referralCampaign}
           ctaProps={{ color: 'blue' }}
+          context={context}
         />
         <AnnouncementIcon
           src={referralCampaignAnnouncementIcon}
@@ -319,7 +322,7 @@ const ReferralCampaignAnnouncement = (
 };
 
 export const ReferralBar = (props: Props) => {
-  const { currentUser, referralCampaign } = props;
+  const { currentUser, referralCampaign, context } = props;
   const { referralAsReferee, refereeReward } = currentUser;
   const { claimed } = useReferralReward(refereeReward);
   if (
@@ -356,7 +359,10 @@ export const ReferralBar = (props: Props) => {
     <Root>
       <div>{renderHeader()}</div>
       {referralCampaign && !refereeReward && (
-        <ReferralCampaignTitle referralCampaign={referralCampaign} />
+        <ReferralCampaignTitle
+          referralCampaign={referralCampaign}
+          context={context}
+        />
       )}
     </Root>
   );

@@ -55,7 +55,7 @@ PlayerLastScores.fragments = {
         type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
         position: $position
       )
-      allSo5Scores(first: 20, after: $after, position: $position) {
+      allSo5Scores(first: $first, after: $after, position: $position) {
         nodes {
           id
           ...LastScores_so5Score

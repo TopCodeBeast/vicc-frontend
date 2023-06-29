@@ -15,13 +15,13 @@ import { Title5 } from '@sorare/core/src/atoms/typography';
 import { useIsDesktop } from '@sorare/core/src/hooks/device/useIsDesktop';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import useToggle from '@sorare/core/src/hooks/useToggle';
-import { theme } from '@sorare/core/src/style/theme';
 
 import { HomeBlock } from '@football/components/Home/Block';
 import { EmptyBlock } from '@football/components/Home/ItemRows';
 import { useFootballEvents } from '@football/lib/events';
 
 import { FootballManagerTask } from './FootballManagerTask';
+import { tasksData } from './FootballManagerTask/data';
 import {
   ManagerAssistant_currentUser,
   ManagerAssistant_so5Leaderboard,
@@ -30,7 +30,7 @@ import {
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: ${theme.radius.sm}px;
+  border-radius: var(--intermediate-unit);
   overflow: hidden;
   & > *:not(:last-child) {
     border-bottom: 2px solid var(--c-neutral-300);
@@ -83,6 +83,9 @@ export const ManagerAssistant = ({ user, loading, leaderboards }: Props) => {
 
   const tasksToDisplay =
     user?.myFootballManagerTasks.filter(task => {
+      if (!tasksData[task.taskSlug]) {
+        return false;
+      }
       if (
         !showScoutPlayerTask &&
         task.taskSlug === FootballManagerTaskSlug.SCOUT_PLAYER

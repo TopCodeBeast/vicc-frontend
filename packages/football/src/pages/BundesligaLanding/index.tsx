@@ -28,7 +28,7 @@ import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import LoggedOutAppBarWithLogo from '@sorare/core/src/routing/MultiSportAppBar/LoggedOutAppBarWithLogo';
 import MultiSportFooter from '@sorare/core/src/routing/MultiSportFooter';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import useFontFaceObserver from '@sorare/use-font-face-observer';
 
@@ -101,7 +101,7 @@ const PageBackground = styled.div`
 
 const HeroContainer = styled.div`
   padding-bottom: 20px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding-bottom: 60px;
   }
 `;

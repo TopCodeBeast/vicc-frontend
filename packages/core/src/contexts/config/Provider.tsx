@@ -125,7 +125,6 @@ const CONFIG_QUERY = gql`
       sponsorAccountAddress
       migratorAddress
       minimumReceiveWeiAmount
-      walletChallenge
       footballMarketFeesBasisPoints: marketFeeRateBasisPoints(sport: FOOTBALL)
       nbaMarketFeesBasisPoints: marketFeeRateBasisPoints(sport: NBA)
       mlbMarketFeesBasisPoints: marketFeeRateBasisPoints(sport: BASEBALL)

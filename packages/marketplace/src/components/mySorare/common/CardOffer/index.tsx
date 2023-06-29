@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { Rarity } from '@sorare/core/src/__generated__/globalTypes';
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
 import OpenItemDialogLink from '@sorare/core/src/components/link/OpenItemDialogLink';
-import { theme } from '@sorare/core/src/style/theme';
 
 import PriceHistoryTooltip from '@marketplace/components/price/PriceHistoryTooltip';
 import FlexToken from '@marketplace/components/token/FlexToken';
@@ -22,7 +21,7 @@ type Props = {
 const Container = styled(OpenItemDialogLink)`
   padding: var(--unit);
   background: var(--c-neutral-300);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   transition: 0.1s ease-in-out all;
   .inModale & {
     background: var(--c-neutral-400);

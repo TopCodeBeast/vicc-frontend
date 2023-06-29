@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 import { Color } from '@core/style/types';
 
 const variant = ({
@@ -46,28 +46,28 @@ const getColorsStyle = ({ color }: Props) => {
 // Mixins to use when helper component isn't appropriate
 export const title1 = css`
   font: var(--t-bold) var(--t-32);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font: var(--t-bold) var(--t-48);
   }
   ${titleVariant}
 `;
 export const title2 = css`
   font: var(--t-bolder) var(--t-24);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font: var(--t-bolder) var(--t-32);
   }
   ${titleVariant}
 `;
 export const title3 = css`
   font: var(--t-bold) var(--t-20);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font: var(--t-bold) var(--t-24);
   }
   ${titleVariant}
 `;
 export const title4 = css`
   font: var(--t-bold) var(--t-18);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font: var(--t-bold) var(--t-20);
   }
 `;
@@ -166,4 +166,4 @@ export type TypographyVariant =
   | typeof Text14
   | typeof Overline
   | typeof Caption
-  | any;
+  | any; //Modified*******************

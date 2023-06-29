@@ -17,7 +17,7 @@ import {
 } from '@sorare/core/src/contexts/managerTask';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { transferMarket } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import auctionsDesktop from '@football/pages/TransferMarket/assets/auctions_desktop.png';
 import auctionsMobile from '@football/pages/TransferMarket/assets/auctions_mobile.png';
@@ -70,7 +70,7 @@ const Root = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--intermediate-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--triple-unit);
@@ -85,6 +85,19 @@ export const Entries = () => {
 
   return (
     <Root>
+      <Entry
+        to={FOOTBALL_NEW_SIGNINGS}
+        title={transferMarket.new}
+        description={
+          isTablet
+            ? messages.desktopAuctionsDescription
+            : messages.mobileAuctionsDescription
+        }
+        countMessage={messages.primarySecondaryCount}
+        count={counts.football.auctionsCount}
+        mobileImage={<img src={auctionsMobile} alt="Auctions" />}
+        desktopImage={<img src={auctionsDesktop} alt="Auctions" />}
+      />
       <Entry
         to={FOOTBALL_STARTER_BUNDLES}
         title={transferMarket.starterPacks}
@@ -126,19 +139,6 @@ export const Entries = () => {
           desktopImage={<img src={managerSalesDesktop} alt="Manager Sales" />}
         />
       </ManagerTaskTooltip>
-      <Entry
-        to={FOOTBALL_NEW_SIGNINGS}
-        title={transferMarket.new}
-        description={
-          isTablet
-            ? messages.desktopAuctionsDescription
-            : messages.mobileAuctionsDescription
-        }
-        countMessage={messages.primarySecondaryCount}
-        count={counts.football.auctionsCount}
-        mobileImage={<img src={auctionsMobile} alt="Auctions" />}
-        desktopImage={<img src={auctionsDesktop} alt="Auctions" />}
-      />
     </Root>
   );
 };

@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 import dotsPattern from '@core/assets/dots-pattern.png';
 import Container from '@core/atoms/layout/Container';
-import { theme } from '@core/style/theme';
+import { drukwideSuper } from '@core/components/marketing/typography';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { ChooseYourSportContent } from './Content';
 
@@ -16,7 +17,7 @@ const DottedBackground = styled.div`
 `;
 
 const Header = styled.h2`
-  ${theme.styledFonts.drukWideSuper}
+  ${drukwideSuper}
   font-size: 20px;
   line-height: 24px;
   color: white;
@@ -25,7 +26,7 @@ const Header = styled.h2`
   padding: var(--double-and-a-half-unit) 0;
   margin: 0;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font-size: 30px;
     line-height: 30px;
     padding: calc(5 * var(--unit)) 0;

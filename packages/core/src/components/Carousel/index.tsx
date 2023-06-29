@@ -73,6 +73,7 @@ export const Carousel = <T,>({
     }
   });
 
+  //Modifed*****
   return (
     <Wrapper ref={target} style={style}>
       {elements.map((element, index) => (

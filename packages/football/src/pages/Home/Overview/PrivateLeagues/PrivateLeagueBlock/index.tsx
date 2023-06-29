@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { LinkBox, LinkOther } from '@sorare/core/src/atoms/navigation/Box';
 import { Text14 } from '@sorare/core/src/atoms/typography';
 import { FOOTBALL_PRIVATE_LEAGUES } from '@sorare/core/src/constants/routes';
-import { theme } from '@sorare/core/src/style/theme';
 
 import DivisionLogo from '@football/components/so5/DivisionLogo';
 
@@ -15,7 +14,7 @@ import { PrivateLeagueBlock_userGroup } from './__generated__/index.graphql';
 const Wrapper = styled(LinkBox)`
   background: var(--c-neutral-200);
   color: var(--c-neutral-1000);
-  border-radius: ${theme.radius.sm}px;
+  border-radius: var(--intermediate-unit);
   overflow: hidden;
 `;
 

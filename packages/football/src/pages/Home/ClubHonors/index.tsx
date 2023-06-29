@@ -12,7 +12,10 @@ import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import useInfiniteScroll from '@sorare/core/src/hooks/useInfiniteScroll';
 import { useUseCustomLists } from '@sorare/core/src/lib/featureFlags';
 import { fantasy } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import {
+  laptopAndAbove,
+  tabletAndAbove,
+} from '@sorare/core/src/style/mediaQuery';
 
 import { Lineup } from '@football/components/lineup/Lineup';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
@@ -47,10 +50,10 @@ const Lineups = styled.div`
   grid-template-rows: 1fr;
   gap: var(--double-unit);
   min-height: 280px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     grid-template-columns: repeat(3, 1fr);
   }
 `;
@@ -65,7 +68,7 @@ const LeaderboardLogo = styled.img`
 `;
 const EmptyBlock = styled.div`
   background-color: var(--c-neutral-200);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   opacity: 0.23;
 `;
 const EmptyBlocks = () => (

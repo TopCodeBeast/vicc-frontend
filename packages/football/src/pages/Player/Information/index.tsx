@@ -8,7 +8,7 @@ import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import FlagAvatar from '@sorare/core/src/components/country/FlagAvatar';
 import { FOOTBALL_COUNTRY_SHOW } from '@sorare/core/src/constants/routes';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { positionShortNames } from '@football/lib/so5';
 
@@ -33,7 +33,7 @@ const Root = styled.div`
   justify-content: center;
   font-weight: 700;
   gap: 10px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     justify-content: flex-start;
   }
 `;

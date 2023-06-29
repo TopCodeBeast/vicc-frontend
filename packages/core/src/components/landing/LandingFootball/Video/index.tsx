@@ -6,12 +6,12 @@ import styled from 'styled-components';
 import Container from '@core/atoms/layout/Container';
 import BrandingVideo from '@core/components/content/BrandingVideo';
 import useScreenSize from '@core/hooks/device/useScreenSize';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { MixedFontTitle, SubTitle } from '../ui';
 
 const StyledContainer = styled(Container)`
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding-top: calc(8 * var(--unit));
     padding-bottom: calc(8 * var(--unit));
   }
@@ -33,7 +33,7 @@ const Play = styled.div`
     margin-left: 4px;
   }
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     width: 80px;
     height: 80px;
   }
@@ -57,7 +57,7 @@ const VideoThumbnail = styled.div`
     }
   }
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     gap: var(--quadruple-unit);
   }
 `;

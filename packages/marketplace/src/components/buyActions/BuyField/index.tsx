@@ -83,6 +83,11 @@ const BuyField = ({
   const loggedTogglePaymentStarted = useLoggedCallback<boolean>(b =>
     setPaymentStarted(b)
   );
+
+  const OrderSummaryComponent = useCallback(() => {
+    return <BuyTokenSummary token={token} />;
+  }, [token]);
+
   const { trackClickBuy } = useMarketplaceContext();
   const trackingContext = useEventContext();
   const onPaymentSuccess = useCallback(() => {
@@ -175,7 +180,7 @@ const BuyField = ({
             onSuccess: onPaymentSuccess,
             onSubmit: buyWithEth,
             price: {
-              amount: priceWei,
+              wei: priceWei,
               referenceCurrency: SupportedCurrency.WEI,
             },
             cta: payment.confirmAndPay,
@@ -197,7 +202,7 @@ const BuyField = ({
                 <FormattedMessage {...payment.paymentBoxTitle} />
               </Title5>
             ),
-            orderSummary: <BuyTokenSummary token={token} />,
+            OrderSummary: OrderSummaryComponent,
             confirmationProviderStateProps: {
               tokenOfferId: token?.liveSingleSaleOffer?.id,
             },

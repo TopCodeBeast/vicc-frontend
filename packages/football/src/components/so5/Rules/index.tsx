@@ -73,18 +73,13 @@ export const hasRules = (
 };
 
 export const Rules = ({
-  so5Leaderboard: { displayedRules, engineConfiguration },
+  so5Leaderboard,
   hideCompetitions = false,
   errors = [],
   Line = ({ content, rule, ...props }) => <Text16 {...props}>{content}</Text16>,
 }: Props) => {
   const intl = useIntl();
-  const formattedRules = formatRules(
-    displayedRules,
-    errors,
-    engineConfiguration,
-    intl
-  );
+  const formattedRules = formatRules(so5Leaderboard, errors, intl);
   if (!formattedRules.length) return null;
 
   return (

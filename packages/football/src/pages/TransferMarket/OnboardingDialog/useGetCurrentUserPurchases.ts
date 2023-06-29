@@ -11,7 +11,7 @@ export const CURRENT_USER_PURCHASES = gql`
       wonTokenAuctions(first: 1, sport: FOOTBALL) {
         totalCount
       }
-      boughtSingleSaleOffers(first: 1) {
+      boughtSingleSaleTokenOffers(first: 1) {
         totalCount
       }
     }

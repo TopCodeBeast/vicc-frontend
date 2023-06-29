@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 import { useMemo, useState } from 'react';
 
-import { Leaderboard } from '@sorare/football/src/components/so5/Leaderboard/index';
-import So5LineupDetails from '@sorare/football/src/components/so5/So5LineupDetails';
+import { Leaderboard } from '@football/components/so5/Leaderboard/index';
+import So5LineupDetails from '@football/components/so5/So5LineupDetails';
 
 import UserGroupLeaderboardHeader from './Header';
 import Row from './Row';

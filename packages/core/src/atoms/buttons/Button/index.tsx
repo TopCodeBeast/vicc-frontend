@@ -177,6 +177,7 @@ const StyledButton = styled(MuiButton)`
         color: var(--c-neutral-600);
         border: unset;
       }
+      &.active,
       &:hover,
       &:focus {
         background: var(--c-neutral-300);

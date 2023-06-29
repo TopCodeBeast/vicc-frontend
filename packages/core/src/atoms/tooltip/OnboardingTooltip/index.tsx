@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import TooltipContent from '@core/atoms/tooltip/TooltipContent';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
 
 type Props = {
@@ -11,7 +12,7 @@ type Props = {
 
 const Root = styled.div`
   z-index: ${theme.zIndex.tooltip};
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     position: absolute;
     &.left {
       right: calc(100% + 20px);
@@ -35,7 +36,7 @@ const Anchor = styled.div`
   display: none;
   position: absolute;
   top: 40px;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: initial;
   }
   &.left {

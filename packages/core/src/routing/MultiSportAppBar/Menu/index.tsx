@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 import { Sport } from '__generated__/globalTypes';
 import { MenuVisibility } from '@core/lib/menu';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { useAppBarContext } from '../context';
 
@@ -72,7 +72,7 @@ const Root = styled(MenuItem)`
   &.secondary {
     color: var(--c-neutral-600);
     display: none;
-    @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    @media ${tabletAndAbove} {
       display: block;
     }
   }

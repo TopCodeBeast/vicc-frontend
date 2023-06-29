@@ -8,7 +8,6 @@ import {
 import { useConfigContext } from '@sorare/core/src/contexts/config';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
 import { useGetAuthorizationApprovals } from '@marketplace/hooks/useGetAuthorizationApprovals';
 
@@ -60,10 +59,6 @@ type Props = {
 };
 
 const usePrepareAcceptOffer = ({ signAuthorizations }: Props) => {
-  const {
-    flags: { useAuthorizationsToAcceptOffer = false },
-  } = useFeatureFlags();
-
   const getAuthorizationApprovals = useGetAuthorizationApprovals();
 
   const [prepareAcceptOfferMutation, { loading }] = useMutation<
@@ -94,9 +89,7 @@ const usePrepareAcceptOffer = ({ signAuthorizations }: Props) => {
       variables: {
         input: {
           offerId,
-          ...(useAuthorizationsToAcceptOffer && {
-            settlementInfo,
-          }),
+          settlementInfo,
         },
       },
     });

@@ -17,6 +17,7 @@ import {
   FOOTBALL_USER_CARD_COLLECTION_CARDS,
   FOOTBALL_USER_CARD_COLLECTION_LEADERBOARD,
 } from '@sorare/core/src/constants/routes';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useSeoContext } from '@sorare/core/src/contexts/seo';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
@@ -57,7 +58,6 @@ const COLLECTION_QUERY = gql`
       cardCollection(slug: $slug) {
         slug
         name
-        bannerPictureUrl
         ...CollectionSlots_cardCollection
         slots @skip(if: $hasUserCollection) {
           id
@@ -97,6 +97,7 @@ const CollectionWithParams = ({ slug, userSlug }: Props) => {
   const { pathname: currentPathname } = bgLocation;
   const navigate = useNavigate();
   const [hasUserCollection, setHasUserCollection] = useState(true);
+  const { currentUser } = useCurrentUserContext();
 
   const { data, loading } = useQuery<CollectionQuery, CollectionQueryVariables>(
     COLLECTION_QUERY,
@@ -171,9 +172,9 @@ const CollectionWithParams = ({ slug, userSlug }: Props) => {
       ),
       tabContent: (
         <CollectionSlots
-          bannerPictureUrl={cardCollection.bannerPictureUrl || ''}
-          slots={slots}
           cardCollection={cardCollection}
+          slots={slots}
+          readOnly={userSlug !== currentUser?.slug}
         />
       ),
     },

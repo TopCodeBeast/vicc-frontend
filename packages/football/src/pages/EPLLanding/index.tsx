@@ -35,6 +35,7 @@ import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import LoggedOutAppBarWithLogo from '@sorare/core/src/routing/MultiSportAppBar/LoggedOutAppBarWithLogo';
 import MultiSportFooter from '@sorare/core/src/routing/MultiSportFooter';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 import { theme } from '@sorare/core/src/style/theme';
 
 import useFontFaceObserver from '@sorare/use-font-face-observer';
@@ -168,7 +169,7 @@ const ThunderboltBackground = styled.div`
   background-size: cover;
   position: relative;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding-top: 40px;
   }
 `;

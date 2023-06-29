@@ -11,6 +11,7 @@ import { Text14 } from '@sorare/core/src/atoms/typography';
 import { useConfigContext } from '@sorare/core/src/contexts/config';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import {
+  LearnCompetitionsOnboardingStep,
   MarketplaceOnboardingStep,
   useManagerTaskContext,
 } from '@sorare/core/src/contexts/managerTask';
@@ -183,6 +184,11 @@ export const FootballManagerTask = ({ task, leaderboards }: Props) => {
         setOnSuccessCallback(() => validateRewardCallback);
       },
       validateReward: validateRewardCallback,
+      onLearnCompetitions: () => {
+        setTask(task);
+        setStep(LearnCompetitionsOnboardingStep.menu);
+        setOnSuccessCallback(() => validateRewardCallback);
+      },
     });
     track('Click Manager Assistant Task', {
       task: task.taskSlug,

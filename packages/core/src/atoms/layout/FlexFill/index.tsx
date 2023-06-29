@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 interface Props {
   count: number;
@@ -10,7 +10,7 @@ interface Props {
 const HideMobile = styled.div`
   display: none;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: unset;
   }
 `;

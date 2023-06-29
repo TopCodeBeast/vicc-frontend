@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import { Text14 } from '@sorare/core/src/atoms/typography';
+import ActivityIndicator from '@sorare/core/src/components/user/ActivityIndicator';
 import Avatar from '@sorare/core/src/components/user/Avatar';
 import { tradeLabels } from '@sorare/core/src/lib/glossary';
 
@@ -37,7 +38,9 @@ const StyledSpan = styled.span`
 export const OfferUser = ({ isReceiver, user }: Props) => {
   return (
     <Row>
-      <Avatar user={user} />
+      <ActivityIndicator user={user} enterTouchDelay={0}>
+        <Avatar user={user} />
+      </ActivityIndicator>
       <StyledText14 color="var(--c-neutral-600)">
         <FormattedMessage
           {...(isReceiver
@@ -61,14 +64,18 @@ OfferUser.fragments = {
     fragment OfferUser_publicUserInfoInterface on PublicUserInfoInterface {
       slug
       ...Avatar_publicUserInfoInterface
+      ...ActivityIndicator_user
     }
     ${Avatar.fragments.publicUserInfoInterface}
+    ${ActivityIndicator.fragments.user}
   `,
   user: gql`
     fragment OfferUser_user on User {
       slug
       ...Avatar_user
+      ...ActivityIndicator_user
     }
     ${Avatar.fragments.user}
+    ${ActivityIndicator.fragments.user}
   `,
 };

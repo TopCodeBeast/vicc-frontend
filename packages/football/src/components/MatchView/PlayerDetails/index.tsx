@@ -8,7 +8,7 @@ import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Text18 } from '@sorare/core/src/atoms/typography';
 import { FOOTBALL_PLAYER_SHOW } from '@sorare/core/src/constants/routes';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
-import { theme } from '@sorare/core/src/style/theme';
+import { desktopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import PlayerAvatar from '@football/components/player/PlayerAvatar';
 import DetailedScoreV4V5 from '@football/components/stats/DetailedScore/DetailedScoreV4V5';
@@ -40,7 +40,7 @@ const CloseButtonWrapper = styled.div`
   position: absolute;
   top: var(--double-unit);
   right: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.desktop}px) {
+  @media ${desktopAndAbove} {
     display: none;
   }
 `;

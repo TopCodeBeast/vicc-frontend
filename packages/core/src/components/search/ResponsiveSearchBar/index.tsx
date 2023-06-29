@@ -24,8 +24,9 @@ const [StyledMenu, classes] = OverrideClasses(Menu, null, {
   menuPaper: css`
     width: 300px;
     flex-shrink: 0;
-    border-radius: 8px;
+    border-radius: var(--intermediate-unit);
     background-color: var(--c-neutral-200);
+    margin-top: var(--unit);
     &:not(.isDesktop) {
       top: 0px !important;
       left: 0px !important;
@@ -35,6 +36,7 @@ const [StyledMenu, classes] = OverrideClasses(Menu, null, {
       width: 100%;
       height: 100%;
       border-radius: 0;
+      margin-top: 0;
     }
   `,
 });

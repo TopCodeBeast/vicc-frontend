@@ -11,7 +11,7 @@ import { GetCardsCountOfCurrentUserRule } from './helpers/__generated__/getCards
 import getCardsCountOfCurrentUserRule from './helpers/getCardsCountOfCurrentUserRule';
 
 type GetCardsCountOfCurrentUserRule_rules =
-  GetCardsCountOfCurrentUserRule['rules'];
+  GetCardsCountOfCurrentUserRule['displayedRules'];
 
 type FormatEligibilityRules = {
   id: string;

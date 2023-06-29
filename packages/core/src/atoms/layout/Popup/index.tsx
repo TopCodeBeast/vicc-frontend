@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import styled, { keyframes } from 'styled-components';
 
+import { tabletAndAbove } from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
 
 type Props = { children: ReactNode; className?: string };
@@ -38,7 +39,7 @@ const Root = styled.div`
   max-height: 100%;
   overflow: auto;
   box-shadow: 0px 5px 20px 5px rgba(0, 0, 0, 0.4);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     right: auto;
     width: 400px;
     border-radius: 8px;

@@ -21,7 +21,7 @@ import { useSportContext } from '@sorare/core/src/contexts/sport';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { transferMarket } from '@sorare/core/src/lib/glossary';
 import { scarcityMessages } from '@sorare/core/src/lib/scarcity';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 type Props = {
   player: {
@@ -34,7 +34,7 @@ type Props = {
 
 const MarketTitleRow = styled.div`
   display: inline;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: inline-flex;
     align-items: center;
     gap: var(--unit);
@@ -49,7 +49,7 @@ const SecondaryMarketStackedTitle = styled(Title2)`
   & a {
     color: var(--c-neutral-1000);
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: inline-flex;
     gap: var(--half-unit);
     & > span:not(:first-child) {

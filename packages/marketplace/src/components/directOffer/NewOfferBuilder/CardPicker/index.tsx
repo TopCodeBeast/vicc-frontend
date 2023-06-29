@@ -27,7 +27,6 @@ import {
   mergeResults,
 } from '@sorare/core/src/lib/algolia';
 import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
 
 import SearchBox from '@marketplace/search/SearchBox';
 
@@ -51,7 +50,7 @@ interface EligibleCardProps {
 
 const Root = styled(ButtonBase)`
   width: 100%;
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   cursor: pointer;
   background: var(--c-neutral-300);
   &.selected {

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Sport } from '__generated__/globalTypes';
 import { Container } from '@core/atoms/container';
 import PlayNowButton from '@core/components/landing/LandingFootball/PlayNowButton';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import BannerWrapper from '../../../BannerWrapper';
 
@@ -22,7 +22,7 @@ const Wrapper = styled(Container)`
   align-items: center;
   gap: 200px;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding: 160px 0;
     gap: 40px;
   }

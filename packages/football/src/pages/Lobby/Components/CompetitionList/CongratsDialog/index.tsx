@@ -1,35 +1,28 @@
-import { faCheck, faTimes } from '@fortawesome/pro-solid-svg-icons';
+import { faCheck } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Link, generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Confetti from '@sorare/core/src/atoms/animations/Confetti';
 import Button from '@sorare/core/src/atoms/buttons/Button';
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import Dialog from '@sorare/core/src/components/dialog';
 import {
   FOOTBALL_PRIVATE_LEAGUES_CREATE,
   PrivateLeaguesStep,
 } from '@sorare/core/src/constants/routes';
-import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 const DialogContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--double-unit);
-  padding: calc(3 * var(--unit));
+  padding: 0 var(--triple-unit) var(--triple-unit) var(--triple-unit);
   margin: auto;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     width: 480px;
   }
-`;
-const HeaderButton = styled(IconButton)`
-  position: absolute;
-  top: var(--double-unit);
-  right: var(--double-unit);
 `;
 const Checkmark = styled.div`
   display: flex;
@@ -67,66 +60,62 @@ const BlueTextButton = styled(Button).attrs({ medium: true })`
 
 type Props = { onClose: () => void; open: boolean };
 const CongratsDialog = ({ onClose, open }: Props) => {
-  const { formatMessage } = useIntl();
   return (
-    <Dialog maxWidth={false} open={open} onClose={onClose}>
-      <DialogContainer>
-        <HeaderButton
-          onClick={onClose}
-          type="button"
-          color="darkGray"
-          aria-label={formatMessage(glossary.close)}
-        >
-          <FontAwesomeIcon color="black" icon={faTimes} size="lg" />
-        </HeaderButton>
-        <Block>
-          <Checkmark>
-            <FontAwesomeIcon icon={faCheck} size="lg" />
-          </Checkmark>
-          <Centered>
-            <FormattedMessage
-              id="competitionList.congratsDialog.title"
-              defaultMessage="Congratulations{br}Your team is in!"
-              values={{ br: <br /> }}
-            />
-          </Centered>
-        </Block>
-        <Block>
-          <Subtitle>
-            <FormattedMessage
-              id="competitionList.congratsDialog.caption"
-              defaultMessage="You can redraft anytime until the first matchday and create a league with your friends"
-            />
-          </Subtitle>
-
-          <FlexColumnContainer>
-            <Button
-              component={Link}
-              to={generatePath(FOOTBALL_PRIVATE_LEAGUES_CREATE, {
-                step: PrivateLeaguesStep.CREATE,
-              })}
-              onClick={() => onClose()}
-              medium
-              color="blue"
-            >
+    <Dialog
+      open={open}
+      maxWidth="sm"
+      onClose={onClose}
+      body={
+        <DialogContainer>
+          <Block>
+            <Checkmark>
+              <FontAwesomeIcon icon={faCheck} size="lg" />
+            </Checkmark>
+            <Centered>
               <FormattedMessage
-                id="competitionList.congratsDialog.cta.createLeague"
-                defaultMessage="Create a league"
+                id="competitionList.congratsDialog.title"
+                defaultMessage="Congratulations{br}Your team is in!"
+                values={{ br: <br /> }}
               />
-            </Button>
-            <BlueTextButton onClick={onClose}>
-              <strong>
+            </Centered>
+          </Block>
+          <Block>
+            <Subtitle>
+              <FormattedMessage
+                id="competitionList.congratsDialog.caption"
+                defaultMessage="You can redraft anytime until the first matchday and create a league with your friends"
+              />
+            </Subtitle>
+
+            <FlexColumnContainer>
+              <Button
+                component={Link}
+                to={generatePath(FOOTBALL_PRIVATE_LEAGUES_CREATE, {
+                  step: PrivateLeaguesStep.CREATE,
+                })}
+                onClick={() => onClose()}
+                medium
+                color="blue"
+              >
                 <FormattedMessage
-                  id="competitionList.congratsDialog.cta.maybeLater"
-                  defaultMessage="Maybe later"
+                  id="competitionList.congratsDialog.cta.createLeague"
+                  defaultMessage="Create a league"
                 />
-              </strong>
-            </BlueTextButton>
-          </FlexColumnContainer>
-          <Confetti />
-        </Block>
-      </DialogContainer>
-    </Dialog>
+              </Button>
+              <BlueTextButton onClick={onClose}>
+                <strong>
+                  <FormattedMessage
+                    id="competitionList.congratsDialog.cta.maybeLater"
+                    defaultMessage="Maybe later"
+                  />
+                </strong>
+              </BlueTextButton>
+            </FlexColumnContainer>
+            <Confetti />
+          </Block>
+        </DialogContainer>
+      }
+    />
   );
 };
 

@@ -4,7 +4,10 @@ import { ComponentType, ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  Currency,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import { Skeleton } from '@sorare/core/src/atoms/animations/Skeleton';
 import { Props as ButtonProps } from '@sorare/core/src/atoms/buttons/Button';
 import DotsLoader from '@sorare/core/src/atoms/loader/DotsLoader';
@@ -125,6 +128,7 @@ export const PrimaryOfferPreview = ({
       wei: priceWei,
       ...priceFiat,
     },
+    primaryCurrency: Currency.FIAT,
   });
 
   const dest = generateSportPath(LEGACY_BUNDLE_PAGE + location.search, {

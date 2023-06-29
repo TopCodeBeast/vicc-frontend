@@ -48,8 +48,8 @@ const DropdownContent = styled.form`
   right: 0;
   margin: 0;
   background-color: var(--c-neutral-100);
-  box-shadow: ${theme.boxShadow[200]};
-  border-radius: ${theme.radius.sm}px ${theme.radius.sm}px 0 0;
+  box-shadow: var(--shadow-200);
+  border-radius: var(--intermediate-unit) var(--intermediate-unit) 0 0;
   pointer-events: none;
   opacity: 0;
   transform: translateY(50%);
@@ -67,7 +67,7 @@ const DropdownContent = styled.form`
   }
   @media (min-width: ${drawerThreshold}px) {
     overscroll-behavior: contain;
-    border-radius: ${theme.radius.sm}px;
+    border-radius: var(--intermediate-unit);
     transform: translateY(-5%);
     min-width: max-content;
     &.open {

@@ -105,7 +105,6 @@ export interface ConfigContext {
   minimumReceiveWeiAmount: string;
   currentLocation: ConfigQuery_currentLocation;
   counts: ConfigQuery_config_counts;
-  walletChallenge: string;
 }
 
 export const configContext = createContext<ConfigContext | null>(null);

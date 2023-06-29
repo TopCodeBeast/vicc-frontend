@@ -158,7 +158,7 @@ export const Token = ({
               <Text14 color="var(--c-yellow-100)">
                 <FormattedMessage
                   id="MarketplaceTaskDescription.tryToWin"
-                  defaultMessage="🌟 You can try to win it in one of the Sorare competition!"
+                  defaultMessage="🌟 You can try to win one as a reward in Sorare Competitions"
                 />
               </Text14>
             </>

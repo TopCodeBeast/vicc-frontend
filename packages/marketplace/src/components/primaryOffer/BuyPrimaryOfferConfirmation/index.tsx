@@ -9,9 +9,11 @@ import {
 } from '@sorare/core/src/__generated__/globalTypes';
 import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import CardsPreviewContainer from '@sorare/core/src/components/bundled/CardsPreviewContainer';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 
 import BuyConfirmation from '@marketplace/components/buyActions/BuyConfirmation';
+import { PaymentBoxAmountWithConversion } from '@marketplace/components/buyActions/PaymentBox/AmountWithConversion';
 import { Props as SelectedPaymentMethodForConfirmationProps } from '@marketplace/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
 import { WalletPaymentMethod } from '@marketplace/components/buyActions/PaymentProvider/types';
 import useCalculateAmounts from '@marketplace/components/buyActions/PaymentProvider/useCalculateAmounts';
@@ -32,30 +34,42 @@ export type Props = {
 
 export const BuyPrimaryOfferConfirmation = ({
   primaryOffer,
-  customAmountDisplay,
   payment,
 }: Props) => {
+  const {
+    fiatCurrency: { code },
+  } = useCurrentUserContext();
   const { toMonetaryAmount } = useMonetaryAmount();
-  const { priceWei, nfts } = primaryOffer;
+  const { priceWei, priceFiat, nfts } = primaryOffer;
   const isFiat = payment?.paymentCurrency === Currency.FIAT;
+  const referenceCurrency = isFiat
+    ? (code as SupportedCurrency)
+    : SupportedCurrency.WEI;
   const monetaryAmount = toMonetaryAmount({
     wei: priceWei,
-    referenceCurrency: SupportedCurrency.WEI,
+    ...priceFiat,
+    referenceCurrency,
   });
 
   const sport = nfts?.[0]?.sport;
 
-  const { totalMonetaryAmount, feesMonetaryAmount } = useCalculateAmounts({
+  const {
+    conversionCreditMonetaryAmount,
+    totalMonetaryAmount,
+    feesMonetaryAmount,
+    usingConversionCredit,
+  } = useCalculateAmounts({
     creditCardFee: 0,
     activeFee: isFiat,
     isFiat,
     sport,
-    canUseConversionCredit: false,
+    canUseConversionCredit: true,
     monetaryAmount,
-    referenceCurrency: SupportedCurrency.WEI,
+    referenceCurrency,
   });
 
   const summaryTableProps = {
+    hideSubtotal: true,
     subtotalMonetaryAmount: monetaryAmount,
     totalMonetaryAmount,
     feesMonetaryAmount,
@@ -64,14 +78,29 @@ export const BuyPrimaryOfferConfirmation = ({
     isFiat,
     isCreditCard:
       isFiat && payment?.paymentMethod !== WalletPaymentMethod.FIAT_WALLET,
-    customAmountDisplay,
-    usingConversionCredit: false,
+    customAmountDisplay: false,
+    usingConversionCredit,
+    conversionCreditMonetaryAmount,
     sport: nfts[0].sport,
+    canChangeRefCurrency: true,
   };
   return (
     <BuyConfirmation
       orderSummary={
-        <PrimaryOfferTokensSummary tokens={nfts} price={customAmountDisplay} />
+        <PrimaryOfferTokensSummary
+          tokens={nfts}
+          price={
+            <PaymentBoxAmountWithConversion
+              monetaryAmount={{
+                wei: priceWei,
+                ...priceFiat,
+                referenceCurrency,
+              }}
+              hideExponent
+              primaryCurrency={isFiat ? Currency.FIAT : Currency.ETH}
+            />
+          }
+        />
       }
       itemPreview={
         <Images>
@@ -107,6 +136,11 @@ BuyPrimaryOfferConfirmation.fragments = {
     fragment BuyPrimaryOfferConfirmation_primaryOffer on TokenPrimaryOffer {
       id
       priceWei
+      priceFiat {
+        eur
+        usd
+        gbp
+      }
       nfts {
         assetId
         slug

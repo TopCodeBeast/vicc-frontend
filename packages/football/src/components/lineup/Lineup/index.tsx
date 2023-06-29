@@ -21,7 +21,6 @@ import {
   getMissingAppearances,
   getSortedAppearances,
 } from '@sorare/core/src/lib/players';
-import { theme } from '@sorare/core/src/style/theme';
 
 import LineupActions, {
   Props as LineupActionsProps,
@@ -43,7 +42,7 @@ import {
 
 const Wrapper = styled(LinkBox)`
   background: var(--c-neutral-200);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   color: var(--c-neutral-1000);
   display: flex;
   flex-direction: column;
@@ -280,6 +279,7 @@ export const Lineup = ({
           rankingRewards={rankingReward}
           totalRewards={totalRewards}
           rewardType={rewardType}
+          linkToCompetitionDetails={linkToCompetitionDetails}
         />
       )}
       <PlayerGameScoreDialog

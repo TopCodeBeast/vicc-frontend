@@ -6,7 +6,6 @@ import { Text16, text14 } from '@sorare/core/src/atoms/typography';
 import ScarcityBall from '@sorare/core/src/components/card/ScarcityBall';
 import { Scarcity } from '@sorare/core/src/lib/cards';
 import { fantasy } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
 
 const Wrapper = styled.div`
   display: flex;
@@ -25,7 +24,7 @@ const Option = styled.label`
   white-space: nowrap;
   padding: var(--half-unit) var(--intermediate-unit);
   background: var(--c-neutral-200);
-  border-radius: ${theme.shape.borderRadius}px;
+  border-radius: var(--unit);
   ${text14}
   color: var(--c-neutral-600);
   &.selected {

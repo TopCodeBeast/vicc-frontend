@@ -12,20 +12,20 @@ import ScarcityBall from '@sorare/core/src/components/card/ScarcityBall';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { cardAttributes } from '@sorare/core/src/lib/glossary';
 import { ScarcityType } from '@sorare/core/src/lib/scarcity';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { FilterDialog } from './FilterDialog';
 
 const MobileHeader = styled.header`
   display: flex;
   gap: var(--unit);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: none;
   }
 `;
 const DesktopHeader = styled.header`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: flex;
     gap: var(--double-unit);
     align-items: center;

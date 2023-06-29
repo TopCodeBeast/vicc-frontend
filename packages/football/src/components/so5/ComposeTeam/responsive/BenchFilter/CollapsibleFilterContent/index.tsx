@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import { Collapsible } from '@sorare/core/src/atoms/layout/Collapsible';
-import { theme } from '@sorare/core/src/style/theme';
 
 import FilterContent from '@football/components/so5/ComposeTeam/responsive/BenchFilter/FilterContent';
 
@@ -13,7 +12,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   background: var(--c-neutral-200);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
 `;
 
 type Props = {

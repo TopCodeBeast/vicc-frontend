@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 // Eslint disable because: we cannot import fragments on token in baseball + Rules component not used
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
-import ActivityIndicator from '@sorare/core/src/components/user/ActivityIndicator';
+import ActiveUserAvatar from '@sorare/core/src/components/user/ActiveUserAvatar';
 
 import ItemSold from '@marketplace/components/ItemPreview/ItemSold';
 import { PromotedToken } from '@marketplace/components/PromotedToken';
@@ -299,12 +299,12 @@ export const USER_BY_SLUG_QUERY = gql`
   query UserBySlugQuery($slug: String!) {
     user(slug: $slug) {
       slug
-      ...ActivityIndicator_user
       ...TradeButton_publicUserInfoInterface
+      ...ActiveUserAvatar_user
     }
   }
   ${TradeButton.fragments.user}
-  ${ActivityIndicator.fragments.user}
+  ${ActiveUserAvatar.fragments.user}
 `;
 
 export const tokenOfferSubscription = gql`

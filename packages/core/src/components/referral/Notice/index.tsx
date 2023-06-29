@@ -18,7 +18,7 @@ import { sportsLabelsMessages } from '@core/lib/glossary';
 import { qualityNames } from '@core/lib/players';
 import { CARDS_REQUIREMENTS_BY_SPORT } from '@core/lib/referral';
 import { scarcityMessages } from '@core/lib/scarcity';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 import { MilestonesNotice } from './MilestonesNotice';
 import { messages } from './messages';
@@ -35,7 +35,7 @@ const StyledDesignBlock = styled.div`
   padding: var(--double-unit);
   border-radius: var(--double-unit);
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     flex-direction: row;
   }
 

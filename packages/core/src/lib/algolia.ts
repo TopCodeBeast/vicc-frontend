@@ -119,6 +119,7 @@ export const convertUserHit = (
     __typename: 'UserProfile';
     id: string;
     pictureUrl: string;
+    fullPictureUrl: string;
     verified: boolean;
   };
 } => ({
@@ -132,6 +133,7 @@ export const convertUserHit = (
     __typename: 'UserProfile',
     id: hit.id,
     pictureUrl: hit.profile?.picture,
+    fullPictureUrl: hit.profile?.picture,
     verified: !!hit.profile?.verified,
   },
 });

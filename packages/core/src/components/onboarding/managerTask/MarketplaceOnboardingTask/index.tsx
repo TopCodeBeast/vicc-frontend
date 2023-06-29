@@ -4,25 +4,11 @@ import {
   MessageDescriptor,
   defineMessages,
 } from 'react-intl';
-import styled from 'styled-components';
 
-import Button from '@core/atoms/buttons/Button';
-import { Text14, Title4 } from '@core/atoms/typography';
+import { Text14 } from '@core/atoms/typography';
+import Container from '@core/components/onboarding/managerTask/Container';
 import { MarketplaceOnboardingStep } from '@core/contexts/managerTask';
 import { glossary } from '@core/lib/glossary';
-
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: var(--unit);
-`;
-
-const Footer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: var(--unit);
-`;
 
 const marketplaceTaskTitles = defineMessages<MarketplaceOnboardingStep>({
   [MarketplaceOnboardingStep.menu]: {
@@ -93,31 +79,16 @@ const MarketplaceOnboardingTask = ({
   buttonLabel?: MessageDescriptor;
   onClick: () => void;
 }) => {
+  const steps = Object.keys(MarketplaceOnboardingStep);
   return (
-    <Content>
-      <Title4>
-        <FormattedMessage {...title} />
-      </Title4>
+    <Container
+      current={steps.findIndex(key => key === name) + 1}
+      total={steps.length}
+      onClick={onClick}
+      labels={{ title, button: buttonLabel }}
+    >
       {content}
-      <Footer>
-        <Text14 color="var(--c-neutral-500)">
-          <FormattedMessage
-            id="TooltipContent.steps"
-            values={{
-              value:
-                Object.keys(MarketplaceOnboardingStep).findIndex(
-                  key => key === name
-                ) + 1,
-              total: 5,
-            }}
-            defaultMessage="{value} of {total}"
-          />
-        </Text14>
-        <Button small color="blue" onClick={onClick}>
-          <FormattedMessage {...buttonLabel} />
-        </Button>
-      </Footer>
-    </Content>
+    </Container>
   );
 };
 

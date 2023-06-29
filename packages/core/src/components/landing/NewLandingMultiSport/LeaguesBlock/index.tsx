@@ -18,7 +18,7 @@ import { ContentContainer } from '@core/components/landing/NewLandingMultiSport/
 import { messages as globalMessages } from '@core/components/landing/NewLandingMultiSport/utils';
 import { LICENSED_PARTNERS_FOOTBALL_TAB } from '@core/constants/routes';
 import useScreenSize from '@core/hooks/device/useScreenSize';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 const messages = defineMessages({
   moreLeagues: {
@@ -33,13 +33,14 @@ const LeagueWrapper = styled(ContentContainer)`
   position: relative;
   display: grid;
   gap: var(--unit);
+  justify-content: space-between;
   grid-auto-flow: column;
   grid-template-columns: repeat(10, calc(var(--unit) * 14));
   margin: calc(var(--unit) * 5) 0;
   z-index: 1;
   overflow: auto;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     margin: var(--double-unit) auto auto auto;
     grid-template-columns: repeat(10, calc(var(--unit) * 15));
   }

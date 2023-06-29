@@ -17,6 +17,7 @@ const SPECIAL_FLAGS: { [key: string]: string } = {
   'gb-sct': '_scotland',
   'gb-wls': '_wales',
   'gb-nir': '_northern_ireland',
+  zz: '_united-nations',
 };
 
 export type FlagType = 'flat' | 'round';

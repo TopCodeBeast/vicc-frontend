@@ -6,7 +6,6 @@ import { AnnouncementNotification } from './AnnouncementNotification';
 import { AuctionNotification } from './AuctionNotification';
 import { CardCollectionNotification } from './CardCollectionNotification';
 import { CardNotification } from './CardNotification';
-import { ChallengeNotification } from './ChallengeNotification';
 import { ExternalDepositNotification } from './ExternalDepositNotification';
 import { OfferNotification } from './OfferNotification';
 import { ReferralRewardNotification } from './ReferralRewardNotification';
@@ -42,9 +41,6 @@ export const Notification = ({ notification, ...rest }: Props) => {
   if (isType(notification, 'CardNotification')) {
     return <CardNotification notification={notification} {...rest} />;
   }
-  if (isType(notification, 'ChallengeNotification')) {
-    return <ChallengeNotification notification={notification} {...rest} />;
-  }
   if (isType(notification, 'So5UserGroupNotification')) {
     return <So5UserGroupNotification notification={notification} {...rest} />;
   }
@@ -70,7 +66,6 @@ Notification.fragments = {
       ...AnnouncementNotification_announcementNotification
       ...ReferralRewardNotification_referralRewardNotification
       ...CardNotification_cardNotification
-      ...ChallengeNotification_challengeNotification
       ...So5UserGroupNotification_so5UserGroupNotification
       ...CardCollectionNotification_cardCollectionNotification
       ...ExternalDepositNotification_externalDepositNotification
@@ -82,7 +77,6 @@ Notification.fragments = {
     ${AnnouncementNotification.fragments.announcementNotification}
     ${ReferralRewardNotification.fragments.referralRewardNotification}
     ${CardNotification.fragments.cardNotification}
-    ${ChallengeNotification.fragments.challengeNotification}
     ${So5UserGroupNotification.fragments.so5UserGroupNotification}
     ${CardCollectionNotification.fragments.cardCollectionNotification}
     ${ExternalDepositNotification.fragments.externalDepositNotification}

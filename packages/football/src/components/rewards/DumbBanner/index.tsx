@@ -7,7 +7,6 @@ import Button from '@sorare/core/src/atoms/buttons/Button';
 import { LinkBox, LinkOverlay } from '@sorare/core/src/atoms/navigation/Box';
 import { Text14, Text18 } from '@sorare/core/src/atoms/typography';
 import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
 
 const IconWrapper = styled.div`
   grid-area: icon;
@@ -38,7 +37,7 @@ const Wrapper = styled(LinkBox)`
     'icon caption cta';
   align-items: center;
   border: 1px solid rgba(var(--c-rgb-brand-600), 0.6);
-  border-radius: ${theme.radius.sm}px;
+  border-radius: var(--intermediate-unit);
   background: linear-gradient(
     84.1deg,
     rgba(128, 148, 255, 0.2) 0%,

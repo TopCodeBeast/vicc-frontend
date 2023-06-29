@@ -7,13 +7,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isFuture } from 'date-fns';
 import { ReactNode, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { generatePath } from 'react-router-dom';
+import { generatePath, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import CardBack from '@sorare/core/src/components/card/Back/Football';
+import LearnCompetitionsOnboardingTask from '@sorare/core/src/components/onboarding/managerTask/LearnCompetitionsOnboardingTask';
+import ManagerTaskTooltip from '@sorare/core/src/components/onboarding/managerTask/ManagerTaskTooltip';
 import { Fan } from '@sorare/core/src/components/rewards/Banner/Fan';
 import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
 import { FOOTBALL_LOBBY_UPCOMING } from '@sorare/core/src/constants/routes';
+// eslint-disable-next-line sorare/no-unrendered-component-imports
+import {
+  LearnCompetitionsOnboardingStep,
+  useManagerTaskContext,
+} from '@sorare/core/src/contexts/managerTask';
 import TimeLeft from '@sorare/core/src/contexts/ticker/TimeLeft';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { glossary } from '@sorare/core/src/lib/glossary';
@@ -106,6 +113,8 @@ export const UpcomingFixture = ({
   const {
     flags: { enableNoCardEntry = false },
   } = useFeatureFlags();
+  const navigate = useNavigate();
+  const { task, setStep } = useManagerTaskContext();
   const sortedLeaderboards = useMemo(() => {
     return so5Leaderboards?.sort((l1, l2) => {
       const lineup1 = l1.mySo5Lineups[0];
@@ -142,12 +151,26 @@ export const UpcomingFixture = ({
       title={<GameWeekTitle so5Fixture={so5Fixture} type="upcoming" />}
       loading={loading}
       action={
-        <SeeAllButton
-          context="Upcoming"
-          to={generatePath(FOOTBALL_LOBBY_UPCOMING, {
-            tab: '',
-          })}
-        />
+        <ManagerTaskTooltip
+          name={LearnCompetitionsOnboardingStep.menu}
+          title={
+            <LearnCompetitionsOnboardingTask
+              name={LearnCompetitionsOnboardingStep.menu}
+              onClick={() => {
+                navigate(FOOTBALL_LOBBY_UPCOMING);
+                setStep(LearnCompetitionsOnboardingStep.lobby);
+              }}
+            />
+          }
+          disable={!task}
+        >
+          <SeeAllButton
+            context="Upcoming"
+            to={generatePath(FOOTBALL_LOBBY_UPCOMING, {
+              tab: '',
+            })}
+          />
+        </ManagerTaskTooltip>
       }
     >
       <ContentWrapper>

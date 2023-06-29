@@ -7,6 +7,7 @@ import { Text16, Title6 } from '@core/atoms/typography';
 import { EventsType } from '@core/lib/events/EventsType';
 import useEvents from '@core/lib/events/useEvents';
 import { isAbsolute } from '@core/lib/urls';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
 
 import ContentLink from '../../ContentLink';
@@ -37,7 +38,7 @@ const Root = styled.div`
       flex: 0 0 100%;
     }
   }
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     overflow: none;
     & > * {
       flex: 1;
@@ -84,7 +85,7 @@ const Img = styled.img`
 const StyledRoot = styled.div`
   padding: 10px;
   transition: transform 0.1s ease-out;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     &:first-child:last-child ${Img} {
       aspect-ratio: 4 / 1;
     }

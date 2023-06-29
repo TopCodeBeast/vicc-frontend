@@ -39,6 +39,7 @@ import { useSnackNotificationContext } from '@core/contexts/snackNotification';
 import { WalletTab, useWalletDrawerContext } from '@core/contexts/walletDrawer';
 import useLogOut from '@core/hooks/auth/useLogOut';
 import { RecoveryOption } from '@core/hooks/recovery/useRecoveryOptions';
+import useWalletNeedsRecover from '@core/hooks/recovery/useWalletNeedsRecover';
 import useQueryString from '@core/hooks/useQueryString';
 import { Side } from '@core/lib/deal';
 import useEvents from '@core/lib/events/useEvents';
@@ -64,6 +65,7 @@ const Wallet = ({ children, setWindow }: Props) => {
   const { sendRequest, registerHandler } = useMessagingContext();
   const track = useEvents();
   const { formatMessage } = useIntl();
+  const walletNeedsRecover = useWalletNeedsRecover();
   const [latestPromptDimensions, updateLatestPromptDimensions] = useState<
     { promptType: string; size?: WalletPlaceHolderRequestedSize } | undefined
   >();
@@ -89,6 +91,8 @@ const Wallet = ({ children, setWindow }: Props) => {
   const checkPhoneNumberVerificationCode =
     useCheckPhoneNumberVerificationCode();
 
+  const allow = currentUser && !walletNeedsRecover;
+
   const prompt = useCallback(
     async (
       type: Prompt['request']['args']['type'],
@@ -110,12 +114,12 @@ const Wallet = ({ children, setWindow }: Props) => {
 
   const promptDeposit = useCallback(
     async id => {
-      if (currentUser?.sorarePrivateKey) {
+      if (allow) {
         await sendRequest<PromptDeposit>('promptDeposit', { id });
         showWallet();
       }
     },
-    [currentUser?.sorarePrivateKey, sendRequest, showWallet]
+    [allow, sendRequest, showWallet]
   );
 
   const signIn = useCallback(async () => prompt('signIn'), [prompt]);
@@ -309,7 +313,7 @@ const Wallet = ({ children, setWindow }: Props) => {
 
   const approveMigrator = useCallback(
     async (nonce: string | number) => {
-      if (!currentUser?.sorarePrivateKey) {
+      if (!allow) {
         showWallet();
         return undefined;
       }
@@ -320,17 +324,12 @@ const Wallet = ({ children, setWindow }: Props) => {
       closeWalletAndDrawer();
       return result;
     },
-    [
-      sendRequest,
-      closeWalletAndDrawer,
-      showWallet,
-      currentUser?.sorarePrivateKey,
-    ]
+    [sendRequest, closeWalletAndDrawer, showWallet, allow]
   );
 
   const signMigration = useCallback(
     async (cardIds: string[], expirationBlock: number | string) => {
-      if (!currentUser?.sorarePrivateKey) {
+      if (!allow) {
         showWallet();
         return undefined;
       }
@@ -342,17 +341,12 @@ const Wallet = ({ children, setWindow }: Props) => {
       closeWalletAndDrawer();
       return result?.signature;
     },
-    [
-      sendRequest,
-      closeWalletAndDrawer,
-      showWallet,
-      currentUser?.sorarePrivateKey,
-    ]
+    [sendRequest, closeWalletAndDrawer, showWallet, allow]
   );
 
   const signEthMigration = useCallback(
     async (nonce: string, amount: string) => {
-      if (!currentUser?.sorarePrivateKey) {
+      if (!allow) {
         showWallet();
         return undefined;
       }
@@ -367,17 +361,12 @@ const Wallet = ({ children, setWindow }: Props) => {
       closeWalletAndDrawer();
       return result?.signature;
     },
-    [
-      sendRequest,
-      closeWalletAndDrawer,
-      showWallet,
-      currentUser?.sorarePrivateKey,
-    ]
+    [sendRequest, closeWalletAndDrawer, showWallet, allow]
   );
 
   const signLimitOrders = useCallback(
     async (limitOrders: LimitOrder[]) => {
-      if (!currentUser?.sorarePrivateKey) {
+      if (!allow) {
         showWallet();
         return { signatures: undefined, starkKey: undefined };
       }
@@ -403,18 +392,12 @@ const Wallet = ({ children, setWindow }: Props) => {
         starkKey: result?.starkKey,
       };
     },
-    [
-      sendSafeError,
-      sendRequest,
-      closeWalletAndDrawer,
-      showWallet,
-      currentUser?.sorarePrivateKey,
-    ]
+    [sendSafeError, sendRequest, closeWalletAndDrawer, showWallet, allow]
   );
 
   const signTransfer = useCallback(
     async (transfer: Transfer) => {
-      if (!currentUser?.sorarePrivateKey) {
+      if (!allow) {
         showWallet();
         return null;
       }
@@ -425,17 +408,12 @@ const Wallet = ({ children, setWindow }: Props) => {
       closeWalletAndDrawer();
       return result?.signature ? JSON.stringify(result.signature) : null;
     },
-    [
-      sendRequest,
-      closeWalletAndDrawer,
-      showWallet,
-      currentUser?.sorarePrivateKey,
-    ]
+    [sendRequest, closeWalletAndDrawer, showWallet, allow]
   );
 
   const approveAuthorizationRequests = useCallback(
     async (authorizationRequests: AuthorizationRequest[]) => {
-      if (!currentUser?.sorarePrivateKey) {
+      if (!allow) {
         showWallet();
         return {
           approvals: undefined,
@@ -464,18 +442,12 @@ const Wallet = ({ children, setWindow }: Props) => {
         starkKey: result?.starkKey,
       };
     },
-    [
-      closeWalletAndDrawer,
-      currentUser?.sorarePrivateKey,
-      sendRequest,
-      sendSafeError,
-      showWallet,
-    ]
+    [closeWalletAndDrawer, allow, sendRequest, sendSafeError, showWallet]
   );
 
   const signPaymentIntent = useCallback(
     async (id: string, amount: string) => {
-      if (!currentUser?.sorarePrivateKey) {
+      if (!allow) {
         showWallet();
         return null;
       }
@@ -490,17 +462,12 @@ const Wallet = ({ children, setWindow }: Props) => {
       closeWalletAndDrawer();
       return result?.signature ? JSON.stringify(result.signature) : null;
     },
-    [
-      sendRequest,
-      closeWalletAndDrawer,
-      showWallet,
-      currentUser?.sorarePrivateKey,
-    ]
+    [sendRequest, closeWalletAndDrawer, showWallet, allow]
   );
 
   const signWalletChallenge = useCallback(
     async (challenge: string) => {
-      if (!currentUser?.sorarePrivateKey) {
+      if (!allow) {
         showWallet();
         return null;
       }
@@ -512,12 +479,7 @@ const Wallet = ({ children, setWindow }: Props) => {
       closeWalletAndDrawer();
       return result?.signature || null;
     },
-    [
-      sendRequest,
-      closeWalletAndDrawer,
-      showWallet,
-      currentUser?.sorarePrivateKey,
-    ]
+    [sendRequest, closeWalletAndDrawer, showWallet, allow]
   );
 
   useEffect(() => {

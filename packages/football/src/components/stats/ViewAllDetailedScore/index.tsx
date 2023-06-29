@@ -5,7 +5,7 @@ import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 
-import PlayerGameScoreDialog from '@sorare/football/src/components/stats/PlayerGameScoreDialog';
+import PlayerGameScoreDialog from '@football/components/stats/PlayerGameScoreDialog';
 
 import {
   ViewAllDetailedScore_player,

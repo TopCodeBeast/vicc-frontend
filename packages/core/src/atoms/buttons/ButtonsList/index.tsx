@@ -1,8 +1,6 @@
 import { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { theme } from '@core/style/theme';
-
 const StyledButton = styled.button`
   display: flex;
   align-items: center;
@@ -25,7 +23,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid var(--c-neutral-300);
-  border-radius: ${theme.shape.borderRadius}px;
+  border-radius: var(--unit);
   overflow: hidden;
 
   & > *:not(:last-child) {

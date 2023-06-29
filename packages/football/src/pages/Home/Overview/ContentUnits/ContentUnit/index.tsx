@@ -17,7 +17,7 @@ import {
 import { Text14, Title4 } from '@sorare/core/src/atoms/typography';
 import { isExternalDomain } from '@sorare/core/src/lib/urls';
 import { Link } from '@sorare/core/src/routing/Link';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 import { createVar } from '@sorare/core/src/style/utils';
 
 import { useFootballEvents } from '@football/lib/events';
@@ -36,7 +36,7 @@ const HideButtonBox = styled(LinkOther)`
 const Wrapper = styled(LinkBox)`
   ${bgColor}: var(--c-neutral-200);
   ${illustrationSize}: 240px;
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   display: flex;
   gap: var(--double-unit);
   padding: var(--double-unit) calc(var(${illustrationSize}) / 3)
@@ -47,7 +47,7 @@ const Wrapper = styled(LinkBox)`
   color: var(--c-neutral-1000);
   opacity: 0.5;
   height: 100%;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding-right: calc(var(${illustrationSize}) / 2);
   }
   &.hideSekeleton {
@@ -87,7 +87,7 @@ const Img = styled.img`
   border-radius: 50%;
   align-self: center;
   background: var(--c-neutral-300);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     transform: translateX(50%);
   }
 `;
@@ -138,6 +138,7 @@ export const ContentUnit = ({
   return (
     <Wrapper className={classnames({ hideSekeleton: !!cta })}>
       <Img
+        loading="lazy"
         src={
           illustration ||
           'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { LinkBox } from '@sorare/core/src/atoms/navigation/Box';
 import FollowButton from '@sorare/core/src/components/user/FollowButton';
 import { range } from '@sorare/core/src/lib/arrays';
-import { theme } from '@sorare/core/src/style/theme';
 
 import { FlexCard } from '@football/components/card/FlexCard';
 import Info from '@football/components/user/Info';
@@ -17,7 +16,7 @@ type Props = {
 
 const Wrapper = styled(LinkBox)`
   background: var(--c-neutral-200);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   color: var(--c-neutral-1000);
   display: flex;
   flex-direction: column;
@@ -56,7 +55,7 @@ const Cards = styled.div`
 
 const EmptyCard = styled.div`
   background-color: var(--c-neutral-300);
-  border-radius: ${theme.radius.xs}px;
+  border-radius: var(--unit);
   aspect-ratio: var(--card-aspect-ratio);
 `;
 

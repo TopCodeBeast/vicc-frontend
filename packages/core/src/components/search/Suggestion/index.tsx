@@ -4,7 +4,6 @@ import { ReactElement, ReactNode } from 'react';
 import styled, { StyledComponent } from 'styled-components';
 
 import cardPlaceholder from '@core/assets/card_placeholder.svg';
-import { theme } from '@core/style/theme';
 
 interface Props {
   avatar?: ReactElement;
@@ -20,19 +19,18 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   gap: var(--unit);
-  margin-top: var(--unit);
-  border-radius: ${theme.shape.borderRadius}px;
+  border-radius: var(--unit);
+  padding: var(--half-unit) 0;
   cursor: pointer;
   &:hover,
   &.highlighted {
-    background: var(--c-neutral-200);
-    box-shadow: 0px 0px 0px var(--half-unit) var(--c-neutral-200);
+    background: var(--c-neutral-300);
   }
 `;
 const Avatar = styled.div`
   width: calc(5 * var(--unit));
   aspect-ratio: 1;
-  border-radius: ${theme.shape.borderRadius}px;
+  border-radius: var(--unit);
   overflow: hidden;
 `;
 const Img = styled.img<{ isContain: boolean }>`

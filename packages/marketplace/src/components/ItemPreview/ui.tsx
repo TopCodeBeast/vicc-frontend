@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Text14 } from '@sorare/core/src/atoms/typography';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 export const Container = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ export const Container = styled.div`
   padding-left: 0;
   gap: var(--unit);
   &:not(:last-child) + &:not(.noBorder) {
-    border-bottom: ${theme.borders.grey};
+    border-bottom: 1px solid var(--c-neutral-300);
   }
   &:not(.noBorder) + &:not(.noBorder) {
     padding-top: var(--double-unit);
@@ -30,7 +30,7 @@ export const CardContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  width: ${theme.cardGrid.card.mobileWidth}px;
+  width: var(--card-mobile-width);
 `;
 
 export const CardCount = styled.div`
@@ -42,7 +42,7 @@ export const CardCount = styled.div`
   background-color: var(--c-neutral-100);
   display: flex;
   justify-content: center;
-  border-radius: ${theme.shape.borderRadius}px;
+  border-radius: var(--unit);
 `;
 export const Content = styled.div`
   display: flex;
@@ -121,7 +121,7 @@ export const ItemForSaleSecondRow = styled.div`
 `;
 
 export const ItemImgContainer = styled.div`
-  --image-width: ${theme.cardGrid.card.mobileWidth}px;
+  --image-width: var(--card-mobile-width);
   flex-basis: var(--image-width);
   min-width: var(--image-width);
   aspect-ratio: var(--card-aspect-ratio);
@@ -157,7 +157,7 @@ export const TokenDetailsRoot = styled(Text14).attrs({ as: 'div' })`
   gap: var(--unit);
   font-weight: var(--bold);
   &.allowColumnLayout {
-    @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    @media ${tabletAndAbove} {
       flex-direction: row;
     }
   }
@@ -180,7 +180,7 @@ export const TokenDetailsRow = styled.div`
 
 export const ButtonContainer = styled.div`
   display: flex;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: block;
   }
 `;

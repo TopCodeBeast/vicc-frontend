@@ -61,6 +61,7 @@ export const FOOTBALL_LEAGUE_SHOW_CARDS = `${FOOTBALL_LEAGUE_SHOW}/cards`;
 export const FOOTBALL_COUNTRY_SHOW = `${FOOTBALL_PATH}/countries/:slug`;
 export const FOOTBALL_CUSTOM_DECK_SHOW = `${FOOTBALL_PATH}/squads/:slug`;
 export const FOOTBALL_CUSTOM_DECK_EDIT = `${FOOTBALL_PATH}/squads/:name/edit`;
+export const FAQ = '/faq';
 export const LICENSED_PARTNERS = '/licensed-partners';
 export const LICENSED_PARTNERS_BY_SPORT = '/licensed-partners/:sport';
 export const LICENSED_PARTNERS_FOOTBALL_TAB =
@@ -296,6 +297,11 @@ export const MLB_LOBBY_TRAINING_TEAMS = `${MLB_LOBBY_SLUG}/training-teams`;
 export const MLB_LOBBY_LEADERBOARD = `${MLB_LOBBY_SLUG}/leaderboard`;
 export const MLB_LOBBY_REWARDS = `${MLB_LOBBY_SLUG}/rewards`;
 
+export const MLB_DAILY_GAMES = `${MLB_PATH}/daily-exhibitions`;
+export const MLB_DAILY_GAMES_PAST = `${MLB_DAILY_GAMES}/past`;
+export const MLB_DAILY_GAMES_LIVE = `${MLB_DAILY_GAMES}/live`;
+export const MLB_DAILY_GAMES_UPCOMING = `${MLB_DAILY_GAMES}/upcoming`;
+
 export const MLB_COMPETITION_DETAILS = `${MLB_HOME}competition-details/:leaderboardSlug`;
 export const MLB_COMPETITION_DETAILS_LEAGUE = `${MLB_COMPETITION_DETAILS}/league/:leagueSlug`;
 export const MLB_COMPETITION_DETAILS_GAMEPLAY = `${MLB_COMPETITION_DETAILS}/gameplay`;
@@ -313,8 +319,6 @@ export const MLB_NO_CARD_ENTRY_REQUEST = `${MLB_NO_CARD_ENTRY}/request`;
 export const MLB_NO_CARD_ENTRY_CONFIRM = `${MLB_NO_CARD_ENTRY}/confirm`;
 export const MLB_NO_CARD_ENTRY_DECLINE = `${MLB_NO_CARD_ENTRY}/decline`;
 export const MLB_NO_CARD_ENTRY_ELIGIBLE_LEADERBOARDS = `${MLB_NO_CARD_ENTRY}/eligible_leaderboards`;
-
-export const MLB_JULIO_RODRIGUEZ_AUCTION_DETAILS = `${MLB_HOME}julio-rodriguez-auction`;
 
 export const MLB_STARTER_BUNDLE_PAGE = `${MLB_HOME}starter-packs/:id`;
 

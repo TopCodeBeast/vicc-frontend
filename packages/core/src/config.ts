@@ -170,6 +170,7 @@ export const MOONPAY_URL = envConfig.moonpayUrl;
 export const LAUNCH_DARKLY_CLIENT_SIDE_ID = envConfig.launchDarklyClientSideID;
 export const SEGMENT_API_KEY = envConfig.segmentApiKey;
 export const IMPACT_PAGE_LOAD_API_URL = envConfig.impactPageLoadAPIUrl;
+export const WALLET_CONNECT_PROJECT_ID = 'b1e8df3bb981e9917bfeeb0ad4110bb7';
 
 export const CLIENT_TYPE = 'Web';
 export const REVISION = import.meta.env?.VITE_COMMIT_REF || 'development';

@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { AnimatedDiamond } from '@sorare/core/src/atoms/animations/AnimatedDiamond';
 import { Progress } from '@sorare/core/src/atoms/loader/Progress';
 import { Text14, Title6 } from '@sorare/core/src/atoms/typography';
-import { theme } from '@sorare/core/src/style/theme';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -28,7 +27,7 @@ const RemainingPointsContainer = styled.div`
   display: flex;
   align-items: baseline;
   padding: 0 var(--unit) 0 var(--triple-unit);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   background: var(--c-neutral-300);
 `;
 

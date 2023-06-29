@@ -6,7 +6,7 @@ import {
   Collection,
   Position,
 } from '@sorare/core/src/__generated__/globalTypes';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import PlayerPriceHistory from '@sorare/marketplace/src/components/price/PlayerPriceHistory';
 
@@ -35,7 +35,7 @@ const Root = styled.div`
   gap: 20px;
   padding: 0;
   color: var(--c-neutral-1000);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     flex-direction: row;
   }
 `;
@@ -50,7 +50,7 @@ const Right = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     max-width: 320px;
     width: 100%;
   }

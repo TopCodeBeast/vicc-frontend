@@ -3,13 +3,13 @@ import styled from 'styled-components';
 
 import { SorareLogo } from '@core/atoms/icons/SorareLogo';
 import { LANDING } from '@core/constants/routes';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import SmallerStarBall from '../SmallerStarBall';
 
 const ResponsiveSorareLogo = styled(SorareLogo)`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: block;
   }
 `;

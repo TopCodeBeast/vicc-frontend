@@ -8,7 +8,6 @@ import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import useLifecycle, { LIFECYCLE, Lifecycle } from '@core/hooks/useLifecycle';
-import { useWalletPreferences } from '@core/hooks/wallets/useWalletPreferences';
 
 import { Home } from './Home';
 import { Setup } from './Setup';
@@ -27,7 +26,9 @@ const WalletSetup = () => {
     flags: { useNewWalletSetup = false },
   } = useFeatureFlags();
 
-  const { hasMigratedAndSetupWallet } = useWalletPreferences();
+  const {
+    walletPreferences: { hasMigratedAndSetupWallets },
+  } = useCurrentUserContext();
   const location = useLocation();
   const { update, loading } = useLifecycle();
   const { up: isTabletOrDesktop } = useScreenSize('tablet');
@@ -73,7 +74,7 @@ const WalletSetup = () => {
     useNewWalletSetup &&
     needsSetupWallet &&
     !loading &&
-    !hasMigratedAndSetupWallet
+    !hasMigratedAndSetupWallets
   ) {
     setShouldSetupWalletNow(true);
   }

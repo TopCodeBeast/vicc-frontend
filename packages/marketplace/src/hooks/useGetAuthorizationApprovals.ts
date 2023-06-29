@@ -70,12 +70,12 @@ useGetAuthorizationApprovals.fragments = {
           senderVaultId
           token
         }
-        ... on StripeWalletTransferAuthorizationRequest {
+        ... on MangopayWalletTransferAuthorizationRequest {
           nonce
           amount
           currency
           operationHash
-          stripeAccountId
+          mangopayWalletId
         }
         ... on StripeCreditCardAuthorizationRequest {
           id

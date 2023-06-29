@@ -8,7 +8,9 @@ import {
 } from '@sorare/core/src/__generated__/globalTypes';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import { ConversionCreditTinyBanner } from '@sorare/core/src/components/conversionCredit/ConversionCreditTinyBanner';
-import { theme } from '@sorare/core/src/style/theme';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { usePaymentContext } from '@marketplace/components/buyActions/Context';
 import { PaymentBoxAmountWithConversion } from '@marketplace/components/buyActions/PaymentBox/AmountWithConversion';
@@ -33,7 +35,7 @@ const Row = styled.div`
     'title amount'
     'banner banner';
   gap: var(--unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-template-areas: 'title amount' 'banner amount';
     gap: 0;
   }
@@ -50,15 +52,25 @@ const Banner = styled.div`
 
 type Props = {
   sport?: Sport;
-  currencyFirst: Currency;
+  canChangeRefCurrency?: boolean;
+  currency?: Currency;
+  isFiat?: boolean;
+  usingConversionCredit: boolean;
+  conversionCreditMonetaryAmount: MonetaryAmountOutput;
 };
 
-export const ConversionCreditRow = ({ sport, currencyFirst }: Props) => {
+export const ConversionCreditRow = ({
+  sport,
+  canChangeRefCurrency,
+  currency,
+  isFiat,
+  usingConversionCredit,
+  conversionCreditMonetaryAmount,
+}: Props) => {
+  const { setUsingConversionCredit } = usePaymentContext() || {};
   const {
-    usingConversionCredit,
-    setUsingConversionCredit,
-    conversionCreditMonetaryAmount,
-  } = usePaymentContext();
+    walletPreferences: { onlyShowFiatCurrency },
+  } = useCurrentUserContext();
 
   if (!usingConversionCredit || !conversionCreditMonetaryAmount) return null;
 
@@ -74,7 +86,7 @@ export const ConversionCreditRow = ({ sport, currencyFirst }: Props) => {
           <ConversionCreditTinyBanner
             sport={sport}
             wrapTerms={false}
-            onRemove={() => setUsingConversionCredit(false)}
+            onRemove={() => setUsingConversionCredit?.(false)}
           />
         </Banner>
         <Amount>
@@ -84,9 +96,13 @@ export const ConversionCreditRow = ({ sport, currencyFirst }: Props) => {
                 referenceCurrency: SupportedCurrency.WEI,
                 ...conversionCreditMonetaryAmount,
               }}
-              primaryCurrency={currencyFirst}
               bold
               color="currentColor"
+              hideExponent={canChangeRefCurrency || onlyShowFiatCurrency}
+              {...(currency ? { primaryCurrency: currency } : {})}
+              {...(canChangeRefCurrency && {
+                primaryCurrency: isFiat ? Currency.FIAT : Currency.ETH,
+              })}
             />
           </Text16>
         </Amount>

@@ -390,6 +390,7 @@ export const cardFragment = gql`
     assetId
     position: positionTyped
     rarity
+    grade
     pictureUrl: pictureUrl(derivative: "tinified")
     avatarPictureUrl: pictureUrl(derivative: "avatar")
     lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_SO5_AVERAGE_SCORE)

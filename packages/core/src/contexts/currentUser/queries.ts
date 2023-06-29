@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 
+import ActiveUserAvatar from '@core/components/user/ActiveUserAvatar';
 import { useConversionCredit } from '@core/hooks/useConversionCredit';
 
 export const onboardingStatus = gql`
@@ -28,13 +29,6 @@ const sportProfile = gql`
       id
       onboarded
     }
-  }
-`;
-
-const activityReports = gql`
-  fragment CurrentUserProvider_activityReports on CurrentUser {
-    slug
-    footballLast30DaysLineupsCount
   }
 `;
 
@@ -85,6 +79,7 @@ export const fiatAccounts = gql`
       accountable {
         ... on FiatWalletAccount {
           id
+          status
           availableBalance
           currency
           totalBalance
@@ -102,6 +97,7 @@ export const currentUser = gql`
     createdAt
     email
     nickname
+    active
     fromPath
     blockedUntil
     confirmedDevice
@@ -112,9 +108,9 @@ export const currentUser = gql`
       createdAt
       profile {
         id
-        pictureUrl
         verified
       }
+      ...ActiveUserAvatar_user
     }
     referee
     referralRewardsCount
@@ -152,6 +148,7 @@ export const currentUser = gql`
       id
       os
       userAgent
+      lastUsedAt
     }
     coinBalance
     availableBalance
@@ -177,7 +174,6 @@ export const currentUser = gql`
     confirmed
     profile {
       id
-      pictureUrl
       verified
       clubName
       clubShield {
@@ -240,21 +236,21 @@ export const currentUser = gql`
     noCardRouteEnabled
     so5NoCardRouteOpened
     blockchainCardsInLineups
-    ...CurrentUserProvider_activityReports
     ...CurrentUserProvider_conversionCredit
     ...CurrentUserProvider_onboardingStatus
     ...CurrentUseProvider_sportProfile
     ...CurrentUserProvider_walletRecovery
     ...CurrentUseProvider_ethereumAccounts
     ...CurrentUseProvider_fiatAccounts
+    ...ActiveUserAvatar_user
   }
   ${walletRecovery}
   ${conversionCredit}
-  ${activityReports}
   ${onboardingStatus}
   ${sportProfile}
   ${ethereumAccounts}
   ${fiatAccounts}
+  ${ActiveUserAvatar.fragments.user}
 `;
 
 export const CURRENT_USER_QUERY = gql`
@@ -265,6 +261,15 @@ export const CURRENT_USER_QUERY = gql`
     }
   }
   ${currentUser}
+`;
+
+export const onDeviceSubscription = gql`
+  subscription onDeviceWasUpdated {
+    deviceWasUpdated {
+      id
+      eventType
+    }
+  }
 `;
 
 export const subscription = gql`

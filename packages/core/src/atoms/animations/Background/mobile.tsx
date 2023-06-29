@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { desktopAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
 
 const Wrapper = styled.div`
@@ -22,7 +23,7 @@ const Columns = styled.div`
     height: 100%;
   }
 
-  @media (min-width: ${theme.breakpoints.values.desktop}px) {
+  @media ${desktopAndAbove} {
     transform: rotateX(5deg) rotateZ(-10deg) translateX(25%);
     gap: min(calc(15 * var(--unit)), 10vw);
   }
@@ -39,7 +40,7 @@ const MobileColumn = styled.div`
   gap: calc(3 * var(--unit));
   transform: rotateX(5deg) rotateZ(-16deg);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex: 1;
     flex-shrink: 1;
   }

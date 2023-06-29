@@ -3,7 +3,10 @@ import styled from 'styled-components';
 
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import useInfiniteScroll from '@sorare/core/src/hooks/useInfiniteScroll';
-import { theme } from '@sorare/core/src/style/theme';
+import {
+  laptopAndAbove,
+  tabletAndAbove,
+} from '@sorare/core/src/style/mediaQuery';
 
 import UserNetworkBlock from '@football/components/user/UserNetworkBlock';
 
@@ -25,10 +28,10 @@ const Content = styled.div`
   grid-template-columns: 1fr;
   flex-wrap: wrap;
   gap: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     grid-template-columns: repeat(3, 1fr);
   }
 `;

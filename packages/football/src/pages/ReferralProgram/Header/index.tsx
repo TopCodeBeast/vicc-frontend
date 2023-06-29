@@ -7,7 +7,7 @@ import { Text18, Title1 } from '@sorare/core/src/atoms/typography';
 import { REFERRAL_HELP } from '@sorare/core/src/constants/externalLinks';
 import { socialShareEventContext } from '@sorare/core/src/lib/events';
 import { messages } from '@sorare/core/src/lib/referral';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import InviteFriendsCta from '@football/components/user/InviteFriendsCta';
 
@@ -52,7 +52,7 @@ const LeftContent = styled.div`
 const ShareContainer = styled.div`
   width: 100%;
   margin: auto;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     width: 540px;
   }
 `;

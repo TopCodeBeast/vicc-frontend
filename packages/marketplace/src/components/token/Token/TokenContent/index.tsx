@@ -32,7 +32,8 @@ export type Props = {
 };
 
 const Root = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: min-content 1fr;
   gap: var(--intermediate-unit);
   &.isDesktopLayout {
     display: flex;

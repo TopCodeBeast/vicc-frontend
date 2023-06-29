@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { AveragePlayerScore } from '@sorare/core/src/__generated__/globalTypes';
 import { Text14 } from '@sorare/core/src/atoms/typography';
 import { CardImg } from '@sorare/core/src/components/card/CardImg';
-import { theme } from '@sorare/core/src/style/theme';
 
 import PlayerCurrentUnavailabilityBadge from '@football/components/player/PlayerCurrentUnavailabilityBadge';
 import AverageScore from '@football/components/so5/AverageScore';
@@ -36,7 +35,7 @@ const Root = styled.div`
 `;
 
 const CardImgWrapper = styled.div`
-  border-radius: ${theme.shape.borderRadius};
+  border-radius: var(--unit);
   overflow: hidden;
   flex-shrink: 0;
   width: 50px;

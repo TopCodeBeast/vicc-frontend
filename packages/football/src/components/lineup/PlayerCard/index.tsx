@@ -7,7 +7,7 @@ import { Ball } from '@sorare/core/src/atoms/icons/Ball';
 import { LinkOther } from '@sorare/core/src/atoms/navigation/Box';
 import { Caption } from '@sorare/core/src/atoms/typography';
 import { CardImg } from '@sorare/core/src/components/card/CardImg';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import Captain from '@football/components/so5/Captain';
 import { LiveDot } from '@football/components/so5/LiveDot';
@@ -51,7 +51,7 @@ const Card = styled(LinkOther)`
 
 export const CardFooter = styled.footer`
   height: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: flex;
     flex-direction: column;
     align-items: center;

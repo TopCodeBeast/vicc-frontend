@@ -15,7 +15,7 @@ import Dialog from '@core/components/dialog';
 import { GoogleReCAPTCHA, ReCAPTCHA } from '@core/components/recaptcha';
 import useEvents from '@core/lib/events/useEvents';
 import { avoidOrphan } from '@core/lib/text';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 import useResendConfirmationInstructions from './useResendConfirmationInstructions';
 
@@ -27,7 +27,7 @@ const DialogContainer = styled.div`
   gap: var(--double-unit);
   padding: calc(3 * var(--unit));
   text-align: center;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     width: 480px;
   }
 `;

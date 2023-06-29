@@ -4,8 +4,8 @@ import { FormattedMessage, defineMessages } from 'react-intl';
 
 import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import { Title5 } from '@sorare/core/src/atoms/typography';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
-import { useWalletPreferences } from '@sorare/core/src/hooks/wallets/useWalletPreferences';
 import { Currency } from '@sorare/core/src/lib/currency';
 import { isA } from '@sorare/core/src/lib/gql';
 import { getMonetaryAmountIndex } from '@sorare/core/src/lib/monetaryAmount';
@@ -55,7 +55,10 @@ const BidPaymentModal = ({ auction, tokens, onSuccess, onClose }: Props) => {
     typeof setTimeout
   > | null>(null);
 
-  const { showEthWallet } = useWalletPreferences();
+  const {
+    walletPreferences: { showEthWallet },
+  } = useCurrentUserContext();
+
   const doesBestBidBelongsToUser = useBestBidBelongsToUser();
   const bidWithWallet = useBidWithWallet(auction);
 
@@ -139,6 +142,11 @@ const BidPaymentModal = ({ auction, tokens, onSuccess, onClose }: Props) => {
     [bidWithWallet, onSuccessWithWallet]
   );
 
+  const OrderSummaryComponent = useCallback(() => {
+    if (tokens.length > 1) return <BidBundleSummary tokens={tokens} />;
+    return <BidTokenSummary token={tokens[0]} />;
+  }, [tokens]);
+
   const minNextBid = auctionMinNextBid(auction);
 
   const confirmMessage =
@@ -154,7 +162,7 @@ const BidPaymentModal = ({ auction, tokens, onSuccess, onClose }: Props) => {
         onSuccess: onSuccessWithFiat,
         onSubmit: bid,
         price: {
-          amount: minNextBid,
+          [auction.currency.toLowerCase()]: minNextBid,
           referenceCurrency: auction.currency,
         },
         cta: confirmMessage,
@@ -174,12 +182,7 @@ const BidPaymentModal = ({ auction, tokens, onSuccess, onClose }: Props) => {
             />
           </Title5>
         ),
-        orderSummary:
-          tokens.length > 1 ? (
-            <BidBundleSummary tokens={tokens} />
-          ) : (
-            <BidTokenSummary token={tokens[0]} />
-          ),
+        OrderSummary: OrderSummaryComponent,
         loadingBid: polling,
         outBidByAutoBid,
         setOutBidCallback,

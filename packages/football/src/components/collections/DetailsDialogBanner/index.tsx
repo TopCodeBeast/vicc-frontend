@@ -4,8 +4,8 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import { Text16 } from '@sorare/core/src/atoms/typography';
+import DetailsDialog from '@sorare/core/src/components/collections/DetailsDialog';
 
-import DetailsDialog from '@football/components/collections/DetailsDialog';
 import howPointsWork from '@football/components/collections/assets/how-points-work.png';
 
 import { DetailsDialogBanner_cardCollection } from './__generated__/index.graphql';

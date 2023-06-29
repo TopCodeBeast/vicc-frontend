@@ -7,7 +7,7 @@ import { LinkOther } from '@sorare/core/src/atoms/navigation/Box';
 import ExternalLink from '@sorare/core/src/atoms/navigation/ExternalLink';
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Text14, Title6 } from '@sorare/core/src/atoms/typography';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import TokenId from '../TokenId';
 import { BlockchainInfo_token } from './__generated__/index.graphql';
@@ -18,7 +18,7 @@ type Props = {
 
 const TooltipWrapper = styled.span`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: inline-block;
     color: var(--c-neutral-600);
     vertical-align: bottom;

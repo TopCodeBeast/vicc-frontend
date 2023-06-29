@@ -1,13 +1,11 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { theme } from '@core/style/theme';
-
 import { GamePopover } from './GamePopover';
 import { Game as DumbGame } from './dumb';
 
 const Wrapper = styled.div`
-  border-radius: ${theme.shape.borderRadius}px;
+  border-radius: var(--unit);
   background-color: var(--c-neutral-100);
   padding: calc(3 * var(--unit));
   display: flex;

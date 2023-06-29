@@ -7,6 +7,8 @@ import styled from 'styled-components';
 import { Caption } from '@core/atoms/typography';
 import { fantasy, playerGameStatusLabels } from '@core/lib/glossary';
 
+export const GAME_WIDTH_WITH_GAP = 40;
+
 const Wrapper = styled.div`
   display: flex;
   --border-width: 1px;

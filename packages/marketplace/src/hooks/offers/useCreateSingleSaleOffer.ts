@@ -1,6 +1,10 @@
 import { gql } from '@apollo/client';
 
-import { OfferType } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  AmountInput,
+  OfferType,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 import useCreateEthMigration from '@sorare/core/src/hooks/starkware/useCreateEthMigration';
 import { generateDealId } from '@sorare/core/src/lib/deal';
@@ -14,7 +18,7 @@ import {
 } from './__generated__/useCreateSingleSaleOffer.graphql';
 import useApproveMigrator from './useApproveMigrator';
 import useMigrateCards from './useMigrateCards';
-import useSignNewOffer from './useSignNewOffer';
+import usePrepareOffer from './usePrepareOffer';
 
 const CREATE_SINGLE_SALE_OFFER_MUTATION = gql`
   mutation CreateSingleSaleOfferMutation($input: createSingleSaleOfferInput!) {
@@ -61,6 +65,13 @@ const CREATE_SINGLE_SALE_OFFER_MUTATION = gql`
   }
 `;
 
+type CreateSingleSaleOfferArgs = {
+  amountInput: AmountInput;
+  legacyWeiAmount: string;
+  token: useCreateSingleSaleOffer_token;
+  duration?: number;
+};
+
 const useCreateSingleSaleOffer = () => {
   const [createOffer] = useMutation<
     CreateSingleSaleOfferMutation,
@@ -70,24 +81,35 @@ const useCreateSingleSaleOffer = () => {
   const approveMigrator = useApproveMigrator();
   const migrateCards = useMigrateCards();
   const createEthMigration = useCreateEthMigration();
-  const signNewOffer = useSignNewOffer();
+  const prepareOffer = usePrepareOffer();
 
-  return async (
-    receiveWeiAmount: string,
-    token: useCreateSingleSaleOffer_token,
-    duration?: number
-  ) => {
+  return async ({
+    amountInput,
+    legacyWeiAmount,
+    token,
+    duration,
+  }: CreateSingleSaleOfferArgs) => {
     await approveMigrator([token]);
     await createEthMigration();
     const migrationData = await migrateCards([token]);
 
-    const { signedLimitOrders, errors: signingErrors } = await signNewOffer(
-      OfferType.SINGLE_SALE_OFFER,
-      [token.assetId],
-      [],
-      '0',
-      receiveWeiAmount
-    );
+    const {
+      useAuthorizations,
+      approvals,
+      legacySignedLimitOrders,
+      errors: signingErrors,
+    } = await prepareOffer({
+      type: OfferType.SINGLE_SALE_OFFER,
+      sendAssetIds: [token.assetId],
+      receiveAssetIds: [],
+      sendWeiAmount: '0',
+      receiveWeiAmount: legacyWeiAmount,
+      receiveAmount: {
+        ...amountInput,
+      },
+      // TODO: PLUG TO USER SETTINGS WHEN AVAILABLE
+      settlementCurrencies: [SupportedCurrency.WEI],
+    });
 
     if (signingErrors?.length) return signingErrors;
 
@@ -96,10 +118,17 @@ const useCreateSingleSaleOffer = () => {
         input: {
           dealId: generateDealId(),
           assetId: token.assetId,
-          price: receiveWeiAmount,
+          price: legacyWeiAmount,
           migrationData,
-          starkSignatures: signedLimitOrders,
+          starkSignatures: legacySignedLimitOrders,
           duration,
+          ...(useAuthorizations && {
+            receiveAmount: {
+              ...amountInput,
+            },
+            settlementCurrencies: [SupportedCurrency.WEI],
+            approvals,
+          }),
         },
       },
     });

@@ -15,7 +15,7 @@ import { useIntlContext } from '@core/contexts/intl';
 import { useWalletContext } from '@core/contexts/wallet';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 import { glossary, userAttributes } from '@core/lib/glossary';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import UpdateEmailDialog from './UpdateEmailDialog';
 
@@ -24,7 +24,7 @@ const Container = styled(RestForm)`
   flex-direction: column;
   margin-bottom: 0;
   gap: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     align-items: stretch;
   }
 `;

@@ -8,11 +8,12 @@ import nbaLogo from '@core/assets/logos/nba/nba-monochrome.svg';
 import nbpaLogo from '@core/assets/logos/nba/nbpa.svg';
 import Button from '@core/atoms/buttons/Button';
 import { LinkBox, LinkOverlay } from '@core/atoms/navigation/Box';
+import { drukwideSuper } from '@core/components/marketing/typography';
 import { useDefaultSportPages } from '@core/constants/routes';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import { sportsLabelsMessages } from '@core/lib/glossary';
 import { Link } from '@core/routing/Link';
-import { theme } from '@core/style/theme';
+import { desktopAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
 
 import PlayerCardsAnimation from '../PlayerCardsAnimation';
 import logoMLS from './assets/logo-MLS.svg';
@@ -50,7 +51,7 @@ const FeaturedSport = styled(LinkBox)`
   &:focus-within {
     transform: scale(1.01);
   }
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     gap: var(--quadruple-unit);
     flex-grow: 1;
     flex-basis: 0;
@@ -71,23 +72,23 @@ const CardContent = styled.div`
   grid-template-rows: min-content min-content min-content 1fr;
   justify-content: flex-start;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     --grid-padding: calc(3 * var(--unit));
   }
-  @media (min-width: ${theme.breakpoints.values.desktop}px) {
+  @media ${desktopAndAbove} {
     --grid-padding: calc(5 * var(--unit));
   }
 `;
 
 const Title = styled.h3`
-  ${theme.styledFonts.drukWideSuper}
+  ${drukwideSuper}
   color: var(--c-static-neutral-100);
   text-transform: uppercase;
   font-size: 16px;
   line-height: 24px;
   margin: 0;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font-size: 20px;
     line-height: 30px;
   }
@@ -103,12 +104,12 @@ const Subtitle = styled.h4`
   margin: 0;
   --nb-lines: 4;
   min-height: calc(var(--nb-lines) * var(--line-height));
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font-size: 18px;
     --line-height: 27px;
     --nb-lines: 6;
   }
-  @media (min-width: ${theme.breakpoints.values.desktop}px) {
+  @media ${desktopAndAbove} {
     --nb-lines: 4;
   }
 `;
@@ -144,11 +145,11 @@ const LogoList = styled.ul`
   gap: var(--double-unit);
   flex-wrap: wrap;
   grid-column: 1 / 4;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     gap: var(--intermediate-unit);
     grid-column: 2;
   }
-  @media (min-width: ${theme.breakpoints.values.desktop}px) {
+  @media ${desktopAndAbove} {
     flex-wrap: nowrap;
   }
   min-height: calc(10 * var(--unit));
@@ -170,7 +171,7 @@ const FooterText = styled.h5`
   font-weight: 400;
   margin: 0;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font-size: 16px;
     line-height: 27px;
   }

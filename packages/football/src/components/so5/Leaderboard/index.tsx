@@ -1,7 +1,7 @@
 import { ComponentType } from 'react';
 import styled from 'styled-components';
 
-import { EmptyLeaderboard } from '@sorare/football/src/components/so5/Leaderboard/EmptyLeaderboard';
+import { EmptyLeaderboard } from '@football/components/so5/Leaderboard/EmptyLeaderboard';
 
 interface Props<T> {
   Row: ComponentType<{

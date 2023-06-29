@@ -1,4 +1,20 @@
-import { BrowserOptions, Integrations, init } from '@sentry/react';
+import {
+  BrowserOptions,
+  BrowserTracing,
+  Integrations,
+  init,
+  reactRouterV6Instrumentation,
+  withProfiler,
+} from '@sentry/react';
+import { useEffect } from 'react';
+import {
+  createRoutesFromChildren,
+  matchRoutes,
+  useLocation,
+  useNavigationType,
+} from 'react-router-dom';
+
+import { SOFE_API_PATH, SOFE_API_ROOT } from 'config';
 
 // See https://gist.github.com/impressiver/5092952
 const communityIgnoredErrors = [
@@ -98,9 +114,22 @@ export const startSentry = ({
       new Integrations.Breadcrumbs({
         console: sentryEnv !== 'development',
       }),
+      new BrowserTracing({
+        tracePropagationTargets: [`${SOFE_API_ROOT}${SOFE_API_PATH}`],
+        routingInstrumentation: reactRouterV6Instrumentation(
+          useEffect,
+          useLocation,
+          useNavigationType,
+          createRoutesFromChildren,
+          matchRoutes
+        ),
+      }),
     ],
+    tracesSampleRate: 0.01,
     release,
     autoSessionTracking: false,
   };
   init(options);
 };
+
+export { withProfiler };

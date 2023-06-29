@@ -79,7 +79,7 @@ export const MobileFilterWidget = ({
     } else if (widget.type === 'sort') {
       return value;
     } else {
-      const refinement = ((items as any) as RefinementItem[]).find(
+      const refinement = (items as RefinementItem[]).find(
         (item: RefinementItem) => item.attribute === widget.attribute
       );
 
@@ -90,7 +90,7 @@ export const MobileFilterWidget = ({
       if (widget.attribute === FILTERS.averageScore.attribute) {
         labels = [FILTERS.lastFiveAverageScore, FILTERS.lastFifteenAverageScore]
           .map(filter => {
-            const scoreRefinement = ((items as any) as RefinementItem[]).find(
+            const scoreRefinement = (items as RefinementItem[]).find(
               (item: RefinementItem) => filter.attribute === item.attribute
             );
 

@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { useCallback } from 'react';
+import { ReactNode, useCallback } from 'react';
 import styled from 'styled-components';
 
 import CloseButton from '@sorare/core/src/atoms/buttons/CloseButton';
@@ -34,6 +34,12 @@ const Root = styled.div`
     var(--c-neutral-100) calc(100% - 100px),
     #4d4b49 100%
   );
+`;
+const Actions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--unit);
 `;
 
 const CloseButtonWrapper = styled.div`
@@ -112,6 +118,8 @@ type Props = {
   card?: PlayerDetails_card;
   onClose: () => void;
   showCardBonusIndicator?: boolean;
+  budgetValue?: number;
+  extraActions?: ReactNode;
 };
 const PlayerDetails = ({
   slug,
@@ -119,6 +127,8 @@ const PlayerDetails = ({
   card,
   showCardBonusIndicator = true,
   onClose,
+  extraActions,
+  budgetValue,
 }: Props) => {
   const { data: playerDetailsData, loading: playerDetailsLoading } = useQuery<
     PlayerDetailsQuery,
@@ -186,8 +196,10 @@ const PlayerDetails = ({
         player={playerDetailsData.football.player}
         pictureUrl={pictureUrl}
         card={card}
+        budgetValue={budgetValue}
         showCardBonusIndicator={showCardBonusIndicator}
       />
+      {extraActions && <Actions>{extraActions}</Actions>}
       <PlayerUnavailabilityPanel player={playerDetailsData.football.player} />
       <LastScores
         lastFiveSo5AverageScore={

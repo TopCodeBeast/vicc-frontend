@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components';
 
 import { Caption, Title2 } from '@sorare/core/src/atoms/typography';
 import { GAME_RULES } from '@sorare/core/src/constants/routes';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import Card, { Props as CardProps } from './Card';
 import CardPlaceholder, {
@@ -123,14 +123,14 @@ const Footer = styled.footer`
   text-align: center;
   align-items: center;
   color: var(--c-static-neutral-100);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     align-items: flex-end;
     padding: 0 var(--double-unit) var(--double-unit);
   }
 `;
 const CtaWrapper = styled.div`
   width: 100%;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     width: min-content;
     justify-self: end;
   }

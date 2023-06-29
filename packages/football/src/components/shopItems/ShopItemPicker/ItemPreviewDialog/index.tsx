@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import { ShirtSize } from '@sorare/core/src/__generated__/globalTypes';
-import CloseButton from '@sorare/core/src/atoms/buttons/CloseButton';
 import { Text14 } from '@sorare/core/src/atoms/typography';
 import Dialog from '@sorare/core/src/components/dialog';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
@@ -29,14 +28,11 @@ const DialogContainer = styled.div`
   gap: var(--triple-unit);
   padding: var(--triple-unit);
 `;
-const FlexColContainer = styled.div`
+const Body = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-`;
-const CloseButtonWrapper = styled.div`
-  align-self: flex-end;
 `;
 const MyBalance = styled.div`
   justify-self: flex-end;
@@ -154,41 +150,44 @@ const ItemPreviewDialog = ({
   const currentStep = steps[step];
 
   return (
-    <Dialog maxWidth="xs" fullWidth onClose={onClose} darkTheme open={open}>
-      <FlexColContainer>
-        <DialogContainer>
-          <CloseButtonWrapper>
-            <CloseButton onClose={onClose} />
-          </CloseButtonWrapper>
+    <Dialog
+      darkTheme
+      open={open}
+      maxWidth="xs"
+      fullWidth
+      onClose={onClose}
+      body={
+        <Body>
+          <DialogContainer>
+            {currentStep.displayPreview && (
+              <>
+                <ItemImagePreview
+                  pictureUrl={item.pictureUrl}
+                  name={item.name}
+                  type={item.position}
+                />
+                <Details item={item} itemEquipped={itemEquipped} />
+              </>
+            )}
 
-          {currentStep.displayPreview && (
-            <>
-              <ItemImagePreview
-                pictureUrl={item.pictureUrl}
-                name={item.name}
-                type={item.position}
+            {item.disabled ? (
+              <Requirements item={item} />
+            ) : (
+              !itemEquipped && currentStep.content
+            )}
+          </DialogContainer>
+          <MyBalance>
+            <Text14 color="var(--c-neutral-600)">
+              <FormattedMessage
+                id="ClubShop.ItemPreviewDialog.CurrentBalance"
+                defaultMessage="Current balance"
               />
-              <Details item={item} itemEquipped={itemEquipped} />
-            </>
-          )}
-
-          {item.disabled ? (
-            <Requirements item={item} />
-          ) : (
-            !itemEquipped && currentStep.content
-          )}
-        </DialogContainer>
-        <MyBalance>
-          <Text14 color="var(--c-neutral-600)">
-            <FormattedMessage
-              id="ClubShop.ItemPreviewDialog.CurrentBalance"
-              defaultMessage="Current balance"
-            />
-          </Text14>
-          <CoinAmount amount={userCoinBalance} />
-        </MyBalance>
-      </FlexColContainer>
-    </Dialog>
+            </Text14>
+            <CoinAmount amount={userCoinBalance} />
+          </MyBalance>
+        </Body>
+      }
+    />
   );
 };
 

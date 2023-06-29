@@ -5,9 +5,11 @@ import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
+import { LinkOther } from '@sorare/core/src/atoms/navigation/Box';
 import { caption } from '@sorare/core/src/atoms/typography';
 import useIsOverflowing from '@sorare/core/src/hooks/ui/useIsOverflowing';
 import { hasEligibleRewards, hasRewards } from '@sorare/core/src/lib/rewards';
+import { Link } from '@sorare/core/src/routing/Link';
 import { hideScrollbar } from '@sorare/core/src/style/utils';
 
 import ActualRewards from '@football/components/lineup/ActualRewards';
@@ -20,12 +22,12 @@ import {
   LineupRewards_so5Ranking,
 } from './__generated__/index.graphql';
 
-const Wrapper = styled.div`
+const Wrapper = styled(LinkOther)`
   display: flex;
-  padding-left: var(--intermediate-unit);
+  position: relative;
+  padding: 0 var(--intermediate-unit);
   align-items: center;
   height: 32px;
-  gap: var(--unit);
   border-top: 1px solid var(--c-neutral-300);
   color: var(--c-neutral-600);
   &.empty {
@@ -35,9 +37,15 @@ const Wrapper = styled.div`
   &:hover {
     color: var(--c-neutral-600);
   }
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--unit);
+  overflow: auto;
   ${hideScrollbar}
   ${caption}
-  overflow: auto;
 `;
 
 const EligibleRewardsList = styled.div`
@@ -49,15 +57,17 @@ const EligibleRewardsList = styled.div`
 const OverflowIcon = styled.div`
   background: linear-gradient(
     270deg,
+    var(--c-neutral-200) 0%,
     var(--c-neutral-200) 54.55%,
     rgba(34, 36, 43, 0) 100%
   );
-  position: sticky;
-  right: -0.5px; /* fix weird overflow content showing behind icon */
+  position: absolute;
+  right: 0;
   display: flex;
   align-items: center;
   height: 100%;
   padding: 0 var(--intermediate-unit) 0 var(--quadruple-unit);
+  border-bottom-right-radius: var(--unit);
 `;
 
 const RewardLabel = styled.div`
@@ -72,11 +82,13 @@ type Props = {
   rewardType: RewardType;
   rankingRewards?: LineupRewards_so5Ranking;
   totalRewards: LineupRewards_rewardsOverview;
+  linkToCompetitionDetails: string;
 };
 export const LineupRewards = ({
   rewardType,
   rankingRewards,
   totalRewards,
+  linkToCompetitionDetails,
 }: Props) => {
   const { isOverflowing, containerRef } = useIsOverflowing();
   const { eligibleRewards, so5Rewards } = rankingRewards || {};
@@ -152,7 +164,8 @@ export const LineupRewards = ({
 
   return (
     <Wrapper
-      ref={containerRef}
+      as={Link}
+      to={linkToCompetitionDetails}
       className={classNames({
         empty:
           (rewardType === RewardType.Eligible && !withEligibleRewards) ||
@@ -160,9 +173,11 @@ export const LineupRewards = ({
           (rewardType === RewardType.Generic && !hasRewards(totalRewards)),
       })}
     >
-      {rewardType === RewardType.Generic && displayGenericRewards()}
-      {rewardType === RewardType.Eligible && displayEligibleRewards()}
-      {rewardType === RewardType.Actual && displayActualRewards()}
+      <ContentWrapper ref={containerRef}>
+        {rewardType === RewardType.Generic && displayGenericRewards()}
+        {rewardType === RewardType.Eligible && displayEligibleRewards()}
+        {rewardType === RewardType.Actual && displayActualRewards()}
+      </ContentWrapper>
       {isOverflowing && (
         <OverflowIcon>
           <FontAwesomeIcon icon={faPlus} size="sm" />

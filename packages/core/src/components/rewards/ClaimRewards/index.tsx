@@ -24,7 +24,7 @@ import { useIsDesktop } from '@core/hooks/device/useIsDesktop';
 import { useToggleArray } from '@core/hooks/useToggleArray';
 import { range } from '@core/lib/arrays';
 import { glossary } from '@core/lib/glossary';
-import { theme } from '@core/style/theme';
+import { desktopAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
 
 import { Background } from '../Background';
 import { RevealWithTease } from '../reveal/WithTease';
@@ -79,7 +79,7 @@ const Content = styled.div`
 `;
 const Actions = styled.div`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: block;
     position: absolute;
     top: var(--unit);
@@ -126,12 +126,12 @@ const RevealerFullHeight = styled(Revealer)`
 const DrawerStyled = styled(Drawer)`
   border-radius: var(--double-unit) var(--double-unit) 0 0;
   background: white;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     margin: var(--double-unit) 0;
     border-radius: var(--double-unit) 0 0 var(--double-unit);
     width: 340px;
   }
-  @media (min-width: ${theme.breakpoints.values.desktop}px) {
+  @media ${desktopAndAbove} {
     width: 440px;
   }
 `;

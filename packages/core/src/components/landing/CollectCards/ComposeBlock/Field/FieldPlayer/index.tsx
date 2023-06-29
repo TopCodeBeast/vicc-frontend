@@ -2,6 +2,7 @@ import { defineMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import { useIntlContext } from '@core/contexts/intl';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
 
 import commonCardNBA from '../../../CollectBlock/assets/nba/common.png';
@@ -36,7 +37,7 @@ const PlayerFixtureScore = styled.div`
   left: calc(50% - var(--halfScoreTagMin));
   bottom: -10px;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     left: calc(50% - var(--halfScoreTagMax));
     bottom: -15px;
   }
@@ -52,7 +53,7 @@ const PlayerName = styled.div`
   left: 0;
   right: 0;
   bottom: calc(-1 * var(--scoreTagMin, 20px) - 5px);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     bottom: calc(-1 * var(--scoreTagMax, 30px) - 5px);
   }
 `;
@@ -105,7 +106,7 @@ const Wrapper = styled.div`
   ${({ theme: { isCaptain } }: ThemeProps) =>
     isCaptain ? `border: 2px solid #ffc700` : ''};
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     height: 74px;
     width: 65px;
     border-radius: 7px;

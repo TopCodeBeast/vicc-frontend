@@ -14,7 +14,7 @@ import {
 } from '@core/components/landing/LandingFootball/ui';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 import useSlider from '@core/hooks/useSlider';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 const messages = defineMessages({
   title: {
@@ -60,7 +60,7 @@ const Column = styled.div<{ $md: number }>`
   flex-shrink: 0;
   width: 100%;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     width: ${({ $md }) => `calc(calc(${$md} / 12 * 100%) - var(--unit))`};
   }
 `;
@@ -69,7 +69,7 @@ const StyledSection = styled(Section)`
   display: flex;
   flex-direction: column;
   gap: var(--triple-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     gap: var(--quadruple-unit);
   }
 `;

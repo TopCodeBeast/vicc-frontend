@@ -16,7 +16,7 @@ import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
 import { SecondaryTabs } from '@core/atoms/navigation/SecondaryTabs';
 import { useBgLocation } from '@core/hooks/useBgLocation';
 import { relative } from '@core/lib/routing';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import useHandleBackwardCompatibility from './useHandleBackwardCompatibility';
 
@@ -41,7 +41,7 @@ const ResponsiveTabs = styled.div`
 `;
 const StyledContainer = styled.div`
   justify-content: flex-start;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     justify-content: center;
   }
 `;

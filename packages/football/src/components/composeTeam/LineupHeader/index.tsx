@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 const Root = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const Extra = styled.div`
     background: var(--c-neutral-900);
     border-radius: 2em;
     padding: var(--half-unit);
-    @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    @media ${tabletAndAbove} {
       padding: var(--half-unit) var(--double-unit);
     }
   }

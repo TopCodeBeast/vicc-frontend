@@ -13,7 +13,7 @@ import {
   PlayerUnavailabilityBadge_suspension,
 } from './__generated__/index.graphql';
 
-const UnavailabiltyWrapper = styled.div`
+const UnavailabiltyWrapper = styled.span`
   display: flex;
   gap: var(--half-unit);
 `;

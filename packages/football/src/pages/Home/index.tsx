@@ -7,7 +7,7 @@ import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { useTitleAndDescription } from '@sorare/core/src/hooks/useTitleAndDescription';
 import { metadatas } from '@sorare/core/src/lib/seo/common';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import Tabs from './Tabs';
 import {
@@ -41,7 +41,7 @@ const Root = styled.div`
   gap: var(--triple-unit);
   flex: 1;
   overflow: hidden;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     gap: 0;
   }
 `;

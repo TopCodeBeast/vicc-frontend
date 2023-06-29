@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import { Title2 } from '@core/atoms/typography';
 import { FormattedWei } from '@core/contexts/intl/FormattedWei';
-import { theme } from '@core/style/theme';
 
 import ethFrontCardBackground from './assets/ethFrontCardBackground.svg';
 
@@ -12,7 +11,7 @@ const Card = styled.article`
   align-items: center;
   justify-content: center;
   gap: calc(var(--half-unit) * 1px);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   background: url(${ethFrontCardBackground});
   background-size: cover;
   padding: var(--unit);

@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 import { FormattedNumber } from 'react-intl';
-import { generatePath } from 'react-router-dom';
+import { generatePath, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import {
@@ -11,13 +11,11 @@ import {
 import Coin from '@sorare/core/src/atoms/icons/Coin';
 import { Eth } from '@sorare/core/src/atoms/icons/Eth';
 import ScarcityIcon from '@sorare/core/src/atoms/icons/ScarcityIcon';
-import { LinkOther } from '@sorare/core/src/atoms/navigation/Box';
 import { FOOTBALL_CARD_SHOW } from '@sorare/core/src/constants/routes';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
+import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 import { qualityNames } from '@sorare/core/src/lib/players';
 import { ScarcityType } from '@sorare/core/src/lib/scarcity';
-import { Link } from '@sorare/core/src/routing/Link';
-import { theme } from '@sorare/core/src/style/theme';
 
 import { ActualReward_so5Reward } from './__generated__/index.graphql';
 
@@ -35,10 +33,10 @@ const rewardWrapperStyle = css`
 const RewardWrapper = styled.div`
   ${rewardWrapperStyle}
 `;
-const CardRewardWrapper = styled(LinkOther)`
+const CardRewardWrapper = styled.div`
   ${rewardWrapperStyle}
   padding: var(--half-unit);
-  border-radius: ${theme.radius.xxs}px;
+  border-radius: var(--half-unit);
   &:hover,
   &:focus {
     background: var(--c-neutral-100);
@@ -52,6 +50,8 @@ type Props = {
 export const ActualReward = ({ reward }: Props) => {
   const { rewardCards, aasmState, weiAmount, coinAmount } = reward;
   const isClaimed = aasmState === 'claimed';
+  const navigate = useNavigate();
+  const location = useBgLocation(true);
   const { main } = useAmountWithConversion({
     monetaryAmount: {
       referenceCurrency: SupportedCurrency.WEI,
@@ -77,8 +77,12 @@ export const ActualReward = ({ reward }: Props) => {
         isClaimed ? (
           <CardRewardWrapper
             key={card?.assetId}
-            as={Link}
-            to={generatePath(FOOTBALL_CARD_SHOW, { slug: card?.slug })}
+            onClick={e => {
+              e.preventDefault();
+              navigate(generatePath(FOOTBALL_CARD_SHOW, { slug: card?.slug }), {
+                state: { backgroundState: location },
+              });
+            }}
           >
             <ScarcityIcon scarcity={card?.rarity as ScarcityType} />
             {card?.player.displayName}

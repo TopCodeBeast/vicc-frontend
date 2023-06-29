@@ -13,7 +13,7 @@ import { Text14, Title5 } from '@sorare/core/src/atoms/typography';
 import Dialog from '@sorare/core/src/components/dialog';
 import { Nickname } from '@sorare/core/src/components/user/Nickname';
 import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import CardOffer from '../../CardOffer';
 import { useGetCardsDetails } from '../useGetCardsDetails';
@@ -81,7 +81,7 @@ const DialogContent = styled.div`
   gap: var(--double-unit);
   margin-top: var(--double-unit);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     width: max-content;
     min-width: 100%;
@@ -102,7 +102,7 @@ const Subtitle = styled(Text14)`
   flex-direction: column;
   gap: var(--half-unit);
   align-items: flex-start;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     align-items: center;
   }

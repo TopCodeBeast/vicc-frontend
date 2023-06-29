@@ -345,4 +345,5 @@ export const RestForm = (props: Props<RestResult>) => (
 
 export { default as Field } from './Field';
 export { default as TextField } from './TextField';
+export { default as SwitchField } from './SwitchField';
 export { default as TextFieldWithConversion } from './TextFieldWithConversion';

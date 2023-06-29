@@ -13,6 +13,7 @@ import { useIntlContext } from '@core/contexts/intl';
 import useTouchScreen from '@core/hooks/device/useTouchScreen';
 import { MenuVisibility } from '@core/lib/menu';
 import { matchLocation } from '@core/lib/urls';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
 
 import AppBarMenu, { MenuItems } from '../Menu';
@@ -53,10 +54,20 @@ const Menu = styled.div`
   background-color: var(--c-neutral-200);
   position: absolute;
   filter: drop-shadow(0px 5px 5px rgba(0, 0, 0, 0.06));
-  top: 100%;
+  top: calc(100% + var(--unit));
   z-index: ${theme.zIndex.modal};
   &.rightPositioned {
     right: 0;
+  }
+  /** prevent closing when hovering the gap */
+  &:before {
+    position: absolute;
+    top: calc(var(--unit) * -1);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: '';
+    z-index: -1;
   }
 `;
 
@@ -149,7 +160,7 @@ const StyledMenuItem = styled(MenuItem)`
     border-bottom: 1px solid #333333;
     border-radius: 0;
   }
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding: 0px 10px;
   }
   color: var(--activeColor);

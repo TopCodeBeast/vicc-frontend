@@ -20,7 +20,7 @@ import {
 import { SelectedTeam } from './types';
 
 const Root = styled.div`
-  max-height: calc(100% - 48px);
+  max-height: 100%;
   display: flex;
   gap: var(--double-unit);
 `;
@@ -31,9 +31,7 @@ const LoaderContainer = styled.div`
   padding: var(--quadruple-unit) 0;
 `;
 const MatchViewContainer = styled.div`
-  max-width: 100%;
   flex-grow: 1;
-  height: 100%;
   display: flex;
   flex-direction: column;
   background-color: var(--c-neutral-300);

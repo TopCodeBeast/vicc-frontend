@@ -11,6 +11,11 @@ const Root = styled.span`
   align-items: center;
   gap: var(--half-unit);
 `;
+const Verified = styled.img`
+  width: min(1em, 18px);
+  height: min(1em, 18px);
+  margin-bottom: var(--half-unit);
+`;
 
 type Props = {
   user: UserName_publicUserInfoInterface;
@@ -22,11 +27,7 @@ const UserName = ({ user, hideVerified }: Props) => {
     <Root>
       <Nickname user={user} />
       {!hideVerified && user.profile.verified && (
-        <img
-          src={verifiedBadge}
-          style={{ width: '1em', height: '1em' }}
-          alt="Verified"
-        />
+        <Verified src={verifiedBadge} alt="Verified" />
       )}
     </Root>
   );

@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { TooltipProps } from '@material-ui/core';
 import { defineMessage, useIntl } from 'react-intl';
 import styled, { css } from 'styled-components';
 
@@ -13,12 +14,13 @@ const Wrapper = styled.div`
   --radius: var(--half-unit);
   --stroke: 1px;
   --gap: 2px;
-  --offset: calc(var(--radius) / 2);
+  --offset-right: calc(var(--radius) / 2);
+  --offset-bottom: calc(var(--radius) / 2);
 `;
 
 const ChildrenWrapper = styled.div`
   mask-image: radial-gradient(
-    circle at calc(100% - var(--offset)) calc(100% - var(--offset)),
+    circle at calc(100% - var(--offset-right)) calc(100% - var(--offset-bottom)),
     transparent,
     transparent calc(var(--radius) + var(--gap)),
     black calc(var(--radius) + var(--gap)),
@@ -29,8 +31,8 @@ const ChildrenWrapper = styled.div`
 const TooltipStyled = styled(Tooltip)`
   display: inline-block;
   position: absolute;
-  right: calc(-1 * (var(--radius) - var(--offset)));
-  bottom: calc(-1 * (var(--radius) - var(--offset)));
+  right: calc(-1 * (var(--radius) - var(--offset-right)));
+  bottom: calc(-1 * (var(--radius) - var(--offset-bottom)));
 `;
 
 const ActivityIcon = styled.div<{ $active: boolean }>`
@@ -63,10 +65,16 @@ const messages = defineMessage({
 type Props = {
   user: ActivityIndicator_user;
   children: JSX.Element;
+  enterTouchDelay?: TooltipProps['enterTouchDelay'];
   style?: React.CSSProperties;
 };
 
-export const ActivityIndicator = ({ user, children, style }: Props) => {
+export const ActivityIndicator = ({
+  user,
+  children,
+  enterTouchDelay,
+  style,
+}: Props) => {
   const { formatMessage } = useIntl();
   const active = useActivityIndicator(user);
 
@@ -78,9 +86,17 @@ export const ActivityIndicator = ({ user, children, style }: Props) => {
       <ChildrenWrapper>{children}</ChildrenWrapper>
 
       <TooltipStyled
-        title={formatMessage(active ? messages.online : messages.offline)}
+        title={
+          <>
+            {user.profile.status}
+            {user.profile.status && ' ('}
+            {formatMessage(active ? messages.online : messages.offline)}
+            {user.profile.status && ')'}
+          </>
+        }
         placement="right"
         role="status"
+        enterTouchDelay={enterTouchDelay}
       >
         <ActivityIcon $active={active} />
       </TooltipStyled>
@@ -92,6 +108,10 @@ ActivityIndicator.fragments = {
   user: gql`
     fragment ActivityIndicator_user on PublicUserInfoInterface {
       slug
+      profile {
+        id
+        status
+      }
       ...useActivityIndicator_user
     }
     ${useActivityIndicator.fragments.user}

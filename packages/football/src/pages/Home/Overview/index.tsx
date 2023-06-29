@@ -1,17 +1,14 @@
+import { gql } from '@apollo/client';
 import styled from 'styled-components';
 
+import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import { useUseHomeTimelineLayout } from '@sorare/core/src/lib/featureFlags';
 
 import { ContentUnits } from './ContentUnits';
-import { Discover } from './Discover';
-import { Live } from './Live';
 import { ManagerAssistant } from './ManagerAssistant';
-import { Past } from './Past';
 import { PrivateLeagues } from './PrivateLeagues';
 import { TournamentsTimeline } from './TournamentsTimeline';
-import { Upcoming } from './Upcoming';
-import useOverviewQuery from './useOverviewQuery';
+import { HomeLeaderboardsQuery } from './__generated__/index.graphql';
 
 const Wrapper = styled.div`
   display: flex;
@@ -19,20 +16,53 @@ const Wrapper = styled.div`
   gap: calc(var(--unit) * 6);
 `;
 
+const HOME_LEADERBOARDS_QUERY = gql`
+  query HomeLeaderboardsQuery {
+    currentUser {
+      slug
+      ...ManagerAssistant_currentUser
+    }
+    football {
+      so5 {
+        upcomingLeaderboards {
+          slug
+          canCompose {
+            value
+          }
+          commonDraftCampaign {
+            slug
+            status
+          }
+          so5LeaderboardType
+          ...ManagerAssistant_so5Leaderboard
+        }
+        ...PrivateLeagues_so5
+        ...TournamentsTimeline_so5
+      }
+    }
+  }
+
+  ${PrivateLeagues.fragments.so5}
+  ${TournamentsTimeline.fragments.so5}
+  ${ManagerAssistant.fragments.currentUser}
+  ${ManagerAssistant.fragments.so5Leaderboard}
+`;
+
 export const Overview = () => {
   const {
     flags: { disableHomeContentUnits = false },
   } = useFeatureFlags();
-  const useHomeTimelineLayout = useUseHomeTimelineLayout();
-  const {
-    eligibleLeaderboards,
-    leaderboardsToDiscover,
-    leaderboardsWithDraft,
-    leaderboards,
-    user,
-    so5,
-    loading,
-  } = useOverviewQuery();
+  const { data, loading } = useQuery<HomeLeaderboardsQuery>(
+    HOME_LEADERBOARDS_QUERY,
+    {
+      // need network to update discover & upcoming section if user buys a card from homepage
+      nextFetchPolicy: 'cache-and-network',
+      fetchPolicy: 'cache-and-network',
+    }
+  );
+  const leaderboards = data?.football.so5.upcomingLeaderboards;
+  const user = data?.currentUser;
+  const so5 = data?.football.so5;
 
   const contentUnits = !disableHomeContentUnits && (
     <ContentUnits
@@ -50,20 +80,7 @@ export const Overview = () => {
         leaderboards={leaderboards}
         loading={loading}
       />
-      {useHomeTimelineLayout ? (
-        <TournamentsTimeline so5={so5} loading={loading} />
-      ) : (
-        <>
-          <Live so5={so5} loading={loading} />
-          <Upcoming leaderboards={eligibleLeaderboards} loading={loading} />
-          <Discover
-            loading={loading}
-            leaderboardsToDiscover={leaderboardsToDiscover}
-            leaderboardsWithDraft={leaderboardsWithDraft}
-          />
-          <Past so5={so5} loading={loading} />
-        </>
-      )}
+      <TournamentsTimeline so5={so5} loading={loading} />
       {contentUnits}
       <PrivateLeagues so5={so5} loading={loading} />
     </Wrapper>

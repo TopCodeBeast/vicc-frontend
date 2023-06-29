@@ -7,13 +7,13 @@ import { Text16 } from '@sorare/core/src/atoms/typography';
 import OpenItemDialogLink from '@sorare/core/src/components/link/OpenItemDialogLink';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 
-import FlexCard from '@sorare/football/src/components/card/FlexCard';
-import AppearanceDetailsFull from '@sorare/football/src/components/so5/AppearanceDetailsFull';
-import Captain from '@sorare/football/src/components/so5/Captain';
-import CardBonus from '@sorare/football/src/components/so5/CardProperties/CardBonus';
-import Points from '@sorare/football/src/components/so5/Points';
-import PlayerScore from '@sorare/football/src/components/stats/PlayerScore';
-import ScoreFrom from '@sorare/football/src/components/stats/ScoreFrom';
+import FlexCard from '@football/components/card/FlexCard';
+import AppearanceDetailsFull from '@football/components/so5/AppearanceDetailsFull';
+import Captain from '@football/components/so5/Captain';
+import CardBonus from '@football/components/so5/CardProperties/CardBonus';
+import Points from '@football/components/so5/Points';
+import PlayerScore from '@football/components/stats/PlayerScore';
+import ScoreFrom from '@football/components/stats/ScoreFrom';
 import { getPlayerScore } from '@football/lib/so5';
 
 import { So5LineupAppearance_so5Appearance } from './__generated__/index.graphql';

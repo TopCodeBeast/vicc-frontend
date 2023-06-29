@@ -8,9 +8,10 @@ import styled from 'styled-components';
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
 import Bold from '@sorare/core/src/atoms/typography/Bold';
 import { Nickname } from '@sorare/core/src/components/user/Nickname';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { isType } from '@sorare/core/src/gql';
 import { tradeLabels } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import EthereumCard from '@marketplace/components/offer/EthereumCard';
 import useMarketFeesHelperStatus from '@marketplace/hooks/useMarketFeesHelperStatus';
@@ -58,7 +59,7 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
   }
 `;
@@ -71,7 +72,9 @@ const Column = styled.div`
 `;
 
 const BodyTitle = styled(Text16)`
-  display: block;
+  display: flex;
+  flex-direction: row;
+  gap: var(--unit);
   color: var(--c-neutral-600);
 `;
 
@@ -83,7 +86,7 @@ const BodyContent = styled.div`
 
 const Frame = styled.div`
   padding: var(--unit);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   background: var(--c-neutral-300);
   .inModale & {
     background: var(--c-neutral-400);
@@ -92,7 +95,7 @@ const Frame = styled.div`
 
 const Warning = styled.div`
   padding: var(--unit) var(--double-unit);
-  border-radius: ${theme.radius.xs}px;
+  border-radius: var(--unit);
   border-left: var(--half-unit) solid;
   &.red {
     background-color: rgba(var(--c-rgb-red-600), 0.25);
@@ -128,6 +131,7 @@ const DirectOfferBody = ({
   isCurrentUserSender,
   validationMessages,
 }: Props) => {
+  const { currentUser } = useCurrentUserContext();
   const getCardsDetails = useGetCardsDetails();
   const { receivedCards, sendCards } = getCardsDetails(
     offer,
@@ -194,7 +198,7 @@ const DirectOfferBody = ({
       <Body>
         <Column>
           <BodyTitle>
-            {isCurrentUserSender ? (
+            {otherUser.slug === currentUser?.slug ? (
               <FormattedMessage {...tradeLabels.youSend} />
             ) : (
               <FormattedMessage

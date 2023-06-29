@@ -227,7 +227,6 @@ export const TwoFADialog = ({
             <Input
               name="otpAttempt"
               type="text"
-              inputMode="numeric"
               autoFocus
               autoComplete="one-time-code"
               placeholder={formatMessage(

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import useSlider from '@core/hooks/useSlider';
 import useEvents from '@core/lib/events/useEvents';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 import { hideScrollbar } from '@core/style/utils';
 
 import { Props } from '../types';
@@ -24,7 +24,7 @@ const SlideContainer = styled.div`
   scroll-snap-type: x mandatory;
   overflow-x: auto;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     ${hideScrollbar};
   }
 `;

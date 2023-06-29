@@ -7,10 +7,10 @@ import styled from 'styled-components';
 import { Text16 } from '@core/atoms/typography';
 import OAuthButton from '@core/components/user/OAuthButton';
 import Disconnect from '@core/components/user/OAuthDisconnect';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 interface Props {
-  nickname?: string | null;
+  nickname: string | null;
   provider: 'discord' | 'twitter' | 'google_oauth2' | 'facebook';
   icon: IconProp;
 }
@@ -41,7 +41,7 @@ const Connected = styled.div`
   justify-content: space-between;
   gap: 10px;
   flex-direction: column;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
   }
 `;

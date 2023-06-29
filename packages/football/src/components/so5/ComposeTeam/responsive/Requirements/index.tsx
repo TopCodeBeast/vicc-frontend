@@ -23,7 +23,7 @@ const StyledTooltip = styled.div`
     padding: 10px;
   }
   & > * + * {
-    border-top: 1px solid var(--c-neutral-300);
+    border-top: 1px solid var(--c-neutral-400);
   }
 `;
 const Requirements = styled(Text14)`

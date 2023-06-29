@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { theme } from '@sorare/core/src/style/theme';
-
 export const RewardRowsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -25,7 +23,7 @@ export const HighlightedRewardRow = styled(RewardRow)`
   border: 1px solid rgba(0, 56, 255, 0.5);
   box-sizing: border-box;
   margin: var(--half-unit);
-  border-radius: ${theme.radius.sm}px;
+  border-radius: var(--intermediate-unit);
 `;
 
 export const ActionableRewardRow = styled(RewardRow)`

@@ -11,7 +11,7 @@ import IconButton from '@core/atoms/buttons/IconButton';
 import useIsOverflowing from '@core/hooks/ui/useIsOverflowing';
 import useScrollPosition from '@core/hooks/ui/useScrollPosition';
 import { range } from '@core/lib/arrays';
-import { theme } from '@core/style/theme';
+import { desktopAndAbove, laptopAndAbove } from '@core/style/mediaQuery';
 import { hideScrollbar } from '@core/style/utils';
 
 const ScrollableContent = styled.div<{
@@ -27,14 +27,14 @@ const ScrollableContent = styled.div<{
   padding: 0 100vw;
   margin: 0 -100vw;
   ${hideScrollbar};
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     --item-wrapper-width: ${({ itemToDisplay }) =>
       itemToDisplay > 1
         ? `calc((100% - var(--quadruple-unit)) / ${itemToDisplay})`
         : '100%'};
   }
 
-  @media (min-width: ${theme.breakpoints.values.desktop}px) {
+  @media ${desktopAndAbove} {
     &.withMask {
       padding-inline: var(--mask-size);
       scroll-padding-inline: var(--mask-size);

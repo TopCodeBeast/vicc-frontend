@@ -1,33 +1,26 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import CloseButton from '@sorare/core/src/atoms/buttons/CloseButton';
-import { Title3 } from '@sorare/core/src/atoms/typography';
+import { Title4 } from '@sorare/core/src/atoms/typography';
 import Dialog from '@sorare/core/src/components/dialog';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import MatchView from '@football/components/MatchView';
 
 const DialogContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: var(--double-unit) var(--unit) var(--unit);
+  padding: var(--unit) var(--triple-unit) var(--triple-unit);
   gap: var(--double-unit);
   height: 100%;
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
-    min-width: ${theme.layout.dialogWidth}px;
-    height: auto;
+  @media ${laptopAndAbove} {
+    min-width: var(--layout-dialog-width);
   }
 `;
-const Header = styled.div`
+const CenteredTitle4 = styled(Title4)`
   text-align: center;
-`;
-const CloseButtonWrapper = styled.div`
-  position: absolute;
-  top: var(--unit);
-  right: var(--double-unit);
 `;
 
 type Props = {
@@ -38,24 +31,24 @@ type Props = {
 const MatchViewDialog = ({ gameId, onClose, open }: Props) => {
   const { up: isLaptop } = useScreenSize('laptop');
   return (
-    <Dialog open={open} maxWidth={false} onClose={onClose}>
-      <>
-        <CloseButtonWrapper>
-          <CloseButton onClose={onClose} />
-        </CloseButtonWrapper>
+    <Dialog
+      maxWidth={false}
+      open={open}
+      onClose={onClose}
+      title={
+        <CenteredTitle4>
+          <FormattedMessage
+            id="MatchViewDialog.Title"
+            defaultMessage="Match view"
+          />
+        </CenteredTitle4>
+      }
+      body={
         <DialogContainer>
-          <Header>
-            <Title3>
-              <FormattedMessage
-                id="MatchViewDialog.Title"
-                defaultMessage="Match view"
-              />
-            </Title3>
-          </Header>
           {open && gameId && <MatchView desktop={isLaptop} id={gameId} />}
         </DialogContainer>
-      </>
-    </Dialog>
+      }
+    />
   );
 };
 

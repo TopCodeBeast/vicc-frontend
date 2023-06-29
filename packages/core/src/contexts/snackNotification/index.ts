@@ -139,6 +139,10 @@ export const notifications = defineMessages({
     defaultMessage:
       'Please check your {delivery, select, email {email} phone {phone} other {email or phone}} to confirm the current device.',
   },
+  deviceSuccessfullyConfirmed: {
+    id: 'Wallet.deviceSuccessfullyConfirmed',
+    defaultMessage: 'Current device successfully confirmed.',
+  },
   signUp: {
     id: 'Signup.successNotifications',
     defaultMessage:
@@ -262,8 +266,8 @@ export const notifications = defineMessages({
     defaultMessage:
       'Your wallet is not pending recovery. If you recently changed your password you will receive a new email within 24 hours.',
   },
-  stripeAccountVerificationSumitted: {
-    id: 'Notification.stripeAccountVerificationSumitted',
+  mangopayWalletVerificationSumitted: {
+    id: 'Notification.mangopayWalletVerificationSumitted',
     defaultMessage:
       'Thank you for submitting your document. You will be notified once the review is processed.',
   },
@@ -297,6 +301,11 @@ export const notifications = defineMessages({
   walletSuccessfullyRecovered: {
     id: 'Snack.walletSuccessfullyRecovered',
     defaultMessage: 'You’ve recovered your wallet.',
+  },
+  learnCompetitionsSuccess: {
+    id: 'Onboarding.learnCompetitionsSuccess',
+    defaultMessage:
+      '<notification><success>Task successfully completed!</success>Learn about Sorare Competitions</notification>',
   },
 });
 

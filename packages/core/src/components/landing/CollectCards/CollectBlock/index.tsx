@@ -5,7 +5,7 @@ import { Waypoint } from 'react-waypoint';
 import styled from 'styled-components';
 
 import { useIntlContext } from '@core/contexts/intl';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { SectionText } from '../SectionText';
 import commonCard from './assets/common.png';
@@ -27,7 +27,7 @@ const Wrapper = styled.div`
   padding: calc(7 * var(--unit)) calc(3 * var(--unit));
   row-gap: calc(7 * var(--unit));
   column-gap: calc(10 * var(--unit));
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     column-gap: calc(21 * var(--unit));
   }
@@ -43,11 +43,11 @@ const CardBackContainer = styled.div`
   }
   gap: var(--unit);
   filter: drop-shadow(0 var(--half-unit) var(--unit) rgba(0, 0, 0, 0.5));
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     filter: drop-shadow(0 var(--unit) var(--double-unit) rgba(0, 0, 0, 0.5));
   }
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     min-width: 300px;
     gap: var(--unit);
     justify-content: initial;

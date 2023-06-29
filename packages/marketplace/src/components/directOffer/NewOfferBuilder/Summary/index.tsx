@@ -10,6 +10,7 @@ import Dialog from '@sorare/core/src/components/dialog';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { toWei } from '@sorare/core/src/lib/wei';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 import { theme } from '@sorare/core/src/style/theme';
 
 import OfferDealSummary from '@marketplace/components/offer/OfferDealSummary';
@@ -35,7 +36,7 @@ const CenteredText16 = styled(Text16)`
 const Content = styled.div`
   width: 100%;
   padding: 0 var(--triple-unit) var(--triple-unit) var(--triple-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     min-width: calc(
       ${theme.breakpoints.values.tablet}px - var(--double-and-a-half-unit)
     );

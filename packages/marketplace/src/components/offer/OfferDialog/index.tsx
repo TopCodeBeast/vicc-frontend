@@ -17,6 +17,7 @@ import {
 import styled from 'styled-components';
 
 import {
+  AmountInput,
   Currency,
   Sport,
   SupportedCurrency,
@@ -32,7 +33,6 @@ import {
   SubmitButtonProps,
 } from '@sorare/core/src/components/form/Form';
 import BidInputField from '@sorare/core/src/components/form/Form/BidInputField';
-import useInputOnChangeCallback from '@sorare/core/src/components/form/Form/InputField/useInputOnChangeCallback';
 import {
   FEES_HELP_LINKS,
   HREF_HELP,
@@ -41,21 +41,22 @@ import { useConfigContext } from '@sorare/core/src/contexts/config';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import useLifecycle, {
   LIFECYCLE,
   Lifecycle,
 } from '@sorare/core/src/hooks/useLifecycle';
+import useMonetaryAmount, {
+  MonetaryAmountOutput,
+} from '@sorare/core/src/hooks/useMonetaryAmount';
 import { useFiatBalance } from '@sorare/core/src/hooks/wallets/useFiatBalance';
 import { tradeLabels } from '@sorare/core/src/lib/glossary';
 import {
+  ETH_DECIMAL_PLACES,
   RoundingMode,
   fromWei,
-  roundCeilFloat,
   toWei,
 } from '@sorare/core/src/lib/wei';
-import { theme } from '@sorare/core/src/style/theme';
 
 import ConfirmationDialogContent from '@marketplace/components/ConfirmationDialogContent';
 import { PaymentBoxAmountWithConversion } from '@marketplace/components/buyActions/PaymentBox/AmountWithConversion';
@@ -71,11 +72,9 @@ import { OfferDialog_token } from './__generated__/index.graphql';
 interface Props {
   open: boolean;
   onClose: () => void;
-  submit: ({
-    weiAmount,
-    duration,
-  }: {
-    weiAmount: string;
+  submit: (args: {
+    amountInput: AmountInput;
+    legacyWeiAmount: string;
     duration?: number;
   }) => Promise<void>;
   title: MessageDescriptor;
@@ -219,7 +218,7 @@ const Description = styled.div`
 const DetailsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   background: var(--c-neutral-300);
   margin: var(--double-unit) 0;
   padding: var(--double-unit);
@@ -259,7 +258,6 @@ const OfferDialog = ({
   const [promptConfirm, setPromptConfirm] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const { up: isTablet } = useScreenSize('tablet');
-  const { convertFromWei } = useCurrencyConverters();
   const { formatMessage } = useIntlContext();
   const { update: updateDuration } = useLifecycle();
 
@@ -269,11 +267,20 @@ const OfferDialog = ({
   } = useCurrentUserContext();
   const lifecycle = currentUser?.userSettings?.lifecycle as Lifecycle;
   const lastSaleDuration = lifecycle?.lastSaleDuration;
+  const { toMonetaryAmount, getUserFiatAmount } = useMonetaryAmount();
 
   const track = useMarketplaceEvents();
-  const [weiAmount, setWeiAmount] = useState<string>(initialWeiAmount || '0');
-  const [fiatAmount, setFiatAmount] = useState(() =>
-    roundCeilFloat(convertFromWei(weiAmount, currencyCode), 2)
+
+  // TODO: PLUG TO USER SETTINGS WHEN AVAILABLE
+  const [referenceCurrency, setReferenceCurrency] = useState<SupportedCurrency>(
+    SupportedCurrency.WEI
+  );
+  // TODO: PLUG TO USER SETTINGS WHEN AVAILABLE
+  const [monetaryAmount, setMonetaryAmount] = useState<MonetaryAmountOutput>(
+    toMonetaryAmount({
+      wei: initialWeiAmount || '0',
+      referenceCurrency: SupportedCurrency.WEI,
+    })
   );
   const [durationInDays, setDurationInDays] = useState<number>(
     lastSaleDuration || defaultDurationInDays
@@ -288,10 +295,22 @@ const OfferDialog = ({
 
   const { fiatCurrency, currency } = useCurrentUserContext();
 
-  const onChange = useInputOnChangeCallback((newEthAmount, newFiatAmount) => {
-    setWeiAmount(toWei(newEthAmount));
-    setFiatAmount(roundCeilFloat(newFiatAmount, 2));
-  }, currencyCode);
+  const onChange = (inputCurrency: Currency, inputAmount: number) => {
+    const inputRefCurrency =
+      inputCurrency === Currency.ETH
+        ? SupportedCurrency.WEI
+        : (currencyCode as SupportedCurrency);
+    const amount =
+      inputCurrency === Currency.ETH
+        ? toWei(inputAmount)
+        : Math.round(inputAmount * 100);
+    const inputMonetaryParams = {
+      referenceCurrency: inputRefCurrency,
+      [inputRefCurrency.toLowerCase()]: amount,
+    };
+    setMonetaryAmount(toMonetaryAmount(inputMonetaryParams));
+    setReferenceCurrency(inputRefCurrency);
+  };
 
   const onDurationChange = useCallback(
     (newDuration?: DurationOptionType | null) => {
@@ -314,11 +333,15 @@ const OfferDialog = ({
     ({ value }) => value === durationInDays
   );
 
-  const bigWeiAmount = useMemo(() => new Big(weiAmount), [weiAmount]);
+  const bigWeiAmount = useMemo(
+    () => new Big(monetaryAmount.wei),
+    [monetaryAmount.wei]
+  );
 
   const ethAmount = useMemo(
-    () => fromWei(weiAmount, 4, RoundingMode.ROUND_DOWN),
-    [weiAmount]
+    () =>
+      fromWei(monetaryAmount.wei, ETH_DECIMAL_PLACES, RoundingMode.ROUND_DOWN),
+    [monetaryAmount.wei]
   );
 
   const weiFeesAmount = useMemo(
@@ -332,13 +355,9 @@ const OfferDialog = ({
   );
 
   const showWarningMessage =
-    new Big(minimumPrice || 0).comparedTo(weiAmount) > 0;
+    new Big(minimumPrice || 0).comparedTo(monetaryAmount.wei) > 0;
 
   const askForConfirmation = () => {
-    if (useEnableFiatWalletBeforeLaunch && needCreateFiatWallet) {
-      setPromptCreateFiatWallet(true);
-      return;
-    }
     setPromptConfirm(true);
     if (showWarningMessage) {
       track('[Client] Warning Listing too low', {
@@ -347,12 +366,25 @@ const OfferDialog = ({
     }
   };
 
+  const gateAskForConfirmationWithCreateFiatWallet = () => {
+    if (useEnableFiatWalletBeforeLaunch && needCreateFiatWallet) {
+      setPromptCreateFiatWallet(true);
+      return;
+    }
+    askForConfirmation();
+  };
+
   const submitListing = async () => {
     setSubmitting(true);
-    // TODO Gabriel: Add CASH_AND_ETH / ONLY_ETH args to submit
-    // when createOffer can handle.
     await submit({
-      weiAmount,
+      amountInput: {
+        amount:
+          monetaryAmount[
+            referenceCurrency.toLowerCase() as keyof MonetaryAmountOutput
+          ]?.toString(),
+        currency: referenceCurrency,
+      },
+      legacyWeiAmount: monetaryAmount.wei,
       duration: durationInDays * 24 * 60 * 60,
     });
     if (showWarningMessage) {
@@ -392,7 +424,7 @@ const OfferDialog = ({
         <ConfirmationDialogContent
           token={token}
           showWarningMessage={showWarningMessage}
-          weiAmount={weiAmount}
+          weiAmount={monetaryAmount.wei}
           onClose={onClose}
           submitting={submitting}
           submit={() => {
@@ -415,7 +447,7 @@ const OfferDialog = ({
     return (
       <>
         <StyledGraphqlForm
-          onSubmit={askForConfirmation}
+          onSubmit={gateAskForConfirmationWithCreateFiatWallet}
           onSuccess={onSuccess || onClose}
           render={(
             Error: React.ComponentType,
@@ -432,24 +464,23 @@ const OfferDialog = ({
               <Field
                 name="price"
                 defaultValue={ethAmount}
-                render={({ handleChange }) => (
+                render={() => (
                   <BidInputField
                     ethAmount={ethAmount}
-                    fiatAmount={fiatAmount}
+                    fiatAmount={Math.round(
+                      getUserFiatAmount(monetaryAmount) / 100
+                    )}
                     defaultCurrency={currency}
                     fiatCurrency={fiatCurrency.code}
                     onChange={(inputCurrency: Currency, amount: number) => {
                       onChange(inputCurrency, amount);
-                      handleChange('price')({
-                        target: { value: ethAmount.toString() },
-                      });
                     }}
                   />
                 )}
               />
 
               {!!ethAmount &&
-                new Big(minimumReceiveWeiAmount).gt(weiAmount) && (
+                new Big(minimumReceiveWeiAmount).gt(monetaryAmount.wei) && (
                   <StyledError>
                     <FormattedMessage {...messages.errorMessage} />
                   </StyledError>
@@ -515,7 +546,7 @@ const OfferDialog = ({
                   color="blue"
                   disabled={
                     validationLoading ||
-                    new Big(minimumReceiveWeiAmount).gt(weiAmount)
+                    new Big(minimumReceiveWeiAmount).gt(monetaryAmount.wei)
                   }
                   fullWidth
                 >
@@ -537,7 +568,7 @@ const OfferDialog = ({
 
   return (
     <Dialog
-      maxWidth="sm"
+      maxWidth="xs"
       fullWidth
       onBack={promptConfirm || promptCreateFiatWallet ? onBack : undefined}
       open={open}

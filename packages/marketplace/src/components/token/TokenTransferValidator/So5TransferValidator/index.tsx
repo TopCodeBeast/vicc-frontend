@@ -9,7 +9,6 @@ import { Text14 } from '@sorare/core/src/atoms/typography';
 import Bold from '@sorare/core/src/atoms/typography/Bold';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { formatLineupDisplayName } from '@sorare/core/src/lib/so5';
-import { theme } from '@sorare/core/src/style/theme';
 
 import {
   TokenTransferChildrenProps,
@@ -45,7 +44,7 @@ const SO5_TOKEN_TRANSFER_VALIDATOR_CARDS_QUERY = gql`
 `;
 
 const WarningWrapper = styled.div`
-  border-radius: ${theme.radius.xs}px;
+  border-radius: var(--unit);
   padding: var(--unit) var(--intermediate-unit);
   background: rgba(var(--c-rgb-red-600), 0.1);
   border: 1px solid var(--c-static-red-300);

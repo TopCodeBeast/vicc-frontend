@@ -7,7 +7,6 @@ import styled, { css } from 'styled-components';
 import BackButton from '@core/atoms/buttons/BackButton';
 import CloseButton from '@core/atoms/buttons/CloseButton';
 import { Text16 } from '@core/atoms/typography';
-import { theme } from '@core/style/theme';
 import { OverrideClasses } from '@core/style/utils';
 
 import Actions from './Actions';
@@ -108,22 +107,7 @@ const [StyledDialog, classes] = OverrideClasses(MuiDialog, null, {
     margin: 10px;
     background-color: var(--c-dialog-background);
   `,
-  drawerPaper: css`
-    margin: 0;
-    max-height: 100%;
-    max-width: 100%;
-    height: 100%;
-    width: 100%;
-    border-radius: 0;
-    @media (min-width: ${theme.breakpoints.values.tablet}px) {
-      margin: 10px;
-      max-height: calc(100% - 20px);
-      max-width: calc(100vw - 20px);
-      height: auto;
-      width: min-content;
-      border-radius: 8px;
-    }
-  `,
+
   paperScrollPaper: css`
     max-height: calc(100% - 20px);
   `,
@@ -139,18 +123,6 @@ const [StyledDialog, classes] = OverrideClasses(MuiDialog, null, {
     & ${Content} {
       flex-grow: 1;
       max-height: 100%;
-    }
-  `,
-  drawerContainer: css`
-    justify-content: flex-end;
-    align-items: flex-start;
-    max-width: ${theme.layout.appBarWidth}px;
-    height: 100%;
-    margin: 0;
-    @media (min-width: ${theme.breakpoints.values.tablet}px) {
-      height: calc(100% - 45px);
-      margin: ${theme.layout.drawerContainerMargin}px;
-      padding-right: 10px;
     }
   `,
 });
@@ -169,7 +141,6 @@ export const Dialog = (props: Props) => {
     header,
     footer,
     open,
-    isDrawer,
     noDivider = false,
     noMargin,
     shadowFooter,
@@ -187,16 +158,10 @@ export const Dialog = (props: Props) => {
       disableEnforceFocus
       onClose={onClose}
       classes={{
-        paper: classnames(
-          classes.paper,
-          { hiddenScrollbars: !!hideScrollBar },
-          isDrawer && classes.drawerPaper
-        ),
+        paper: classnames(classes.paper, { hiddenScrollbars: !!hideScrollBar }),
         paperScrollPaper: classes.paperScrollPaper,
         paperFullScreen: classes.paperFullScreen,
-        ...(isDrawer && {
-          container: classes.drawerContainer,
-        }),
+
         root: className,
       }}
       maxWidth={maxWidth}

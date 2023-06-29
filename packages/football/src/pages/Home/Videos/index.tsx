@@ -1,4 +1,3 @@
-import { faClose } from '@fortawesome/pro-solid-svg-icons';
 import {
   Navigate,
   useLocation,
@@ -7,7 +6,6 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import { Dialog } from '@sorare/core/src/components/dialog';
 import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
 import { FOOTBALL_HOME } from '@sorare/core/src/constants/routes';
@@ -73,18 +71,30 @@ const ManagerHomeVideos = () => {
   }
 
   return (
-    <Dialog onClose={back} maxWidth="lg" open fullWidth={false} darkTheme>
-      <DialogContent>
-        <VideoBox>
-          <Video poster={currentVideo?.poster} width="1180px" controls autoPlay>
-            <source src={videoFromUrl || currentVideo?.src} />
-          </Video>
-          <CloseButtonBox>
-            <IconButton color="dark" icon={faClose} onClick={back} />
-          </CloseButtonBox>
-        </VideoBox>
-      </DialogContent>
-    </Dialog>
+    <Dialog
+      darkTheme
+      open
+      maxWidth="lg"
+      onClose={back}
+      hideHeader
+      body={({ CloseButton }) => (
+        <DialogContent>
+          <VideoBox>
+            <Video
+              poster={currentVideo?.poster}
+              width="1180px"
+              controls
+              autoPlay
+            >
+              <source src={videoFromUrl || currentVideo?.src} />
+            </Video>
+            <CloseButtonBox>
+              <CloseButton onClose={back} />
+            </CloseButtonBox>
+          </VideoBox>
+        </DialogContent>
+      )}
+    />
   );
 };
 

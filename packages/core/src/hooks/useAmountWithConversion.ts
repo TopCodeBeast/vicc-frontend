@@ -5,7 +5,6 @@ import { MonetaryAmountParams } from '@core/lib/monetaryAmount';
 import { ETH_DECIMAL_PLACES } from '@core/lib/wei';
 
 import useMonetaryAmount from './useMonetaryAmount';
-import { useWalletPreferences } from './wallets/useWalletPreferences';
 
 export type Props = {
   monetaryAmount: MonetaryAmountParams;
@@ -20,9 +19,11 @@ const useAmountWithConversion = ({
 }: Props) => {
   const { formatNumber, formatWei } = useIntlContext();
   const { toMonetaryAmount } = useMonetaryAmount();
-  const { fiatCurrency: userFiatCurrency, currency: userCurrency } =
-    useCurrentUserContext();
-  const { onlyShowFiatCurrency } = useWalletPreferences();
+  const {
+    fiatCurrency: userFiatCurrency,
+    currency: userCurrency,
+    walletPreferences: { onlyShowFiatCurrency },
+  } = useCurrentUserContext();
 
   const fullMonetaryAmount = toMonetaryAmount(monetaryAmount);
 
@@ -44,8 +45,7 @@ const useAmountWithConversion = ({
     maximumFractionDigits: ETH_DECIMAL_PLACES,
   });
 
-  const actualPrimaryCurrency =
-    primaryCurrency || (onlyShowFiatCurrency && Currency.FIAT) || userCurrency;
+  const actualPrimaryCurrency = primaryCurrency || userCurrency;
 
   const exponent =
     actualPrimaryCurrency === Currency.ETH ? fiatFormatted : ethFormatted;

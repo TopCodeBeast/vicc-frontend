@@ -3,13 +3,13 @@ import { animated, useSpring } from '@react-spring/web';
 import styled, { css } from 'styled-components';
 
 import ResponsiveImg from '@core/atoms/ui/ResponsiveImg';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 const Root = styled(animated.div)`
   position: relative;
 `;
 const AnimatedBlock = styled.div`
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     transform-style: preserve-3d;
     transform: perspective(600px) rotateX(var(--x)) rotateY(var(--y))
       scale(var(--s));
@@ -17,7 +17,7 @@ const AnimatedBlock = styled.div`
 `;
 const Glare = styled.div`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: block;
     position: absolute;
     z-index: 1;
@@ -32,7 +32,7 @@ const Glare = styled.div`
 `;
 const imgStyle = css`
   width: 100%;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     transform-style: preserve-3d;
     will-change: transform;
   }

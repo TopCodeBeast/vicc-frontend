@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import { Position } from '@sorare/core/src/__generated__/globalTypes';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
+import { GAME_WIDTH_WITH_GAP } from '@sorare/core/src/components/player/FixtureChart';
 import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery';
 import useInfiniteScroll from '@sorare/core/src/hooks/useInfiniteScroll';
 import { useTitleAndDescription } from '@sorare/core/src/hooks/useTitleAndDescription';
@@ -18,7 +19,12 @@ import {
 } from './__generated__/index.graphql';
 
 const PLAYER_QUERY = gql`
-  query PlayerQuery($slug: String!, $position: Position, $after: String) {
+  query PlayerQuery(
+    $slug: String!
+    $position: Position
+    $after: String
+    $first: Int
+  ) {
     football {
       player(slug: $slug) {
         slug
@@ -35,6 +41,10 @@ const PLAYER_QUERY = gql`
 
 const PlayerPage = () => {
   const { slug } = useParams();
+  const scoresLimit = Math.min(
+    Math.ceil(window.innerWidth / GAME_WIDTH_WITH_GAP),
+    26
+  );
   const [selectedPosition, setPosition] = useState<Position | undefined>();
   const { data, loading, loadMore } = usePaginatedQuery<
     PlayerQuery,
@@ -43,6 +53,7 @@ const PlayerPage = () => {
     variables: {
       slug: slug!,
       position: selectedPosition,
+      first: scoresLimit,
     },
     skip: !slug,
     connection: 'So5ScoreConnection',
@@ -54,10 +65,12 @@ const PlayerPage = () => {
         slug: slug!,
         position: selectedPosition,
         after: data?.football.player.allSo5Scores.pageInfo.endCursor,
+        first: scoresLimit,
       });
     }, [
       selectedPosition,
       slug,
+      scoresLimit,
       loadMore,
       data?.football.player.allSo5Scores.pageInfo.endCursor,
     ]),

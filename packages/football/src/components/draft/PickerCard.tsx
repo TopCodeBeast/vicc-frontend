@@ -11,7 +11,7 @@ import { Text16, button14 } from '@sorare/core/src/atoms/typography';
 import ResponsiveImg, {
   ValidWidths,
 } from '@sorare/core/src/atoms/ui/ResponsiveImg';
-import { theme } from '@sorare/core/src/style/theme';
+import { desktopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { positionShortNames } from '@football/lib/so5';
 
@@ -55,7 +55,7 @@ const Remove = styled.button`
   margin: 0;
   background: var(--c-neutral-100);
   color: var(--c-neutral-600);
-  border-radius: ${theme.radius.circle};
+  border-radius: 50%;
   width: var(--double-and-a-half-unit);
   height: 20px;
   cursor: pointer;
@@ -65,7 +65,7 @@ const CardContainer = styled.div`
   ${Remove} {
     display: inline-flex;
   }
-  @media (min-width: ${theme.breakpoints.values.desktop}px) {
+  @media ${desktopAndAbove} {
     ${Remove} {
       display: none;
     }
@@ -128,7 +128,7 @@ const Value = styled.p`
   bottom: 0;
   transform: translate(-50%, 50%);
   padding: 0 var(--unit);
-  border-radius: ${theme.radius.chip};
+  border-radius: var(--quadruple-unit);
   background: var(--c-neutral-200);
   color: var(--c-neutral-1000);
   border: solid 2px var(--c-neutral-200);

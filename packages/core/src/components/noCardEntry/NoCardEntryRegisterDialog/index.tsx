@@ -9,7 +9,7 @@ import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
 import { Text16, Title3 } from '@core/atoms/typography';
 import Dialog from '@core/components/dialog';
 import { glossary } from '@core/lib/glossary';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 const DialogContainer = styled.div`
   display: flex;
@@ -17,7 +17,7 @@ const DialogContainer = styled.div`
   gap: var(--double-unit);
   padding: var(--triple-unit);
   margin: auto;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     width: 480px;
   }
 `;

@@ -19,6 +19,7 @@ import {
 } from '@core/constants/routes';
 import useEvents from '@core/lib/events/useEvents';
 import { navLabels } from '@core/lib/glossary';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
 
 const FooterLink = styled(Text16)`
@@ -30,7 +31,7 @@ const FooterLink = styled(Text16)`
     color: var(--c-neutral-100);
     text-decoration: underline;
   }
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     color: var(--c-neutral-100);
   }
 `;
@@ -46,7 +47,7 @@ const MenuItems = styled.div`
   @media (min-width: ${theme.breakpoints.values.sm}px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-template-columns: repeat(4, 1fr);
   }
 `;

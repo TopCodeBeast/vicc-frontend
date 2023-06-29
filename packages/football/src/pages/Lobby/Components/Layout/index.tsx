@@ -19,7 +19,7 @@ import {
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { fantasy } from '@sorare/core/src/lib/glossary';
 import { UNBREAKABLE_SPACE } from '@sorare/core/src/lib/text';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { isFixtureLive, isFixtureOpened } from '@football/lib/so5';
 import GameWeekDropdown from '@football/pages/Lobby/Components/GameWeekDropdown';
@@ -45,7 +45,7 @@ const HeaderContent = styled.div`
   display: flex;
   flex-direction: column-reverse;
   gap: calc(3 * var(--unit));
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;

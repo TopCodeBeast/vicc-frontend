@@ -13,7 +13,7 @@ import { useConfigContext } from '@sorare/core/src/contexts/config';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import TimeLeft from '@sorare/core/src/contexts/ticker/TimeLeft';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import So5NoCardEntryRegisterDialog from './So5NoCardEntryRegisterDialog';
 
@@ -27,7 +27,7 @@ const Root = styled.div`
   .dark-theme & {
     padding: var(--unit);
     border-radius: var(--unit);
-    @media (min-width: ${theme.breakpoints.values.laptop}px) {
+    @media ${laptopAndAbove} {
       padding: var(--unit) var(--double-and-a-half-unit) var(--unit)
         var(--double-unit);
     }
@@ -35,7 +35,7 @@ const Root = styled.div`
 `;
 const Cta = styled.div`
   width: 100%;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     width: auto;
   }
 `;

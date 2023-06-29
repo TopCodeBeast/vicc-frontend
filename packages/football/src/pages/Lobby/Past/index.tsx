@@ -27,12 +27,12 @@ import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 
-import { RewardsBanner } from '@sorare/football/src/components/rewards/Banner';
+import { RewardsBanner } from '@football/components/rewards/Banner';
 import { isFixtureLive, isFixtureOpened } from '@football/lib/so5';
-import { Layout } from '@sorare/football/src/pages/Lobby/Components/Layout';
-import { LeaderboardPicker } from '@sorare/football/src/pages/Lobby/Components/LeaderboardPicker';
-import { MyPlayers } from '@sorare/football/src/pages/Lobby/Components/MyPlayers';
-import Teams from '@sorare/football/src/pages/Lobby/Components/Teams';
+import { Layout } from '@football/pages/Lobby/Components/Layout';
+import { LeaderboardPicker } from '@football/pages/Lobby/Components/LeaderboardPicker';
+import { MyPlayers } from '@football/pages/Lobby/Components/MyPlayers';
+import Teams from '@football/pages/Lobby/Components/Teams';
 
 import {
   LobbyPastQuery,

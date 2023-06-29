@@ -7,7 +7,7 @@ import { ChangeEvent, KeyboardEvent, ReactNode, forwardRef } from 'react';
 import styled, { css } from 'styled-components';
 
 import Button from '@core/atoms/buttons/Button';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 export type Props = {
   rounded?: boolean;
@@ -87,7 +87,7 @@ const Root = styled(TextField)<{
     font-style: normal;
     /* https://thingsthemselves.com/no-input-zoom-in-safari-on-iphone-the-pixel-perfect-way/ */
     font-size: 16px;
-    @media (min-width: ${theme.breakpoints.values.laptop}px) {
+    @media ${laptopAndAbove} {
       font-size: 15px;
     }
     line-height: 22px;

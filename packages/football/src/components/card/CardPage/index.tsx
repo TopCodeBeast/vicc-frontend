@@ -19,7 +19,7 @@ import { fragments as analyticsFragments } from '@sorare/core/src/contexts/event
 import { useSeoContext } from '@sorare/core/src/contexts/seo';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 import { scarcityMessages } from '@sorare/core/src/lib/scarcity';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import BidHistory from '@sorare/marketplace/src/components/auction/BidHistory';
 import OpenAuction from '@sorare/marketplace/src/components/auction/OpenAuction';
@@ -60,7 +60,7 @@ const InnerContainer = styled.div`
   flex-direction: column;
   gap: var(--triple-unit);
   padding: calc(9 * var(--unit)) var(--double-unit) var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     flex-direction: row;
     align-items: flex-start;
     padding: calc(10 * var(--unit)) var(--double-unit) var(--double-unit);
@@ -77,7 +77,7 @@ const Content = styled.div`
   gap: var(--triple-unit);
   color: var(--c-neutral-1000);
   min-width: 66%;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     width: 66%;
   }
 `;
@@ -284,7 +284,7 @@ CardPage.fragments = {
       lastFifteenSo5AverageScore: averageScore(
         type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
       )
-      allSo5Scores(first: 26, after: $scoreCursor) {
+      allSo5Scores(first: $first, after: $scoreCursor) {
         nodes {
           id
           ...LastScores_so5Score

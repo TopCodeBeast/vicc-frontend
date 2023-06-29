@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Text14, Text16, Text20 } from '@sorare/core/src/atoms/typography';
 import { CLUB_PLACEHOLDER } from '@sorare/core/src/constants/assets';
-import { theme } from '@sorare/core/src/style/theme';
+import { mobileAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { GameEventStatus } from '@football/lib/so5';
 
@@ -35,7 +35,7 @@ const Score = styled(Text20)<{ $lost: boolean }>`
 
 const Code = styled.span`
   display: inline-block;
-  @media (min-width: ${theme.breakpoints.values.mobile}px) {
+  @media ${mobileAndAbove} {
     display: none;
   }
 `;
@@ -49,7 +49,7 @@ const Label = styled(Text16)`
 
 const Name = styled.span`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.mobile}px) {
+  @media ${mobileAndAbove} {
     display: inline-block;
     white-space: nowrap;
     max-width: calc(100% - var(--unit));

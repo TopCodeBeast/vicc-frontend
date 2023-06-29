@@ -433,6 +433,10 @@ export const messages = defineMessages<keyof Dict>({
     id: 'walletApp.partners.mlb',
     defaultMessage: 'MLB - Major League Baseball',
   },
+  mls: {
+    id: 'walletApp.partners.mls',
+    defaultMessage: 'MLS - Major League Soccer',
+  },
   mlbpa: {
     id: 'walletApp.partners.mlbpa',
     defaultMessage: 'MLBPA - Major League Baseball Players Association',
@@ -460,6 +464,10 @@ export const messages = defineMessages<keyof Dict>({
   mlbPolicyUrl: {
     id: 'walletApp.partners.mlbPolicyUrl',
     defaultMessage: 'https://www.mlb.com/official-information/privacy-policy',
+  },
+  mlsPolicyUrl: {
+    id: 'walletApp.partners.mlsPolicyUrl',
+    defaultMessage: 'https://www.mlssoccer.com/legal/privacy-policy',
   },
   mlbpaPolicyUrl: {
     id: 'walletApp.partners.mlbpaPolicyUrl',

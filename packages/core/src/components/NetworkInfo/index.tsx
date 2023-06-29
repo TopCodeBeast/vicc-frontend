@@ -8,7 +8,6 @@ import IconButton from '@core/atoms/buttons/IconButton';
 import { Popup } from '@core/atoms/layout/Popup';
 import { Text14 } from '@core/atoms/typography';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
-import { theme } from '@core/style/theme';
 
 const Wrapper = styled.div`
   color: var(--c-neutral-1000);
@@ -16,7 +15,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   gap: var(--double-unit);
-  border-radius: ${theme.radius.xs}px;
+  border-radius: var(--unit);
   .dark-theme & {
     border: 1px solid var(--c-neutral-400);
     background: var(--c-neutral-300);

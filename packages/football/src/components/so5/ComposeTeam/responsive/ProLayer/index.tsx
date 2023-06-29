@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { Text14, caption } from '@sorare/core/src/atoms/typography';
 import { playerGameStatusLabels } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import TeamAvatar from '@football/components/club/TeamAvatar';
 import { NoGameLabel } from '@football/components/stats/PlayingLabel';
@@ -45,7 +45,7 @@ const ScoresWrapper = styled.div`
   justify-content: space-between;
   font-size: 10px;
   font-weight: var(--t-bold);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     ${caption};
     font-weight: var(--t-bold);
   }

@@ -8,21 +8,22 @@ import { useBlockchainContext } from '@sorare/core/src/contexts/blockchain';
 import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import { txLink } from '@sorare/core/src/lib/etherscan';
 import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
 
 import FlexToken from '@marketplace/components/token/FlexToken';
 
 import { EthereumCard_token } from './__generated__/index.graphql';
 
+const CARD_DIALOG_WIDTH = 144;
+
 const Container = styled.div`
-  max-width: ${theme.cardGrid.card.dialogWidth}px;
+  max-width: ${CARD_DIALOG_WIDTH}px;
   gap: var(--unit);
   display: flex;
   flex-direction: column;
 `;
 
 const Card = styled.div`
-  width: ${theme.cardGrid.card.dialogWidth}px;
+  width: ${CARD_DIALOG_WIDTH}px;
   display: block;
 `;
 

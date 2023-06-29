@@ -31,6 +31,7 @@ export const useHeroAnimationTimings = () => {
 export const messages = defineMessages({
   ScrollDownCTA: {
     id: 'MultiSport.Landing.ScrollDownCTA',
-    defaultMessage: 'Check out what sets us apart from other fantasy games.',
+    defaultMessage:
+      'Scroll down to see what sets us apart from other fantasy games.',
   },
 });

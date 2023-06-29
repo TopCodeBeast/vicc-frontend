@@ -4,6 +4,10 @@ import styled from 'styled-components';
 
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { range } from '@sorare/core/src/lib/arrays';
+import {
+  laptopAndAbove,
+  tabletAndAbove,
+} from '@sorare/core/src/style/mediaQuery';
 import { theme } from '@sorare/core/src/style/theme';
 import { hideScrollbar } from '@sorare/core/src/style/utils';
 
@@ -23,11 +27,11 @@ const Wrapper = styled.div`
   > * {
     scroll-snap-align: center;
   }
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-template-columns: repeat(3, 520px);
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
-    grid-template-columns: repeat(3, 1fr);
+  @media ${laptopAndAbove} {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   @media (max-width: ${theme.breakpoints.values.laptop}px) {
     &.singleChild {
@@ -38,7 +42,7 @@ const Wrapper = styled.div`
 
 export const EmptyBlock = styled.div`
   background-color: var(--c-neutral-200);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   opacity: 0.23;
 `;
 type Props = {

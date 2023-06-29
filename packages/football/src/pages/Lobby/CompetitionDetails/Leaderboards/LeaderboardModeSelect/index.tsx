@@ -2,13 +2,13 @@ import styled from 'styled-components';
 
 import RadioButtons from '@sorare/core/src/atoms/buttons/RadioButtons';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 const SwitchWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     width: auto;
   }
 `;

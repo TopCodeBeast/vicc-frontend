@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { parseISO } from 'date-fns';
 import { useState } from 'react';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
@@ -12,6 +13,7 @@ import Button, {
 } from '@sorare/core/src/atoms/buttons/Button';
 import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import { Caption, Text14, Text16 } from '@sorare/core/src/atoms/typography';
+import { INVITE } from '@sorare/core/src/constants/routes';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { qualityNames } from '@sorare/core/src/lib/players';
 import { CARDS_REQUIREMENTS_BY_SPORT } from '@sorare/core/src/lib/referral';
@@ -29,6 +31,7 @@ interface CampaignDialogProps {
 interface Props {
   referralCampaign: ReferralCampaignTitle_referralCampaign | null;
   ctaProps?: ButtonProps;
+  context: 'gallery' | 'invite';
 }
 
 const messages = defineMessages({
@@ -255,8 +258,11 @@ const Title = styled.div`
   flex-grow: 1;
 `;
 
-export const ReferralCampaignTitle = (props: Props) => {
-  const { referralCampaign, ctaProps = {} } = props;
+export const ReferralCampaignTitle = ({
+  referralCampaign,
+  ctaProps = {},
+  context,
+}: Props) => {
   const [showDetailsDialog, setShowDetailsDialog] = useState(false);
 
   const withCustomDrop =
@@ -273,17 +279,34 @@ export const ReferralCampaignTitle = (props: Props) => {
           <CampaignTitle {...referralCampaign} />
         </Title>
         {withCustomDrop && (
-          <Button
-            onClick={() => setShowDetailsDialog(true)}
-            color="white"
-            small
-            {...ctaProps}
-          >
-            <FormattedMessage
-              id="ReferralBar.specialEventCTA"
-              defaultMessage="Know more"
-            />
-          </Button>
+          <>
+            {context === 'gallery' ? (
+              <Button
+                component={Link}
+                to={INVITE}
+                color="white"
+                small
+                {...ctaProps}
+              >
+                <FormattedMessage
+                  id="ReferralBar.inviteNow"
+                  defaultMessage="Invite now"
+                />
+              </Button>
+            ) : (
+              <Button
+                onClick={() => setShowDetailsDialog(true)}
+                color="white"
+                small
+                {...ctaProps}
+              >
+                <FormattedMessage
+                  id="ReferralBar.specialEventCTA"
+                  defaultMessage="Know more"
+                />
+              </Button>
+            )}
+          </>
         )}
       </Root>
       {showDetailsDialog && (

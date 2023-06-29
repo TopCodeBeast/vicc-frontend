@@ -21,6 +21,7 @@ import Notifications from '@core/components/notification/Notifications';
 import ManagerTaskTooltip from '@core/components/onboarding/managerTask/ManagerTaskTooltip';
 import MarketplaceOnboardingTask from '@core/components/onboarding/managerTask/MarketplaceOnboardingTask';
 import ResponsiveSearchBar from '@core/components/search/ResponsiveSearchBar';
+import ActiveUserAvatar from '@core/components/user/ActiveUserAvatar';
 import Avatar from '@core/components/user/Avatar';
 import { HREF_HELP } from '@core/constants/externalLinks';
 import {
@@ -40,6 +41,10 @@ import {
   INVITE,
   LANDING,
   LEGACY_USER_GALLERY,
+  MLB_DAILY_GAMES,
+  MLB_DAILY_GAMES_LIVE,
+  MLB_DAILY_GAMES_PAST,
+  MLB_DAILY_GAMES_UPCOMING,
   MLB_FAVORITES,
   MLB_HOME,
   MLB_HOW_TO_PLAY,
@@ -94,6 +99,7 @@ import { useWalletDrawerContext } from '@core/contexts/walletDrawer';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import { useLocationChanged } from '@core/hooks/useLocationChanged';
 import useMyPath from '@core/hooks/useMyPath';
+import useEvents from '@core/lib/events/useEvents';
 import { useUseCustomLists } from '@core/lib/featureFlags';
 import {
   fantasy,
@@ -104,7 +110,7 @@ import {
 } from '@core/lib/glossary';
 import MenuIconButton from '@core/routing/MultiSportAppBar/MenuIconButton';
 import useBottomBarNavItems from '@core/routing/MultiSportBottomNavBar/useBottomBarNavItems';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { Balances } from '../Balances';
 import Item, { Config } from '../Item';
@@ -204,7 +210,7 @@ const Root = styled(FullWidth)`
   display: flex;
   align-items: center;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: column;
   }
 `;
@@ -220,10 +226,6 @@ const Title = styled.div`
   display: flex;
   align-items: center;
   color: var(--c-brand-600);
-  & img {
-    height: 50px;
-    width: 50px;
-  }
 `;
 const Username = styled(Text16)`
   max-width: 100px;
@@ -244,7 +246,7 @@ const SportAgnostic = styled.div`
   align-items: center;
   height: 60px;
   width: 100%;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     gap: 20px;
   }
 `;
@@ -265,7 +267,7 @@ const Right = styled.div`
   align-items: center;
   margin-inline-start: auto;
   gap: var(--unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     gap: 10px;
     padding-left: 10px;
   }
@@ -324,8 +326,10 @@ export const LoggedInAppBar = ({
       useShowBottomBarNavigation = false,
       useNbaMlbFavorites = false,
       useNbaOffseason = false,
+      useDailyGames = false,
     },
   } = useFeatureFlags();
+  const track = useEvents();
   const useCustomLists = useUseCustomLists();
   const { step, setStep } = useManagerTaskContext();
 
@@ -458,19 +462,16 @@ export const LoggedInAppBar = ({
                   key: 'favorites',
                   to: NBA_FAVORITES,
                   label: transferMarket.favorites,
+                  onClick: () => {
+                    track('Click My Favorites');
+                  },
                 },
               ]
             : []),
         ],
       },
       ...(useNbaOffseason
-        ? [
-            {
-              key: 'gaming-arena',
-              label: navLabels.gamingCompetitions,
-              to: NBA_LOBBY,
-            },
-          ]
+        ? []
         : [
             {
               key: 'gaming-arena',
@@ -575,6 +576,9 @@ export const LoggedInAppBar = ({
                   key: 'favorites',
                   to: MLB_FAVORITES,
                   label: transferMarket.favorites,
+                  onClick: () => {
+                    track('Click My Favorites');
+                  },
                 },
               ]
             : []),
@@ -604,6 +608,34 @@ export const LoggedInAppBar = ({
           },
         ],
       },
+      ...(useDailyGames
+        ? [
+            {
+              key: 'daily-games',
+              label: navLabels.dailyGames,
+              to: MLB_DAILY_GAMES,
+              subMenu: [
+                {
+                  key: 'fixture-upcoming',
+                  to: MLB_DAILY_GAMES_UPCOMING,
+                  label: fantasy.upcoming,
+                },
+
+                {
+                  key: 'fixture-live',
+                  to: MLB_DAILY_GAMES_LIVE,
+                  label: fantasy.live,
+                },
+
+                {
+                  key: 'fixture-past',
+                  to: MLB_DAILY_GAMES_PAST,
+                  label: fantasy.past,
+                },
+              ],
+            },
+          ]
+        : []),
       ...(useMlbTeamCollections
         ? [
             {
@@ -709,6 +741,11 @@ export const LoggedInAppBar = ({
         forceActive: MarketplaceOnboardingStep.menu === step,
         subMenu: [
           {
+            key: 'primary-market',
+            to: FOOTBALL_NEW_SIGNINGS,
+            label: transferMarket.new,
+          },
+          {
             key: 'starter-packs',
             to: FOOTBALL_STARTER_BUNDLES,
             label: transferMarket.starterPacks,
@@ -717,11 +754,6 @@ export const LoggedInAppBar = ({
             key: 'secondary-market',
             to: FOOTBALL_TRANSFER_MARKET,
             label: transferMarket.transfer,
-          },
-          {
-            key: 'primary-market',
-            to: FOOTBALL_NEW_SIGNINGS,
-            label: transferMarket.new,
           },
         ].filter(Boolean),
       },
@@ -778,7 +810,7 @@ export const LoggedInAppBar = ({
         }),
         content: (
           <Title>
-            <Avatar user={currentUser!} />
+            <ActiveUserAvatar user={currentUser!} variant="medium" />
             <MenuItemContent>
               <Username bold>{nickname}</Username>
             </MenuItemContent>
@@ -848,7 +880,7 @@ export const LoggedInAppBar = ({
       content: (
         <MenuItemContent mobileProfile>
           <UserMetas>
-            <Avatar user={currentUser!} rounded variant="medium" />
+            <ActiveUserAvatar user={currentUser!} variant="medium" />
             <div>
               <FullWidthUsername bold>{nickname}</FullWidthUsername>
               <Text16 color="var(--c-neutral-600)">

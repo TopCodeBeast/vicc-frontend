@@ -21,7 +21,7 @@ import { FOOTBALL_USER_GALLERY_CARDS } from '@sorare/core/src/constants/routes';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { playableBlockchainRarities } from '@sorare/core/src/lib/cards';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { TradeButton } from '@sorare/marketplace/src/components/TradeButton';
 
@@ -40,7 +40,7 @@ const Camera = styled(IconButton)`
   position: absolute;
   right: 0;
   top: var(--triple-unit);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     opacity: 0;
     &:focus {
       opacity: 1;
@@ -60,7 +60,7 @@ const Actions = styled.div`
   width: 100%;
   justify-content: flex-end;
   order: 1;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     width: auto;
     order: unset;
   }
@@ -68,7 +68,7 @@ const Actions = styled.div`
 const FollowButtonWrapper = styled.div`
   order: -1;
   margin-right: auto;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     order: 0;
     margin-right: unset;
   }
@@ -138,7 +138,6 @@ export const Header = ({ user, readOnly }: Props) => {
           user={user}
           setPickingSkin={readOnly ? undefined : setPickingSkin}
           Camera={Camera}
-          readOnly={readOnly}
         >
           <Actions>
             <FollowButtonWrapper>
@@ -232,7 +231,6 @@ Header.fragments = {
       }
       profile {
         id
-        fullPictureUrl: pictureUrl
         clubBanner {
           id
           color
@@ -267,7 +265,6 @@ Header.fragments = {
       }
       profile {
         id
-        fullPictureUrl: pictureUrl
         clubBanner {
           id
           color

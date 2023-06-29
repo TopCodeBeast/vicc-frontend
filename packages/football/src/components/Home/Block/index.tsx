@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { Text14, Title4 } from '@sorare/core/src/atoms/typography';
-import { theme } from '@sorare/core/src/style/theme';
 
 const Wrapper = styled.div`
   display: flex;
@@ -41,7 +40,7 @@ const Delayable = styled.div`
       inset: 0 calc(-2 * var(--unit)) 0 0;
       content: '';
       background: rgba(var(--c-rgb-neutral-200), 0.23);
-      border-radius: ${theme.radius.xxs}px;
+      border-radius: var(--half-unit);
     }
   }
 `;

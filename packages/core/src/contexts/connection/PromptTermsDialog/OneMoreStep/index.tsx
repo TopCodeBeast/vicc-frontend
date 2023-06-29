@@ -21,7 +21,6 @@ import { useIntlContext } from '@core/contexts/intl';
 import { messages as walletMessages } from '@core/contexts/wallet/messages';
 import useToggle from '@core/hooks/useToggle';
 import { glossary } from '@core/lib/glossary';
-import { theme } from '@core/style/theme';
 
 import AcceptAgeLimit from '../AcceptAgeLimit';
 import AcceptTermsAndPrivacyPolicy from '../AcceptTermsAndPrivacyPolicy';
@@ -104,7 +103,7 @@ const Actions = styled.div`
   display: flex;
   justify-content: center;
   height: 56px;
-  padding: ${theme.spacing()}px;
+  padding: var(--unit);
 `;
 
 type EffectiveAcceptTermsArgs = Omit<AcceptTermsArgs, 'tcuToken'>;

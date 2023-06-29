@@ -1,7 +1,6 @@
 import { gql } from '@apollo/client';
 import { faAngleDown } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useTheme } from '@material-ui/core';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { AsyncPaginate } from 'react-select-async-paginate';
@@ -23,79 +22,77 @@ import {
   So5FixturesDropdownQuery,
 } from './__generated__/index.graphql';
 
-export const selectStyles = (theme: any) => {
-  return {
-    control: () => ({
-      display: 'flex',
-      flexWrap: 'nowrap' as const,
+const styles = {
+  control: () => ({
+    display: 'flex',
+    flexWrap: 'nowrap' as const,
+    cursor: 'pointer',
+  }),
+  indicatorsContainer: () => ({
+    position: 'relative' as const,
+    display: 'block',
+  }),
+  indicatorSeparator: () => ({
+    display: 'none',
+  }),
+  groupHeading: () => ({
+    position: 'sticky' as const,
+    top: 0,
+    background: 'var(--c-neutral-300)',
+    padding: 'var(--double-unit)',
+  }),
+  group: () => ({
+    padding: 0,
+  }),
+  option: (base: any, state: any) => {
+    let backgroundColor = 'var(--c-neutral-200)';
+    if (state.isSelected) {
+      backgroundColor = 'var(--c-neutral-400)';
+    } else if (state.isFocused) {
+      backgroundColor = 'var(--c-neutral-400)';
+    }
+    return {
+      ...base,
+      backgroundColor,
+      color: 'var(--c-neutral-1000)',
       cursor: 'pointer',
-    }),
-    indicatorsContainer: () => ({
-      position: 'relative' as const,
-      display: 'block',
-    }),
-    indicatorSeparator: () => ({
-      display: 'none',
-    }),
-    groupHeading: () => ({
-      position: 'sticky' as const,
-      top: 0,
-      background: 'var(--c-neutral-300)',
-      padding: 'var(--double-unit)',
-    }),
-    group: () => ({
+      padding: 'var(--intermediate-unit)',
+      borderBottom: ` 1px solid var(--c-neutral-300)`,
+      '&:last-child': {
+        borderBottom: 'none',
+      },
+      '&:hover': {
+        backgroundColor: 'var(--c-neutral-300)',
+      },
+    };
+  },
+  menu: (base: any) => ({
+    ...base,
+    borderRadius: 'var(--double-unit)',
+    overflow: 'hidden',
+    width: 400,
+    maxWidth: `calc(100vw - var(--quadruple-unit))`,
+    boxShadow: `0px 10px 60px rgba(0, 0, 0, 0.3);`,
+    background: 'var(--c-neutral-200)',
+  }),
+  menuList: (base: any) => ({
+    ...base,
+    padding: 0,
+    maxHeight: 400,
+  }),
+  dropdownIndicator: (base: any, state: any) => {
+    const {
+      selectProps: { menuIsOpen },
+    } = state;
+    return {
+      position: 'absolute' as const,
+      color: 'var(--c-neutral-1000)',
       padding: 0,
-    }),
-    option: (base: any, state: any) => {
-      let backgroundColor = 'var(--c-neutral-200)';
-      if (state.isSelected) {
-        backgroundColor = 'var(--c-neutral-400)';
-      } else if (state.isFocused) {
-        backgroundColor = 'var(--c-neutral-400)';
-      }
-      return {
-        ...base,
-        backgroundColor,
-        color: 'var(--c-neutral-1000)',
-        cursor: 'pointer',
-        padding: theme.spacing(1.5),
-        borderBottom: ` 1px solid var(--c-neutral-300)`,
-        '&:last-child': {
-          borderBottom: 'none',
-        },
-        '&:hover': {
-          backgroundColor: 'var(--c-neutral-300)',
-        },
-      };
-    },
-    menu: (base: any) => ({
-      ...base,
-      borderRadius: theme.radius.md,
-      overflow: 'hidden',
-      width: 400,
-      maxWidth: `calc(100vw - ${theme.spacing(2)}px)`,
-      boxShadow: `0px 10px 60px rgba(0, 0, 0, 0.3);`,
-      background: 'var(--c-neutral-200)',
-    }),
-    menuList: (base: any) => ({
-      ...base,
-      padding: 0,
-      maxHeight: 400,
-    }),
-    dropdownIndicator: (base: any, state: any) => {
-      const {
-        selectProps: { menuIsOpen },
-      } = state;
-      return {
-        position: 'absolute' as const,
-        color: 'var(--c-neutral-1000)',
-        padding: 0,
-        right: theme.spacing(-2),
-        transition: 'transform 0.25s ease-out',
-        transform: menuIsOpen ? 'rotate(-180deg)' : 'none',
-      };
-    },
-  };
+      right: 'calc(-2 * var(--unit))',
+      transition: 'transform 0.25s ease-out',
+      transform: menuIsOpen ? 'rotate(-180deg)' : 'none',
+    };
+  },
 };
 
 type So5FixturesDropdownQuery_so5_so5Fixtures_nodes =
@@ -269,7 +266,6 @@ const GameWeekDropdown = ({
 }: GameWeekDropdownProps) => {
   const navigate = useNavigate();
   const defaultValue = formatOption(defaultFixture);
-  const theme = useTheme();
   const optionsBySlug = useRef<Record<string, GameWeekOptionType>>({});
   const [defaultOptions, setDefaultOptions] = useState<GroupBase[]>([]);
   const { data, loadMore } = usePaginatedQuery<So5FixturesDropdownQuery>(
@@ -362,7 +358,7 @@ const GameWeekDropdown = ({
       getOptionValue={({ slug }) => optionsBySlug.current?.[slug]?.slug}
       isLoading={false}
       isSearchable={false}
-      styles={selectStyles(theme)}
+      styles={styles}
       components={{
         DropdownIndicator: () => null,
         Placeholder: () => null,

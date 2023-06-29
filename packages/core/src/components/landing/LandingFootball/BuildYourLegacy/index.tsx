@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import WaypointComponent from '@core/atoms/animations/Waypoint';
 import Container from '@core/atoms/layout/Container';
 import useScreenSize from '@core/hooks/device/useScreenSize';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { BackgroundOverlay } from '../ui';
 
 const Root = styled.div`
   position: relative;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding-top: calc(5 * var(--unit));
   }
 `;
@@ -39,7 +39,7 @@ const StyledContent = styled(animated.div)`
   bottom: 50px;
   padding: 0 var(--double-unit);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     bottom: 0;
     gap: var(--quadruple-unit);
   }

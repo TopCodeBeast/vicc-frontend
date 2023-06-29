@@ -7,6 +7,7 @@ import {
   SupportedCurrency,
 } from '@sorare/core/src/__generated__/globalTypes';
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 
 import { PaymentBoxAmountWithConversion } from '../../AmountWithConversion';
@@ -14,26 +15,42 @@ import { ConversionCreditRow } from '../../ConversionCreditRow';
 import { AccountingLine, Row } from '../ui';
 
 type Props = {
-  currency: Currency;
   totalMonetaryAmount: MonetaryAmountOutput;
+  conversionCreditMonetaryAmount?: MonetaryAmountOutput;
   usingConversionCredit: boolean;
   sport: Sport;
   customAmountDisplay?: ReactNode;
+  canChangeRefCurrency?: boolean;
+  isFiat?: boolean;
+  currency?: Currency;
 };
 
 export const SummaryTableTotal = ({
   sport,
-  currency,
   customAmountDisplay,
   totalMonetaryAmount,
   usingConversionCredit,
+  canChangeRefCurrency = false,
+  isFiat = false,
+  currency = undefined,
+  conversionCreditMonetaryAmount,
 }: Props) => {
+  const {
+    walletPreferences: { onlyShowFiatCurrency },
+  } = useCurrentUserContext();
   return (
     <>
-      {usingConversionCredit && (
+      {usingConversionCredit && conversionCreditMonetaryAmount && (
         <Row>
           <AccountingLine>
-            <ConversionCreditRow sport={sport} currencyFirst={currency} />
+            <ConversionCreditRow
+              sport={sport}
+              canChangeRefCurrency={canChangeRefCurrency}
+              currency={currency}
+              isFiat={isFiat}
+              usingConversionCredit={usingConversionCredit}
+              conversionCreditMonetaryAmount={conversionCreditMonetaryAmount}
+            />
           </AccountingLine>
         </Row>
       )}
@@ -51,8 +68,12 @@ export const SummaryTableTotal = ({
                 referenceCurrency: SupportedCurrency.WEI,
                 ...totalMonetaryAmount,
               }}
-              primaryCurrency={currency}
               bold
+              hideExponent={canChangeRefCurrency || onlyShowFiatCurrency}
+              {...(currency ? { primaryCurrency: currency } : {})}
+              {...(canChangeRefCurrency && {
+                primaryCurrency: isFiat ? Currency.FIAT : Currency.ETH,
+              })}
             />
           )}
         </AccountingLine>
@@ -61,7 +82,7 @@ export const SummaryTableTotal = ({
             <FormattedMessage
               id="SummaryTable.conversionCreditHelperGeneral"
               defaultMessage="A card bought using a credit can’t be listed for sale for {unlistableDuration} days."
-              values={{ unlistableDuration: 7 }}
+              values={{ unlistableDuration: 14 }}
             />
           </Text14>
         )}

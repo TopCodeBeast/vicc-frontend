@@ -304,7 +304,7 @@ export const CardResultsFromGraphQL = (props: CardResultsProps) => {
       topic={topic}
       hideSorareUser={hideSorareUser}
       stackable={stackable}
-      loading={loading}
+      loading={loading && !data}
       showDesktopFilter={showDesktopFilter}
     />
   );

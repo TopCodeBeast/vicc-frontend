@@ -5,12 +5,12 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import {
+  Currency,
   Sport,
   SupportedCurrency,
 } from '@sorare/core/src/__generated__/globalTypes';
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 
 import { PaymentBoxAmountWithConversion } from '@marketplace/components/buyActions/PaymentBox/AmountWithConversion';
@@ -47,6 +47,7 @@ export type Props = {
   fees: number;
   feesMonetaryAmount: MonetaryAmountOutput;
   totalMonetaryAmount: MonetaryAmountOutput;
+  conversionCreditMonetaryAmount?: MonetaryAmountOutput;
   isFiat: boolean;
   isCreditCard: boolean;
   usingConversionCredit: boolean;
@@ -54,6 +55,7 @@ export type Props = {
   customAmountDisplay: ReactNode;
   hideFees?: boolean;
   hideSubtotal?: boolean;
+  canChangeRefCurrency?: boolean;
 };
 
 export const SummaryTable = ({
@@ -67,9 +69,10 @@ export const SummaryTable = ({
   customAmountDisplay,
   hideFees,
   hideSubtotal,
+  canChangeRefCurrency,
+  conversionCreditMonetaryAmount,
   sport,
 }: Props) => {
-  const { currency } = useCurrentUserContext();
   return (
     <Wrapper>
       {!hideSubtotal && (
@@ -87,6 +90,7 @@ export const SummaryTable = ({
                   referenceCurrency: SupportedCurrency.WEI,
                   ...subtotalMonetaryAmount,
                 }}
+                hideExponent={canChangeRefCurrency}
               />
             )}
           </AccountingLine>
@@ -135,6 +139,10 @@ export const SummaryTable = ({
                 referenceCurrency: SupportedCurrency.WEI,
                 ...feesMonetaryAmount,
               }}
+              hideExponent={canChangeRefCurrency}
+              {...(canChangeRefCurrency && {
+                primaryCurrency: isFiat ? Currency.FIAT : Currency.ETH,
+              })}
             />
           </AccountingLine>
         </Row>
@@ -182,6 +190,10 @@ export const SummaryTable = ({
                 referenceCurrency: SupportedCurrency.WEI,
                 ...feesMonetaryAmount,
               }}
+              hideExponent={canChangeRefCurrency}
+              {...(canChangeRefCurrency && {
+                primaryCurrency: isFiat ? Currency.FIAT : Currency.ETH,
+              })}
             />
           </AccountingLine>
         </Row>
@@ -214,6 +226,10 @@ export const SummaryTable = ({
                 referenceCurrency: SupportedCurrency.WEI,
                 [SupportedCurrency.WEI.toLowerCase()]: '0',
               }}
+              hideExponent={canChangeRefCurrency}
+              {...(canChangeRefCurrency && {
+                primaryCurrency: isFiat ? Currency.FIAT : Currency.ETH,
+              })}
             />
           </AccountingLine>
         </Row>
@@ -221,9 +237,11 @@ export const SummaryTable = ({
       <SummaryTableTotal
         usingConversionCredit={usingConversionCredit}
         sport={sport}
-        currency={currency}
         customAmountDisplay={customAmountDisplay}
         totalMonetaryAmount={totalMonetaryAmount}
+        canChangeRefCurrency={canChangeRefCurrency}
+        conversionCreditMonetaryAmount={conversionCreditMonetaryAmount}
+        isFiat={isFiat}
       />
     </Wrapper>
   );

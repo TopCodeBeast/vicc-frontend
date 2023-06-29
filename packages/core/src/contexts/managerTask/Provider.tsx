@@ -1,13 +1,13 @@
 import { ReactNode, useState } from 'react';
 
-import HighlightContextProvider, { MarketplaceOnboardingStep, Task } from '.';
+import HighlightContextProvider, { OnboardingStep, Task } from '.';
 
 interface Props {
   children: ReactNode;
 }
 
 export const HighlightProvider = ({ children }: Props) => {
-  const [step, setStep] = useState<MarketplaceOnboardingStep>();
+  const [step, setStep] = useState<OnboardingStep>();
   const [task, setTask] = useState<Task>();
   const [onSuccessCallback, setOnSuccessCallback] = useState<() => void>();
 

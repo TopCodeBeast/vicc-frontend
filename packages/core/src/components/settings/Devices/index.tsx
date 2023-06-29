@@ -1,7 +1,12 @@
 import { gql } from '@apollo/client';
 import { faDesktop, faMobile } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FormattedMessage, defineMessage } from 'react-intl';
+import {
+  FormattedMessage,
+  defineMessage,
+  defineMessages,
+  useIntl,
+} from 'react-intl';
 import styled from 'styled-components';
 
 import LoadingButton from '@core/atoms/buttons/LoadingButton';
@@ -17,12 +22,20 @@ import {
   revokeDeviceMutationVariables,
 } from './__generated__/index.graphql';
 
+const messages = defineMessages({
+  lastUsed: {
+    id: 'Device.lastUsedAt',
+    defaultMessage: 'Last used on {date}',
+  },
+});
+
 const fragment = gql`
   fragment Devices_UserDevice on UserDevice {
     deviceType
     id
     os
     userAgent
+    lastUsedAt
   }
 `;
 
@@ -106,6 +119,7 @@ const Device = ({
   device: Devices_UserDevice;
   isCurrent: boolean;
 }) => {
+  const { formatDate, formatMessage } = useIntl();
   const [revokeDevice, { loading }] = useMutation<
     revokeDeviceMutation,
     revokeDeviceMutationVariables
@@ -135,6 +149,17 @@ const Device = ({
             {device.os} - {device.deviceType}
           </Text14>
           <Text14 color="var(--c-neutral-600)">{device.userAgent}</Text14>
+          {device.lastUsedAt && (
+            <Text14 color="var(--c-neutral-600)">
+              {formatMessage(messages.lastUsed, {
+                date: formatDate(device.lastUsedAt, {
+                  month: 'long',
+                  day: '2-digit',
+                  year: 'numeric',
+                }),
+              })}
+            </Text14>
+          )}
         </div>
       </DeviceDetails>
       {isCurrent ? (

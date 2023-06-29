@@ -10,7 +10,6 @@ import ResponsiveRow from '@sorare/core/src/atoms/layout/ResponsiveRow';
 import { Title4 } from '@sorare/core/src/atoms/typography';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { range } from '@sorare/core/src/lib/arrays';
-import { theme } from '@sorare/core/src/style/theme';
 
 import CardPicker from '@football/components/card/CardPicker';
 import FlexCard from '@football/components/card/FlexCard';
@@ -48,7 +47,7 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  border-radius: ${theme.radius.sm}px;
+  border-radius: var(--intermediate-unit);
   padding: var(--triple-unit);
 `;
 
@@ -188,7 +187,7 @@ export const HighlightedCards = ({ user, readOnly }: Props) => {
         />
       </Title4>
       <Content>
-        <Banner user={user} rounded="sm" />
+        <Banner user={user} rounded />
         <DndContext {...dndContextProps}>
           <SortableContext items={items}>
             <ResponsiveRow>

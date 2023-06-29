@@ -69,9 +69,7 @@ const DateGroupedSection = ({
   } = useFeatureFlags();
 
   const sortedLeaderboards = useMemo(() => {
-    const sortConfig =
-      sortAndFilters?.sortBy?.[leaderboardIndex] ||
-      defaultSortAndFilters.sortBy[0];
+    const sortConfig = sortAndFilters?.sortBy?.[leaderboardIndex];
     if (!sortConfig) {
       return so5Leaderboards;
     }
@@ -146,6 +144,7 @@ const DateGroupedSection = ({
             bold
             color="var(--c-red-600)"
             style={{ whiteSpace: 'nowrap' }}
+            as="div"
           >
             <FormattedMessage
               id="Lobby.Upcoming.GW.timeleft"

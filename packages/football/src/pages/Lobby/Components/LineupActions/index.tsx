@@ -18,7 +18,10 @@ import {
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import { getInteractionContext } from '@sorare/core/src/lib/events';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { theme } from '@sorare/core/src/style/theme';
+import {
+  laptopAndAbove,
+  tabletAndAbove,
+} from '@sorare/core/src/style/mediaQuery';
 
 import useConfirmLineups from '@football/hooks/so5/useConfirmLineups';
 import useDeleteLineup from '@football/hooks/so5/useDeleteLineup';
@@ -35,7 +38,7 @@ const Root = styled.aside`
     flex: 1;
   }
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     justify-content: flex-end;
     & > *:first-child:last-child {
       flex: unset;
@@ -45,7 +48,7 @@ const Root = styled.aside`
 
 const MobileLockedCompetitionAction = styled.div`
   display: block;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: none;
   }
 `;

@@ -15,7 +15,6 @@ import {
   PrivateLeaguesStep,
 } from '@sorare/core/src/constants/routes';
 import { groupBy } from '@sorare/core/src/lib/arrays';
-import { theme } from '@sorare/core/src/style/theme';
 
 import { HomeBlock } from '@football/components/Home/Block';
 import { ItemRows } from '@football/components/Home/ItemRows';
@@ -31,7 +30,7 @@ const EmptyWrapper = styled(LinkBox)`
   flex: 1;
   display: flex;
   padding: var(--double-unit);
-  border-radius: ${theme.radius.sm}px;
+  border-radius: var(--intermediate-unit);
   gap: var(--double-unit);
   align-items: center;
 `;

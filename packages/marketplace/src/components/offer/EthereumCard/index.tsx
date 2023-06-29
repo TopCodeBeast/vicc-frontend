@@ -9,7 +9,6 @@ import ethIcon from '@sorare/core/src/assets/eth_icon.png';
 import { Caption } from '@sorare/core/src/atoms/typography';
 import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 import { cardRatio } from '@sorare/core/src/lib/cardPicture';
-import { theme } from '@sorare/core/src/style/theme';
 
 import FeesDetailsTooltip from '../FeesDetailsTooltip';
 
@@ -24,7 +23,7 @@ const EthImageContainer = styled.div`
   aspect-ratio: ${cardRatio};
   background-color: rgba(var(--c-rgb-brand-600), 0.25);
   margin-right: var(--unit);
-  border-radius: ${theme.radius.xxs}px;
+  border-radius: var(--half-unit);
   display: flex;
   align-items: center;
   padding: var(--unit) 0;

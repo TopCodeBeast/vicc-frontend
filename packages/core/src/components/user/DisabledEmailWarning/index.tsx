@@ -8,7 +8,7 @@ import Blockquote from '@core/atoms/layout/Blockquote';
 import { Text16, Title6 } from '@core/atoms/typography';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useMutation from '@core/hooks/graphql/useMutation';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import {
   UnblockEmailMutation,
@@ -39,7 +39,7 @@ const Content = styled.div`
   justify-content: space-between;
   flex-direction: column;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     align-items: center;
   }

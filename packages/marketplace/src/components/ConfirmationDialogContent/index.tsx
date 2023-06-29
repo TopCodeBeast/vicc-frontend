@@ -13,7 +13,6 @@ import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
 
 import TokenSummary from '@marketplace/components/buyActions/TokenSummary';
 import CalculatedFeesTooltip from '@marketplace/components/offer/CalculatedFeesTooltip';
@@ -77,7 +76,7 @@ const Actions = styled.div`
 const DetailsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   background: var(--c-neutral-300);
   margin: var(--double-unit) 0;
   padding: var(--double-unit);

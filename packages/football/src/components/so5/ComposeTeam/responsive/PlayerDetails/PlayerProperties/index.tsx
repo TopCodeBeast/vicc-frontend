@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import GlareEffect from '@sorare/core/src/atoms/animations/GlareEffect';
 import { Text16, Text20 } from '@sorare/core/src/atoms/typography';
 
+import BudgetCost from '@football/components/draft/BudgetCost';
 import AverageScore from '@football/components/so5/AverageScore';
 import CardBonus from '@football/components/so5/CardProperties/CardBonus';
 import { positionShortNames } from '@football/lib/so5';
@@ -45,12 +46,14 @@ type Props = {
   pictureUrl?: string | null;
   card?: PlayerProperties_card;
   showCardBonusIndicator?: boolean;
+  budgetValue?: number;
 };
 const PlayerProperties = ({
   player,
   pictureUrl,
   card,
   showCardBonusIndicator = true,
+  budgetValue,
 }: Props) => {
   const { displayName, age, position, lastFifteenSo5AverageScore } = player;
 
@@ -65,14 +68,20 @@ const PlayerProperties = ({
         <GlareEffect pictureUrl={pictureUrl || ''} />
       </PlayerImage>
       <FlexContainer>
-        <AverageScore
-          score={lastFifteenSo5AverageScore}
-          withTooltip
-          scoreMode="AVERAGE_LAST_15_GAMES"
-          size="small"
-        />
-        {card && (
-          <CardBonus card={card} showBonus={showCardBonusIndicator} large />
+        {budgetValue ? (
+          <BudgetCost value={budgetValue} />
+        ) : (
+          <>
+            <AverageScore
+              score={lastFifteenSo5AverageScore}
+              withTooltip
+              scoreMode="AVERAGE_LAST_15_GAMES"
+              size="small"
+            />
+            {card && (
+              <CardBonus card={card} showBonus={showCardBonusIndicator} large />
+            )}
+          </>
         )}
       </FlexContainer>
       <FlexContainer>

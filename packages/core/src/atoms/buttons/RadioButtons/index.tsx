@@ -3,20 +3,19 @@ import { ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { Text16 } from '@core/atoms/typography';
-import { theme } from '@core/style/theme';
 
 const Root = styled.div`
   display: flex;
   align-items: center;
   background: var(--c-neutral-300);
-  border-radius: ${theme.radius.chip};
+  border-radius: var(--quadruple-unit);
   padding: var(--half-unit);
 `;
 const Option = styled(Text16)<{ activeBackgroundColor?: string }>`
   flex: 1 1 0;
   cursor: pointer;
   padding: var(--half-unit) var(--double-unit);
-  border-radius: ${theme.radius.chip};
+  border-radius: var(--quadruple-unit);
   text-align: center;
   color: var(--c-neutral-800);
   &.active {

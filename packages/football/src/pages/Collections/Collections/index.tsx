@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, generatePath, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -20,7 +20,7 @@ import useInfiniteScroll from '@sorare/core/src/hooks/useInfiniteScroll';
 import { useQueryState } from '@sorare/core/src/hooks/useQueryState';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 import useBottomBarNavItems from '@sorare/core/src/routing/MultiSportBottomNavBar/useBottomBarNavItems';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { CollectionPreview } from '@football/components/collections/CollectionPreview';
 import { DesktopCollectionsFilters } from '@football/components/collections/DesktopCollectionsFilters';
@@ -54,7 +54,7 @@ const CollectionsListWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 `;
@@ -150,10 +150,13 @@ export const Collections = ({ readOnly }: Props) => {
     parseFiltersState(urlFiltersState)
   );
 
-  const handleFiltersChange = (newFiltersState: CollectionsFiltersState) => {
-    setFiltersState(newFiltersState);
-    setUrlFiltersState(stringifyFiltersState(newFiltersState));
-  };
+  const handleFiltersChange = useCallback(
+    (newFiltersState: CollectionsFiltersState) => {
+      setFiltersState(newFiltersState);
+      setUrlFiltersState(stringifyFiltersState(newFiltersState));
+    },
+    [setUrlFiltersState]
+  );
 
   const { loading, data, previousData, loadMore } = usePaginatedQuery<
     UserCollectionsQuery,
@@ -189,9 +192,12 @@ export const Collections = ({ readOnly }: Props) => {
   const cardCounts = data?.user.cardCounts || { total: 0, common: 0 };
   const userHasCards = cardCounts?.total - cardCounts?.common;
 
-  if (!loading && !userHasCards && !readOnly && filtersState.startedOnly) {
-    handleFiltersChange({ ...filtersState, startedOnly: false });
-  }
+  useEffect(() => {
+    // need an effect because setUrlFiltersState is outside of this file
+    if (!loading && !userHasCards && !readOnly && filtersState.startedOnly) {
+      handleFiltersChange({ ...filtersState, startedOnly: false });
+    }
+  }, [handleFiltersChange, loading, readOnly, userHasCards, filtersState]);
 
   const bottomFilterButton = bottomNavBarItems ? (
     <Portal id="above-bottom-bar-portal">

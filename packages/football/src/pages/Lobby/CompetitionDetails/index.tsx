@@ -41,7 +41,10 @@ import { fantasy, glossary } from '@sorare/core/src/lib/glossary';
 import { lazy } from '@sorare/core/src/lib/retry';
 import useBottomBarNavItems from '@sorare/core/src/routing/MultiSportBottomNavBar/useBottomBarNavItems';
 import { RootRoutes } from '@sorare/core/src/routing/RootRoutes';
-import { theme } from '@sorare/core/src/style/theme';
+import {
+  laptopAndAbove,
+  tabletAndAbove,
+} from '@sorare/core/src/style/mediaQuery';
 
 import { useLineupSharingAttributes } from '@football/components/lineup/useLineupSharingAttributes';
 import DivisionLogo from '@football/components/so5/DivisionLogo';
@@ -141,7 +144,7 @@ const Informations = styled.div`
   align-items: center;
   column-gap: var(--half-unit);
   width: 100%;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     grid-template-areas:
       'logo subtitle'
       'logo title';
@@ -178,7 +181,7 @@ const TeamActionsWrapper = styled.div`
   bottom: 0;
   margin-top: auto;
   padding: var(--unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     margin-top: 0;
     width: auto;
     background: none;
@@ -188,7 +191,7 @@ const TeamActionsWrapper = styled.div`
 
 const ShareLabel = styled.span`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: inline-block;
     margin-left: var(--unit);
   }

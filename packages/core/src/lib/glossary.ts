@@ -241,6 +241,10 @@ export const glossary = defineMessages({
     id: 'Glossary.play',
     defaultMessage: 'Play',
   },
+  playNow: {
+    id: 'Glossary.playNow',
+    defaultMessage: 'Play now',
+  },
   howToPlay: {
     id: 'Glossary.howToPlay',
     defaultMessage: 'How to Play',
@@ -284,6 +288,10 @@ export const glossary = defineMessages({
   payWith: {
     id: 'Glossary.payWith',
     defaultMessage: 'Pay with',
+  },
+  showPlayerInfo: {
+    id: 'Glossary.showPlayerInfo',
+    defaultMessage: 'Show player info',
   },
 });
 
@@ -481,6 +489,10 @@ export const navLabels = defineMessages({
   clubshop: {
     id: 'Nav.clubshop',
     defaultMessage: 'Club Shop',
+  },
+  dailyGames: {
+    id: 'Nav.dailyGames',
+    defaultMessage: 'Daily Exhibitions',
   },
 });
 

@@ -2,15 +2,16 @@ import { gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
-import Avatar from '@sorare/core/src/components/user/Avatar';
-import { Avatar_publicUserInfoInterface } from '@sorare/core/src/components/user/Avatar/__generated__/index.graphql';
+import ActiveUserAvatar from '@sorare/core/src/components/user/ActiveUserAvatar';
 import { GalleryLink } from '@sorare/core/src/components/user/GalleryLink';
 import { Nickname } from '@sorare/core/src/components/user/Nickname';
-import { Nickname_publicUserInfoInterface } from '@sorare/core/src/components/user/Nickname/__generated__/index.graphql';
 
 import { galleryPathFromToken } from '@marketplace/lib/galleryPathFromToken';
 
-import { TokenOwner_token } from './__generated__/index.graphql';
+import {
+  OwnerGalleryLink_User,
+  TokenOwner_token,
+} from './__generated__/index.graphql';
 
 interface Props {
   token: TokenOwner_token;
@@ -34,9 +35,6 @@ const Name = styled.span`
   font-weight: var(--t-bold);
 `;
 
-export type OwnerGalleryLink_User = Avatar_publicUserInfoInterface &
-  Nickname_publicUserInfoInterface;
-
 interface GalleryProps {
   sport: Sport;
   user: OwnerGalleryLink_User;
@@ -47,7 +45,7 @@ export const OwnerGalleryLink = ({ sport, user, withAvatar }: GalleryProps) => {
   const path = galleryPathFromToken(user.slug, { sport });
   return (
     <StyledGalleryLink user={user} galleryPathFactory={() => path}>
-      {withAvatar && <Avatar rounded user={user} variant="extraSmall" />}
+      {withAvatar && <ActiveUserAvatar user={user} variant="extraSmall" />}
       <Name>
         <Nickname user={user} />
       </Name>
@@ -72,10 +70,10 @@ OwnerGalleryLink.fragments = {
   user: gql`
     fragment OwnerGalleryLink_User on User {
       slug
-      ...Avatar_publicUserInfoInterface
+      ...ActiveUserAvatar_user
       ...Nickname_publicUserInfoInterface
     }
-    ${Avatar.fragments.publicUserInfoInterface}
+    ${ActiveUserAvatar.fragments.user}
     ${Nickname.fragments.user}
   `,
 };

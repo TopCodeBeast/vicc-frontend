@@ -6,7 +6,6 @@ import { Sport } from '__generated__/globalTypes';
 import ButtonBase from '@core/atoms/buttons/ButtonBase';
 import { ChevronDownBold } from '@core/atoms/icons/ChevronDownBold';
 import { CloseBold } from '@core/atoms/icons/CloseBold';
-import { theme } from '@core/style/theme';
 import { OverrideClasses } from '@core/style/utils';
 
 import { sportLogos } from '../Sport/Switch';
@@ -25,7 +24,7 @@ interface NavDrawerHeaderProps {
   onClose: () => void;
 }
 const Header = styled.div`
-  padding: ${theme.spacing()}px;
+  padding: var(--unit);
   display: flex;
   height: 64px;
   min-height: 64px;
@@ -37,8 +36,8 @@ const Header = styled.div`
 
 const LogoButton = styled(ButtonBase)`
   background-color: rgb(255 255 255 / 10%);
-  border-radius: ${theme.spacing(2)}px;
-  padding: ${theme.spacing(1)}px;
+  border-radius: var(--triple-unit);
+  padding: var(--unit) var(--intermediate-unit);
 `;
 
 const LogoButtonContent = styled(animated.div)`

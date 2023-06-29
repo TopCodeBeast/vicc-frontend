@@ -82,6 +82,10 @@ export const RefineSeason = makeFilter(FILTERS.season, {
   transformItems: sortHitByLabelReverse,
   showMore: true,
 });
+export const RefineSingleYearSeason = makeFilter(FILTERS.season, {
+  transformItems: sortHitByLabelReverse,
+  showMore: true,
+});
 
 export const RefineLeague = makeFilter(FILTERS.league, {
   searchable: true,

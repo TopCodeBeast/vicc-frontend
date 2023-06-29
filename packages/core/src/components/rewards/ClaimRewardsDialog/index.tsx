@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import IconButton from '@core/atoms/buttons/IconButton';
 import Dialog from '@core/components/dialog';
 import { Reward } from '@core/components/rewards/types';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 import { ClaimRewards } from '../ClaimRewards';
 
 const FullSize = styled.div`
   height: 100%;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     height: calc(100vh - 4 * var(--unit));
   }
 `;

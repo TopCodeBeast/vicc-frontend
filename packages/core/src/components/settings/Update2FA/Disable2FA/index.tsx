@@ -60,7 +60,7 @@ const DialogForm = styled.div`
   padding: var(--double-unit);
   border: 1px solid var(--c-neutral-300);
   border-radius: var(--double-unit);
-  box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-200);
   align-self: stretch;
 `;
 

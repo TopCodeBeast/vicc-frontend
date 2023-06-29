@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import BackButton from '@core/atoms/buttons/BackButton';
-import { theme } from '@core/style/theme';
 
 type Props = {
   title?: ReactNode;
@@ -38,7 +37,7 @@ const Content = styled.div`
 const Nav = styled.div`
   position: relative;
   min-height: 60px;
-  border-bottom: ${theme.borders.grey};
+  border-bottom: 1px solid var(--c-neutral-300);
   display: flex;
   align-items: center;
   justify-content: center;

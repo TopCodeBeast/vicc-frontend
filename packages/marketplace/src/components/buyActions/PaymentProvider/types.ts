@@ -8,6 +8,7 @@ import {
 } from '@sorare/core/src/__generated__/globalTypes';
 import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { Currency } from '@sorare/core/src/lib/currency';
+import { MonetaryAmountParams } from '@sorare/core/src/lib/monetaryAmount';
 
 import { PaymentProvider_auction } from './__generated__/fragments.graphql';
 
@@ -22,10 +23,8 @@ export interface PaymentProviderProps {
   onSuccess: (amount?: MonetaryAmountOutput) => void;
   onSubmit: (args: onSubmitArgs) => Promise<void | { err: string[] }>;
   objectId: string;
-  price: {
-    amount: string | number; // wei or cents
-    referenceCurrency: SupportedCurrency;
-  };
+  price: MonetaryAmountParams;
+  canChangeRefCurrency?: boolean;
   creditCardFee?: number;
   activeFee?: boolean;
   cta: MessageDescriptor;

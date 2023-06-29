@@ -7,14 +7,14 @@ import { Text16, Title3 } from '@core/atoms/typography';
 import Dialog from '@core/components/dialog';
 import VerifyPhoneNumber from '@core/components/user/VerifyPhoneNumber';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 
 const Body = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--double-unit);
   padding: 0 var(--triple-unit) var(--triple-unit) var(--triple-unit);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     width: 480px;
   }
 `;

@@ -1,16 +1,14 @@
 import { gql } from '@apollo/client';
 import { faCamera } from '@fortawesome/pro-solid-svg-icons';
-import { Dispatch, FC, ReactNode, SetStateAction, useState } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 import styled, { StyledComponent } from 'styled-components';
 
 import { ShopItemType } from '@sorare/core/src/__generated__/globalTypes';
 import ecusson from '@sorare/core/src/assets/user/ecusson.png';
 import { Text14, Title2 } from '@sorare/core/src/atoms/typography';
-import Dialog from '@sorare/core/src/components/dialog';
-import UpdateProfile from '@sorare/core/src/components/settings/UpdateProfile';
-import ActivityIndicator from '@sorare/core/src/components/user/ActivityIndicator';
+import ActiveUserAvatar from '@sorare/core/src/components/user/ActiveUserAvatar';
 import UserName from '@sorare/core/src/components/user/UserName';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import Banner from '@football/components/user/Banner';
 import ClubName from '@football/components/user/ClubName';
@@ -24,7 +22,6 @@ interface Props {
   >;
   Camera: StyledComponent<any, any>;
   children: ReactNode;
-  readOnly?: boolean;
 }
 
 const Root = styled.div`
@@ -35,7 +32,7 @@ const Root = styled.div`
   flex-direction: column;
   gap: var(--intermediate-unit);
   padding: var(--triple-unit) 0;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -51,52 +48,18 @@ const PersonalInfos = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const ProfilePicture = styled.img`
-  background-color: var(--c-static-neutral-100);
-  border-radius: var(--unit);
-  object-fit: cover;
-  box-shadow: var(--shadow-400);
-`;
-const UpdateProfileWrapper = styled.div`
-  padding: 0 var(--double-unit) var(--double-unit);
-`;
 
-const Avatar: FC<{ onClick?: () => void }> = ({ children, onClick }) =>
-  onClick ? (
-    <button onClick={onClick} type="button">
-      {children}
-    </button>
-  ) : (
-    <>{children}</>
-  );
-
-export const BigInfo = ({
-  user,
-  setPickingSkin,
-  Camera,
-  children,
-  readOnly,
-}: Props) => {
-  const { profile } = user;
-  const [openUpdatingPicture, setOpenUpdatingPicture] = useState(false);
-  const { fullPictureUrl } = profile;
-
+export const BigInfo = ({ user, setPickingSkin, Camera, children }: Props) => {
   return (
     <>
       <Banner user={user} />
       <Root>
         <Infos>
-          <Avatar
-            onClick={readOnly ? undefined : () => setOpenUpdatingPicture(true)}
-          >
-            <ActivityIndicator user={user}>
-              <ProfilePicture
-                src={fullPictureUrl || ecusson}
-                width={60}
-                height={60}
-              />
-            </ActivityIndicator>
-          </Avatar>
+          <ActiveUserAvatar
+            user={user}
+            variant="large"
+            placeholderUrl={ecusson}
+          />
           <PersonalInfos>
             <Title2 color="var(--c-static-neutral-100)">
               <UserName user={user} />
@@ -122,16 +85,6 @@ export const BigInfo = ({
           )}
         </Infos>
         {children}
-        <Dialog
-          maxWidth="sm"
-          open={openUpdatingPicture}
-          onClose={() => setOpenUpdatingPicture(false)}
-          body={
-            <UpdateProfileWrapper>
-              <UpdateProfile onSubmit={() => setOpenUpdatingPicture(false)} />
-            </UpdateProfileWrapper>
-          }
-        />
       </Root>
     </>
   );
@@ -143,17 +96,16 @@ BigInfo.fragments = {
       slug
       profile {
         id
-        fullPictureUrl: pictureUrl
       }
       ...ClubName_user
       ...UserName_publicUserInfoInterface
       ...Banner_user
-      ...ActivityIndicator_user
+      ...ActiveUserAvatar_user
     }
     ${UserName.fragments.user}
     ${ClubName.fragments.user}
     ${Banner.fragments.user}
-    ${ActivityIndicator.fragments.user}
+    ${ActiveUserAvatar.fragments.user}
   `,
 };
 

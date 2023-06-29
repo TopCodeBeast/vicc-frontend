@@ -1,8 +1,7 @@
 import { FormattedMessage, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import CloseButton from '@sorare/core/src/atoms/buttons/CloseButton';
-import { Text16, Title2 } from '@sorare/core/src/atoms/typography';
+import { Text16, Title4 } from '@sorare/core/src/atoms/typography';
 import Dialog from '@sorare/core/src/components/dialog';
 
 import { ScarceCardsSpinner } from '@football/components/onboarding/DiscoverScarcities/ScarceCardsSpinner';
@@ -19,36 +18,15 @@ const Wrapper = styled.div`
   gap: var(--quadruple-unit);
   padding: var(--double-unit);
 `;
-
-const TitleWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 48px 1fr 48px;
-  grid-template-areas: 'empty title close';
-  align-self: stretch;
+const CenteredTitle4 = styled(Title4)`
   text-align: center;
 `;
-
-const Title = styled(Title2)`
-  grid-area: title;
-  margin-top: var(--double-unit);
-`;
-
-const StyledCloseButton = styled(CloseButton)`
-  grid-area: close;
-  justify-self: flex-end;
-`;
-
-const RewardsList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
+const RewardsList = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--unit);
   width: 100%;
-  max-width: 440px;
 `;
-
 const Reward = styled.li`
   display: flex;
   justify-content: flex-start;
@@ -58,14 +36,13 @@ const Reward = styled.li`
   border-radius: var(--double-unit);
   padding: var(--intermediate-unit);
 `;
-
-const Icon = styled.img`
+const IconWrapper = styled.div`
   width: 48px;
   height: 48px;
 `;
-
-const SpinnerWrapper = styled.div`
+const Icon = styled.img`
   width: 48px;
+  height: 48px;
 `;
 
 type Props = { isOpen: boolean; onClose: () => void };
@@ -117,41 +94,46 @@ export const DiscoverRewardsDialog = ({ isOpen, onClose }: Props) => {
   ];
 
   return (
-    <Dialog open={isOpen} onClose={onClose}>
-      <Wrapper>
-        <TitleWrapper>
-          <Title>
-            <FormattedMessage
-              id="DiscoverRewardsDialog.title"
-              defaultMessage="Digital and physical rewards"
-            />
-          </Title>
-          <StyledCloseButton onClose={onClose} />
-        </TitleWrapper>
-        <RewardsList>
-          <Reward>
-            <SpinnerWrapper>
-              <ScarceCardsSpinner
-                imageWidth={48}
-                withScarcityText={false}
-                nbCards={4}
-              />
-            </SpinnerWrapper>
-            <Text16 bold>
-              <FormattedMessage
-                id="DiscoverRewardsDialog.cards"
-                defaultMessage="Cards to expand your club"
-              />
-            </Text16>
-          </Reward>
-          {rewards.map(({ id, message, icon }) => (
-            <Reward key={id}>
-              <Icon src={icon} />
-              <Text16 bold>{message}</Text16>
+    <Dialog
+      maxWidth="xs"
+      fullWidth
+      open={isOpen}
+      onClose={onClose}
+      title={
+        <CenteredTitle4>
+          <FormattedMessage
+            id="DiscoverRewardsDialog.title"
+            defaultMessage="Digital and physical rewards"
+          />
+        </CenteredTitle4>
+      }
+      body={
+        <Wrapper>
+          <RewardsList>
+            <Reward>
+              <IconWrapper>
+                <ScarceCardsSpinner
+                  imageWidth={48}
+                  withScarcityText={false}
+                  nbCards={4}
+                />
+              </IconWrapper>
+              <Text16 bold>
+                <FormattedMessage
+                  id="DiscoverRewardsDialog.cards"
+                  defaultMessage="Cards to expand your club"
+                />
+              </Text16>
             </Reward>
-          ))}
-        </RewardsList>
-      </Wrapper>
-    </Dialog>
+            {rewards.map(({ id, message, icon }) => (
+              <Reward key={id}>
+                <Icon src={icon} />
+                <Text16 bold>{message}</Text16>
+              </Reward>
+            ))}
+          </RewardsList>
+        </Wrapper>
+      }
+    />
   );
 };

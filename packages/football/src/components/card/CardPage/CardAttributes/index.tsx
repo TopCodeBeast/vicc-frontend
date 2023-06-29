@@ -10,6 +10,7 @@ import {
   FOOTBALL_CLUB_SHOW,
   FOOTBALL_COUNTRY_SHOW,
 } from '@sorare/core/src/constants/routes';
+import { isType } from '@sorare/core/src/gql';
 import { cardAttributes } from '@sorare/core/src/lib/glossary';
 import {
   attributes as playerAttributes,
@@ -37,8 +38,7 @@ const BlockContent = styled.div`
 const Title = styled(Text14)`
   color: var(--c-neutral-600);
 `;
-
-const TeamRow = styled(Link)`
+const TeamRow = styled.div`
   display: flex;
   align-items: center;
   gap: var(--unit);
@@ -48,6 +48,7 @@ const TeamRow = styled(Link)`
 export const CardAttributes = ({ card }: Props) => {
   const { team, positionTyped, age, player, xp } = card;
   const { country } = player;
+  const isClub = isType(team, 'Club');
 
   return (
     <Block>
@@ -56,7 +57,14 @@ export const CardAttributes = ({ card }: Props) => {
           <Title>
             <FormattedMessage {...cardAttributes.team} />
           </Title>
-          <TeamRow to={generatePath(FOOTBALL_CLUB_SHOW, { slug: team.slug })}>
+          <TeamRow
+            as={isClub ? Link : 'div'}
+            to={
+              isClub
+                ? generatePath(FOOTBALL_CLUB_SHOW, { slug: team.slug })
+                : undefined
+            }
+          >
             <TeamAvatar team={team} size={16} />
             <Text14>{team.name}</Text14>
           </TeamRow>
@@ -80,6 +88,7 @@ export const CardAttributes = ({ card }: Props) => {
             <FormattedMessage {...playerAttributes.country} />
           </Title>
           <TeamRow
+            as={Link}
             to={generatePath(FOOTBALL_COUNTRY_SHOW, { slug: country.slug })}
           >
             <FlagAvatar country={country} imageRes={64} size={16} />

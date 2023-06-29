@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { Text16, Title5 } from '@sorare/core/src/atoms/typography';
 import { groupBy } from '@sorare/core/src/lib/arrays';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { formatRules } from '@football/components/so5/Rules/formatRules';
 import Eligibilities from '@football/pages/Lobby/CompetitionDetails/Details/CompetitionRules/Eligibilities';
@@ -21,9 +21,9 @@ const Wrapper = styled.div`
 
 const RulesSectionWrapper = styled.div`
   background: var(--c-neutral-300);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   padding: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     padding: var(--double-unit) var(--triple-unit);
   }
   display: flex;
@@ -45,7 +45,7 @@ const RulesSectionWrapper = styled.div`
 
 const DesktopLockedCompetitionAction = styled.div`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: block;
   }
 `;
@@ -57,13 +57,8 @@ type Props = {
 const CompetitionRules = ({ so5Leaderboard }: Props) => {
   const intl = useIntl();
 
-  const { displayedRules, engineConfiguration, description } = so5Leaderboard;
-  const formattedRules = formatRules(
-    displayedRules,
-    [],
-    engineConfiguration,
-    intl
-  );
+  const { description } = so5Leaderboard;
+  const formattedRules = formatRules(so5Leaderboard, [], intl);
 
   const ruleSections = groupBy(
     rule => rule.title?.id || rule.id,

@@ -19,7 +19,7 @@ import useEvents from '@core/lib/events/useEvents';
 import { glossary } from '@core/lib/glossary';
 import { mustAcceptTermsOfServiceFlag } from '@core/lib/mustAcceptTermsOfServiceFlag';
 import * as events from '@core/protos/events/so5/web/events';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { PopMode } from '..';
 
@@ -104,7 +104,7 @@ const Frame = styled(WalletPlaceholder)`
   }
   &.signup.noOAuth {
     height: 100%;
-    @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    @media ${tabletAndAbove} {
       height: 685px;
       min-height: 685px;
     }

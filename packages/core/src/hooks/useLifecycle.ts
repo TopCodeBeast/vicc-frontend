@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 
 import { CommonDraftCampaignType, Sport } from '__generated__/globalTypes';
 import { AlgoliaCardIndexesName } from '@core/contexts/config';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { getInteractionContext } from '@core/lib/events';
 
 import {
@@ -36,6 +37,8 @@ export enum LIFECYCLE {
   sawMlbDraftEducationDialog = 'sawMlbDraftEducationDialog',
   saw100PersonLeaderboardDialog = 'saw100PersonLeaderboardDialog',
   hideActivity = 'hideActivity',
+  hideOnlineStatus = 'hideOnlineStatus',
+  sawNewCustomListTuto = 'sawNewCustomListTuto',
 }
 
 export type LifecycleEntries = {
@@ -70,6 +73,8 @@ export type LifecycleEntries = {
   [LIFECYCLE.marketSorts]?: Record<string, AlgoliaCardIndexesName>;
   [LIFECYCLE.sawMlbDraftEducationDialog]?: boolean;
   [LIFECYCLE.hideActivity]?: boolean;
+  [LIFECYCLE.sawNewCustomListTuto]?: boolean;
+  [LIFECYCLE.hideOnlineStatus]?: boolean;
 };
 
 export type Lifecycle = LifecycleEntries | undefined;
@@ -87,6 +92,10 @@ const UPDATE_LIFECYCLE_MUTATION = gql`
       userSettings {
         id
         lifecycle
+      }
+      currentUser {
+        slug
+        active
       }
       errors {
         path
@@ -114,6 +123,7 @@ export const CURRENT_USER_LIFECYCLE_QUERY = gql`
 `;
 
 export default function useLifecycle() {
+  const { currentUser } = useCurrentUserContext();
   const [updateLifecycle, { loading }] = useMutation<
     UpdateLifecycleMutation,
     UpdateLifecycleMutationVariables
@@ -124,6 +134,9 @@ export default function useLifecycle() {
       name: K,
       value: Omit<LifecycleEntries[K], 'undefined'>
     ) => {
+      if (!currentUser?.slug) {
+        return;
+      }
       updateLifecycle({
         variables: {
           input: {
@@ -135,7 +148,7 @@ export default function useLifecycle() {
         },
       });
     },
-    [updateLifecycle]
+    [updateLifecycle, currentUser?.slug]
   );
 
   return {

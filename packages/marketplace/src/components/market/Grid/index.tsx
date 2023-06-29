@@ -3,14 +3,14 @@ import { Flipped, Flipper } from 'react-flip-toolkit';
 import styled, { css } from 'styled-components';
 
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 const gridCss = css`
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--double-unit);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-template-columns: repeat(5, minmax(0, 1fr));
     row-gap: calc(5 * var(--unit));
     &.showDesktopFilter {
@@ -21,9 +21,6 @@ const gridCss = css`
 
 export const Grid = styled.div`
   ${gridCss}
-`;
-export const GridItem = styled.div`
-  overflow: hidden;
 `;
 
 const LoadingOverlay = styled.div`
@@ -72,9 +69,9 @@ export const AnimatedGridItem = ({
 }) => {
   return (
     <Flipped onAppear={onAppear} flipId={flipId}>
-      <GridItem onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
         {children}
-      </GridItem>
+      </div>
     </Flipped>
   );
 };

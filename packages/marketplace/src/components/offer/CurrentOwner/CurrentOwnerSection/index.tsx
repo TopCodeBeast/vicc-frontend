@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import Block from '@sorare/core/src/atoms/layout/Block';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 const StyledBlock = styled(Block)`
   &.disabled {
@@ -15,7 +15,7 @@ const Content = styled.div`
   flex-direction: column;
   gap: var(--double-unit);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -32,7 +32,7 @@ const Right = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     align-items: center;
     flex-direction: row;
     margin-bottom: 0;

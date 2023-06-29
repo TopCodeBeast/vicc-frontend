@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { Text14, Text18 } from '@sorare/core/src/atoms/typography';
 import OpenItemDialogLink from '@sorare/core/src/components/link/OpenItemDialogLink';
 import { getHumanReadableSerialNumber } from '@sorare/core/src/lib/cards';
-import { theme } from '@sorare/core/src/style/theme';
 
 import FlexToken from '@marketplace/components/token/FlexToken';
 import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
@@ -18,7 +17,7 @@ const CardContainer = styled.div`
   padding: var(--double-unit);
   background-color: var(--c-neutral-300);
   flex: 1;
-  border-radius: ${theme.shape.borderRadius}px;
+  border-radius: var(--unit);
   flex-direction: column;
   gap: var(--unit);
 `;

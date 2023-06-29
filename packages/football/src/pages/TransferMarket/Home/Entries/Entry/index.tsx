@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
 import { LiveIndicator } from '@sorare/core/src/atoms/ui/LiveIndicator';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { useFootballEvents } from '@football/lib/events';
 
@@ -16,7 +16,7 @@ const EntryRoot = styled.button.attrs({ type: 'button' })`
   align-items: initial;
   background-color: var(--c-neutral-200);
   border-radius: var(--unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: column;
     transition: transform 0.2s ease-in-out;
     &:hover,
@@ -36,7 +36,7 @@ const Image = styled.div`
     object-fit: cover;
   }
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     width: 100%;
     border-radius: var(--unit) var(--unit) 0 0;
   }
@@ -48,7 +48,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--intermediate-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex: 0;
     margin-top: auto;
     align-self: flex-start;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { theme } from '@core/style/theme';
+import { desktopAndAbove } from '@core/style/mediaQuery';
 
 export const SearchLayoutContainer = styled.div`
   display: flex;
@@ -33,7 +33,7 @@ export const LeftFilters = styled.div<{ visible: boolean }>`
       width: 260px;
       margin-right: var(--quadruple-unit);
       transition: all 0.2s ease-in-out, opacity 0.2s linear 0.2s;
-      @media (min-width: ${theme.breakpoints.values.desktop}px) {
+      @media ${desktopAndAbove} {
         width: 300px;
       }
     `

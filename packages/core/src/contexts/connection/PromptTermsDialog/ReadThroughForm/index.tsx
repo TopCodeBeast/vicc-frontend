@@ -24,7 +24,7 @@ import useIsVisibleInViewport from '@core/hooks/useIsVisibleInViewport';
 import useToggle from '@core/hooks/useToggle';
 import { fileUrl } from '@core/lib/gitlab';
 import LazyMarkdown from '@core/routing/LazyMarkdown';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import AcceptAgeLimit from '../AcceptAgeLimit';
 import AcceptTermsAndPrivacyPolicy from '../AcceptTermsAndPrivacyPolicy';
@@ -41,20 +41,20 @@ const LinkToGameRules = (s: string) => (
 
 const Scrollable = styled.div`
   overflow: auto;
-  max-height: calc(100% - ${theme.spacing(8)}px);
-  padding: ${theme.spacing(2)}px;
+  max-height: calc(100% - calc(8 * var(--unit)));
+  padding: var(--double-unit);
 `;
 const Group = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${theme.spacing(2)}px;
-  margin-top: ${theme.spacing(2)}px;
+  gap: var(--double-unit);
+  margin-top: var(--double-unit);
 `;
 const MarkdownContainer = styled.div`
   min-height: 100vh;
   display: flex;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
-    min-height: calc(100% + ${theme.spacing(2)}px);
+  @media ${tabletAndAbove} {
+    min-height: calc(100% + var(--double-unit));
   }
 `;
 
@@ -133,8 +133,8 @@ const Submit = styled(Actions)`
   .isMobileWebviewSignUp & {
     border-right: 1px solid var(--c-neutral-300);
     border-left: 1px solid var(--c-neutral-300);
-    border-top-left-radius: ${theme.radius.chip};
-    border-top-right-radius: ${theme.radius.chip};
+    border-top-left-radius: var(--quadruple-unit);
+    border-top-right-radius: var(--quadruple-unit);
   }
 `;
 

@@ -1,5 +1,3 @@
-import { faArrowLeft } from '@fortawesome/pro-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   FormattedMessage,
   MessageDescriptor,
@@ -10,7 +8,7 @@ import styled from 'styled-components';
 
 import { ShopItemType } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
-import { Title2 } from '@sorare/core/src/atoms/typography';
+import { Title5 } from '@sorare/core/src/atoms/typography';
 import Dialog from '@sorare/core/src/components/dialog';
 import { FOOTBALL_CLUB_SHOP } from '@sorare/core/src/constants/routes';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
@@ -24,13 +22,11 @@ const DialogContainer = styled.div`
   padding: var(--triple-unit);
   gap: var(--double-unit);
 `;
-const BackButton = styled(Button)`
-  align-self: flex-start;
+const CenteredTitle5 = styled(Title5)`
+  text-align: center;
 `;
-const FlexContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+const ButtonWrapper = styled.div`
+  padding: var(--triple-unit);
 `;
 
 const messages: { [key in ShopItemType]: MessageDescriptor } = defineMessages({
@@ -84,40 +80,47 @@ const ShopItemDialog = ({ open, type, onSelect, onClose }: Props) => {
   }
 
   return (
-    <Dialog open={open} maxWidth="md" fullWidth onClose={onClose} darkTheme>
-      <DialogContainer>
-        <BackButton color="darkGray" medium onClick={onClose}>
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </BackButton>
-        <FlexContainer>
-          <Title2>
-            <FormattedMessage {...messages[type]} />
-          </Title2>
-          {!disableClubShopPage && (
-            <FlexContainer>
-              <Button
-                medium
-                color="darkGray"
-                to={FOOTBALL_CLUB_SHOP}
-                component={Link}
-              >
-                <FormattedMessage
-                  id="ShopItemDialog.GetMore"
-                  defaultMessage="Go to shop"
-                />
-              </Button>
-            </FlexContainer>
-          )}
-        </FlexContainer>
-        <ShopItemPicker
-          onSelect={onSelect}
-          types={[type]}
-          inventory={type !== ShopItemType.LOGO}
-          inDialog
-          hideSort
-        />
-      </DialogContainer>
-    </Dialog>
+    <Dialog
+      darkTheme
+      open={open}
+      maxWidth="sm"
+      fullWidth
+      onClose={onClose}
+      title={
+        <CenteredTitle5>
+          <FormattedMessage {...messages[type]} />
+        </CenteredTitle5>
+      }
+      body={
+        <DialogContainer>
+          <ShopItemPicker
+            onSelect={onSelect}
+            types={[type]}
+            inventory={type !== ShopItemType.LOGO}
+            inDialog
+            hideSort
+          />
+        </DialogContainer>
+      }
+      footer={
+        !disableClubShopPage ? (
+          <ButtonWrapper>
+            <Button
+              medium
+              fullWidth
+              color="blue"
+              to={FOOTBALL_CLUB_SHOP}
+              component={Link}
+            >
+              <FormattedMessage
+                id="ShopItemDialog.GetMore"
+                defaultMessage="Go to shop"
+              />
+            </Button>
+          </ButtonWrapper>
+        ) : undefined
+      }
+    />
   );
 };
 

@@ -4,14 +4,14 @@ import styled from 'styled-components';
 
 import Block from '@sorare/core/src/atoms/layout/Block';
 import { Text16 } from '@sorare/core/src/atoms/typography';
-import Avatar from '@sorare/core/src/components/user/Avatar';
+import ActiveUserAvatar from '@sorare/core/src/components/user/ActiveUserAvatar';
 import {
   GalleryLink,
   useCurrentSportGallery,
 } from '@sorare/core/src/components/user/GalleryLink';
 import UserName from '@sorare/core/src/components/user/UserName';
 import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import BuyField from '@marketplace/components/buyActions/BuyField';
 import MakeOffer from '@marketplace/components/directOffer/MakeOffer';
@@ -47,7 +47,7 @@ const Root = styled(Block)`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -57,7 +57,7 @@ const Right = styled.div`
   display: flex;
   gap: 10px;
   flex-direction: column;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
   }
 `;
@@ -82,7 +82,7 @@ export const SingleSaleOffer = ({ token }: Props) => {
   return (
     <div>
       <Title>
-        <Avatar user={user} />
+        <ActiveUserAvatar user={user} variant="small" />
         <SoldBy bold>
           <FormattedMessage
             id="SingleSaleOffer.listedBy"
@@ -136,7 +136,7 @@ SingleSaleOffer.fragments = {
         id
         user {
           slug
-          ...Avatar_publicUserInfoInterface
+          ...ActiveUserAvatar_user
           ...UserName_publicUserInfoInterface
         }
       }
@@ -161,7 +161,7 @@ SingleSaleOffer.fragments = {
     }
     ${BuyField.fragments.token}
     ${MakeOffer.fragments.token}
-    ${Avatar.fragments.publicUserInfoInterface}
+    ${ActiveUserAvatar.fragments.user}
     ${UserName.fragments.user}
   `,
 };

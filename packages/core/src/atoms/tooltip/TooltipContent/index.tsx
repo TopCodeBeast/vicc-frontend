@@ -1,15 +1,13 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { theme } from '@core/style/theme';
-
 type Props = {
   children: ReactNode;
 };
 
 const RootDiv = styled.div`
   background-color: white;
-  border-radius: ${theme.shape.borderRadius}px;
+  border-radius: var(--unit);
   border: 1px solid var(--c-yellow-600);
 `;
 

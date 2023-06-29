@@ -7,7 +7,7 @@ import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Text16, Title4 } from '@sorare/core/src/atoms/typography';
 import ConnectPrivateWallet from '@sorare/core/src/components/wallet/ConnectPrivateWallet';
 import useBlockchainAccountData from '@sorare/core/src/hooks/useBlockchainAccountData';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import EmptyState from '../EmptyState';
 import EthereumCard from '../EthereumCard';
@@ -40,7 +40,7 @@ const Cards = styled.div`
   gap: var(--double-unit);
   flex-wrap: wrap;
   justify-content: center;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }

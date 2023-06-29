@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
 import { Text16, Title6 } from '@sorare/core/src/atoms/typography';
 import { FOOTBALL_CUSTOM_DECK_SHOW } from '@sorare/core/src/constants/routes';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import FlexCard from '@football/components/card/FlexCard';
 import { useDeckContext } from '@football/contexts/deck';
@@ -67,7 +67,7 @@ const Locked = styled(Fab)`
   }
 `;
 const Edit = styled(Fab)`
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     opacity: 0;
   }
   ${Root}:hover & {

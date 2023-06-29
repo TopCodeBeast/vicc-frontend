@@ -8,7 +8,7 @@ import { GraphQLResult, GraphqlForm } from '@core/components/form/Form';
 import DisabledEmailWarning from '@core/components/user/DisabledEmailWarning';
 import { useSnackNotificationContext } from '@core/contexts/snackNotification';
 import { glossary } from '@core/lib/glossary';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import useLogOutAllDevices from './useLogoutAllDevices';
 
@@ -33,7 +33,7 @@ const Container = styled(GraphqlForm)`
   flex-direction: column;
   gap: var(--unit);
   margin-bottom: 0;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     align-items: stretch;
   }
 `;

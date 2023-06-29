@@ -1,6 +1,10 @@
 import { createContext, useContext } from 'react';
 
-import { Currency, FiatWalletAccount } from '__generated__/globalTypes';
+import {
+  Currency,
+  EnabledWallet,
+  FiatWalletAccount,
+} from '__generated__/globalTypes';
 import { Currency as FiatCurrency } from '@core/lib/fiat';
 
 import { SignInMutation } from './__generated__/queries.graphql';
@@ -38,6 +42,13 @@ interface CurrentUserContext {
   ) => Promise<SignInMutation_signIn | null | undefined>;
   blockchainCardsCount: number;
   fiatWalletAccountable: FiatWalletAccount | null;
+  walletPreferences: {
+    enabledWallets?: EnabledWallet[];
+    showEthWallet: boolean;
+    showFiatWallet: boolean;
+    onlyShowFiatCurrency: boolean;
+    hasMigratedAndSetupWallets: boolean;
+  };
 }
 
 export const currentUserContext = createContext<CurrentUserContext | null>(

@@ -9,9 +9,9 @@ import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { Link } from '@sorare/core/src/routing/Link';
 
-import { UserGroupLeaderboard } from '@sorare/football/src/components/so5/Leaderboard/UserGroupLeaderboard';
-import { LeaderboardWithLineupDetails as Leaderboard } from '@sorare/football/src/components/so5/Leaderboard/WithLineupDetails';
-import { ShowMoreButton } from '@sorare/football/src/pages/Lobby/Components/ShowMoreButton';
+import { UserGroupLeaderboard } from '@football/components/so5/Leaderboard/UserGroupLeaderboard';
+import { LeaderboardWithLineupDetails as Leaderboard } from '@football/components/so5/Leaderboard/WithLineupDetails';
+import { ShowMoreButton } from '@football/pages/Lobby/Components/ShowMoreButton';
 
 import {
   LobbyLeaderboardsFetcherQuery,

@@ -3,7 +3,7 @@ import { animated, config, useSpring } from '@react-spring/web';
 import { Waypoint } from 'react-waypoint';
 import styled from 'styled-components';
 
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import BG from './assets/BG.png';
 
@@ -18,7 +18,7 @@ const Wrapper = styled.div<{ $webGlobalCup?: boolean }>`
   gap: var(--unit);
   padding: calc(3 * var(--unit)) calc(1 * var(--unit));
   position: relative;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding: calc(6 * var(--unit)) var(--double-unit);
   }
 `;

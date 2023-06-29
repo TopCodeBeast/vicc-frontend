@@ -4,7 +4,7 @@ import { FC, ReactNode, UIEventHandler } from 'react';
 import styled from 'styled-components';
 
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import Field, { Props as FieldProps } from './Field';
 
@@ -24,7 +24,7 @@ const Root = styled.div`
     opacity: 1;
     pointer-events: auto;
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     position: static;
     transform: translateY(0);
     width: 440px;
@@ -43,7 +43,7 @@ const Content = styled.div`
 const Container = styled(Content)`
   padding: var(--double-unit);
   flex: 1;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     padding: 0;
   }
 `;
@@ -59,7 +59,7 @@ const Header = styled.header`
   top: 0;
   z-index: 2;
   background: var(--c-neutral-100);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: none;
   }
 `;

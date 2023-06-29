@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Chip } from '@sorare/core/src/atoms/ui/Chip';
 import TimeLeft from '@sorare/core/src/contexts/ticker/TimeLeft';
 import { fantasy } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { isFixtureClosed } from '@football/lib/so5';
 
@@ -14,11 +14,11 @@ import { CompetitionDetailsTimeLeft_so5Fixture } from './__generated__/index.gra
 
 const Wrapper = styled.div`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: inline-flex;
     align-items: center;
     padding: var(--half-unit) 0;
-    border-radius: ${theme.radius.chip};
+    border-radius: var(--quadruple-unit);
   }
 `;
 

@@ -2,7 +2,6 @@ import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import styled, { css } from 'styled-components';
 
 import { Text16 } from '@core/atoms/typography';
-import { theme } from '@core/style/theme';
 
 type Variant = 'red' | 'blue' | 'yellow' | 'grey';
 
@@ -26,7 +25,7 @@ const Root = styled.div`
   gap: var(--unit);
   flex-direction: column;
   justify-content: center;
-  border-radius: ${theme.shape.borderRadius}px;
+  border-radius: var(--unit);
   width: 100%;
 `;
 const Title = styled(Text16)<{ variant: Variant }>`

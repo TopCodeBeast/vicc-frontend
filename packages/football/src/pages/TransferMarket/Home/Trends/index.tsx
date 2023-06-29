@@ -9,7 +9,7 @@ import { Tabs } from '@sorare/core/src/atoms/navigation/Tabs';
 import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { PlayerTrend } from './PlayerTrend';
 import { TopSale } from './TopSale';
@@ -88,7 +88,7 @@ const Row = styled.div`
   gap: var(--triple-unit);
   overflow-x: auto;
   justify-content: flex-start;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
@@ -99,7 +99,7 @@ const Column = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--intermediate-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     min-width: 0;
   }
 `;

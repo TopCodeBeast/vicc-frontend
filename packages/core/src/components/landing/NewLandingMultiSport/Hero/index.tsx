@@ -6,6 +6,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import { animated, useSpring, useTransition } from '@react-spring/web';
 import styled from 'styled-components';
 
+import Button from '@core/atoms/buttons/Button';
 import { SorareLogo } from '@core/atoms/icons/SorareLogo';
 import { Text16, Text18 } from '@core/atoms/typography';
 import { ContentContainer } from '@core/components/landing/NewLandingMultiSport/ui';
@@ -13,9 +14,11 @@ import {
   messages as globalMessages,
   useHeroAnimationTimings,
 } from '@core/components/landing/NewLandingMultiSport/utils';
+import { useConnectionContext } from '@core/contexts/connection';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useScreenSize from '@core/hooks/device/useScreenSize';
-import { theme } from '@core/style/theme';
+import { glossary } from '@core/lib/glossary';
+import { laptopAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
 
 import { PlayNowBanner } from './PlayNowBanner';
 import heroBackgroundVideo from './assets/heroBackgroundVideo.webm';
@@ -33,11 +36,7 @@ const messages = defineMessages({
   subtitle: {
     id: 'MultiSport.Landing.Hero.subtitle',
     defaultMessage:
-      'Sorare is a next-level fantasy sports game where you collect and compete with ownable digital player cards to win epic prizes. Win or lose, you still own your cards.',
-  },
-  scroll: {
-    id: 'MultiSport.Landing.Hero.scroll',
-    defaultMessage: 'Scroll down',
+      'Sorare is a next-level fantasy sports game where you collect and compete with ownable digital player cards to win epic prizes. No matter where you finish, you own your cards forever.',
   },
 });
 
@@ -48,10 +47,13 @@ const Ratio16by9 = styled.div`
   position: relative;
   padding-bottom: 100vh;
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
-    padding-bottom: min(
-      100vh,
-      calc(100% / (1400 / 900) - var(--navbar-height-mobile))
+  @media ${laptopAndAbove} {
+    padding-bottom: max(
+      750px,
+      min(
+        calc(100vh - var(--navbar-height-mobile)),
+        calc(100% / (1400 / 900) - var(--navbar-height-mobile))
+      )
     );
   }
 `;
@@ -66,11 +68,11 @@ const Wrapper = styled.div`
   padding-bottom: var(--double-and-a-half-unit);
   align-items: flex-end;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding-bottom: calc(var(--unit) * 5);
   }
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     padding-bottom: 0;
   }
 
@@ -134,7 +136,7 @@ const TextContent = styled(animated.div)`
   flex-direction: column;
   gap: var(--double-and-a-half-unit);
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     gap: calc(var(--unit) * 5);
   }
 `;
@@ -144,19 +146,20 @@ const Title = styled.h1`
   font-weight: 400;
   font-size: 28px;
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     font-size: 40px;
   }
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     font-size: 48px;
   }
 `;
 
 const SubTitle = styled(Text16)`
   max-width: 455px;
+  margin-bottom: var(--double-unit);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font-size: 18px;
   }
 `;
@@ -172,7 +175,7 @@ const CTAWrapper = styled.div`
   --border-size: 1px;
   border-bottom: var(--border-size) solid var(--c-neutral-700);
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     &::after {
       content: '';
       top: 0;
@@ -207,6 +210,7 @@ const ScrollDown = styled.div`
 
 export const Hero = () => {
   const { formatMessage } = useIntl();
+  const { signUp } = useConnectionContext();
   const { currentUser } = useCurrentUserContext();
   const { firstBatch, secondBatch } = useHeroAnimationTimings();
   const { up: isDesktop } = useScreenSize('desktop');
@@ -291,16 +295,19 @@ export const Hero = () => {
           <ContentContainer>
             <TextContent style={textContentAnimation}>
               <Title>{formatMessage(messages.title, { br: <br /> })}</Title>
-              <SubTitle>{formatMessage(messages.subtitle)}</SubTitle>
+              <div>
+                <SubTitle>{formatMessage(messages.subtitle)}</SubTitle>
+                <Button color="white" small onClick={signUp}>
+                  {formatMessage(glossary.playNow)}
+                </Button>
+              </div>
               {isTabletOrDesktop && !currentUser && (
                 <CTAWrapper
                   className={classNames({
                     animated: isLaptop && secondBatch,
                   })}
                 >
-                  <Text18>{formatMessage(globalMessages.ScrollDownCTA)}</Text18>
                   <ScrollDown>
-                    <Text18>{formatMessage(messages.scroll)}</Text18>
                     <animated.div
                       style={{
                         transform: bounce.y.to(y => `translateY(${y}px)`),
@@ -308,6 +315,9 @@ export const Hero = () => {
                     >
                       <FontAwesomeIcon icon={faArrowDownLong} />
                     </animated.div>
+                    <Text18>
+                      {formatMessage(globalMessages.ScrollDownCTA)}
+                    </Text18>
                   </ScrollDown>
                 </CTAWrapper>
               )}

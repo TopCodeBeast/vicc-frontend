@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 import Button from '@core/atoms/buttons/Button';
 import { glossary } from '@core/lib/glossary';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
 
 type Props = {
@@ -47,7 +48,7 @@ const Root = styled.div`
   overflow: hidden;
   opacity: 0;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     width: initial;
     min-width: 480px;
   }

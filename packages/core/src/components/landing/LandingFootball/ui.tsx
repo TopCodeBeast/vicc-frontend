@@ -1,7 +1,8 @@
 import { animated } from '@react-spring/web';
 import styled from 'styled-components';
 
-import { theme } from '@core/style/theme';
+import { drukwideSuper } from '@core/components/marketing/typography';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 export const TitlesContainer = styled(animated.div)`
   display: flex;
@@ -12,14 +13,14 @@ export const TitlesContainer = styled(animated.div)`
 export const Section = styled.div`
   padding-top: 60px;
   padding-bottom: 60px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding-top: 100px;
     padding-bottom: 100px;
   }
 `;
 
 export const MixedFontTitle = styled.h2`
-  ${theme.styledFonts.drukWideSuper}
+  ${drukwideSuper}
   font-size: 24px;
   line-height: 100%;
   text-transform: uppercase;
@@ -31,7 +32,7 @@ export const MixedFontTitle = styled.h2`
     font-family: Romie-Regular, sans-serif;
   }
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font-size: 60px;
 
     span {
@@ -46,7 +47,7 @@ export const SubTitle = styled.h3`
   font-weight: 600;
   max-width: 800px;
   margin: 0 auto;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font-size: 22px;
   }
 `;

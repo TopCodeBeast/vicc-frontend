@@ -4,9 +4,10 @@ import styled from 'styled-components';
 
 import ecusson from '@sorare/core/src/assets/user/ecusson.png';
 import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
+import ActiveUserAvatar from '@sorare/core/src/components/user/ActiveUserAvatar';
 import UserName from '@sorare/core/src/components/user/UserName';
 import { FOOTBALL_USER_GALLERY } from '@sorare/core/src/constants/routes';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import Banner from '@football/components/user/Banner';
 import ClubName from '@football/components/user/ClubName';
@@ -25,7 +26,7 @@ const Root = styled.div`
   flex-direction: column;
   gap: var(--intermediate-unit);
   padding: 0;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -40,27 +41,21 @@ const PersonalInfos = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-`;
-const ProfilePicture = styled.img`
-  background-color: var(--c-static-neutral-100);
-  border-radius: var(--unit);
-  object-fit: cover;
-  box-shadow: var(--shadow-400);
+  word-break: break-word;
 `;
 
 export const Info = ({ user }: Props) => {
-  const { profile, slug } = user;
-  const { fullPictureUrl } = profile;
+  const { slug } = user;
 
   return (
     <>
-      <Banner user={user} rounded="sm" />
+      <Banner user={user} rounded />
       <Root>
         <Infos>
-          <ProfilePicture
-            src={fullPictureUrl || ecusson}
-            width={32}
-            height={32}
+          <ActiveUserAvatar
+            user={user}
+            variant="medium"
+            placeholderUrl={ecusson}
           />
           <PersonalInfos>
             <Link to={generatePath(FOOTBALL_USER_GALLERY, { slug })}>
@@ -85,17 +80,15 @@ Info.fragments = {
   user: gql`
     fragment Info_user on PublicUserInfoInterface {
       slug
-      profile {
-        id
-        fullPictureUrl: pictureUrl
-      }
       ...ClubName_user
       ...UserName_publicUserInfoInterface
       ...Banner_user
+      ...ActiveUserAvatar_user
     }
     ${UserName.fragments.user}
     ${ClubName.fragments.user}
     ${Banner.fragments.user}
+    ${ActiveUserAvatar.fragments.user}
   `,
 };
 

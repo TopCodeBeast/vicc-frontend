@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import { fantasy } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { MissingCardsMessage } from '@football/components/unlockCompetition/MissingCardsMessage';
 import { getDraftUrl } from '@football/components/unlockCompetition/getDraftUrl';
@@ -18,13 +18,13 @@ import { LockedCompetitionAction_so5Leaderboard } from './__generated__/index.gr
 
 const Content = styled.div`
   padding: var(--double-unit);
-  border-radius: ${theme.radius.sm}px;
+  border-radius: var(--intermediate-unit);
   display: flex;
   gap: var(--unit);
   flex-direction: column;
   position: relative;
   box-shadow: 0px 3px 2px #14161b;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     align-items: center;
     & > *:first-child {

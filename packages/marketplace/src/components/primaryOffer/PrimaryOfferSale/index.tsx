@@ -7,7 +7,7 @@ import { Text20 } from '@sorare/core/src/atoms/typography';
 import { ConversionCreditTinyBanner } from '@sorare/core/src/components/conversionCredit/ConversionCreditTinyBanner';
 import { useSportContext } from '@sorare/core/src/contexts/sport';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import AuctionTimeLeft from '@marketplace/components/auction/AuctionTimeLeft';
 import PrimaryOfferBuyField from '@marketplace/components/primaryOffer/PrimaryOfferBuyField';
@@ -25,10 +25,10 @@ const Container = styled.div`
   gap: var(--double-unit);
   padding: var(--double-unit);
   border: 1px solid var(--c-neutral-300);
-  border-radius: ${theme.shape.borderRadius}px;
+  border-radius: var(--unit);
   justify-content: space-between;
   align-items: center;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-wrap: nowrap;
   }
 `;
@@ -37,7 +37,7 @@ const Actions = styled.div`
   & > * {
     width: 100%;
   }
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-grow: 0;
   }
 `;
@@ -52,7 +52,7 @@ const Column = styled.div`
   flex-direction: column;
   gap: var(--half-unit);
   width: 100%;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     width: auto;
   }
 `;

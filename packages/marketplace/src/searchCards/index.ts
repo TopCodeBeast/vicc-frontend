@@ -10,6 +10,7 @@ export {
   RefineNationality,
   RefinePlayer,
   RefineSeason,
+  RefineSingleYearSeason,
   RefineBundledSale,
   RefineCustomDeck,
   RefineRarity,

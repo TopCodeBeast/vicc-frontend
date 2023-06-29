@@ -10,7 +10,7 @@ import { GetCardsCountOfCurrentUserRule } from './__generated__/getCardsCountOfC
 
 type GetCardsCountOfCurrentUserRule_rules_cardsCountOfCurrentUser = NonNullable<
   NonNullable<
-    GetCardsCountOfCurrentUserRule['rules']
+    GetCardsCountOfCurrentUserRule['displayedRules']
   >['cardsCountOfCurrentUser']
 >;
 
@@ -58,7 +58,7 @@ const getCardsCountOfCurrentUserRule = withFragments(
     rule: gql`
       fragment GetCardsCountOfCurrentUserRule on So5Leaderboard {
         slug
-        rules {
+        displayedRules {
           id
           cardsCountOfCurrentUser {
             maximumCards

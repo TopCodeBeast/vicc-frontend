@@ -34,6 +34,7 @@ import {
   MLB_CARD_SHOW,
   MLB_COMPETITION_DETAILS,
   MLB_COMPOSE_TEAM_WILDCARD,
+  MLB_FAVORITES,
   MLB_HOME,
   MLB_LOBBY_WILDCARD,
   MLB_ONBOARDING,
@@ -50,6 +51,7 @@ import {
   NBA_CARD_SHOW,
   NBA_COMPETITION_DETAILS,
   NBA_COMPOSE_TEAM_WILDCARD,
+  NBA_FAVORITES,
   NBA_HOME,
   NBA_LOBBY_WILDCARD,
   NBA_ONBOARDING,
@@ -60,6 +62,7 @@ import {
   NBA_WILDCARD,
   TOKEN_AUCTION,
 } from '../constants/routes';
+import { catchAll } from './routing';
 
 export type InteractionContext =
   | 'competition_details'
@@ -220,6 +223,12 @@ export const getPathname = (): InteractionContext => {
   }
   if (matchPath(FOOTBALL_USER_GALLERY_CLUB_HONORS, pathname)) {
     return 'club_honors';
+  }
+  if (
+    matchPath(catchAll(MLB_FAVORITES), pathname) ||
+    matchPath(catchAll(NBA_FAVORITES), pathname)
+  ) {
+    return 'my_favorites';
   }
   return pathname;
 };

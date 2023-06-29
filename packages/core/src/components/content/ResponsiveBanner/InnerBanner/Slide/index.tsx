@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Button from '@core/atoms/buttons/Button';
 import { Text14, Text16 } from '@core/atoms/typography';
 import ContentLink from '@core/components/content/ContentLink';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { SlideProps } from '../../types';
 import { AuctionDropModal } from '../AuctionDropModal';
@@ -18,7 +18,7 @@ const StyledText14 = styled(Text14)`
   margin-bottom: var(--unit);
   opacity: 0.8;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     max-width: 50%;
   }
 `;
@@ -62,7 +62,7 @@ const Root = styled.div<{
     );
   }
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     background-position: center right;
     background-image: ${({ $bgImage }) => `url(${$bgImage})`};
   }
@@ -73,7 +73,7 @@ const TextContainer = styled.div`
 const HideMobile = styled.div`
   display: none;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: inline-flex;
   }
 `;

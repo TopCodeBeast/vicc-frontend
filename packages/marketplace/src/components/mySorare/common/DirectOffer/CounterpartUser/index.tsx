@@ -9,11 +9,13 @@ import {
 import styled from 'styled-components';
 
 import { Text16 } from '@sorare/core/src/atoms/typography';
+import ActivityIndicator from '@sorare/core/src/components/user/ActivityIndicator';
 import Avatar from '@sorare/core/src/components/user/Avatar';
 import Block from '@sorare/core/src/components/user/Block';
 import DiscordUser from '@sorare/core/src/components/user/DiscordUser';
 import { GalleryLink } from '@sorare/core/src/components/user/GalleryLink';
 import { Nickname } from '@sorare/core/src/components/user/Nickname';
+import TwitterUser from '@sorare/core/src/components/user/TwitterUser';
 import TimeLeft from '@sorare/core/src/contexts/ticker/TimeLeft';
 
 import { galleryPathFromToken } from '@marketplace/lib/galleryPathFromToken';
@@ -74,7 +76,10 @@ const DisabledStyledLink = styled.span`
   opacity: 0.5;
 `;
 
-const DiscordUserWrapper = styled.div`
+const SocialWrapper = styled.div`
+  display: flex;
+  gap: var(--double-unit);
+  flex-direction: row;
   color: var(--c-neutral-600);
   font: var(--t-14);
 `;
@@ -86,7 +91,9 @@ export const CounterpartUser = (props: Props) => {
 
   return (
     <Container>
-      <Avatar user={user} variant="medium" />
+      <ActivityIndicator user={user} enterTouchDelay={0}>
+        <Avatar user={user} variant="medium" />
+      </ActivityIndicator>
       <UserInfo>
         <UserOrigin>
           <Text16>{formatMessage(messagesPerNature[nature])}</Text16>
@@ -106,9 +113,12 @@ export const CounterpartUser = (props: Props) => {
           </GalleryLink>
           {block && <Block user={user} block={block} />}
         </UserOrigin>
-        <DiscordUserWrapper>
-          {profile && <DiscordUser userProfile={profile} />}
-        </DiscordUserWrapper>
+        {profile && (
+          <SocialWrapper>
+            <DiscordUser userProfile={profile} />
+            <TwitterUser userProfile={profile} />
+          </SocialWrapper>
+        )}
       </UserInfo>
       {offer?.status &&
         ['minted', 'opened', 'pending_rejection'].includes(offer?.status) && (
@@ -131,15 +141,19 @@ CounterpartUser.fragments = {
     fragment CounterpartUser_publicUserInfoInterface on PublicUserInfoInterface {
       slug
       ...Avatar_publicUserInfoInterface
+      ...ActivityIndicator_user
       ...BlockButton_publicUserInfoInterface
       nickname
       profile {
         id
         ...DiscordUser_userProfile
+        ...TwitterUser_userProfile
       }
     }
     ${Avatar.fragments.publicUserInfoInterface}
+    ${ActivityIndicator.fragments.user}
     ${DiscordUser.fragments.userProfile}
+    ${TwitterUser.fragments.userProfile}
     ${Block.fragments.user}
   `,
   tokenOffer: gql`

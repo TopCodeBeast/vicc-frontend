@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Button from '@core/atoms/buttons/Button';
 import { sportsLabelsMessages } from '@core/lib/glossary';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
 
 import {
@@ -35,7 +36,7 @@ const Body = styled.div`
     flex: none;
   }
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     &:before,
     &:after {
       width: 0;
@@ -52,7 +53,7 @@ const MobileNavigation = styled.nav`
   gap: var(--unit);
   align-self: flex-start;
   margin: 0 0 var(--double-unit) var(--unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: none;
   }
 `;

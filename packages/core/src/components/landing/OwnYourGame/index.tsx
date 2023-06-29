@@ -7,11 +7,13 @@ import styled from 'styled-components';
 import { Sport } from '__generated__/globalTypes';
 import { BackgroundAnimation } from '@core/atoms/animations/Background';
 import Container from '@core/atoms/layout/Container';
+import { drukwideSuper } from '@core/components/marketing/typography';
 import { useDefaultSportPages } from '@core/constants/routes';
 import { useConfigContext } from '@core/contexts/config';
 import { useConnectionContext } from '@core/contexts/connection';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import MultiSportAppBar from '@core/routing/MultiSportAppBar';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
 
 import PlayNowButton from '../PlayNowButton';
@@ -61,7 +63,7 @@ const Wrapper = styled.div`
   position: relative;
   z-index: 1;
   padding: var(--double-unit) var(--unit) calc(3 * var(--unit));
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     justify-content: center;
     padding-left: 0;
     padding-right: 0;
@@ -70,7 +72,7 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled(animated.h1)`
-  ${theme.styledFonts.drukWideSuper}
+  ${drukwideSuper}
   text-transform: uppercase;
   line-height: 100%;
   letter-spacing: normal;
@@ -100,7 +102,7 @@ const Ctas = styled.div`
 
   && {
     margin-top: var(--unit);
-    @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    @media ${tabletAndAbove} {
       margin-top: var(--double-unit);
     }
   }
@@ -109,7 +111,7 @@ const Ctas = styled.div`
 const Box = styled.div`
   max-width: ${theme.breakpoints.values.mobile}px;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     max-width: calc(${theme.breakpoints.values.tablet}px - 100px);
   }
 `;

@@ -1,27 +1,28 @@
 import styled from 'styled-components';
 
+import { drukwideSuper } from '@core/components/marketing/typography';
 import { useIntlContext } from '@core/contexts/intl';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: inital;
   padding: calc(7 * var(--unit)) var(--unit);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding-left: 0;
     padding-right: 0;
   }
 `;
 
 const TitleItem = styled.div`
-  ${theme.styledFonts.drukWideSuper}
+  ${drukwideSuper}
   font-size: 40px;
   line-height: 100%;
   text-transform: uppercase;
   word-break: break-word;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font-size: 80px;
   }
 `;

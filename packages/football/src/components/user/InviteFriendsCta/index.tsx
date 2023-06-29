@@ -11,7 +11,7 @@ import {
   socialShareEventName,
 } from '@sorare/core/src/lib/events';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 const messages = defineMessages({
   share: {
@@ -32,7 +32,7 @@ const Root = styled.div`
   background-color: var(--c-neutral-300);
   border: 1px solid var(--c-neutral-400);
   border-radius: 2em;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -49,7 +49,7 @@ const Copy = styled.div`
   padding: 0 var(--unit);
   flex-direction: row;
   overflow: hidden;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding: 0;
   }
 `;
@@ -59,7 +59,7 @@ const ReferralLinkAddress = styled.span`
   text-overflow: ellipsis;
   white-space: nowrap;
   color: var(--c-neutral-1000);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     padding: 0 var(--double-unit);
   }

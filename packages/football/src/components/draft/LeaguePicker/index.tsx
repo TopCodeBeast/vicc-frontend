@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { CommonDraftCampaignStatus } from '@sorare/core/src/__generated__/globalTypes';
-import { theme } from '@sorare/core/src/style/theme';
 
 import { LeagueRow } from '@football/components/draft/LeagueRow';
 
@@ -11,7 +10,7 @@ import { LeaguePicker_onboardingCompetition } from './__generated__/index.graphq
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   overflow: hidden;
 `;
 

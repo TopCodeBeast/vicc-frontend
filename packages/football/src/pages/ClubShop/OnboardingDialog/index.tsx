@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Text14, Title3 } from '@sorare/core/src/atoms/typography';
 import Bold from '@sorare/core/src/atoms/typography/Bold';
 import DialogOnboarding from '@sorare/core/src/components/onboarding/Dialog';
-import { theme } from '@sorare/core/src/style/theme';
+import { mobileAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import step1 from './assets/step1.png';
 import step2 from './assets/step2.png';
@@ -19,7 +19,7 @@ const Root = styled.div`
 `;
 const StepImage = styled.img`
   width: 100px;
-  @media (min-width: ${theme.breakpoints.values.mobile}px) {
+  @media ${mobileAndAbove} {
     width: 200px;
   }
 `;

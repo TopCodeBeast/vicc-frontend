@@ -1,7 +1,7 @@
 import { usePagination } from 'react-instantsearch-hooks-web';
 import styled from 'styled-components';
 
-import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
+import ButtonGroup from '@sorare/core/src/atoms/buttons/ButtonGroup';
 import { StackedCards } from '@sorare/core/src/atoms/icons/StackedCards';
 import useVirtualToggle from '@sorare/core/src/hooks/useVirtualToggle';
 import { useVirtualToggleManager } from '@sorare/core/src/hooks/useVirtualToggleManager';
@@ -31,19 +31,19 @@ const StackedSwitch = () => {
   };
 
   const { refine: setPage } = usePagination();
-
+  const toggle = (unstack: boolean) => {
+    setPage(0);
+    setVirtualToggle({ [FILTER.name]: !unstacked });
+    trackSwitch(!unstack);
+  };
   return (
-    <IconButton
-      small
-      color="white"
-      onClick={() => {
-        setPage(0);
-        setVirtualToggle({ [FILTER.name]: !unstacked });
-        trackSwitch(!unstacked);
-      }}
+    <ButtonGroup
+      defaultValue={unstacked ? 1 : 0}
+      onChange={index => toggle(index === 1)}
     >
-      {unstacked ? <StackedCards /> : <CardSymbol />}
-    </IconButton>
+      <StackedCards />
+      <CardSymbol />
+    </ButtonGroup>
   );
 };
 

@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { css } from 'styled-components';
 
 import DialogContentWithNavigation from '@core/atoms/layout/DialogContentWithNavigation';
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 import { OverrideClasses } from '@core/style/utils';
 
 interface Props extends DrawerProps {
@@ -25,7 +25,7 @@ const [Drawer, classes] = OverrideClasses(MuiDrawer, null, {
       background-color: var(--c-neutral-200);
       color: var(--c-neutral-1000);
     }
-    @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    @media ${tabletAndAbove} {
       width: 370px;
     }
   `,

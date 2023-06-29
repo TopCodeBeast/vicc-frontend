@@ -12,6 +12,7 @@ import { SorareLogo } from '@core/atoms/icons/SorareLogo';
 import { LinkOther } from '@core/atoms/navigation/Box';
 import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
 import { useHeroAnimationTimings } from '@core/components/landing/NewLandingMultiSport/utils';
+import ResponsiveSearchBar from '@core/components/search/ResponsiveSearchBar';
 import { FOOTBALL_PATH, LANDING, MLB_PATH, NBA_PATH } from '@core/constants/routes';
 import { useConnectionContext } from '@core/contexts/connection';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
@@ -19,7 +20,7 @@ import { useIntlContext } from '@core/contexts/intl';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 import useEvents from '@core/lib/events/useEvents';
 import { glossary, sportsLabelsMessages } from '@core/lib/glossary';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
 
 export const Container = styled.div`
   z-index: 2;
@@ -65,11 +66,12 @@ const SportsLinks = styled.div`
 const Actions = styled.div`
   display: flex;
   gap: var(--unit);
+  align-items: center;
 `;
 
 const ResponsiveSorareLogo = styled(SorareLogo)`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: block;
   }
 `;
@@ -105,7 +107,7 @@ const SportButton = styled.a`
     width: var(--logo-width);
   }
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     padding: var(--half-unit) var(--unit) var(--half-unit) var(--double-unit);
 
     & > img {
@@ -144,7 +146,7 @@ const MobileSportsBanner = styled.div`
   transition: all 0.5s ease-in-out;
   opacity: 0;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     justify-content: center;
     gap: calc(var(--unit) * 7);
   }
@@ -256,6 +258,7 @@ const LoggedOutAppBar = () => {
             )}
           </SportsLinks>
           <Actions>
+            <ResponsiveSearchBar />
             <AnimatedButton
               small
               color={secondBatch ? 'blue' : 'transparent'}

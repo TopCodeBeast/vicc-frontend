@@ -5,13 +5,13 @@ import styled from 'styled-components';
 
 import { Text16, Text18 } from '@sorare/core/src/atoms/typography';
 import { Chip } from '@sorare/core/src/atoms/ui/Chip';
-import Avatar from '@sorare/core/src/components/user/Avatar';
+import ActiveUserAvatar from '@sorare/core/src/components/user/ActiveUserAvatar';
 import { Nickname } from '@sorare/core/src/components/user/Nickname';
 import { fantasy, glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import defaultBanner from 'assets/club/banner_none.jpg';
-import ClubShield from '@sorare/football/src/components/user/ClubShield';
+import ClubShield from '@football/components/user/ClubShield';
 
 import { Row_so5Ranking } from './__generated__/index.graphql';
 
@@ -70,7 +70,7 @@ const Root = styled.button`
     }
   }
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding: var(--double-unit);
   }
 `;
@@ -117,7 +117,7 @@ const Row = ({ manager, highlight, onClick }: Props) => {
     >
       <Rank bold>{isCancelled ? '-' : ranking}</Rank>
       <AvatarContainer>
-        <Avatar variant="medium" user={user} />
+        <ActiveUserAvatar user={user} variant="medium" />
       </AvatarContainer>
       <Name bold>
         <Nickname user={user} />
@@ -156,7 +156,7 @@ Row.fragments = {
         user {
           id
           slug
-          ...Avatar_publicUserInfoInterface
+          ...ActiveUserAvatar_user
           profile {
             id
             clubName
@@ -169,7 +169,7 @@ Row.fragments = {
         }
       }
     }
-    ${Avatar.fragments.publicUserInfoInterface}
+    ${ActiveUserAvatar.fragments.user}
     ${ClubShield.fragments.userProfile}
   `,
 };

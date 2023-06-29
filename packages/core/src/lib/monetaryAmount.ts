@@ -10,6 +10,9 @@ const ETH_PRECISION = 4;
 const currencies = ['eur', 'usd', 'gbp', 'wei'] as const;
 export type MonetaryAmountCurrency = (typeof currencies)[number];
 
+const fiatCurrencies = ['eur', 'usd', 'gbp'] as const;
+export type MonetaryAmountFiatCurrency = (typeof fiatCurrencies)[number];
+
 type Rates = {
   eur: number;
   usd: number;
@@ -28,6 +31,12 @@ export const getMonetaryAmountIndex = (
   currency: SupportedCurrency | FiatCurrency | CurrencyCode
 ) => {
   return currency.toLowerCase() as MonetaryAmountCurrency;
+};
+
+export const getFiatMonetaryAmountIndex = (
+  currency: FiatCurrency | CurrencyCode
+) => {
+  return currency.toLowerCase() as MonetaryAmountFiatCurrency;
 };
 
 class MonetaryAmount {
@@ -87,18 +96,9 @@ class MonetaryAmount {
   constructor(params: MonetaryAmountParams) {
     this.referenceCurrency =
       params.referenceCurrency.toLowerCase() as MonetaryAmountCurrency;
-    this.eur =
-      params.eur !== null && params.eur !== undefined
-        ? new BigNumber(params.eur)
-        : null;
-    this.usd =
-      params.usd !== null && params.usd !== undefined
-        ? new BigNumber(params.usd)
-        : null;
-    this.gbp =
-      params.gbp !== null && params.gbp !== undefined
-        ? new BigNumber(params.gbp)
-        : null;
+    this.eur = params.eur != null ? new BigNumber(params.eur) : null;
+    this.usd = params.usd != null ? new BigNumber(params.usd) : null;
+    this.gbp = params.gbp != null ? new BigNumber(params.gbp) : null;
     this.wei = !params.wei ? null : new BigNumber(params.wei);
 
     if (!this.referenceValue) {

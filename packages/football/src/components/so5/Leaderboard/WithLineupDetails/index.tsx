@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client';
 import { useState } from 'react';
 
-import Row from '@sorare/football/src/components/so5/Leaderboard/Row';
-import { Leaderboard } from '@sorare/football/src/components/so5/Leaderboard/index';
-import So5LineupDetails from '@sorare/football/src/components/so5/So5LineupDetails';
+import Row from '@football/components/so5/Leaderboard/Row';
+import { Leaderboard } from '@football/components/so5/Leaderboard/index';
+import So5LineupDetails from '@football/components/so5/So5LineupDetails';
 
 import { Leaderboard_so5Rankings } from './__generated__/index.graphql';
 

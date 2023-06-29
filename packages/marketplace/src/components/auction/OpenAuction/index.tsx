@@ -7,6 +7,7 @@ import { MonetaryAmount } from '@sorare/core/src/__generated__/globalTypes';
 import Block from '@sorare/core/src/atoms/layout/Block';
 import ButtonWithConfirmDialog from '@sorare/core/src/components/form/ButtonWithConfirmDialog';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 import { theme } from '@sorare/core/src/style/theme';
 
 import BidInfos from '@marketplace/components/auction/BidInfos';
@@ -22,7 +23,7 @@ const Root = styled(Block)`
   flex-direction: column;
   gap: var(--double-unit);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;

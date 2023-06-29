@@ -11,7 +11,6 @@ import { useConfigContext } from '@sorare/core/src/contexts/config';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
 import { roundCeilFloat, toWei } from '@sorare/core/src/lib/wei';
-import { theme } from '@sorare/core/src/style/theme';
 
 import FeesDetailsTooltip from '@marketplace/components/offer/FeesDetailsTooltip';
 import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
@@ -25,7 +24,7 @@ import { CardDataType, StateProps } from '../../types';
 
 const InputContainer = styled(Block)<{ $disabled: boolean }>`
   padding: var(--double-unit);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   ${props =>
     props.$disabled &&
     `background-color: var(--c-neutral-300);

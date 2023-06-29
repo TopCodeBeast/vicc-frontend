@@ -7,6 +7,7 @@ import { Button } from '@core/atoms/buttons/Button';
 import { Text18 } from '@core/atoms/typography';
 import { ContentContainer } from '@core/components/landing/NewLandingMultiSport/ui';
 import useEvents from '@core/lib/events/useEvents';
+import { laptopAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
 
 import { MarketPlaceDialog } from './MarketPlaceDialog';
@@ -24,12 +25,12 @@ const messages = defineMessages({
   },
   createTitle: {
     id: 'Landing.Experience.createTitle',
-    defaultMessage: 'Create your dream team',
+    defaultMessage: 'Build Your Dream Team',
   },
   createText: {
     id: 'Landing.Experience.createText',
     defaultMessage:
-      "Collect, buy, sell, and trade digital player cards to build your squad and compete for prizes based on your players' real-life performance. Sorare's skill-based game rewards your sports knowledge and lineup strategy.",
+      "Create your fantasy roster by scouting and collecting digital player cards. Set your starting lineup and play in twice-weekly competitions for prizes based on your players' real-life performance.{br}{br}Sorare’s skill-based game rewards your sports knowledge and lineup strategy.",
   },
   strengthenTitle: {
     id: 'Landing.Experience.strengthenTitle',
@@ -38,7 +39,7 @@ const messages = defineMessages({
   strengthenText: {
     id: 'Landing.Experience.strengthenText',
     defaultMessage:
-      "Scout players and use Sorare's Marketplace to buy, sell, or trade for their digital cards. Keep improving your team, week over week and season over season.",
+      "Buy, sell, and trade digital player cards on Sorare's live Marketplace - which features thousands of players - week over week and season over season. Improve your lineups by adding top performers for an immediate roster boost, or next-generation stars for long-term production.",
   },
   strengthenCTA: {
     id: 'Landing.Experience.strengthenCTA',
@@ -51,7 +52,7 @@ const messages = defineMessages({
   competeText: {
     id: 'Landing.Experience.competeText',
     defaultMessage:
-      "Learn the game in our beginner competitions and level up. As you progress and climb leaderboards, you'll collect higher-level player cards to compete in advanced contests with bigger prizes. All competitions are free to play.",
+      "Learn the game in our beginner competitions and level up. As you progress and climb leaderboards, you'll collect higher-level player cards to compete in advanced contests with bigger prizes. Sorare competitions are free to play.",
   },
   winRewardsTitle: {
     id: 'Landing.Experience.winRewardsTitle',
@@ -60,13 +61,13 @@ const messages = defineMessages({
   winRewardsText: {
     id: 'Landing.Experience.winRewardsText',
     defaultMessage:
-      "Finish at the top of Sorare leaderboards and you'll win prizes such as ETH, match tickets, merchandise, and access to players and VIP experiences.{br}{br}Winners of top competitions receive once-in-a-lifetime rewards.",
+      'Compete for prizes such as ETH, Sorare player cards, game tickets, gear, apparel, and access to players and VIP experiences.{br}{br}Winners of top competitions receive once-in-a-lifetime rewards.',
   },
 });
 
 const Wrapper = styled(ContentContainer)`
   margin-top: calc(var(--unit) * 5);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     margin-top: calc(var(--unit) * 14);
   }
 `;
@@ -79,11 +80,11 @@ const Title = styled.h2`
   line-height: 1;
   margin-bottom: calc(var(--unit) * 7);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font-size: 40px;
     margin-bottom: calc(var(--unit) * 14);
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     font-size: 56px;
   }
 `;
@@ -92,11 +93,11 @@ const BlockList = styled.div`
   display: grid;
   gap: calc(var(--unit) * 7);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     gap: calc(var(--unit) * 10);
   }
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     gap: 0;
   }
 `;
@@ -105,7 +106,7 @@ const BlockWrapper = styled.div`
   display: grid;
   border: 1px solid var(--c-static-neutral-800);
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     grid-template-columns: 1fr 3fr;
     grid-template-areas: 'text image';
     gap: calc(var(--unit) * 5);
@@ -120,7 +121,7 @@ const BlockWrapper = styled.div`
 const BlockContent = styled.div`
   padding: var(--triple-unit) var(--double-and-a-half-unit);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: grid;
     gap: calc(var(--unit) * 5);
     grid-template-columns: 1fr 2fr;
@@ -128,7 +129,7 @@ const BlockContent = styled.div`
     padding: var(--quadruple-unit) var(--double-and-a-half-unit);
   }
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: flex;
     grid-area: text;
     gap: var(--double-unit);
@@ -144,7 +145,7 @@ const BlockNumber = styled(Text18)`
   line-height: 1.5;
   align-items: center;
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     font-size: 18px;
   }
 `;
@@ -163,12 +164,12 @@ const BlockTitle = styled.h3`
   text-transform: uppercase;
   margin-top: var(--double-and-a-half-unit);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font-size: 24px;
     margin-top: var(--unit);
   }
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     margin-top: var(--double-unit);
   }
 `;
@@ -178,7 +179,7 @@ const BlockText = styled(Text18)`
   line-height: 1.5;
   margin-top: var(--unit);
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     font-size: 18px;
   }
 `;
@@ -187,7 +188,7 @@ const Picture = styled.picture`
   grid-row: 1;
   position: relative;
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     grid-row: auto;
     grid-area: image;
   }
@@ -199,11 +200,11 @@ const Image = styled.img`
   object-fit: cover;
   align-self: center;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     aspect-ratio: 1.7;
   }
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     grid-row: auto;
     border-radius: var(--double-unit);
   }
@@ -216,11 +217,11 @@ const Video = styled.video`
   align-self: center;
   grid-row: 1;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     aspect-ratio: initial;
   }
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     grid-row: auto;
     grid-area: image;
     border-radius: var(--double-unit);

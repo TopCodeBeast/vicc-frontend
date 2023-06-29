@@ -18,7 +18,7 @@ export default (theme: any) => {
       borderColor: 'transparent',
     },
     boxShadow: 'none',
-    borderRadius: theme.shape.borderRadius,
+    borderRadius: 'var(--unit)',
     backgroundColor,
     minHeight: 'auto',
     cursor: 'pointer',
@@ -53,41 +53,14 @@ export default (theme: any) => {
     maxWidth: 'initial',
   });
 
-  const defaultMultiValue = (base: any) => ({
-    ...base,
-    backgroundColor: theme.palette.primary,
-    maxWidth: 60,
-    [theme.breakpoints.up('laptop')]: {
-      maxWidth: 120,
-    },
-    marginLeft: 2,
-    borderRadius: 10,
-    color,
-    paddingRight: 0,
-  });
-
-  const defaultMultiValueRemove = (base: any) => ({
-    ...base,
-    ':hover': {
-      backgroundColor: 'var(--c-neutral-200)',
-    },
-    borderRadius: 10,
-  });
-
-  const defaultMultiValueLabel = (base: any) => ({
-    ...base,
-    color: 'var(--c-neutral-100)',
-    textTransform: 'uppercase',
-  });
-
   const defaultOption = (base: any) => ({
     ...base,
-    ...theme.fonts.sorareRegular,
+    fontFamily: 'var(--sorareFont)',
     fontSize: 14,
     color: 'var(--c-neutral-1000)',
     textAlign: 'left',
     cursor: 'pointer',
-    padding: theme.spacing(0, 1, 0, 2),
+    padding: '0 var(--unit) 0 var(--double-unit)',
     backgroundColor: 'var(--c-neutral-100)',
     '&:hover': {
       backgroundColor: 'var(--c-neutral-200)',
@@ -137,10 +110,9 @@ export default (theme: any) => {
     const transform = menuIsOpen ? 'rotate(-180deg)' : 'none';
     return {
       ...base,
-      color: theme.palette.primary.main,
-      marginRight: theme.spacing(1),
+      marginRight: 'var(--unit)',
       [theme.breakpoints.up('sm')]: {
-        marginRight: theme.spacing(2),
+        marginRight: 'var(--double-unit)',
       },
       padding: 0,
       transition: 'transform 0.25s ease-out',
@@ -155,9 +127,6 @@ export default (theme: any) => {
     input: defaultInput,
     valueContainer: defaultValueContainer,
     singleValue: defaultSingleValue,
-    multiValue: defaultMultiValue,
-    multiValueRemove: defaultMultiValueRemove,
-    multiValueLabel: defaultMultiValueLabel,
     option: defaultOption,
     clearIndicator: defaultClearIndicator,
     placeholder: defaultPlaceholder,
@@ -172,14 +141,15 @@ export default (theme: any) => {
     container: (base: any) => ({
       ...defaultContainer(base),
       border: `2px solid var(--c-neutral-300)`,
-      borderRadius: theme?.radius?.chip,
+      borderRadius: 'var(--quadruple-unit)',
       '.dark-theme &': {
         border: `2px solid var(--c-neutral-400)`,
       },
     }),
     control: (base: any) => ({
       ...defaultControl(base),
-      padding: theme.spacing(0.75, 1, 0.75, 1.5),
+      padding:
+        'var(--unit) var(--intermediate-unit) var(--unit) var(--double-unit)',
     }),
     dropdownIndicator: (base: any, state: any) => ({
       ...defaultDropdownIndicator(base, state),
@@ -189,19 +159,19 @@ export default (theme: any) => {
         color: 'var(--c-neutral-600)',
       },
       [theme.breakpoints.up('sm')]: {
-        marginRight: theme.spacing(0.5),
+        marginRight: 'var(--half-unit)',
       },
     }),
     menu: (base: any) => ({
       ...defaultMenu(base),
-      borderRadius: theme.radius?.md,
+      borderRadius: 'var(--double-unit)',
       border: 'none',
       boxShadow: '0px 10px 40px rgba(0, 0, 0, 0.2)',
       backgroundColor: 'var(--c-neutral-200)',
     }),
     menuList: (base: any) => ({
       ...defaultMenuList(base),
-      padding: theme.spacing(1),
+      padding: 'var(--unit)',
     }),
     option: (base: any, state: any) => {
       let bgColorOption = 'var(--c-neutral-200)';
@@ -216,7 +186,7 @@ export default (theme: any) => {
         position: 'relative',
         color: 'var(--c-neutral-1000)',
         backgroundColor: bgColorOption,
-        borderRadius: state.isSelected || state.isFocused ? theme.radius.xs : 0,
+        borderRadius: state.isSelected || state.isFocused ? 'var(--unit)' : 0,
         cursor: 'pointer',
         minWidth: 200,
         borderTop: `1px solid transparent`,

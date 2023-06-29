@@ -12,7 +12,6 @@ import {
 import UserName from '@sorare/core/src/components/user/UserName';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { isA } from '@sorare/core/src/lib/gql';
-import { MonetaryAmountCurrency } from '@sorare/core/src/lib/monetaryAmount';
 
 import { Bid_tokenBid } from './__generated__/index.graphql';
 
@@ -51,7 +50,6 @@ const Bid = ({
   bid: { amounts, createdAt, bidder },
   displayAbsoluteDate,
 }: Props) => {
-  const { referenceCurrency } = amounts;
   const { formatDate, formatDistanceToNow } = useIntlContext();
   const galleryLinkPath = useCurrentSportGallery();
 
@@ -80,13 +78,7 @@ const Bid = ({
           </Caption>
         </div>
       </Content>
-      <AmountWithConversion
-        monetaryAmount={{
-          referenceCurrency,
-          [referenceCurrency.toLowerCase()]:
-            amounts[referenceCurrency.toLowerCase() as MonetaryAmountCurrency],
-        }}
-      />
+      <AmountWithConversion monetaryAmount={amounts} />
     </Root>
   );
 };

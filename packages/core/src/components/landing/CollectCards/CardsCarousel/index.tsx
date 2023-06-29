@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Waypoint from '@core/atoms/animations/Waypoint';
 import Carousel from '@core/atoms/layout/Carousel';
+import { desktopAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
 
 interface Img {
@@ -16,7 +17,7 @@ const CarouselContainer = styled.div`
   --factor2: 1.2;
   --cardWidth: 140px;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     --cardWidth: 200px;
   }
 
@@ -30,7 +31,7 @@ const Img = styled(animated.img)`
   aspect-ratio: var(--card-aspect-ratio);
   min-width: 0;
   width: 140px;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     width: 200px;
   }
 `;
@@ -48,7 +49,7 @@ const StyledCarousel = styled(Carousel)`
   }
 
   .slick-track {
-    @media (min-width: ${theme.breakpoints.values.desktop}px) {
+    @media ${desktopAndAbove} {
       display: flex;
       justify-content: center;
     }

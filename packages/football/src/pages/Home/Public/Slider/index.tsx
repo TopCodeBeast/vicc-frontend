@@ -4,7 +4,7 @@ import { animated, useTransition } from '@react-spring/web';
 import styled from 'styled-components';
 
 import { Container } from '@sorare/core/src/atoms/container';
-import { theme } from '@sorare/core/src/style/theme';
+import { drukwideSuper } from '@sorare/core/src/components/marketing/typography';
 
 const Root = styled.section`
   position: relative;
@@ -51,7 +51,7 @@ const Title = styled(animated.h1)`
   font-family: Romie-Regular, serif;
   strong {
     display: block;
-    ${theme.styledFonts.drukWideSuper};
+    ${drukwideSuper};
   }
 `;
 const Picture = styled(animated.picture)`

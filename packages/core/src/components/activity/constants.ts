@@ -9,6 +9,14 @@ export const messages = defineMessages({
     id: 'Notifications.cardAttached',
     defaultMessage: 'New Card in Collection',
   },
+  shieldRewarded: {
+    id: 'Notifications.shieldRewarded',
+    defaultMessage: 'Club badge unlocked',
+  },
+  shieldDeprived: {
+    id: 'Notifications.shieldDeprived',
+    defaultMessage: 'Club badge lost',
+  },
   cardBought: {
     id: 'Notifications.cardBought',
     defaultMessage: 'Cards bought',
@@ -49,10 +57,6 @@ export const messages = defineMessages({
     id: 'Notifications.cardsNotSold',
     defaultMessage: 'Cards not sold',
   },
-  challengeCompleted: {
-    id: 'Notifications.challengeCompleted',
-    defaultMessage: 'Challenge completed',
-  },
   referralRewards: {
     id: 'Notifications.referralRewards',
     defaultMessage: 'Referral rewards',
@@ -65,6 +69,8 @@ export const messages = defineMessages({
 
 const notificationCategories = [
   'card_attached',
+  'shield_rewarded',
+  'shield_deprived',
   'card_bought',
   'card_not_sold',
   'card_sold',
@@ -78,7 +84,6 @@ const notificationCategories = [
   'offer_rejected',
   'offer_cancelled',
   'offer_countered',
-  'completed',
   'referee_reward_ready_to_claim',
   'referrer_reward_ready_to_claim',
   'so5_lineup_cancelled',
@@ -91,6 +96,8 @@ export const notificationCategoryTypes: {
   [category in NotificationCategory]: string;
 } = {
   card_attached: 'CardCollectionNotification',
+  shield_rewarded: 'CardCollectionNotification',
+  shield_deprived: 'CardCollectionNotification',
   card_bought: 'AuctionNotification',
   card_not_sold: 'SaleNotification',
   card_sold: 'SaleNotification',
@@ -104,7 +111,6 @@ export const notificationCategoryTypes: {
   offer_rejected: 'OfferNotification',
   offer_cancelled: 'OfferNotification',
   offer_countered: 'OfferNotification',
-  completed: 'ChallengeNotification',
   referee_reward_ready_to_claim: 'ReferralRewardNotification',
   referrer_reward_ready_to_claim: 'ReferralRewardNotification',
   so5_lineup_cancelled: 'So5LineupNotification',
@@ -125,8 +131,9 @@ export const notificationGroups: {
   offerCancelled: ['offer_cancelled'],
   offerCountered: ['offer_countered'],
   cardAttached: ['card_attached'],
+  shieldRewarded: ['shield_rewarded'],
+  shieldDeprived: ['shield_deprived'],
   cardWithdrawals: ['card_withdrawal_started', 'card_withdrawn'],
-  challengeCompleted: ['completed'],
   referralRewards: [
     'referee_reward_ready_to_claim',
     'referrer_reward_ready_to_claim',

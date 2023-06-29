@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { animated, config, useSpring } from '@react-spring/web';
 import styled from 'styled-components';
@@ -12,17 +12,15 @@ import { useConnectionContext } from '@core/contexts/connection';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 import useIsVisibleInViewport from '@core/hooks/useIsVisibleInViewport';
 import useEvents from '@core/lib/events/useEvents';
-import { theme } from '@core/style/theme';
+import { laptopAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
 import { hideScrollbar } from '@core/style/utils';
 
 import 'style/drukFontFaces.css';
 
 import { ContentContainer } from '../ui';
-import {
-  BaseballPastWinners,
-  FootballPastWinners,
-  NBAPastWinners,
-} from './PastWinners';
+import { BaseballPastWinner } from './BaseballPastWinner';
+import { FootballPastWinner } from './FootballPastWinner';
+import { NBAPastWinner } from './NBAPastWinner';
 
 const messages = defineMessages({
   title: {
@@ -48,7 +46,7 @@ const messages = defineMessages({
 });
 
 const Content = styled.div`
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     padding: 0 var(--double-and-a-half-unit);
   }
 `;
@@ -60,12 +58,12 @@ const TitleWrapper = styled.div`
   margin-top: calc(var(--unit) * 8);
   flex-direction: row-reverse;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     margin-top: calc(var(--unit) * 15);
   }
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     gap: var(--unit);
   }
 `;
@@ -79,7 +77,7 @@ const Title = styled.h2`
   font-family: 'Druk Wide';
   text-transform: uppercase;
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     font-size: 28px;
   }
 `;
@@ -95,11 +93,11 @@ const SectionHeader = styled.div`
     margin-top: var(--double-unit);
   }
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding-inline: var(--double-and-a-half-unit);
   }
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     justify-content: flex-start;
   }
 `;
@@ -107,7 +105,7 @@ const SectionHeader = styled.div`
 const SectionText = styled(Text18)`
   white-space: nowrap;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font-size: 24px;
   }
 `;
@@ -120,13 +118,12 @@ const Line = styled.div`
 
 const Druk = styled.div`
   line-height: 1;
-  font-family: 'Druk Wide';
-`;
-
-const Measure = styled.div`
-  position: absolute;
-  visibility: hidden;
-  pointer-events: none;
+  font-weight: 900;
+  font-family: Druk Wide;
+  color: var(--c-static-neutral-100);
+  &:not(.active) {
+    font-family: verdana;
+  }
 `;
 
 const WinnersList = styled(ContentContainer)`
@@ -134,7 +131,7 @@ const WinnersList = styled(ContentContainer)`
   margin-top: var(--double-and-a-half-unit);
   gap: var(--double-and-a-half-unit);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     ${hideScrollbar}
     overflow: auto;
     grid-auto-flow: column;
@@ -149,29 +146,24 @@ const CTAWrapper = styled.div`
   justify-content: center;
   margin: var(--double-and-a-half-unit) 0;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     margin: calc(var(--unit) * 7) 0;
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     margin: var(--double-and-a-half-unit) 0;
   }
 `;
 
-const useAutoLayout = (ready: boolean) => {
-  const [fontSize, setFontSize] = useState(0);
-  const ref = useRef<HTMLDivElement | null>(null);
-  useLayoutEffect(() => {
-    if (ref.current && ready) {
-      const maxWidth = Math.min(ref.current.offsetWidth, 1320);
-
-      setFontSize(
-        maxWidth /
-          (Array.from(ref.current.children)[0] as HTMLDivElement).offsetWidth
-      );
-    }
-  }, [ready]);
-  return { ref, fontSize };
-};
+function getTextWidth(text: string, font?: string) {
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+  if (context) {
+    context.font = `900 16px ${font || 'Druk Wide'}`;
+    const metrics = context.measureText(text);
+    return metrics.width;
+  }
+  return 0;
+}
 
 export const CommunityBlock = () => {
   const track = useEvents();
@@ -185,9 +177,19 @@ export const CommunityBlock = () => {
       timeout: 1000,
     }
   );
-  const { ref: userNbRef, fontSize } = useAutoLayout(
-    fontStatus !== 'initial' && !!counts.usersCount
+  const userNbRef = useRef<HTMLDivElement | null>(null);
+  const numberFormat = isDesktop
+    ? undefined
+    : {
+        notation: 'compact' as const,
+        compactDisplay: 'short' as const,
+        maximumFractionDigits: 1,
+      };
+  const viewPortSize = getTextWidth(
+    `${formatNumber(counts.usersCount, numberFormat)}`,
+    fontStatus !== 'active' ? 'verdana' : undefined
   );
+
   const isVisible = useIsVisibleInViewport({ element: userNbRef });
   const { number } = useSpring({
     number: counts.usersCount,
@@ -210,35 +212,12 @@ export const CommunityBlock = () => {
         </SectionHeader>
         <div>
           {counts.usersCount && (
-            <Druk ref={userNbRef}>
-              <Measure>
-                {formatNumber(counts.usersCount, {
-                  ...(isDesktop
-                    ? {}
-                    : {
-                        notation: 'compact',
-                        compactDisplay: 'short',
-                        maximumFractionDigits: 1,
-                      }),
-                })}
-              </Measure>
-              <animated.span
-                style={{
-                  fontSize: `${fontSize}em`,
-                }}
-              >
-                {number.to(n =>
-                  formatNumber(Math.floor(n), {
-                    ...(isDesktop
-                      ? {}
-                      : {
-                          notation: 'compact',
-                          compactDisplay: 'short',
-                          maximumFractionDigits: 1,
-                        }),
-                  })
-                )}
-              </animated.span>
+            <Druk ref={userNbRef} className={fontStatus}>
+              <svg viewBox={`0 0 ${viewPortSize} 16`}>
+                <animated.text x="0" y="14" fill="currentColor">
+                  {number.to(n => formatNumber(Math.floor(n), numberFormat))}
+                </animated.text>
+              </svg>
             </Druk>
           )}
         </div>
@@ -248,9 +227,9 @@ export const CommunityBlock = () => {
         </SectionHeader>
       </ContentContainer>
       <WinnersList>
-        <BaseballPastWinners leaderboardSlug="rare-all-star" />
-        <FootballPastWinners leaderboardSlug="global-cap-division" />
-        <NBAPastWinners leaderboardSlug="limited-contender" />
+        <FootballPastWinner leaderboardSlug="global-cap-division" />
+        <NBAPastWinner leaderboardSlug="limited-contender" />
+        <BaseballPastWinner leaderboardSlug="rare-all-star" />
       </WinnersList>
       <CTAWrapper>
         <Button

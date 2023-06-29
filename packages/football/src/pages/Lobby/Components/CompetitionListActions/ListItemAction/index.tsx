@@ -5,7 +5,7 @@ import {
   Button,
   Props as ButtonProps,
 } from '@sorare/core/src/atoms/buttons/Button';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 const Wrapper = styled.span`
   position: relative;
@@ -14,7 +14,7 @@ const Wrapper = styled.span`
     flex: 1;
     justify-self: center;
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     &.fullWidth {
       flex: unset;
     }

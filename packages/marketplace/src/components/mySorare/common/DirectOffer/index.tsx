@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { isA } from '@sorare/core/src/lib/gql';
-import { theme } from '@sorare/core/src/style/theme';
 
 import { TokenTransferValidator } from '@marketplace/components/token/TokenTransferValidator';
 import useRejectOffer from '@marketplace/hooks/offers/useRejectOffer';
@@ -31,7 +30,7 @@ const Container = styled.div`
   padding: var(--double-unit);
   background: var(--c-neutral-200);
   color: var(--c-neutral-1000);
-  border-radius: ${theme.radius.md}px;
+  border-radius: var(--double-unit);
   display: flex;
   flex-direction: column;
   gap: var(--double-unit);

@@ -90,17 +90,17 @@ export const MarketPlaceDialog = ({ open, onClose }: Props) => {
           </Text16>
         </span>
         <ButtonsWrapper>
-          <Item href={MLB_PRIMARY_MARKET}>
-            <Text16>{formatMessage(messages.mlbMarket)}</Text16>
-            <Image src={mlbLogo} width={64} alt="" />
+          <Item href={FOOTBALL_MARKET}>
+            <Text16>{formatMessage(messages.FootballMarket)}</Text16>
+            <Image src={footballLogo} width={56} alt="" />
           </Item>
           <Item href={NBA_PRIMARY_MARKET}>
             <Text16>{formatMessage(messages.NBAMarket)}</Text16>
             <Image src={nbaLogo} height={64} alt="" />
           </Item>
-          <Item href={FOOTBALL_MARKET}>
-            <Text16>{formatMessage(messages.FootballMarket)}</Text16>
-            <Image src={footballLogo} width={56} alt="" />
+          <Item href={MLB_PRIMARY_MARKET}>
+            <Text16>{formatMessage(messages.mlbMarket)}</Text16>
+            <Image src={mlbLogo} width={64} alt="" />
           </Item>
         </ButtonsWrapper>
       </Wrapper>

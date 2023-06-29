@@ -2,7 +2,10 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import { Caption } from '@sorare/core/src/atoms/typography';
-import { theme } from '@sorare/core/src/style/theme';
+import {
+  desktopAndAbove,
+  tabletAndAbove,
+} from '@sorare/core/src/style/mediaQuery';
 
 const LeaderboardHeader = styled.div`
   display: grid;
@@ -10,10 +13,10 @@ const LeaderboardHeader = styled.div`
   width: 100%;
   text-align: center;
   padding: var(--unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-template-columns: 58px 10fr 1fr 1fr;
   }
-  @media (min-width: ${theme.breakpoints.values.desktop}px) {
+  @media ${desktopAndAbove} {
     grid-template-columns: 58px 15fr 1fr 1fr;
   }
 `;

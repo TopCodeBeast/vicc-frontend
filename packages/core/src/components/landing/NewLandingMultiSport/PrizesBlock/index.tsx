@@ -6,6 +6,11 @@ import styled from 'styled-components';
 import { LinkOther } from '@core/atoms/navigation/Box';
 import { Text14, Text18 } from '@core/atoms/typography';
 import { ContentContainer } from '@core/components/landing/NewLandingMultiSport/ui';
+import {
+  desktopAndAbove,
+  laptopAndAbove,
+  tabletAndAbove,
+} from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
 import { hideScrollbar } from '@core/style/utils';
 
@@ -23,7 +28,8 @@ const messages = defineMessages({
   },
   subtitle: {
     id: 'Landing.Prizes.Subtitle',
-    defaultMessage: 'Fantasy sports. Real ownership. Major rewards.',
+    defaultMessage:
+      "Here's a sample of one-of-a-kind rewards recently won by Sorare Managers.",
   },
   comingSoon: {
     id: 'Landing.Prizes.comingSoon',
@@ -79,13 +85,13 @@ const TitleWrapper = styled.div`
 
   border-bottom: 1px solid rgba(255, 255, 255, 0.17);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     justify-content: flex-start;
     gap: var(--intermediate-unit);
   }
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     padding: 0;
     border: none;
   }
@@ -97,10 +103,10 @@ const Title = styled.h3`
   font-weight: 700;
   font-family: 'Druk Wide';
   text-transform: uppercase;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     font-size: 24px;
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     font-size: 28px;
   }
 `;
@@ -111,7 +117,7 @@ const SubtitleWrapper = styled.div`
   justify-content: space-between;
   padding: var(--quadruple-unit) 0;
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     margin-bottom: var(--quadruple-unit);
     padding: var(--triple-unit) calc(var(--unit) * 5);
   }
@@ -134,7 +140,7 @@ const List = styled.ul`
   scroll-snap-type: x mandatory;
   grid-template-columns: repeat(4, 1fr);
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: flex;
     flex-wrap: nowrap;
   }
@@ -168,10 +174,10 @@ const Prize = styled.li`
     z-index: 1;
   }
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     height: 55vh;
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     ${hideScrollbar}
     overflow: auto;
     height: 500px;
@@ -204,11 +210,11 @@ const PrizeTitle = styled.p`
   font-family: 'Druk Wide';
   text-transform: uppercase;
 
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     width: 190px;
     font-size: 20px;
   }
-  @media (min-width: ${theme.breakpoints.values.desktop}px) {
+  @media ${desktopAndAbove} {
     width: 250px;
     font-size: 24px;
   }

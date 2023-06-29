@@ -7,6 +7,7 @@ import Button from '@core/atoms/buttons/Button';
 import Dialog from '@core/atoms/layout/Dialog';
 import { Text16 } from '@core/atoms/typography';
 import Bold from '@core/atoms/typography/Bold';
+import { drukwideSuper } from '@core/components/marketing/typography';
 import {
   SIGNUP_WORKFLOW_VERSION_QUERY_PARAMETER,
   isVersion2OrGreater,
@@ -14,7 +15,6 @@ import {
 } from '@core/constants/mobile';
 import { useIntlContext } from '@core/contexts/intl';
 import useQueryString from '@core/hooks/useQueryString';
-import { theme } from '@core/style/theme';
 import 'style/drukFontFaces.css';
 
 import V4Body from './V4Body';
@@ -36,10 +36,10 @@ const messages = defineMessages({
 });
 
 const IconCtn = styled.div`
-  border-radius: ${theme.radius.circle};
+  border-radius: 50%;
   background-color: var(--c-neutral-600);
-  width: ${theme.spacing(7)}px;
-  height: ${theme.spacing(7)}px;
+  width: 70px;
+  height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,7 +51,7 @@ const Icon = styled(FontAwesomeIcon)`
 `;
 
 const Title = styled.h1`
-  ${theme.styledFonts.drukWideSuper}
+  ${drukwideSuper}
   font-size: 32px;
   text-transform: uppercase;
   line-height: 1;

@@ -1,10 +1,6 @@
 import { SeverityLevel, captureException, captureMessage } from '@sentry/react';
 import { isError } from '@sentry/utils';
 
-interface ToString {
-  toString: () => string;
-}
-
 interface WithMessage {
   message: string;
 }
@@ -13,14 +9,13 @@ interface WithCode {
   code: number | string;
 }
 
-const hasToString = (obj: unknown): obj is ToString => {
-  return typeof (obj as ToString)?.toString === 'function';
-};
-
 export const wrapError = (err: any) => {
   if (err instanceof Error) return err;
-  if (hasToString(err)) return new Error(err.toString());
-  return new Error(`Unexpected error ${typeof err}`);
+  try {
+    return new Error(`Unexpected error: ${err.toString()}`);
+  } catch (e) {
+    return new Error(`Unexpected error with unexpected format: ${typeof err}`);
+  }
 };
 
 const hasMessage = (err: unknown): err is WithMessage => {

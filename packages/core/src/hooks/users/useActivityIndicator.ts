@@ -18,17 +18,17 @@ export const useActivityIndicator = (
     return null;
   }
 
-  if (user.active === null) {
-    // the user decided to hide their status
-    return null;
-  }
-
   if (!currentUser) {
     // no online indicator for non-authenticated users
     return null;
   }
-  // ensure currentUser is shown active regardless of lag/cache
-  return user.slug === currentUser.slug || user.active;
+
+  if (user.active === null) {
+    // the user decided to hide their status, consider it offline
+    return false;
+  }
+
+  return user.active;
 };
 
 useActivityIndicator.fragments = {

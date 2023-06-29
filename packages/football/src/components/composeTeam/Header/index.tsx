@@ -8,7 +8,7 @@ import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import { Caption, Title3 } from '@sorare/core/src/atoms/typography';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { ScarcityType, scarcityMessages } from '@sorare/core/src/lib/scarcity';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import DivisionLogo from '@football/components/so5/DivisionLogo';
 import getLineupDisplayName from '@football/lib/lineup/getLineupDisplayName';
@@ -49,7 +49,7 @@ const Extra = styled.div`
     background: var(--c-neutral-900);
     border-radius: 2em;
     padding: var(--half-unit);
-    @media (min-width: ${theme.breakpoints.values.laptop}px) {
+    @media ${laptopAndAbove} {
       padding: var(--half-unit) var(--double-unit);
     }
   }
@@ -59,19 +59,19 @@ const CompetitionName = styled.div`
   display: flex;
   align-items: center;
   gap: var(--unit);
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     gap: var(--double-unit);
   }
 `;
 
 const ExtraWrapper = styled.div`
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: none;
   }
 `;
 
 const BackButtonWrapper = styled.div`
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: none;
   }
 `;

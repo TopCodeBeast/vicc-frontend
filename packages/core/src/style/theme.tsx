@@ -11,11 +11,8 @@ import createSpacing from '@material-ui/core/styles/createSpacing';
 import { create } from 'jss';
 import rtl from 'jss-rtl';
 import { ReactNode, useMemo } from 'react';
-import { css } from 'styled-components';
 
-import rewardBackground from '@core/assets/so5/reward-background.png';
 import { useIntlContext } from '@core/contexts/intl';
-import { cardRatio } from '@core/lib/cardPicture';
 
 // Inject jss styles first in order to override them with Styled-components without resorting to && or important
 // Inspired by https://v4.mui.com/guides/interoperability/#controlling-priority-3
@@ -61,67 +58,8 @@ const fonts = {
   sorareBold: font('apercu-pro, system-ui, sans-serif', 900),
 };
 
-const horizontalGradient = (
-  from: string,
-  to: string,
-  { reversed } = { reversed: false }
-) => `linear-gradient(${reversed ? 270 : 90}deg, ${from}, ${to})`;
-
-const verticalGradient = (
-  from: string,
-  to: string,
-  { reversed } = { reversed: false }
-) => `linear-gradient(${reversed ? 180 : 0}deg, ${from}, ${to})`;
-
-const radialGradient = (...properties: string[]) =>
-  `radial-gradient(${properties.join(', ')})`;
-
-const colors = {
-  horizontalGradient,
-  verticalGradient,
-  radialGradient,
-  headerGradient: (
-    customBanner?: {
-      colorLeft: string | null;
-      colorRight: string | null;
-    } | null
-  ) =>
-    horizontalGradient(
-      customBanner?.colorLeft ?? 'var(--c-brand-800)',
-      customBanner?.colorRight ?? 'var(--c-brand-600)'
-    ),
-};
-
-const borders = {
-  black: `1px solid var(--c-neutral-1000)`,
-  grey: `1px solid var(--c-neutral-300)`,
-  blue: `2px solid var(--c-brand-600)`,
-  green: `1px solid var(--c-green-600)`,
-};
-
-const boxShadow = {
-  100: `0px 1px 6px rgba(0, 0, 0, 0.1)`,
-  200: `0px 3px 12px rgba(0, 0, 0, 0.1)`,
-};
-
-const typography = {
-  fontFamily: 'apercu-pro, system-ui, sans-serif',
-  button: {
-    ...fonts.sorareBold,
-    fontSize: 16,
-    textTransform: 'none' as const, // this is tricky as buttons should be uppercased as per ML design but we use buttons style where they doesn't looks like buttons (menu)
-  },
-};
-
 export const theme = {
   spacing,
-  styledFonts: {
-    drukWideSuper: css`
-      font-family: DrukWide-Super, sans-serif;
-      font-style: normal;
-      font-weight: 950;
-    `,
-  },
   zIndex: {
     appBar: 1100,
     drawer: 1200,
@@ -142,45 +80,14 @@ export const theme = {
       contrastText: '#fff',
     },
   },
-  colors,
-  borders,
-  boxShadow,
-  backgrounds: {
-    veryDenseStroke: `repeating-linear-gradient(-45deg, var(--c-neutral-100), var(--c-neutral-100) 1px, var(--c-neutral-400) 1px, var(--c-neutral-400) 2px)`,
-    rewards: `url(${rewardBackground}), radial-gradient(54.58% 54.58% at 50% 50%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%), #222845`,
-  },
-  card: {
-    getHeight(width: number) {
-      return width / cardRatio;
-    },
-    dimensions(width: number) {
-      return {
-        width,
-        height: width / cardRatio,
-      };
-    },
-    shadow: '0px 5px 20px 5px rgba(0, 0, 0, 0.4)',
-    lightShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-  },
-  cardGrid: {
-    card: {
-      mobileWidth: 110,
-      dialogWidth: 144,
+  typography: {
+    fontFamily: 'var(--sorareFont)',
+    button: {
+      ...fonts.sorareBold,
+      fontSize: 16,
+      textTransform: 'none' as const, // this is tricky as buttons should be uppercased as per ML design but we use buttons style where they doesn't looks like buttons (menu)
     },
   },
-  layout: {
-    appBarWidth: 1200,
-    paddingTop: 69,
-    width: 1340,
-    mediumWidth: 960,
-    gridMargin: 30,
-    promotionalBannerHeight: 30,
-    navbarOffset: 45,
-    drawerContainerMargin: '45px auto',
-    dialogWidth: 480,
-  },
-  fonts,
-  typography,
   props: {
     MuiInputAdornment: {
       disableTypography: true,
@@ -416,8 +323,8 @@ export const theme = {
     },
     MuiTableRow: {
       root: {
-        borderLeft: borders.grey,
-        borderRight: borders.grey,
+        borderLeft: '1px solid var(--c-neutral-300)',
+        borderRight: '1px solid var(--c-neutral-300)',
       },
       head: {
         borderLeft: 'none',
@@ -433,9 +340,9 @@ export const theme = {
       root: {
         backgroundColor: 'var(--c-neutral-100)',
         borderRadius,
-        border: borders.grey,
+        border: '1px solid var(--c-neutral-300)',
         '&.Mui-focused': {
-          border: borders.grey,
+          border: '1px solid var(--c-neutral-300)',
         },
         '.updateEmail &': {
           backgroundColor: 'var(--c-neutral-300)',
@@ -500,7 +407,7 @@ export const theme = {
     },
     MuiTabs: {
       root: {
-        borderBottom: borders.grey,
+        borderBottom: '1px solid var(--c-neutral-300)',
         backgroundColor: 'var(--c-neutral-100)',
       },
       indicator: {
@@ -570,21 +477,6 @@ export const theme = {
     },
   },
   breakpoints,
-  fontSize: {
-    small: 12,
-    medium: 14,
-    normal: 16,
-    big: 20,
-    bigger: 24,
-    biggest: 32,
-  },
-  lineHeight: {
-    small: '16px',
-    normal: '20px',
-    big: '28px',
-    bigger: '32px',
-    biggest: '36px',
-  },
   mlColors: {
     scarcity: {
       common: `var(--c-gradient-common)`,
@@ -600,16 +492,6 @@ export const theme = {
   },
   shape: {
     borderRadius,
-  },
-  radius: {
-    xxs: borderRadius / 2, // 4
-    xs: borderRadius, // 8
-    sm: borderRadius * 1.5, // 12
-    md: borderRadius * 2, // 16
-    lg: borderRadius * 2.5, // 20
-    xl: borderRadius * 3, // 24
-    chip: '2em',
-    circle: '50%',
   },
 };
 

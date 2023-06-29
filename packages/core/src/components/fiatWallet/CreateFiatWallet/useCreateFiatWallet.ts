@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import { useCallback } from 'react';
 
+import { FiatCurrency } from '__generated__/globalTypes';
 import useMutation from '@core/hooks/graphql/useMutation';
 
 import {
@@ -37,10 +38,9 @@ const CREATE_FIAT_WALLET_MUTATION = gql`
 `;
 
 type CreateFiatWalletArgs = {
-  countryCode: string;
-  dob?: ISO8601Date;
-  firstName?: string;
-  lastName?: string;
+  currency: FiatCurrency;
+  firstName: string;
+  lastName: string;
 };
 
 const useCreateFiatWallet = () => {

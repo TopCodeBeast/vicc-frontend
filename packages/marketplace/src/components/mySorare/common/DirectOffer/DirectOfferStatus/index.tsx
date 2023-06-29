@@ -17,7 +17,7 @@ import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNoti
 import useToggle from '@sorare/core/src/hooks/useToggle';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { isA } from '@sorare/core/src/lib/gql';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import CounterOfferBuilder from '@marketplace/components/directOffer/CounterOfferBuilder';
 import { TokenTransferChildrenProps } from '@marketplace/components/token/TokenTransferValidator/types';
@@ -91,7 +91,7 @@ const Container = styled.div`
   justify-content: flex-end;
   flex-direction: column;
   gap: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
   }
 `;

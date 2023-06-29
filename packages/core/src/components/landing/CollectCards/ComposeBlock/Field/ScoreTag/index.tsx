@@ -1,7 +1,7 @@
 import { animated, useSpring } from '@react-spring/web';
 import styled from 'styled-components';
 
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 const Tag = styled(animated.span)`
   display: inline-flex;
@@ -17,7 +17,7 @@ const Tag = styled(animated.span)`
   background-color: #01a98b;
   color: var(--c-neutral-100);
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     height: var(--scoreTagMax, 30px);
     width: var(--scoreTagMax, 30px);
     font-size: 16px;

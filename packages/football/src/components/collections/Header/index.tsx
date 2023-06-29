@@ -10,6 +10,9 @@ import { Rarity } from '@sorare/core/src/__generated__/globalTypes';
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import Container from '@sorare/core/src/atoms/layout/Container';
 import { Caption, Text16, Title2 } from '@sorare/core/src/atoms/typography';
+import { Bonus } from '@sorare/core/src/components/collections/Bonus';
+import ProgressBar from '@sorare/core/src/components/collections/ProgressBar';
+import { Score } from '@sorare/core/src/components/collections/Score';
 import SocialShare from '@sorare/core/src/components/user/SocialShare';
 import User from '@sorare/core/src/components/user/User';
 import {
@@ -19,14 +22,14 @@ import {
 import useSafePreviousNavigate from '@sorare/core/src/hooks/useSafePreviousNavigate';
 import { socialShareEventContext } from '@sorare/core/src/lib/events';
 import { fantasy, glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import {
+  laptopAndAbove,
+  tabletAndAbove,
+} from '@sorare/core/src/style/mediaQuery';
 
-import { Bonus } from '@football/components/collections/Bonus';
 import { CardsNumber } from '@football/components/collections/CardsNumber';
-import ProgressBar from '@football/components/collections/ProgressBar';
 import { Ranking } from '@football/components/collections/Ranking';
 import { ScarcityLabel } from '@football/components/collections/ScarcityLabel';
-import { Score } from '@football/components/collections/Score';
 
 import {
   Header_cardCollection,
@@ -46,7 +49,7 @@ const StyledContainer = styled(Container)`
   color: var(--c-static-neutral-100);
   padding-top: var(--unit);
   padding-bottom: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding-top: var(--intermediate-unit);
     padding-bottom: var(--quadruple-unit);
   }
@@ -65,7 +68,7 @@ const TeamInfos = styled.div`
   flex-direction: column;
   align-items: center;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: grid;
     grid-template-columns: min-content 1fr;
     grid-template-areas:
@@ -78,7 +81,7 @@ const TeamInfos = styled.div`
 const RarityAndSeason = styled.div`
   display: flex;
   gap: var(--unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     grid-area: rarityAndSeason;
     align-self: flex-end;
   }
@@ -88,14 +91,14 @@ const StyledImg = styled.img`
   height: 120px;
   object-fit: contain;
   margin-bottom: var(--intermediate-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     margin-bottom: 0;
     grid-area: img;
   }
 `;
 const StyledTitle2 = styled(Title2)`
   grid-area: title;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     align-self: flex-start;
   }
 `;
@@ -106,7 +109,7 @@ const Stats = styled.div`
   justify-content: space-around;
   align-items: center;
   max-width: 100%;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     gap: calc(8 * var(--unit));
     &.noBonus {
       justify-content: flex-start;
@@ -121,7 +124,7 @@ const StatBox = styled.div`
 `;
 const ProgressBarWrapper = styled.div`
   min-width: 100%;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     flex-grow: 1;
     min-width: 0;
   }
@@ -130,7 +133,7 @@ const UsernameWrapper = styled.div`
   grid-area: username;
   justify-self: start;
   align-self: center;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     align-self: flex-start;
   }
 `;

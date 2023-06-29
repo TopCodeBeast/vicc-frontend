@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { arrayToObject } from '@sorare/core/src/lib/arrays';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { Token } from '@marketplace/components/token/Token';
 
@@ -19,7 +19,7 @@ import {
 const CardsWrapper = styled.div<{ hitsPerRow: number }>`
   display: grid;
   gap: var(--unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     overflow: auto;
     scroll-snap-type: x mandatory;
     grid-auto-flow: column;

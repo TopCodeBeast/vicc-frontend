@@ -16,7 +16,7 @@ import useLocalStorage, {
 } from '@sorare/core/src/hooks/useLocalStorage';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 
-import LeaderboardModeSelect from '@sorare/football/src/pages/Lobby/CompetitionDetails/Leaderboards/LeaderboardModeSelect';
+import LeaderboardModeSelect from '@football/pages/Lobby/CompetitionDetails/Leaderboards/LeaderboardModeSelect';
 
 import { LeaderboardFetcher } from './LeaderboardFetcher';
 import {

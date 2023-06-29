@@ -2,7 +2,6 @@ import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import styled from 'styled-components';
 
 import { Text16 } from '@core/atoms/typography';
-import { theme } from '@core/style/theme';
 
 interface Props {
   message: MessageDescriptor;
@@ -13,8 +12,14 @@ const GreyStripes = styled.div`
   align-items: center;
   justify-content: center;
   height: 60px;
-  background: ${theme.backgrounds.veryDenseStroke};
-  border-radius: ${theme.shape.borderRadius}px;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--c-neutral-100),
+    var(--c-neutral-100) 1px,
+    var(--c-neutral-400) 1px,
+    var(--c-neutral-400) 2px
+  );
+  border-radius: var(--unit);
 `;
 
 export const EmptyContent = (props: Props) => {

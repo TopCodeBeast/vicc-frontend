@@ -4,14 +4,14 @@ import styled from 'styled-components';
 import { Caption } from '@sorare/core/src/atoms/typography';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { useShortcut as useCoreShortcut } from '@sorare/core/src/hooks/useShortcut';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 const Key = styled(Caption).attrs({
   as: 'small',
   bold: true,
 })`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: inline-flex;
     padding: 0 6px; /* custom value because it's an icon */
     margin-left: var(--unit);

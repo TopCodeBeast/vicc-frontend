@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import { useBgLocation } from '@core/hooks/useBgLocation';
 import { useIsInModal } from '@core/hooks/useIsInModal';
-import { theme } from '@core/style/theme';
 
 const Wrapper = styled.div`
   --selector: var(--c-neutral-1000);
@@ -34,7 +33,7 @@ const Item = styled(Link)`
   scroll-snap-align: center;
   white-space: nowrap;
   background: var(--link-background);
-  border-radius: ${theme.radius.chip};
+  border-radius: var(--quadruple-unit);
   padding: 0 var(--intermediate-unit);
   &:focus,
   &:hover,

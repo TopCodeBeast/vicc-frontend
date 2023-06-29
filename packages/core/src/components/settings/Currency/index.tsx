@@ -12,7 +12,6 @@ import { Text16 } from '@core/atoms/typography';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useUpdateCurrency from '@core/hooks/useUpdateCurrency';
 import { useFiatBalance } from '@core/hooks/wallets/useFiatBalance';
-import { useWalletPreferences } from '@core/hooks/wallets/useWalletPreferences';
 import { userAttributes } from '@core/lib/glossary';
 
 import SettingsSection from '../SettingsSection';
@@ -50,9 +49,11 @@ const messages = defineMessages({
 
 const Currency = () => {
   const { updateCurrency, loading } = useUpdateCurrency();
-  const { currentUser } = useCurrentUserContext();
+  const {
+    currentUser,
+    walletPreferences: { showEthWallet },
+  } = useCurrentUserContext();
   const { hasActiveFiatBalance } = useFiatBalance();
-  const { showEthWallet } = useWalletPreferences();
   if (!currentUser) return null;
   const { userSettings } = currentUser;
 

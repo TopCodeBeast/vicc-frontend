@@ -11,6 +11,7 @@ import TokenMetas from '@core/components/token/TokenMetas';
 import { FOOTBALL_BUNDLED_AUCTION, LEGACY_CARD_SHOW } from '@core/constants/routes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useSportContext } from '@core/contexts/sport';
+import idFromObject from '@core/gql/idFromObject';
 
 import { commonNotificationInterfaceFragment } from '../fragments';
 import { CommonNotificationProps } from '../types';
@@ -47,7 +48,7 @@ export const AuctionNotification = ({ notification, ...rest }: Props) => {
           sport: tokenAuction.nfts[0].sport,
         })
       : generatePath(FOOTBALL_BUNDLED_AUCTION, {
-          id: auction.id,
+          id: idFromObject(auction.id),
         });
 
   const content =

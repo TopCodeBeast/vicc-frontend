@@ -3,7 +3,6 @@ import classnames from 'classnames';
 import styled from 'styled-components';
 
 import { isA } from '@core/lib/gql';
-import { theme } from '@core/style/theme';
 
 import {
   Avatar_anonymousUser,
@@ -26,6 +25,7 @@ type Props = {
     | Avatar_ethereumAccount
     | Avatar_starkwareAccount
     | Avatar_user;
+  placeholderUrl?: string;
 } & AvatarDisplayProps;
 
 const isAnonymous = (
@@ -53,7 +53,7 @@ const Root = styled.div`
   width: calc(4 * var(--unit));
   object-fit: cover;
   background-color: var(--c-neutral-800);
-  border-radius: ${theme.radius.xs}px;
+  border-radius: var(--unit);
   aspect-ratio: 1;
   color: var(--c-neutral-100);
   font: var(--t-16);
@@ -77,7 +77,7 @@ const Root = styled.div`
     width: calc(10 * var(--unit));
   }
   &.rounded {
-    border-radius: ${theme.radius.circle};
+    border-radius: 50%;
   }
   &.invert {
     background-color: var(--c-neutral-300);
@@ -128,17 +128,34 @@ export const PictureAvatar = ({
   );
 };
 
-const Avatar = ({ user, ...rest }: Props) => {
+const Avatar = ({ user, placeholderUrl, variant, ...rest }: Props) => {
   const disabledAvatar = isAnonymous(user) || user.suspended;
   if (disabledAvatar) {
     return <DisabledAvatar {...rest} />;
   }
-  const { pictureUrl } = user.profile;
-  return pictureUrl ? (
-    <PictureAvatar user={user} pictureUrl={pictureUrl} {...rest} />
-  ) : (
-    <PlaceHolderAvatar user={user} {...rest} />
-  );
+  const { pictureUrl, fullPictureUrl } = user.profile;
+
+  const url =
+    variant === 'large' || variant === 'extraLarge'
+      ? fullPictureUrl
+      : pictureUrl;
+
+  if (url) {
+    return (
+      <PictureAvatar user={user} pictureUrl={url} variant={variant} {...rest} />
+    );
+  }
+  if (placeholderUrl) {
+    return (
+      <PictureAvatar
+        user={user}
+        pictureUrl={placeholderUrl}
+        variant={variant}
+        {...rest}
+      />
+    );
+  }
+  return <PlaceHolderAvatar user={user} variant={variant} {...rest} />;
 };
 
 Avatar.fragments = {
@@ -149,6 +166,7 @@ Avatar.fragments = {
       suspended
       profile {
         id
+        fullPictureUrl: pictureUrl
         pictureUrl(derivative: "avatar")
       }
     }
@@ -160,6 +178,7 @@ Avatar.fragments = {
       suspended
       profile {
         id
+        fullPictureUrl: pictureUrl
         pictureUrl(derivative: "avatar")
       }
     }

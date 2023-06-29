@@ -5,7 +5,6 @@ import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
 import { LinkBox, LinkOther, LinkOverlay } from '@core/atoms/navigation/Box';
-import { theme } from '@core/style/theme';
 import { createVar } from '@core/style/utils';
 
 const colorOpacities = [
@@ -58,7 +57,7 @@ const Root = styled(LinkBox)`
   padding: var(--unit) var(--double-unit);
   min-height: calc(var(--unit) * 5);
   min-width: calc(var(--unit) * 5);
-  border-radius: ${theme.radius.chip};
+  border-radius: var(--quadruple-unit);
   white-space: nowrap;
   color: var(--c-neutral-1000);
   font: var(--t-bold) var(--t-16);

@@ -4,11 +4,11 @@ import styled from 'styled-components';
 
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import { CardImg } from '@sorare/core/src/components/card/CardImg';
+import CardScore from '@sorare/core/src/components/collections/CardScore';
 import OpenItemDialogLink from '@sorare/core/src/components/link/OpenItemDialogLink';
 import { isListedOnMarket } from '@sorare/core/src/lib/cards';
 
 import CardPreview from '@football/components/collections/CardPreview';
-import CardScore from '@football/components/collections/CardScore';
 
 import {
   FulfilledSlot_cardCollection,
@@ -20,6 +20,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: var(--unit);
   align-items: center;
+`;
+const StyledOpenItemDialogLink = styled(OpenItemDialogLink)`
+  width: 100%;
 `;
 
 type Props = {
@@ -43,13 +46,13 @@ export const FulfilledSlot = ({
 
   return (
     <Wrapper>
-      <OpenItemDialogLink item={card} sport={Sport.FOOTBALL}>
+      <StyledOpenItemDialogLink item={card} sport={Sport.FOOTBALL}>
         <CardImg
           width={320}
           src={card.pictureUrl || ''}
           alt={slot.player.displayName}
         />
-      </OpenItemDialogLink>
+      </StyledOpenItemDialogLink>
       <button type="button" onClick={() => setDialogOpen(true)}>
         <CardScore score={scoreBreakdown.total} listed={cardListed} />
       </button>

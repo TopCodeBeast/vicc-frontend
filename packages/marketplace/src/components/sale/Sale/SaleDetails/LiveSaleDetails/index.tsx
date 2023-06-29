@@ -43,7 +43,7 @@ import {
 const messages = defineMessages({
   button: {
     id: 'TokenOfferDetails.tooltip.buttonLabel',
-    defaultMessage: 'OK, let’s go!',
+    defaultMessage: 'Thanks for the training!',
   },
 });
 

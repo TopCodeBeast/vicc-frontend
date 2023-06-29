@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import classnames from 'classnames';
 import { useCallback, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -14,7 +15,10 @@ import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery'
 import useInfiniteScroll from '@sorare/core/src/hooks/useInfiniteScroll';
 import { sameArrays } from '@sorare/core/src/lib/arrays';
 import { isType } from '@sorare/core/src/lib/gql';
-import { theme } from '@sorare/core/src/style/theme';
+import {
+  laptopAndAbove,
+  tabletAndAbove,
+} from '@sorare/core/src/style/mediaQuery';
 
 import { ShopItemLogo } from '@football/components/userGroup/form/AvatarInput/types';
 
@@ -42,13 +46,16 @@ const ItemsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+  }
+  &.inDialog {
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
 
@@ -221,7 +228,7 @@ const ShopItemPicker = ({
         <LoadingIndicator white small />
       ) : (
         <>
-          <ItemsGrid>
+          <ItemsGrid className={classnames({ inDialog })}>
             {items?.map(item => {
               if (inventory && item.myAvailableTotalPurchasesCount === 0) {
                 return null;

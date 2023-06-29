@@ -9,7 +9,7 @@ import { FOOTBALL_COMPETITION_DETAILS } from '@sorare/core/src/constants/routes'
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { useGeneratePathWithSearch } from '@sorare/core/src/hooks/useGeneratePathWithSearch';
 import { Link } from '@sorare/core/src/routing/Link';
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import DivisionLogo from '@football/components/so5/DivisionLogo';
 import { MissingCardsMessage } from '@football/components/unlockCompetition/MissingCardsMessage';
@@ -36,7 +36,7 @@ const StyledLink = styled(Link)`
   &:focus {
     color: var(--c-neutral-1000);
   }
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     grid-template-areas:
       'logo overline cta'
       'logo title cta';
@@ -59,7 +59,7 @@ const Title = styled(Title4)`
 `;
 const StyledButton = styled(Button)`
   display: none;
-  @media (min-width: ${theme.breakpoints.values.laptop}px) {
+  @media ${laptopAndAbove} {
     display: flex;
     grid-area: cta;
   }

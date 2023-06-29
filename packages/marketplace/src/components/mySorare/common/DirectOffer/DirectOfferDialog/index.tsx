@@ -37,8 +37,7 @@ const DirectOfferDialog = ({ title, content, onClose, actions }: Props) => {
   return (
     <Dialog
       open
-      maxWidth="xs"
-      fullWidth
+      maxWidth="md"
       onClose={onClose}
       fullScreen={!tablet}
       title={<CenteredTitle6>{title}</CenteredTitle6>}

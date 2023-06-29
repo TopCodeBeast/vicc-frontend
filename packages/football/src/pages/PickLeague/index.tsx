@@ -20,7 +20,7 @@ import { useGeneratePathWithSearch } from '@sorare/core/src/hooks/useGeneratePat
 import { usePreloads } from '@sorare/core/src/hooks/usePreloads';
 import useSafePreviousNavigate from '@sorare/core/src/hooks/useSafePreviousNavigate';
 import { glossary } from '@sorare/core/src/lib/glossary';
-import { theme } from '@sorare/core/src/style/theme';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { LeaguePicker } from '@football/components/draft/LeaguePicker';
 import { LeagueTile } from '@football/components/draft/LeagueTile';
@@ -39,7 +39,7 @@ const Root = styled.div`
 
 const contentWidthStyle = css`
   width: 100%;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     width: 80%;
     max-width: 800px;
   }
@@ -52,7 +52,7 @@ const ContentWrapper = styled.div`
   margin-top: var(--quadruple-unit);
   gap: var(--quadruple-unit);
   padding: var(--double-unit) 0;
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     padding: calc(6 * var(--unit)) 0;
   }
 `;
@@ -62,7 +62,7 @@ const HeaderWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: var(--unit);
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     display: grid;
     grid-template-columns: var(--quadruple-unit) 1fr var(--quadruple-unit);
     align-items: center;
@@ -91,7 +91,7 @@ const LeaguePickerWrapper = styled.div`
 
 const LeagueTileWrapper = styled.div`
   ${contentWidthStyle}
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media ${tabletAndAbove} {
     max-width: 400px;
   }
 `;

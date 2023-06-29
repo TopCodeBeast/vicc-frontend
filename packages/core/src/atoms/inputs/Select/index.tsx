@@ -1,6 +1,7 @@
 import { IconDefinition, faCaretDown } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTheme } from '@material-ui/core';
+import { ReactNode } from 'react';
 import ReactSelect, { components } from 'react-select';
 
 import selectStyle from './style';
@@ -15,6 +16,7 @@ export interface Props<T> {
   menuPortalTarget?: HTMLElement;
   menuPlacement?: 'top';
   isDisabled?: boolean;
+  placeholder?: ReactNode;
 }
 
 const DropdownIndicator = (props: any) => {

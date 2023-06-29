@@ -13,11 +13,13 @@ const JustifyEnd = styled.div`
 type Props = UseAmountWithConversionProps & {
   color?: Color;
   bold?: boolean;
+  hideExponent?: boolean;
 };
 
 export const PaymentBoxAmountWithConversion = ({
   bold = false,
   color,
+  hideExponent = false,
   ...props
 }: Props) => {
   const { main, exponent } = useAmountWithConversion(props);
@@ -27,7 +29,7 @@ export const PaymentBoxAmountWithConversion = ({
       <Text16 bold={bold} color={color || 'var(--c-neutral-1000)'}>
         {main}
       </Text16>
-      {exponent && (
+      {!hideExponent && exponent && (
         <Text14 color={color || 'var(--c-neutral-600)'}>{exponent}</Text14>
       )}
     </JustifyEnd>

@@ -1,4 +1,4 @@
-import { ReactElement, Suspense, cloneElement } from 'react';
+import { ReactElement, Suspense } from 'react';
 import { Navigate, Route, useLocation } from 'react-router-dom';
 
 import Backdrop from '@sorare/core/src/atoms/loader/Backdrop';
@@ -148,34 +148,22 @@ const FOOTBALL_LOBBY_UPCOMING = goToLobby('upcoming');
 const WithDialog = ({
   defaultBackUrl,
   component,
-  fullScreen,
-  maxWidth,
-  fullHeight,
 }: {
   defaultBackUrl: string;
   component: ReactElement;
-  fullScreen?: boolean;
-  fullHeight?: boolean;
-  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }) => {
   const bgLocation = useBgLocation();
   return (
     <Suspense fallback={bgLocation ? <Backdrop /> : null}>
       {bgLocation ? (
         <Dialog
-          defaultBackUrl={defaultBackUrl}
           open
+          defaultBackUrl={defaultBackUrl}
           fullWidth
-          fullHeight={fullHeight}
-          maxWidth={maxWidth}
-        >
-          {component}
-        </Dialog>
-      ) : (
-        <PrivateRoute
-          withLayout
-          element={cloneElement(component, { fullScreen })}
+          body={component}
         />
+      ) : (
+        <PrivateRoute withLayout element={component} />
       )}
     </Suspense>
   );
@@ -205,14 +193,13 @@ export const AppSwitch = () => {
               isDialog ? (
                 <Suspense fallback={<Backdrop />}>
                   <Dialog
-                    defaultBackUrl={FOOTBALL_HOME}
                     open
-                    fullWidth
                     maxWidth="md"
+                    fullWidth
                     fullHeight
-                  >
-                    <LobbyCompetitionDetails />
-                  </Dialog>
+                    defaultBackUrl={FOOTBALL_HOME}
+                    body={<LobbyCompetitionDetails />}
+                  />
                 </Suspense>
               ) : (
                 <PrivateRoute
@@ -284,9 +271,12 @@ export const AppSwitch = () => {
                 element={
                   isDialog ? (
                     <Suspense fallback={<Backdrop />}>
-                      <Dialog defaultBackUrl={FOOTBALL_HOME} open fullScreen>
-                        <EditDeckCards />
-                      </Dialog>
+                      <Dialog
+                        open
+                        fullScreen
+                        defaultBackUrl={FOOTBALL_HOME}
+                        body={<EditDeckCards />}
+                      />
                     </Suspense>
                   ) : (
                     <PrivateRoute withLayout element={<EditDeckCards />} />

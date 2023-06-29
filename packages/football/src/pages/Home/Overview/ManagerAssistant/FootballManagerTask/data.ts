@@ -50,7 +50,7 @@ const messages = defineMessages({
   },
   watchTutorial: {
     id: 'FootballManagerTask.Desktop.watch_tutorial',
-    defaultMessage: 'Explore the Marketplace',
+    defaultMessage: 'Learn how to get cards',
   },
   desktopBuyCard: {
     id: 'Awards.buyer',
@@ -92,10 +92,14 @@ const messages = defineMessages({
     id: 'FootballManagerTask.Mobile.scout_player',
     defaultMessage: 'Scout a player',
   },
+  learnCompetitions: {
+    id: 'FootballManagerTask.learn_competitions"',
+    defaultMessage: 'Learn about competitions',
+  },
 });
 
 export const tasksData: {
-  [key in FootballManagerTaskSlug]:
+  [key in FootballManagerTaskSlug]?:
     | {
         desktopDescription: {
           id: string;
@@ -114,6 +118,7 @@ export const tasksData: {
           openAddFunds: () => void;
           validateReward: () => void;
           openExploreMarketplace: () => void;
+          onLearnCompetitions: () => void;
         }) => void;
         leaveActiveAfterCompleted?: boolean;
       }
@@ -255,6 +260,15 @@ export const tasksData: {
     mobileDescription: messages.mobileScoutPlayer,
     image: buyer,
     getLink: () => FOOTBALL_NEW_SIGNINGS,
+    leaveActiveAfterCompleted: true,
+  },
+  LEARN_COMPETITIONS: {
+    desktopDescription: messages.learnCompetitions,
+    mobileDescription: messages.learnCompetitions,
+    image: buyer,
+    onClick: ({ onLearnCompetitions }) => {
+      onLearnCompetitions();
+    },
     leaveActiveAfterCompleted: true,
   },
 };
