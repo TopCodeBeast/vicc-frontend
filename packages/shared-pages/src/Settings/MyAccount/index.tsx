@@ -14,7 +14,7 @@ import DepositCard from '@sorare/marketplace/src/components/settings/DepositCard
 
 import USActivityReports from '@sorare/us-sports/src/components/settings/ActivityReports';
 
-import { SettingsTabRoot } from 'Settings/ui';
+import { SettingsTabRoot } from '../../Settings/ui';
 
 export const MyAccount = () => {
   const {

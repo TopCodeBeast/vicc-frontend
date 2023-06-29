@@ -1,4 +1,4 @@
-import { CamelCase } from 'types';
+import { CamelCase } from '@core/types';
 
 export const toCamelCase = <T extends string>(str: T): CamelCase<T> =>
   str

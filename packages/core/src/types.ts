@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode } from 'react';
 
 export interface ReactProps {
   children: ReactNode;
@@ -13,15 +13,20 @@ export interface StartCase<T> {
 }
 
 type AuctionNFT = {
-  assetId: string
-}
+  assetId: string;
+};
 
 type TokenComponentTypeProps = {
   assetId: string;
   auction?: {
     nfts: AuctionNFT[];
-  }
-}
+  };
+};
 
-export type TokenComponentType = (params: TokenComponentTypeProps) => JSX.Element;
+export type CamelCase<T extends string> = T;
 
+export type SnakeCase<T extends string> = T;
+
+export type TokenComponentType = (
+  params: TokenComponentTypeProps
+) => JSX.Element;

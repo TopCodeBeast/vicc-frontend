@@ -37,7 +37,7 @@ import { WalletNeedsRecover } from '../WalletNeedsRecover';
 import Wallet2FA from '../WalletTwoFA';
 import DrawerWithNavigation from './DrawerWithNavigation';
 
-const BankEthAccounting = lazy(async () => import('../BankEthAccounting'));
+// const BankEthAccounting = lazy(async () => import('../BankEthAccounting')); //TODO***
 
 const DRAWER_TRANSITION_DURATION = 200;
 
@@ -298,7 +298,7 @@ export const WalletDrawer = () => {
         {sorarePrivateKey && drawerOpened && !walletOpened && (
           <Accounting>
             <Suspense fallback={<LoadingIndicator />}>
-              <BankEthAccounting
+              {/* <BankEthAccounting
                 settingsButton={
                   currentTab === WalletTab.HOME &&
                   !walletNeedsRecover && (
@@ -309,7 +309,8 @@ export const WalletDrawer = () => {
                     />
                   )
                 }
-              />
+              /> */}
+              <>BankEthAccounting</>
             </Suspense>
           </Accounting>
         )}

@@ -36,6 +36,7 @@ export interface Props {
     display_name: string;
   };
   initialIndexUIState?: ExtendedIndexUIState;
+  togglePrimary?: boolean;
 }
 
 export type CardResultsProps = {

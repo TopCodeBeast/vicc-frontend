@@ -1,4 +1,4 @@
-import { SnakeCase } from 'types';
+import { SnakeCase } from '@core/types';
 
 export const toSnakeCase = <T extends string>(str: T): SnakeCase<T> =>
   str

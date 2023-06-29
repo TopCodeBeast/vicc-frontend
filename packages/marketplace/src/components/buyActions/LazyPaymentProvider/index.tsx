@@ -9,9 +9,9 @@ const StripeProvider = lazy(
   async () => import('@sorare/core/src/contexts/stripe/Provider')
 );
 const PaymentProvider = lazy(
-  async () => import('components/buyActions/PaymentProvider')
+  async () => import('@marketplace/components/buyActions/PaymentProvider')
 );
-const PaymentBox = lazy(async () => import('components/buyActions/PaymentBox'));
+const PaymentBox = lazy(async () => import('@marketplace/components/buyActions/PaymentBox'));
 
 interface Props {
   fallback?: ReactNode;

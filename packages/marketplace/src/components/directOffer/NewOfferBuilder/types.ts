@@ -54,3 +54,4 @@ export interface StateProps<T> {
 
 export type UpdateReceiveCards = any;
 export type UpdateSendCards = any;
+export type OfferBuilderStage = any;

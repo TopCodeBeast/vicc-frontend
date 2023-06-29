@@ -1,5 +1,5 @@
 export type TokenTransferChildrenProps = {
-  validationMessages?: string;
+  validationMessages?: Record<string, React.ReactNode>;
   ConsentMessage?: string;
 };
 
