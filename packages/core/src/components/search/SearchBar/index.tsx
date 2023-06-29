@@ -432,7 +432,7 @@ export const SearchBar = ({
       inputProps={{
         value: search,
         placeholder: formatMessage(glossary.search),
-        onChange: (event, { newValue }) => {
+        onChange: (event, { newValue }: any) => {
           setSearch(newValue);
         },
         autoFocus: true,

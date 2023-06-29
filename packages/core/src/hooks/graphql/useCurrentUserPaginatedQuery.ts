@@ -1,4 +1,4 @@
-import { QueryHookOptions, QueryResult } from '@apollo/client';
+import { QueryHookOptions, QueryResult, OperationVariables } from '@apollo/client';
 import { DocumentNode } from 'graphql';
 import { Maybe } from 'graphql/jsutils/Maybe';
 
@@ -22,7 +22,7 @@ type PaginatedResult<TData, TVariables extends CursoredData> = QueryResult<
 > &
   WithRelayPagination<TVariables>;
 
-type QueryOptions<TData, TVariables, ConnectionType> = QueryHookOptions<
+type QueryOptions<TData, TVariables extends OperationVariables, ConnectionType> = QueryHookOptions<
   TData,
   TVariables
 > & {

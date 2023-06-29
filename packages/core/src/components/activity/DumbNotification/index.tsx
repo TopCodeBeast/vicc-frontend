@@ -22,7 +22,7 @@ import {
 type Props = {
   createdAt: string;
   userAvatar?: DumbNotification_userAvatar | null;
-  sport?: Sport | null;
+  sport: Sport | null;
   title: string | ReactNode;
   tokenPicture?: DumbNotification_tokenPicture | null;
   content?: ReactNode;

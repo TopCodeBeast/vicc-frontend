@@ -5,7 +5,7 @@ import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { Currency } from '__generated__/globalTypes';
 import createLink from '@core/atoms/typography/Link';
 import { SETTINGS_SECURITY } from '@core/constants/routes';
-import { isType } from 'gql';
+import { isType } from '@core/gql';
 import idFromObject from '@core/gql/idFromObject';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import { currencies } from '@core/lib/fiat';

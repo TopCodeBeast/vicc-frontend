@@ -6,7 +6,7 @@ import { SorareLogo } from '@core/atoms/icons/SorareLogo';
 import Dialog from '@core/atoms/layout/Dialog';
 import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
 import { useWalletContext } from '@core/contexts/wallet';
-import { useResetPassword } from '@core/contexts/wallet/Frame/handlers';
+// import { useResetPassword } from '@core/contexts/wallet/Frame/handlers';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 
 import { ResetPasswordContent } from './ResetPasswordContent';
@@ -31,7 +31,7 @@ export const ResetPasswordDialog = ({ open, onClose: doOnclose }: Props) => {
 
   const onSuccess = useCallback(() => setHasSubmitted(true), []);
 
-  useResetPassword({ onSuccess });
+  // useResetPassword({ onSuccess }); //TODO***
 
   useEffect(() => {
     if (open) promptResetPassword();

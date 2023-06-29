@@ -23,7 +23,7 @@ interface ClickHandlerProps {
 interface IProps {
   token: {
     slug: string;
-    pictureUrl?: string | null;
+    pictureUrl: string | null;
   };
   draggableProps?: DraggableProps;
   width?: ValidWidths;

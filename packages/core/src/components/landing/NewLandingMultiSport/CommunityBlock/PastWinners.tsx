@@ -151,12 +151,12 @@ const UserName = styled.p`
 type PastWinnerProps = {
   leaderboardIconUrl: string;
   leaderboardName: string;
-  leaderboardRarity?: Scarcity | LeaderboardRarity | null;
+  leaderboardRarity: Scarcity | LeaderboardRarity | null;
   lineupsCount: number;
-  winner: { nickname: string; avatarUrl?: string | null };
+  winner: { nickname: string; avatarUrl: string | null };
   score: number;
   cards: {
-    imageUrl?: string | null;
+    imageUrl: string | null;
   }[];
 };
 

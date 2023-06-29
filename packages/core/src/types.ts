@@ -12,8 +12,6 @@ export interface StartCase<T> {
   //TODO
 }
 
-export type Nullable<T> = T | null;
-
 type AuctionNFT = {
   assetId: string
 }

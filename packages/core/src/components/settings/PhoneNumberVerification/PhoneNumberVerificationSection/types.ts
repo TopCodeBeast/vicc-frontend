@@ -25,7 +25,7 @@ export interface OpenDialog extends Actions {
 export interface State {
   stage?: string;
   phoneNumber?: string | null;
-  unverifiedPhoneNumber?: string;
+  unverifiedPhoneNumber?: string | null;
   goBack?: (dispatch: any) => void;
   close?: (dispatch: any) => void;
 }

@@ -10,7 +10,7 @@ import Disconnect from '@core/components/user/OAuthDisconnect';
 import { theme } from '@core/style/theme';
 
 interface Props {
-  nickname: string | null;
+  nickname?: string | null;
   provider: 'discord' | 'twitter' | 'google_oauth2' | 'facebook';
   icon: IconProp;
 }
