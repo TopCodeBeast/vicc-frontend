@@ -3262,6 +3262,11 @@ defaults@^1.0.3:
   dependencies:
     clone "^1.0.2"
 
+delayed-scroll-restoration-polyfill@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/delayed-scroll-restoration-polyfill/-/delayed-scroll-restoration-polyfill-0.1.1.tgz"
+  integrity sha512-DcDEi1224qIzuVKJrOelOZvJd3pKsxdiAiG0hVvti/CVXBbdRlqMDZigX1Wqx+jTj6kk0+TQT7fPK8I1khBvAQ==
+
 delayed-stream@~1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz"
