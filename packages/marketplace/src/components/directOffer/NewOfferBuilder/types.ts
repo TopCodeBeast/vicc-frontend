@@ -1,5 +1,5 @@
 import { CardHit } from "@sorare/core/src/lib/algolia";
-import { OfferSide_token } from "./OfferSide/__generated__/index.graphql";
+import { OfferDealSummary_token } from "../../offer/OfferDealSummary/__generated__/index.graphql";
 
 export type ActionType = any;
 
@@ -44,7 +44,7 @@ export interface State<T> {
   isTradeForNothing: boolean;
   sendCards: any[];
   receiveCards: CardHit[];
-  cardsData: Record<string, OfferSide_token>; //CardDataType[];
+  cardsData: Record<string, OfferDealSummary_token>; //CardDataType[];
 };
 
 export interface StateProps<T> {

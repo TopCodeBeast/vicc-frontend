@@ -33,7 +33,7 @@ const useCurrentUserPaginatedQuery = <
   C extends string,
   contentKey extends string,
   TData extends Maybe<{
-    currentUser: Maybe<{ [k in contentKey]: Connected<C> }>;
+    currentUser?: Maybe<{ [k in contentKey]: Connected<C> }>;
   }>,
   TVariables extends NonNullable<unknown>
 >(

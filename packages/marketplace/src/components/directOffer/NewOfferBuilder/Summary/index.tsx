@@ -75,7 +75,7 @@ export const Summary = <D extends BaseType>({
   const { up: isTablet } = useScreenSize('tablet');
   const track = useMarketplaceEvents();
   const onConfirm = useCallback(() => {
-    state.submit(dispatch, state);
+    (state as any).submit(dispatch, state); //**************TODO */
     track('Click Submit Trade');
   }, [dispatch, state, track]);
 

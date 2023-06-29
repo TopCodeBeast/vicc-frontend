@@ -15,7 +15,7 @@ import useEvents from '@core/lib/events/useEvents';
 import { laptopAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
 import { hideScrollbar } from '@core/style/utils';
 
-import 'style/drukFontFaces.css';
+import '@core/style/drukFontFaces.css';
 
 import { ContentContainer } from '../ui';
 import { BaseballPastWinner } from './BaseballPastWinner';

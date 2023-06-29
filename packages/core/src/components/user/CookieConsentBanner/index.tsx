@@ -1,5 +1,5 @@
-import { ConsentManagerBuilder } from '@segment/consent-manager';
-import inEU from '@segment/in-eu';
+// import { ConsentManagerBuilder } from '@segment/consent-manager';
+// import inEU from '@segment/in-eu';
 
 import { Popup } from '@core/atoms/layout/Popup';
 import { COOKIE_POLICY } from '@core/constants/routes';
@@ -27,7 +27,9 @@ const CookieConsentBanner = ({ force = false }: Props) => {
     // hide banner to allow user to read policy
     return null;
   }
-  return (
+
+  return <>ConsentManagerBuilder</>
+  /*return (
     <ConsentManagerBuilder
       writeKey={SEGMENT_API_KEY}
       shouldRequireConsent={inEU}
@@ -83,6 +85,6 @@ const CookieConsentBanner = ({ force = false }: Props) => {
         );
       }}
     </ConsentManagerBuilder>
-  );
+  );*/
 };
 export default CookieConsentBanner;

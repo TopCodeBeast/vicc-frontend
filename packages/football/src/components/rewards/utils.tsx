@@ -66,7 +66,7 @@ const format = ({
     '';
 
   const isCoinReward = (coinAmount || 0) > 0;
-  const isEthReward = (weiAmount || 0) > 0;
+  const isEthReward = (parseInt(weiAmount) || 0) > 0;
 
   let rewardProperties = {
     backgroundText: (rarity && scarcityNames[rarity]) || '',
@@ -213,7 +213,7 @@ export const formatReward = withFragments(
       rewards.push(coinReward);
     }
 
-    return rewards.map(format).sort((a, b) => a.key.localeCompare(b.key));
+    return rewards.map(format).sort((a, b) => a.key.localeCompare(b.key)) as any;
   },
   {
     so5Reward: gql`

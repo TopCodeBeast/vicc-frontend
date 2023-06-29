@@ -23,9 +23,9 @@ import { useSeoContext } from '@sorare/core/src/contexts/seo';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import cards from 'assets/home/rewards/cards.png';
-import coin from 'assets/home/rewards/coin.png';
-import eth from 'assets/home/rewards/eth.png';
+import cards from '@football/assets/home/rewards/cards.png';
+import coin from '@football/assets/home/rewards/coin.png';
+import eth from '@football/assets/home/rewards/eth.png';
 
 import Section from './Section';
 import Slider from './Slider';
@@ -298,7 +298,7 @@ const FootballPublicHome = () => {
           >
             <List>
               {onboardingCommonDraftCampaigns.map(
-                ({ competitions, displayName, upcomingSo5Leaderboard }) => {
+                ({ competitions, displayName, upcomingSo5Leaderboard }: any) => {
                   const competition = competitions[0];
                   if (!competition) {
                     return null;

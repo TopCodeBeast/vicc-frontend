@@ -1,12 +1,12 @@
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import common from 'assets/balls/common.svg';
-import limited from 'assets/balls/limited.svg';
-import mix from 'assets/balls/mix.png';
-import rare from 'assets/balls/rare.svg';
-import super_rare from 'assets/balls/super_rare.svg';
-import unique from 'assets/balls/unique.svg';
+import common from '@core/assets/balls/common.svg';
+import limited from '@core/assets/balls/limited.svg';
+import mix from '@core/assets/balls/mix.png';
+import rare from '@core/assets/balls/rare.svg';
+import super_rare from '@core/assets/balls/super_rare.svg';
+import unique from '@core/assets/balls/unique.svg';
 import { scarcityMessages } from '@core/lib/scarcity';
 
 const Root = styled.span`

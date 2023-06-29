@@ -280,7 +280,7 @@ const ContextProvider = ({
     } else {
       const { handledErrors } = lineupErrors;
       if (handledErrors.length) {
-        setErrors(handledErrors);
+        setErrors(handledErrors as any);
       }
     }
   };

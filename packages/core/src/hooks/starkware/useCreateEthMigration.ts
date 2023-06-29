@@ -3,7 +3,7 @@ import Big from 'bignumber.js';
 
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useWalletContext } from '@core/contexts/wallet';
-import { EthMigrationError } from 'errors';
+import { EthMigrationError } from '@core/errors';
 import useMutation from '@core/hooks/graphql/useMutation';
 import { generateDealId } from '@core/lib/deal';
 

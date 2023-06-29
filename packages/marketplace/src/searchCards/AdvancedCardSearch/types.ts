@@ -16,7 +16,7 @@ export interface Props {
   subtitle?: React.ReactNode;
   toggleDesktopFilter?: boolean;
   hideSavedFilters?: boolean;
-  banner: React.ReactNode;
+  banner?: React.ReactNode;
   CardResultsComponent: any;
   defaultSort?: keyof AlgoliaIndexes;
   sorts: AlgoliaCardIndexesNames;

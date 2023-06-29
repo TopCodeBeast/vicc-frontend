@@ -69,7 +69,7 @@ const CampaignTitle = ({
 }: {
   startDate: string;
   endDate: string;
-  cardsCount: number | null | undefined;
+  cardsCount?: number | null; //Modifled**************************
 }) => {
   const { formatDate } = useIntlContext();
 

@@ -60,8 +60,8 @@ export const GalleryLink = <T,>({
     return <WhenSuspended>{children}</WhenSuspended>;
   }
   const to = galleryPathFactory
-    ? galleryPathFactory(user)
-    : galleryPathFromSport(user.slug, galleryType);
+    ? galleryPathFactory(user as any)
+    : galleryPathFromSport((user as any).slug, galleryType);
   if (Link) {
     return <Link to={to}>{children}</Link>;
   }

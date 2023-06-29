@@ -1,6 +1,7 @@
 export type TokenTransferChildrenProps = {
   validationMessages?: Record<string, React.ReactNode>;
-  ConsentMessage?: string;
+  ConsentMessage?: React.ReactNode;
+  loading: boolean;
 };
 
 export type TokenTransferValidatorProps = {
@@ -8,13 +9,7 @@ export type TokenTransferValidatorProps = {
     slug: string;
     sport: string;
   }[];
-  children: ({
-    validationMessages,
-    loading,
-  }: {
-    validationMessages: any;
-    loading: boolean;
-  }) => React.ReactNode;
-  shouldValidate: boolean;
+  children: (props: TokenTransferChildrenProps) => React.ReactNode;
+  shouldValidate?: boolean;
   transferContext: any;
 };

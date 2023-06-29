@@ -46,7 +46,7 @@ export const Network = ({ user }: Props) => {
   const actualTabs = tabs.filter(
     t => user.slug === currentUser?.slug || t !== 'recommended'
   );
-  const tab = tabs.includes((qsParams.tab as Tab) || '')
+  const tab = tabs.includes((qsParams.tab as Tab)) //*************Modifed */
     ? `${qsParams.tab}`
     : tabs[0];
 

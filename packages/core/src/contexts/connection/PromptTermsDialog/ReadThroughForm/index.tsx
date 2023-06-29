@@ -251,9 +251,9 @@ const ReadThroughForm = ({ onFormSuccess, acceptTerms }: Props) => {
                 name="acceptGameRules"
                 value={acceptGameRules}
                 onChange={toggleAcceptGameRules}
-                label={formatMessage(messages.gameRulesLabel, {
+                label={`formatMessage(messages.gameRulesLabel, {
                   link: LinkToGameRules,
-                })}
+                })`}
               />
             </Group>
             <Group>

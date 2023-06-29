@@ -49,7 +49,7 @@ const useToggleHideCommonCards = () => {
           },
           errors: [],
         },
-      },
+      } as any,
     })) as FetchResult<UpdateUserSettingsHideCommonCards>;
 
     if (data) {
