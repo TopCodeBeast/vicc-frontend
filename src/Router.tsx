@@ -6,9 +6,12 @@ import {
   LANDING,
 } from '@sorare/core/src/constants/routes';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
+import { lazy } from '@sorare/core/src/lib/retry';
 import { RoutesWithDialogs } from '@sorare/core/src/routing/Router';
 
 import Landing from '@sorare/shared-pages/src/Landing';
+
+const FootballRoot = lazy(async () => import('@sorare/football/src/main'));
 
 export const BlockchainProviders = ({ children }: { children: ReactNode }) => {
   return (
@@ -22,7 +25,7 @@ const AppsRouter = () => {
   const bgLocation = useBgLocation();
   return (
     <Routes location={bgLocation}>
-      <Route path={'/*'} element={<>FootballRoot</>} />
+      <Route path={'/*'} element={<FootballRoot />} />
     </Routes>
   );
 };
