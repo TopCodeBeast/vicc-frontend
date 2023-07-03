@@ -112,7 +112,7 @@ import HomePublic from '@football/pages/Home/Public';
 // import Rewards from '@football/pages/Rewards';
 // import SerieALanding from '@football/pages/SerieALanding';
 // import StarterBundlePage from '@football/pages/StarterBundle';
-// import MarketHome from '@football/pages/TransferMarket/Home';
+import MarketHome from '@football/pages/TransferMarket/Home';
 // import NewSignings from '@football/pages/TransferMarket/NewSignings';
 // import StarterBundles from '@football/pages/TransferMarket/StarterBundles';
 // import TransferMarket from '@football/pages/TransferMarket/TransferMarket';
@@ -189,6 +189,16 @@ export const AppSwitch = () => {
         <>DIalogRoutes</>
       )}
     >
+      <Route
+        path={FOOTBALL_MARKET}
+        element={
+          <EnsureTopVisibleOnMount>
+            <Layout>
+              <MarketHome />
+            </Layout>
+          </EnsureTopVisibleOnMount>
+        }
+      />
       {!currentUser && (
         <>
           <Route
