@@ -1,5 +1,6 @@
 import { defineMessages } from 'react-intl';
 
+import { Sport } from '__generated__/globalTypes';
 export const CAPTAIN = 'C';
 
 export const glossary = defineMessages({
@@ -583,6 +584,21 @@ export const userAttributes = defineMessages({
   status: {
     id: 'Global.user.status',
     defaultMessage: 'Status',
+  },
+});
+
+export const sportsLabelsMessages = defineMessages({
+  [Sport.FOOTBALL]: {
+    id: 'sport.football',
+    defaultMessage: 'Football',
+  },
+  [Sport.BASEBALL]: {
+    id: 'sport.mlb',
+    defaultMessage: 'MLB',
+  },
+  [Sport.NBA]: {
+    id: 'sport.nba',
+    defaultMessage: 'NBA',
   },
 });
 
