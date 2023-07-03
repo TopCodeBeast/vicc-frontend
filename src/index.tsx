@@ -7,7 +7,6 @@ import '@sorare/core/src/polyfills';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import ReactDOM from 'react-dom';
 
-import { withFFProvider } from '@sorare/core/src/lib/featureFlags';
 
 import './remove-child-workaround';
 
@@ -21,9 +20,7 @@ const Root = () => (
   </AppRoot>
 );
 
-const RootWithLDProvider = withFFProvider(Root);
-
-ReactDOM.render(<RootWithLDProvider />, document.getElementById('root'));
+ReactDOM.render(<Root />, document.getElementById('root'));
 
 // unregister any service worker left-over (see https://gitlab.com/sorare/frontend/-/merge_requests/3852)
 if ('serviceWorker' in navigator) {

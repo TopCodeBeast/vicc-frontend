@@ -1,10 +1,6 @@
 import qs from 'qs';
 import { generatePath, matchPath } from 'react-router-dom';
 
-import { Sport } from '__generated__/globalTypes';
-
-import { API_ROOT } from '../config';
-
 export const FOOTBALL_PATH = '/football';
 export const MLB_PATH = '/mlb';
 export const NBA_PATH = '/nba';
@@ -432,30 +428,6 @@ export const NBA_NO_CARD_ENTRY_CONFIRM = `${NBA_NO_CARD_ENTRY}/confirm`;
 export const NBA_NO_CARD_ENTRY_DECLINE = `${NBA_NO_CARD_ENTRY}/decline`;
 export const NBA_NO_CARD_ENTRY_ELIGIBLE_LEADERBOARDS = `${NBA_NO_CARD_ENTRY}/eligible_leaderboards`;
 
-export const LANDING_BY_SPORT: Record<Sport, string> = {
-  [Sport.FOOTBALL]: FOOTBALL_PATH,
-  [Sport.NBA]: NBA_LANDING,
-  [Sport.BASEBALL]: MLB_LANDING,
-};
-
-export const SECONDARY_MARKET_STACK_SHOW_BY_SPORT: Record<Sport, string> = {
-  [Sport.FOOTBALL]: FOOTBALL_TRANSFER_MARKET_STACK_SHOW,
-  [Sport.NBA]: NBA_SECONDARY_MARKET_STACK_SHOW,
-  [Sport.BASEBALL]: MLB_SECONDARY_MARKET_STACK_SHOW,
-};
-
-export const AUCTION_MARKET_URL: Record<Sport, string> = {
-  [Sport.FOOTBALL]: FOOTBALL_NEW_SIGNINGS,
-  [Sport.BASEBALL]: MLB_PRIMARY_MARKET,
-  [Sport.NBA]: NBA_PRIMARY_MARKET,
-};
-
-export const STARTER_BUNDLES_URL: Record<Sport, string> = {
-  [Sport.BASEBALL]: MLB_STARTER_BUNDLES,
-  [Sport.NBA]: NBA_STARTER_BUNDLES,
-  [Sport.FOOTBALL]: FOOTBALL_STARTER_BUNDLES,
-};
-
 export const LOBBY_TABS = {
   MY_TEAMS: 'my-teams',
   LEADERBOARD: 'leaderboard',
@@ -558,14 +530,3 @@ export function isMarket(pathname: string) {
     matchPath(NBA_SECONDARY_MARKET, pathname)
   );
 }
-
-// this should stay a hook for future feature flags integration
-export const useDefaultSportPages = (): { [key in Sport]: string } => {
-  return {
-    FOOTBALL: FOOTBALL_HOME,
-    BASEBALL: MLB_HOME,
-    NBA: NBA_HOME,
-  };
-};
-
-export const RAMP_TRANSACTION_WEBHOOK = `${API_ROOT}/webhooks/ramp/transaction_state_updated`;
