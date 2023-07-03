@@ -51,7 +51,7 @@ export interface Withdrawal {
     gbp: number;
   };
   to: string;
-  transactionHash: string | null;
+  transactionHash?: string | null; //Modified**********************
   status: WithdrawalStatus;
   createdAt: ISO8601DateTime;
   agreedFeeAmount?: string;

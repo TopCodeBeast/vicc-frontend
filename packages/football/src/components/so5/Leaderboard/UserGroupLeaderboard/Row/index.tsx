@@ -145,7 +145,7 @@ type Props = {
     ranking: number;
     score: number;
     liveScore: number;
-    liveSo5Ranking: Row_so5UserGroupMembership_liveSo5Ranking | null;
+    liveSo5Ranking?: Row_so5UserGroupMembership_liveSo5Ranking | null;
     user: Row_user;
   };
   highlight: boolean;

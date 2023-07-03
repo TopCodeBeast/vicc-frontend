@@ -27,6 +27,6 @@ interface Array<T> {
 }
 
 type ISO8601Date = Date;
-type ISO8601DateTime = Date;
+type ISO8601DateTime = string;
 type Json = JSON;
 type WeiAmount = any;

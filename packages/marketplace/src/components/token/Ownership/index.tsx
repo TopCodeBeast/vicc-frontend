@@ -68,7 +68,7 @@ export const Ownership = ({ owner }: Props) => {
       : undefined;
 
   const showViewMore = (auction && auction.bidsCount > 1) || directOffer;
-  const ownerAccount = useOwnerAccount(owner);
+  const ownerAccount = useOwnerAccount(owner as any); //TODO*****************
 
   return (
     <Root>

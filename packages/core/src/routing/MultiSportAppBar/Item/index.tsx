@@ -11,7 +11,7 @@ import Button from '@core/atoms/buttons/Button';
 import { Fade } from '@core/atoms/ui/Transition';
 import { useIntlContext } from '@core/contexts/intl';
 import useTouchScreen from '@core/hooks/device/useTouchScreen';
-import { MenuVisibility } from '@core/lib/menu';
+// import { MenuVisibility } from '@core/lib/menu';
 import { matchLocation } from '@core/lib/urls';
 import { tabletAndAbove } from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
@@ -30,7 +30,7 @@ export interface Config {
   href?: string;
   externalLink?: boolean;
   subMenu?: MenuItems;
-  visibility?: MenuVisibility;
+  visibility?: any;//MenuVisibility; //TODO*****************************
   sport?: Sport;
   rightPositioned?: boolean;
   exactMatch?: boolean;

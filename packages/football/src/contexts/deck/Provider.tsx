@@ -4,7 +4,8 @@ import { lazy } from '@sorare/core/src/lib/retry';
 
 import DeckContextProvider, { EditedDeck } from '.';
 
-const EditDeckDialog = lazy(async () => import('modales/EditDeckDialog'));
+//TODO*****************
+// const EditDeckDialog = lazy(async () => import('@football/modales/EditDeckDialog'));
 
 interface Props {
   children: ReactNode;
@@ -25,14 +26,15 @@ const DeckProvider = ({ children }: Props) => {
     >
       {editedDeck && (
         <Suspense fallback={null}>
-          <EditDeckDialog
+          <>EditDeckDialog</>
+          {/* <EditDeckDialog
             onClose={() => {
               setEditedDeck(undefined);
               setCallback(undefined);
             }}
             onDelete={callback || undefined}
             deck={editedDeck}
-          />
+          /> */}
         </Suspense>
       )}
       {children}

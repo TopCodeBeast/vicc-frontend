@@ -52,7 +52,7 @@ const useEnableWallets = () => {
             },
             errors: [],
           },
-        },
+        } as any,
       });
 
       if (data) {

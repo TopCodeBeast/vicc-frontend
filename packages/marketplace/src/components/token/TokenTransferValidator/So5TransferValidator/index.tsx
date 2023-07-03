@@ -172,9 +172,7 @@ const So5TransferValidator = ({ slugs, children, transferContext }: Props) => {
       };
     }, {}) || {};
 
-  const ConsentMessage = useCallback<
-    NonNullable<TokenTransferChildrenProps['ConsentMessage']>
-  >(
+  const ConsentMessage = useCallback(//Modified*****
     props => {
       const liveLineupsCount =
         cards?.filter(card => card.liveSo5Lineup).length || 0;
