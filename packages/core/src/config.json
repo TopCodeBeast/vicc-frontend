@@ -15,8 +15,7 @@
     "rampUrl": "",
     "rampApiKey": "",
     "impactPageLoadAPIUrl": "",
-    "env": {
-    }
+    "env": "development"
   },
   "staging": {
     "backendHost": "https://api.sorare.com",
@@ -34,8 +33,7 @@
     "rampUrl": "",
     "rampApiKey": "",
     "impactPageLoadAPIUrl": "",
-    "env": {
-    }
+    "env": "staging"
   },
   "production": {
     "backendHost": "https://api.sorare.com",
@@ -53,8 +51,7 @@
     "rampUrl": "",
     "rampApiKey": "",
     "impactPageLoadAPIUrl": "",
-    "env": {
-    }
+    "env": "production"
   },
   "mockprod": {
     "backendHost": "https://api.sorare.com",
@@ -72,7 +69,6 @@
     "rampUrl": "",
     "rampApiKey": "",
     "impactPageLoadAPIUrl": "",
-    "env": {
-    }
+    "env": "mockprod"
   }
 }

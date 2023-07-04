@@ -1,6 +1,8 @@
 import qs from 'qs';
 import { generatePath, matchPath } from 'react-router-dom';
 
+import { Sport } from '__generated__/globalTypes';
+
 export const FOOTBALL_PATH = '/football';
 export const MLB_PATH = '/mlb';
 export const NBA_PATH = '/nba';
@@ -427,6 +429,19 @@ export const NBA_NO_CARD_ENTRY_REQUEST = `${NBA_NO_CARD_ENTRY}/request`;
 export const NBA_NO_CARD_ENTRY_CONFIRM = `${NBA_NO_CARD_ENTRY}/confirm`;
 export const NBA_NO_CARD_ENTRY_DECLINE = `${NBA_NO_CARD_ENTRY}/decline`;
 export const NBA_NO_CARD_ENTRY_ELIGIBLE_LEADERBOARDS = `${NBA_NO_CARD_ENTRY}/eligible_leaderboards`;
+
+
+export const AUCTION_MARKET_URL: Record<Sport, string> = {
+  [Sport.FOOTBALL]: FOOTBALL_NEW_SIGNINGS,
+  [Sport.BASEBALL]: MLB_PRIMARY_MARKET,
+  [Sport.NBA]: NBA_PRIMARY_MARKET,
+};
+
+export const STARTER_BUNDLES_URL: Record<Sport, string> = {
+  [Sport.BASEBALL]: MLB_STARTER_BUNDLES,
+  [Sport.NBA]: NBA_STARTER_BUNDLES,
+  [Sport.FOOTBALL]: FOOTBALL_STARTER_BUNDLES,
+};
 
 export const LOBBY_TABS = {
   MY_TEAMS: 'my-teams',
