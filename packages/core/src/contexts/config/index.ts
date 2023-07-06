@@ -79,13 +79,13 @@ export interface ConfigContext {
   ethQuantum: string;
   starkExchangeAddress: string | null;
   relayAddress: string;
-  so5: {
-    so5LeaguesAlgoliaFilters: Record<string, string>;
+  vicc5: {
+    // so5LeaguesAlgoliaFilters: Record<string, string>;
     nextSo5FixtureTeams: Team[];
-    noCardRoute: {
-      nextOpenDate: ISO8601DateTime | null;
-      nextCloseDate: ISO8601DateTime | null;
-    };
+    // noCardRoute: {
+    //   nextOpenDate: ISO8601DateTime | null;
+    //   nextCloseDate: ISO8601DateTime | null;
+    // };
   };
   transferMarket: {
     cardEthMinPrice: number;

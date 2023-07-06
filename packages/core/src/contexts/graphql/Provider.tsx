@@ -27,9 +27,9 @@ import { useIntlContext } from '@core/contexts/intl';
 import { useSentryContext } from '@core/contexts/sentry';
 import { useSessionContext } from '@core/contexts/session';
 import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
-import OperationStoreClient from '@core/gql/OperationStoreClient';
+// import OperationStoreClient from '@core/gql/OperationStoreClient';
 import { dataIdFromObject } from '@core/gql/idFromObject';
-import introspectionResult from '@core/gql/introspectionResult.json';
+// import introspectionResult from '@core/gql/introspectionResult.json';
 import { useDebugLink } from '@core/hooks/graphql/useDebugLink';
 import { useTMLink } from '@core/hooks/graphql/useTMLink';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
@@ -61,6 +61,7 @@ import {
 import ActionCableLink from './ActionCableLink';
 import mySo5LineupsPaginated from './mySo5LineupsPaginated';
 
+console.log('ENV', ENV);
 const cable = () => createConsumer(WS_ROOT);
 
 const MAX_RETRIES = 8;
@@ -253,7 +254,7 @@ export const typePolicies: TypePolicies = {
 export const createCache = () =>
   new InMemoryCache({
     dataIdFromObject,
-    possibleTypes: introspectionResult.possibleTypes,
+    possibleTypes: {},//introspectionResult.possibleTypes, //TODO***
     typePolicies,
   });
 
@@ -346,10 +347,10 @@ export const GraphqlProvider = ({
           headers: {
             ...headers,
             ...cloudflareAccessHeaders,
-            'sorare-client': CLIENT_TYPE,
-            'sorare-version': VERSION,
-            'sorare-build': REVISION,
-            'sorare-tab-version': TAB_VERSION,
+            'vicc-client': CLIENT_TYPE,
+            'vicc-version': VERSION,
+            'vicc-build': REVISION,
+            'vicc-tab-version': TAB_VERSION,
             'Accept-Language': locale,
             DEVICE_FINGERPRINT: await deviceFingerprint(),
             [xsrfHeaderName]: cookie.load(xsrfCookieName),
@@ -491,7 +492,7 @@ export const GraphqlProvider = ({
             // Hack to redirect to Cloudflare Access login page in dev
             if (
               (isStaging || isMockprod) &&
-              response.url.startsWith('https://sorare.cloudflareaccess.com')
+              response.url.startsWith('https://vicc.cloudflareaccess.com')
             ) {
               window.location.replace(API_ROOT);
             }

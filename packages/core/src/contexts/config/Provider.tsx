@@ -95,87 +95,83 @@ import samples from './samples.json';
 //   }
 // `;
 
-// const CONFIG_QUERY = gql`
-//   query ConfigQuery {
-//     config {
-//       id
-//       algoliaIndexSuffix
-//       algoliaApplicationId
-//       algoliaSearchApiKey
-//       bankAddress
-//       relayAddress
-//       starkExchangeAddress
-//       ethereumNetworkId
-//       ethereumEndpoint
-//       landingTheme {
-//         slug
-//         cards
-//         subtitle
-//         userSource {
-//           id
-//           name
-//         }
-//         sport
-//       }
-//       sorareTokensAddress
-//       baseballTokensAddress
-//       nbaTokensAddress
-//       sorareCardsAddress
-//       footballNationalSeriesTokensAddress
-//       sorareEncryptionKey
-//       sponsorAccountAddress
-//       migratorAddress
-//       minimumReceiveWeiAmount
-//       footballMarketFeesBasisPoints: marketFeeRateBasisPoints(sport: FOOTBALL)
-//       nbaMarketFeesBasisPoints: marketFeeRateBasisPoints(sport: NBA)
-//       mlbMarketFeesBasisPoints: marketFeeRateBasisPoints(sport: BASEBALL)
-//       exchangeRate {
-//         id
-//         rates
-//       }
-//       defaultFiatCurrency
-//       ethAssetType
-//       ethQuantum
-//       so5 {
-//         id
-//         so5LeaguesAlgoliaFilters
-//         nextSo5FixtureTeams {
-//           ... on TeamInterface {
-//             slug
-//           }
-//         }
-//         noCardRoute {
-//           id
-//           nextOpenDate
-//           nextCloseDate
-//         }
-//       }
-//       currentLocation {
-//         countryCode
-//         regionCode
-//       }
-//       counts {
-//         usersCount
-//         football {
-//           starterPacksCount
-//           managerSalesCount
-//           auctionsCount
-//         }
-//       }
-//       ...ConfigQueryProvider_contentfulData
-//     }
-//     transferMarket {
-//       id
-//       cardWeiMinPrice
-//     }
-//     currentUser {
-//       slug
-//       ...CurrentUserProvider_currentUser
-//     }
-//   }
-//   ${currentUser}
-//   ${contentfulData}
-// `;
+const CONFIG_QUERY = gql`
+  query ConfigQuery {
+    config {
+      id
+      algoliaIndexSuffix
+      algoliaApplicationId
+      algoliaSearchApiKey
+      bankAddress
+      relayAddress
+      # starkExchangeAddress
+      ethereumNetworkId
+      ethereumEndpoint
+      landingTheme {
+        slug
+        # cards
+        subtitle
+        userSource {
+          id
+          name
+        }
+        sport
+      }
+      sorareTokensAddress: viccTokensAddress
+      baseballTokensAddress: viccTokensAddress
+      nbaTokensAddress: viccTokensAddress
+      sorareCardsAddress: viccCardsAddress
+      # footballNationalSeriesTokensAddress
+      sorareEncryptionKey: viccEncryptionKey
+      sponsorAccountAddress
+      # migratorAddress
+      minimumReceiveWeiAmount: minimumReceiveAmount
+      cricketMarketFeesBasisPoints: marketFeeRateBasisPoints
+      # nbaMarketFeesBasisPoints: marketFeeRateBasisPoints(sport: NBA)
+      # mlbMarketFeesBasisPoints: marketFeeRateBasisPoints(sport: BASEBALL)
+      exchangeRate {
+        id
+        rates
+      }
+      defaultFiatCurrency
+      ethAssetType
+      ethQuantum
+      vicc5Config {
+        id
+        # so5LeaguesAlgoliaFilters
+        nextSo5FixtureTeams: nextVicc5FixtureTeams {
+          ... on TeamInterface {
+            slug
+          }
+        }
+        #noCardRoute {
+        #  id
+        #  nextOpenDate
+        #  nextCloseDate
+        #}
+      }
+      currentLocation {
+        countryCode
+        regionCode
+      }
+      #counts {
+      #  usersCount
+      #  football {
+      #    starterPacksCount
+      #    managerSalesCount
+      #    auctionsCount
+      #  }
+      #}
+    }
+    transferMarket {
+      id
+      cardWeiMinPrice: cardMinPrice
+    }
+    currentUser {
+      slug
+    }
+  }
+`;
 
 // const PING_QUERY = gql`
 //   query PingConfigQuery {
@@ -221,10 +217,11 @@ const tmInterval = 30_000 + getRandomInt(5_000);
  * Aggregates all startup loading states so that initialization can be done in parallel
  */
 export const ConfigProvider = ({ children }: Props) => {
-  const data: any = samples.data;
-  const loading = false;
-  // const { data, loading, refetch, updateQuery } =
-  //   useQuery<ConfigQuery>(CONFIG_QUERY);
+  // const data: any = samples.data;
+  // const loading = false;
+  const { data, loading, refetch, updateQuery } =
+    useQuery<ConfigQuery>(CONFIG_QUERY);
+
   // const [ping] = useLazyQuery(PING_QUERY, {
   //   fetchPolicy: 'network-only',
   //   errorPolicy: 'ignore',
@@ -321,9 +318,9 @@ export const ConfigProvider = ({ children }: Props) => {
   const { config, transferMarket } = data;
 
   const marketFeesBasisPoints = {
-    [Sport.FOOTBALL]: config.footballMarketFeesBasisPoints,
-    [Sport.NBA]: config.nbaMarketFeesBasisPoints,
-    [Sport.BASEBALL]: config.mlbMarketFeesBasisPoints,
+    [Sport.FOOTBALL]: 10,//config.footballMarketFeesBasisPoints,
+    [Sport.NBA]: 10,//config.nbaMarketFeesBasisPoints,
+    [Sport.BASEBALL]: 10,//config.mlbMarketFeesBasisPoints,
   };
 
   return (
@@ -333,11 +330,11 @@ export const ConfigProvider = ({ children }: Props) => {
         marketFeesBasisPoints,
         getMarketFeesRateBySport: (sport: Sport) =>
           marketFeesBasisPoints[sport] / 10000,
-        so5: {
-          ...config.so5,
-          so5LeaguesAlgoliaFilters: asObject(
+        vicc5: {
+          ...config.vicc5Config,
+          /*so5LeaguesAlgoliaFilters: asObject(
             config.so5.so5LeaguesAlgoliaFilters
-          ),
+          ),*/
         },
         transferMarket: {
           cardWeiMinPrice: transferMarket.cardWeiMinPrice,
@@ -348,13 +345,13 @@ export const ConfigProvider = ({ children }: Props) => {
         algoliaCardIndexes,
         currentUser: data.currentUser,
         exchangeRate,
-        refetch: () => console.log('refresh'),
+        refetch: () => Promise.resolve(),
         updateQuery: (newCurrentUser: ConfigQuery_currentUser) => {
           // updateQuery(() => ({ ...data, currentUser: newCurrentUser }));
           // refreshWsCable();
         },
         defaultFiatCurrency,
-      }}
+      } as any} //TODO*****
     >
       {children}
     </ConfigContextProvider>

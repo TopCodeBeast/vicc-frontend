@@ -1,6 +1,6 @@
 {
   "development": {
-    "backendHost": "https://api.sorare.com",
+    "backendHost": "http://localhost:5000",
     "brazeApiKey": "",
     "brazeSdkEndpoint": "",
     "walletUrl": "",
@@ -18,7 +18,7 @@
     "env": "development"
   },
   "staging": {
-    "backendHost": "https://api.sorare.com",
+    "backendHost": "http://localhost:5000",
     "brazeApiKey": "",
     "brazeSdkEndpoint": "",
     "walletUrl": "",
@@ -36,7 +36,7 @@
     "env": "staging"
   },
   "production": {
-    "backendHost": "https://api.sorare.com",
+    "backendHost": "http://localhost:5000",
     "brazeApiKey": "",
     "brazeSdkEndpoint": "",
     "walletUrl": "",
@@ -54,7 +54,7 @@
     "env": "production"
   },
   "mockprod": {
-    "backendHost": "https://api.sorare.com",
+    "backendHost": "http://localhost:5000",
     "brazeApiKey": "",
     "brazeSdkEndpoint": "",
     "walletUrl": "",
