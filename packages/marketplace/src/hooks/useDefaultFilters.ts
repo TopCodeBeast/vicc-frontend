@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { EnabledWallet } from '@sorare/core/src/__generated__/globalTypes';
+// import { EnabledWallet } from '@sorare/core/src/__generated__/globalTypes';
 // import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
@@ -40,14 +40,14 @@ const useDefaultFilters = ({
     const enabledWallets = currentUser?.profile?.enabledWallets;
     if (enabledWallets) {
       if (enabledWallets.length === 1) {
-        if (enabledWallets[0] === EnabledWallet.FIAT) {
-          // if the user only configured their FIAT wallet, only display them cards they can settle in FIAT
-          return 'sale.settlement_wallets:fiat';
-        }
-        if (enabledWallets[0] === EnabledWallet.ETH) {
-          // if the user only configured their ETH wallet, still show them FIAT-only cards,
-          // they might want to pay with by CC
-        }
+        // if (enabledWallets[0] === EnabledWallet.FIAT) {
+        //   // if the user only configured their FIAT wallet, only display them cards they can settle in FIAT
+        //   return 'sale.settlement_wallets:fiat';
+        // }
+        // if (enabledWallets[0] === EnabledWallet.ETH) {
+        //   // if the user only configured their ETH wallet, still show them FIAT-only cards,
+        //   // they might want to pay with by CC
+        // }
       }
     }
 

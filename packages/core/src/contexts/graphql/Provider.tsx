@@ -7,6 +7,7 @@ import {
   ServerError,
   TypePolicies,
   TypePolicy,
+  createHttpLink,
   fallbackHttpConfig,
   selectHttpOptionsAndBody,
 } from '@apollo/client';
@@ -65,7 +66,7 @@ console.log('ENV', ENV);
 const cable = () => createConsumer(WS_ROOT);
 
 const MAX_RETRIES = 8;
-const INITIAL_RETRY_DELAY = 1000;
+const INITIAL_RETRY_DELAY = 3000;
 
 const cardFields: Exclude<TypePolicy['fields'], undefined> = {
   cardByAssetId: {
@@ -470,7 +471,10 @@ export const GraphqlProvider = ({
     });
     /* eslint-disable consistent-return */
 
-    const httpLink = ApolloLink.split(
+    const httpLink = createHttpLink({
+      uri: import.meta.env.VITE_SERVER_URL,
+    });
+    /*const httpLink = ApolloLink.split(
       hasSubscriptionOperation,
       new ActionCableLink({ cable: wsCable }) as any,
       createUploadLink({
@@ -515,7 +519,7 @@ export const GraphqlProvider = ({
           accept: 'application/json',
         },
       })
-    );
+    );*/
 
     const afterwareLink = new ApolloLink((operation, forward) => {
       return forward
