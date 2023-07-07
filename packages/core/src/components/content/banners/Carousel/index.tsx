@@ -14,7 +14,7 @@ const MAX_NUMBER_OF_BANNERS = 3;
 export const Carousel: React.FC<Props> = ({ slotName, className }) => {
   const { bannerSet } = useConfigContext();
   const slotBanners =
-    bannerSet.find(banner => banner.title === slotName)?.banners || [];
+    (bannerSet || []).find(banner => banner.title === slotName)?.banners || []; //TODO****
 
   if (!slotBanners.length) {
     return null;

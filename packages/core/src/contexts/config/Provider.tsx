@@ -328,8 +328,9 @@ export const ConfigProvider = ({ children }: Props) => {
         marketFeesBasisPoints,
         getMarketFeesRateBySport: (sport: Sport) =>
           marketFeesBasisPoints[sport] / 10000,
-        vicc5: {
+        so5: {
           ...config.vicc5Config,
+          so5LeaguesAlgoliaFilters: {},
           /*so5LeaguesAlgoliaFilters: asObject(
             config.so5.so5LeaguesAlgoliaFilters
           ),*/

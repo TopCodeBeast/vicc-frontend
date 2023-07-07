@@ -79,8 +79,8 @@ export interface ConfigContext {
   ethQuantum: string;
   starkExchangeAddress: string | null;
   relayAddress: string;
-  vicc5: {
-    // so5LeaguesAlgoliaFilters: Record<string, string>;
+  so5: {
+    so5LeaguesAlgoliaFilters: Record<string, string>;
     nextSo5FixtureTeams: Team[];
     // noCardRoute: {
     //   nextOpenDate: ISO8601DateTime | null;
