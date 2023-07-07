@@ -173,23 +173,21 @@ const CONFIG_QUERY = gql`
   }
 `;
 
-// const PING_QUERY = gql`
-//   query PingConfigQuery {
-//     config {
-//       id
-//       exchangeRate {
-//         id
-//         rates
-//       }
-//       minimumReceiveWeiAmount
-//       ...ConfigQueryProvider_contentfulData
-//     }
-//     currentUser {
-//       slug
-//     }
-//   }
-//   ${contentfulData}
-// `;
+const PING_QUERY = gql`
+  query PingConfigQuery {
+    config {
+      id
+      exchangeRate {
+        id
+        rates
+      }
+      minimumReceiveWeiAmount: minimumReceiveAmount
+    }
+    currentUser {
+      slug
+    }
+  }
+`;
 
 // const TM_MUTATION = gql`
 //   mutation ReportTelemetry($input: reportTelemetryInput!) {
@@ -222,11 +220,11 @@ export const ConfigProvider = ({ children }: Props) => {
   const { data, loading, refetch, updateQuery } =
     useQuery<ConfigQuery>(CONFIG_QUERY);
 
-  // const [ping] = useLazyQuery(PING_QUERY, {
-  //   fetchPolicy: 'network-only',
-  //   errorPolicy: 'ignore',
-  //   pollInterval: pingInterval,
-  // });
+  const [ping] = useLazyQuery(PING_QUERY, {
+    fetchPolicy: 'network-only',
+    errorPolicy: 'ignore',
+    pollInterval: pingInterval,
+  });
   const {
     flags: { useReportTelemetry },
   } = useFeatureFlags();
@@ -245,14 +243,14 @@ export const ConfigProvider = ({ children }: Props) => {
   // );
   const flushOperations = useTMContext()?.flushOperations;
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     ping();
-  //   }, pingInterval);
-  //   return () => {
-  //     clearTimeout(timeout);
-  //   };
-  // }, [ping]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      ping();
+    }, pingInterval);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [ping]);
 
   useInterval(
     () => {
