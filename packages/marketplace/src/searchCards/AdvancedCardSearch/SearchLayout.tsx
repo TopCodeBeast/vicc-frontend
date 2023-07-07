@@ -263,8 +263,7 @@ export const SearchLayout = (props: Props) => {
           {/* <ActiveFilters /> */}
           <Highlightable {...cardsTour} position="left" disabled={!cardsTour}>
             <Cards>
-              <>CardResultsComponent</>
-              {/* <CardResultsComponent
+              <CardResultsComponent
                 hideOwner={hideOwner}
                 galleryOwnerSlug={galleryOwnerSlug}
                 removeFinishedAuctions={removeFinishedAuctions}
@@ -274,7 +273,7 @@ export const SearchLayout = (props: Props) => {
                 stackable={stackable}
                 showDesktopFilter={showDesktopFilter}
                 alwaysShowFavoriteButton={alwaysShowFavoriteButton}
-              /> */}
+              />
             </Cards>
           </Highlightable>
           {/* <StyledPagination>

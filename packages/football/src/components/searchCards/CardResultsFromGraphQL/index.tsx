@@ -290,25 +290,23 @@ export const CardResultsFromGraphQL = (props: CardResultsProps) => {
         ]
       : sortedItems;
 
-  // return (
-  //   <CardPreviewGrid
-  //     page={page}
-  //     nbPages={nbPages}
-  //     setPage={setPage}
-  //     items={customSortedItems}
-  //     hideOwner={hideOwner}
-  //     galleryOwnerSlug={galleryOwnerSlug}
-  //     removeFinishedAuctions={removeFinishedAuctions}
-  //     removeEndedSingleSaleOffers={removeEndedSingleSaleOffers}
-  //     topic={topic}
-  //     hideSorareUser={hideSorareUser}
-  //     stackable={stackable}
-  //     loading={loading && !data}
-  //     showDesktopFilter={showDesktopFilter}
-  //   />
-  // );
-
-  return <>CardPreviewGrid555</>
+  return (
+    <CardPreviewGrid
+      page={page}
+      nbPages={nbPages}
+      setPage={setPage}
+      items={customSortedItems}
+      hideOwner={hideOwner}
+      galleryOwnerSlug={galleryOwnerSlug}
+      removeFinishedAuctions={removeFinishedAuctions}
+      removeEndedSingleSaleOffers={removeEndedSingleSaleOffers}
+      topic={topic}
+      hideSorareUser={hideSorareUser}
+      stackable={stackable}
+      loading={loading && !data}
+      showDesktopFilter={showDesktopFilter}
+    />
+  );
 };
 
 CardResultsFromGraphQL.fragments = {

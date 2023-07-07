@@ -287,13 +287,13 @@ const cardFragment = gql`
     #...CardPropertiesByAssetId_card
     #...BundledAuctionEligibilityByAssetIds_card
     #...Analytics_cardInfo
-    #...CommonCardPreview_card
+    ...CommonCardPreview_card
     #...CardTeamsByAssetId_card
   }
   ${Token.fragments.token}
   #{CardPropertiesByAssetId.fragments.card}
   #{BundledAuctionEligibilityByAssetIds.fragments.card}
-  #{CommonCardPreview.fragments.card}
+  ${CommonCardPreview.fragments.card}
   #{analyticsFragments.cardInfo}
   #{CardTeamsByAssetId.fragments.card}
   ${TokenFavoriteButton.fragments.token}

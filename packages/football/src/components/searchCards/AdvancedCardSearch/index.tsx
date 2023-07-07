@@ -8,7 +8,7 @@ import AdvancedCardSearch, {
 } from '@sorare/marketplace/src/searchCards/AdvancedCardSearch';
 import { SearchTopic } from '@sorare/marketplace/src/searchCards/AdvancedCardSearch/types';
 
-// import CardResultsFromGraphQL from '@football/components/searchCards/CardResultsFromGraphQL';
+import CardResultsFromGraphQL from '@football/components/searchCards/CardResultsFromGraphQL';
 
 export const CardSearch = (
   props: Omit<FullProps, 'CardResultsComponent' | 'sport'> & {
@@ -21,7 +21,7 @@ export const CardSearch = (
   const { isBlockchain, distinct, editableLists, ...rest } = props;
   return isBlockchain ? (
     <AdvancedBlockchainCardSearch
-      CardResultsComponent={<>CardResultsFromGraphQL555</>}
+      CardResultsComponent={CardResultsFromGraphQL}
       sport={Sport.FOOTBALL}
       distinct={distinct}
       editableLists={editableLists}
@@ -29,7 +29,7 @@ export const CardSearch = (
     />
   ) : (
     <AdvancedCardSearch
-      CardResultsComponent={<>CardResultsFromGraphQL666</>}
+      CardResultsComponent={CardResultsFromGraphQL}
       sport={Sport.FOOTBALL}
       distinct={distinct}
       editableLists={editableLists}
@@ -38,15 +38,15 @@ export const CardSearch = (
   );
 };
 
-// CardSearch.fragments = {
-//   card: gql`
-//     fragment AdvancedCardSearch_card on Card {
-//       slug
-//       assetId
-//       ...CardResultsFromGraphQL_card
-//     }
-//     ${CardResultsFromGraphQL.fragments.card}
-//   `,
-// };
+CardSearch.fragments = {
+  card: gql`
+    fragment AdvancedCardSearch_card on Card {
+      slug
+      assetId
+      ...CardResultsFromGraphQL_card
+    }
+    ${CardResultsFromGraphQL.fragments.card}
+  `,
+};
 
 export default CardSearch;
