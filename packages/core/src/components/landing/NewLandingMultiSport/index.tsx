@@ -6,7 +6,7 @@ import styled from 'styled-components';
 // import { Container } from '@core/atoms/container';
 // import Bold from '@core/atoms/typography/Bold';
 // import { useDefaultSportPages } from '@core/constants/routes';
-// import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 // import useReferrer from '@core/contexts/queryString/useReferrer';
 // import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
 // import { Lifecycle } from '@core/hooks/useLifecycle';
@@ -38,7 +38,7 @@ const OtherSportsWrapper = styled(ContentContainer)`
 `;
 
 export const NewLandingMultiSport = () => {
-  // const { currentUser } = useCurrentUserContext();
+  const { currentUser } = useCurrentUserContext();
   // const fontStatus = useFontFaceObserver(
   //   [{ family: 'DrukWide-Super', weight: 'bold' }],
   //   { timeout: 1000 }

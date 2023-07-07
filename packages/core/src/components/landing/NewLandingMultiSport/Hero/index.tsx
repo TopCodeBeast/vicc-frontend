@@ -15,7 +15,7 @@ import {
   useHeroAnimationTimings,
 } from '@core/components/landing/NewLandingMultiSport/utils';
 // import { useConnectionContext } from '@core/contexts/connection';
-// import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 import { glossary } from '@core/lib/glossary';
 import { laptopAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
@@ -211,7 +211,7 @@ const ScrollDown = styled.div`
 export const Hero = () => {
   const { formatMessage } = useIntl();
   // const { signUp } = useConnectionContext();
-  const { currentUser } = {} as any;//useCurrentUserContext();
+  const { currentUser } = useCurrentUserContext();
   const { firstBatch, secondBatch } = useHeroAnimationTimings();
   const { up: isDesktop } = useScreenSize('desktop');
   const { up: isLaptop } = useScreenSize('laptop');

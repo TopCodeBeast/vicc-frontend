@@ -9,7 +9,7 @@ import {
 } from '@sorare/core/src/components/search/InstantSearch/types';
 import SearchCardsContextProvider from '@sorare/core/src/contexts/searchCards/Provider';
 
-// import SearchLayout from './SearchLayout';
+import SearchLayout from './SearchLayout';
 import { Props } from './types';
 
 export interface FullProps extends Props {
@@ -103,14 +103,13 @@ export const AdvancedBlockchainCardSearch = ({
         attributesToRetrieve={attributesToRetrieve}
         {...(defaultHitsPerPage && { defaultHitsPerPage })}
       >
-        <>SearchLayout</>
-        {/* <SearchLayout
+        <SearchLayout
           cardFilters={cardFilters}
           advancedCardFilters={advancedCardFilters}
           {...rest}
         >
           {children}
-        </SearchLayout> */}
+        </SearchLayout>
       </InstantBlockchainCardSearch>
     </SearchCardsContextProvider>
   );
