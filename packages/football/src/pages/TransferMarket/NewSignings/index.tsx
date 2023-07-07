@@ -69,7 +69,7 @@ const NewSignings = () => {
             </>
           }
           // banner={<SelectedLeaderboardBanner />}
-          banner={<>SelectedLeaderboardBanner</>} //TODO****
+          banner={<></>} //TODO****
           isBlockchain
           distinct
         />

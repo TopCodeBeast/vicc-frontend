@@ -12,7 +12,7 @@ import {
   SearchLayoutMain,
 } from '@sorare/core/src/components/search/SearchLayout/ui';
 import { AlgoliaCardIndexesNames } from '@sorare/core/src/contexts/config';
-// import Highlightable from '@sorare/core/src/contexts/highlight/Highlightable';
+import Highlightable from '@sorare/core/src/contexts/highlight/Highlightable';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useToggle from '@sorare/core/src/hooks/useToggle';
@@ -22,14 +22,14 @@ import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 // import { ActiveFilters } from '@marketplace/search/ActiveFilters';
 // import { SavedFilters } from '@marketplace/search/SavedFilters';
-// import StackedSwitch from '@marketplace/searchCards/StackedSwitch';
+import StackedSwitch from '@marketplace/searchCards/StackedSwitch';
 
 // import FiltersManager from '../../search/FiltersManager';
 // import FiltersManagerDialog from '../../search/FiltersManagerDialog';
-// import SearchBox from '../../search/SearchBox';
+import SearchBox from '../../search/SearchBox';
 // import ToggleFiltersManager from '../../search/ToggleFiltersManager';
 // import Pagination from '../Pagination';
-// import SortCards from '../SortCards';
+import SortCards from '../SortCards';
 import { Props } from './types';
 
 const messages = defineMessages({
@@ -235,7 +235,7 @@ export const SearchLayout = (props: Props) => {
         {!responsiveFilters && (
           <FilterIconButton onClick={toggleShowDesktopFilters} />
         )}
-        {/* <SearchBox
+        <SearchBox
           withClearIcon
           placeholder={formatMessage(searchBoxPlaceholder, {
             name: topic?.label,
@@ -244,7 +244,7 @@ export const SearchLayout = (props: Props) => {
         />
         {stackable && <StackedSwitch />}
         {isLaptop && <SortCards indexes={sorts} />}
-        {!hideSavedFilters && <SavedFilters />} */}
+        {/* {!hideSavedFilters && <SavedFilters />} */}
       </SearchRow>
       <SearchLayoutContainer>
         {/* {!responsiveFilters && (
@@ -260,10 +260,11 @@ export const SearchLayout = (props: Props) => {
         )} */}
         <SearchLayoutMain>
           {children}
-          {/* <ActiveFilters />
+          {/* <ActiveFilters /> */}
           <Highlightable {...cardsTour} position="left" disabled={!cardsTour}>
             <Cards>
-              <CardResultsComponent
+              <>CardResultsComponent</>
+              {/* <CardResultsComponent
                 hideOwner={hideOwner}
                 galleryOwnerSlug={galleryOwnerSlug}
                 removeFinishedAuctions={removeFinishedAuctions}
@@ -273,10 +274,10 @@ export const SearchLayout = (props: Props) => {
                 stackable={stackable}
                 showDesktopFilter={showDesktopFilter}
                 alwaysShowFavoriteButton={alwaysShowFavoriteButton}
-              />
+              /> */}
             </Cards>
           </Highlightable>
-          <StyledPagination>
+          {/* <StyledPagination>
             <Pagination onPageChange={onPageChange} />
           </StyledPagination> */}
         </SearchLayoutMain>

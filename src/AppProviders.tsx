@@ -7,6 +7,7 @@ import CurrentUserProvider from '@sorare/core/src/contexts/currentUser/Provider'
 import DebugProvider from '@sorare/core/src/contexts/debug/Provider';
 import DeviceFingerprintProvider from '@sorare/core/src/contexts/deviceFingerprint/Provider';
 import GrapqhqlProvider from '@sorare/core/src/contexts/graphql/Provider';
+import HighlightProvider from '@sorare/core/src/contexts/highlight/Provider';
 import { IntlProvider } from '@sorare/core/src/contexts/intl/Provider';
 import SentryProvider from '@sorare/core/src/contexts/sentry/Provider';
 import SeoProvider from '@sorare/core/src/contexts/seo/Provider';
@@ -25,13 +26,15 @@ const AppProviders = ({ children }: { children: ReactNode }) => {
                 <SnackNotificationProvider>
                   <DeviceFingerprintProvider>
                     <GrapqhqlProvider>
-                      <ConfigProvider>
-                        <SeoProvider>
-                          <CurrentUserProvider>
-                            <Suspense fallback={null}>{children}</Suspense>
-                          </CurrentUserProvider>
-                        </SeoProvider>
-                      </ConfigProvider>
+                      <HighlightProvider>
+                        <ConfigProvider>
+                          <SeoProvider>
+                            <CurrentUserProvider>
+                              <Suspense fallback={null}>{children}</Suspense>
+                            </CurrentUserProvider>
+                          </SeoProvider>
+                        </ConfigProvider>
+                      </HighlightProvider>
                     </GrapqhqlProvider>
                   </DeviceFingerprintProvider>
                 </SnackNotificationProvider>
