@@ -14,8 +14,8 @@ import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 // import TokenDescription from '@marketplace/components/token/TokenDescription';
 
 // import { TokenDetails } from './TokenDetails';
-// import { TokenImg } from './TokenImg';
-// import { TokenProperties } from './TokenProperties';
+import { TokenImg } from './TokenImg';
+import { TokenProperties } from './TokenProperties';
 import { TokenContent_token } from './__generated__/index.graphql';
 
 export type Props = {
@@ -118,13 +118,13 @@ TokenContent.fragments = {
           slug
         }
       }
-      #...TokenImg_token
-      #...TokenProperties_token
+      ...TokenImg_token
+      ...TokenProperties_token
       #...TokenDescription_token
       #...TokenDetails_token
     }
-    #{TokenImg.fragments.token}
-    #{TokenProperties.fragments.token}
+    ${TokenImg.fragments.token}
+    ${TokenProperties.fragments.token}
     #{TokenDescription.fragments.token}
     #{TokenDetails.fragments.token}
   `,
