@@ -34,7 +34,7 @@ import { CardResultsProps } from '@sorare/marketplace/src/searchCards/AdvancedCa
 // import CardPropertiesByAssetId from '@football/components/card/CardPropertiesByAssetId';
 // // eslint-disable-next-line sorare/no-unrendered-component-imports
 // import CardTeamsByAssetId from '@football/components/card/CardTeamsByAssetId';
-// import CommonCardPreview from '@football/components/card/CommonCardPreview';
+import CommonCardPreview from '@football/components/card/CommonCardPreview';
 // import PlayerDetails from '@football/components/so5/ComposeTeam/responsive/PlayerDetails';
 
 import { CardPreviewGrid_card } from './__generated__/index.graphql';
@@ -67,30 +67,30 @@ const [Drawer, classes] = OverrideClasses(MuiDrawer, null, {
 });
 
 export const CardPreviewGrid = (props: Props) => {
-  // const {
-  //   items,
-  //   hideOwner,
-  //   galleryOwnerSlug,
-  //   removeFinishedAuctions,
-  //   removeEndedSingleSaleOffers,
-  //   page,
-  //   nbPages,
-  //   setPage,
-  //   topic,
-  //   hideSorareUser,
-  //   stackable,
-  //   loading,
-  //   showDesktopFilter,
-  // } = props;
-  // const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  // const unstacked = useQueryString(SEARCH_PARAMS.UNSTACKED);
-  // const stacked = stackable && !unstacked;
-  // const { up: isXLarge } = useScreenSize(1880);
-  // const { up: isTablet } = useScreenSize('tablet');
+  const {
+    items,
+    hideOwner,
+    galleryOwnerSlug,
+    removeFinishedAuctions,
+    removeEndedSingleSaleOffers,
+    page,
+    nbPages,
+    setPage,
+    topic,
+    hideSorareUser,
+    stackable,
+    loading,
+    showDesktopFilter,
+  } = props;
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const unstacked = useQueryString(SEARCH_PARAMS.UNSTACKED);
+  const stacked = stackable && !unstacked;
+  const { up: isXLarge } = useScreenSize(1880);
+  const { up: isTablet } = useScreenSize('tablet');
 
-  // const [cardOpened, setCardOpened] = useState<CardPreviewGrid_card | null>(
-  //   null
-  // );
+  const [cardOpened, setCardOpened] = useState<CardPreviewGrid_card | null>(
+    null
+  );
 
   // const filteredItems = items.filter(item => {
   //   if (isA<CardPreviewGrid_card>('Card', item)) {

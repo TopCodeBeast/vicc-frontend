@@ -50,7 +50,7 @@ const cardFragment = gql`
   ${CardPreviewGrid.fragments.card}
 `;
 
-//TODO**********************************
+//TODO**********************************Remove football
 export const CARDS_QUERY = gql`
   query CardsQuery($slugs: [String!]!) {
     cards(slugs: $slugs) {
