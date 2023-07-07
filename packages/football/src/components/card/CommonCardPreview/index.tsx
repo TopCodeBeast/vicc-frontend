@@ -8,7 +8,7 @@ import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 // import ItemUser from '@sorare/marketplace/src/components/ItemPreview/ItemUser';
 // import TokenTransferTypeIcon from '@sorare/marketplace/src/components/token/TokenTransferTypeIcon';
 
-// import CardDescription from '@football/components/card/CardDescription';
+import CardDescription from '@football/components/card/CardDescription';
 // import FlexCard from '@football/components/card/FlexCard';
 import CardProperties from '@football/components/so5/CardProperties';
 
@@ -119,14 +119,14 @@ CommonCardPreview.fragments = {
         slug
         #...ItemUser_user
       }
-      #...CardDescription_card
-      #...CardProperties_card
+      ...CardDescription_card
+      ...CardProperties_card
       #...FlexCard_card
     }
     #{ItemUser.fragments.user}
     #{FlexCard.fragments.card}
-    #{CardProperties.fragments.card}
-    #{CardDescription.fragments.card}
+    ${CardProperties.fragments.card}
+    ${CardDescription.fragments.card}
   `,
 };
 export default CommonCardPreview;
