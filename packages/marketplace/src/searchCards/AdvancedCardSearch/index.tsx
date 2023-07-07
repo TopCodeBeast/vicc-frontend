@@ -1,8 +1,8 @@
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
-// import {
-//   InstantBlockchainCardSearch,
+import {
+  InstantBlockchainCardSearch,
 //   InstantCardSearch,
-// } from '@sorare/core/src/components/search/InstantSearch';
+} from '@sorare/core/src/components/search/InstantSearch';
 import {
   AnalyticTag,
   Props as InstantCardSearchProps,
@@ -92,8 +92,7 @@ export const AdvancedBlockchainCardSearch = ({
       cardFilters={cardFilters}
       advancedCardFilters={advancedCardFilters}
     >
-      <>InstantBlockchainCardSearch222</>
-      {/* <InstantBlockchainCardSearch
+      <InstantBlockchainCardSearch
         {...(index && { indexes: [index] })}
         analyticsTags={analyticsTags}
         sport={sport}
@@ -104,14 +103,15 @@ export const AdvancedBlockchainCardSearch = ({
         attributesToRetrieve={attributesToRetrieve}
         {...(defaultHitsPerPage && { defaultHitsPerPage })}
       >
-        <SearchLayout
+        <>SearchLayout</>
+        {/* <SearchLayout
           cardFilters={cardFilters}
           advancedCardFilters={advancedCardFilters}
           {...rest}
         >
           {children}
-        </SearchLayout>
-      </InstantBlockchainCardSearch> */}
+        </SearchLayout> */}
+      </InstantBlockchainCardSearch>
     </SearchCardsContextProvider>
   );
 };

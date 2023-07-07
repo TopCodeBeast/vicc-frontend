@@ -3,6 +3,7 @@ import { BrowserRouter, useLocation } from 'react-router-dom';
 
 import { SO5_SENTRY_DSN } from '@sorare/core/src/config';
 import ConfigProvider from '@sorare/core/src/contexts/config/Provider';
+import CurrentUserProvider from '@sorare/core/src/contexts/currentUser/Provider';
 import DebugProvider from '@sorare/core/src/contexts/debug/Provider';
 import DeviceFingerprintProvider from '@sorare/core/src/contexts/deviceFingerprint/Provider';
 import GrapqhqlProvider from '@sorare/core/src/contexts/graphql/Provider';
@@ -26,7 +27,9 @@ const AppProviders = ({ children }: { children: ReactNode }) => {
                     <GrapqhqlProvider>
                       <ConfigProvider>
                         <SeoProvider>
-                          <Suspense fallback={null}>{children}</Suspense>
+                          <CurrentUserProvider>
+                            <Suspense fallback={null}>{children}</Suspense>
+                          </CurrentUserProvider>
                         </SeoProvider>
                       </ConfigProvider>
                     </GrapqhqlProvider>

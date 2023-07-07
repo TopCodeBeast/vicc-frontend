@@ -4,16 +4,22 @@ import { Sport } from '__generated__/globalTypes';
 import { Currency } from '@core/lib/fiat';
 
 import {
-  ConfigQuery_config_bannerSet,
-  ConfigQuery_config_counts,
-  ConfigQuery_config_heroBannerSet,
-  ConfigQuery_config_landingTheme,
-  ConfigQuery_config_marketplacePromotionalEvents,
-  ConfigQuery_config_responsiveBannerSet,
+  // ConfigQuery_config_bannerSet,
+  // ConfigQuery_config_counts,
+  // ConfigQuery_config_heroBannerSet,
+  // ConfigQuery_config_landingTheme,
+  // ConfigQuery_config_marketplacePromotionalEvents,
+  // ConfigQuery_config_responsiveBannerSet,
   ConfigQuery_currentLocation,
   ConfigQuery_currentUser,
 } from './types';
 
+type ConfigQuery_config_bannerSet = any;
+type ConfigQuery_config_counts = any;
+type ConfigQuery_config_heroBannerSet = any;
+type ConfigQuery_config_landingTheme = any;
+type ConfigQuery_config_marketplacePromotionalEvents = any;
+type ConfigQuery_config_responsiveBannerSet = any;
 export interface AlgoliaCardIndexes {
   // cards indices
   'Cards New': string;
