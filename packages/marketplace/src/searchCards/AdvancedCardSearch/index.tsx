@@ -7,7 +7,7 @@ import {
   AnalyticTag,
   Props as InstantCardSearchProps,
 } from '@sorare/core/src/components/search/InstantSearch/types';
-// import SearchCardsContextProvider from '@sorare/core/src/contexts/searchCards/Provider';
+import SearchCardsContextProvider from '@sorare/core/src/contexts/searchCards/Provider';
 
 // import SearchLayout from './SearchLayout';
 import { Props } from './types';
@@ -88,30 +88,30 @@ export const AdvancedBlockchainCardSearch = ({
   const index = defaultSort || rest.sorts[0];
 
   return (
-    <>AdvancedBlockchainCardSearch5</>
-    // <SearchCardsContextProvider
-    //   cardFilters={cardFilters}
-    //   advancedCardFilters={advancedCardFilters}
-    // >
-    //   <InstantBlockchainCardSearch
-    //     {...(index && { indexes: [index] })}
-    //     analyticsTags={analyticsTags}
-    //     sport={sport}
-    //     defaultFilters={defaultFilters}
-    //     urlState
-    //     distinct={distinct}
-    //     initialIndexUIState={initialIndexUIState}
-    //     attributesToRetrieve={attributesToRetrieve}
-    //     {...(defaultHitsPerPage && { defaultHitsPerPage })}
-    //   >
-    //     <SearchLayout
-    //       cardFilters={cardFilters}
-    //       advancedCardFilters={advancedCardFilters}
-    //       {...rest}
-    //     >
-    //       {children}
-    //     </SearchLayout>
-    //   </InstantBlockchainCardSearch>
-    // </SearchCardsContextProvider>
+    <SearchCardsContextProvider
+      cardFilters={cardFilters}
+      advancedCardFilters={advancedCardFilters}
+    >
+      <>InstantBlockchainCardSearch222</>
+      {/* <InstantBlockchainCardSearch
+        {...(index && { indexes: [index] })}
+        analyticsTags={analyticsTags}
+        sport={sport}
+        defaultFilters={defaultFilters}
+        urlState
+        distinct={distinct}
+        initialIndexUIState={initialIndexUIState}
+        attributesToRetrieve={attributesToRetrieve}
+        {...(defaultHitsPerPage && { defaultHitsPerPage })}
+      >
+        <SearchLayout
+          cardFilters={cardFilters}
+          advancedCardFilters={advancedCardFilters}
+          {...rest}
+        >
+          {children}
+        </SearchLayout>
+      </InstantBlockchainCardSearch> */}
+    </SearchCardsContextProvider>
   );
 };
