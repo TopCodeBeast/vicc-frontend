@@ -26,7 +26,7 @@ import { OverrideClasses } from '@sorare/core/src/style/utils';
 // } from '@sorare/marketplace/src/components/market/Grid';
 import { Token } from '@sorare/marketplace/src/components/token/Token';
 // import TokenFavoriteButton from '@sorare/marketplace/src/components/token/TokenFavoriteButton';
-// import { CardResultsProps } from '@sorare/marketplace/src/searchCards/AdvancedCardSearch/types';
+import { CardResultsProps } from '@sorare/marketplace/src/searchCards/AdvancedCardSearch/types';
 
 // // eslint-disable-next-line sorare/no-unrendered-component-imports
 // import BundledAuctionEligibilityByAssetIds from '@football/components/auction/BundledAuctionEligibilityByAssetIds';
@@ -37,9 +37,9 @@ import { Token } from '@sorare/marketplace/src/components/token/Token';
 // import CommonCardPreview from '@football/components/card/CommonCardPreview';
 // import PlayerDetails from '@football/components/so5/ComposeTeam/responsive/PlayerDetails';
 
-// import { CardPreviewGrid_card } from './__generated__/index.graphql';
+import { CardPreviewGrid_card } from './__generated__/index.graphql';
 
-// type Item = CardPreviewGrid_card & { stack?: StackProps };
+type Item = CardPreviewGrid_card & { stack?: StackProps };
 
 const MAX_AUTO_NEXT_PAGE = 5;
 
