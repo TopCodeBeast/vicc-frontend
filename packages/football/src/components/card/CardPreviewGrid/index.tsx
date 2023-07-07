@@ -25,7 +25,7 @@ import { OverrideClasses } from '@sorare/core/src/style/utils';
 //   GridOverlayLoadingIndicator,
 // } from '@sorare/marketplace/src/components/market/Grid';
 import { Token } from '@sorare/marketplace/src/components/token/Token';
-// import TokenFavoriteButton from '@sorare/marketplace/src/components/token/TokenFavoriteButton';
+import TokenFavoriteButton from '@sorare/marketplace/src/components/token/TokenFavoriteButton';
 import { CardResultsProps } from '@sorare/marketplace/src/searchCards/AdvancedCardSearch/types';
 
 // // eslint-disable-next-line sorare/no-unrendered-component-imports
@@ -281,8 +281,8 @@ const cardFragment = gql`
       }
       assetId
       slug
-      #...Token_token
-      #...TokenFavoriteButton_token
+      ...Token_token
+      ...TokenFavoriteButton_token
     }
     #...CardPropertiesByAssetId_card
     #...BundledAuctionEligibilityByAssetIds_card
@@ -290,13 +290,13 @@ const cardFragment = gql`
     #...CommonCardPreview_card
     #...CardTeamsByAssetId_card
   }
-  #{Token.fragments.token}
+  ${Token.fragments.token}
   #{CardPropertiesByAssetId.fragments.card}
   #{BundledAuctionEligibilityByAssetIds.fragments.card}
   #{CommonCardPreview.fragments.card}
   #{analyticsFragments.cardInfo}
   #{CardTeamsByAssetId.fragments.card}
-  #{TokenFavoriteButton.fragments.token}
+  ${TokenFavoriteButton.fragments.token}
 `;
 
 Memoized.fragments = {

@@ -28,7 +28,7 @@ import { useSortByPrice } from '@sorare/marketplace/src/hooks/useSortByPrice';
 import useFiltersCount from '@sorare/marketplace/src/search/FiltersManager/useFiltersCount';
 import { CardResultsProps } from '@sorare/marketplace/src/searchCards/AdvancedCardSearch/types';
 
-// import CardPreviewGrid from '@football/components/card/CardPreviewGrid';
+import CardPreviewGrid from '@football/components/card/CardPreviewGrid';
 
 import { CardsQuery, CardsQueryVariables } from './__generated__/index.graphql';
 import useRecentCurrentUserCardsQuery from './useRecentCurrentUserCardsQuery';
@@ -45,9 +45,9 @@ const cardFragment = gql`
     assetId
     visible
     ownerSince
-    #...CardPreviewGrid_card
+    ...CardPreviewGrid_card
   }
-  #{CardPreviewGrid.fragments.card}
+  ${CardPreviewGrid.fragments.card}
 `;
 
 //TODO**********************************
