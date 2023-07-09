@@ -38,6 +38,7 @@ import CommonCardPreview from '@football/components/card/CommonCardPreview';
 // import PlayerDetails from '@football/components/so5/ComposeTeam/responsive/PlayerDetails';
 
 import { CardPreviewGrid_card } from './__generated__/index.graphql';
+import sample_cards from './cards.json';
 
 type Item = CardPreviewGrid_card & { stack?: StackProps };
 
@@ -134,10 +135,11 @@ export const CardPreviewGrid = (props: Props) => {
 
   const renderItem = useCallback(
     (item: Item, displayMarketplaceOnboardingTooltip?: boolean) => {
+      const token = sample_cards[0].token;
       if (item?.token) {
         return (
           <Token
-            token={item.token}
+            token={token as any}// token={item.token} //TODO*****************
             galleryOwnerSlug={galleryOwnerSlug}
             displayMarketplaceOnboardingTooltip={
               displayMarketplaceOnboardingTooltip

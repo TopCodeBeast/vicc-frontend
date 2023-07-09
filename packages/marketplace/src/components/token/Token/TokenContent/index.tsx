@@ -74,12 +74,12 @@ export const TokenContent = ({
         />
       </ItemImgContainer>
       <ItemInfosContainer className={classNames({ isDesktopLayout })}>
-        {/* <TokenProperties
+        <TokenProperties
           token={token}
           isBundledAuction={isBundledAuction}
           disableSportSpecific={disableSportSpecific}
           TokenPropertiesButtonComponent={TokenPropertiesButtonComponent}
-        /> */}
+        />
         {!isDesktopLayout && !isBundledAuction && (
           <TokenDescription
             token={token}

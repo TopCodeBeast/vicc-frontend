@@ -1,0 +1,159 @@
+[
+    {
+        "__typename": "Card",
+        "slug": "andreas-luthe-2022-limited-460",
+        "assetId": "0x04007b0d083c805e3d6b791e224ef25fb54728a76ac5791b80e3f6b54a21b37c",
+        "visible": true,
+        "ownerSince": null,
+        "position": "Goalkeeper",
+        "user": null,
+        "token": {
+            "__typename": "Token",
+            "latestEnglishAuction": {
+                "__typename": "TokenAuction",
+                "id": "EnglishAuction:f24665d0-5b1d-4e62-9ea1-2af738c43290",
+                "endDate": "2023-07-09T08:35:40Z",
+                "nfts": [
+                    {
+                        "__typename": "Token",
+                        "assetId": "0x04007b0d083c805e3d6b791e224ef25fb54728a76ac5791b80e3f6b54a21b37c",
+                        "slug": "andreas-luthe-2022-limited-460",
+                        "sport": "FOOTBALL",
+                        "pictureUrl": "https://assets.sorare.com/card/f6c65e20-2a10-431f-942b-6fe2bb5dcce9/picture/tinified-c6265e031ca064bda32ba8e10875a94e.png",
+                        "metadata": {
+                            "__typename": "TokenFootballMetadata",
+                            "id": "TokenCardMetadata:0x04007b0d083c805e3d6b791e224ef25fb54728a76ac5791b80e3f6b54a21b37c",
+                            "playerDisplayName": "Andreas Luthe",
+                            "playerSlug": "andreas-luthe",
+                            "rarity": "limited",
+                            "seasonStartYear": 2022,
+                            "serialNumber": 460,
+                            "singleCivilYear": false
+                        },
+                        "collection": "FOOTBALL"
+                    }
+                ],
+                "blockchainId": "205274788645434901709181654935439567765",
+                "currentPrice": "5500000000000000",
+                "privateCurrentPrice": "5500000000000000",
+                "currency": "WEI",
+                "bestBid": {
+                    "__typename": "TokenBid",
+                    "id": "Bid:83789651-9c46-409a-8f3e-718afef0c010",
+                    "amounts": {
+                        "__typename": "MonetaryAmount",
+                        "eur": 939,
+                        "gbp": 801,
+                        "usd": 1027,
+                        "wei": "5500000000000000",
+                        "referenceCurrency": "WEI"
+                    },
+                    "bidder": {
+                        "__typename": "User",
+                        "slug": "thienbinh04-vie",
+                        "id": "User:72c98c78-ade5-43c0-9210-8a6516581311",
+                        "profile": {
+                            "__typename": "UserProfile",
+                            "id": "UserProfile:bdfb5f7b-4d30-4f1f-82bd-dec062a65f63",
+                            "status": "",
+                            "pictureUrl": "https://assets.sorare.com/userprofile/bdfb5f7b-4d30-4f1f-82bd-dec062a65f63/picture/avatar-2905f89357df57656d4af67d6eed0af7.png"
+                        },
+                        "active": false,
+                        "nickname": "thienbinh04 | VIE",
+                        "suspended": false
+                    }
+                },
+                "open": true,
+                "cancelled": false,
+                "bidsCount": 6,
+                "minNextBid": "6100000000000000",
+                "privateMinNextBid": "6100000000000000",
+                "creditCardFee": 0,
+                "myLastBid": null,
+                "autoBid": true,
+                "myBestBid": null
+            },
+            "liveSingleSaleOffer": null,
+            "assetId": "0x04007b0d083c805e3d6b791e224ef25fb54728a76ac5791b80e3f6b54a21b37c",
+            "slug": "andreas-luthe-2022-limited-460",
+            "sport": "FOOTBALL",
+            "pictureUrl": "https://assets.sorare.com/card/f6c65e20-2a10-431f-942b-6fe2bb5dcce9/picture/tinified-c6265e031ca064bda32ba8e10875a94e.png",
+            "metadata": {
+                "__typename": "TokenFootballMetadata",
+                "id": "TokenCardMetadata:0x04007b0d083c805e3d6b791e224ef25fb54728a76ac5791b80e3f6b54a21b37c",
+                "playerPosition": "goalkeeper",
+                "playerSlug": "andreas-luthe",
+                "teamSlug": "kaiserslautern-kaiserslautern",
+                "rarity": "limited",
+                "seasonStartYear": 2022,
+                "playerDisplayName": "Andreas Luthe",
+                "serialNumber": 460,
+                "singleCivilYear": false
+            },
+            "myMintedSingleSaleOffer": null,
+            "owner": null,
+            "name": "Andreas Luthe 2022-23 • Limited 460/1000",
+            "collection": "FOOTBALL",
+            "tradeableStatus": "NO",
+            "priceRange": {
+                "__typename": "Range",
+                "min": "1206657484800490",
+                "max": "12066574848004904"
+            },
+            "walletStatus": "UNKNOWN",
+            "ethereumId": "58323494713524062330735849175762279375128350759378043068095314356615409624802",
+            "secondaryMarketFeeEnabled": true
+        },
+        "u23Eligible": false,
+        "coverageStatus": "FULL",
+        "currentUserSubscription": null,
+        "averageScore": 47,
+        "rarity": "limited",
+        "power": "1.050",
+        "powerMalusAfterTransfer": "0.0",
+        "grade": 0,
+        "season": {
+            "__typename": "Season",
+            "startYear": 2022
+        },
+        "powerBreakdown": {
+            "__typename": "PowerBreakdown",
+            "season": "0.05",
+            "xp": "0.0",
+            "scarcity": "0.0",
+            "collection": "0.0"
+        },
+        "name": "Andreas Luthe 2022-23 • Limited 460/1000",
+        "lastFiveSo5AverageScore": 39,
+        "lastFifteenSo5AverageScore": 47,
+        "player": {
+            "__typename": "Player",
+            "slug": "andreas-luthe",
+            "activeClub": {
+                "__typename": "Club",
+                "slug": "kaiserslautern-kaiserslautern",
+                "domesticLeague": {
+                    "__typename": "Competition",
+                    "slug": "2-bundesliga"
+                },
+                "id": "Club:81912e32-350e-42e9-86ba-6d7dbb59b1dd",
+                "name": "1. FC Kaiserslautern"
+            },
+            "lastFiveSo5Appearances": 4,
+            "lastFifteenSo5Appearances": 13,
+            "displayName": "Andreas Luthe",
+            "id": "Player:4b50083b-4cf5-4315-8f39-72af648df9c5"
+        },
+        "positionTyped": "Goalkeeper",
+        "serialNumber": 460,
+        "team": {
+            "__typename": "Club",
+            "slug": "kaiserslautern-kaiserslautern",
+            "id": "Club:81912e32-350e-42e9-86ba-6d7dbb59b1dd",
+            "name": "1. FC Kaiserslautern"
+        },
+        "owner": null,
+        "singleCivilYear": false,
+        "pictureUrl": "https://assets.sorare.com/card/f6c65e20-2a10-431f-942b-6fe2bb5dcce9/picture/tinified-c6265e031ca064bda32ba8e10875a94e.png"
+    }
+]

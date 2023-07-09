@@ -34,9 +34,9 @@ export const TokenProperties = ({
     return (
       <StyledItemPropertiesContainer>
         <Bundle />
-        {!disableSportSpecific && (
+        {/* {!disableSportSpecific && (
           <TokenAuctionEligibility auction={token.latestEnglishAuction} />
-        )}
+        )} */}
       </StyledItemPropertiesContainer>
     );
   }

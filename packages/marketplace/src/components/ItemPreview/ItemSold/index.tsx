@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { OwnerTransfer } from '@sorare/core/src/__generated__/globalTypes';
 
 import ItemOwnerSince from '@marketplace/components/ItemPreview/ItemOwnerSince';
-// import { ItemForSaleSecondRow } from '@marketplace/components/ItemPreview/ui';
+import { ItemForSaleSecondRow } from '@marketplace/components/ItemPreview/ui';
 import TokenOwnerTransfer from '@marketplace/components/token/TokenOwnerTransfer';
 
 import { ItemOwner } from '../ItemOwner';
@@ -65,7 +65,7 @@ export const ItemSold = ({
   return (
     <Container>
       {!disableSportSpecific && <TokenOwnerTransfer tokenOwner={owner} />}
-      {/* <ItemForSaleSecondRow>
+      <ItemForSaleSecondRow>
         <ItemOwnerSince token={token} />
       </ItemForSaleSecondRow>
       <ItemForSaleSecondRow>
@@ -76,7 +76,7 @@ export const ItemSold = ({
             sport={token.sport}
           />
         )}
-      </ItemForSaleSecondRow> */}
+      </ItemForSaleSecondRow>
       {owner?.user && hideOwner && galleryOwnerSlug !== owner.user.slug && (
         <TransferInProgress>
           <FormattedMessage
