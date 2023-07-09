@@ -40,11 +40,11 @@ TokenAuctionDetails.fragments = {
       slug
       latestEnglishAuction {
         id
-        #...useGetAuctionDetails_auction
-        #...AuctionDetails_auction
+        ...useGetAuctionDetails_auction
+        ...AuctionDetails_auction
       }
     }
-    #{useGetAuctionDetails.fragments.auction}
-    #{AuctionDetails.fragments.auction}
+    ${useGetAuctionDetails.fragments.auction}
+    ${AuctionDetails.fragments.auction}
   `,
 };
