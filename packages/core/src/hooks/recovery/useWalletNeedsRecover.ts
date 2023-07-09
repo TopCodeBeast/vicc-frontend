@@ -9,7 +9,7 @@ export const useWalletNeedsRecover = () => {
   }
   // const { wallet } = currentUser;
   // if (wallet) {
-  //   return wallet.status !== UserWalletStatusEnum.READY;
+  //   return wallet.status !== UserWalletStatusEnum.READY; //TODO******
   // }
   // here it means that there is no wallet initialized and this needs to go through another chain
   return false;

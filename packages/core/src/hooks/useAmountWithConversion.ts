@@ -12,6 +12,7 @@ export type Props = {
   usingLegacyFiat?: boolean;
 };
 
+//TODO*******************
 const useAmountWithConversion = ({
   monetaryAmount,
   primaryCurrency,
@@ -19,24 +20,26 @@ const useAmountWithConversion = ({
 }: Props) => {
   const { formatNumber, formatWei } = useIntlContext();
   const { toMonetaryAmount } = useMonetaryAmount();
-  const {
-    fiatCurrency: userFiatCurrency,
-    currency: userCurrency,
-    walletPreferences: { onlyShowFiatCurrency },
-  } = useCurrentUserContext();
+  // const {
+  //   fiatCurrency: userFiatCurrency,
+  //   currency: userCurrency,
+  //   walletPreferences: { onlyShowFiatCurrency },
+  // } = useCurrentUserContext();
+  const onlyShowFiatCurrency = false;
 
   const fullMonetaryAmount = toMonetaryAmount(monetaryAmount);
 
-  const monetaryAmountFiatKey = userFiatCurrency.code.toLowerCase() as
-    | 'eur'
-    | 'usd'
-    | 'gbp';
+  const monetaryAmountFiatKey = 'usd';
+  // const monetaryAmountFiatKey = userFiatCurrency.code.toLowerCase() as
+  //   | 'eur'
+  //   | 'usd'
+  //   | 'gbp';
   const fiatAmount = fullMonetaryAmount[monetaryAmountFiatKey];
   const fiatFormatted = formatNumber(
     usingLegacyFiat ? fiatAmount : fiatAmount / 100,
     {
       style: 'currency',
-      currency: userFiatCurrency.code,
+      currency: 'usd', //userFiatCurrency.code,
     }
   );
 
@@ -45,7 +48,7 @@ const useAmountWithConversion = ({
     maximumFractionDigits: ETH_DECIMAL_PLACES,
   });
 
-  const actualPrimaryCurrency = primaryCurrency || userCurrency;
+  const actualPrimaryCurrency = Currency.ETH;//primaryCurrency || userCurrency;
 
   const exponent =
     actualPrimaryCurrency === Currency.ETH ? fiatFormatted : ethFormatted;

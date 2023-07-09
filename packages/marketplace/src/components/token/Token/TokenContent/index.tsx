@@ -89,7 +89,6 @@ export const TokenContent = ({
             disableSportSpecific={disableSportSpecific}
           />
         )}
-        <>TokenDetails555</>
         <TokenDetails
           token={token}
           stackedTokensCount={stackedTokensCount}

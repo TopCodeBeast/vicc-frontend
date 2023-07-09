@@ -15,6 +15,7 @@ import SentryProvider from '@sorare/core/src/contexts/sentry/Provider';
 import SeoProvider from '@sorare/core/src/contexts/seo/Provider';
 import SessionProvider from '@sorare/core/src/contexts/session';
 import SnackNotificationProvider from '@sorare/core/src/contexts/snackNotification/Provider';
+import TickerProvider from '@sorare/core/src/contexts/ticker/Provider';
 import TMProvider from '@sorare/core/src/contexts/tm/Provider';
 import ThemeProvider from '@sorare/core/src/style/theme';
 
@@ -36,9 +37,11 @@ const AppProviders = ({ children }: { children: ReactNode }) => {
                               <SeoProvider>
                                 <CurrentUserProvider>
                                   <FollowProvider>
-                                    <Suspense fallback={null}>
-                                      {children}
-                                    </Suspense>
+                                    <TickerProvider>
+                                      <Suspense fallback={null}>
+                                        {children}
+                                      </Suspense>
+                                    </TickerProvider>
                                   </FollowProvider>
                                 </CurrentUserProvider>
                               </SeoProvider>

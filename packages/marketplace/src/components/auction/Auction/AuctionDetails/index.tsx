@@ -6,7 +6,7 @@ import { AmountWithConversion } from '@sorare/core/src/components/buyActions/Amo
 import SorareUser from '@sorare/core/src/components/user/SorareUser';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
-// import ItemPrice from '@marketplace/components/ItemPreview/ItemPrice';
+import ItemPrice from '@marketplace/components/ItemPreview/ItemPrice';
 // import { ItemSpecialRewardBadge } from '@marketplace/components/ItemPreview/ItemSpecialRewardBadge';
 import {
   ButtonContainer,
@@ -14,7 +14,7 @@ import {
   TokenDetailsRoot,
   TokenDetailsRow,
 } from '@marketplace/components/ItemPreview/ui';
-// import { AuctionStatus } from '@marketplace/components/auction/AuctionStatus';
+import { AuctionStatus } from '@marketplace/components/auction/AuctionStatus';
 import BidField from '@marketplace/components/buyActions/BidField';
 // import useTokenTakesPartPromotionalEvent from '@marketplace/hooks/offers/useTokenTakesPartPromotionalEvent';
 import {
@@ -61,25 +61,24 @@ export const AuctionDetails = ({
     <TokenDetailsRoot className={classNames({ allowColumnLayout })}>
       <TokenDetailsInfos>
         <div>
-          <>TokenDetailsRow6666666666</>
-          {/* <TokenDetailsRow>
+          <TokenDetailsRow>
             {!useConversionRate && hasEnded && auction.bestBid ? (
-              <AmountWithConversion monetaryAmount={auction.bestBid.amounts} />
+              <AmountWithConversion monetaryAmount={/*auction.bestBid.amounts*/ 'usd' as any} />
             ) : (
-              <ItemPrice amount={currentPrice} referenceCurrency={currency} />
+              <ItemPrice amount={currentPrice} referenceCurrency={'USD' as any /*currency*/} />
             )}
           </TokenDetailsRow>
-          {promotionalEvent &&
+          {/* {promotionalEvent &&
             !promotionalEventsExcludeSpecialRewardBadge.includes(
               promotionalEvent.name
-            ) && <ItemSpecialRewardBadge event={promotionalEvent} />}
+            ) && <ItemSpecialRewardBadge event={promotionalEvent} />} */}
           <TokenDetailsRow>
             {hasEnded && showWinnerWhenEnded ? (
               <AuctionWinner auction={auction} />
             ) : (
               <AuctionStatus auction={auction} />
             )}
-          </TokenDetailsRow> */}
+          </TokenDetailsRow>
         </div>
         {isDesktopLayout && !hideSorareUser && (
           <TokenDetailsRow>
