@@ -18,12 +18,12 @@ import { isA } from '@sorare/core/src/lib/gql';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 import { OverrideClasses } from '@sorare/core/src/style/utils';
 
-// import Empty from '@sorare/marketplace/src/components/market/Empty';
-// import {
-//   AnimatedGrid,
-//   AnimatedGridItem,
-//   GridOverlayLoadingIndicator,
-// } from '@sorare/marketplace/src/components/market/Grid';
+import Empty from '@sorare/marketplace/src/components/market/Empty';
+import {
+  AnimatedGrid,
+  AnimatedGridItem,
+  GridOverlayLoadingIndicator,
+} from '@sorare/marketplace/src/components/market/Grid';
 import { Token } from '@sorare/marketplace/src/components/token/Token';
 import TokenFavoriteButton from '@sorare/marketplace/src/components/token/TokenFavoriteButton';
 import { CardResultsProps } from '@sorare/marketplace/src/searchCards/AdvancedCardSearch/types';
@@ -92,172 +92,171 @@ export const CardPreviewGrid = (props: Props) => {
     null
   );
 
-  // const filteredItems = items.filter(item => {
-  //   if (isA<CardPreviewGrid_card>('Card', item)) {
-  //     const { user, token } = item;
-  //     if (token) {
-  //       const { latestEnglishAuction, liveSingleSaleOffer } = token;
-  //       if (!latestEnglishAuction && !liveSingleSaleOffer && !user) {
-  //         // the card has been created but it is not yet on sale do not show
-  //         return false;
-  //       }
+  const filteredItems = items.filter(item => {
+    if (isA<CardPreviewGrid_card>('Card', item)) {
+      const { user, token } = item;
+      if (token) {
+        const { latestEnglishAuction, liveSingleSaleOffer } = token;
+        if (!latestEnglishAuction && !liveSingleSaleOffer && !user) {
+          // the card has been created but it is not yet on sale do not show
+          return false;
+        }
 
-  //       // On secondary market, if a single sale offer has ended we shouldn't even display the hit
-  //       // as otherwise we would show the owner and the date since when they own the card, not the new owner
-  //       if (removeEndedSingleSaleOffers && !liveSingleSaleOffer) {
-  //         if (stacked) {
-  //           // do not remove it, let Token query Algolia+backend to get the next card to display
-  //           return true;
-  //         }
-  //         return false;
-  //       }
+        // On secondary market, if a single sale offer has ended we shouldn't even display the hit
+        // as otherwise we would show the owner and the date since when they own the card, not the new owner
+        if (removeEndedSingleSaleOffers && !liveSingleSaleOffer) {
+          if (stacked) {
+            // do not remove it, let Token query Algolia+backend to get the next card to display
+            return true;
+          }
+          return false;
+        }
 
-  //       // For new signings, if auction has been finished for more than 10 seconds, than remove from the list
-  //       if (
-  //         removeFinishedAuctions &&
-  //         latestEnglishAuction &&
-  //         !latestEnglishAuction.open
-  //       ) {
-  //         if (outdatedAuction(latestEnglishAuction.endDate)) {
-  //           return false;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   return true;
-  // });
+        // For new signings, if auction has been finished for more than 10 seconds, than remove from the list
+        if (
+          removeFinishedAuctions &&
+          latestEnglishAuction &&
+          !latestEnglishAuction.open
+        ) {
+          if (outdatedAuction(latestEnglishAuction.endDate)) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  });
 
-  // const getItemKey = (item: Item) => {
-  //   return item.assetId!;
-  // };
+  const getItemKey = (item: Item) => {
+    return item.assetId!;
+  };
 
-  // const renderItem = useCallback(
-  //   (item: Item, displayMarketplaceOnboardingTooltip?: boolean) => {
-  //     if (item?.token) {
-  //       return (
-  //         <Token
-  //           token={item.token}
-  //           galleryOwnerSlug={galleryOwnerSlug}
-  //           displayMarketplaceOnboardingTooltip={
-  //             displayMarketplaceOnboardingTooltip
-  //           }
-  //           hideOwner={hideOwner}
-  //           hideSorareUser={hideSorareUser}
-  //           stack={item.stack}
-  //           TokenPropertiesButtonComponent={
-  //             item.stack && item.stack.count > 1 ? (
-  //               <IconButton
-  //                 disableDebounce
-  //                 component="div"
-  //                 color="transparent"
-  //                 small
-  //                 onClick={() => {
-  //                   setCardOpened(item);
-  //                 }}
-  //                 icon={faInfoCircle}
-  //               />
-  //             ) : (
-  //               <TokenFavoriteButton
-  //                 token={item.token}
-  //                 show={hoveredItem === getItemKey(item) || !isTablet}
-  //               />
-  //             )
-  //           }
-  //         />
-  //       );
-  //     }
-  //     return <CommonCardPreview card={item} />;
-  //   },
-  //   [galleryOwnerSlug, hideOwner, hideSorareUser, hoveredItem, isTablet]
-  // );
+  const renderItem = useCallback(
+    (item: Item, displayMarketplaceOnboardingTooltip?: boolean) => {
+      if (item?.token) {
+        return (
+          <Token
+            token={item.token}
+            galleryOwnerSlug={galleryOwnerSlug}
+            displayMarketplaceOnboardingTooltip={
+              displayMarketplaceOnboardingTooltip
+            }
+            hideOwner={hideOwner}
+            hideSorareUser={hideSorareUser}
+            stack={item.stack}
+            TokenPropertiesButtonComponent={
+              item.stack && item.stack.count > 1 ? (
+                <IconButton
+                  disableDebounce
+                  component="div"
+                  color="transparent"
+                  small
+                  onClick={() => {
+                    setCardOpened(item);
+                  }}
+                  icon={faInfoCircle}
+                />
+              ) : (
+                <TokenFavoriteButton
+                  token={item.token}
+                  show={hoveredItem === getItemKey(item) || !isTablet}
+                />
+              )
+            }
+          />
+        );
+      }
+      return <CommonCardPreview card={item} />;
+    },
+    [galleryOwnerSlug, hideOwner, hideSorareUser, hoveredItem, isTablet]
+  );
 
-  // // As we filter out the hits we receive from Algolia to handle indexing lags
-  // // we might be in a situation where there are no more hits to display.
-  // // This logic will go to the next page up to reaching page `MAX_AUTO_NEXT_PAGE` (safety)
-  // // until there are some hits left to display.
-  // useEffect(() => {
-  //   if (
-  //     filteredItems.length === 0 &&
-  //     items.length !== 0 &&
-  //     (removeFinishedAuctions || removeEndedSingleSaleOffers) &&
-  //     page < nbPages - 1 &&
-  //     page < MAX_AUTO_NEXT_PAGE
-  //   ) {
-  //     setPage(page + 1);
-  //   }
-  // }, [
-  //   setPage,
-  //   items,
-  //   filteredItems,
-  //   nbPages,
-  //   page,
-  //   removeFinishedAuctions,
-  //   removeEndedSingleSaleOffers,
-  // ]);
+  // As we filter out the hits we receive from Algolia to handle indexing lags
+  // we might be in a situation where there are no more hits to display.
+  // This logic will go to the next page up to reaching page `MAX_AUTO_NEXT_PAGE` (safety)
+  // until there are some hits left to display.
+  useEffect(() => {
+    if (
+      filteredItems.length === 0 &&
+      items.length !== 0 &&
+      (removeFinishedAuctions || removeEndedSingleSaleOffers) &&
+      page < nbPages - 1 &&
+      page < MAX_AUTO_NEXT_PAGE
+    ) {
+      setPage(page + 1);
+    }
+  }, [
+    setPage,
+    items,
+    filteredItems,
+    nbPages,
+    page,
+    removeFinishedAuctions,
+    removeEndedSingleSaleOffers,
+  ]);
 
-  // if (filteredItems.length === 0 && loading) {
-  //   return <LoadingIndicator />;
-  // }
+  if (filteredItems.length === 0 && loading) {
+    return <LoadingIndicator />;
+  }
 
-  // if (filteredItems.length === 0) {
-  //   return <Empty isGallery={!!galleryOwnerSlug} topic={topic} />;
-  // }
+  if (filteredItems.length === 0) {
+    return <Empty isGallery={!!galleryOwnerSlug} topic={topic} />;
+  }
 
-  // const flipKey = `${filteredItems.map(item => getItemKey(item)).join('-')}${
-  //   showDesktopFilter ? '-showDesktopFilter' : ''
-  // }`;
+  const flipKey = `${filteredItems.map(item => getItemKey(item)).join('-')}${
+    showDesktopFilter ? '-showDesktopFilter' : ''
+  }`;
 
-  // return (
-  //   <>
-  //     <AnimatedGrid
-  //       staggerConfig={{
-  //         default: {
-  //           speed: 0.4,
-  //         },
-  //       }}
-  //       flipKey={flipKey}
-  //       className={classNames({ showDesktopFilter })}
-  //     >
-  //       {filteredItems.map((item, i) => {
-  //         return (
-  //           <AnimatedGridItem
-  //             onMouseEnter={() => setHoveredItem(getItemKey(item))}
-  //             onMouseLeave={() => setHoveredItem(null)}
-  //             key={getItemKey(item)}
-  //             flipId={getItemKey(item)}
-  //           >
-  //             {renderItem(item, i === 0)}
-  //           </AnimatedGridItem>
-  //         );
-  //       })}
-  //     </AnimatedGrid>
-  //     {loading && <GridOverlayLoadingIndicator />}
-  //     <Drawer
-  //       open={!!cardOpened}
-  //       anchor="right"
-  //       classes={{
-  //         paper: classes.paper,
-  //       }}
-  //       onClose={() => {
-  //         setCardOpened(null);
-  //       }}
-  //       variant={isXLarge ? 'persistent' : 'temporary'}
-  //     >
-  //       {cardOpened && (
-  //         <PlayerDetails
-  //           card={cardOpened}
-  //           slug={cardOpened.player.slug!}
-  //           pictureUrl={cardOpened.pictureUrl}
-  //           showCardBonusIndicator={false}
-  //           onClose={() => {
-  //             setCardOpened(null);
-  //           }}
-  //         />
-  //       )}
-  //     </Drawer>
-  //   </>
-  // );
-  return <>CardPreviewGrid555</>;
+  return (
+    <>
+      <AnimatedGrid
+        staggerConfig={{
+          default: {
+            speed: 0.4,
+          },
+        }}
+        flipKey={flipKey}
+        className={classNames({ showDesktopFilter })}
+      >
+        {filteredItems.map((item, i) => {
+          return (
+            <AnimatedGridItem
+              onMouseEnter={() => setHoveredItem(getItemKey(item))}
+              onMouseLeave={() => setHoveredItem(null)}
+              key={getItemKey(item)}
+              flipId={getItemKey(item)}
+            >
+              {renderItem(item, i === 0)}
+            </AnimatedGridItem>
+          );
+        })}
+      </AnimatedGrid>
+      {/* {loading && <GridOverlayLoadingIndicator />} */}
+      {/* <Drawer
+        open={!!cardOpened}
+        anchor="right"
+        classes={{
+          paper: classes.paper,
+        }}
+        onClose={() => {
+          setCardOpened(null);
+        }}
+        variant={isXLarge ? 'persistent' : 'temporary'}
+      >
+        {cardOpened && (
+          <PlayerDetails
+            card={cardOpened}
+            slug={cardOpened.player.slug!}
+            pictureUrl={cardOpened.pictureUrl}
+            showCardBonusIndicator={false}
+            onClose={() => {
+              setCardOpened(null);
+            }}
+          />
+        )}
+      </Drawer> */}
+    </>
+  );
 };
 
 const Memoized = memo(CardPreviewGrid);

@@ -89,7 +89,7 @@ export const CardResultsFromGraphQL = (props: CardResultsProps) => {
   const { currentRefinement: page, nbPages, refine: setPage } = usePagination();
   const index = results?.index;
 
-  const sortByPrice = useSortByPrice<Token | Item>();
+  const sortByPrice = useSortByPrice<any>();//useSortByPrice<Token | Item>();
 
   const [sortedItems, setSortedItems] = useState<Item[] | null>(null);
   const { algoliaCardIndexes } = useConfigContext();

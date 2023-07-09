@@ -86,6 +86,7 @@ export const AdvancedBlockchainCardSearch = ({
   ...rest
 }: FullProps) => {
   const index = defaultSort || rest.sorts[0];
+  console.log('index~~~~~~~~~~~~~~~', index)
 
   return (
     <SearchCardsContextProvider

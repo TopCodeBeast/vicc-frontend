@@ -357,11 +357,11 @@ export const GraphqlProvider = ({
             [xsrfHeaderName]: cookie.load(xsrfCookieName),
             'Seon-Session': seonSession,
             ...(apiKey && { APIKEY: apiKey }),
-            ...(import.meta.env.MODE === 'development' &&
-              ENV === 'production' &&
-              process.env.SORARE_COM_API_KEY && {
-                APIKEY: process.env.SORARE_COM_API_KEY,
-              }),
+            // ...(import.meta.env.MODE === 'development' &&
+            //   ENV === 'production' &&
+            //   process.env.SORARE_COM_API_KEY && {
+            //     APIKEY: process.env.SORARE_COM_API_KEY,
+            //   }),
           },
         };
       }),
