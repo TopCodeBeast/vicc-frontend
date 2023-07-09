@@ -1,7 +1,7 @@
 import fingerprintJS from '@fingerprintjs/fingerprintjs';
 import { ReactNode, useCallback, useEffect, useState } from 'react';
 
-// import { Deferred } from '@sorare/wallet-shared';
+import { Deferred } from '@sorare/wallet-shared';
 import { DEVICE_FINGERPRINT_KEY } from '@core/constants/intl';
 import useLocalStorage from '@core/hooks/useLocalStorage';
 
@@ -47,7 +47,7 @@ const computeDeviceFingerprint = async () => {
   ].join(',');
 };
 
-const deferredStateFactory = () => ({} as any);//new Deferred<string>(); //TODO*****
+const deferredStateFactory = () => new Deferred<string>();
 
 const DeviceFingerPrintProvider = ({ children }: Props) => {
   const [deferred] = useState(deferredStateFactory);

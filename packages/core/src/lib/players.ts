@@ -33,10 +33,10 @@ export const splitName = (name: string) => {
 };
 
 export const lineupPositions = [
-  Position.Goalkeeper,
-  Position.Defender,
-  Position.Midfielder,
-  Position.Forward,
+  // Position.Goalkeeper, //TODO******
+  // Position.Defender,
+  // Position.Midfielder,
+  // Position.Forward,
   'Extra Player',
 ] as const;
 
@@ -44,10 +44,10 @@ export type LineupPosition = (typeof lineupPositions)[number];
 
 // Changing how this array is sorted will change how the compose team go to the next available slot
 export const playablePositions = [
-  Position.Forward,
-  Position.Midfielder,
-  Position.Defender,
-  Position.Goalkeeper,
+  // Position.Forward, //TODO******
+  // Position.Midfielder,
+  // Position.Defender,
+  // Position.Goalkeeper,
 ] as const;
 export type PlayablePosition = (typeof playablePositions)[number];
 
@@ -128,7 +128,7 @@ export const qualityNames: { [key in CardQuality]: string } = {
   TIER_2: 'Tier 2',
   TIER_3: 'Tier 3',
   TIER_4: 'Tier 4',
-  TIER_5: 'Tier 5',
+  // TIER_5: 'Tier 5',
 };
 
 export const positionNames = defineMessages<Position>({

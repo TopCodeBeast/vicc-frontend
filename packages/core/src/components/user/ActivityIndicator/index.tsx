@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components';
 import Tooltip from '@core/atoms/tooltip/Tooltip';
 import { useActivityIndicator } from '@core/hooks/users/useActivityIndicator';
 
-// import { ActivityIndicator_user } from './__generated__/index.graphql';
+import { ActivityIndicator_user } from './__generated__/index.graphql';
 
 const Wrapper = styled.div`
   display: inline-block;
@@ -104,18 +104,18 @@ export const ActivityIndicator = ({
   );
 };
 
-// ActivityIndicator.fragments = {
-//   user: gql`
-//     fragment ActivityIndicator_user on PublicUserInfoInterface {
-//       slug
-//       profile {
-//         id
-//         status
-//       }
-//       ...useActivityIndicator_user
-//     }
-//     ${useActivityIndicator.fragments.user}
-//   `,
-// };
+ActivityIndicator.fragments = {
+  user: gql`
+    fragment ActivityIndicator_user on PublicUserInfoInterface {
+      slug
+      profile {
+        id
+        status
+      }
+      ...useActivityIndicator_user
+    }
+    ${useActivityIndicator.fragments.user}
+  `,
+};
 
 export default ActivityIndicator;

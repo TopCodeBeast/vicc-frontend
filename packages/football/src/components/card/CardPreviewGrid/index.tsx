@@ -31,7 +31,7 @@ import { CardResultsProps } from '@sorare/marketplace/src/searchCards/AdvancedCa
 // // eslint-disable-next-line sorare/no-unrendered-component-imports
 // import BundledAuctionEligibilityByAssetIds from '@football/components/auction/BundledAuctionEligibilityByAssetIds';
 // // eslint-disable-next-line sorare/no-unrendered-component-imports
-// import CardPropertiesByAssetId from '@football/components/card/CardPropertiesByAssetId';
+import CardPropertiesByAssetId from '@football/components/card/CardPropertiesByAssetId';
 // // eslint-disable-next-line sorare/no-unrendered-component-imports
 // import CardTeamsByAssetId from '@football/components/card/CardTeamsByAssetId';
 import CommonCardPreview from '@football/components/card/CommonCardPreview';
@@ -284,14 +284,14 @@ const cardFragment = gql`
       ...Token_token
       ...TokenFavoriteButton_token
     }
-    #...CardPropertiesByAssetId_card
+    ...CardPropertiesByAssetId_card
     #...BundledAuctionEligibilityByAssetIds_card
     #...Analytics_cardInfo
     ...CommonCardPreview_card
     #...CardTeamsByAssetId_card
   }
   ${Token.fragments.token}
-  #{CardPropertiesByAssetId.fragments.card}
+  ${CardPropertiesByAssetId.fragments.card}
   #{BundledAuctionEligibilityByAssetIds.fragments.card}
   ${CommonCardPreview.fragments.card}
   #{analyticsFragments.cardInfo}

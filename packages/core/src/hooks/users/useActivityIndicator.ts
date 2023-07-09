@@ -3,8 +3,7 @@ import { gql } from '@apollo/client';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 
-// import { useActivityIndicator_user } from './__generated__/useActivityIndicator.graphql';
-type useActivityIndicator_user = any;
+import { useActivityIndicator_user } from './__generated__/useActivityIndicator.graphql';
 
 export const useActivityIndicator = (
   user: useActivityIndicator_user
@@ -24,19 +23,21 @@ export const useActivityIndicator = (
     return null;
   }
 
-  if (user.active === null) {
-    // the user decided to hide their status, consider it offline
-    return false;
-  }
+  //TODO****
+  // if (user.active === null) {
+  //   // the user decided to hide their status, consider it offline
+  //   return false;
+  // }
 
-  return user.active;
+  // return user.active;
+  return true;
 };
 
-// useActivityIndicator.fragments = {
-//   user: gql`
-//     fragment useActivityIndicator_user on PublicUserInfoInterface {
-//       slug
-//       active
-//     }
-//   `,
-// };
+useActivityIndicator.fragments = {
+  user: gql`
+    fragment useActivityIndicator_user on PublicUserInfoInterface {
+      slug
+      # active
+    }
+  `,
+};

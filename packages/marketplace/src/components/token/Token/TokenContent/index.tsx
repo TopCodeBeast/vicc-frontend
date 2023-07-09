@@ -59,7 +59,7 @@ export const TokenContent = ({
 
   const isBundledAuction = !!(
     token.latestEnglishAuction &&
-    isFuture(parseISO(token.latestEnglishAuction.endDate)) &&
+    // isFuture(parseISO(token.latestEnglishAuction.endDate)) && //TODO******
     token.latestEnglishAuction?.nfts?.length > 1
   );
 

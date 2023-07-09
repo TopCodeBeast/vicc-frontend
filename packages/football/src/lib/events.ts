@@ -1,4 +1,4 @@
-import { FootballManagerTaskSlug } from '@sorare/core/src/__generated__/globalTypes';
+// import { FootballManagerTaskSlug } from '@sorare/core/src/__generated__/globalTypes';
 // import generateUseEvents from '@sorare/core/src/lib/events/generateUseEvents';
 // import {
 //   Sport,
@@ -33,9 +33,9 @@ export type FootballEventTypes = {
     title: string;
   };
   'Click How To Video': void;
-  'Click Manager Assistant Task': {
-    task: FootballManagerTaskSlug;
-  };
+  // 'Click Manager Assistant Task': {
+  //   task: FootballManagerTaskSlug;
+  // };
   'Click Submit Draft': {
     campaignSlug: string;
     success: boolean;
