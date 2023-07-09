@@ -7,13 +7,13 @@ import styled from 'styled-components';
 import { Text14 } from '@sorare/core/src/atoms/typography';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 
-// import {
-//   ItemImgContainer,
-//   ItemInfosContainer,
-// } from '@marketplace/components/ItemPreview/ui';
-// import TokenDescription from '@marketplace/components/token/TokenDescription';
+import {
+  ItemImgContainer,
+  ItemInfosContainer,
+} from '@marketplace/components/ItemPreview/ui';
+import TokenDescription from '@marketplace/components/token/TokenDescription';
 
-// import { TokenDetails } from './TokenDetails';
+import { TokenDetails } from './TokenDetails';
 import { TokenImg } from './TokenImg';
 import { TokenProperties } from './TokenProperties';
 import { TokenContent_token } from './__generated__/index.graphql';
@@ -65,8 +65,7 @@ export const TokenContent = ({
 
   return (
     <Root className={classNames({ isDesktopLayout })}>
-      <>TokenContent5555</>
-      {/* <ItemImgContainer className={classNames({ isDesktopLayout })}>
+      <ItemImgContainer className={classNames({ isDesktopLayout })}>
         <TokenImg
           token={token}
           stackedTokensCount={stackedTokensCount}
@@ -75,12 +74,12 @@ export const TokenContent = ({
         />
       </ItemImgContainer>
       <ItemInfosContainer className={classNames({ isDesktopLayout })}>
-        <TokenProperties
+        {/* <TokenProperties
           token={token}
           isBundledAuction={isBundledAuction}
           disableSportSpecific={disableSportSpecific}
           TokenPropertiesButtonComponent={TokenPropertiesButtonComponent}
-        />
+        /> */}
         {!isDesktopLayout && !isBundledAuction && (
           <TokenDescription
             token={token}
@@ -102,7 +101,7 @@ export const TokenContent = ({
             displayMarketplaceOnboardingTooltip
           }
         />
-      </ItemInfosContainer> */}
+      </ItemInfosContainer>
     </Root>
   );
 };
@@ -121,12 +120,12 @@ TokenContent.fragments = {
       }
       ...TokenImg_token
       ...TokenProperties_token
-      #...TokenDescription_token
+      ...TokenDescription_token
       #...TokenDetails_token
     }
     ${TokenImg.fragments.token}
     ${TokenProperties.fragments.token}
-    #{TokenDescription.fragments.token}
+    ${TokenDescription.fragments.token}
     #{TokenDetails.fragments.token}
   `,
 };

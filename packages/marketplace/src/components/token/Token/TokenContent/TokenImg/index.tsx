@@ -42,8 +42,7 @@ export const TokenImg = ({
   //   );
   // }
 
-  // return <FlexToken token={token} width={imageWidth} withLink />;
-  return <>TokenImage555</>
+  return <FlexToken token={token} width={imageWidth} withLink />;
 };
 
 TokenImg.fragments = {

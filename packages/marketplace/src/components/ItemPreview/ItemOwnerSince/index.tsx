@@ -1,0 +1,29 @@
+import { gql } from '@apollo/client';
+
+import Since from '@sorare/core/src/contexts/intl/Since';
+
+import { ItemOwnerSince_token } from './__generated__/index.graphql';
+
+interface Props {
+  token: ItemOwnerSince_token;
+}
+
+export const ItemOwnerSince = ({ token }: Props) => {
+  if (!token.owner?.from) return null;
+  return <Since date={token.owner.from} />;
+};
+
+ItemOwnerSince.fragments = {
+  token: gql`
+    fragment ItemOwnerSince_token on Token {
+      assetId
+      slug
+      owner {
+        id
+        from
+      }
+    }
+  `,
+};
+
+export default ItemOwnerSince;

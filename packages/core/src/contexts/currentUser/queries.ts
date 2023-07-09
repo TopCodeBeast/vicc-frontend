@@ -119,15 +119,15 @@ export const currentUser = gql`
     referrals {
       totalCount
     }
-    footballReferralsCompleted: referrals(sport: FOOTBALL, state: COMPLETED) {
+    footballReferralsCompleted: referrals(sport: CRICKET, state: COMPLETED) {
       totalCount
     }
-    nbaReferralsCompleted: referrals(sport: NBA, state: COMPLETED) {
-      totalCount
-    }
-    baseballReferralsCompleted: referrals(sport: BASEBALL, state: COMPLETED) {
-      totalCount
-    }
+    #nbaReferralsCompleted: referrals(sport: NBA, state: COMPLETED) {
+    #  totalCount
+    #}
+    #baseballReferralsCompleted: referrals(sport: BASEBALL, state: COMPLETED) {
+    #  totalCount
+    #}
     referralUrl
     sorarePrivateKey: viccPrivateKey {
       iv

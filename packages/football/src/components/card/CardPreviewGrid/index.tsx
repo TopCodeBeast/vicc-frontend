@@ -222,8 +222,8 @@ export const CardPreviewGrid = (props: Props) => {
         {filteredItems.map((item, i) => {
           return (
             <AnimatedGridItem
-              // onMouseEnter={() => setHoveredItem(getItemKey(item))}
-              // onMouseLeave={() => setHoveredItem(null)}
+              onMouseEnter={() => setHoveredItem(getItemKey(item))}
+              onMouseLeave={() => setHoveredItem(null)}
               key={getItemKey(item)}
               flipId={getItemKey(item)}
             >

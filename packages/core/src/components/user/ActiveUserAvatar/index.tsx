@@ -77,16 +77,16 @@ const ActiveUserAvatar = ({ user, variant, placeholderUrl }: Props) => {
   );
 };
 
-// ActiveUserAvatar.fragments = {
-//   user: gql`
-//     fragment ActiveUserAvatar_user on PublicUserInfoInterface {
-//       slug
-//       ...ActivityIndicator_user
-//       ...Avatar_publicUserInfoInterface
-//     }
-//     ${ActivityIndicator.fragments.user}
-//     ${Avatar.fragments.publicUserInfoInterface}
-//   `,
-// };
+ActiveUserAvatar.fragments = {
+  user: gql`
+    fragment ActiveUserAvatar_user on PublicUserInfoInterface {
+      slug
+      ...ActivityIndicator_user
+      #...Avatar_publicUserInfoInterface
+    }
+    ${ActivityIndicator.fragments.user}
+    #{Avatar.fragments.publicUserInfoInterface}
+  `,
+};
 
 export default ActiveUserAvatar;

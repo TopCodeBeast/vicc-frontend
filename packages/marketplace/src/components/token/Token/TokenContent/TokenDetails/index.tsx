@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-// import ItemSold from '@marketplace/components/ItemPreview/ItemSold';
+import ItemSold from '@marketplace/components/ItemPreview/ItemSold';
 // import useGetAuctionDetails from '@marketplace/hooks/offers/useGetAuctionDetails';
 // import useGetTokenSingleSaleDetails from '@marketplace/hooks/offers/useGetTokenSingleSaleDetails';
 
@@ -55,14 +55,14 @@ export const TokenDetails = ({
   //   );
   // }
 
-  // return (
-  //   <ItemSold
-  //     token={token}
-  //     hideOwner={hideOwner}
-  //     galleryOwnerSlug={galleryOwnerSlug}
-  //     disableSportSpecific={disableSportSpecific}
-  //   />
-  // );
+  return (
+    <ItemSold
+      token={token}
+      hideOwner={hideOwner}
+      galleryOwnerSlug={galleryOwnerSlug}
+      disableSportSpecific={disableSportSpecific}
+    />
+  );
   return <>TokenDetails555</>
 };
 
@@ -78,12 +78,12 @@ TokenDetails.fragments = {
       #...useGetTokenSingleSaleDetails_token
       ...TokenOfferDetails_token
       ...TokenAuctionDetails_token
-      #...ItemSold_token
+      ...ItemSold_token
     }
     #{useGetAuctionDetails.fragments.auction}
     #{useGetTokenSingleSaleDetails.fragments.token}
     ${TokenOfferDetails.fragments.token}
     ${TokenAuctionDetails.fragments.token}
-    #{ItemSold.fragments.token}
+    ${ItemSold.fragments.token}
   `,
 };

@@ -244,7 +244,7 @@ export const convertCardHitToToken = (
     slug: hit.user?.slug,
   },
   singleCivilYear: false,
-  sport: AlgoliaSportsMappings[hit.sport] || Sport.FOOTBALL,
+  sport: AlgoliaSportsMappings[hit.sport] || Sport.CRICKET,
   collection: FakeCollectionMappings[hit.sport] || Collection.CRICKET, // this assertion is factually wrong but that's a separate concern
 });
 
