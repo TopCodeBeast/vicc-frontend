@@ -91,6 +91,7 @@ export const CardPreviewGrid = (props: Props) => {
   const [cardOpened, setCardOpened] = useState<CardPreviewGrid_card | null>(
     null
   );
+  console.log('items~~~~~~~~~~~~~~~~~~~', items)
 
   const filteredItems = items.filter(item => {
     if (isA<CardPreviewGrid_card>('Card', item)) {
@@ -131,45 +132,45 @@ export const CardPreviewGrid = (props: Props) => {
     return item.assetId!;
   };
 
-  // const renderItem = useCallback(
-  //   (item: Item, displayMarketplaceOnboardingTooltip?: boolean) => {
-  //     if (item?.token) {
-  //       return (
-  //         <Token
-  //           token={item.token}
-  //           galleryOwnerSlug={galleryOwnerSlug}
-  //           displayMarketplaceOnboardingTooltip={
-  //             displayMarketplaceOnboardingTooltip
-  //           }
-  //           hideOwner={hideOwner}
-  //           hideSorareUser={hideSorareUser}
-  //           stack={item.stack}
-  //           TokenPropertiesButtonComponent={
-  //             item.stack && item.stack.count > 1 ? (
-  //               <IconButton
-  //                 disableDebounce
-  //                 component="div"
-  //                 color="transparent"
-  //                 small
-  //                 onClick={() => {
-  //                   setCardOpened(item);
-  //                 }}
-  //                 icon={faInfoCircle}
-  //               />
-  //             ) : (
-  //               <TokenFavoriteButton
-  //                 token={item.token}
-  //                 show={hoveredItem === getItemKey(item) || !isTablet}
-  //               />
-  //             )
-  //           }
-  //         />
-  //       );
-  //     }
-  //     return <CommonCardPreview card={item} />;
-  //   },
-  //   [galleryOwnerSlug, hideOwner, hideSorareUser, hoveredItem, isTablet]
-  // );
+  const renderItem = useCallback(
+    (item: Item, displayMarketplaceOnboardingTooltip?: boolean) => {
+      if (item?.token) {
+        return (
+          <Token
+            token={item.token}
+            galleryOwnerSlug={galleryOwnerSlug}
+            displayMarketplaceOnboardingTooltip={
+              displayMarketplaceOnboardingTooltip
+            }
+            hideOwner={hideOwner}
+            hideSorareUser={hideSorareUser}
+            stack={item.stack}
+            TokenPropertiesButtonComponent={
+              item.stack && item.stack.count > 1 ? (
+                <IconButton
+                  disableDebounce
+                  component="div"
+                  color="transparent"
+                  small
+                  onClick={() => {
+                    setCardOpened(item);
+                  }}
+                  icon={faInfoCircle}
+                />
+              ) : (
+                <TokenFavoriteButton
+                  token={item.token}
+                  show={hoveredItem === getItemKey(item) || !isTablet}
+                />
+              )
+            }
+          />
+        );
+      }
+      return <CommonCardPreview card={item} />;
+    },
+    [galleryOwnerSlug, hideOwner, hideSorareUser, hoveredItem, isTablet]
+  );
 
   // As we filter out the hits we receive from Algolia to handle indexing lags
   // we might be in a situation where there are no more hits to display.
@@ -226,8 +227,7 @@ export const CardPreviewGrid = (props: Props) => {
               key={getItemKey(item)}
               flipId={getItemKey(item)}
             >
-              {/* {renderItem(item, i === 0)} */}
-              <>Item</>
+              {renderItem(item, i === 0)}
             </AnimatedGridItem>
           );
         })}

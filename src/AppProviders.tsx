@@ -9,6 +9,7 @@ import DeviceFingerprintProvider from '@sorare/core/src/contexts/deviceFingerpri
 import GrapqhqlProvider from '@sorare/core/src/contexts/graphql/Provider';
 import HighlightProvider from '@sorare/core/src/contexts/highlight/Provider';
 import { IntlProvider } from '@sorare/core/src/contexts/intl/Provider';
+import ManagerTaskProvider from '@sorare/core/src/contexts/managerTask/Provider';
 import SentryProvider from '@sorare/core/src/contexts/sentry/Provider';
 import SeoProvider from '@sorare/core/src/contexts/seo/Provider';
 import SessionProvider from '@sorare/core/src/contexts/session';
@@ -27,13 +28,15 @@ const AppProviders = ({ children }: { children: ReactNode }) => {
                   <DeviceFingerprintProvider>
                     <GrapqhqlProvider>
                       <HighlightProvider>
-                        <ConfigProvider>
-                          <SeoProvider>
-                            <CurrentUserProvider>
-                              <Suspense fallback={null}>{children}</Suspense>
-                            </CurrentUserProvider>
-                          </SeoProvider>
-                        </ConfigProvider>
+                        <ManagerTaskProvider>
+                          <ConfigProvider>
+                            <SeoProvider>
+                              <CurrentUserProvider>
+                                <Suspense fallback={null}>{children}</Suspense>
+                              </CurrentUserProvider>
+                            </SeoProvider>
+                          </ConfigProvider>
+                        </ManagerTaskProvider>
                       </HighlightProvider>
                     </GrapqhqlProvider>
                   </DeviceFingerprintProvider>

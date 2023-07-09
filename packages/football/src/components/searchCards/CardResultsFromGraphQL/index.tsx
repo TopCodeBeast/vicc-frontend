@@ -64,7 +64,7 @@ export const CARDS_QUERY = gql`
 `;
 
 const filterVisibleCards = (cards?: CardsQuery_cards[]) =>
-  cards?.filter(card => card.visible);
+  cards?.filter(card => true);// cards?.filter(card => card.visible); //TODO*****MAIN*************
 
 const Root = styled.div`
   display: flex;
@@ -176,10 +176,13 @@ export const CardResultsFromGraphQL = (props: CardResultsProps) => {
     }
   );
 
+  console.log('data?.cards',data?.cards)
   const cards = useMemo(
     () => filterVisibleCards(data?.cards), //TODO
     [data]
   );
+
+  console.log('cards', cards)
 
   // Dependency array needs to be updated manually
   // react-hooks/exhaustive-deps is disabled for the following useEffect
@@ -188,6 +191,7 @@ export const CardResultsFromGraphQL = (props: CardResultsProps) => {
 
     if (cards) {
       const cardsBySlug = groupBy(c => c.slug, cards);
+      console.log('cardsBySlug', cardsBySlug)
 
       let sortedHits = hitsWithRecentCurrentUserCards;
 
@@ -267,6 +271,7 @@ export const CardResultsFromGraphQL = (props: CardResultsProps) => {
     // eslint-disable-next-line no-underscore-dangle
     results?._state,
   ]);
+  console.log('sortedItems', sortedItems)
 
   // eslint-disable-next-line no-underscore-dangle
   if (!sortedItems || !results || results?.__isArtificial) {
@@ -289,6 +294,8 @@ export const CardResultsFromGraphQL = (props: CardResultsProps) => {
           ...notSellableItems,
         ]
       : sortedItems;
+
+  console.log('customSortedItems', customSortedItems)
 
   return (
     <CardPreviewGrid

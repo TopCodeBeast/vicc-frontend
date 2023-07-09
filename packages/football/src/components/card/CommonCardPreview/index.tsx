@@ -9,7 +9,7 @@ import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 // import TokenTransferTypeIcon from '@sorare/marketplace/src/components/token/TokenTransferTypeIcon';
 
 import CardDescription from '@football/components/card/CardDescription';
-// import FlexCard from '@football/components/card/FlexCard';
+import FlexCard from '@football/components/card/FlexCard';
 import CardProperties from '@football/components/so5/CardProperties';
 
 import { CommonCardPreview_card } from './__generated__/index.graphql';
@@ -89,21 +89,20 @@ const CommonCardPreview = ({ card }: { card: CommonCardPreview_card }) => {
   //     </MobileCommonCardContainer>
   //   );
   // }
-  // return (
-  //   <CardFrame>
-  //     <FlexCard withLink card={card} />
-  //     <CardDetails>
-  //       <CardProperties card={card} />
-  //       {card?.owner && (
-  //         <TokenTransferTypeIcon
-  //           transferType={getTokenTransferTypeFromCard(card.owner.transferType)}
-  //         />
-  //       )}
-  //       {card.ownerSince && <Since date={card.ownerSince} />}
-  //     </CardDetails>
-  //   </CardFrame>
-  // );
-  return (<>CommonCardPreview5555</>)
+  return (
+    <CardFrame>
+      <FlexCard withLink card={card} />
+      <CardDetails>
+        <CardProperties card={card} />
+        {/* {card?.owner && (
+          <TokenTransferTypeIcon
+            transferType={getTokenTransferTypeFromCard(card.owner.transferType)}
+          />
+        )} */}
+        {card.ownerSince && <Since date={card.ownerSince} />}
+      </CardDetails>
+    </CardFrame>
+  );
 };
 
 CommonCardPreview.fragments = {

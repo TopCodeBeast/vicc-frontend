@@ -10,18 +10,18 @@ import MarketplaceOnboardingTask, {
 } from '@sorare/core/src/components/onboarding/managerTask/MarketplaceOnboardingTask';
 import { useConfigContext } from '@sorare/core/src/contexts/config';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-// import {
-//   MarketplaceOnboardingStep,
-//   useManagerTaskContext,
-// } from '@sorare/core/src/contexts/managerTask';
-// import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-// import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
+import {
+  MarketplaceOnboardingStep,
+  useManagerTaskContext,
+} from '@sorare/core/src/contexts/managerTask';
+import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
+import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 // import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 import { StackProps, assetIdFromHit } from '@sorare/core/src/lib/algolia';
-// import { groupBy } from '@sorare/core/src/lib/arrays';
+import { groupBy } from '@sorare/core/src/lib/arrays';
 // import { formatScarcity } from '@sorare/core/src/lib/cards';
 
-// import useFacetedSearchCards from '@marketplace/hooks/search/useFacetedSearchCards';
+import useFacetedSearchCards from '@marketplace/hooks/search/useFacetedSearchCards';
 
 import { TokenContent } from './TokenContent';
 import {
@@ -99,91 +99,91 @@ export const Token = ({
   displayMarketplaceOnboardingTooltip,
   ...rest
 }: Props) => {
-  // const { step, setStep, task } = useManagerTaskContext();
-  // const { up: isTablet } = useScreenSize('tablet');
-  // const { algoliaCardIndexes } = useConfigContext();
+  const { step, setStep, task } = useManagerTaskContext();
+  const { up: isTablet } = useScreenSize('tablet');
+  const { algoliaCardIndexes } = useConfigContext();
 
-  // const stacked = stack && stack.count > 1;
+  const stacked = stack && stack.count > 1;
 
-  // const lowestPriceHits = useFacetedSearchCards({
-  //   index: algoliaCardIndexes['Lowest Price'],
-  //   distinct: false,
-  //   facetFilters: `sale.distinct_key:${stack?.algoliaDistinctKey}`,
-  //   attributesToRetrieve: ATTRIBUTES_TO_RETRIEVE,
-  //   hitsPerPage: 20,
-  //   params: stack?.params,
-  //   skip: !stacked || !!token.liveSingleSaleOffer,
-  // });
+  const lowestPriceHits = useFacetedSearchCards({
+    index: algoliaCardIndexes['Lowest Price'],
+    distinct: false,
+    facetFilters: `sale.distinct_key:${stack?.algoliaDistinctKey}`,
+    attributesToRetrieve: ATTRIBUTES_TO_RETRIEVE,
+    hitsPerPage: 20,
+    params: stack?.params,
+    skip: false,//!stacked || !!token.liveSingleSaleOffer, //TODO*****
+  });
 
-  // const { data } = useQuery<
-  //   AlternativeStackedTokensByIdsQuery,
-  //   AlternativeStackedTokensByIdsQueryVariables
-  // >(ALTERNATIVE_STACKED_TOKENS_BY_IDS_QUERY, {
-  //   variables: {
-  //     assetIds: lowestPriceHits?.hits.map(hit => assetIdFromHit(hit)) || [],
-  //   },
-  //   skip: !lowestPriceHits || lowestPriceHits.length === 0,
-  // });
+  const { data } = useQuery<
+    AlternativeStackedTokensByIdsQuery,
+    AlternativeStackedTokensByIdsQueryVariables
+  >(ALTERNATIVE_STACKED_TOKENS_BY_IDS_QUERY, {
+    variables: {
+      assetIds: lowestPriceHits?.hits.map(hit => assetIdFromHit(hit)) || [],
+    },
+    skip: !lowestPriceHits || lowestPriceHits.length === 0,
+  });
 
-  // const actualToken = useMemo(() => {
-  //   if (!lowestPriceHits || !data) {
-  //     return token;
-  //   }
-  //   const tokensByAssetId = groupBy(t => t.assetId, data.tokens.nfts);
-  //   const alternativeHit = lowestPriceHits?.hits.find(
-  //     hit => tokensByAssetId[assetIdFromHit(hit)]?.[0]?.liveSingleSaleOffer
-  //   );
-  //   if (!alternativeHit) {
-  //     return token;
-  //   }
-  //   return tokensByAssetId[assetIdFromHit(alternativeHit)]?.[0] || token;
-  // }, [token, data, lowestPriceHits]);
+  const actualToken = useMemo(() => {
+    if (!lowestPriceHits || !data) {
+      return token;
+    }
+    const tokensByAssetId = groupBy(t => t.assetId, data.tokens.nfts);
+    const alternativeHit = null/*lowestPriceHits?.hits.find(
+      hit => tokensByAssetId[assetIdFromHit(hit)]?.[0]?.liveSingleSaleOffer
+    );*/ //TODO****
+    if (!alternativeHit) {
+      return token;
+    }
+    return tokensByAssetId[assetIdFromHit(alternativeHit)]?.[0] || token;
+  }, [token, data, lowestPriceHits]);
 
-  // const stackedTokensCount = useMemo(() => {
-  //   if (!lowestPriceHits) return stack?.count || 1;
+  const stackedTokensCount = useMemo(() => {
+    if (!lowestPriceHits) return stack?.count || 1;
 
-  //   const alreadySoldHits =
-  //     data?.tokens.nfts.filter(t => !t.liveSingleSaleOffer).length || 0;
+    const alreadySoldHits = 0;///TODO******
+      //data?.tokens.nfts.filter(t => !t.liveSingleSaleOffer).length || 0;
 
-  //   return lowestPriceHits.nbHits - alreadySoldHits;
-  // }, [data?.tokens.nfts, lowestPriceHits, stack?.count]);
-  // return (
-  //   <ManagerTaskTooltip
-  //     name={MarketplaceOnboardingStep.marketplaceItem}
-  //     title={
-  //       <MarketplaceOnboardingTask
-  //         name={MarketplaceOnboardingStep.marketplaceItem}
-  //         content={
-  //           <>
-  //             <TooltipDescription token={token} />
-  //             <Text14 color="var(--c-yellow-100)">
-  //               <FormattedMessage
-  //                 id="MarketplaceTaskDescription.tryToWin"
-  //                 defaultMessage="🌟 You can try to win one as a reward in Sorare Competitions"
-  //               />
-  //             </Text14>
-  //           </>
-  //         }
-  //         onClick={() => {
-  //           setStep(MarketplaceOnboardingStep.buy);
-  //         }}
-  //       />
-  //     }
-  //     disable={!task || !displayMarketplaceOnboardingTooltip}
-  //     placement={isTablet ? 'right-start' : 'bottom-start'}
-  //     forceAreaHighlight={MarketplaceOnboardingStep.buy === step}
-  //   >
-  //     <TokenContent
-  //       token={actualToken}
-  //       stackedTokensCount={stackedTokensCount}
-  //       displayMarketplaceOnboardingTooltip={
-  //         displayMarketplaceOnboardingTooltip
-  //       }
-  //       {...rest}
-  //     />
-  //   </ManagerTaskTooltip>
-  // );
-  return (<>Token555</>)
+    return lowestPriceHits.nbHits - alreadySoldHits;
+  }, [data?.tokens.nfts, lowestPriceHits, stack?.count]);
+  
+  return (
+    <ManagerTaskTooltip
+      name={MarketplaceOnboardingStep.marketplaceItem}
+      title={
+        <MarketplaceOnboardingTask
+          name={MarketplaceOnboardingStep.marketplaceItem}
+          content={
+            <>
+              <TooltipDescription token={token} />
+              <Text14 color="var(--c-yellow-100)">
+                <FormattedMessage
+                  id="MarketplaceTaskDescription.tryToWin"
+                  defaultMessage="🌟 You can try to win one as a reward in Sorare Competitions"
+                />
+              </Text14>
+            </>
+          }
+          onClick={() => {
+            setStep(MarketplaceOnboardingStep.buy);
+          }}
+        />
+      }
+      disable={!task || !displayMarketplaceOnboardingTooltip}
+      placement={isTablet ? 'right-start' : 'bottom-start'}
+      forceAreaHighlight={MarketplaceOnboardingStep.buy === step}
+    >
+      <TokenContent
+        token={actualToken}
+        stackedTokensCount={stackedTokensCount}
+        displayMarketplaceOnboardingTooltip={
+          displayMarketplaceOnboardingTooltip
+        }
+        {...rest}
+      />
+    </ManagerTaskTooltip>
+  );
 };
 
 Token.fragments = {
