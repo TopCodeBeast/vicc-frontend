@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 import ItemSold from '@marketplace/components/ItemPreview/ItemSold';
-// import useGetAuctionDetails from '@marketplace/hooks/offers/useGetAuctionDetails';
-// import useGetTokenSingleSaleDetails from '@marketplace/hooks/offers/useGetTokenSingleSaleDetails';
+import useGetAuctionDetails from '@marketplace/hooks/offers/useGetAuctionDetails';
+import useGetTokenSingleSaleDetails from '@marketplace/hooks/offers/useGetTokenSingleSaleDetails';
 
 import { TokenAuctionDetails } from './TokenAuctionDetails';
 import { TokenOfferDetails } from './TokenOfferDetails';
@@ -29,31 +29,33 @@ export const TokenDetails = ({
   disableSportSpecific,
   displayMarketplaceOnboardingTooltip,
 }: Props) => {
-  // const auction = useGetAuctionDetails(token.latestEnglishAuction);
-  // const offer = useGetTokenSingleSaleDetails(token);
+  console.log('token.latestEnglishAuction', token.latestEnglishAuction)
+  const auction = useGetAuctionDetails(token.latestEnglishAuction);
+  const offer = useGetTokenSingleSaleDetails(token);
 
-  // if (offer) {
-  //   return (
-  //     <TokenOfferDetails
-  //       token={token}
-  //       stackedTokensCount={stackedTokensCount}
-  //       isDesktopLayout={isDesktopLayout}
-  //       displayMarketplaceOnboardingTooltip={
-  //         displayMarketplaceOnboardingTooltip
-  //       }
-  //     />
-  //   );
-  // }
+  if (offer) {
+    return (
+      <TokenOfferDetails
+        token={token}
+        stackedTokensCount={stackedTokensCount}
+        isDesktopLayout={isDesktopLayout}
+        displayMarketplaceOnboardingTooltip={
+          displayMarketplaceOnboardingTooltip
+        }
+      />
+    );
+  }
 
-  // if (auction) {
-  //   return (
-  //     <TokenAuctionDetails
-  //       token={token}
-  //       hideSorareUser={hideSorareUser}
-  //       isDesktopLayout={isDesktopLayout}
-  //     />
-  //   );
-  // }
+  console.log('auction', auction)
+  if (auction) {
+    return (
+      <TokenAuctionDetails
+        token={token}
+        hideSorareUser={hideSorareUser}
+        isDesktopLayout={isDesktopLayout}
+      />
+    );
+  }
 
   return (
     <ItemSold
@@ -63,7 +65,6 @@ export const TokenDetails = ({
       disableSportSpecific={disableSportSpecific}
     />
   );
-  return <>TokenDetails555</>
 };
 
 TokenDetails.fragments = {
@@ -73,15 +74,15 @@ TokenDetails.fragments = {
       slug
       latestEnglishAuction {
         id
-        #...useGetAuctionDetails_auction
+        ...useGetAuctionDetails_auction
       }
-      #...useGetTokenSingleSaleDetails_token
+      ...useGetTokenSingleSaleDetails_token
       ...TokenOfferDetails_token
       ...TokenAuctionDetails_token
       ...ItemSold_token
     }
-    #{useGetAuctionDetails.fragments.auction}
-    #{useGetTokenSingleSaleDetails.fragments.token}
+    ${useGetAuctionDetails.fragments.auction}
+    ${useGetTokenSingleSaleDetails.fragments.token}
     ${TokenOfferDetails.fragments.token}
     ${TokenAuctionDetails.fragments.token}
     ${ItemSold.fragments.token}

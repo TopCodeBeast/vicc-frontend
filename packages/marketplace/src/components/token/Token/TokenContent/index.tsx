@@ -89,6 +89,7 @@ export const TokenContent = ({
             disableSportSpecific={disableSportSpecific}
           />
         )}
+        <>TokenDetails555</>
         <TokenDetails
           token={token}
           stackedTokensCount={stackedTokensCount}
@@ -121,11 +122,11 @@ TokenContent.fragments = {
       ...TokenImg_token
       ...TokenProperties_token
       ...TokenDescription_token
-      #...TokenDetails_token
+      ...TokenDetails_token
     }
     ${TokenImg.fragments.token}
     ${TokenProperties.fragments.token}
     ${TokenDescription.fragments.token}
-    #{TokenDetails.fragments.token}
+    ${TokenDetails.fragments.token}
   `,
 };

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-// import { AuctionDetails } from '@marketplace/components/auction/Auction/AuctionDetails';
-// import useGetAuctionDetails from '@marketplace/hooks/offers/useGetAuctionDetails';
+import { AuctionDetails } from '@marketplace/components/auction/Auction/AuctionDetails';
+import useGetAuctionDetails from '@marketplace/hooks/offers/useGetAuctionDetails';
 
 import { TokenAuctionDetails_token } from './__generated__/index.graphql';
 
@@ -19,17 +19,17 @@ export const TokenAuctionDetails = ({
   isDesktopLayout,
   hideSorareUser,
 }: Props) => {
-  // const auction = useGetAuctionDetails(token.latestEnglishAuction);
-  // if (!token.latestEnglishAuction || !auction) return null;
+  const auction = useGetAuctionDetails(token.latestEnglishAuction);
+  if (!token.latestEnglishAuction || !auction) return null;
 
-  // return (
-  //   <AuctionDetails
-  //     auction={token.latestEnglishAuction}
-  //     hideSorareUser={hideSorareUser}
-  //     isDesktopLayout={isDesktopLayout}
-  //     useConversionRate
-  //   />
-  // );
+  return (
+    <AuctionDetails
+      auction={token.latestEnglishAuction}
+      hideSorareUser={hideSorareUser}
+      isDesktopLayout={isDesktopLayout}
+      useConversionRate
+    />
+  );
   return <>TokenAuctionDetails555</>
 };
 

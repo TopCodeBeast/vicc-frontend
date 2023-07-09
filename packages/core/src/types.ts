@@ -31,6 +31,8 @@ export type CamelCase<T extends string> = T;
 
 export type SnakeCase<T extends string> = T;
 
-export type TokenComponentType = (
-  params: TokenComponentTypeProps
-) => JSX.Element;
+// export type TokenComponentType = (
+//   params: TokenComponentTypeProps
+// ) => JSX.Element;
+
+export type TokenComponentType = any;

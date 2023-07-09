@@ -1,0 +1,46 @@
+import { gql } from '@apollo/client';
+import { add, isFuture, isPast, parseISO } from 'date-fns';
+
+import useForceUpdateAfterEndDate from '@sorare/core/src/hooks/useForceUpdateAfterEndDate';
+
+import { auctionCurrentPrice } from '@marketplace/lib/auctions';
+
+import { useGetAuctionDetails_auction } from './__generated__/useGetAuctionDetails.graphql';
+
+const useGetAuctionDetails = (auction: useGetAuctionDetails_auction | null) => {
+  const endDateString = auction?.endDate;
+  const endDate = (endDateString && parseISO(endDateString)) as null | Date;
+  useForceUpdateAfterEndDate(endDate);
+  if (!auction) return undefined;
+  const price = auctionCurrentPrice(auction);
+
+  // Simplified, check for regression
+  const auctionIsOnSale = isFuture(
+    add(parseISO(auction?.endDate), { seconds: 15 })
+  );
+
+  if (auctionIsOnSale && price && endDate) {
+    const ended = isPast(endDate);
+    return {
+      endDate,
+      ended,
+      price,
+      currency: '' as any, ///auction?.currency,//TODO****
+    };
+  }
+  return undefined;
+};
+
+useGetAuctionDetails.fragments = {
+  auction: gql`
+    fragment useGetAuctionDetails_auction on TokenAuction {
+      id
+      endDate
+      currentPrice
+      privateCurrentPrice
+      # currency
+    }
+  `,
+};
+
+export default useGetAuctionDetails;

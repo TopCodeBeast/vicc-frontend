@@ -32,15 +32,16 @@ export const TokenImg = ({
   //   );
   // }
 
-  // if (token.latestEnglishAuction && isBundledAuction) {
-  //   return (
-  //     <BundledAuctionPreview
-  //       bundledAuction={token.latestEnglishAuction}
-  //       displayOneCard={!isDesktopLayout}
-  //       noMargin
-  //     />
-  //   );
-  // }
+  if (token.latestEnglishAuction && isBundledAuction) {
+    return (
+      // <BundledAuctionPreview
+      //   bundledAuction={token.latestEnglishAuction}
+      //   displayOneCard={!isDesktopLayout}
+      //   noMargin
+      // />
+      <>BundledAuctionPreview555</>
+    );
+  }
 
   return <FlexToken token={token} width={imageWidth} withLink />;
 };

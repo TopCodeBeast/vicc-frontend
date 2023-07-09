@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { ItemPropertiesContainer } from '@marketplace/components/ItemPreview/ui';
-import Bundle from '@marketplace/components/auction/Bundle';
+// import Bundle from '@marketplace/components/auction/Bundle';
 import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
 
 import { TokenProperties_token } from './__generated__/index.graphql';
@@ -33,10 +33,10 @@ export const TokenProperties = ({
   if (isBundledAuction) {
     return (
       <StyledItemPropertiesContainer>
-        <Bundle />
-        {/* {!disableSportSpecific && (
+        {/* <Bundle /> */}<>Bundle5555</>
+        {!disableSportSpecific && (
           <TokenAuctionEligibility auction={token.latestEnglishAuction} />
-        )} */}
+        )}
       </StyledItemPropertiesContainer>
     );
   }
@@ -44,7 +44,7 @@ export const TokenProperties = ({
   if (!disableSportSpecific) {
     return (
       <StyledItemPropertiesContainer spaceBetween>
-        <TokenPropertiesComponent assetId={token.assetId} />
+        {/* <TokenPropertiesComponent assetId={token.assetId} /> */}
         <div>{TokenPropertiesButtonComponent}</div>
       </StyledItemPropertiesContainer>
     );

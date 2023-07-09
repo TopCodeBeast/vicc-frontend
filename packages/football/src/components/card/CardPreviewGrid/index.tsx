@@ -234,7 +234,7 @@ export const CardPreviewGrid = (props: Props) => {
           );
         })}
       </AnimatedGrid>
-      {/* {loading && <GridOverlayLoadingIndicator />} */}
+      {loading && <GridOverlayLoadingIndicator />}
       {/* <Drawer
         open={!!cardOpened}
         anchor="right"

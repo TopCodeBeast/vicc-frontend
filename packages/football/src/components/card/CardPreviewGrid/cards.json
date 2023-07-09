@@ -12,7 +12,7 @@
             "latestEnglishAuction": {
                 "__typename": "TokenAuction",
                 "id": "EnglishAuction:f24665d0-5b1d-4e62-9ea1-2af738c43290",
-                "endDate": "2023-07-09T08:35:40Z",
+                "endDate": "2023-07-19T08:35:40Z",
                 "nfts": [
                     {
                         "__typename": "Token",
