@@ -506,9 +506,7 @@ export const InstantSearch: React.FC<Props> = ({
     filters: [],
   };
 
-  console.log('indexes', indexes)
   const actualIndexes = indexes.map(i => algoliaIndexes[i]);
-  console.log('actualIndexes', actualIndexes)
   const [mainIndex, ...otherIndexes] = actualIndexes;
 
   const queryParams = Object.fromEntries(searchParams) as Record<

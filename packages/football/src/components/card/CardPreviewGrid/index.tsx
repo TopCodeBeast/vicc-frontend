@@ -115,8 +115,8 @@ export const CardPreviewGrid = (props: Props) => {
         // For new signings, if auction has been finished for more than 10 seconds, than remove from the list
         if (
           removeFinishedAuctions &&
-          latestEnglishAuction &&
-          !latestEnglishAuction.open
+          latestEnglishAuction /*&&
+          !latestEnglishAuction.open*/
         ) {
           if (outdatedAuction(latestEnglishAuction.endDate)) {
             return false;
@@ -131,77 +131,77 @@ export const CardPreviewGrid = (props: Props) => {
     return item.assetId!;
   };
 
-  const renderItem = useCallback(
-    (item: Item, displayMarketplaceOnboardingTooltip?: boolean) => {
-      if (item?.token) {
-        return (
-          <Token
-            token={item.token}
-            galleryOwnerSlug={galleryOwnerSlug}
-            displayMarketplaceOnboardingTooltip={
-              displayMarketplaceOnboardingTooltip
-            }
-            hideOwner={hideOwner}
-            hideSorareUser={hideSorareUser}
-            stack={item.stack}
-            TokenPropertiesButtonComponent={
-              item.stack && item.stack.count > 1 ? (
-                <IconButton
-                  disableDebounce
-                  component="div"
-                  color="transparent"
-                  small
-                  onClick={() => {
-                    setCardOpened(item);
-                  }}
-                  icon={faInfoCircle}
-                />
-              ) : (
-                <TokenFavoriteButton
-                  token={item.token}
-                  show={hoveredItem === getItemKey(item) || !isTablet}
-                />
-              )
-            }
-          />
-        );
-      }
-      return <CommonCardPreview card={item} />;
-    },
-    [galleryOwnerSlug, hideOwner, hideSorareUser, hoveredItem, isTablet]
-  );
+  // const renderItem = useCallback(
+  //   (item: Item, displayMarketplaceOnboardingTooltip?: boolean) => {
+  //     if (item?.token) {
+  //       return (
+  //         <Token
+  //           token={item.token}
+  //           galleryOwnerSlug={galleryOwnerSlug}
+  //           displayMarketplaceOnboardingTooltip={
+  //             displayMarketplaceOnboardingTooltip
+  //           }
+  //           hideOwner={hideOwner}
+  //           hideSorareUser={hideSorareUser}
+  //           stack={item.stack}
+  //           TokenPropertiesButtonComponent={
+  //             item.stack && item.stack.count > 1 ? (
+  //               <IconButton
+  //                 disableDebounce
+  //                 component="div"
+  //                 color="transparent"
+  //                 small
+  //                 onClick={() => {
+  //                   setCardOpened(item);
+  //                 }}
+  //                 icon={faInfoCircle}
+  //               />
+  //             ) : (
+  //               <TokenFavoriteButton
+  //                 token={item.token}
+  //                 show={hoveredItem === getItemKey(item) || !isTablet}
+  //               />
+  //             )
+  //           }
+  //         />
+  //       );
+  //     }
+  //     return <CommonCardPreview card={item} />;
+  //   },
+  //   [galleryOwnerSlug, hideOwner, hideSorareUser, hoveredItem, isTablet]
+  // );
 
   // As we filter out the hits we receive from Algolia to handle indexing lags
   // we might be in a situation where there are no more hits to display.
   // This logic will go to the next page up to reaching page `MAX_AUTO_NEXT_PAGE` (safety)
   // until there are some hits left to display.
-  useEffect(() => {
-    if (
-      filteredItems.length === 0 &&
-      items.length !== 0 &&
-      (removeFinishedAuctions || removeEndedSingleSaleOffers) &&
-      page < nbPages - 1 &&
-      page < MAX_AUTO_NEXT_PAGE
-    ) {
-      setPage(page + 1);
-    }
-  }, [
-    setPage,
-    items,
-    filteredItems,
-    nbPages,
-    page,
-    removeFinishedAuctions,
-    removeEndedSingleSaleOffers,
-  ]);
+  // useEffect(() => {
+  //   if (
+  //     filteredItems.length === 0 &&
+  //     items.length !== 0 &&
+  //     (removeFinishedAuctions || removeEndedSingleSaleOffers) &&
+  //     page < nbPages - 1 &&
+  //     page < MAX_AUTO_NEXT_PAGE
+  //   ) {
+  //     setPage(page + 1);
+  //   }
+  // }, [
+  //   setPage,
+  //   items,
+  //   filteredItems,
+  //   nbPages,
+  //   page,
+  //   removeFinishedAuctions,
+  //   removeEndedSingleSaleOffers,
+  // ]);
 
-  if (filteredItems.length === 0 && loading) {
-    return <LoadingIndicator />;
-  }
+  // if (filteredItems.length === 0 && loading) {
+  //   return <LoadingIndicator />;
+  // }
 
-  if (filteredItems.length === 0) {
-    return <Empty isGallery={!!galleryOwnerSlug} topic={topic} />;
-  }
+  // if (filteredItems.length === 0) {
+  //   return <Empty isGallery={!!galleryOwnerSlug} topic={topic} />;
+  // }
 
   const flipKey = `${filteredItems.map(item => getItemKey(item)).join('-')}${
     showDesktopFilter ? '-showDesktopFilter' : ''
@@ -221,12 +221,13 @@ export const CardPreviewGrid = (props: Props) => {
         {filteredItems.map((item, i) => {
           return (
             <AnimatedGridItem
-              onMouseEnter={() => setHoveredItem(getItemKey(item))}
-              onMouseLeave={() => setHoveredItem(null)}
+              // onMouseEnter={() => setHoveredItem(getItemKey(item))}
+              // onMouseLeave={() => setHoveredItem(null)}
               key={getItemKey(item)}
               flipId={getItemKey(item)}
             >
-              {renderItem(item, i === 0)}
+              {/* {renderItem(item, i === 0)} */}
+              <>Item</>
             </AnimatedGridItem>
           );
         })}
