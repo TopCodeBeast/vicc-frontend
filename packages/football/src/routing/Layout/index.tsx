@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 import HandledErrorBoundary from '@sorare/core/src/routing/HandledErrorBoundary';
-// import MultiSportAppBar from '@sorare/core/src/routing/MultiSportAppBar';
+import MultiSportAppBar from '@sorare/core/src/routing/MultiSportAppBar';
 // import MultiSportBottomNavBar from '@sorare/core/src/routing/MultiSportBottomNavBar';
 import MultiSportFooter from '@sorare/core/src/routing/MultiSportFooter';
 
@@ -23,7 +23,7 @@ const Body = styled.div`
 export const Layout: FC = ({ children }) => {
   return (
     <Root>
-      {/* <MultiSportAppBar unclaimedRewards={<UnclaimedRewards />} /> */}
+      <MultiSportAppBar unclaimedRewards={<>UnclaimedRewards</>} />
       <HandledErrorBoundary>
         <Body>{children}</Body>
       </HandledErrorBoundary>

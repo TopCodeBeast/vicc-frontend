@@ -217,7 +217,8 @@ const LoggedOutAppBar = () => {
             alt={formatMessage(sportsLabelsMessages.CRICKET)}
           />
         </LinkOther>
-        <LinkOther
+        {/*Remove Other Sports*/}
+        {/* <LinkOther
           as={SportButton}
           href={NBA_PATH}
           style={{ '--logo-width': '10px' }}
@@ -235,7 +236,7 @@ const LoggedOutAppBar = () => {
             src={mlbLogo}
             alt={formatMessage(sportsLabelsMessages.BASEBALL)}
           />
-        </LinkOther>
+        </LinkOther> */}
       </>
     );
   };
