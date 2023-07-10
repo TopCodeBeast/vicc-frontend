@@ -6,7 +6,7 @@ import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { isA } from '@sorare/core/src/lib/gql';
 
 // import ItemEligibility from '@football/components/card/ItemEligibility';
-// import AverageScore from '@football/components/so5/AverageScore';
+import AverageScore from '@football/components/so5/AverageScore';
 
 // import CardBonus from './CardBonus';
 // import U23Eligible from './U23Eligible';
@@ -53,14 +53,13 @@ const CardProperties = ({ card }: Props) => {
   return (
     <Root>
       <Elements>
-        <>AverageScore5555555555</>
-        {/* <AverageScore
+        <AverageScore
           score={card.averageScore}
           withTooltip
           size="smaller"
           scoreMode="AVERAGE_LAST_15_GAMES"
         />
-        <CardBonus card={card} withTransferMalus={Boolean(withTransferMalus)} />
+        {/* <CardBonus card={card} withTransferMalus={Boolean(withTransferMalus)} />
 
         {card.u23Eligible && <U23Eligible />}
         <ItemEligibility cards={[card]} /> */}
