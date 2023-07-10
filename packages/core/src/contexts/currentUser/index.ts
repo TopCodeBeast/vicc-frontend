@@ -1,11 +1,11 @@
 import { createContext, useContext } from 'react';
 
-// import {
-//   Currency,
+import {
+  Currency,
 //   EnabledWallet,
 //   FiatWalletAccount,
-// } from '__generated__/globalTypes';
-// import { Currency as FiatCurrency } from '@core/lib/fiat';
+} from '__generated__/globalTypes';
+import { Currency as FiatCurrency } from '@core/lib/fiat';
 
 // import { SignInMutation } from './__generated__/queries.graphql';
 import {
@@ -33,8 +33,8 @@ export type CurrentUser = Omit<CurrentUserQuery_currentUser, 'userSettings'> & {
 
 interface CurrentUserContext {
   currentUser: CurrentUser | null | undefined;
-  // fiatCurrency: FiatCurrency;
-  // currency: Currency;
+  fiatCurrency: FiatCurrency;
+  currency: Currency;
   // displayEth: boolean;
   // refetch: () => Promise<any>;
   // signIn: (

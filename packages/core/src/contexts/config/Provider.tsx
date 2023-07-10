@@ -14,7 +14,7 @@ import { asObject } from '@core/lib/json';
 import { fromWei } from '@core/lib/wei';
 
 import ConfigContextProvider, { AlgoliaCardIndexes, AlgoliaIndexes } from '.';
-// import { currentUser } from '../currentUser/queries';
+import { currentUser } from '../currentUser/queries';
 // import {
 //   ReportTelemetry,
 //   ReportTelemetryVariables,
@@ -169,8 +169,10 @@ const CONFIG_QUERY = gql`
     }
     currentUser {
       slug
+      ...CurrentUserProvider_currentUser
     }
   }
+  ${currentUser}
 `;
 
 const PING_QUERY = gql`

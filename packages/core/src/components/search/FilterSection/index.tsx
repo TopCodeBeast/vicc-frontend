@@ -20,6 +20,7 @@ type Props = {
 };
 
 export const FilterSection = ({ children, hidden, search }: Props) => {
+  console.log('FilterSection', hidden)
   return (
     <ListContainer className={classNames('FilterWidget', { visible: !hidden })}>
       {search}

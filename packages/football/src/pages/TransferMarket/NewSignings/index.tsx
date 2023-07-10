@@ -19,7 +19,7 @@ import AdvancedCardSearch from '@football/components/searchCards/AdvancedCardSea
 import PageTemplate from '@football/pages/TransferMarket/PageTemplate';
 // import { SelectedLeaderboardBanner } from '@football/pages/TransferMarket/SelectedLeaderboardBanner';
 import {
-  // advancedPrimaryMarketFilters,
+  advancedPrimaryMarketFilters,
   primaryMarketFilters,
 } from '@football/pages/TransferMarket/cardFilters';
 
@@ -47,9 +47,7 @@ const NewSignings = () => {
         <>AdvancedCardSearch5555</>
         <AdvancedCardSearch
           cardFilters={primaryMarketFilters}
-          // cardFilters={[]}
-          // advancedCardFilters={advancedPrimaryMarketFilters}
-          advancedCardFilters={[]}
+          advancedCardFilters={advancedPrimaryMarketFilters}
           sorts={cardSorts}
           defaultSort="Ending Soon"
           defaultFilters={filters}

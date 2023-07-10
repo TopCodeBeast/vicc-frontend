@@ -2,11 +2,11 @@ import { useSubscription } from '@apollo/client';
 import Big from 'bignumber.js';
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
-// import {
-//   Currency,
+import {
+  Currency,
 //   DeviceWasUpdatedEvent,
 //   EnabledWallet,
-// } from '__generated__/globalTypes';
+} from '__generated__/globalTypes';
 import createLink from '@core/atoms/typography/Link';
 import { SETTINGS_SECURITY } from '@core/constants/routes';
 // import { isType } from '@core/gql';
@@ -194,29 +194,29 @@ export const CurrentUserProvider = ({ children }: Props) => {
   //   showNotification,
   // ]);
 
-  // const fiatWalletAccountable = useMemo(() => {
-  //   if (!currentUser) return null;
-  //   return currentUser.accounts
-  //     .map(a =>
-  //       isType(a.accountable, 'FiatWalletAccount') ? a.accountable : null
-  //     )
-  //     .filter(Boolean)?.[0];
-  // }, [currentUser]);
+  const fiatWalletAccountable = useMemo(() => {
+    if (!currentUser) return null;
+    // return currentUser.accounts
+    //   .map(a =>
+    //     isType(a.accountable, 'FiatWalletAccount') ? a.accountable : null
+    //   )
+    //   .filter(Boolean)?.[0];
+  }, [currentUser]);
 
-  // const fiatCurrency = useMemo(() => {
-  //   if (fiatWalletAccountable) {
-  //     return currencies[fiatWalletAccountable.currency.toLowerCase()];
-  //   }
-  //   return (
-  //     currencies[
-  //       currentUser?.userSettings.fiatCurrency?.toLowerCase() as keyof typeof currencies
-  //     ] || defaultFiatCurrency
-  //   );
-  // }, [
-  //   currentUser?.userSettings.fiatCurrency,
-  //   defaultFiatCurrency,
-  //   fiatWalletAccountable,
-  // ]);
+  const fiatCurrency = useMemo(() => {
+    if (fiatWalletAccountable) {
+      return currencies[fiatWalletAccountable.currency.toLowerCase()];
+    }
+    return (
+      currencies[
+        currentUser?.userSettings.fiatCurrency?.toLowerCase() as keyof typeof currencies
+      ] || defaultFiatCurrency
+    );
+  }, [
+    currentUser?.userSettings.fiatCurrency,
+    defaultFiatCurrency,
+    fiatWalletAccountable,
+  ]);
 
   // const enabledWallets = currentUser?.profile.enabledWallets || undefined;
 
@@ -230,33 +230,34 @@ export const CurrentUserProvider = ({ children }: Props) => {
   //   useNewWallet && enabledWallets?.includes(EnabledWallet.FIAT)
   // );
 
+  const onlyShowFiatCurrency = false;
   // const onlyShowFiatCurrency = !!(
   //   useNewWallet &&
   //   showFiatWallet &&
   //   !showEthWallet
   // );
 
-  // const currency = useMemo(() => {
-  //   if (onlyShowFiatCurrency) return Currency.FIAT;
-  //   return currentUser?.userSettings.currency || Currency.FIAT;
-  // }, [currentUser?.userSettings.currency, onlyShowFiatCurrency]);
+  const currency = useMemo(() => {
+    if (onlyShowFiatCurrency) return Currency.FIAT;
+    return currentUser?.userSettings.currency || Currency.FIAT;
+  }, [currentUser?.userSettings.currency, onlyShowFiatCurrency]);
 
-  // const displayEth = useMemo(
-  //   () =>
-  //     Boolean(
-  //       currentUser?.depositedEth ||
-  //         (currentUser?.availableBalanceForWithdrawal &&
-  //           new Big(currentUser?.availableBalanceForWithdrawal).gt(0))
-  //     ),
-  //   [currentUser]
-  // );
+  const displayEth = useMemo(
+    () =>
+      Boolean(
+        currentUser?.depositedEth ||
+          (currentUser?.availableBalanceForWithdrawal &&
+            new Big(currentUser?.availableBalanceForWithdrawal).gt(0))
+      ),
+    [currentUser]
+  );
 
   return (
     <CurrentUserContextProvider
       value={{
         currentUser: currentUser as any,
-        // currency,
-        // fiatCurrency,
+        currency,
+        fiatCurrency,
         // fiatWalletAccountable,
         // displayEth,
         // refetch,

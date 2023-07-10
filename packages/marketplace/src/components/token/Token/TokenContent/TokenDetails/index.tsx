@@ -29,7 +29,6 @@ export const TokenDetails = ({
   disableSportSpecific,
   displayMarketplaceOnboardingTooltip,
 }: Props) => {
-  console.log('token.latestEnglishAuction', token.latestEnglishAuction)
   const auction = useGetAuctionDetails(token.latestEnglishAuction);
   const offer = useGetTokenSingleSaleDetails(token);
 

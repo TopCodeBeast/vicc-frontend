@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { MonetaryAmount } from '__generated__/globalTypes';
 import { useConfigContext } from '@core/contexts/config';
-// import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 import MonetaryAmountClass, {
   MonetaryAmountParams,
   getFiatMonetaryAmountIndex,
@@ -17,10 +17,9 @@ export type MonetaryAmountOutput = Omit<
 
 const useMonetaryAmount = () => {
   const { exchangeRate } = useConfigContext();
-  const code: any = "usd"; //TODO*************
-  // const {
-  //   fiatCurrency: { code },
-  // } = useCurrentUserContext();
+  const {
+    fiatCurrency: { code },
+  } = useCurrentUserContext();
 
   const toMonetaryAmount = useCallback(
     (params: MonetaryAmountParams): MonetaryAmountOutput => {

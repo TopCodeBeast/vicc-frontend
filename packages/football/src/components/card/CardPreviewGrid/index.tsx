@@ -92,7 +92,6 @@ export const CardPreviewGrid = (props: Props) => {
   const [cardOpened, setCardOpened] = useState<CardPreviewGrid_card | null>(
     null
   );
-  console.log('items~~~~~~~~~~~~~~~~~~~', items)
 
   const filteredItems = items.filter(item => {
     if (isA<CardPreviewGrid_card>('Card', item)) {

@@ -24,7 +24,7 @@ import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 // import { SavedFilters } from '@marketplace/search/SavedFilters';
 import StackedSwitch from '@marketplace/searchCards/StackedSwitch';
 
-// import FiltersManager from '../../search/FiltersManager';
+import FiltersManager from '../../search/FiltersManager';
 // import FiltersManagerDialog from '../../search/FiltersManagerDialog';
 import SearchBox from '../../search/SearchBox';
 // import ToggleFiltersManager from '../../search/ToggleFiltersManager';
@@ -247,8 +247,9 @@ export const SearchLayout = (props: Props) => {
         {/* {!hideSavedFilters && <SavedFilters />} */}
       </SearchRow>
       <SearchLayoutContainer>
-        {/* {!responsiveFilters && (
+        {!responsiveFilters && (
           <Highlightable {...filtersTour} disabled={!filtersTour}>
+              <>AAAAAAAAAAAAAAAAA</>
             <LeftFilters visible={showDesktopFilter}>
               <FiltersManager
                 filters={cardFilters}
@@ -257,7 +258,7 @@ export const SearchLayout = (props: Props) => {
               />
             </LeftFilters>
           </Highlightable>
-        )} */}
+        )}
         <SearchLayoutMain>
           {children}
           {/* <ActiveFilters /> */}
