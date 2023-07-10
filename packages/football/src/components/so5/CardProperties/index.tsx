@@ -8,7 +8,7 @@ import { isA } from '@sorare/core/src/lib/gql';
 // import ItemEligibility from '@football/components/card/ItemEligibility';
 import AverageScore from '@football/components/so5/AverageScore';
 
-// import CardBonus from './CardBonus';
+import CardBonus from './CardBonus';
 // import U23Eligible from './U23Eligible';
 import { CardProperties_card } from './__generated__/index.graphql';
 
@@ -59,9 +59,9 @@ const CardProperties = ({ card }: Props) => {
           size="smaller"
           scoreMode="AVERAGE_LAST_15_GAMES"
         />
-        {/* <CardBonus card={card} withTransferMalus={Boolean(withTransferMalus)} />
+        <CardBonus card={card} withTransferMalus={Boolean(withTransferMalus)} />
 
-        {card.u23Eligible && <U23Eligible />}
+        {/* {card.u23Eligible && <U23Eligible />}
         <ItemEligibility cards={[card]} /> */}
       </Elements>
     </Root>
@@ -91,9 +91,9 @@ CardProperties.fragments = {
           }
         }
       }
-#      ...CardBonus_card
+      ...CardBonus_card
     }
-    #{CardBonus.fragments.card}
+    ${CardBonus.fragments.card}
     #{ItemEligibility.fragments.card}
   `,
 };
