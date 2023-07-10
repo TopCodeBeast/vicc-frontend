@@ -18,10 +18,10 @@ import AdvancedCardSearch from '@football/components/searchCards/AdvancedCardSea
 // import NewsSignings from '@football/pages/TransferMarket/OnboardingDialog/NewsSignings';
 import PageTemplate from '@football/pages/TransferMarket/PageTemplate';
 // import { SelectedLeaderboardBanner } from '@football/pages/TransferMarket/SelectedLeaderboardBanner';
-// import {
-//   advancedPrimaryMarketFilters,
-//   primaryMarketFilters,
-// } from '@football/pages/TransferMarket/cardFilters';
+import {
+  // advancedPrimaryMarketFilters,
+  primaryMarketFilters,
+} from '@football/pages/TransferMarket/cardFilters';
 
 const cardSorts = createCardSorts({ withHighestAverageScore: true });
 
@@ -44,9 +44,10 @@ const NewSignings = () => {
       <ConversionCreditBanner />
       <PageTemplate>
         <Carousel slotName="so5_primary_market" />
+        <>AdvancedCardSearch5555</>
         <AdvancedCardSearch
-          // cardFilters={primaryMarketFilters}
-          cardFilters={[]}
+          cardFilters={primaryMarketFilters}
+          // cardFilters={[]}
           // advancedCardFilters={advancedPrimaryMarketFilters}
           advancedCardFilters={[]}
           sorts={cardSorts}
