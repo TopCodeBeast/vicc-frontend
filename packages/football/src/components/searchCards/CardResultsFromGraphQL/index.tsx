@@ -50,7 +50,7 @@ const cardFragment = gql`
   ${CardPreviewGrid.fragments.card}
 `;
 
-//TODO**********************************Remove football
+//TODO***********Remove-Football
 export const CARDS_QUERY = gql`
   query CardsQuery($slugs: [String!]!) {
     cards(slugs: $slugs) {
@@ -178,7 +178,7 @@ export const CardResultsFromGraphQL = (props: CardResultsProps) => {
 
   console.log('data?.cards',data?.cards)
   const cards = useMemo(
-    () => filterVisibleCards(data?.cards), //TODO
+    () => filterVisibleCards(data?.cards),//(data?.football?.cards),
     [data]
   );
 

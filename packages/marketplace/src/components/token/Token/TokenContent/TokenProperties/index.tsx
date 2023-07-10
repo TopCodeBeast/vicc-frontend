@@ -44,7 +44,7 @@ export const TokenProperties = ({
   if (!disableSportSpecific) {
     return (
       <StyledItemPropertiesContainer spaceBetween>
-        {/* <TokenPropertiesComponent assetId={token.assetId} /> */}
+        <TokenPropertiesComponent assetId={token.assetId} />
         <div>{TokenPropertiesButtonComponent}</div>
       </StyledItemPropertiesContainer>
     );

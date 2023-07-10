@@ -30,7 +30,7 @@ import { useSessionContext } from '@core/contexts/session';
 import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
 // import OperationStoreClient from '@core/gql/OperationStoreClient';
 import { dataIdFromObject } from '@core/gql/idFromObject';
-// import introspectionResult from '@core/gql/introspectionResult.json';
+import introspectionResult from '@core/gql/introspectionResult.json';
 import { useDebugLink } from '@core/hooks/graphql/useDebugLink';
 import { useTMLink } from '@core/hooks/graphql/useTMLink';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
@@ -71,6 +71,7 @@ const INITIAL_RETRY_DELAY = 3000;
 const cardFields: Exclude<TypePolicy['fields'], undefined> = {
   cardByAssetId: {
     read(_, { args, toReference }) {
+      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~cardByAssetId', args, toReference)
       if (args?.assetId) {
         return toReference({
           __typename: 'Card',
@@ -255,7 +256,7 @@ export const typePolicies: TypePolicies = {
 export const createCache = () =>
   new InMemoryCache({
     dataIdFromObject,
-    possibleTypes: {},//introspectionResult.possibleTypes, //TODO***
+    possibleTypes: introspectionResult.possibleTypes,
     typePolicies,
   });
 

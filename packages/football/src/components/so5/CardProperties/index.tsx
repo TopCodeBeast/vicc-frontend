@@ -53,6 +53,7 @@ const CardProperties = ({ card }: Props) => {
   return (
     <Root>
       <Elements>
+        <>AverageScore5555555555</>
         {/* <AverageScore
           score={card.averageScore}
           withTooltip

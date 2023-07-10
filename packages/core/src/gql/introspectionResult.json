@@ -1,0 +1,552 @@
+{
+    "possibleTypes": {
+        "AccountOwner": [
+            "Contract",
+            "User"
+        ],
+        "Accountable": [
+            "CommonAccount",
+            "EthereumAccount",
+            "FiatWalletAccount",
+            "LoomAccount",
+            "StarkwareAccount"
+        ],
+        "BlockchainUser": [
+            "AnonymousUser",
+            "User"
+        ],
+        "BlockchainUserInterface": [
+            "AnonymousUser"
+        ],
+        "CardBundleOffer": [
+            "BaseballCardBundleOffer",
+            "NBACardBundleOffer"
+        ],
+        "CardGameInterface": [
+            "Card",
+            "CardSubscription"
+        ],
+        "CardInLineupGameScoreInterface": [
+            "BaseballCardInLineupGameScore",
+            "NBACardInLineupGameScore"
+        ],
+        "CardInLineupInterface": [
+            "BaseballCardInLineup",
+            "NBACardInLineup"
+        ],
+        "CardInterface": [
+            "BaseballCard",
+            "NBACard"
+        ],
+        "CardMarketInterface": [
+            "Card",
+            "CardSubscription"
+        ],
+        "CardSampleInDailyLineupInterface": [
+            "BaseballCardSampleInDailyLineup"
+        ],
+        "CardTradeInterface": [
+            "BaseballCardTrade",
+            "NBACardTrade"
+        ],
+        "ClubShopItem": [
+            "ExtraSwapShopItem",
+            "JerseyShopItem",
+            "LevelUpShopItem",
+            "ShopItem",
+            "SkinShopItem",
+            "XPRestoreShopItem"
+        ],
+        "CollectionInterface": [
+            "BaseballCollection",
+            "NBACollection"
+        ],
+        "CollectionSlotInterface": [
+            "BaseballCollectionSlot",
+            "NBACollectionSlot"
+        ],
+        "CommonCardSampleInterface": [
+            "BaseballCommonCardSample",
+            "NBACommonCardSample"
+        ],
+        "CompetitionGraphicalIdentityInterface": [
+            "Competition"
+        ],
+        "DHFixtureInterface": [
+            "DHBaseballFixture",
+            "DHNBAFixture"
+        ],
+        "DHLineupInterface": [
+            "DHBaseballLineup",
+            "DHNBALineup"
+        ],
+        "DHShopItem": [
+            "DHCommonCardPack",
+            "DHMVPCardOption",
+            "DHTrickPlayPack"
+        ],
+        "DailyGameInterface": [
+            "BaseballDailyGame"
+        ],
+        "DailyLineupInterface": [
+            "BaseballDailyLineup"
+        ],
+        "DeckInterface": [
+            "CustomDeck",
+            "DeckInFormation",
+            "HighlightedDeck"
+        ],
+        "DraftableObject": [
+            "SorareDailyDraftableCard",
+            "SorareDailyDraftablePlayer"
+        ],
+        "EnglishAuctionContentProvider": [
+            "Club",
+            "Competition",
+            "NationalTeam"
+        ],
+        "EnglishAuctionInterface": [
+            "BundledAuction",
+            "EnglishAuction"
+        ],
+        "FeedItem": [
+            "GameFeedItem",
+            "SquadFeedItem"
+        ],
+        "FeedItemInterface": [
+            "GameFeedItem",
+            "SquadFeedItem"
+        ],
+        "FixtureInterface": [
+            "BaseballFixture",
+            "NBAFixture"
+        ],
+        "FootballHeadToHeadDraftableObject": [
+            "FootballHeadToHeadDraftableCard",
+            "FootballHeadToHeadDraftablePlayer"
+        ],
+        "FootballHeadToHeadPublicManagerInterface": [
+            "FootballHeadToHeadCurrentManager",
+            "FootballHeadToHeadManager"
+        ],
+        "GameInterface": [
+            "BaseballGame",
+            "NBAGame"
+        ],
+        "GameWithCardInLineupInterface": [
+            "BaseballGameWithCardInLineup",
+            "NBAGameWithCardInLineup"
+        ],
+        "LeaderboardInterface": [
+            "BaseballLeaderboard",
+            "NBALeaderboard"
+        ],
+        "LeaderboardRequirementsInterface": [
+            "BaseballLeaderboardRequirements",
+            "NBALeaderboardRequirements"
+        ],
+        "LeagueInterface": [
+            "BaseballLeague",
+            "NBALeague"
+        ],
+        "LeagueLeaderboardInterface": [
+            "BaseballLeagueLeaderboard",
+            "NBALeagueLeaderboard"
+        ],
+        "LeagueLineupInterface": [
+            "BaseballLeagueLineup",
+            "NBALeagueLineup"
+        ],
+        "LineupInterface": [
+            "BaseballLineup",
+            "NBALineup"
+        ],
+        "Node": [
+            "Account",
+            "ActionReward",
+            "Announcement",
+            "AnnouncementNotification",
+            "AnonymousUser",
+            "AuctionNotification",
+            "AuthorizationRequest",
+            "Bid",
+            "BidWithRates",
+            "BundledAuction",
+            "Card",
+            "CardCollection",
+            "CardCollectionCard",
+            "CardCollectionNotification",
+            "CardCollectionSlot",
+            "CardEdition",
+            "CardNotification",
+            "CardSubscription",
+            "Challenge",
+            "Club",
+            "CommonAccount",
+            "CommonDraftSwap",
+            "Competition",
+            "ConnectedOAuth",
+            "Contestant",
+            "Contract",
+            "ConversionCredit",
+            "ConversionCreditCampaign",
+            "Country",
+            "CustomBanner",
+            "CustomDeck",
+            "DataPartner",
+            "DecisiveActionNotification",
+            "DeckCard",
+            "DeckInFormation",
+            "EmailSubscription",
+            "EnglishAuction",
+            "EthMigration",
+            "EthereumAccount",
+            "EthereumTransaction",
+            "ExchangeRate",
+            "ExternalDepositNotification",
+            "ExtraSwapShopItem",
+            "FastWithdrawal",
+            "FastWithdrawalWithRates",
+            "FiatWalletAccount",
+            "FootballHeadToHeadAppearance",
+            "FootballHeadToHeadGame",
+            "FootballHeadToHeadInvite",
+            "FootballHeadToHeadLineup",
+            "FootballHeadToHeadManager",
+            "FootballManagerTask",
+            "FullWithdrawalRequest",
+            "Game",
+            "GameFeedItem",
+            "HighlightedDeck",
+            "Injury",
+            "JerseyShopItem",
+            "LandingTheme",
+            "LevelUpShopItem",
+            "Location",
+            "LoomAccount",
+            "Membership",
+            "MintingQuota",
+            "MintingQuotaAllocation",
+            "MintingQuotaUnit",
+            "MyBidWithRates",
+            "NationalTeam",
+            "Offer",
+            "OfferNotification",
+            "Owner",
+            "OwnerWithRates",
+            "Payment",
+            "Player",
+            "PlayerGameStats",
+            "PlayerStatus",
+            "PrivateKeyRecoveryOption",
+            "Referral",
+            "ReferralCampaign",
+            "ReferralMilestoneReward",
+            "ReferralReward",
+            "ReferralRewardNotification",
+            "RewardCard",
+            "SaleNotification",
+            "Season",
+            "SeasonPicture",
+            "ShopItem",
+            "SingleSaleOffer",
+            "SkinShopItem",
+            "So5Appearance",
+            "So5Fixture",
+            "So5Leaderboard",
+            "So5League",
+            "So5Lineup",
+            "So5LineupNotification",
+            "So5NoCardLineup",
+            "So5Ranking",
+            "So5Reward",
+            "So5Score",
+            "So5UserGroup",
+            "So5UserGroupMembership",
+            "So5UserGroupNotification",
+            "SorareDailyAppearance",
+            "SorareDailyBoost",
+            "SorareDailyClan",
+            "SorareDailyGame",
+            "SorareDailyLineup",
+            "SorareDailyManager",
+            "SorareDailyReward",
+            "SorareDailySquad",
+            "SpecialWeeklyBanner",
+            "SquadFeedItem",
+            "StarkwareAccount",
+            "StarkwareWithdrawal",
+            "StarterPack",
+            "Suspension",
+            "TeamFormation",
+            "Token",
+            "TokenAuction",
+            "TokenBid",
+            "TokenMonetaryReward",
+            "TokenMyBid",
+            "TokenOffer",
+            "TokenOwner",
+            "TokenPrice",
+            "TokenPrimaryOffer",
+            "TokenTrade",
+            "TokenWithdrawal",
+            "User",
+            "UserAccountEntry",
+            "UserAward",
+            "UserAwardNotification",
+            "UserCardCollection",
+            "UserDevice",
+            "UserDeviceEvent",
+            "UserProfile",
+            "UserShopItem",
+            "UserSource",
+            "UserSportProfile",
+            "UserWallet",
+            "Withdrawal",
+            "WithdrawalWithRates",
+            "XPRestoreShopItem"
+        ],
+        "Notification": [
+            "AnnouncementNotification",
+            "AuctionNotification",
+            "CardCollectionNotification",
+            "CardNotification",
+            "DecisiveActionNotification",
+            "ExternalDepositNotification",
+            "OfferNotification",
+            "ReferralRewardNotification",
+            "SaleNotification",
+            "So5LineupNotification",
+            "So5UserGroupNotification",
+            "UserAwardNotification"
+        ],
+        "NotificationInterface": [
+            "AnnouncementNotification",
+            "AuctionNotification",
+            "CardCollectionNotification",
+            "CardNotification",
+            "DecisiveActionNotification",
+            "ExternalDepositNotification",
+            "OfferNotification",
+            "ReferralRewardNotification",
+            "SaleNotification",
+            "So5LineupNotification",
+            "So5UserGroupNotification",
+            "UserAwardNotification"
+        ],
+        "OfferInterface": [
+            "Offer",
+            "SingleSaleOffer"
+        ],
+        "OwnerInterface": [
+            "Owner",
+            "OwnerWithRates",
+            "UserOwner"
+        ],
+        "Ownerable": [
+            "AnonymousUser",
+            "Contract",
+            "User"
+        ],
+        "PaymentIntentOperation": [
+            "Bid",
+            "Offer",
+            "TokenPrimaryOffer"
+        ],
+        "PaymentIntentTokenOperation": [
+            "TokenBid",
+            "TokenOffer",
+            "TokenPrimaryOffer"
+        ],
+        "PlayerGameStatsInterface": [
+            "BaseballPlayerGameStats",
+            "NBAPlayerGameStats"
+        ],
+        "PlayerInFixtureInterface": [
+            "BaseballPlayerInFixture",
+            "NBAPlayerInFixture"
+        ],
+        "PlayerInFixtureStatusInterface": [
+            "BaseballPlayerInFixtureStatus",
+            "NBAPlayerInFixtureStatus"
+        ],
+        "PlayerInterface": [
+            "BaseballPlayer",
+            "NBAPlayer"
+        ],
+        "PublicManagerInterface": [
+            "CurrentManager",
+            "SorareDailyManager"
+        ],
+        "PublicUserInfoInterface": [
+            "CurrentUser",
+            "User",
+            "UserWithSubscriptionSlug"
+        ],
+        "ReferralRewardInterface": [
+            "BaseballReferralReward",
+            "NBAReferralReward"
+        ],
+        "Referrer": [
+            "User",
+            "UserSource"
+        ],
+        "Request": [
+            "MangopayCreditCardAuthorizationRequest",
+            "MangopayWalletTransferAuthorizationRequest",
+            "StarkexLimitOrderAuthorizationRequest",
+            "StarkexTransferAuthorizationRequest",
+            "StripeCreditCardAuthorizationRequest"
+        ],
+        "RewardInterface": [
+            "BaseballReward",
+            "NBAReward"
+        ],
+        "ShopItemInterface": [
+            "ExtraSwapShopItem",
+            "JerseyShopItem",
+            "LevelUpShopItem",
+            "ShopItem",
+            "SkinShopItem",
+            "XPRestoreShopItem"
+        ],
+        "So5CurrentUserInterface": [
+            "CurrentUser"
+        ],
+        "So5LeaderboardRulesInterface": [
+            "So5Leaderboard"
+        ],
+        "SocialPicturesInterface": [
+            "So5Lineup",
+            "TokenAuction"
+        ],
+        "SportsNode": [
+            "BaseballCard",
+            "BaseballFixture",
+            "BaseballGame",
+            "BaseballLeaderboard",
+            "BaseballLineup",
+            "BaseballPlayer",
+            "BaseballReferralReward",
+            "BaseballReward",
+            "NBALeaderboard",
+            "NBAReferralReward"
+        ],
+        "SportsTeamInterface": [
+            "BaseballTeam",
+            "NBATeam"
+        ],
+        "Subscribable": [
+            "Card",
+            "CardCollection",
+            "Club",
+            "Country",
+            "Player",
+            "User"
+        ],
+        "Subscriber": [
+            "CurrentUser"
+        ],
+        "Team": [
+            "Club",
+            "NationalTeam"
+        ],
+        "TeamInterface": [
+            "Club",
+            "NationalTeam"
+        ],
+        "TokenCardMetadataInterface": [
+            "TokenBaseballMetadata",
+            "TokenFootballMetadata"
+        ],
+        "TokenDeal": [
+            "TokenAuction",
+            "TokenOffer",
+            "TokenPrimaryOffer"
+        ],
+        "TokenMetadata": [
+            "TokenBaseballMetadata",
+            "TokenFootballMetadata"
+        ],
+        "TokenOperationTradeInterface": [
+            "TokenAuction",
+            "TokenOffer",
+            "TokenPrimaryOffer"
+        ],
+        "UserAccountEntryOperation": [
+            "Bid",
+            "EthMigration",
+            "FastWithdrawal",
+            "FullWithdrawalRequest",
+            "Offer",
+            "So5Reward",
+            "StarkwareWithdrawal",
+            "TokenMonetaryReward",
+            "TokenPrimaryOffer",
+            "TokenWithdrawal",
+            "Withdrawal"
+        ],
+        "UserAccountEntryTokenOperation": [
+            "EthMigration",
+            "FastWithdrawal",
+            "FullWithdrawalRequest",
+            "So5Reward",
+            "StarkwareWithdrawal",
+            "TokenBid",
+            "TokenMonetaryReward",
+            "TokenOffer",
+            "TokenPrimaryOffer",
+            "TokenWithdrawal",
+            "Withdrawal"
+        ],
+        "UserInterface": [
+            "CurrentSportsUser",
+            "CurrentUser",
+            "User"
+        ],
+        "UserItem": [
+            "BaseballBoostItem",
+            "BaseballCardTradeItem",
+            "BaseballMerchandise"
+        ],
+        "UserOffersInterface": [
+            "CurrentUser"
+        ],
+        "UserSocialInterface": [
+            "CurrentUser",
+            "UserWithSubscriptionSlug"
+        ],
+        "WithFastWithdrawal": [
+            "CurrentUser"
+        ],
+        "WithFavoriteInterface": [
+            "CurrentUser"
+        ],
+        "WithMemberships": [
+            "Player"
+        ],
+        "WithNotifications": [
+            "CurrentUser"
+        ],
+        "WithPublicCardsInterface": [
+            "CardEdition",
+            "Player",
+            "Season"
+        ],
+        "WithReferralsInterface": [
+            "CurrentUser"
+        ],
+        "WithSubscriptionsInterface": [
+            "Card",
+            "CardSubscription",
+            "Club",
+            "Country",
+            "NationalTeam",
+            "Player"
+        ],
+        "XPBoosterShopItemInterface": [
+            "LevelUpShopItem",
+            "XPRestoreShopItem"
+        ]
+    }
+}

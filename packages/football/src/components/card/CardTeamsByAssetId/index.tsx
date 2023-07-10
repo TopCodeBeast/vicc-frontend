@@ -19,6 +19,7 @@ const fragment = gql`
   ${CardTeams.fragments.card}
 `;
 
+//TODO***********Remove-Football
 const CARD_TEAMS_BY_ASSET_ID = gql`
   query CardTeamsByAssetIdQuery($assetId: String!) {
     cardByAssetId(assetId: $assetId) {
@@ -42,7 +43,7 @@ const CardTeamsByAssetId = ({ assetId }: Props) => {
 
   if (loading || !data) return null;
 
-  const { cardByAssetId } = data.football;
+  const { cardByAssetId } = data;//data.football;
   return <CardTeams card={cardByAssetId} />;
 };
 

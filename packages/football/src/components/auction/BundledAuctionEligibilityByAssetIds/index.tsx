@@ -19,6 +19,7 @@ const cardFragment = gql`
   ${ItemEligibility.fragments.card}
 `;
 
+//TODO***********Remove-Football
 const BUNDLED_AUCTION_ELIGIBILITY_BY_ASSET_IDS_QUERY = gql`
   query BundledAuctionEligibilityByAssetIdsQuery($assetIds: [String!]!) {
     cards(assetIds: $assetIds) {
@@ -44,7 +45,7 @@ const BundledAuctionEligibilityByAssetIds = ({ tokens }: Props) => {
   if (loading || !data) return null;
 
   const {
-    cards, //TODO******
+    cards, // football: { cards },
   } = data;
   return <ItemEligibility cards={cards} />;
 };

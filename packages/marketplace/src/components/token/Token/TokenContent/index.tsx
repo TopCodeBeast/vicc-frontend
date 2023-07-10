@@ -59,7 +59,7 @@ export const TokenContent = ({
 
   const isBundledAuction = !!(
     token.latestEnglishAuction &&
-    // isFuture(parseISO(token.latestEnglishAuction.endDate)) && //TODO******
+    isFuture(parseISO(token.latestEnglishAuction.endDate)) &&
     token.latestEnglishAuction?.nfts?.length > 1
   );
 
@@ -74,6 +74,7 @@ export const TokenContent = ({
         />
       </ItemImgContainer>
       <ItemInfosContainer className={classNames({ isDesktopLayout })}>
+        <>TokenProperties555555555</>
         <TokenProperties
           token={token}
           isBundledAuction={isBundledAuction}
