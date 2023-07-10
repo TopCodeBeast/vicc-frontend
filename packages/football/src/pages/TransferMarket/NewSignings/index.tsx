@@ -44,7 +44,6 @@ const NewSignings = () => {
       <ConversionCreditBanner />
       <PageTemplate>
         <Carousel slotName="so5_primary_market" />
-        <>AdvancedCardSearch5555</>
         <AdvancedCardSearch
           cardFilters={primaryMarketFilters}
           advancedCardFilters={advancedPrimaryMarketFilters}

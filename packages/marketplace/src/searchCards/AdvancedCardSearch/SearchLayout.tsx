@@ -249,7 +249,6 @@ export const SearchLayout = (props: Props) => {
       <SearchLayoutContainer>
         {!responsiveFilters && (
           <Highlightable {...filtersTour} disabled={!filtersTour}>
-              <>AAAAAAAAAAAAAAAAA</>
             <LeftFilters visible={showDesktopFilter}>
               <FiltersManager
                 filters={cardFilters}
