@@ -30,7 +30,7 @@ const Actions = styled.div`
 
 const LoggedOutAppBar = () => {
   const track = useEvents();
-  // const { signIn, signUp } = useConnectionContext();
+  // const { signIn, signUp } = useConnectionContext(); //TODO************SignIn
   const { formatMessage } = useIntlContext();
 
   const onSignUpClick = useCallback(() => {

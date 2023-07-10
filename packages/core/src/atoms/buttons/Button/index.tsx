@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { forwardRef } from 'react';
 import styled from 'styled-components';
 
-// import useClickHandler from '@core/hooks/useClickHandler';
+import useClickHandler from '@core/hooks/useClickHandler';
 
 export const colors = [
   'blue',
@@ -225,12 +225,12 @@ export const Button = forwardRef<HTMLElement, Props>((props, ref) => {
     ...rest
   } = props;
 
-  // const clickHandler = useClickHandler(onClick, disableDebounce);
+  const clickHandler = useClickHandler(onClick, disableDebounce);
 
   return (
     <StyledButton
       innerRef={ref}
-      // onClick={clickHandler}
+      onClick={clickHandler}
       {...(externalLink
         ? ({ target: '_blank', rel: 'noopener noreferrer' } as any)
         : {})}

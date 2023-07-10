@@ -72,10 +72,10 @@ import {
   SERIEA_LANDING,
   goToLobby,
 } from '@sorare/core/src/constants/routes';
-// import { useConfigContext } from '@sorare/core/src/contexts/config';
+import { useConfigContext } from '@sorare/core/src/contexts/config';
 // import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
-// import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 // import useGetSplat from '@sorare/core/src/hooks/useGetSplat';
 // import { importFactory } from '@sorare/core/src/lib/importFactory';
 // import { lazy } from '@sorare/core/src/lib/retry';
@@ -170,16 +170,16 @@ const WithDialog = ({
 };
 
 export const AppSwitch = () => {
-  // const {
-  //   flags: {
-  //     disableClubShopPage = false,
-  //     enablePrizePoolPage = false,
-  //     enableNoCardEntry = false,
-  //   },
-  // } = useFeatureFlags();
+  const {
+    flags: {
+      disableClubShopPage = false,
+      enablePrizePoolPage = false,
+      enableNoCardEntry = false,
+    },
+  } = useFeatureFlags();
   const currentUser = undefined;//const { currentUser } = useCurrentUserContext();
-  // const { landingTheme } = useConfigContext();
-  // const location = useLocation();
+  const { landingTheme } = useConfigContext();
+  const location = useLocation();
   // const getSplat = useGetSplat();
 
   return (
