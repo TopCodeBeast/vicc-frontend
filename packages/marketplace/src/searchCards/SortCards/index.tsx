@@ -10,7 +10,7 @@ import {
   useConfigContext,
 } from '@sorare/core/src/contexts/config';
 import { useMarketplaceLifecycle } from '@sorare/core/src/hooks/useMarketplaceLifecycle';
-// import { sorts } from '@sorare/core/src/lib/glossary';
+import { sorts } from '@sorare/core/src/lib/glossary';
 
 interface Props {
   indexes: AlgoliaCardIndexesNames;
@@ -27,7 +27,7 @@ const SortCards = ({ indexes }: Props) => {
     () =>
       indexes.map(label => ({
         value: algoliaCardIndexes[label],
-        label: 'Label',//formatMessage(sorts[label]), //TODO****
+        label: formatMessage(sorts[label]),
         index: label,
       })),
     [indexes, algoliaCardIndexes, formatMessage]
