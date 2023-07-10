@@ -5,11 +5,11 @@ import styled from 'styled-components';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { isA } from '@sorare/core/src/lib/gql';
 
-// import ItemEligibility from '@football/components/card/ItemEligibility';
+import ItemEligibility from '@football/components/card/ItemEligibility';
 import AverageScore from '@football/components/so5/AverageScore';
 
 import CardBonus from './CardBonus';
-// import U23Eligible from './U23Eligible';
+import U23Eligible from './U23Eligible';
 import { CardProperties_card } from './__generated__/index.graphql';
 
 type CardProperties_card_token = NonNullable<CardProperties_card['token']>;
@@ -61,8 +61,8 @@ const CardProperties = ({ card }: Props) => {
         />
         <CardBonus card={card} withTransferMalus={Boolean(withTransferMalus)} />
 
-        {/* {card.u23Eligible && <U23Eligible />}
-        <ItemEligibility cards={[card]} /> */}
+        {card.u23Eligible && <U23Eligible />}
+        <ItemEligibility cards={[card]} />
       </Elements>
     </Root>
   );
@@ -74,7 +74,7 @@ CardProperties.fragments = {
       slug
       assetId
       u23Eligible
-#      ...ItemEligibility_card
+      ...ItemEligibility_card
       currentUserSubscription {
         slug
       }
@@ -94,7 +94,7 @@ CardProperties.fragments = {
       ...CardBonus_card
     }
     ${CardBonus.fragments.card}
-    #{ItemEligibility.fragments.card}
+    ${ItemEligibility.fragments.card}
   `,
 };
 

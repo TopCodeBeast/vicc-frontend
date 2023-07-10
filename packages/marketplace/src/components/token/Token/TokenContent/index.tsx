@@ -74,7 +74,6 @@ export const TokenContent = ({
         />
       </ItemImgContainer>
       <ItemInfosContainer className={classNames({ isDesktopLayout })}>
-        <>TokenProperties555555555</>
         <TokenProperties
           token={token}
           isBundledAuction={isBundledAuction}
