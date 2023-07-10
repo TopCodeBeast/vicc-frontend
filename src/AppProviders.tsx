@@ -2,7 +2,9 @@ import { ReactNode, Suspense, useEffect } from 'react';
 import { BrowserRouter, useLocation } from 'react-router-dom';
 
 import { SO5_SENTRY_DSN } from '@sorare/core/src/config';
+import AuthProvider from '@sorare/core/src/contexts/auth/Provider';
 import ConfigProvider from '@sorare/core/src/contexts/config/Provider';
+import ConnectionProvider from '@sorare/core/src/contexts/connection/Provider';
 import CurrentUserProvider from '@sorare/core/src/contexts/currentUser/Provider';
 import DebugProvider from '@sorare/core/src/contexts/debug/Provider';
 import DeviceFingerprintProvider from '@sorare/core/src/contexts/deviceFingerprint/Provider';
@@ -17,6 +19,9 @@ import SessionProvider from '@sorare/core/src/contexts/session';
 import SnackNotificationProvider from '@sorare/core/src/contexts/snackNotification/Provider';
 import TickerProvider from '@sorare/core/src/contexts/ticker/Provider';
 import TMProvider from '@sorare/core/src/contexts/tm/Provider';
+import WalletFrame from '@sorare/core/src/contexts/wallet/Frame';
+import WalletProvider from '@sorare/core/src/contexts/wallet/Provider';
+import WalletDrawerProvider from '@sorare/core/src/contexts/walletDrawer/Provider';
 import ThemeProvider from '@sorare/core/src/style/theme';
 
 const AppProviders = ({ children }: { children: ReactNode }) => {
@@ -36,13 +41,24 @@ const AppProviders = ({ children }: { children: ReactNode }) => {
                             <ConfigProvider>
                               <SeoProvider>
                                 <CurrentUserProvider>
-                                  <FollowProvider>
-                                    <TickerProvider>
-                                      <Suspense fallback={null}>
-                                        {children}
-                                      </Suspense>
-                                    </TickerProvider>
-                                  </FollowProvider>
+                                  <AuthProvider>
+                                    <FollowProvider>
+                                      <WalletDrawerProvider>
+                                        <WalletProvider>
+                                          <ConnectionProvider>
+                                            <TickerProvider>
+                                              <Suspense fallback={null}>
+                                                {children}
+                                              </Suspense>
+                                              <Suspense fallback={null}>
+                                                <WalletFrame />
+                                              </Suspense>
+                                            </TickerProvider>
+                                          </ConnectionProvider>
+                                        </WalletProvider>
+                                      </WalletDrawerProvider>
+                                    </FollowProvider>
+                                  </AuthProvider>
                                 </CurrentUserProvider>
                               </SeoProvider>
                             </ConfigProvider>

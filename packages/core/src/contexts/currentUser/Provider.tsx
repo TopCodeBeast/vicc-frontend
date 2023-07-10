@@ -260,7 +260,7 @@ export const CurrentUserProvider = ({ children }: Props) => {
         fiatCurrency,
         // fiatWalletAccountable,
         // displayEth,
-        // refetch,
+        refetch,
         // signIn,
         // blockchainCardsCount,
         // walletPreferences: {

@@ -36,7 +36,7 @@ interface CurrentUserContext {
   fiatCurrency: FiatCurrency;
   currency: Currency;
   // displayEth: boolean;
-  // refetch: () => Promise<any>;
+  refetch: () => Promise<any>;
   // signIn: (
   //   args: SignInArgs
   // ) => Promise<SignInMutation_signIn | null | undefined>;
