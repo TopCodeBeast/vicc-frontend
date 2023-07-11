@@ -303,22 +303,22 @@ export const CURRENT_USER_QUERY = gql`
 //   ${fiatAccounts}
 // `;
 
-// export const SIGN_IN_MUTATION = gql`
-//   mutation SignInMutation($input: signInInput!) {
-//     signIn(input: $input) {
-//       currentUser {
-//         slug
-//         timeLeftForConfirmation
-//         ...CurrentUserProvider_currentUser
-//       }
-//       otpSessionChallenge
-//       errors {
-//         path
-//         message
-//         code
-//       }
-//       tcuToken
-//     }
-//   }
-//   ${currentUser}
-// `;
+export const SIGN_IN_MUTATION = gql`
+  mutation SignInMutation($input: signInInput!) {
+    signIn(input: $input) {
+      currentUser {
+        slug
+        timeLeftForConfirmation
+        ...CurrentUserProvider_currentUser
+      }
+      otpSessionChallenge
+      errors {
+        path
+        message
+        code
+      }
+      tcuToken
+    }
+  }
+  ${currentUser}
+`;

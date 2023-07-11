@@ -6,8 +6,8 @@ import { GoogleReCAPTCHA } from '@core/components/recaptcha';
 export type SignedInInfo = {
   email: string;
   nickname: string;
-  sorareAddress: string | null;
-  sorarePrivateKey: EncryptedPrivateKey | null;
+  sorareAddress?: string | null; //TODO************Changed
+  sorarePrivateKey?: EncryptedPrivateKey | null;
   mustAcceptTcus: boolean;
   error?: 'invalid';
 };

@@ -26,10 +26,10 @@ import { useSnackNotificationContext } from '../snackNotification';
 //   onDeviceWasUpdated,
 //   onDeviceWasUpdatedVariables,
 // } from './__generated__/queries.graphql';
-import CurrentUserContextProvider/*, { SignInArgs }*/ from './index';
+import CurrentUserContextProvider, { SignInArgs } from './index';
 // import { onDeviceSubscription, subscription } from './queries';
-// import useRedirectAfterSignIn from './useRedirectAfterSignIn';
-// import useSignIn from './useSignIn';
+import useRedirectAfterSignIn from './useRedirectAfterSignIn';
+import useSignIn from './useSignIn';
 
 interface Props {
   children: ReactNode;
@@ -53,8 +53,8 @@ export const CurrentUserProvider = ({ children }: Props) => {
   // const [shouldResubscribe, setShouldResubscribe] = useState(false);
   // const { flags, identify: identifyFeatureFlagsUser } = useFeatureFlags();
   // const { deviceFingerprint } = useDeviceFingerprintContext();
-  // const [signInMutation] = useSignIn();
-  // const redirectUser = useRedirectAfterSignIn();
+  const [signInMutation] = useSignIn();
+  const redirectUser = useRedirectAfterSignIn();
 
   // useEffect(() => {
   //   deviceFingerprint()
@@ -97,19 +97,19 @@ export const CurrentUserProvider = ({ children }: Props) => {
   //   }
   // );
 
-  // const signIn = useCallback(
-  //   async (args: SignInArgs) => {
-  //     const result = await signInMutation(args);
+  const signIn = useCallback(
+    async (args: SignInArgs) => {
+      const result = await signInMutation(args);
 
-  //     if (result?.currentUser) {
-  //       // update the currentConfigQuery with the signed in user
-  //       updateQuery(result.currentUser);
-  //       redirectUser(result.currentUser);
-  //     }
-  //     return result;
-  //   },
-  //   [signInMutation, updateQuery, redirectUser]
-  // );
+      if (result?.currentUser) {
+        // update the currentConfigQuery with the signed in user
+        updateQuery(result.currentUser);
+        redirectUser(result.currentUser);
+      }
+      return result;
+    },
+    [signInMutation, updateQuery, redirectUser]
+  );
 
   // const blockchainCardsCount = currentUser
   //   ? currentUser.cardCounts.limited +
@@ -261,7 +261,7 @@ export const CurrentUserProvider = ({ children }: Props) => {
         // fiatWalletAccountable,
         // displayEth,
         refetch,
-        // signIn,
+        signIn,
         // blockchainCardsCount,
         // walletPreferences: {
         //   enabledWallets,

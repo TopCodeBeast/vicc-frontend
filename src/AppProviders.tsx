@@ -13,6 +13,7 @@ import GrapqhqlProvider from '@sorare/core/src/contexts/graphql/Provider';
 import HighlightProvider from '@sorare/core/src/contexts/highlight/Provider';
 import { IntlProvider } from '@sorare/core/src/contexts/intl/Provider';
 import ManagerTaskProvider from '@sorare/core/src/contexts/managerTask/Provider';
+import RestrictedAccessProvider from '@sorare/core/src/contexts/restrictedAccess/Provider';
 import SentryProvider from '@sorare/core/src/contexts/sentry/Provider';
 import SeoProvider from '@sorare/core/src/contexts/seo/Provider';
 import SessionProvider from '@sorare/core/src/contexts/session';
@@ -40,26 +41,28 @@ const AppProviders = ({ children }: { children: ReactNode }) => {
                           <ManagerTaskProvider>
                             <ConfigProvider>
                               <SeoProvider>
-                                <CurrentUserProvider>
-                                  <AuthProvider>
-                                    <FollowProvider>
-                                      <WalletDrawerProvider>
-                                        <WalletProvider>
-                                          <ConnectionProvider>
-                                            <TickerProvider>
-                                              <Suspense fallback={null}>
-                                                {children}
-                                              </Suspense>
-                                              <Suspense fallback={null}>
-                                                <WalletFrame />
-                                              </Suspense>
-                                            </TickerProvider>
-                                          </ConnectionProvider>
-                                        </WalletProvider>
-                                      </WalletDrawerProvider>
-                                    </FollowProvider>
-                                  </AuthProvider>
-                                </CurrentUserProvider>
+                                <RestrictedAccessProvider>
+                                  <CurrentUserProvider>
+                                    <AuthProvider>
+                                      <FollowProvider>
+                                        <WalletDrawerProvider>
+                                          <WalletProvider>
+                                            <ConnectionProvider>
+                                              <TickerProvider>
+                                                <Suspense fallback={null}>
+                                                  {children}
+                                                </Suspense>
+                                                <Suspense fallback={null}>
+                                                  <WalletFrame />
+                                                </Suspense>
+                                              </TickerProvider>
+                                            </ConnectionProvider>
+                                          </WalletProvider>
+                                        </WalletDrawerProvider>
+                                      </FollowProvider>
+                                    </AuthProvider>
+                                  </CurrentUserProvider>
+                                </RestrictedAccessProvider>
                               </SeoProvider>
                             </ConfigProvider>
                           </ManagerTaskProvider>

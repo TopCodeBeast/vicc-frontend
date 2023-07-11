@@ -7,13 +7,13 @@ import {
 } from '__generated__/globalTypes';
 import { Currency as FiatCurrency } from '@core/lib/fiat';
 
-// import { SignInMutation } from './__generated__/queries.graphql';
+import { SignInMutation } from './__generated__/queries.graphql';
 import {
   CurrentUserQuery_currentUser,
   CurrentUserQuery_currentUser_userSettings,
 } from './types';
 
-// type SignInMutation_signIn = SignInMutation['signIn'];
+type SignInMutation_signIn = SignInMutation['signIn'];
 
 type UserSettingsWithoutInitialCardDrop = Omit<
   CurrentUserQuery_currentUser_userSettings,
@@ -24,12 +24,12 @@ export type CurrentUser = Omit<CurrentUserQuery_currentUser, 'userSettings'> & {
   userSettings: UserSettingsWithoutInitialCardDrop;
 };
 
-// export interface SignInArgs {
-//   email?: string;
-//   passwordHash?: string;
-//   otpAttempt?: string;
-//   otpSessionChallenge?: string;
-// }
+export interface SignInArgs {
+  email?: string;
+  passwordHash?: string;
+  otpAttempt?: string;
+  otpSessionChallenge?: string;
+}
 
 interface CurrentUserContext {
   currentUser: CurrentUser | null | undefined;
@@ -37,9 +37,9 @@ interface CurrentUserContext {
   currency: Currency;
   // displayEth: boolean;
   refetch: () => Promise<any>;
-  // signIn: (
-  //   args: SignInArgs
-  // ) => Promise<SignInMutation_signIn | null | undefined>;
+  signIn: (
+    args: SignInArgs
+  ) => Promise<SignInMutation_signIn | null | undefined>;
   // blockchainCardsCount: number;
   // fiatWalletAccountable: FiatWalletAccount | null;
   // walletPreferences: {

@@ -26,6 +26,7 @@
       "@shared-pages/*": [ "packages/shared-pages/src/*"],
       "@us-sports/*": [ "packages/us-sports/src/*"],
       "@wallet-shared/*": [ "packages/wallet-shared/src/*"],
+      "@wallet/*": [ "packages/wallet/src/*"],
       "__generated__/*": [ "packages/core/src/__generated__/*"],
     }
   },
