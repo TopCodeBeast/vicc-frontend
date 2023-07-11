@@ -2,13 +2,13 @@ import { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-// import useFontFaceObserver from '@sorare/use-font-face-observer';
+import useFontFaceObserver from '@sorare/use-font-face-observer';
 // import { Container } from '@core/atoms/container';
 // import Bold from '@core/atoms/typography/Bold';
 // import { useDefaultSportPages } from '@core/constants/routes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 // import useReferrer from '@core/contexts/queryString/useReferrer';
-// import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
+import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
 // import { Lifecycle } from '@core/hooks/useLifecycle';
 // import useEvents from '@core/lib/events/useEvents';
 // import LoggedInAppBar from '@core/routing/MultiSportAppBar/LoggedInAppBar';
@@ -39,14 +39,14 @@ const OtherSportsWrapper = styled(ContentContainer)`
 
 export const NewLandingMultiSport = () => {
   const { currentUser } = useCurrentUserContext();
-  // const fontStatus = useFontFaceObserver(
-  //   [{ family: 'DrukWide-Super', weight: 'bold' }],
-  //   { timeout: 1000 }
-  // );
+  const fontStatus = useFontFaceObserver(
+    [{ family: 'DrukWide-Super', weight: 'bold' }],
+    { timeout: 1000 }
+  );
   // const { referrer, invalidReferrer, removeReferrer } = useReferrer();
-  // const { showNotification } = useSnackNotificationContext();
+  const { showNotification } = useSnackNotificationContext();
   // const track = useEvents();
-  // const location = useLocation();
+  const location = useLocation();
 
   // const lastVisitedSport = (currentUser?.userSettings?.lifecycle as Lifecycle)
   //   ?.lastVisitedSport;
@@ -82,7 +82,7 @@ export const NewLandingMultiSport = () => {
   //   );
   // }
 
-  // if (fontStatus === 'initial') return null; // allow rendering without the right font after the timeout
+  if (fontStatus === 'initial') return null; // allow rendering without the right font after the timeout
 
   return (
     <DarkBackground>

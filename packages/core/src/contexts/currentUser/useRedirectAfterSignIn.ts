@@ -72,6 +72,7 @@ export default () => {
         }*/
 
         //TODO****
+        console.log('RedirectAfterSignIn')
         navigate(FOOTBALL_MARKET);
       }
     },

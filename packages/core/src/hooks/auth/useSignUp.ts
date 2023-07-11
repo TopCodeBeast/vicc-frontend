@@ -2,10 +2,10 @@ import { FetchResult, gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 
-// import {
-//   SignupPlatform,
-//   SorarePrivateKeyAttributes,
-// } from '__generated__/globalTypes';
+import {
+  SignupPlatform,
+  ViccPrivateKeyAttributes as SorarePrivateKeyAttributes,
+} from '__generated__/globalTypes';
 import { getValue } from '@core/components/PersistsQueryStringParameters/storage';
 import { useConfigContext } from '@core/contexts/config';
 import { useConnectionContext } from '@core/contexts/connection';
@@ -30,9 +30,6 @@ import {
   SignUpMutationWithUserVariables,
 } from './__generated__/useSignUp.graphql';
 import useRedirectAfterSignUp from './useRedirectAfterSignUp';
-
-type SignupPlatform = any;
-type SorarePrivateKeyAttributes = any; //TODO**********
 
 const SIGN_UP_MUTATION = gql`
   mutation SignUpMutation($input: signUpInput!) {
@@ -107,14 +104,20 @@ function useSignUp() {
       signupPlatform: SignupPlatform;
       wallet: SignUpMutationVariables['input']['wallet'];
     }): Promise<FetchResult<SignUpMutation>> => {
-      const { passwordHash, ...rest } = attributes;
+      const {
+        passwordHash,
+        sorareAddress: viccAddress,
+        sorarePrivateKey: viccPrivateKey,
+        sorarePrivateKeyBackup: viccPrivateKeyBackup,
+        ...rest
+      } = attributes;
 
-      recaptchaRef.current?.reset();
-      const recaptchaTokenV2 = await recaptchaRef.current?.executeAsync();
-      if (!recaptchaTokenV2) {
-        track('Invalid Signup reCAPTCHA V2');
-        return {};
-      }
+      // recaptchaRef.current?.reset();
+      // const recaptchaTokenV2 = await recaptchaRef.current?.executeAsync();
+      // if (!recaptchaTokenV2) {
+      //   track('Invalid Signup reCAPTCHA V2');
+      //   return {};
+      // }
 
       const result = await mutate({
         errorPolicy: 'all', // do not raise but rather forward errors through `result.errors`
@@ -122,14 +125,17 @@ function useSignUp() {
           input: {
             ...rest,
             password: passwordHash,
+            viccAddress, //TODO*****Change Name
+            viccPrivateKey,
+            viccPrivateKeyBackup,
             referrer: getValue('referrer'),
             impactClickId: getValue('irclickid'),
             utmParams: getParams,
             fromPath: redirectUrl || lastLocation || afterLoggedInTarget,
             gaClientId: getClientId(),
-            recaptchaTokenV2,
+            recaptchaTokenV2: null,
             promoCode: getSignupPromo()?.campaignCode,
-          } as any, //TODO*****
+          },
         },
       });
 

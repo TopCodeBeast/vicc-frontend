@@ -73,7 +73,7 @@ import {
   goToLobby,
 } from '@sorare/core/src/constants/routes';
 import { useConfigContext } from '@sorare/core/src/contexts/config';
-// import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 // import useGetSplat from '@sorare/core/src/hooks/useGetSplat';
@@ -177,7 +177,7 @@ export const AppSwitch = () => {
       enableNoCardEntry = false,
     },
   } = useFeatureFlags();
-  const currentUser = undefined;//const { currentUser } = useCurrentUserContext();
+  const { currentUser } = useCurrentUserContext();
   const { landingTheme } = useConfigContext();
   const location = useLocation();
   // const getSplat = useGetSplat();
@@ -209,6 +209,16 @@ export const AppSwitch = () => {
           </EnsureTopVisibleOnMount>
         }
       />
+      {currentUser && (
+        <Route
+          path={FOOTBALL_HOME}
+          element={
+            <Layout>
+              <Home />
+            </Layout>
+          }
+        />
+      )}
       {!currentUser && (
         <>
           <Route

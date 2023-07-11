@@ -100,7 +100,6 @@ export const CurrentUserProvider = ({ children }: Props) => {
   const signIn = useCallback(
     async (args: SignInArgs) => {
       const result = await signInMutation(args);
-
       if (result?.currentUser) {
         // update the currentConfigQuery with the signed in user
         updateQuery(result.currentUser);

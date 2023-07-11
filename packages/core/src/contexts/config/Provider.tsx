@@ -5,7 +5,7 @@ import { useInterval } from 'react-use';
 import useFontFaceObserver from '@sorare/use-font-face-observer';
 import { Sport } from '__generated__/globalTypes';
 import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
-// import { useGraphqlContext } from '@core/contexts/graphql';
+import { useGraphqlContext } from '@core/contexts/graphql';
 import { useTMContext } from '@core/contexts/tm';
 import useQuery from '@core/hooks/graphql/useQuery';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
@@ -234,7 +234,7 @@ export const ConfigProvider = ({ children }: Props) => {
   const fontStatus = useFontFaceObserver([{ family: 'apercu-pro' }], {
     timeout: 1000,
   });
-  // const { refreshWsCable } = useGraphqlContext();
+  const { refreshWsCable } = useGraphqlContext();
 
   // const [tm] = useMutation<ReportTelemetry, ReportTelemetryVariables>(
   //   TM_MUTATION,
@@ -346,10 +346,10 @@ export const ConfigProvider = ({ children }: Props) => {
         algoliaCardIndexes,
         currentUser: data.currentUser,
         exchangeRate,
-        refetch: () => Promise.resolve(),
+        refetch,
         updateQuery: (newCurrentUser: ConfigQuery_currentUser) => {
-          // updateQuery(() => ({ ...data, currentUser: newCurrentUser }));
-          // refreshWsCable();
+          updateQuery(() => ({ ...data, currentUser: newCurrentUser }));
+          refreshWsCable();
         },
         defaultFiatCurrency,
       } as any} //TODO*****

@@ -50,7 +50,8 @@ export default () => {
       let address = sorareAddress;
       let userPrivateKey = sorarePrivateKey;
 
-      if (!sorareAddress || sorareAddress === nullAddress) {
+      //TODO*************
+      /*if (!sorareAddress || sorareAddress === nullAddress) {
         const { result } = await sendRequest<GenerateKey>('generateKey', {
           email,
         });
@@ -79,7 +80,7 @@ export default () => {
         promptTerms({
           closable: true,
         });
-      }
+      }*/
 
       return {
         result: {

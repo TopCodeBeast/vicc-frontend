@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 // import { ConversionCreditBanner } from '@sorare/core/src/components/conversionCredit/ConversionCreditBanner';
-// import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 // import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 // import { useTitleAndDescription } from '@sorare/core/src/hooks/useTitleAndDescription';
 // import { metadatas } from '@sorare/core/src/lib/seo/common';
@@ -47,7 +47,8 @@ const Root = styled.div`
 `;
 
 const Home = () => {
-  // const { currentUser } = useCurrentUserContext();
+  const { currentUser } = useCurrentUserContext();
+  console.log('home-currentUser', currentUser)
 
   // const { slug: paramsUserSlug } = useParams();
 

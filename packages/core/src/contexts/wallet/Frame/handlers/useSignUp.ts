@@ -34,7 +34,6 @@ export default () => {
   useEffect(
     () =>
       registerHandler<SignUp>('signUp', async args => {
-        console.log('signup-args~~~~~~~~~~~~~~~~', args)
         const { version, mobile, ...rest } = args;
 
         // Terms and Conditions Modal

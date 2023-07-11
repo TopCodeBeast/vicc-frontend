@@ -14,7 +14,7 @@ import {
   messages as globalMessages,
   useHeroAnimationTimings,
 } from '@core/components/landing/NewLandingMultiSport/utils';
-// import { useConnectionContext } from '@core/contexts/connection';
+import { useConnectionContext } from '@core/contexts/connection';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 import { glossary } from '@core/lib/glossary';
@@ -210,7 +210,7 @@ const ScrollDown = styled.div`
 
 export const Hero = () => {
   const { formatMessage } = useIntl();
-  // const { signUp } = useConnectionContext();
+  const { signUp } = useConnectionContext();
   const { currentUser } = useCurrentUserContext();
   const { firstBatch, secondBatch } = useHeroAnimationTimings();
   const { up: isDesktop } = useScreenSize('desktop');
@@ -297,7 +297,7 @@ export const Hero = () => {
               <Title>{formatMessage(messages.title, { br: <br /> })}</Title>
               <div>
                 <SubTitle>{formatMessage(messages.subtitle)}</SubTitle>
-                <Button color="white" small onClick={() => console.log('signUp')}>
+                <Button color="white" small onClick={signUp}>
                   {formatMessage(glossary.playNow)}
                 </Button>
               </div>
