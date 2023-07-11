@@ -1,1 +1,3 @@
-export type Dict = any;
+export type Dict = {
+  [key in string]: string;
+}

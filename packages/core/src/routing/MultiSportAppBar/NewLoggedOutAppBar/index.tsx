@@ -14,8 +14,8 @@ import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
 import { useHeroAnimationTimings } from '@core/components/landing/NewLandingMultiSport/utils';
 // import ResponsiveSearchBar from '@core/components/search/ResponsiveSearchBar';
 import { FOOTBALL_PATH, LANDING, MLB_PATH, NBA_PATH } from '@core/constants/routes';
-// import { useConnectionContext } from '@core/contexts/connection';
-// import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useConnectionContext } from '@core/contexts/connection';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useIntlContext } from '@core/contexts/intl';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 // import useEvents from '@core/lib/events/useEvents';
@@ -158,24 +158,24 @@ const MobileSportsBanner = styled.div`
 `;
 
 const LoggedOutAppBar = () => {
-  // const track = useEvents();
-  const currentUser = undefined;// const { currentUser } = useCurrentUserContext();
-  // const { signIn, signUp } = useConnectionContext();
+  const track = null;// const track = useEvents();
+  const { currentUser } = useCurrentUserContext();
+  const { signIn, signUp } = useConnectionContext();
   const { formatMessage } = useIntlContext();
   const { secondBatch } = useHeroAnimationTimings();
   const { up: isDesktop } = useScreenSize('laptop');
   const [isVisible, setIsVisible] = useState(true);
   const prevScrollPos = useRef(0); // use useRef instead of useState
 
-  // const onSignUpClick = useCallback(() => {
-  //   track('Click Sign Up', {});
-  //   signUp();
-  // }, [signUp, track]);
+  const onSignUpClick = useCallback(() => {
+    // track('Click Sign Up', {});
+    signUp();
+  }, [signUp, track]);
 
-  // const onSignInClick = useCallback(() => {
-  //   track('Click Sign In');
-  //   signIn();
-  // }, [signIn, track]);
+  const onSignInClick = useCallback(() => {
+    // track('Click Sign In');
+    signIn();
+  }, [signIn, track]);
 
   const logoFadeIn = useSpring({
     opacity: secondBatch ? 1 : 0,
@@ -263,7 +263,7 @@ const LoggedOutAppBar = () => {
             <AnimatedButton
               small
               color={secondBatch ? 'blue' : 'transparent'}
-              onClick={() => console.log('onSignUpClick')}
+              onClick={onSignUpClick}
             >
               {formatMessage(glossary.signup)}
             </AnimatedButton>
@@ -271,7 +271,7 @@ const LoggedOutAppBar = () => {
               small
               color={secondBatch ? 'white' : 'transparent'}
               stroke={secondBatch}
-              onClick={() => console.log('onSignInClick')}
+              onClick={onSignInClick}
             >
               {formatMessage(glossary.signin)}
             </AnimatedButton>

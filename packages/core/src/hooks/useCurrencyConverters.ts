@@ -25,11 +25,12 @@ export default () => {
 
   const convertFromEth = useCallback(
     (amountInEth: string | number, currencyCode: CurrencyCode) =>
-      new Big(amountInEth)
-        .multipliedBy(
-          asObject(exchangeRate.rates).eth[currencyCode.toLowerCase()]
-        )
-        .toNumber(),
+      0,
+      // new Big(amountInEth)
+      //   .multipliedBy(
+      //     asObject(exchangeRate.rates).eth[currencyCode.toLowerCase()]
+      //   )
+      //   .toNumber(),
     [exchangeRate?.rates]
   );
 
