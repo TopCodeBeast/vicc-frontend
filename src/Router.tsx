@@ -4,6 +4,8 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import {
   LANDING,
+  MY_SORARE_HOME,
+  MY_SORARE_NEW,
 } from '@sorare/core/src/constants/routes';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
@@ -13,7 +15,6 @@ import { RoutesWithDialogs } from '@sorare/core/src/routing/Router';
 import Landing from '@sorare/shared-pages/src/Landing';
 
 const FootballRoot = lazy(async () => import('@sorare/football/src/main'));
-const WalletRoot = lazy(async () => import('@sorare/wallet/src/root'));
 
 export const BlockchainProviders = ({ children }: { children: ReactNode }) => {
   return (
@@ -44,7 +45,10 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
       <RoutesWithDialogs
         basePath="/"
       >
-        <Route path={'/wallet/auth'} element={<WalletRoot />} />
+        <Route
+          path={MY_SORARE_HOME}
+          element={<Navigate to={MY_SORARE_NEW} replace />}
+        />
         <Route path={LANDING} element={<Landing />} />
         <Route
           path={'/*'}

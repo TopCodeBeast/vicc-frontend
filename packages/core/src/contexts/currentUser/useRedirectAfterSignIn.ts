@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
+  FOOTBALL_HOME,
   FOOTBALL_MARKET,
   MLB_HOME,
   NBA_HOME,
@@ -73,7 +74,7 @@ export default () => {
 
         //TODO****
         console.log('RedirectAfterSignIn')
-        navigate(FOOTBALL_MARKET);
+        navigate(FOOTBALL_HOME);//navigate(FOOTBALL_MARKET);
       }
     },
     [redirectUrl, afterLoggedInTarget, sportTarget, /*defaultSportPages,*/ navigate]
