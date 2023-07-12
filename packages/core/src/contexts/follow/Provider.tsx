@@ -93,48 +93,48 @@ export const FollowProvider = ({ children }: Props) => {
   const [page, setPage] = useState(0);
   const [cursor, setCursor] = useState<string | null | undefined>(undefined);
 
-  const [loadMore, { data, loading }] = useLazyQuery<
-    FollowQuery,
-    FollowQueryVariables
-  >(FOLLOW_QUERY);
+  // const [loadMore, { data, loading }] = useLazyQuery<
+  //   FollowQuery,
+  //   FollowQueryVariables
+  // >(FOLLOW_QUERY);
 
-  // load first page, once
-  useEffect(() => {
-    loadMore();
-  }, [loadMore]);
+  // // load first page, once
+  // useEffect(() => {
+  //   loadMore();
+  // }, [loadMore]);
 
-  // load next pages
-  useEffect(() => {
-    if (loading || !data) {
-      return;
-    }
+  // // load next pages
+  // useEffect(() => {
+  //   if (loading || !data) {
+  //     return;
+  //   }
 
-    const hasMore = data.currentUser?.mySubscriptions.pageInfo.hasNextPage;
-    if (hasMore) {
-      const endCursor = data.currentUser?.mySubscriptions.pageInfo.endCursor;
-      if (endCursor !== cursor && loadMore) {
-        setPage(page + 1);
-        setCursor(endCursor);
-        loadMore({
-          variables: {
-            cursor: endCursor,
-          },
-        });
-      }
-    } else {
-      setMySubscriptionsLoaded(true);
-    }
-  }, [data, loading, page, cursor, setPage, setCursor, loadMore]);
+  //   const hasMore = data.currentUser?.mySubscriptions.pageInfo.hasNextPage;
+  //   if (hasMore) {
+  //     const endCursor = data.currentUser?.mySubscriptions.pageInfo.endCursor;
+  //     if (endCursor !== cursor && loadMore) {
+  //       setPage(page + 1);
+  //       setCursor(endCursor);
+  //       loadMore({
+  //         variables: {
+  //           cursor: endCursor,
+  //         },
+  //       });
+  //     }
+  //   } else {
+  //     setMySubscriptionsLoaded(true);
+  //   }
+  // }, [data, loading, page, cursor, setPage, setCursor, loadMore]);
 
-  // append to `mySubscriptions`
-  useEffect(() => {
-    if (data?.currentUser?.mySubscriptions.nodes) {
-      setMySubscriptions(m => [
-        ...m,
-        ...(data?.currentUser?.mySubscriptions.nodes || []),
-      ]);
-    }
-  }, [data]);
+  // // append to `mySubscriptions`
+  // useEffect(() => {
+  //   if (data?.currentUser?.mySubscriptions.nodes) {
+  //     setMySubscriptions(m => [
+  //       ...m,
+  //       ...(data?.currentUser?.mySubscriptions.nodes || []),
+  //     ]);
+  //   }
+  // }, [data]);
 
   const getCurrentUserSubscription = useCallback(
     ({ __typename, slug }: { __typename: string; slug: string }) => {

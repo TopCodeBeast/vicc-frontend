@@ -42,7 +42,7 @@ export const CurrentUserProvider = ({ children }: Props) => {
   const {
     flags: { useNewWallet = false },
   } = useFeatureFlags();
-  // const { setSessionId, setApiKey } = useSessionContext();
+  const { setSessionId, setApiKey } = useSessionContext();
   // const { identify: identifyAnalytics } = useEventsContext();
   // const { identifyUser: identifySentryUser } = useSentryContext();
   const { currentUser, refetch, updateQuery, defaultFiatCurrency } =
@@ -146,13 +146,13 @@ export const CurrentUserProvider = ({ children }: Props) => {
   //   }
   // }, [currentUser, identifySentryUser]);
 
-  // useEffect(() => {
-  //   setSessionId(currentUser?.id);
-  // }, [currentUser?.id, setSessionId]);
+  useEffect(() => {
+    setSessionId(currentUser?.id);
+  }, [currentUser?.id, setSessionId]);
 
-  // useEffect(() => {
-  //   setApiKey(currentUser?.apiKey);
-  // }, [currentUser?.apiKey, setApiKey]);
+  useEffect(() => {
+    setApiKey(currentUser?.apiKey);
+  }, [currentUser?.apiKey, setApiKey]);
 
   // useEffect(() => {
   //   if (currentUser?.id) {

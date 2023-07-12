@@ -11,7 +11,7 @@ import AppBarAtom from './AppBar';
 import LoggedOutAppBar from './LoggedOutAppBar';
 import { useAppBarContext } from './context';
 
-// const LoggedInAppBar = lazy(async () => import('./LoggedInAppBar'));
+const LoggedInAppBar = lazy(async () => import('./LoggedInAppBar'));
 
 const AppBarAtomWrapper = styled(AppBarAtom)`
   display: flex;
@@ -32,8 +32,7 @@ const Root = ({ color, unclaimedRewards }: Props) => {
       <div id="substicky-bar-portal" />
       <Container>
         {currentUser ? (
-          <>LoggedInAppBar</>
-          // <LoggedInAppBar unclaimedReward={unclaimedRewards} />
+          <LoggedInAppBar unclaimedReward={unclaimedRewards} />
         ) : (
           <LoggedOutAppBar />
         )}

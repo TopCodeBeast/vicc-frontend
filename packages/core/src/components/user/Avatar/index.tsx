@@ -173,7 +173,7 @@ const Avatar = ({ user, placeholderUrl, variant, ...rest }: any) => {
   //   );
   // }
   // return <PlaceHolderAvatar user={user} variant={variant} {...rest} />;
-  return <>Avatar</>
+  return <>Avatar6545</>
 };
 
 // Avatar.fragments = {
