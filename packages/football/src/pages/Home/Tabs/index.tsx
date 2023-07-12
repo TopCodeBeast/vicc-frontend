@@ -44,7 +44,7 @@ const Content = styled.div`
   padding: var(--double-unit) 0;
 `;
 
-// const HomeOverview = lazy(async () => import('@football/pages/Home/Overview'));
+const HomeOverview = lazy(async () => import('@football/pages/Home/Overview'));
 // const Cards = lazy(async () => import('@football/pages/Gallery/Cards'));
 // const Collections = lazy(async () => import('@football/pages/Collections/Collections'));
 // const CustomDecks = lazy(async () => import('@football/pages/Gallery/CustomDecks'));
@@ -62,7 +62,7 @@ export const Tabs = ({ user, isOwnPage }: Props) => {
       ? {
           path: FOOTBALL_HOME,
           label: formatMessage(galleryTabs.overview),
-          tabContent: <>HomeOverview555</>,//<HomeOverview />,
+          tabContent: <HomeOverview />,
         }
       : !useCustomLists && {
           path: FOOTBALL_USER_GALLERY_OVERVIEW,

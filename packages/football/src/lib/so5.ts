@@ -19,7 +19,7 @@ import { generatePath } from 'react-router-dom';
 //   ScarcityType,
 //   scarcityMessages,
 // } from '@sorare/core/src/lib//scarcity';
-// import { sortByArrayIndex } from '@sorare/core/src/lib/arrays';
+import { sortByArrayIndex } from '@sorare/core/src/lib/arrays';
 // import { withFragments } from '@sorare/core/src/lib/gql';
 // import { asObject } from '@sorare/core/src/lib/json';
 // import {
@@ -721,57 +721,57 @@ export const isGameScheduled = (gameStatus: string): boolean =>
 //   '__DEFAULT__',
 // ];
 
-// const TOURNAMENT_TYPE_ORDER = [
-//   'global_kickoff',
-//   'global_cap',
-//   'global_all_star',
-//   'champion_europe',
-//   'challenger_europe',
-//   'second_division_europe',
-//   'global_under_twenty_one',
-//   'champion_america',
-//   'champion_asia',
-//   'global_unique_only',
-//   'special_weekly',
-//   'special_training_center',
-//   'legend',
-//   '__DEFAULT__',
-//   'first_division_england',
-//   'first_division_us',
-//   'first_division_spain',
-//   'first_division_germany',
-//   'first_division_italy',
-//   'first_division_france',
-//   'second_division_england',
-//   'second_division_spain',
-//   'second_division_germany',
-//   'second_division_italy',
-//   'second_division_france',
-// ];
+const TOURNAMENT_TYPE_ORDER = [
+  'global_kickoff',
+  'global_cap',
+  'global_all_star',
+  'champion_europe',
+  'challenger_europe',
+  'second_division_europe',
+  'global_under_twenty_one',
+  'champion_america',
+  'champion_asia',
+  'global_unique_only',
+  'special_weekly',
+  'special_training_center',
+  'legend',
+  '__DEFAULT__',
+  'first_division_england',
+  'first_division_us',
+  'first_division_spain',
+  'first_division_germany',
+  'first_division_italy',
+  'first_division_france',
+  'second_division_england',
+  'second_division_spain',
+  'second_division_germany',
+  'second_division_italy',
+  'second_division_france',
+];
 
-// function sortByArrayIndexWithDefault<T>(
-//   array: readonly T[],
-//   a: T,
-//   b: T,
-//   defaultValue = '__DEFAULT__'
-// ) {
-//   return sortByArrayIndex(
-//     array,
-//     !array.some(v => v === a) ? defaultValue : a,
-//     !array.some(v => v === b) ? defaultValue : b
-//   );
-// }
+function sortByArrayIndexWithDefault<T>(
+  array: readonly T[],
+  a: T,
+  b: T,
+  defaultValue = '__DEFAULT__'
+) {
+  return sortByArrayIndex(
+    array,
+    !array.some(v => v === a) ? defaultValue : a,
+    !array.some(v => v === b) ? defaultValue : b
+  );
+}
 
-// export const sortLeaderboardsByTournamentType = (
-//   tournamentType1: string,
-//   tournamentType2: string
-// ) => {
-//   return sortByArrayIndexWithDefault(
-//     TOURNAMENT_TYPE_ORDER,
-//     tournamentType1,
-//     tournamentType2
-//   );
-// };
+export const sortLeaderboardsByTournamentType = (
+  tournamentType1: string,
+  tournamentType2: string
+) => {
+  return sortByArrayIndexWithDefault(
+    TOURNAMENT_TYPE_ORDER,
+    tournamentType1,
+    tournamentType2
+  );
+};
 
 // export const sortLeaderboards = withFragments(
 //   (l1: sortLeaderboards_leaderboard, l2: sortLeaderboards_leaderboard) => {
