@@ -75,63 +75,63 @@ const WalletButton = ({
 
   const emptyFiatWallet = !hasActiveFiatBalance || availableFiatBalance === 0;
 
-  // const emptyWallet =
-  //   (showEthWallet && emptyEthWallet) || (showFiatWallet && emptyFiatWallet);
+  const emptyWallet =
+    (showEthWallet && emptyEthWallet) || (showFiatWallet && emptyFiatWallet);
 
-  // if (emptyWallet || currentUser.userSettings?.hideBalance) {
-  //   return (
-  //     <IconButton
-  //       icon={faWallet}
-  //       onClick={toggleDrawer}
-  //       className="light-theme"
-  //       color={compact ? 'transparent' : 'dark'}
-  //     />
-  //   );
-  // }
+  if (emptyWallet || currentUser.userSettings?.hideBalance) {
+    return (
+      <IconButton
+        icon={faWallet}
+        onClick={toggleDrawer}
+        className="light-theme"
+        color={compact ? 'transparent' : 'dark'}
+      />
+    );
+  }
 
-  // const renderBalances = () => {
-  //   if (showEthWallet && showFiatWallet)
-  //     return (
-  //       <>
-  //         <Column>
-  //           <StyledCaption>
-  //             <FormattedMessage
-  //               id="appbar.balances.cash"
-  //               defaultMessage="Cash"
-  //             />
-  //           </StyledCaption>
-  //           <StyledText14 bold>
-  //             {formatNumber(availableFiatBalance, {
-  //               style: 'currency',
-  //               currency: fiatCurrency,
-  //             })}
-  //           </StyledText14>
-  //         </Column>
-  //         <Column>
-  //           <StyledCaption>
-  //             <FormattedMessage id="appbar.balances.eth" defaultMessage="ETH" />
-  //           </StyledCaption>
-  //           <StyledText14 bold>
-  //             {showEthWallet && showFiatWallet
-  //               ? fromWei(availableBalance, 4, RoundingMode.ROUND_DOWN)
-  //               : formatWei(availableBalance)}
-  //           </StyledText14>
-  //         </Column>
-  //       </>
-  //     );
-  //   if (showEthWallet)
-  //     return <Text16 bold>{formatWei(availableBalance)}</Text16>;
-  //   if (showFiatWallet)
-  //     return (
-  //       <Text16 bold>
-  //         {formatNumber(availableFiatBalance, {
-  //           style: 'currency',
-  //           currency: fiatCurrency,
-  //         })}
-  //       </Text16>
-  //     );
-  //   return null;
-  // };
+  const renderBalances = () => {
+    if (showEthWallet && showFiatWallet)
+      return (
+        <>
+          <Column>
+            <StyledCaption>
+              <FormattedMessage
+                id="appbar.balances.cash"
+                defaultMessage="Cash"
+              />
+            </StyledCaption>
+            <StyledText14 bold>
+              {formatNumber(availableFiatBalance, {
+                style: 'currency',
+                currency: fiatCurrency,
+              })}
+            </StyledText14>
+          </Column>
+          <Column>
+            <StyledCaption>
+              <FormattedMessage id="appbar.balances.eth" defaultMessage="ETH" />
+            </StyledCaption>
+            <StyledText14 bold>
+              {showEthWallet && showFiatWallet
+                ? fromWei(availableBalance, 4, RoundingMode.ROUND_DOWN)
+                : formatWei(availableBalance)}
+            </StyledText14>
+          </Column>
+        </>
+      );
+    if (showEthWallet)
+      return <Text16 bold>{formatWei(availableBalance)}</Text16>;
+    if (showFiatWallet)
+      return (
+        <Text16 bold>
+          {formatNumber(availableFiatBalance, {
+            style: 'currency',
+            currency: fiatCurrency,
+          })}
+        </Text16>
+      );
+    return null;
+  };
 
   return (
     <Button
@@ -141,8 +141,8 @@ const WalletButton = ({
       small={small}
       className="light-theme"
     >
-      {/* {compact ? <FontAwesomeIcon icon={faWallet} /> : renderBalances()} */}
-      {compact ? <FontAwesomeIcon icon={faWallet} /> : <>renderBalances</>}
+      {compact ? <FontAwesomeIcon icon={faWallet} /> : renderBalances()}
+      {/* {compact ? <FontAwesomeIcon icon={faWallet} /> : <>renderBalances</>} */}
     </Button>
   );
 };

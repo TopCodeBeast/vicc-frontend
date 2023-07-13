@@ -6,31 +6,30 @@ export const useFiatBalance = () => {
   const {
     fiatCurrency: { code: fiatCurrencyFromUserSettings },
   } = useCurrentUserContext();
-  // const { fiatWalletAccountable: accountable } = useCurrentUserContext();
-  // const { formatNumber } = useIntlContext();
+  const accountable = null;// const { fiatWalletAccountable: accountable } = useCurrentUserContext(); //TODO*************
+  const { formatNumber } = useIntlContext();
 
-  // const availableBalance = (accountable?.availableBalance || 0) / 100;
-  // const availableBalanceInCents = accountable?.availableBalance || 0;
+  const availableBalance = (accountable?.availableBalance || 0) / 100;
+  const availableBalanceInCents = accountable?.availableBalance || 0;
 
-  // const fiatCurrency =
-  //   accountable?.currency || (fiatCurrencyFromUserSettings as FiatCurrency);
+  const fiatCurrency =
+    accountable?.currency || (fiatCurrencyFromUserSettings as FiatCurrency);
 
-  // const fiatCurrencyForMonetaryAmount = fiatCurrency.toLowerCase() as
-  //   | 'eur'
-  //   | 'usd'
-  //   | 'gbp';
-  // const availableBalanceWithCurrencySymbol = formatNumber(availableBalance, {
-  //   style: 'currency',
-  //   currency: fiatCurrency,
-  // });
+  const fiatCurrencyForMonetaryAmount = fiatCurrency.toLowerCase() as
+    | 'eur'
+    | 'usd'
+    | 'gbp';
+  const availableBalanceWithCurrencySymbol = formatNumber(availableBalance, {
+    style: 'currency',
+    currency: fiatCurrency,
+  });
 
   return {
-    hasActiveFiatBalance: false,//!!accountable,
-    availableBalance: 0,
-    availableBalanceInCents: 0,
-    fiatCurrency: 0,
-    fiatCurrencyForMonetaryAmount: 0,
-    availableBalanceWithCurrencySymbol: 0,
+    hasActiveFiatBalance: !!accountable,
+    availableBalance,
+    availableBalanceInCents,
+    fiatCurrency,
+    fiatCurrencyForMonetaryAmount,
+    availableBalanceWithCurrencySymbol,
   };
 };
-//TODO****************************
