@@ -36,3 +36,7 @@ export type SnakeCase<T extends string> = T;
 // ) => JSX.Element;
 
 export type TokenComponentType = any;
+
+export interface Await<T> {
+  
+}
