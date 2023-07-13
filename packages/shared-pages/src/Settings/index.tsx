@@ -15,7 +15,7 @@ import { RootRoutes } from '@sorare/core/src/routing/RootRoutes';
 import MyAccount from './MyAccount';
 import Notifications from './Notifications';
 // import Payment from './Payment';
-// import Security from './Security';
+import Security from './Security';
 
 export const PAGE_IDS = [
   'account',
@@ -72,7 +72,7 @@ const SettingsLayout = ({ tab }: { tab: MySorarePage }) => {
     {
       value: 'security',
       label: formatMessage(TITLES.security),
-      content: <>Security5555</>, //<Security />,
+      content: <Security />,
       href: SETTINGS_SECURITY,
     },
     {
