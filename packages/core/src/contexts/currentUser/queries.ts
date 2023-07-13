@@ -40,22 +40,22 @@ import { useConversionCredit } from '@core/hooks/useConversionCredit';
 //   ${useConversionCredit.fragments.currentUser}
 // `;
 
-// export const walletRecovery = gql`
-//   fragment CurrentUserProvider_walletRecovery on CurrentUser {
-//     slug
-//     wallet {
-//       ethereumAddress
-//       status
-//       holdsValue
-//       recoveryOptions {
-//         id
-//         destination
-//         method
-//         status
-//       }
-//     }
-//   }
-// `;
+export const walletRecovery = gql`
+  fragment CurrentUserProvider_walletRecovery on CurrentUser {
+    slug
+    wallet {
+      ethereumAddress
+      # status
+      # holdsValue
+      # recoveryOptions {
+      #   id
+      #   destination
+      #   method
+      #   status
+      # }
+    }
+  }
+`;
 
 // export const ethereumAccounts = gql`
 //   fragment CurrentUseProvider_ethereumAccounts on CurrentUser {

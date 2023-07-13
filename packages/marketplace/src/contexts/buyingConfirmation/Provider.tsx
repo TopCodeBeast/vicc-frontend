@@ -5,8 +5,8 @@ import Dialog from '@sorare/core/src/components/dialog';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { useLocationChanged } from '@sorare/core/src/hooks/useLocationChanged';
 
-import BuyTokenConfirmationById from '@marketplace/components/buyActions/BuyTokenConfirmationById';
-import BuyPrimaryOfferConfirmationById from '@marketplace/components/primaryOffer/BuyPrimaryOfferConfirmationById';
+// import BuyTokenConfirmationById from '@marketplace/components/buyActions/BuyTokenConfirmationById';
+// import BuyPrimaryOfferConfirmationById from '@marketplace/components/primaryOffer/BuyPrimaryOfferConfirmationById';
 
 import BuyConfirmationContextProvider, {
   BuyConfirmationProviderStateProps,
@@ -56,7 +56,8 @@ const BuyConfirmationProvider = ({ children }: Props) => {
           disablePortal
           body={
             <Body>
-              {payment && tokenOfferId && (
+              <>MaketPrivax31234</>
+              {/* {payment && tokenOfferId && (
                 <BuyTokenConfirmationById
                   tokenOfferId={tokenOfferId}
                   payment={payment}
@@ -68,7 +69,7 @@ const BuyConfirmationProvider = ({ children }: Props) => {
                   payment={payment}
                   customAmountDisplay={customAmountDisplay}
                 />
-              )}
+              )} */}
             </Body>
           }
         />

@@ -74,15 +74,15 @@ export const LineupHeader = ({
       >
         {!!leaderboard && (
           <DivisionLogoWrapper>
-            <DivisionLogo so5Leaderboard={leaderboard} />
+            {/* <DivisionLogo so5Leaderboard={leaderboard} /> */}
           </DivisionLogoWrapper>
         )}
         <LineupInfo>
-          {!hideGameWeekInfo && <LineupDate fixture={leaderboard.so5Fixture} />}
+          {/* {!hideGameWeekInfo && <LineupDate fixture={leaderboard.so5Fixture} />} */}
           <Text16>{getLineupDisplayName(lineup, leaderboard)}</Text16>
         </LineupInfo>
       </StyledLinkOverlay>
-      <DropdownActions so5Leaderboard={leaderboard} so5Lineup={lineup} />
+      {/* <DropdownActions so5Leaderboard={leaderboard} so5Lineup={lineup} /> */}
     </Header>
   );
 };

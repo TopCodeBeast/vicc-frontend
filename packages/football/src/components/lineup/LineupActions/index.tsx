@@ -13,15 +13,15 @@ import {
   getComposeTeamRoute,
 } from '@sorare/core/src/constants/routes';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
-import { getInteractionContext } from '@sorare/core/src/lib/events';
+// import { getInteractionContext } from '@sorare/core/src/lib/events';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { fantasy, glossary } from '@sorare/core/src/lib/glossary';
 import { Link } from '@sorare/core/src/routing/Link';
 
-import LineupActionButton from '@football/components/lineup/LineupActionButton';
+// import LineupActionButton from '@football/components/lineup/LineupActionButton';
 import { useFootballEvents } from '@football/lib/events';
-import getLineupActions from '@football/lib/lineup/getLineupActions';
-import { LeaderboardAction } from '@football/types/leaderboard';
+// import getLineupActions from '@football/lib/lineup/getLineupActions';
+// import { LeaderboardAction } from '@football/types/leaderboard';
 
 import { LineupActions_so5Leaderboard } from './__generated__/index.graphql';
 
@@ -51,117 +51,118 @@ const LineupActions = ({
   lineupId,
   renderCta,
 }: Props) => {
-  const track = useEvents();
-  const footballTrack = useFootballEvents();
+  // const track = useEvents();
+  // const footballTrack = useFootballEvents();
 
-  if (renderCta) {
-    return <Root>{renderCta()}</Root>;
-  }
+  // if (renderCta) {
+  //   return <Root>{renderCta()}</Root>;
+  // }
 
-  const lineup =
-    so5Leaderboard.mySo5Lineups.find(({ id }) => id === lineupId) ||
-    so5Leaderboard.mySo5Lineups[0];
+  // const lineup =
+  //   so5Leaderboard.mySo5Lineups.find(({ id }) => id === lineupId) ||
+  //   so5Leaderboard.mySo5Lineups[0];
 
-  const { availableActions } = getLineupActions(lineup, so5Leaderboard);
+  // const { availableActions } = getLineupActions(lineup, so5Leaderboard);
 
-  const draftUrl = generatePath(FOOTBALL_DRAFT, {
-    slug: so5Leaderboard.slug,
-  });
+  // const draftUrl = generatePath(FOOTBALL_DRAFT, {
+  //   slug: so5Leaderboard.slug,
+  // });
 
-  const actions = {
-    [LeaderboardAction.Draft]: (
-      <LineupActionButton as={Link} to={draftUrl}>
-        <FormattedMessage
-          {...(availableActions.includes(LeaderboardAction.ExtraDraft)
-            ? fantasy.extraDraft
-            : fantasy.draft)}
-        />
-      </LineupActionButton>
-    ),
-    [LeaderboardAction.Redraft]: (
-      <LineupActionButton as={Link} to={draftUrl}>
-        <FontAwesomeIcon icon={faRandom} />
-        <FormattedMessage {...fantasy.redraft} />
-      </LineupActionButton>
-    ),
-    [LeaderboardAction.Swap]: (
-      <LineupActionButton
-        as={Link}
-        to={generatePath(FOOTBALL_LOBBY_UPCOMING_SWAP, {
-          leaderboardSlug: so5Leaderboard.slug,
-        })}
-        onClick={() => {
-          track('Click Swap', {
-            context: getInteractionContext(),
-          });
-        }}
-      >
-        <FontAwesomeIcon icon={faRotate} />
-        <FormattedMessage {...fantasy.swap} />
-      </LineupActionButton>
-    ),
-    [LeaderboardAction.Edit]: (
-      <LineupActionButton
-        as={Link}
-        to={getComposeTeamRoute({
-          so5LeaderboardSlug: so5Leaderboard.slug,
-          so5LineupId: idFromObject(lineup?.id),
-        })}
-        onClick={() => {
-          track('Click Edit Lineup', {
-            context: getInteractionContext(),
-          });
-        }}
-      >
-        <FormattedMessage {...glossary.edit} />
-      </LineupActionButton>
-    ),
-    [LeaderboardAction.Compose]: (
-      <LineupActionButton
-        className="primary"
-        as={Link}
-        to={getComposeTeamRoute({
-          so5LeaderboardSlug: so5Leaderboard.slug,
-        })}
-        onClick={() => {
-          track('Click Compose Lineup', {
-            context: getInteractionContext(),
-          });
-        }}
-      >
-        <FormattedMessage {...glossary.register} />
-      </LineupActionButton>
-    ),
-    [LeaderboardAction.Unlock]: (
-      <LineupActionButton
-        as={Link}
-        to={linkToCompetitionDetails}
-        onClick={() => {
-          footballTrack('Click Competition', {
-            leaderboardSlug: so5Leaderboard.slug,
-            leaderboardName: so5Leaderboard.displayName,
-          });
-        }}
-      >
-        <FontAwesomeIcon icon={faUnlockAlt} />
-        <FormattedMessage id="LineupActions.Unlock" defaultMessage="Unlock" />
-      </LineupActionButton>
-    ),
-  };
+  // const actions = {
+  //   [LeaderboardAction.Draft]: (
+  //     <LineupActionButton as={Link} to={draftUrl}>
+  //       <FormattedMessage
+  //         {...(availableActions.includes(LeaderboardAction.ExtraDraft)
+  //           ? fantasy.extraDraft
+  //           : fantasy.draft)}
+  //       />
+  //     </LineupActionButton>
+  //   ),
+  //   [LeaderboardAction.Redraft]: (
+  //     <LineupActionButton as={Link} to={draftUrl}>
+  //       <FontAwesomeIcon icon={faRandom} />
+  //       <FormattedMessage {...fantasy.redraft} />
+  //     </LineupActionButton>
+  //   ),
+  //   [LeaderboardAction.Swap]: (
+  //     <LineupActionButton
+  //       as={Link}
+  //       to={generatePath(FOOTBALL_LOBBY_UPCOMING_SWAP, {
+  //         leaderboardSlug: so5Leaderboard.slug,
+  //       })}
+  //       onClick={() => {
+  //         track('Click Swap', {
+  //           context: getInteractionContext(),
+  //         });
+  //       }}
+  //     >
+  //       <FontAwesomeIcon icon={faRotate} />
+  //       <FormattedMessage {...fantasy.swap} />
+  //     </LineupActionButton>
+  //   ),
+  //   [LeaderboardAction.Edit]: (
+  //     <LineupActionButton
+  //       as={Link}
+  //       to={getComposeTeamRoute({
+  //         so5LeaderboardSlug: so5Leaderboard.slug,
+  //         so5LineupId: idFromObject(lineup?.id),
+  //       })}
+  //       onClick={() => {
+  //         track('Click Edit Lineup', {
+  //           context: getInteractionContext(),
+  //         });
+  //       }}
+  //     >
+  //       <FormattedMessage {...glossary.edit} />
+  //     </LineupActionButton>
+  //   ),
+  //   [LeaderboardAction.Compose]: (
+  //     <LineupActionButton
+  //       className="primary"
+  //       as={Link}
+  //       to={getComposeTeamRoute({
+  //         so5LeaderboardSlug: so5Leaderboard.slug,
+  //       })}
+  //       onClick={() => {
+  //         track('Click Compose Lineup', {
+  //           context: getInteractionContext(),
+  //         });
+  //       }}
+  //     >
+  //       <FormattedMessage {...glossary.register} />
+  //     </LineupActionButton>
+  //   ),
+  //   [LeaderboardAction.Unlock]: (
+  //     <LineupActionButton
+  //       as={Link}
+  //       to={linkToCompetitionDetails}
+  //       onClick={() => {
+  //         footballTrack('Click Competition', {
+  //           leaderboardSlug: so5Leaderboard.slug,
+  //           leaderboardName: so5Leaderboard.displayName,
+  //         });
+  //       }}
+  //     >
+  //       <FontAwesomeIcon icon={faUnlockAlt} />
+  //       <FormattedMessage id="LineupActions.Unlock" defaultMessage="Unlock" />
+  //     </LineupActionButton>
+  //   ),
+  // };
 
-  const actionToDisplay = Object.entries(actions).filter(([key]) =>
-    availableActions.includes(key as LeaderboardAction)
-  );
+  // const actionToDisplay = Object.entries(actions).filter(([key]) =>
+  //   availableActions.includes(key as LeaderboardAction)
+  // );
 
-  if (actionToDisplay.length === 0) {
-    return null;
-  }
+  // if (actionToDisplay.length === 0) {
+  //   return null;
+  // }
 
-  return (
-    <Root>
-      {actionToDisplay.map(([key, element]) => cloneElement(element, { key }))}
-    </Root>
-  );
+  // return (
+  //   <Root>
+  //     {actionToDisplay.map(([key, element]) => cloneElement(element, { key }))}
+  //   </Root>
+  // );
+  return (<>LineupActions13</>)
 };
 
 LineupActions.fragments = {

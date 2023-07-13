@@ -46,7 +46,7 @@ const useGetRecommendedLeaderboard = ({
     return {};
   }
 
-  const leaderboards = data?.football.so5.upcomingLeaderboards;
+  const leaderboards = data?.so5.upcomingLeaderboards;
 
   const draftedLeaderboards =
     leaderboards?.filter(

@@ -10,9 +10,10 @@ export const getShieldScoreRequirement = withFragments(
   ) => {
     if (!currentCollectionSlug || !skinShopItem) return null;
 
-    return skinShopItem?.cardCollectionRequirements.find(
-      req => req.cardCollection.slug === currentCollectionSlug
-    )?.score;
+    // return skinShopItem?.cardCollectionRequirements.find(
+    //   req => req.cardCollection.slug === currentCollectionSlug
+    // )?.score;
+    return 0;//TODO**********
   },
   {
     skinShopItem: gql`
