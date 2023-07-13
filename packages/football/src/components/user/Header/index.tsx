@@ -14,22 +14,22 @@ import ScarcityIcon from '@sorare/core/src/atoms/icons/ScarcityIcon';
 import { Text14 } from '@sorare/core/src/atoms/typography';
 import { buildFilterQuery } from '@sorare/core/src/components/search/InstantSearch';
 import { SEARCH_PARAMS } from '@sorare/core/src/components/search/InstantSearch/types';
-// import DiscordUser from '@sorare/core/src/components/user/DiscordUser';
-// import FollowButton from '@sorare/core/src/components/user/FollowButton';
-// import TwitterUser from '@sorare/core/src/components/user/TwitterUser';
+import DiscordUser from '@sorare/core/src/components/user/DiscordUser';
+import FollowButton from '@sorare/core/src/components/user/FollowButton';
+import TwitterUser from '@sorare/core/src/components/user/TwitterUser';
 import { FOOTBALL_USER_GALLERY_CARDS } from '@sorare/core/src/constants/routes';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { playableBlockchainRarities } from '@sorare/core/src/lib/cards';
 import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
-// import { TradeButton } from '@sorare/marketplace/src/components/TradeButton';
+import { TradeButton } from '@sorare/marketplace/src/components/TradeButton';
 
-// import ClubShopButton from '@football/components/clubShop/ClubShopButton';
+import ClubShopButton from '@football/components/clubShop/ClubShopButton';
 // import ShopItemDialog from '@football/components/shopItems/ShopItemDialog';
-// import BigInfo from '@football/components/user/BigInfo';
-// import CoinAmount from '@football/components/user/CoinAmount';
-// import Follows from '@football/components/user/Follows';
+import BigInfo from '@football/components/user/BigInfo';
+import CoinAmount from '@football/components/user/CoinAmount';
+import Follows from '@football/components/user/Follows';
 
 import {
   UserHeader_currentUser,
@@ -133,7 +133,7 @@ export const Header = ({ user, readOnly }: Props) => {
         open={!readOnly && !!pickingSkin}
         type={pickingSkin}
         onClose={() => setPickingSkin(undefined)}
-      />
+      />*/}
       <Container>
         <BigInfo
           user={user}
@@ -191,7 +191,7 @@ export const Header = ({ user, readOnly }: Props) => {
                   );
                 })}
               </Cards>
-              {!disableClubShopPage && !readOnly && (
+              {/* {!disableClubShopPage && !readOnly && (
                 <ClubShopButton>
                   {shouldShowClubShopBalance ? (
                     <CoinAmount
@@ -207,11 +207,11 @@ export const Header = ({ user, readOnly }: Props) => {
                     </>
                   )}
                 </ClubShopButton>
-              )}
+              )} */}
             </FullLine>
           </Details>
         </BigInfo>
-      </Container> */}
+      </Container>
     </Wrapper>
   );
 };
@@ -237,18 +237,18 @@ Header.fragments = {
           color
           pictureUrl
         }
-        #...DiscordUser_userProfile
-        #...TwitterUser_userProfile
+        ...DiscordUser_userProfile
+        ...TwitterUser_userProfile
       }
-      #...Follows_user
-      #...TradeButton_publicUserInfoInterface
-      #...BigInfo_user
+      ...Follows_user
+      ...TradeButton_publicUserInfoInterface
+      ...BigInfo_user
     }
-    #{TradeButton.fragments.user}
-    #{DiscordUser.fragments.userProfile}
-    #{TwitterUser.fragments.userProfile}
-    #{Follows.fragments.user}
-    #{BigInfo.fragments.user}
+    ${TradeButton.fragments.user}
+    ${DiscordUser.fragments.userProfile}
+    ${TwitterUser.fragments.userProfile}
+    ${Follows.fragments.user}
+    ${BigInfo.fragments.user}
   `,
   currentUser: gql`
     fragment UserHeader_currentUser on CurrentUser {
@@ -271,18 +271,18 @@ Header.fragments = {
           color
           pictureUrl
         }
-        #...DiscordUser_userProfile
-        #...TwitterUser_userProfile
+        ...DiscordUser_userProfile
+        ...TwitterUser_userProfile
       }
-      #...Follows_user
-      #...TradeButton_publicUserInfoInterface
-      #...BigInfo_user
+      ...Follows_user
+      ...TradeButton_publicUserInfoInterface
+      ...BigInfo_user
     }
-    #{TradeButton.fragments.user}
-    #{DiscordUser.fragments.userProfile}
-    #{TwitterUser.fragments.userProfile}
-    #{Follows.fragments.user}
-    #{BigInfo.fragments.user}
+    ${TradeButton.fragments.user}
+    ${DiscordUser.fragments.userProfile}
+    ${TwitterUser.fragments.userProfile}
+    ${Follows.fragments.user}
+    ${BigInfo.fragments.user}
   `,
 };
 
