@@ -4,19 +4,19 @@ import { useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import { PrivateKeyRecoveryOptionStatusEnum } from '__generated__/globalTypes';
+// import { PrivateKeyRecoveryOptionStatusEnum } from '__generated__/globalTypes';
 import Button from '@core/atoms/buttons/Button';
 import IconButton from '@core/atoms/buttons/IconButton';
 import DialogWithNavigation from '@core/atoms/layout/DialogWithNavigation';
 import { Text14, Text16, Title5 } from '@core/atoms/typography';
 import useScreenSize from '@core/hooks/device/useScreenSize';
-import useDeactivateWalletRecoveryEmail from '@core/hooks/recovery/useDeactivateWalletRecoveryEmail';
-import useRecoveryOptions from '@core/hooks/recovery/useRecoveryOptions';
-import useResendVerificationCodeForRecoveryEmail from '@core/hooks/recovery/useResendVerificationCodeForRecoveryEmail';
+// import useDeactivateWalletRecoveryEmail from '@core/hooks/recovery/useDeactivateWalletRecoveryEmail';
+// import useRecoveryOptions from '@core/hooks/recovery/useRecoveryOptions';
+// import useResendVerificationCodeForRecoveryEmail from '@core/hooks/recovery/useResendVerificationCodeForRecoveryEmail';
 import { glossary } from '@core/lib/glossary';
 
-import { AddRecoveryEmailForm } from './AddRecoveryEmailForm';
-import { VerifyRecoveryEmailForm } from './VerifyRecoveryEmailForm';
+// import { AddRecoveryEmailForm } from './AddRecoveryEmailForm';
+// import { VerifyRecoveryEmailForm } from './VerifyRecoveryEmailForm';
 
 const messages = defineMessages({
   title: {
@@ -67,14 +67,14 @@ const RecoveryEmail = () => {
   const [currentRecoveryEmail, setCurrentRecoveryEmail] = useState<
     string | null
   >(null);
-  const { recoveryEmails } = useRecoveryOptions();
-  const { deactivateWalletRecoveryEmail } = useDeactivateWalletRecoveryEmail();
-  const { resendVerificationCodeForRecoveryEmail } =
-    useResendVerificationCodeForRecoveryEmail();
-  const hasRecoveryEmails = !!recoveryEmails.length;
-  const hasNotVerifiedRecoveryEmail = !recoveryEmails.find(
-    r => r.status === PrivateKeyRecoveryOptionStatusEnum.ACTIVE
-  );
+  // const { recoveryEmails } = useRecoveryOptions();
+  // const { deactivateWalletRecoveryEmail } = useDeactivateWalletRecoveryEmail();
+  // const { resendVerificationCodeForRecoveryEmail } =
+  //   useResendVerificationCodeForRecoveryEmail();
+  const hasRecoveryEmails = 0; //!!recoveryEmails.length;
+  const hasNotVerifiedRecoveryEmail = true;//// const hasNotVerifiedRecoveryEmail = !recoveryEmails.find(
+  //   r => r.status === PrivateKeyRecoveryOptionStatusEnum.ACTIVE
+  // );
   const header = {
     title: messages.title,
     description: hasRecoveryEmails
@@ -88,7 +88,7 @@ const RecoveryEmail = () => {
   };
 
   const resendCode = (reference: string, destination: string) => {
-    resendVerificationCodeForRecoveryEmail(reference);
+    // resendVerificationCodeForRecoveryEmail(reference);
     setCurrentRecoveryEmail(destination);
     setOpenDialog(true);
     setShowVerify(true);
@@ -108,7 +108,7 @@ const RecoveryEmail = () => {
         )}{' '}
         <FormattedMessage {...header.title} />
       </StyledText16>
-      {hasRecoveryEmails && (
+      {/* {hasRecoveryEmails && (
         <List>
           {recoveryEmails.map(email => (
             <li key={email.destination}>
@@ -155,7 +155,7 @@ const RecoveryEmail = () => {
             </li>
           ))}
         </List>
-      )}
+      )} */}
       <div>
         <Button small color="blue" onClick={addRecoveryEmail}>
           <FormattedMessage {...messages.submit} />
@@ -175,7 +175,7 @@ const RecoveryEmail = () => {
         hideCloseButton
         fullScreen={!isTablet}
       >
-        {showVerify && currentRecoveryEmail ? (
+        {/* {showVerify && currentRecoveryEmail ? (
           <VerifyRecoveryEmailForm
             email={currentRecoveryEmail}
             onSuccess={() => {
@@ -192,7 +192,7 @@ const RecoveryEmail = () => {
               setShowVerify(true);
             }}
           />
-        )}
+        )} */}
       </DialogWithNavigation>
     </>
   );

@@ -21,7 +21,7 @@ import ConnectionContextProvider, {
   isConnectionMode,
 } from '.';
 import ConnectionDialog, { isConnectionDialogMode } from './ConnectionDialog';
-// import NewDeviceDialog from './NewDeviceDialog';
+import NewDeviceDialog from './NewDeviceDialog';
 // import PasswordForgottenDialog from './PasswordForgottenDialog';
 // import PromptTermsDialog from './PromptTermsDialog';
 // import PromptTwoFactAuthDialog from './PromptTwoFactAuthDialog';
@@ -227,9 +227,9 @@ const ConnectionProvider = ({ children }: Props) => {
       )}
       {mode === 'resetPassword' && (
         <ResetPasswordDialog open onClose={handleClose} />
-      )}
+      )} */}
       {mode === 'newDevice' && <NewDeviceDialog onClose={handleClose} />}
-      {mode === '2fa' && otpSessionChallenge && (
+      {/* {mode === '2fa' && otpSessionChallenge && (
         <PromptTwoFactAuthDialog
           open
           otpSessionChallenge={otpSessionChallenge}

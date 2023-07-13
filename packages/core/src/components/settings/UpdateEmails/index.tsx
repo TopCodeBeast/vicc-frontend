@@ -1,7 +1,7 @@
 import { Divider } from '@material-ui/core';
 import { defineMessages } from 'react-intl';
 
-// import RecoveryEmail from '../RecoveryEmail';
+import RecoveryEmail from '../RecoveryEmail';
 import SettingsSection from '../SettingsSection';
 import UpdateEmail from '../UpdateEmail';
 
@@ -17,7 +17,7 @@ export const UpdateEmails = () => {
     <SettingsSection {...messages}>
       <UpdateEmail />
       <Divider />
-      {/* <RecoveryEmail /> */}
+      <RecoveryEmail />
     </SettingsSection>
   );
 };
