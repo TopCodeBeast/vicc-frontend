@@ -4,13 +4,12 @@ import styled from 'styled-components';
 
 import { isA } from '@core/lib/gql';
 
-// import {
-//   Avatar_anonymousUser,
-//   Avatar_ethereumAccount,
-//   Avatar_publicUserInfoInterface,
-//   Avatar_starkwareAccount,
-//   Avatar_user,
-// } from './__generated__/index.graphql';
+import {
+  Avatar_anonymousUser,
+  Avatar_ethereumAccount,
+  Avatar_publicUserInfoInterface,
+  Avatar_user,
+} from './__generated__/index.graphql';
 
 export type AvatarDisplayProps = {
   variant?: 'extraSmall' | 'small' | 'medium' | 'large' | 'extraLarge';
@@ -18,32 +17,28 @@ export type AvatarDisplayProps = {
   invert?: boolean;
 };
 
-// type Props = {
-//   user:
-//     | Avatar_publicUserInfoInterface
-//     | Avatar_anonymousUser
-//     | Avatar_ethereumAccount
-//     | Avatar_starkwareAccount
-//     | Avatar_user;
-//   placeholderUrl?: string;
-// } & AvatarDisplayProps;
+type Props = {
+  user:
+    | Avatar_publicUserInfoInterface
+    | Avatar_anonymousUser
+    | Avatar_ethereumAccount
+    | Avatar_user;
+  placeholderUrl?: string;
+} & AvatarDisplayProps;
 
-// const isAnonymous = (
-//   user:
-//     | Avatar_publicUserInfoInterface
-//     | Avatar_anonymousUser
-//     | Avatar_ethereumAccount
-//     | Avatar_starkwareAccount
-// ): user is
-//   | Avatar_anonymousUser
-//   | Avatar_ethereumAccount
-//   | Avatar_starkwareAccount => {
-//   return (
-//     isA<Avatar_anonymousUser>('AnonymousUser', user) ||
-//     isA<Avatar_ethereumAccount>('EthereumAccount', user) ||
-//     isA<Avatar_starkwareAccount>('StarkwareAccount', user)
-//   );
-// };
+const isAnonymous = (
+  user:
+    | Avatar_publicUserInfoInterface
+    | Avatar_anonymousUser
+    | Avatar_ethereumAccount
+): user is
+  | Avatar_anonymousUser
+  | Avatar_ethereumAccount => {
+  return (
+    isA<Avatar_anonymousUser>('AnonymousUser', user) ||
+    isA<Avatar_ethereumAccount>('EthereumAccount', user)
+  );
+};
 
 const Root = styled.div`
   display: inline-flex;
@@ -112,7 +107,12 @@ export const PictureAvatar = ({
   variant,
   user,
   pictureUrl,
-}: any) => {
+}: AvatarDisplayProps & {
+  user: { nickname: string };
+  pictureUrl: NonNullable<
+    Avatar_publicUserInfoInterface['profile']['pictureUrl']
+  >;
+}) => {
   return (
     <Root
       as="img"
@@ -123,99 +123,71 @@ export const PictureAvatar = ({
   );
 };
 
-// export const PictureAvatar = ({
-//   rounded,
-//   invert,
-//   variant,
-//   user,
-//   pictureUrl,
-// }: AvatarDisplayProps & {
-//   user: { nickname: string };
-//   pictureUrl: NonNullable<
-//     Avatar_publicUserInfoInterface['profile']['pictureUrl']
-//   >;
-// }) => {
-//   return (
-//     <Root
-//       as="img"
-//       src={pictureUrl}
-//       className={classnames(variant, { rounded, invert })}
-//       alt={user.nickname!}
-//     />
-//   );
-// };
+const Avatar = ({ user, placeholderUrl, variant, ...rest }: Props) => {
+  const disabledAvatar = isAnonymous(user) || user.suspended;
+  if (disabledAvatar) {
+    return <DisabledAvatar {...rest} />;
+  }
+  const { pictureUrl, fullPictureUrl } = user.profile;
 
-const Avatar = ({ user, placeholderUrl, variant, ...rest }: any) => {
-  // const disabledAvatar = isAnonymous(user) || user.suspended;
-  // if (disabledAvatar) {
-  //   return <DisabledAvatar {...rest} />;
-  // }
-  // const { pictureUrl, fullPictureUrl } = user.profile;
+  const url =
+    variant === 'large' || variant === 'extraLarge'
+      ? fullPictureUrl
+      : pictureUrl;
 
-  // const url =
-  //   variant === 'large' || variant === 'extraLarge'
-  //     ? fullPictureUrl
-  //     : pictureUrl;
-
-  // if (url) {
-  //   return (
-  //     <PictureAvatar user={user} pictureUrl={url} variant={variant} {...rest} />
-  //   );
-  // }
-  // if (placeholderUrl) {
-  //   return (
-  //     <PictureAvatar
-  //       user={user}
-  //       pictureUrl={placeholderUrl}
-  //       variant={variant}
-  //       {...rest}
-  //     />
-  //   );
-  // }
-  // return <PlaceHolderAvatar user={user} variant={variant} {...rest} />;
-  return <>Avatar6545</>
+  if (url) {
+    return (
+      <PictureAvatar user={user} pictureUrl={url} variant={variant} {...rest} />
+    );
+  }
+  if (placeholderUrl) {
+    return (
+      <PictureAvatar
+        user={user}
+        pictureUrl={placeholderUrl}
+        variant={variant}
+        {...rest}
+      />
+    );
+  }
+  return <PlaceHolderAvatar user={user} variant={variant} {...rest} />;
 };
 
-// Avatar.fragments = {
-//   user: gql`
-//     fragment Avatar_user on User {
-//       slug
-//       nickname
-//       suspended
-//       profile {
-//         id
-//         fullPictureUrl: pictureUrl
-//         pictureUrl(derivative: "avatar")
-//       }
-//     }
-//   `,
-//   publicUserInfoInterface: gql`
-//     fragment Avatar_publicUserInfoInterface on PublicUserInfoInterface {
-//       slug
-//       nickname
-//       suspended
-//       profile {
-//         id
-//         fullPictureUrl: pictureUrl
-//         pictureUrl(derivative: "avatar")
-//       }
-//     }
-//   `,
-//   anonymousUser: gql`
-//     fragment Avatar_anonymousUser on AnonymousUser {
-//       id
-//     }
-//   `,
-//   ethereumAccount: gql`
-//     fragment Avatar_ethereumAccount on EthereumAccount {
-//       id
-//     }
-//   `,
-//   starkwareAccount: gql`
-//     fragment Avatar_starkwareAccount on StarkwareAccount {
-//       id
-//     }
-//   `,
-// };
+Avatar.fragments = {
+  user: gql`
+    fragment Avatar_user on User {
+      slug
+      nickname
+      suspended
+      profile {
+        id
+        fullPictureUrl: pictureUrl
+        pictureUrl(derivative: "avatar")
+      }
+    }
+  `,
+  publicUserInfoInterface: gql`
+    fragment Avatar_publicUserInfoInterface on PublicUserInfoInterface {
+      slug
+      nickname
+      suspended
+      profile {
+        id
+        fullPictureUrl: pictureUrl
+        pictureUrl(derivative: "avatar")
+      }
+    }
+  `,
+  anonymousUser: gql`
+    fragment Avatar_anonymousUser on AnonymousUser {
+      id
+    }
+  `,
+  ethereumAccount: gql`
+    fragment Avatar_ethereumAccount on EthereumAccount {
+      id
+    }
+  `,
+};
 
 export default Avatar;
