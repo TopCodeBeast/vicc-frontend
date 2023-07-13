@@ -112,7 +112,7 @@ import MenuIconButton from '@core/routing/MultiSportAppBar/MenuIconButton';
 import useBottomBarNavItems from '@core/routing/MultiSportBottomNavBar/useBottomBarNavItems';
 import { tabletAndAbove } from '@core/style/mediaQuery';
 
-// import { Balances } from '../Balances';
+import { Balances } from '../Balances';
 import Item, { Config } from '../Item';
 // import MLBLogos from '../MLBLogos';
 import NavDrawer from '../NavDrawer';
@@ -1014,7 +1014,7 @@ export const LoggedInAppBar = ({
   return (
     <>
       <Root>
-        {/* {small && (
+        {small && (
           <NavDrawer
             open={mobileMenuOpened}
             currentNavSport={currentNavSport}
@@ -1025,16 +1025,17 @@ export const LoggedInAppBar = ({
             onClose={onClose}
           >
             <AnimatedMenuColumn style={Opacity}>
-              <SportsButtons
+              <>SportsButtons55</>
+              {/* <SportsButtons
                 onClick={selectSport}
                 currentNavSport={currentNavSport}
-              />
+              /> */}
             </AnimatedMenuColumn>
             <AnimatedMenuColumn style={SlideFromBottom}>
               <Items items={submenuItems} />
             </AnimatedMenuColumn>
           </NavDrawer>
-        )} */}
+        )}
         <Grow>
           <Container>
             <SportAgnostic>
@@ -1081,7 +1082,7 @@ export const LoggedInAppBar = ({
                 {sportConfig === sport && unclaimedReward}
                 <ResponsiveSearchBar />
                 <Notifications />
-                {/* {!bottomBarNavItems && <Balances medium compact={small} />} */}
+                {!bottomBarNavItems && <Balances medium compact={small} />}
                 {small && (
                   <>
                     <ButtonBase
@@ -1111,10 +1112,10 @@ export const LoggedInAppBar = ({
       </Root>
       {!small && sport && (
         <SportSpecific>
-          {/* <AppBarItems>
+          <AppBarItems>
             <Items items={appBarItems} />
           </AppBarItems>
-          {sport === Sport.BASEBALL && <MLBLogos />} */}
+          {/* {sport === Sport.BASEBALL && <MLBLogos />} */}
         </SportSpecific>
       )}
       {inlineNotifications}
