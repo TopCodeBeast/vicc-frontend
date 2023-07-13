@@ -17,7 +17,7 @@ import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 
 // import useConfirmLineups from '@football/hooks/so5/useConfirmLineups';
 // import useDeleteLineups from '@football/hooks/so5/useDeleteLineups';
-// import Teams from '@football/pages/Lobby/Components/Teams';
+import Teams from '@football/pages/Lobby/Components/Teams';
 
 import { UpcomingTeamsSetupQuery } from './__generated__/index.graphql';
 
