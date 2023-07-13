@@ -18,6 +18,7 @@ import SentryProvider from '@sorare/core/src/contexts/sentry/Provider';
 import SeoProvider from '@sorare/core/src/contexts/seo/Provider';
 import SessionProvider from '@sorare/core/src/contexts/session';
 import SnackNotificationProvider from '@sorare/core/src/contexts/snackNotification/Provider';
+import SportProvider from '@sorare/core/src/contexts/sport/Provider';
 import TickerProvider from '@sorare/core/src/contexts/ticker/Provider';
 import TMProvider from '@sorare/core/src/contexts/tm/Provider';
 import WalletFrame from '@sorare/core/src/contexts/wallet/Frame';
@@ -49,12 +50,14 @@ const AppProviders = ({ children }: { children: ReactNode }) => {
                                           <WalletProvider>
                                             <ConnectionProvider>
                                               <TickerProvider>
-                                                <Suspense fallback={null}>
-                                                  {children}
-                                                </Suspense>
-                                                <Suspense fallback={null}>
-                                                  <WalletFrame />
-                                                </Suspense>
+                                                <SportProvider>
+                                                  <Suspense fallback={null}>
+                                                    {children}
+                                                  </Suspense>
+                                                  <Suspense fallback={null}>
+                                                    <WalletFrame />
+                                                  </Suspense>
+                                                </SportProvider>
                                               </TickerProvider>
                                             </ConnectionProvider>
                                           </WalletProvider>
