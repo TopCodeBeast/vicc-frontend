@@ -1,4 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from 'react';
+import useLocalStorage from '@core/hooks/useLocalStorage';
 
 export type SessionContextType = {
   sessionId: string | undefined;
@@ -11,7 +12,7 @@ export const SessionContext = createContext<SessionContextType | null>(null);
 
 export const SessionProvider = ({ children }: { children: ReactNode }) => {
   const [sessionId, setSessionId] = useState<string | undefined>(undefined);
-  const [apiKey, setApiKey] = useState<string | null | undefined>(null);
+  const [apiKey, setApiKey] = useLocalStorage<string | undefined>('APIKEY', undefined);
 
   return (
     <SessionContext.Provider

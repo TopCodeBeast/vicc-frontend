@@ -151,7 +151,7 @@ export const CurrentUserProvider = ({ children }: Props) => {
   }, [currentUser?.id, setSessionId]);
 
   useEffect(() => {
-    setApiKey(currentUser?.apiKey);
+    currentUser?.apiKey && setApiKey(currentUser?.apiKey);
   }, [currentUser?.apiKey, setApiKey]);
 
   // useEffect(() => {

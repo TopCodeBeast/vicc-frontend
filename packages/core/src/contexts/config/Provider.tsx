@@ -20,7 +20,6 @@ import { currentUser } from '../currentUser/queries';
 //   ReportTelemetryVariables,
 // } from './__generated__/Provider.graphql';
 import { ConfigQuery, ConfigQuery_currentUser } from './types';
-import samples from './samples.json';
 
 // const contentfulData = gql`
 //   fragment ConfigQueryProvider_contentfulData on Config {

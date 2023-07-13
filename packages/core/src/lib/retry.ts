@@ -1,6 +1,6 @@
 import { ComponentType, lazy as lazyNoRetry } from 'react';
 
-// import { SilencedError } from '@core/contexts/sentry/ErrorBoundary';
+import { SilencedError } from '@core/contexts/sentry/ErrorBoundary';
 
 const MAX_RETRIES = 5;
 const FAILED_TO_FETCH = 'Failed to fetch dynamically imported module';
@@ -13,7 +13,7 @@ type ComponentTypeImport<TYPE extends ComponentType<any> = ComponentType<any>> =
 const retry = async <T extends ComponentTypeImport>(
   fn: () => Promise<T>,
   retriesLeft = MAX_RETRIES,
-  interval = 1000
+  interval = 5000
 ): Promise<T> => {
   return new Promise((resolve, reject) => {
     fn()
@@ -26,7 +26,7 @@ const retry = async <T extends ComponentTypeImport>(
               e.message?.includes(FAILED_TO_FETCH) ||
               e.message?.includes(IMPORTING_SCRIPT_MODULE_FAILED)
             ) {
-              // reject(new SilencedError(NO_INTERNET, e)); //TODO***********
+              reject(new SilencedError(NO_INTERNET, e));
             } else {
               reject(e);
             }

@@ -71,7 +71,6 @@ const INITIAL_RETRY_DELAY = 3000;
 const cardFields: Exclude<TypePolicy['fields'], undefined> = {
   cardByAssetId: {
     read(_, { args, toReference }) {
-      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~cardByAssetId', args, toReference)
       if (args?.assetId) {
         return toReference({
           __typename: 'Card',
