@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
-// import { CompetitionList } from '@football/pages/Lobby/Components/CompetitionList';
+import { CompetitionList } from '@football/pages/Lobby/Components/CompetitionList';
 
 import { LobbyUpcomingTournamentsQuery } from './__generated__/index.graphql';
 
@@ -15,17 +15,17 @@ export const LOBBY_UPCOMING_TOURNAMENTS_QUERY = gql`
       upcomingLeaderboards {
         slug
         gameWeek
-        #...CompetitionList_so5Leaderboard
+        ...CompetitionList_so5Leaderboard
       }
     }
-    # shopItems(first: 10, types: [EXTRA_TEAMS_CAP]) {
-    #   nodes {
-    #     ...CompetitionList_clubShopItem
-    #   }
-    # }
+    shopItems(first: 10, types: [EXTRA_TEAMS_CAP]) {
+      nodes {
+        ...CompetitionList_clubShopItem
+      }
+    }
   }
-  #{CompetitionList.fragments.so5Leaderboard}
-  #{CompetitionList.fragments.clubShopItem}
+  ${CompetitionList.fragments.so5Leaderboard}
+  ${CompetitionList.fragments.clubShopItem}
 `;
 
 const Loading = styled.div`
@@ -42,7 +42,7 @@ export const LobbyUpcomingTournaments = () => {
   );
 
   const so5Leaderboards = data?.so5.upcomingLeaderboards;
-  // const extraTeamsCapItems = data?.shopItems.nodes;
+  const extraTeamsCapItems = data?.shopItems.nodes;
 
   const refetchCb = useCallback(() => {
     refetch();
@@ -61,11 +61,10 @@ export const LobbyUpcomingTournaments = () => {
   }
 
   return (
-    <>CompetitionList555</>
-    // <CompetitionList
-    //   so5Leaderboards={so5Leaderboards}
-    //   refetch={refetchCb}
-    //   extraTeamsCapItems={extraTeamsCapItems}
-    // />
+    <CompetitionList
+      so5Leaderboards={so5Leaderboards}
+      refetch={refetchCb}
+      extraTeamsCapItems={extraTeamsCapItems}
+    />
   );
 };

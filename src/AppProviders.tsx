@@ -13,6 +13,7 @@ import GrapqhqlProvider from '@sorare/core/src/contexts/graphql/Provider';
 import HighlightProvider from '@sorare/core/src/contexts/highlight/Provider';
 import { IntlProvider } from '@sorare/core/src/contexts/intl/Provider';
 import ManagerTaskProvider from '@sorare/core/src/contexts/managerTask/Provider';
+import OneTimeDialogProvider from '@sorare/core/src/contexts/oneTimeDialog/Provider';
 import RestrictedAccessProvider from '@sorare/core/src/contexts/restrictedAccess/Provider';
 import SentryProvider from '@sorare/core/src/contexts/sentry/Provider';
 import SeoProvider from '@sorare/core/src/contexts/seo/Provider';
@@ -51,12 +52,14 @@ const AppProviders = ({ children }: { children: ReactNode }) => {
                                             <ConnectionProvider>
                                               <TickerProvider>
                                                 <SportProvider>
-                                                  <Suspense fallback={null}>
-                                                    {children}
-                                                  </Suspense>
-                                                  <Suspense fallback={null}>
-                                                    <WalletFrame />
-                                                  </Suspense>
+                                                  <OneTimeDialogProvider>
+                                                    <Suspense fallback={null}>
+                                                      {children}
+                                                    </Suspense>
+                                                    <Suspense fallback={null}>
+                                                      <WalletFrame />
+                                                    </Suspense>
+                                                  </OneTimeDialogProvider>
                                                 </SportProvider>
                                               </TickerProvider>
                                             </ConnectionProvider>
