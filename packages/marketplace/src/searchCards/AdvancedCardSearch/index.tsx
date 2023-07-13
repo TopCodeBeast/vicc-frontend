@@ -1,7 +1,7 @@
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import {
   InstantBlockchainCardSearch,
-//   InstantCardSearch,
+  InstantCardSearch,
 } from '@sorare/core/src/components/search/InstantSearch';
 import {
   AnalyticTag,
@@ -40,32 +40,31 @@ const AdvancedCardSearch = ({
   const index = defaultSort || rest.sorts[0];
 
   return (
-    <>AdvancedCardSearch5</>
-    // <SearchCardsContextProvider
-    //   includeCommonCards={Boolean(includeCommonCards)}
-    //   cardFilters={cardFilters}
-    //   advancedCardFilters={advancedCardFilters}
-    //   editableLists={editableLists}
-    //   galleryOwnerSlug={rest.galleryOwnerSlug}
-    // >
-    //   <InstantCardSearch
-    //     {...(index && { indexes: [index] })}
-    //     analyticsTags={analyticsTags}
-    //     sport={sport}
-    //     defaultFilters={defaultFilters}
-    //     urlState
-    //     initialIndexUIState={initialIndexUIState}
-    //     {...(defaultHitsPerPage && { defaultHitsPerPage })}
-    //   >
-    //     <SearchLayout
-    //       cardFilters={cardFilters}
-    //       advancedCardFilters={advancedCardFilters}
-    //       {...rest}
-    //     >
-    //       {children}
-    //     </SearchLayout>
-    //   </InstantCardSearch>
-    // </SearchCardsContextProvider>
+    <SearchCardsContextProvider
+      includeCommonCards={Boolean(includeCommonCards)}
+      cardFilters={cardFilters}
+      advancedCardFilters={advancedCardFilters}
+      editableLists={editableLists}
+      galleryOwnerSlug={rest.galleryOwnerSlug}
+    >
+      <InstantCardSearch
+        {...(index && { indexes: [index] })}
+        analyticsTags={analyticsTags}
+        sport={sport}
+        defaultFilters={defaultFilters}
+        urlState
+        initialIndexUIState={initialIndexUIState}
+        {...(defaultHitsPerPage && { defaultHitsPerPage })}
+      >
+        <SearchLayout
+          cardFilters={cardFilters}
+          advancedCardFilters={advancedCardFilters}
+          {...rest}
+        >
+          {children}
+        </SearchLayout>
+      </InstantCardSearch>
+    </SearchCardsContextProvider>
   );
 };
 
