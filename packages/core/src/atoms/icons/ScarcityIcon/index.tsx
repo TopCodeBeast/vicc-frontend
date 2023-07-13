@@ -3,12 +3,12 @@ import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-import { Rarity, Vicc5LeaderboardRarity } from '__generated__/globalTypes';
+import { Rarity, Vicc5LeaderboardRarity as So5LeaderboardRarity } from '__generated__/globalTypes';
 
 import { User } from '../User';
 
 type ScarcityType =
-  | Lowercase<keyof typeof Vicc5LeaderboardRarity>
+  | Lowercase<keyof typeof So5LeaderboardRarity>
   | keyof typeof Rarity;
 
 interface Props {
