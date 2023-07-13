@@ -1,4 +1,4 @@
-// import { AcceptCashOnly } from '@sorare/core/src/components/settings/AcceptCashOnly';
+import { AcceptCashOnly } from '@sorare/core/src/components/settings/AcceptCashOnly';
 // import ActivityReports from '@sorare/core/src/components/settings/ActivityReports';
 import BlockedUsers from '@sorare/core/src/components/settings/BlockedUsers';
 import ConnectedAccounts from '@sorare/core/src/components/settings/ConnectedAccounts';
@@ -29,7 +29,7 @@ export const MyAccount = () => {
       <EthereumAccounts />
       <MyReferrer />
       <BlockedUsers />
-      {/* {useCashOnlyOffersSettings && <AcceptCashOnly />} */}
+      {useCashOnlyOffersSettings && <AcceptCashOnly />}
       <HideCommonCards />
       <DepositCard />
       {/* <ActivityReports usSportsActivityReports={<USActivityReports />} /> */}

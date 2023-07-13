@@ -13,7 +13,7 @@ import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { RootRoutes } from '@sorare/core/src/routing/RootRoutes';
 
 import MyAccount from './MyAccount';
-// import Notifications from './Notifications';
+import Notifications from './Notifications';
 // import Payment from './Payment';
 // import Security from './Security';
 
@@ -66,7 +66,7 @@ const SettingsLayout = ({ tab }: { tab: MySorarePage }) => {
     {
       value: 'notifications',
       label: formatMessage(TITLES.notifications),
-      content: <>Notifications5555</>, //<Notifications />,
+      content: <Notifications />,
       href: SETTINGS_NOTIFICATIONS,
     },
     {
