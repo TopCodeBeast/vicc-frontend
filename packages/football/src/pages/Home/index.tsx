@@ -91,7 +91,6 @@ const Home = () => {
     <Root>
       {/* <ConversionCreditBanner /> */}
       <Tabs user={user} isOwnPage={isOwnPage} />
-      Football Home
     </Root>
   );
 };

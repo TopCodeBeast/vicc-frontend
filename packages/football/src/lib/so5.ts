@@ -205,8 +205,8 @@ import { sortByArrayIndex } from '@sorare/core/src/lib/arrays';
 
 // export const isFixtureCancelled = (fixture: { aasmState: string }): boolean =>
 //   fixture.aasmState === 'cancelled';
-// export const isFixtureStarted = (fixture: { aasmState: string }): boolean =>
-//   ['started', 'computed', 'closed'].includes(fixture.aasmState);
+export const isFixtureStarted = (fixture: { aasmState: string }): boolean =>
+  ['started', 'computed', 'closed'].includes(fixture.aasmState);
 // export const isFixtureOpened = (fixture: { aasmState: string }): boolean =>
 //   fixture.aasmState === 'opened';
 // export const isFixtureLive = (fixture: {
@@ -215,8 +215,8 @@ import { sortByArrayIndex } from '@sorare/core/src/lib/arrays';
 // }): boolean =>
 //   fixture.aasmState === 'started' &&
 //   new Date(fixture.endDate).getTime() - new Date().getTime() > 0;
-// export const isFixtureClosed = (fixture: { aasmState: string }): boolean =>
-//   fixture.aasmState === 'closed';
+export const isFixtureClosed = (fixture: { aasmState: string }): boolean =>
+  fixture.aasmState === 'closed';
 
 // export const isAllStar = (league: { name: string }) =>
 //   league.name === 'all_star';

@@ -7,7 +7,7 @@ import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 // import { ContentUnits } from './ContentUnits';
 // import { ManagerAssistant } from './ManagerAssistant';
 import { PrivateLeagues } from './PrivateLeagues';
-// import { TournamentsTimeline } from './TournamentsTimeline';
+import { TournamentsTimeline } from './TournamentsTimeline';
 import { HomeLeaderboardsQuery } from './__generated__/index.graphql';
 
 const Wrapper = styled.div`
@@ -78,9 +78,9 @@ export const Overview = () => {
         user={user}
         leaderboards={leaderboards}
         loading={loading}
-      />
+      /> */}
       <TournamentsTimeline so5={so5} loading={loading} />
-      {contentUnits} */}
+      {/* {contentUnits} */}
       <PrivateLeagues so5={so5} loading={loading} />
     </Wrapper>
   );
