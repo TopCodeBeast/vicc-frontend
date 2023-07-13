@@ -57,9 +57,9 @@ const WalletButton = ({
 }: WalletButtonProps) => {
   const { formatNumber, formatWei } = useIntlContext();
   const { availableBalance } = currentUser;
-  // const {
-  //   walletPreferences: { showEthWallet, showFiatWallet },
-  // } = useCurrentUserContext();
+  const {
+    walletPreferences: { showEthWallet, showFiatWallet },
+  } = useCurrentUserContext();
 
   const {
     hasActiveFiatBalance,

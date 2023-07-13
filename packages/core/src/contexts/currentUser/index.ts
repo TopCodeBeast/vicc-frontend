@@ -42,13 +42,13 @@ interface CurrentUserContext {
   ) => Promise<SignInMutation_signIn | null | undefined>;
   // blockchainCardsCount: number;
   // fiatWalletAccountable: FiatWalletAccount | null;
-  // walletPreferences: {
+  walletPreferences: {
   //   enabledWallets?: EnabledWallet[];
-  //   showEthWallet: boolean;
-  //   showFiatWallet: boolean;
-  //   onlyShowFiatCurrency: boolean;
-  //   hasMigratedAndSetupWallets: boolean;
-  // };
+    showEthWallet: boolean;
+    showFiatWallet: boolean;
+    onlyShowFiatCurrency: boolean;
+    hasMigratedAndSetupWallets: boolean;
+  };
 }
 
 export const currentUserContext = createContext<CurrentUserContext | null>(

@@ -262,13 +262,13 @@ export const CurrentUserProvider = ({ children }: Props) => {
         refetch,
         signIn,
         // blockchainCardsCount,
-        // walletPreferences: {
-        //   enabledWallets,
-        //   showEthWallet,
-        //   showFiatWallet,
-        //   hasMigratedAndSetupWallets,
-        //   onlyShowFiatCurrency,
-        // },
+        walletPreferences: {
+          // enabledWallets,
+          showEthWallet: false,
+          showFiatWallet: true,
+          hasMigratedAndSetupWallets: false,
+          onlyShowFiatCurrency,
+        },
       }}
     >
       {children}

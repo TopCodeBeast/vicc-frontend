@@ -14,7 +14,7 @@ import { RootRoutes } from '@sorare/core/src/routing/RootRoutes';
 
 import MyAccount from './MyAccount';
 import Notifications from './Notifications';
-// import Payment from './Payment';
+import Payment from './Payment';
 import Security from './Security';
 
 export const PAGE_IDS = [
@@ -78,7 +78,7 @@ const SettingsLayout = ({ tab }: { tab: MySorarePage }) => {
     {
       value: 'payment',
       label: formatMessage(TITLES.payment),
-      content: <>Payment5555</>, //<Payment />,
+      content: <Payment />,
       href: SETTINGS_PAYMENT,
     },
   ];
