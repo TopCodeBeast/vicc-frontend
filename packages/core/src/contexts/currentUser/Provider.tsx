@@ -5,7 +5,7 @@ import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Currency,
 //   DeviceWasUpdatedEvent,
-//   EnabledWallet,
+  EnabledWallet,
 } from '__generated__/globalTypes';
 import createLink from '@core/atoms/typography/Link';
 import { SETTINGS_SECURITY } from '@core/constants/routes';

@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 
 import {
   Currency,
-//   EnabledWallet,
+  EnabledWallet,
 //   FiatWalletAccount,
 } from '__generated__/globalTypes';
 import { Currency as FiatCurrency } from '@core/lib/fiat';

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-// import { EnabledWallet } from '@sorare/core/src/__generated__/globalTypes';
-// import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import { EnabledWallet } from '@sorare/core/src/__generated__/globalTypes';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
 interface Props {
@@ -31,13 +31,13 @@ const useDefaultFilters = ({
   bundled,
   onlySettlableCards,
 }: Props): string[] => {
-  const currentUser: any = undefined;// const { currentUser } = useCurrentUserContext(); //TODO****
+  const { currentUser } = useCurrentUserContext();
   const {
     flags: { useNewWallet = false },
   } = useFeatureFlags();
 
   const settlableWalletsFilter = useMemo(() => {
-    const enabledWallets = currentUser?.profile?.enabledWallets;
+    const enabledWallets = null;//currentUser?.profile?.enabledWallets;
     if (enabledWallets) {
       if (enabledWallets.length === 1) {
         // if (enabledWallets[0] === EnabledWallet.FIAT) {
@@ -53,7 +53,8 @@ const useDefaultFilters = ({
 
     // no filter means all cards
     return null;
-  }, [currentUser?.profile?.enabledWallets]);
+  // }, [currentUser?.profile?.enabledWallets]);
+  }, [currentUser?.profile]);
 
   const filters = useMemo(
     () =>
