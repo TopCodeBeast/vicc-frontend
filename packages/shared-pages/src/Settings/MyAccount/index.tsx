@@ -1,16 +1,16 @@
 // import { AcceptCashOnly } from '@sorare/core/src/components/settings/AcceptCashOnly';
 // import ActivityReports from '@sorare/core/src/components/settings/ActivityReports';
-// import BlockedUsers from '@sorare/core/src/components/settings/BlockedUsers';
+import BlockedUsers from '@sorare/core/src/components/settings/BlockedUsers';
 import ConnectedAccounts from '@sorare/core/src/components/settings/ConnectedAccounts';
-// import DeleteAccount from '@sorare/core/src/components/settings/DeleteAccount';
-// import EthereumAccounts from '@sorare/core/src/components/settings/EthereumAccounts';
-// import HideCommonCards from '@sorare/core/src/components/settings/HideCommonCards';
-// import MyReferrer from '@sorare/core/src/components/settings/MyReferrer';
+import DeleteAccount from '@sorare/core/src/components/settings/DeleteAccount';
+import EthereumAccounts from '@sorare/core/src/components/settings/EthereumAccounts';
+import HideCommonCards from '@sorare/core/src/components/settings/HideCommonCards';
+import MyReferrer from '@sorare/core/src/components/settings/MyReferrer';
 import UpdateEmails from '@sorare/core/src/components/settings/UpdateEmails';
-// import UpdateProfile from '@sorare/core/src/components/settings/UpdateProfile';
+import UpdateProfile from '@sorare/core/src/components/settings/UpdateProfile';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
-// import DepositCard from '@sorare/marketplace/src/components/settings/DepositCard';
+import DepositCard from '@sorare/marketplace/src/components/settings/DepositCard';
 
 // import USActivityReports from '@sorare/us-sports/src/components/settings/ActivityReports';
 
@@ -23,17 +23,17 @@ export const MyAccount = () => {
 
   return (
     <SettingsTabRoot>
-      {/* <UpdateProfile withinSettings /> */}
+      <UpdateProfile withinSettings />
       <UpdateEmails />
       <ConnectedAccounts />
-      {/* <EthereumAccounts />
+      <EthereumAccounts />
       <MyReferrer />
-      <BlockedUsers /> */}
+      <BlockedUsers />
       {/* {useCashOnlyOffersSettings && <AcceptCashOnly />} */}
-      {/* <HideCommonCards /> */}
-      {/* <DepositCard /> */}
+      <HideCommonCards />
+      <DepositCard />
       {/* <ActivityReports usSportsActivityReports={<USActivityReports />} /> */}
-      {/* <DeleteAccount /> */}
+      <DeleteAccount />
     </SettingsTabRoot>
   );
 };
