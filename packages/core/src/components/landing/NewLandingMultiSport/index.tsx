@@ -3,15 +3,15 @@ import { Navigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import useFontFaceObserver from '@sorare/use-font-face-observer';
-// import { Container } from '@core/atoms/container';
-// import Bold from '@core/atoms/typography/Bold';
-// import { useDefaultSportPages } from '@core/constants/routes';
+import { Container } from '@core/atoms/container';
+import Bold from '@core/atoms/typography/Bold';
+import { useDefaultSportPages } from '@core/constants/routes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
-// import useReferrer from '@core/contexts/queryString/useReferrer';
+import useReferrer from '@core/contexts/queryString/useReferrer';
 import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
-// import { Lifecycle } from '@core/hooks/useLifecycle';
-// import useEvents from '@core/lib/events/useEvents';
-// import LoggedInAppBar from '@core/routing/MultiSportAppBar/LoggedInAppBar';
+import { Lifecycle } from '@core/hooks/useLifecycle';
+import useEvents from '@core/lib/events/useEvents';
+import LoggedInAppBar from '@core/routing/MultiSportAppBar/LoggedInAppBar';
 import NewLoggedOutAppBar from '@core/routing/MultiSportAppBar/NewLoggedOutAppBar';
 import AppBarProvider from '@core/routing/MultiSportAppBar/context/Provider';
 import MultiSportFooter from '@core/routing/MultiSportFooter';
@@ -43,51 +43,57 @@ export const NewLandingMultiSport = () => {
     [{ family: 'DrukWide-Super', weight: 'bold' }],
     { timeout: 1000 }
   );
-  // const { referrer, invalidReferrer, removeReferrer } = useReferrer();
+  const { referrer, invalidReferrer, removeReferrer } = useReferrer();
   const { showNotification } = useSnackNotificationContext();
-  // const track = useEvents();
+  const track = useEvents();
   const location = useLocation();
 
-  // const lastVisitedSport = (currentUser?.userSettings?.lifecycle as Lifecycle)
-  //   ?.lastVisitedSport;
-  // const defaultSportPages = useDefaultSportPages();
+  const lastVisitedSport = (currentUser?.userSettings?.lifecycle as Lifecycle)
+    ?.lastVisitedSport;
+  const defaultSportPages = useDefaultSportPages();
 
-  // useEffect(() => {
-  //   if (invalidReferrer) {
-  //     showNotification(
-  //       'unknownReferrer',
-  //       { referrer, strong: Bold },
-  //       {
-  //         level: Level.ERROR,
-  //         autoHideDuration: null,
-  //         onClosed: removeReferrer,
-  //       }
-  //     );
-  //   }
-  // }, [showNotification, invalidReferrer, referrer, removeReferrer]);
+  useEffect(() => {
+    if (invalidReferrer) {
+      showNotification(
+        'unknownReferrer',
+        { referrer, strong: Bold },
+        {
+          level: Level.ERROR,
+          autoHideDuration: null,
+          onClosed: removeReferrer,
+        }
+      );
+    }
+  }, [showNotification, invalidReferrer, referrer, removeReferrer]);
 
-  // useEffect(() => {
-  //   if (!currentUser) {
-  //     track('View Homepage Disconnected');
-  //   }
-  // }, [currentUser, track]);
+  useEffect(() => {
+    if (!currentUser) {
+      track('View Homepage Disconnected');
+    }
+  }, [currentUser, track]);
 
-  // if (lastVisitedSport) {
-  //   return (
-  //     <Navigate
-  //       to={`${defaultSportPages[lastVisitedSport]}${location.search}`}
-  //       replace
-  //       state={location.state}
-  //     />
-  //   );
-  // }
+  if (lastVisitedSport) {
+    return (
+      <Navigate
+        to={`${defaultSportPages[lastVisitedSport]}${location.search}`}
+        replace
+        state={location.state}
+      />
+    );
+  }
 
   if (fontStatus === 'initial') return null; // allow rendering without the right font after the timeout
 
   return (
     <DarkBackground>
       <AppBarProvider>
-        <NewLoggedOutAppBar />
+        {currentUser ? (
+          <Container>
+            <LoggedInAppBar />
+          </Container>
+        ) : (
+          <NewLoggedOutAppBar />
+        )}
       </AppBarProvider>
       <Hero />
       <LeaguesBlock />

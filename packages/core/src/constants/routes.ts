@@ -545,3 +545,13 @@ export function isMarket(pathname: string) {
     matchPath(NBA_SECONDARY_MARKET, pathname)
   );
 }
+
+// this should stay a hook for future feature flags integration
+export const useDefaultSportPages = (): { [key in Sport]: string } => {
+  return {
+    CRICKET: FOOTBALL_HOME,
+    BASEBALL: MLB_HOME,
+    NBA: NBA_HOME,
+  };
+};
+
