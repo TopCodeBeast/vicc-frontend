@@ -2,7 +2,7 @@ import { Divider } from '@material-ui/core';
 import { defineMessage } from 'react-intl';
 
 import SettingsSection from '../SettingsSection';
-// import Update2FA from '../Update2FA';
+import Update2FA from '../Update2FA';
 import UpdatePassword from '../UpdatePassword';
 
 const title = defineMessage({
@@ -15,7 +15,7 @@ const SigningIntoSorare = () => {
     <SettingsSection title={title}>
       <UpdatePassword />
       <Divider />
-      {/* <Update2FA /> */}
+      <Update2FA />
     </SettingsSection>
   );
 };

@@ -1,6 +1,7 @@
 import { ReactNode, Suspense, useEffect } from 'react';
 import { BrowserRouter, useLocation } from 'react-router-dom';
 
+import RestrictedAccessModals from '@sorare/core/src/components/restrictedAccess/RestrictedAccessModals';
 import { SO5_SENTRY_DSN } from '@sorare/core/src/config';
 import AuthProvider from '@sorare/core/src/contexts/auth/Provider';
 import ConfigProvider from '@sorare/core/src/contexts/config/Provider';
@@ -20,67 +21,78 @@ import SeoProvider from '@sorare/core/src/contexts/seo/Provider';
 import SessionProvider from '@sorare/core/src/contexts/session';
 import SnackNotificationProvider from '@sorare/core/src/contexts/snackNotification/Provider';
 import SportProvider from '@sorare/core/src/contexts/sport/Provider';
+import SvgProvider from '@sorare/core/src/contexts/svg/Provider';
 import TickerProvider from '@sorare/core/src/contexts/ticker/Provider';
 import TMProvider from '@sorare/core/src/contexts/tm/Provider';
 import WalletFrame from '@sorare/core/src/contexts/wallet/Frame';
 import WalletProvider from '@sorare/core/src/contexts/wallet/Provider';
 import WalletDrawerProvider from '@sorare/core/src/contexts/walletDrawer/Provider';
+import HandledErrorBoundary from '@sorare/core/src/routing/HandledErrorBoundary';
 import ThemeProvider from '@sorare/core/src/style/theme';
 
 const AppProviders = ({ children }: { children: ReactNode }) => {
   return (
     <BrowserRouter>
       <SentryProvider dsn={SO5_SENTRY_DSN}>
-        <IntlProvider>
-          <ThemeProvider>
-            <SessionProvider>
-              <TMProvider>
-                <DebugProvider>
-                  <SnackNotificationProvider>
-                    <DeviceFingerprintProvider>
-                      <GrapqhqlProvider>
-                        <HighlightProvider>
-                          <ManagerTaskProvider>
-                            <ConfigProvider>
-                              <SeoProvider>
-                                <RestrictedAccessProvider>
-                                  <CurrentUserProvider>
-                                    <AuthProvider>
-                                      <FollowProvider>
-                                        <WalletDrawerProvider>
-                                          <WalletProvider>
-                                            <ConnectionProvider>
-                                              <TickerProvider>
-                                                <SportProvider>
-                                                  <OneTimeDialogProvider>
-                                                    <Suspense fallback={null}>
-                                                      {children}
-                                                    </Suspense>
-                                                    <Suspense fallback={null}>
-                                                      <WalletFrame />
-                                                    </Suspense>
-                                                  </OneTimeDialogProvider>
-                                                </SportProvider>
-                                              </TickerProvider>
-                                            </ConnectionProvider>
-                                          </WalletProvider>
-                                        </WalletDrawerProvider>
-                                      </FollowProvider>
-                                    </AuthProvider>
-                                  </CurrentUserProvider>
-                                </RestrictedAccessProvider>
-                              </SeoProvider>
-                            </ConfigProvider>
-                          </ManagerTaskProvider>
-                        </HighlightProvider>
-                      </GrapqhqlProvider>
-                    </DeviceFingerprintProvider>
-                  </SnackNotificationProvider>
-                </DebugProvider>
-              </TMProvider>
-            </SessionProvider>
-          </ThemeProvider>
-        </IntlProvider>
+        <HandledErrorBoundary>
+          <IntlProvider>
+            <ThemeProvider>
+              <SessionProvider>
+                <TMProvider>
+                  <DebugProvider>
+                    <SnackNotificationProvider>
+                      <DeviceFingerprintProvider>
+                        <GrapqhqlProvider>
+                          <HighlightProvider>
+                            <ManagerTaskProvider>
+                              <ConfigProvider>
+                                <SeoProvider>
+                                  <RestrictedAccessProvider>
+                                    <CurrentUserProvider>
+                                          <RestrictedAccessModals />
+                                      <AuthProvider>
+                                        <FollowProvider>
+                                          <WalletDrawerProvider>
+                                            <WalletProvider>
+                                              <ConnectionProvider>
+                                                <TickerProvider>
+                                                  <SvgProvider>
+                                                    <SportProvider>
+                                                      <OneTimeDialogProvider>
+                                                        <Suspense
+                                                          fallback={null}
+                                                        >
+                                                          {children}
+                                                        </Suspense>
+                                                        <Suspense
+                                                          fallback={null}
+                                                        >
+                                                          <WalletFrame />
+                                                        </Suspense>
+                                                      </OneTimeDialogProvider>
+                                                    </SportProvider>
+                                                  </SvgProvider>
+                                                </TickerProvider>
+                                              </ConnectionProvider>
+                                            </WalletProvider>
+                                          </WalletDrawerProvider>
+                                        </FollowProvider>
+                                      </AuthProvider>
+                                    </CurrentUserProvider>
+                                  </RestrictedAccessProvider>
+                                </SeoProvider>
+                              </ConfigProvider>
+                            </ManagerTaskProvider>
+                          </HighlightProvider>
+                        </GrapqhqlProvider>
+                      </DeviceFingerprintProvider>
+                    </SnackNotificationProvider>
+                  </DebugProvider>
+                </TMProvider>
+              </SessionProvider>
+            </ThemeProvider>
+          </IntlProvider>
+        </HandledErrorBoundary>
       </SentryProvider>
     </BrowserRouter>
   );

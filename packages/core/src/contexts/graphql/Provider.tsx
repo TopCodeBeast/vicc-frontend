@@ -62,7 +62,6 @@ import {
 import ActionCableLink from './ActionCableLink';
 import mySo5LineupsPaginated from './mySo5LineupsPaginated';
 
-console.log('ENV', ENV);
 const cable = () => createConsumer(WS_ROOT);
 
 const MAX_RETRIES = 8;

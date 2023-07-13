@@ -26,13 +26,27 @@ import { RoutesWithDialogs } from '@sorare/core/src/routing/Router';
 
 import Landing from '@sorare/shared-pages/src/Landing';
 
+const WalletDrawer = lazy(
+  async () => import('@sorare/core/src/components/wallet/WalletDrawer')
+);
+const BlockchainProvider = lazy(
+  async () => import('@sorare/core/src/contexts/blockchain/Provider')
+);
+const Web3Provider = lazy(
+  async () => import('@sorare/core/src/contexts/web3/Provider')
+);
 const Settings = lazy(async () => import('@sorare/shared-pages/src/Settings'));
 const FootballRoot = lazy(async () => import('@sorare/football/src/main'));
 
 export const BlockchainProviders = ({ children }: { children: ReactNode }) => {
   return (
     <Suspense fallback={<LoadingIndicator fullHeight />}>
-      {children}
+      <Web3Provider>
+        <BlockchainProvider>
+          {children}
+          <WalletDrawer />
+        </BlockchainProvider>
+      </Web3Provider>
     </Suspense>
   );
 };
