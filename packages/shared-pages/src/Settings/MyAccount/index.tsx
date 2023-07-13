@@ -1,7 +1,7 @@
 // import { AcceptCashOnly } from '@sorare/core/src/components/settings/AcceptCashOnly';
 // import ActivityReports from '@sorare/core/src/components/settings/ActivityReports';
 // import BlockedUsers from '@sorare/core/src/components/settings/BlockedUsers';
-// import ConnectedAccounts from '@sorare/core/src/components/settings/ConnectedAccounts';
+import ConnectedAccounts from '@sorare/core/src/components/settings/ConnectedAccounts';
 // import DeleteAccount from '@sorare/core/src/components/settings/DeleteAccount';
 // import EthereumAccounts from '@sorare/core/src/components/settings/EthereumAccounts';
 // import HideCommonCards from '@sorare/core/src/components/settings/HideCommonCards';
@@ -25,8 +25,8 @@ export const MyAccount = () => {
     <SettingsTabRoot>
       {/* <UpdateProfile withinSettings /> */}
       <UpdateEmails />
-      {/* <ConnectedAccounts />
-      <EthereumAccounts />
+      <ConnectedAccounts />
+      {/* <EthereumAccounts />
       <MyReferrer />
       <BlockedUsers /> */}
       {/* {useCashOnlyOffersSettings && <AcceptCashOnly />} */}
