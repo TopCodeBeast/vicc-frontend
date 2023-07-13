@@ -207,14 +207,14 @@ import { sortByArrayIndex } from '@sorare/core/src/lib/arrays';
 //   fixture.aasmState === 'cancelled';
 export const isFixtureStarted = (fixture: { aasmState: string }): boolean =>
   ['started', 'computed', 'closed'].includes(fixture.aasmState);
-// export const isFixtureOpened = (fixture: { aasmState: string }): boolean =>
-//   fixture.aasmState === 'opened';
-// export const isFixtureLive = (fixture: {
-//   aasmState: string;
-//   endDate: string;
-// }): boolean =>
-//   fixture.aasmState === 'started' &&
-//   new Date(fixture.endDate).getTime() - new Date().getTime() > 0;
+export const isFixtureOpened = (fixture: { aasmState: string }): boolean =>
+  fixture.aasmState === 'opened';
+export const isFixtureLive = (fixture: {
+  aasmState: string;
+  endDate: string;
+}): boolean =>
+  fixture.aasmState === 'started' &&
+  new Date(fixture.endDate).getTime() - new Date().getTime() > 0;
 export const isFixtureClosed = (fixture: { aasmState: string }): boolean =>
   fixture.aasmState === 'closed';
 

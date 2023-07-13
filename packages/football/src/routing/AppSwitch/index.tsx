@@ -78,7 +78,7 @@ import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 // import useGetSplat from '@sorare/core/src/hooks/useGetSplat';
 // import { importFactory } from '@sorare/core/src/lib/importFactory';
-// import { lazy } from '@sorare/core/src/lib/retry';
+import { lazy } from '@sorare/core/src/lib/retry';
 // import { catchAll } from '@sorare/core/src/lib/routing';
 import { EnsureTopVisibleOnMount } from '@sorare/core/src/routing/EnsureTopVisibleOnMount';
 import { RoutesWithDialogs } from '@sorare/core/src/routing/Router';
@@ -131,7 +131,7 @@ import PrivateRoute from '@football/routing/PrivateRoute';
 //   async () =>
 //     import('pages/Lobby/Components/UserGroup/UserGroupInviteLinkEntryPoint')
 // );
-// const LobbyUpcoming = lazy(async () => import('@football/pages/Lobby/Upcoming/index'));
+const LobbyUpcoming = lazy(async () => import('@football/pages/Lobby/Upcoming/index'));
 // const LobbyLive = lazy(async () => import('@football/pages/Lobby/Live/index'));
 // const LobbyPast = lazy(async () => import('@football/pages/Lobby/Past/index'));
 // const Swap = lazy(async () => import('@football/pages/Lobby/Upcoming/Swap'));
@@ -186,7 +186,9 @@ export const AppSwitch = () => {
     <RoutesWithDialogs
       basePath={FOOTBALL_PATH}
       dialogRoutes={({ isDialog }) => (
-        <>DIalogRoutes</>
+        <>
+
+        </>
       )}
     >
       <Route
@@ -208,6 +210,18 @@ export const AppSwitch = () => {
             </Layout>
           </EnsureTopVisibleOnMount>
         }
+      />
+      <Route
+        path={FOOTBALL_LOBBY_UPCOMING_WILDCARD}
+        element={
+          <EnsureTopVisibleOnMount>
+            <PrivateRoute withLayout element={<LobbyUpcoming />} />
+          </EnsureTopVisibleOnMount>
+        }
+      />
+      <Route
+        path={FOOTBALL_LOBBY_WILDCARD}
+        element={<Navigate to={goToLobby('upcoming')} replace />}
       />
       {currentUser && (
         <Route
