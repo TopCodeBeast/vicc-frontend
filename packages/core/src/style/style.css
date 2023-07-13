@@ -621,7 +621,7 @@ code {
 }
 @font-face {
   font-family: Druk Wide;
-  src: url(/assets/DrukWide-Bold.0ea32bed.otf) format('opentype');
+  src: url(/assets/DrukWide-Bold.otf) format('opentype');
   font-weight: 700;
 }
 @font-face {
