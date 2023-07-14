@@ -17,7 +17,7 @@ import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 import { FILTERS, FilterWidget } from '@sorare/core/src/lib/filters';
-// import useBottomBarNavItems from '@sorare/core/src/routing/MultiSportBottomNavBar/useBottomBarNavItems';
+import useBottomBarNavItems from '@sorare/core/src/routing/MultiSportBottomNavBar/useBottomBarNavItems';
 import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { ActiveFilters } from '@marketplace/search/ActiveFilters';
@@ -25,9 +25,9 @@ import { SavedFilters } from '@marketplace/search/SavedFilters';
 import StackedSwitch from '@marketplace/searchCards/StackedSwitch';
 
 import FiltersManager from '../../search/FiltersManager';
-// import FiltersManagerDialog from '../../search/FiltersManagerDialog';
+import FiltersManagerDialog from '../../search/FiltersManagerDialog';
 import SearchBox from '../../search/SearchBox';
-// import ToggleFiltersManager from '../../search/ToggleFiltersManager';
+import ToggleFiltersManager from '../../search/ToggleFiltersManager';
 import Pagination from '../Pagination';
 import SortCards from '../SortCards';
 import { Props } from './types';
@@ -139,7 +139,7 @@ export const SearchLayout = (props: Props) => {
   const { up: isLaptop } = useScreenSize('laptop');
   const [showDesktopFilter, toggleShowDesktopFilters] =
     useToggle(toggleDesktopFilter);
-  // const bottomNavBarItems = useBottomBarNavItems();
+  const bottomNavBarItems = useBottomBarNavItems();
   const [filtersOpen, toggleFilters] = useToggle(false);
   const { formatMessage, formatNumber } = useIntlContext();
 
@@ -281,7 +281,7 @@ export const SearchLayout = (props: Props) => {
           </StyledPagination>
         </SearchLayoutMain>
       </SearchLayoutContainer>
-      {/* {responsiveFilters && (
+      {responsiveFilters && (
         <>
           {bottomNavBarItems ? (
             <Portal id="above-bottom-bar-portal">
@@ -307,7 +307,7 @@ export const SearchLayout = (props: Props) => {
             sorts={sorts}
           />
         </>
-      )} */}
+      )}
     </Root>
   );
 };
