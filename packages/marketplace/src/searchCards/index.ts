@@ -27,6 +27,6 @@ export { default as CollectibleFilter } from './CollectibleFilter';
 export { default as PlayingNextGameweekFilter } from './PlayingNextGameweekFilter';
 export { default as PromotedCardsFilter } from './PromotedCardsFilter';
 // export { default as RefineOnSale } from './RefineOnSale';
-// export { default as RefineLatestSeason } from './RefineLatestSeason';
-// export { default as AdvancedCardSearch } from './AdvancedCardSearch';
+export { default as RefineLatestSeason } from './RefineLatestSeason';
+export { default as AdvancedCardSearch } from './AdvancedCardSearch';
 // export { default as CustomDecksFilter } from './CustomDecksFilter';

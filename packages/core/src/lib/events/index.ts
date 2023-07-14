@@ -3,3 +3,7 @@ export const useFootballEvents = () => {
     console.log('FootballEvents', a, b);
   }
 }
+
+export const getInteractionContext = () => {
+  return 'InteractionContext';
+};

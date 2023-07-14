@@ -115,7 +115,7 @@ import HomePublic from '@football/pages/Home/Public';
 import MarketHome from '@football/pages/TransferMarket/Home';
 import NewSignings from '@football/pages/TransferMarket/NewSignings';
 // import StarterBundles from '@football/pages/TransferMarket/StarterBundles';
-// import TransferMarket from '@football/pages/TransferMarket/TransferMarket';
+import TransferMarket from '@football/pages/TransferMarket/TransferMarket';
 // import TransferMarketStack from '@football/pages/TransferMarket/TransferMarketStack';
 import Layout from '@football/routing/Layout';
 import PrivateRoute from '@football/routing/PrivateRoute';
@@ -197,6 +197,16 @@ export const AppSwitch = () => {
           <EnsureTopVisibleOnMount>
             <Layout>
               <NewSignings />
+            </Layout>
+          </EnsureTopVisibleOnMount>
+        }
+      />
+      <Route
+        path={FOOTBALL_TRANSFER_MARKET}
+        element={
+          <EnsureTopVisibleOnMount>
+            <Layout>
+              <TransferMarket />
             </Layout>
           </EnsureTopVisibleOnMount>
         }

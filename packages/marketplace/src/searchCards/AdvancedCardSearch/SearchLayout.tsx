@@ -20,15 +20,15 @@ import { FILTERS, FilterWidget } from '@sorare/core/src/lib/filters';
 // import useBottomBarNavItems from '@sorare/core/src/routing/MultiSportBottomNavBar/useBottomBarNavItems';
 import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
-// import { ActiveFilters } from '@marketplace/search/ActiveFilters';
-// import { SavedFilters } from '@marketplace/search/SavedFilters';
+import { ActiveFilters } from '@marketplace/search/ActiveFilters';
+import { SavedFilters } from '@marketplace/search/SavedFilters';
 import StackedSwitch from '@marketplace/searchCards/StackedSwitch';
 
 import FiltersManager from '../../search/FiltersManager';
 // import FiltersManagerDialog from '../../search/FiltersManagerDialog';
 import SearchBox from '../../search/SearchBox';
 // import ToggleFiltersManager from '../../search/ToggleFiltersManager';
-// import Pagination from '../Pagination';
+import Pagination from '../Pagination';
 import SortCards from '../SortCards';
 import { Props } from './types';
 
@@ -244,7 +244,7 @@ export const SearchLayout = (props: Props) => {
         />
         {stackable && <StackedSwitch />}
         {isLaptop && <SortCards indexes={sorts} />}
-        {/* {!hideSavedFilters && <SavedFilters />} */}
+        {!hideSavedFilters && <SavedFilters />}
       </SearchRow>
       <SearchLayoutContainer>
         {!responsiveFilters && (
@@ -260,7 +260,7 @@ export const SearchLayout = (props: Props) => {
         )}
         <SearchLayoutMain>
           {children}
-          {/* <ActiveFilters /> */}
+          <ActiveFilters />
           <Highlightable {...cardsTour} position="left" disabled={!cardsTour}>
             <Cards>
               <CardResultsComponent
@@ -276,9 +276,9 @@ export const SearchLayout = (props: Props) => {
               />
             </Cards>
           </Highlightable>
-          {/* <StyledPagination>
+          <StyledPagination>
             <Pagination onPageChange={onPageChange} />
-          </StyledPagination> */}
+          </StyledPagination>
         </SearchLayoutMain>
       </SearchLayoutContainer>
       {/* {responsiveFilters && (
