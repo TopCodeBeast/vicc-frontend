@@ -15,7 +15,7 @@ import { metadatas } from '@sorare/core/src/lib/seo/football';
 import useDefaultFilters from '@sorare/marketplace/src/hooks/useDefaultFilters';
 
 import AdvancedCardSearch from '@football/components/searchCards/AdvancedCardSearch';
-// import NewsSignings from '@football/pages/TransferMarket/OnboardingDialog/NewsSignings';
+import NewsSignings from '@football/pages/TransferMarket/OnboardingDialog/NewsSignings';
 import PageTemplate from '@football/pages/TransferMarket/PageTemplate';
 import { SelectedLeaderboardBanner } from '@football/pages/TransferMarket/SelectedLeaderboardBanner';
 import {
@@ -37,10 +37,10 @@ const NewSignings = () => {
 
   return (
     <>
-      {/* <NewsSignings
+      <NewsSignings
         open={forceShowOnboardingDialog}
         onClick={() => setForceShowOnboardingDialog(false)}
-      /> */}
+      />
       <ConversionCreditBanner />
       <PageTemplate>
         <Carousel slotName="so5_primary_market" />
