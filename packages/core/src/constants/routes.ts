@@ -430,6 +430,17 @@ export const NBA_NO_CARD_ENTRY_CONFIRM = `${NBA_NO_CARD_ENTRY}/confirm`;
 export const NBA_NO_CARD_ENTRY_DECLINE = `${NBA_NO_CARD_ENTRY}/decline`;
 export const NBA_NO_CARD_ENTRY_ELIGIBLE_LEADERBOARDS = `${NBA_NO_CARD_ENTRY}/eligible_leaderboards`;
 
+export const LANDING_BY_SPORT: Record<Sport, string> = {
+  [Sport.FOOTBALL]: FOOTBALL_PATH,
+  [Sport.NBA]: NBA_LANDING,
+  [Sport.BASEBALL]: MLB_LANDING,
+};
+
+export const SECONDARY_MARKET_STACK_SHOW_BY_SPORT: Record<Sport, string> = {
+  [Sport.FOOTBALL]: FOOTBALL_TRANSFER_MARKET_STACK_SHOW,
+  [Sport.NBA]: NBA_SECONDARY_MARKET_STACK_SHOW,
+  [Sport.BASEBALL]: MLB_SECONDARY_MARKET_STACK_SHOW,
+};
 
 export const AUCTION_MARKET_URL: Record<Sport, string> = {
   [Sport.FOOTBALL]: FOOTBALL_NEW_SIGNINGS,

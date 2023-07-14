@@ -45,7 +45,6 @@ export const TokenDetails = ({
     );
   }
 
-  console.log('auction', auction)
   if (auction) {
     return (
       <TokenAuctionDetails

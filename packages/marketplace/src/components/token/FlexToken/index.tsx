@@ -8,7 +8,7 @@ import UninteractiveToken, {
   DraggableProps,
 } from '@sorare/core/src/components/token/UninteractiveToken';
 
-// import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
+import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
 
 import { FlexToken_token } from './__generated__/index.graphql';
 
@@ -37,15 +37,15 @@ export const FlexToken: {
 } & ForwardRefExoticComponent<FlexTokenProps & RefAttributes<HTMLDivElement>> =
   forwardRef<HTMLDivElement, FlexTokenProps>((props, ref) => {
     const { token, withLink, draggableProps, width } = props;
-    // const { trackClickCard } = useMarketplaceContext() || {
-    //   trackClickCard: () => {},
-    // };
+    const { trackClickCard } = useMarketplaceContext() || {
+      trackClickCard: () => {},
+    };
 
     if (withLink)
       return (
         <Root
           item={token}
-          onClick={() => console.log(`trackClickCard(token.assetId, token.sport)`)}
+          onClick={() => trackClickCard(token.assetId, token.sport)}
           sport={token.sport}
         >
           <UninteractiveToken

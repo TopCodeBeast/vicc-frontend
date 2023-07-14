@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 import { Caption } from '@sorare/core/src/atoms/typography';
 
-// import { BidsCount } from '@marketplace/components/auction/BidsCount';
-// import useBestBidBelongsToUser from '@marketplace/hooks/auctions/useBestBidBelongsToUser';
+import { BidsCount } from '@marketplace/components/auction/BidsCount';
+import useBestBidBelongsToUser from '@marketplace/hooks/auctions/useBestBidBelongsToUser';
 
 import { AuctionBidsInfo_auction } from './__generated__/index.graphql';
 
@@ -21,11 +21,10 @@ type Props = {
 };
 
 export const AuctionBidsInfo = ({ auction }: Props) => {
-  // const doesBestBidBelongsToUser = useBestBidBelongsToUser();
+  const doesBestBidBelongsToUser = useBestBidBelongsToUser();
 
-  const bestBidBelongsToUser = false;
-  // const bestBidBelongsToUser =
-  //   auction.bestBid && doesBestBidBelongsToUser(auction.bestBid);
+  const bestBidBelongsToUser =
+    auction.bestBid && doesBestBidBelongsToUser(auction.bestBid);
 
   if (bestBidBelongsToUser) {
     return (
@@ -43,8 +42,7 @@ export const AuctionBidsInfo = ({ auction }: Props) => {
     );
   }
 
-  return <>BidsCount6656565</>
-  // return <BidsCount auction={auction} />;
+  return <BidsCount auction={auction} />;
 };
 
 AuctionBidsInfo.fragments = {
@@ -54,14 +52,14 @@ AuctionBidsInfo.fragments = {
       endDate
       bestBid {
         id
-        #...UseBestBidBelongsToUser_bestBid
+        ...UseBestBidBelongsToUser_bestBid
       }
       myLastBid {
         id
       }
-      #...BidsCount_auction
+      ...BidsCount_auction
     }
-    #{useBestBidBelongsToUser.fragments.bestBid}
-    #{BidsCount.fragments.auction}
+    ${useBestBidBelongsToUser.fragments.bestBid}
+    ${BidsCount.fragments.auction}
   `,
 };

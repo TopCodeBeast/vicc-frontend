@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 
 const useEvents = () => {
   const track = useCallback((msg: any, ...params: any): void => {
+    console.log('track', msg, params)
       /*if (Object.prototype.hasOwnProperty.call(protosEvents, event)) {
         baseTrack(event, {
           interaction_context: getInteractionContext(),

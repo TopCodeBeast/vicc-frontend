@@ -30,7 +30,6 @@ export const TokenAuctionDetails = ({
       useConversionRate
     />
   );
-  return <>TokenAuctionDetails555</>
 };
 
 TokenAuctionDetails.fragments = {

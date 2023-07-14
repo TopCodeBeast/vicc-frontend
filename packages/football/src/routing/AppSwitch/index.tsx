@@ -82,13 +82,13 @@ import { lazy } from '@sorare/core/src/lib/retry';
 // import { catchAll } from '@sorare/core/src/lib/routing';
 import { EnsureTopVisibleOnMount } from '@sorare/core/src/routing/EnsureTopVisibleOnMount';
 import { RoutesWithDialogs } from '@sorare/core/src/routing/Router';
-// import WithItemDialog from '@sorare/core/src/routing/WithItemDialog';
+import WithItemDialog from '@sorare/core/src/routing/WithItemDialog';
 
 // import Landing from '@sorare/shared-pages/src/Landing';
 // import BundledAuctionPage from '@football/components/auction/BundledAuctionPage';
 // import EditDeckCards from '@football/components/deck/EditDeckCards';
 // import BundesligaLanding from '@football/pages/BundesligaLanding';
-// import Card from '@football/pages/Card';
+import Card from '@football/pages/Card';
 // import ClubShop from '@football/pages/ClubShop';
 // import Collection from '@football/pages/Collections/Collection';
 // import Country from '@football/pages/Country';
@@ -187,10 +187,76 @@ export const AppSwitch = () => {
       basePath={FOOTBALL_PATH}
       dialogRoutes={({ isDialog }) => (
         <>
-
+          <Route
+            path={FOOTBALL_CARD_SHOW}
+            element={
+              <Suspense fallback={null}>
+                <WithItemDialog
+                  isDialog={isDialog}
+                  Layout={Layout}
+                  Component={Card}
+                />
+              </Suspense>
+            }
+          />
         </>
       )}
     >
+      {/* <Route path={EPL_LANDING} element={<EPLLanding />} />
+      <Route path={EPLV_LANDING_V2_SHORT} element={<EPLLanding short />} />
+      <Route
+        path={EPL_LANDING_V2}
+        element={<Navigate to={EPLV_LANDING_V2_SHORT} />}
+      />
+      <Route path={SERIEA_LANDING} element={<SerieALanding />} />
+      <Route path={MLS_LANDING_SHORT} element={<Navigate to={MLS_LANDING} />} />
+      <Route path={MLS_LANDING} element={<MLSLanding />} />
+      <Route path={LALIGA_LANDING} element={<LaLigaLanding />} />
+      <Route path={BUNDESLIGA_LANDING} element={<BundesligaLanding />} />
+      {[FOOTBALL_COMPOSE_TEAM_LINEUP, FOOTBALL_COMPOSE_TEAM].map(path => (
+        <Route
+          path={path}
+          key={path}
+          element={<PrivateRoute element={<ComposeTeam />} />}
+        />
+      ))}
+      {[
+        FOOTBALL_USER_CARD_COLLECTION,
+        FOOTBALL_USER_CARD_COLLECTION_CARDS,
+        FOOTBALL_USER_CARD_COLLECTION_LEADERBOARD,
+      ].map(path => (
+        <Route
+          path={path}
+          key={path}
+          element={
+            <EnsureTopVisibleOnMount>
+              <Collection />
+            </EnsureTopVisibleOnMount>
+          }
+        />
+      ))}
+      <Route
+        path={INVITE_USER_GROUP}
+        element={<UserGroupInviteLinkEntryPoint />}
+      />
+      <Route
+        path={INVITE_EPL_USER_GROUP}
+        element={<UserGroupInviteLinkEntryPoint metadata={metadata} />}
+      />
+      <Route
+        path={INVITE_WILDCARD}
+        element={
+          <PrivateRoute
+            element={
+              <EnsureTopVisibleOnMount>
+                <ReferralProgram />
+              </EnsureTopVisibleOnMount>
+            }
+            withLayout
+            requireVerifiedPhoneNumber
+          />
+        }
+      />*/}
       <Route
         path={FOOTBALL_NEW_SIGNINGS}
         element={
@@ -221,6 +287,16 @@ export const AppSwitch = () => {
           </EnsureTopVisibleOnMount>
         }
       />
+      {/* <Route
+        path={FOOTBALL_TRANSFER_MARKET_STACK_SHOW}
+        element={
+          <EnsureTopVisibleOnMount>
+            <Layout>
+              <TransferMarketStack />
+            </Layout>
+          </EnsureTopVisibleOnMount>
+        }
+      /> */}
       <Route
         path={FOOTBALL_MARKET}
         element={
@@ -231,6 +307,98 @@ export const AppSwitch = () => {
           </EnsureTopVisibleOnMount>
         }
       />
+      {/* {[FOOTBALL_ONBOARDING_WILDCARD, FOOTBALL_ONBOARDING].map(path => (
+        <Route
+          path={path}
+          key={path}
+          element={<PickLeague preloads={[draftImport]} />}
+        />
+      ))}
+      <Route
+        path={FOOTBALL_PICK_LEAGUE}
+        element={<PickLeague preloads={[draftImport]} allowClosing />}
+      />
+      {!disableClubShopPage && (
+        <>
+          <Route
+            path={FOOTBALL_CLUB_SHOP_WILDCARD}
+            element={
+              <EnsureTopVisibleOnMount>
+                <PrivateRoute element={<ClubShop />} withLayout />
+              </EnsureTopVisibleOnMount>
+            }
+          />
+          <Route
+            path={FOOTBALL_CLUB_SHOP}
+            element={
+              <EnsureTopVisibleOnMount>
+                <PrivateRoute element={<ClubShop />} withLayout />
+              </EnsureTopVisibleOnMount>
+            }
+          />
+        </>
+      )}
+      <Route
+        path={FOOTBALL_CUSTOM_DECK_SHOW}
+        element={
+          <EnsureTopVisibleOnMount>
+            <Layout>
+              <CustomDeck />
+            </Layout>
+          </EnsureTopVisibleOnMount>
+        }
+      />
+      <Route
+        path={FOOTBALL_PLAYER_SHOW_WILDCARD}
+        element={
+          <EnsureTopVisibleOnMount>
+            <Layout>
+              <Player />
+            </Layout>
+          </EnsureTopVisibleOnMount>
+        }
+      />
+      <Route
+        path={FOOTBALL_COUNTRY_SHOW}
+        element={
+          <EnsureTopVisibleOnMount>
+            <Layout>
+              <Country />
+            </Layout>
+          </EnsureTopVisibleOnMount>
+        }
+      />
+      <Route
+        path={FOOTBALL_CLUB_SHOW_WILDCARD}
+        element={
+          <EnsureTopVisibleOnMount>
+            <Layout>
+              <Club />
+            </Layout>
+          </EnsureTopVisibleOnMount>
+        }
+      />
+      <Route
+        path={FOOTBALL_LEAGUE_SHOW_WILDCARD}
+        element={
+          <EnsureTopVisibleOnMount>
+            <Layout>
+              <League />
+            </Layout>
+          </EnsureTopVisibleOnMount>
+        }
+      />
+      <Route
+        path={REWARDS}
+        element={
+          <EnsureTopVisibleOnMount>
+            <Layout>
+              <Rewards />
+            </Layout>
+          </EnsureTopVisibleOnMount>
+        }
+      />
+      <Route path={FOOTBALL_SCARCITIES} element={<DiscoverScarcities />} /> */}
       <Route
         path={FOOTBALL_LOBBY_UPCOMING_WILDCARD}
         element={
@@ -239,10 +407,89 @@ export const AppSwitch = () => {
           </EnsureTopVisibleOnMount>
         }
       />
+      {/* {enablePrizePoolPage && (
+        <Route
+          path={FOOTBALL_LOBBY_PRIZE_POOL}
+          element={
+            <EnsureTopVisibleOnMount>
+              <PrivateRoute withLayout element={<LobbyPrizePool />} />
+            </EnsureTopVisibleOnMount>
+          }
+        />
+      )}
+      <Route
+        path={FOOTBALL_LOBBY_LIVE_WILDCARD}
+        element={
+          <EnsureTopVisibleOnMount>
+            <PrivateRoute withLayout element={<LobbyLive />} />
+          </EnsureTopVisibleOnMount>
+        }
+      />
+      <Route
+        path={FOOTBALL_LOBBY_PAST_WILDCARD}
+        element={
+          <EnsureTopVisibleOnMount>
+            <PrivateRoute withLayout element={<LobbyPast />} />
+          </EnsureTopVisibleOnMount>
+        }
+      />
+      {[
+        { path: FOOTBALL_PRIVATE_LEAGUES_WILDCARD, props: {} },
+        { path: FOOTBALL_PRIVATE_LEAGUES_CREATE, props: { showDialog: true } },
+        { path: FOOTBALL_PRIVATE_LEAGUES_CREATED, props: { showDialog: true } },
+      ].map(({ path, props }) => (
+        <Route
+          path={path}
+          key={path}
+          element={
+            <EnsureTopVisibleOnMount>
+              <PrivateRoute withLayout element={<UserGroups {...props} />} />
+            </EnsureTopVisibleOnMount>
+          }
+        />
+      ))} */}
+      <Route
+        path={FOOTBALL_LOBBY_PRIVATE_LEAGUES}
+        element={<Navigate to={FOOTBALL_PRIVATE_LEAGUES} />}
+      />
       <Route
         path={FOOTBALL_LOBBY_WILDCARD}
         element={<Navigate to={goToLobby('upcoming')} replace />}
       />
+      {/* <Route path={FOOTBALL_DRAFT} element={<Draft />} />
+      <Route
+        path={FOOTBALL_COMPOSE_TEAM_DRAFT}
+        element={<ComposeTeamDraft />}
+      />
+      <Route path={FOOTBALL_LINEUP_SHARING} element={<LineupSharing />} />
+
+      {currentUser && enableNoCardEntry && (
+        <>
+          <Route
+            path={FOOTBALL_NO_CARD_ROUTE_REQUEST}
+            element={<PrivateRoute element={<NoCardEntry />} />}
+          />
+
+          <Route
+            path={FOOTBALL_NO_CARD_ROUTE_CONFIRM}
+            element={<PrivateRoute element={<NoCardEntryConfirm />} />}
+          />
+          <Route
+            path={FOOTBALL_NO_CARD_ROUTE_CANCEL}
+            element={<PrivateRoute element={<NoCardEntryCancel />} />}
+          />
+          <Route
+            path={FOOTBALL_NO_CARD_ROUTE_ACCEPT}
+            element={<PrivateRoute element={<NoCardEntryAccept />} />}
+          />
+          <Route
+            path={FOOTBALL_NO_CARD_ROUTE_LEADERBOARDS}
+            element={
+              <PrivateRoute element={<NoCardEntryRequestLeaderboards />} />
+            }
+          />
+        </>
+      )} */}
       {currentUser && (
         <Route
           path={FOOTBALL_HOME}
@@ -265,6 +512,16 @@ export const AppSwitch = () => {
               </EnsureTopVisibleOnMount>
             }
           />
+          {/* {
+            landingTheme && landingTheme.slug !== 'default-landing-theme' ? (
+              <Route path={catchAll(FOOTBALL_HOME)} element={<Landing />} />
+            ) : (
+              <Route
+                path={catchAll(FOOTBALL_HOME)}
+                element={<Navigate to={FOOTBALL_HOME} replace />}
+              />
+            )
+          } */}
         </>
       )}
       <Route
@@ -277,6 +534,26 @@ export const AppSwitch = () => {
           </EnsureTopVisibleOnMount>
         }
       />
+      <Route
+        path={FOOTBALL_WILDCARD}
+        element={
+          <EnsureTopVisibleOnMount>
+            <Layout>
+              <HomePublic />
+            </Layout>
+          </EnsureTopVisibleOnMount>
+        }
+      />
+      {/* Force all Football routes to be prefixed with /football now */}
+      {/* <Route
+        path="/*"
+        element={
+          <Navigate
+            to={getSplat('/*', '/football/*') + location.search}
+            replace
+          />
+        }
+      /> */}
     </RoutesWithDialogs>
   );
 };

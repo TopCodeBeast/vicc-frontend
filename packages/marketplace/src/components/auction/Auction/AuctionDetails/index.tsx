@@ -7,7 +7,7 @@ import SorareUser from '@sorare/core/src/components/user/SorareUser';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
 import ItemPrice from '@marketplace/components/ItemPreview/ItemPrice';
-// import { ItemSpecialRewardBadge } from '@marketplace/components/ItemPreview/ItemSpecialRewardBadge';
+import { ItemSpecialRewardBadge } from '@marketplace/components/ItemPreview/ItemSpecialRewardBadge';
 import {
   ButtonContainer,
   TokenDetailsInfos,
@@ -16,7 +16,7 @@ import {
 } from '@marketplace/components/ItemPreview/ui';
 import { AuctionStatus } from '@marketplace/components/auction/AuctionStatus';
 import BidField from '@marketplace/components/buyActions/BidField';
-// import useTokenTakesPartPromotionalEvent from '@marketplace/hooks/offers/useTokenTakesPartPromotionalEvent';
+import useTokenTakesPartPromotionalEvent from '@marketplace/hooks/offers/useTokenTakesPartPromotionalEvent';
 import {
   auctionCurrentPrice,
   promotionalEventsExcludeSpecialRewardBadge,
@@ -45,14 +45,14 @@ export const AuctionDetails = ({
   const {
     flags: { useSportWithUncoloredCta = [] },
   } = useFeatureFlags();
-  // const takesPartInEvent = useTokenTakesPartPromotionalEvent();
+  const takesPartInEvent = useTokenTakesPartPromotionalEvent();
 
   const currentPrice = auctionCurrentPrice(auction);
   // const { currency } = auction;
   const endDate = auction.endDate && parseISO(auction.endDate);
   const hasEnded = endDate && isPast(endDate);
   const tokens = auction.nfts;
-  // const promotionalEvent = takesPartInEvent(tokens);
+  const promotionalEvent = takesPartInEvent(tokens);
   const buttonColor = useSportWithUncoloredCta.includes(tokens[0].sport)
     ? 'mediumGray'
     : 'blue';
@@ -68,10 +68,10 @@ export const AuctionDetails = ({
               <ItemPrice amount={currentPrice} referenceCurrency={'USD' as any /*currency*/} />
             )}
           </TokenDetailsRow>
-          {/* {promotionalEvent &&
+          {promotionalEvent &&
             !promotionalEventsExcludeSpecialRewardBadge.includes(
               promotionalEvent.name
-            ) && <ItemSpecialRewardBadge event={promotionalEvent} />} */}
+            ) && <ItemSpecialRewardBadge event={promotionalEvent} />}
           <TokenDetailsRow>
             {hasEnded && showWinnerWhenEnded ? (
               <AuctionWinner auction={auction} />
@@ -124,13 +124,13 @@ AuctionDetails.fragments = {
         ...BidField_token
       }
       ...BidField_auction
-      #...AuctionStatus_auction
+      ...AuctionStatus_auction
       ...auctionCurrentPrice_auction
       ...AuctionWinner_auction
     }
     ${BidField.fragments.token}
     ${BidField.fragments.auction}
-    #{AuctionStatus.fragments.auction}
+    ${AuctionStatus.fragments.auction}
     ${auctionCurrentPrice.fragments.auction}
     ${AuctionWinner.fragments.auction}
   `,

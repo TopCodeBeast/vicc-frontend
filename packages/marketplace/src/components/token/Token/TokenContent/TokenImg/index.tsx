@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-// import StackedToken from '@sorare/core/src/components/token/StackedToken';
+import StackedToken from '@sorare/core/src/components/token/StackedToken';
 
 // import { BundledAuctionPreview } from '@marketplace/components/auction/BundledAuctionPreview';
 import FlexToken from '@marketplace/components/token/FlexToken';
@@ -22,15 +22,15 @@ export const TokenImg = ({
 }: Props) => {
   const imageWidth = isDesktopLayout ? 320 : 160;
 
-  // if (stackedTokensCount && stackedTokensCount > 1) {
-  //   return (
-  //     <StackedToken
-  //       token={token}
-  //       count={stackedTokensCount}
-  //       width={imageWidth}
-  //     />
-  //   );
-  // }
+  if (stackedTokensCount && stackedTokensCount > 1) {
+    return (
+      <StackedToken
+        token={token}
+        count={stackedTokensCount}
+        width={imageWidth}
+      />
+    );
+  }
 
   if (token.latestEnglishAuction && isBundledAuction) {
     return (
@@ -60,10 +60,10 @@ TokenImg.fragments = {
         #...BundledAuctionPreview_auction
       }
       ...FlexToken_token
-      #...StackedToken_token
+      ...StackedToken_token
     }
     ${FlexToken.fragments.token}
-    #{StackedToken.fragments.token}
+    ${StackedToken.fragments.token}
     #{BundledAuctionPreview.fragments.auction}
   `,
 };
