@@ -17,7 +17,7 @@ import useDefaultFilters from '@sorare/marketplace/src/hooks/useDefaultFilters';
 import AdvancedCardSearch from '@football/components/searchCards/AdvancedCardSearch';
 // import NewsSignings from '@football/pages/TransferMarket/OnboardingDialog/NewsSignings';
 import PageTemplate from '@football/pages/TransferMarket/PageTemplate';
-// import { SelectedLeaderboardBanner } from '@football/pages/TransferMarket/SelectedLeaderboardBanner';
+import { SelectedLeaderboardBanner } from '@football/pages/TransferMarket/SelectedLeaderboardBanner';
 import {
   advancedPrimaryMarketFilters,
   primaryMarketFilters,
@@ -66,8 +66,7 @@ const NewSignings = () => {
               />
             </>
           }
-          // banner={<SelectedLeaderboardBanner />}
-          banner={<></>} //TODO****
+          banner={<SelectedLeaderboardBanner />}
           isBlockchain
           distinct
         />
@@ -76,15 +75,15 @@ const NewSignings = () => {
   );
 };
 
-// NewSignings.fragments = {
-//   card: gql`
-//     fragment NewSignings_card on Card {
-//       slug
-//       assetId
-//       ...AdvancedCardSearch_card
-//     }
-//     ${AdvancedCardSearch.fragments.card}
-//   `,
-// };
+NewSignings.fragments = {
+  card: gql`
+    fragment NewSignings_card on Card {
+      slug
+      assetId
+      ...AdvancedCardSearch_card
+    }
+    ${AdvancedCardSearch.fragments.card}
+  `,
+};
 
 export default NewSignings;
