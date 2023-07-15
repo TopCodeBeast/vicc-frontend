@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import { /*MarketplacePreference,*/ Sport } from '__generated__/globalTypes';
+import { MarketplacePreference, Sport } from '__generated__/globalTypes';
 import Switch from '@core/atoms/inputs/Switch';
 import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
 import { ConfirmDialog } from '@core/components/form/ConfirmDialog';
@@ -23,13 +23,13 @@ const ACCEPT_CASH_OFFERS_QUERY = gql`
       slug
       profile {
         id
-        # marketplacePreferences(sports: [FOOTBALL, NBA, BASEBALL]) {
-        #   sport
-        #   preferences {
-        #     name
-        #     value
-        #   }
-        # }
+        marketplacePreferences(sports: [CRICKET]) {
+          sport
+          preferences {
+            name
+            value
+          }
+        }
       }
     }
   }
@@ -52,8 +52,6 @@ const Option = styled.div`
   justify-content: space-between;
 `;
 
-type MarketplacePreference = any;
-
 export const AcceptCashOnly = () => {
   const [confirmingPreference, setConfirmingPreference] = useState<{
     sport: Sport;
@@ -68,22 +66,21 @@ export const AcceptCashOnly = () => {
     AcceptCashOffersQueryVariables
   >(ACCEPT_CASH_OFFERS_QUERY);
 
-  const acceptCashOffersPreferences = []; //TODO***
-  // const acceptCashOffersPreferences = useMemo(
-  //   () =>
-  //     (data?.currentUser?.profile.marketplacePreferences
-  //       .map(({ sport, preferences }) => ({
-  //         sport,
-  //         preference: preferences.find(
-  //           ({ name }) => name === 'cash_only_offers'
-  //         ),
-  //       }))
-  //       .filter(({ preference }) => !!preference) || []) as {
-  //       sport: Sport;
-  //       preference: MarketplacePreference;
-  //     }[],
-  //   [data]
-  // );
+  const acceptCashOffersPreferences = useMemo(
+    () =>
+      (data?.currentUser?.profile.marketplacePreferences
+        .map(({ sport, preferences }) => ({
+          sport,
+          preference: preferences.find(
+            ({ name }) => name === 'cash_only_offers'
+          ),
+        }))
+        .filter(({ preference }) => !!preference) || []) as {
+        sport: Sport;
+        preference: MarketplacePreference;
+      }[],
+    [data]
+  );
 
   const onChange = ({
     sport,
@@ -94,15 +91,15 @@ export const AcceptCashOnly = () => {
     preference: MarketplacePreference;
     checked: boolean;
   }) => {
-    // updateUserProfile({
-    //   marketplacePreferences: [
-    //     {
-    //       sports: [sport],
-    //       name: preference.name,
-    //       value: checked,
-    //     },
-    //   ],
-    // });
+    updateUserProfile({
+      marketplacePreferences: [
+        {
+          sports: [sport],
+          name: preference.name,
+          value: checked,
+        },
+      ],
+    });
   };
 
   return (

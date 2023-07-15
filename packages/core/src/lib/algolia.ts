@@ -248,39 +248,36 @@ export const convertCardHitToToken = (
   collection: FakeCollectionMappings[hit.sport] || Collection.CRICKET, // this assertion is factually wrong but that's a separate concern
 });
 
-// export const tokenHitFragment = gql`
-//   fragment Algolia_CardHit_token on Token {
-//     assetId
-//     slug
-//     collection
-//     sport
-//     metadata {
-//       ... on TokenBaseballMetadata {
-//         id
-//       }
-//       ... on TokenFootballMetadata {
-//         id
-//       }
-//       ... on TokenCardMetadataInterface {
-//         rarity
-//         serialNumber
-//         seasonStartYear
-//         playerDisplayName
-//         playerSlug
-//       }
-//     }
-//     pictureUrl(derivative: "tinified")
-//     owner {
-//       id
-//       user {
-//         slug
-//       }
-//     }
-//     ethereumId
-//     tradeableStatus
-//     walletStatus
-//   }
-// `;
+export const tokenHitFragment = gql`
+  fragment Algolia_CardHit_token on Token {
+    assetId
+    slug
+    collection
+    sport
+    metadata {
+      ... on TokenCricketMetadata {
+        id
+      }
+      ... on TokenCardMetadataInterface {
+        rarity
+        serialNumber
+        seasonStartYear
+        playerDisplayName
+        playerSlug
+      }
+    }
+    pictureUrl(derivative: "tinified")
+    owner {
+      id
+      user {
+        slug
+      }
+    }
+    ethereumId
+    tradeableStatus
+    walletStatus
+  }
+`;
 
 export function isCardHit(card: any): card is CardHit {
   return (card as CardHit).objectID !== undefined;

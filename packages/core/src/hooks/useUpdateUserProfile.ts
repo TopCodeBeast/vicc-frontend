@@ -29,13 +29,13 @@ const UPDATE_USER_PROFILE_MUTATION = gql`
           slug
           nickname
         }
-        # marketplacePreferences(sports: [FOOTBALL, NBA, BASEBALL]) {
-        #   sport
-        #   preferences {
-        #     name
-        #     value
-        #   }
-        # }
+        marketplacePreferences(sports: [CRICKET]) {
+          sport
+          preferences {
+            name
+            value
+          }
+        }
       }
       errors {
         path

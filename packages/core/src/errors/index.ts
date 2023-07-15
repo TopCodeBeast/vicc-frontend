@@ -1,23 +1,23 @@
 import MutationError, { NAME as MUTATION_ERROR } from '@core/errors/mutation';
 import NetworkError, { NAME as NETWORK_ERROR } from '@core/errors/network';
-// import WalletAccessError, {
-//   NAME as WALLET_ACCESS_ERROR,
-// } from '@core/errors/walletAccess';
+import WalletAccessError, {
+  NAME as WALLET_ACCESS_ERROR,
+} from '@core/errors/walletAccess';
 import { Await } from '@core/types';
 
-// import BankApprovalError, { NAME as BANK_APPROVAL_ERROR } from './bankApproval';
-// import EthMigrationError, { NAME as ETH_MIGRATION_ERROR } from './ethMigration';
-// import MigratorApprovalError, {
-//   NAME as MIGRATOR_APPROVAL_ERROR,
-// } from './migratorApproval';
+import BankApprovalError, { NAME as BANK_APPROVAL_ERROR } from './bankApproval';
+import EthMigrationError, { NAME as ETH_MIGRATION_ERROR } from './ethMigration';
+import MigratorApprovalError, {
+  NAME as MIGRATOR_APPROVAL_ERROR,
+} from './migratorApproval';
 
 export const errors = [
-  // BANK_APPROVAL_ERROR,
-  // ETH_MIGRATION_ERROR,
-  // MIGRATOR_APPROVAL_ERROR,
+  BANK_APPROVAL_ERROR,
+  ETH_MIGRATION_ERROR,
+  MIGRATOR_APPROVAL_ERROR,
   MUTATION_ERROR,
   NETWORK_ERROR,
-  // WALLET_ACCESS_ERROR,
+  WALLET_ACCESS_ERROR,
 ] as const;
 
 export type AppError = (typeof errors)[number];
@@ -48,10 +48,10 @@ export function errorWrapper<T extends (...args: any[]) => any>(
 }
 
 export {
-  // BankApprovalError,
-  // EthMigrationError,
-  // MigratorApprovalError,
+  BankApprovalError,
+  EthMigrationError,
+  MigratorApprovalError,
   MutationError,
   NetworkError,
-  // WalletAccessError,
+  WalletAccessError,
 };

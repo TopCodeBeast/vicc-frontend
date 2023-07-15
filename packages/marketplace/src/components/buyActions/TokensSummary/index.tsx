@@ -186,10 +186,7 @@ TokensSummary.fragments = {
       assetId
       slug
       metadata {
-        ... on TokenBaseballMetadata {
-          id
-        }
-        ... on TokenFootballMetadata {
+        ... on TokenCricketMetadata {
           id
         }
         ... on TokenCardMetadataInterface {

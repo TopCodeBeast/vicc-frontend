@@ -6,7 +6,7 @@ import {
   SupportedCurrency,
 } from '@sorare/core/src/__generated__/globalTypes';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
-import useCreateEthMigration from '@sorare/core/src/hooks/starkware/useCreateEthMigration';
+// import useCreateEthMigration from '@sorare/core/src/hooks/starkware/useCreateEthMigration';
 import { generateDealId } from '@sorare/core/src/lib/deal';
 
 import { useSingleSaleOfferContext } from '@marketplace/contexts/singleSaleOffer';
@@ -80,7 +80,7 @@ const useCreateSingleSaleOffer = () => {
   const { showPopin } = useSingleSaleOfferContext();
   const approveMigrator = useApproveMigrator();
   const migrateCards = useMigrateCards();
-  const createEthMigration = useCreateEthMigration();
+  // const createEthMigration = useCreateEthMigration();
   const prepareOffer = usePrepareOffer();
 
   return async ({
@@ -90,7 +90,7 @@ const useCreateSingleSaleOffer = () => {
     duration,
   }: CreateSingleSaleOfferArgs) => {
     await approveMigrator([token]);
-    await createEthMigration();
+    // await createEthMigration();
     const migrationData = await migrateCards([token]);
 
     const {
