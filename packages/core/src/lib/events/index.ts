@@ -7,3 +7,12 @@ export const useFootballEvents = () => {
 export const getInteractionContext = () => {
   return 'InteractionContext';
 };
+
+export enum socialShareEventContext {
+  CARD_PAGE,
+}
+
+export enum socialShareEventName {
+  SHARE_CARD,
+}
+  

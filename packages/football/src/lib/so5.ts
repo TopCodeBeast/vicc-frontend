@@ -501,20 +501,20 @@ export const isGameScheduled = (gameStatus: string): boolean =>
 //     { ...emptyLineupByPosition }
 //   );
 
-// export const socialSharingMessages = defineMessages({
-//   lineup: {
-//     id: 'SocialSharingSo5.lineup',
-//     defaultMessage: 'Check out that lineup',
-//   },
-//   myLineup: {
-//     id: 'SocialSharingSo5.myLineup',
-//     defaultMessage: 'Check out my lineup',
-//   },
-//   card: {
-//     id: 'SocialSharingSo5.card',
-//     defaultMessage: 'Check out this card',
-//   },
-// });
+export const socialSharingMessages = defineMessages({
+  lineup: {
+    id: 'SocialSharingSo5.lineup',
+    defaultMessage: 'Check out that lineup',
+  },
+  myLineup: {
+    id: 'SocialSharingSo5.myLineup',
+    defaultMessage: 'Check out my lineup',
+  },
+  card: {
+    id: 'SocialSharingSo5.card',
+    defaultMessage: 'Check out this card',
+  },
+});
 
 // export const startedLineupSharingMessages = defineMessages({
 //   set1: {

@@ -10,7 +10,7 @@ import { scarcityNames } from '@sorare/core/src/lib/cards';
 import { format } from '@sorare/core/src/lib/seasons';
 import { metadatas } from '@sorare/core/src/lib/seo/common';
 
-// import CardPageContent from '@football/components/card/CardPage';
+import CardPageContent from '@football/components/card/CardPage';
 
 import { CardQuery, CardQueryVariables } from './__generated__/index.graphql';
 
@@ -34,10 +34,10 @@ export const CARD_QUERY = gql`
         slug
         displayName
       }
-      #...CardPage_card
+      ...CardPage_card
     }
   }
-  #{CardPageContent.fragments.card}
+  ${CardPageContent.fragments.card}
 `;
 
 export const CardPage = () => {
@@ -59,51 +59,51 @@ export const CardPage = () => {
     connection: 'TokenBidConnection',
   });
 
-  const { InfiniteScrollLoader } = useInfiniteScroll(
-    useCallback(() => {
-      loadMoreBids(
-        false,
-        {
-          slug: slug!,
-          scoreCursor: data?.football.card?.allSo5Scores?.pageInfo.endCursor,
-          first: scoresLimit,
-        },
-        'So5ScoreConnection'
-      );
-    }, [
-      data?.football.card.allSo5Scores.pageInfo.endCursor,
-      slug,
-      scoresLimit,
-      loadMoreBids,
-    ]),
-    !!data?.football.card?.allSo5Scores?.pageInfo.hasNextPage,
-    loading
-  );
+  // const { InfiniteScrollLoader } = useInfiniteScroll(
+  //   useCallback(() => {
+  //     loadMoreBids(
+  //       false,
+  //       {
+  //         slug: slug!,
+  //         scoreCursor: data?.card?.allSo5Scores?.pageInfo.endCursor,
+  //         first: scoresLimit,
+  //       },
+  //       'So5ScoreConnection'
+  //     );
+  //   }, [
+  //     data?.card.allSo5Scores.pageInfo.endCursor,
+  //     slug,
+  //     scoresLimit,
+  //     loadMoreBids,
+  //   ]),
+  //   !!data?.card?.allSo5Scores?.pageInfo.hasNextPage,
+  //   loading
+  // );
 
   useTitleAndDescription(
     metadatas.card.title,
     metadatas.card.description,
-    !!data?.football.card && {
-      display_name: data.football.card.player.displayName,
-      scarcity: scarcityNames[data.football.card.rarity],
+    !!data?.card && {
+      display_name: data.card.player.displayName,
+      scarcity: scarcityNames[data.card.rarity],
       season: format(
         {
-          startYear: data.football.card.season.startYear,
+          startYear: data.card.season.startYear,
         },
-        { singleCivilYear: data.football.card.singleCivilYear }
+        { singleCivilYear: data.card.singleCivilYear }
       ),
     }
   );
 
   return (
-    <>CardPageContent</>
-    // <CardPageContent
-    //   slug={data?.football.card ? data.football.card.slug : ''}
-    //   card={data?.football.card}
-    //   loading={loading}
-    //   loadMoreBids={loadMoreBids}
-    //   InfiniteScrollLoader={<InfiniteScrollLoader />}
-    // />
+    <CardPageContent
+      slug={data?.card ? data.card.slug : ''}
+      card={data?.card}
+      loading={loading}
+      loadMoreBids={loadMoreBids}
+      // InfiniteScrollLoader={<InfiniteScrollLoader />}
+      InfiniteScrollLoader={<>InfiniteScrollLoader555</>}
+    />
   );
 };
 
