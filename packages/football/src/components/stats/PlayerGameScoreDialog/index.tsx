@@ -57,12 +57,14 @@
 //   #{PlayerStatsDialog.fragments.representativePlayer}
 // `;
 
-// type Props = {
-//   open: boolean;
-//   onClose: () => void;
-//   so5ScoreId: string;
-//   player?: PlayerGameScoreDialogQuery_player;
-// };
+type PlayerGameScoreDialogQuery_player = any;
+
+type Props = {
+  open: boolean;
+  onClose: () => void;
+  so5ScoreId: string;
+  player?: PlayerGameScoreDialogQuery_player;
+};
 
 // export const PlayerGameScoreDialog = ({
 //   onClose,
@@ -112,8 +114,13 @@
 // export default PlayerGameScoreDialog;
 
 
-const PlayerGameScoreDialog = () => {
-  return (<>PlayerGameScoreDialog</>)
+export const PlayerGameScoreDialog = ({
+  onClose,
+  open,
+  so5ScoreId,
+  player: effectivePlayer,
+}: Props) => {
+  return (<>PlayerGameScoreDialog12</>)
 }
 
 export default PlayerGameScoreDialog;

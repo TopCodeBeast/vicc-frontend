@@ -156,9 +156,10 @@ export const CompetitionListTable = ({
           leaderboard,
           lineupId: i,
         }));
-      const canBuyExtraTeams = extraTeamsCapItems?.some(
-        ({ myPurchasesCount }) => !myPurchasesCount
-      );
+      const canBuyExtraTeams = false;
+      // const canBuyExtraTeams = extraTeamsCapItems?.some(
+      //   ({ myPurchasesCount }) => !myPurchasesCount
+      // );
       if (
         canBuyExtraTeams &&
         leaderboard.trainingCenter &&
@@ -189,10 +190,11 @@ export const CompetitionListTable = ({
     },
     []
   );
-  const draftedLeaderboard = leaderboardTeams.find(
-    ({ leaderboard: { commonDraftCampaign } }) =>
-      commonDraftCampaign?.campaignType === 'ONBOARDING'
-  );
+  const draftedLeaderboard = null;//TODO
+  // const draftedLeaderboard = leaderboardTeams.find(
+  //   ({ leaderboard: { commonDraftCampaign } }) =>
+  //     commonDraftCampaign?.campaignType === 'ONBOARDING'
+  // );
   const leaderboardsSemiPro = leaderboardTeams.filter(
     ({ leaderboard: { so5LeaderboardType } }) =>
       /_SEMI_PRO$/.test(so5LeaderboardType)

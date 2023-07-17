@@ -20,41 +20,41 @@ const useOnSubmit = <D extends useOnSubmit_token>(
 
   return useCallback(
     async (dispatch: Dispatch<Actions<D>>, state: State<D>) => {
-      dispatch(switchToSubmitting);
-      try {
-        const { sendCards, receiveCards, cardsData } = state;
-        if (![...sendCards, ...receiveCards].every(c => cardsData[c.objectID]))
-          throw new Error('Please retry later [Missing Card data]');
+      // dispatch(switchToSubmitting);
+      // try {
+      //   const { sendCards, receiveCards, cardsData } = state;
+      //   if (![...sendCards, ...receiveCards].every(c => cardsData[c.objectID]))
+      //     throw new Error('Please retry later [Missing Card data]');
 
-        const errors = await createOffer(
-          to,
-          state.sendEth.toString(),
-          state.receiveEth.toString(),
-          sendCards.map(c => cardsData[c.objectID]),
-          receiveCards.map(c => cardsData[c.objectID]),
-          state.duration * 24 * 60 * 60,
-          counteredOfferId
-        );
-        if (errors) {
-          if (
-            errors.some(
-              error =>
-                typeof error === 'object' &&
-                'code' in error &&
-                error?.code === errorCodes.unverifiedEmail
-            )
-          ) {
-            onDone();
-          }
-          dispatch(switchToBuilding);
-        } else {
-          onDone();
-          showNotification('offerSent');
-        }
-      } catch (e: any) {
-        showNotification('errors', { errors: e.message });
-        dispatch(switchToBuilding);
-      }
+      //   const errors = await createOffer(
+      //     to,
+      //     state.sendEth.toString(),
+      //     state.receiveEth.toString(),
+      //     sendCards.map(c => cardsData[c.objectID]),
+      //     receiveCards.map(c => cardsData[c.objectID]),
+      //     state.duration * 24 * 60 * 60,
+      //     counteredOfferId
+      //   );
+      //   if (errors) {
+      //     if (
+      //       errors.some(
+      //         error =>
+      //           typeof error === 'object' &&
+      //           'code' in error &&
+      //           error?.code === errorCodes.unverifiedEmail
+      //       )
+      //     ) {
+      //       onDone();
+      //     }
+      //     dispatch(switchToBuilding);
+      //   } else {
+      //     onDone();
+      //     showNotification('offerSent');
+      //   }
+      // } catch (e: any) {
+      //   showNotification('errors', { errors: e.message });
+      //   dispatch(switchToBuilding);
+      // }
     },
     [counteredOfferId, createOffer, onDone, showNotification, to]
   );

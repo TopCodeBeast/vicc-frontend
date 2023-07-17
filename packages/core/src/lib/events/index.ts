@@ -10,9 +10,18 @@ export const getInteractionContext = () => {
 
 export enum socialShareEventContext {
   CARD_PAGE,
+  SQUAD,
 }
 
 export enum socialShareEventName {
   SHARE_CARD,
+  SHARE_SQUAD,
 }
-  
+
+export type SocialShareEventContext = any;
+export type SocialShareEventName = any;
+export const shareByCopyLinkEvent = (...params: any) => ({} as any);
+export const shareByImageEvent = (...params: any) => ({} as any);
+export const shareOnFacebookEvent = (...params: any) => ({} as any);
+export const shareOnTwitterEvent = (...params: any) => ({} as any);
+export const shareWithShareSheetEvent = (...params: any) => ({} as any);

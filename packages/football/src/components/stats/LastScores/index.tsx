@@ -9,7 +9,7 @@ import { ReactNode, useMemo, useState } from 'react';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { Position } from '@sorare/core/src/__generated__/globalTypes';
+import { GameStatus, Position } from '@sorare/core/src/__generated__/globalTypes';
 import Select from '@sorare/core/src/atoms/inputs/Select';
 import { Tabs } from '@sorare/core/src/atoms/navigation/Tabs';
 import { Text16, Text20, Title6 } from '@sorare/core/src/atoms/typography';
@@ -305,8 +305,8 @@ const LastScores = ({
     label: formatDate(key, { month: 'short', year: '2-digit' }),
     games: gamesByMonth[key].map(score => {
       const gamePlayed =
-        score.playerGameStats.game.status !== GameEventStatus.POSTPONED &&
-        score.playerGameStats.game.status !== GameEventStatus.CANCELLED;
+        score.playerGameStats.game.status !== GameStatus.POSTPONED &&
+        score.playerGameStats.game.status !== GameStatus.CANCELLED;
       const isDNP = !score.playerGameStats.minsPlayed;
       const playerScore =
         !isDNP && gamePlayed && typeof score.score === 'number'
@@ -335,7 +335,7 @@ const LastScores = ({
         dnpLabel: !gamePlayed ? (
           <FontAwesomeIcon
             icon={
-              StatusIcon[score.playerGameStats.game.status as GameEventStatus]!
+              StatusIcon[score.playerGameStats.game.status as GameStatus]!
             }
             title={formatMessage(
               gameStatusMessages[score.playerGameStats.game.status]

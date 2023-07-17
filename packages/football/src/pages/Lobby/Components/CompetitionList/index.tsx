@@ -140,19 +140,19 @@ export const CompetitionList = ({
       const { cardsCountOfCurrentUser } = leaderboard?.rules || {};
       const { showRecommended, scarcity = 'all' } = sortAndFilters.filter!;
       const filteredByScarcity = ['all', backgroundScarcity].includes(scarcity);
-      const { hasFeaturedStarterPacks, canCompose, rarityType } = leaderboard;
+      const { hasFeaturedStarterPacks, /*canCompose,*/ rarityType } = leaderboard;
 
       if (!showRecommended) {
         return filteredByScarcity;
       }
 
-      if (
-        hasFeaturedStarterPacks ||
-        canCompose.value ||
-        rarityType === Rarity.common
-      ) {
-        return filteredByScarcity;
-      }
+      // if (
+      //   hasFeaturedStarterPacks ||
+      //   canCompose.value ||
+      //   rarityType === Rarity.common
+      // ) {
+      //   return filteredByScarcity;
+      // }
 
       const availableKickoff =
         cardsCountOfCurrentUser?.maximumCards === 10 &&

@@ -114,7 +114,7 @@ export const Teams = ({
   const { hasNextPage, endCursor } = pageInfo || {};
   const lineups = edges?.map(edge => edge.node);
   const lineupsToShow = lineups?.filter(
-    lineup => !queryVariables.draft || lineup?.draft
+    lineup => !queryVariables.draft // || lineup?.draft
   );
   let alreadyfetched = lineupsToShow?.length || 0;
   if (displayRecommendedLeaderboard) {

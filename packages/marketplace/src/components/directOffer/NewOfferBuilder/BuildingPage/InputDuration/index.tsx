@@ -83,7 +83,7 @@ const InputDuration = <D extends CardDataType>({
     <Wrapper>
       <Title6>
         <FormattedMessage {...messages.duration} />
-        {to.hoursToAnswerTrades && (
+        {/* {to.hoursToAnswerTrades && (
           <Subtitle>
             <FormattedMessage
               {...messages.answersIn}
@@ -94,7 +94,7 @@ const InputDuration = <D extends CardDataType>({
               }}
             />
           </Subtitle>
-        )}
+        )} */}
       </Title6>
       <Select
         options={options}

@@ -11,10 +11,10 @@ import { useSnackNotificationContext } from '@core/contexts/snackNotification';
 import useMutation from '@core/hooks/graphql/useMutation';
 import useBlockchainAccountData from '@core/hooks/useBlockchainAccountData';
 
-import {
-  AddEthereumAccountMutation,
-  AddEthereumAccountMutationVariables,
-} from './__generated__/index.graphql';
+// import {
+//   AddEthereumAccountMutation,
+//   AddEthereumAccountMutationVariables,
+// } from './__generated__/index.graphql';
 
 // const ADD_ETHEREUM_ACCOUNT_MUTATION = gql`
 //   mutation AddEthereumAccountMutation($input: linkEthereumAddressInput!) {
@@ -67,10 +67,10 @@ export const AddEthereumAccountForm = ({ onSuccess: doOnSuccess }: Props) => {
   const [address, setAddress] = useState<string | null>(null);
   const accountData = useBlockchainAccountData();
   const { showNotification } = useSnackNotificationContext();
-  const [mutate] = useMutation<
-    AddEthereumAccountMutation,
-    AddEthereumAccountMutationVariables
-  >(ADD_ETHEREUM_ACCOUNT_MUTATION, { showErrorsInForm: true });
+  // const [mutate] = useMutation<
+  //   AddEthereumAccountMutation,
+  //   AddEthereumAccountMutationVariables
+  // >(ADD_ETHEREUM_ACCOUNT_MUTATION, { showErrorsInForm: true });
 
   const handleAddressChanged = (event: ChangeEvent<Element>) => {
     setAddress((event.target as HTMLInputElement).value.toLowerCase());
@@ -80,19 +80,19 @@ export const AddEthereumAccountForm = ({ onSuccess: doOnSuccess }: Props) => {
     values: any,
     onResult: (res: GraphQLResult) => void
   ) => {
-    if (!address) return;
-    if (!accountData?.ethereum.accountManager) return;
+    // if (!address) return;
+    // if (!accountData?.ethereum.accountManager) return;
 
-    const signature = await accountData.ethereum.web3.eth.personal.sign(
-      MESSAGE,
-      address,
-      ''
-    );
+    // const signature = await accountData.ethereum.web3.eth.personal.sign(
+    //   MESSAGE,
+    //   address,
+    //   ''
+    // );
 
-    const result = await mutate({
-      variables: { input: { address, signature } },
-    });
-    onResult(result);
+    // const result = await mutate({
+    //   variables: { input: { address, signature } },
+    // });
+    // onResult(result);
   };
 
   const onSuccess = () => {

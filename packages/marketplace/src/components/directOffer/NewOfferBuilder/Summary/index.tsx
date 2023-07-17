@@ -130,10 +130,11 @@ export const Summary = <D extends BaseType>({
           footer={
             <FooterWrapper>
               {ConsentMessage && (
-                <ConsentMessage
-                  value={consentAgreed}
-                  onChange={setConsentAgreed}
-                />
+                <>ConsentMessage666</>
+                // <ConsentMessage
+                //   value={consentAgreed}
+                //   onChange={setConsentAgreed}
+                // />
               )}
               <ButtonsBar>
                 <CancelCta

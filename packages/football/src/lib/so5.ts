@@ -12,49 +12,49 @@ import { generatePath } from 'react-router-dom';
 //   INVITE_USER_GROUP,
 // } from '@sorare/core/src/constants/routes';
 // import { CamelCaseScarcity, Scarcity } from '@sorare/core/src/lib//cards';
-// import {
-//   LobbyRarity,
-//   RANKED_SCARCITY,
-//   RankedScarcity,
-//   ScarcityType,
-//   scarcityMessages,
-// } from '@sorare/core/src/lib//scarcity';
+import {
+  LobbyRarity,
+  RANKED_SCARCITY,
+  RankedScarcity,
+  ScarcityType,
+  scarcityMessages,
+} from '@sorare/core/src/lib//scarcity';
 import { sortByArrayIndex } from '@sorare/core/src/lib/arrays';
-// import { withFragments } from '@sorare/core/src/lib/gql';
+import { withFragments } from '@sorare/core/src/lib/gql';
 // import { asObject } from '@sorare/core/src/lib/json';
 // import {
 //   PlayablePosition,
 //   playablePositions,
 // } from '@sorare/core/src/lib/players';
 
-// import {
-//   Lib_So5_so5Leaderboard,
-//   Lib_So5_so5League,
-//   getLeaderboardInfo_so5Leaderboard,
-//   getPlayerScore_so5Score,
-//   hasBonuses_so5Leaderboard,
-//   isBlockchainLeague_so5League,
-//   sortLeaderboards_leaderboard,
-// } from './__generated__/so5.graphql';
+import {
+  Lib_So5_so5Leaderboard,
+  Lib_So5_so5League,
+  getLeaderboardInfo_so5Leaderboard,
+  getPlayerScore_so5Score,
+  // hasBonuses_so5Leaderboard,
+  // isBlockchainLeague_so5League,
+  // sortLeaderboards_leaderboard,
+} from './__generated__/so5.graphql';
 
-// const fragments = {
-//   so5Leaderboard: gql`
-//     fragment Lib_So5_so5Leaderboard on So5Leaderboard {
-//       slug
-//       displayName
-//       rarityType
-//     }
-//   `,
-//   so5League: gql`
-//     fragment Lib_So5_so5League on So5League {
-//       slug
-//       name
-//       displayName
-//       shortDisplayName
-//       category
-//     }
-//   `,
-// };
+const fragments = {
+  so5Leaderboard: gql`
+    fragment Lib_So5_so5Leaderboard on Vicc5Leaderboard {
+      slug
+      displayName
+      rarityType
+    }
+  `,
+  so5League: gql`
+    fragment Lib_So5_so5League on Vicc5League {
+      slug
+      name
+      displayName
+      shortDisplayName
+      category
+    }
+  `,
+};
 
 // export type LeagueType = Omit<Lib_So5_so5League, '__typename' | 'slug'>;
 // export type LeagueNameType = { name: string };
@@ -340,12 +340,12 @@ export enum PlayerScoreStatus {
 }
 
 export enum GameEventStatus {
-  SCHEDULED = 'scheduled',
-  PLAYING = 'playing',
-  PLAYED = 'played',
-  CANCELLED = 'cancelled',
-  POSTPONED = 'postponed',
-  SUSPENDED = 'suspended',
+  SCHEDULED = 'SCHEDULED',
+  PLAYING = 'PLAYING',
+  PLAYED = 'PLAYED',
+  CANCELLED = 'CANCELLED',
+  POSTPONED = 'POSTPONED',
+  SUSPENDED = 'SUSPENDED',
 }
 
 export const gameStatusMessages = defineMessages<string>({
@@ -379,69 +379,69 @@ export const isGameLeft = (gameStatus: string): boolean =>
 export const isGameScheduled = (gameStatus: string): boolean =>
   gameStatus === GameEventStatus.SCHEDULED;
 
-// export type So5Score_playerScore = Omit<getPlayerScore_so5Score, 'id'>;
+export type So5Score_playerScore = Omit<getPlayerScore_so5Score, 'id'>;
 
-// export const getPlayerScore = withFragments(
-//   (so5Score?: So5Score_playerScore | null, bonus?: number | null) => {
-//     if (!so5Score) {
-//       return { score: null, status: PlayerScoreStatus.NO_GAME };
-//     }
+export const getPlayerScore = withFragments(
+  (so5Score?: So5Score_playerScore | null, bonus?: number | null) => {
+    if (!so5Score) {
+      return { score: null, status: PlayerScoreStatus.NO_GAME };
+    }
 
-//     const { game } = so5Score;
-//     const gameStatus = game.status;
-//     const { minsPlayed } = so5Score.playerGameStats;
+    const { game } = so5Score;
+    const gameStatus = game.status;
+    const { minsPlayed } = so5Score.playerGameStats;
 
-//     if (!!gameStatus && isGameScheduled(gameStatus)) {
-//       return { score: null, status: PlayerScoreStatus.PENDING };
-//     }
+    if (!!gameStatus && isGameScheduled(gameStatus)) {
+      return { score: null, status: PlayerScoreStatus.PENDING };
+    }
 
-//     if (!(minsPlayed && minsPlayed > 0)) {
-//       return { score: null, status: PlayerScoreStatus.DID_NOT_PLAY };
-//     }
+    if (!(minsPlayed && minsPlayed > 0)) {
+      return { score: null, status: PlayerScoreStatus.DID_NOT_PLAY };
+    }
 
-//     const isScoreDefined = typeof so5Score.score === 'number';
+    const isScoreDefined = typeof so5Score.score === 'number';
 
-//     if (!isScoreDefined) {
-//       return { score: null, status: null };
-//     }
+    if (!isScoreDefined) {
+      return { score: null, status: null };
+    }
 
-//     const score = so5Score.score
-//       ? so5Score.score * (bonus || 1)
-//       : so5Score.score;
+    const score = so5Score.score
+      ? so5Score.score * (bonus || 1)
+      : so5Score.score;
 
-//     const reviewing = Boolean(
-//       gameStatus &&
-//         (isGameLive(gameStatus) || isGameFinished(gameStatus)) &&
-//         !so5Score?.playerGameStats?.reviewed
-//     );
+    const reviewing = Boolean(
+      gameStatus &&
+        (isGameLive(gameStatus) || isGameFinished(gameStatus)) &&
+        !so5Score?.playerGameStats?.reviewed
+    );
 
-//     if (reviewing) {
-//       return { score, status: PlayerScoreStatus.REVIEWING };
-//     }
+    if (reviewing) {
+      return { score, status: PlayerScoreStatus.REVIEWING };
+    }
 
-//     return {
-//       score,
-//       status: null,
-//     };
-//   },
-//   {
-//     so5Score: gql`
-//       fragment getPlayerScore_so5Score on So5Score {
-//         id
-//         score
-//         playerGameStats {
-//           id
-//           minsPlayed
-//           reviewed
-//         }
-//         game {
-//           id
-//           status
-//         }
-//       }
-//     `,
-//   }
-// );
+    return {
+      score,
+      status: null,
+    };
+  },
+  {
+    so5Score: gql`
+      fragment getPlayerScore_so5Score on Vicc5Score {
+        id
+        score
+        playerGameStats {
+          id
+          minsPlayed
+          reviewed
+        }
+        game {
+          id
+          status
+        }
+      }
+    `,
+  }
+);
 
 // export const positionShortNames = defineMessages<GlobalPosition | Position>({
 //   Forward: {
@@ -516,99 +516,99 @@ export const socialSharingMessages = defineMessages({
   },
 });
 
-// export const startedLineupSharingMessages = defineMessages({
-//   set1: {
-//     id: 'StartedLineupSharingMessages.lineup.set1',
-//     defaultMessage:
-//       '🏆 Can you beat my team score in the {displayName} competition on #Sorare? Let’s see what you got! 💪',
-//   },
-//   set2: {
-//     id: 'StartedLineupSharingMessages.lineup.set2',
-//     defaultMessage:
-//       '💥 My #Sorare line-up in the {displayName} competition was on fire! 🔥 Think you can do better? Prove it!',
-//   },
-//   set3: {
-//     id: 'StartedLineupSharingMessages.lineup.set3',
-//     defaultMessage:
-//       '🔭 Another scouting masterclass from {clubName} in the {displayName} competition. Think you know football better? See you on #Sorare!',
-//   },
-// });
+export const startedLineupSharingMessages = defineMessages({
+  set1: {
+    id: 'StartedLineupSharingMessages.lineup.set1',
+    defaultMessage:
+      '🏆 Can you beat my team score in the {displayName} competition on #Sorare? Let’s see what you got! 💪',
+  },
+  set2: {
+    id: 'StartedLineupSharingMessages.lineup.set2',
+    defaultMessage:
+      '💥 My #Sorare line-up in the {displayName} competition was on fire! 🔥 Think you can do better? Prove it!',
+  },
+  set3: {
+    id: 'StartedLineupSharingMessages.lineup.set3',
+    defaultMessage:
+      '🔭 Another scouting masterclass from {clubName} in the {displayName} competition. Think you know football better? See you on #Sorare!',
+  },
+});
 
-// export const notStartedLineupSharingMessages = defineMessages({
-//   set1: {
-//     id: 'NotStartedLineupSharingMessages.lineup.set1',
-//     defaultMessage:
-//       '🚀 I’ve set my line-up for the {displayName} competition! Are you game? Join me on #Sorare and let’s compete! 🥇',
-//   },
-//   set2: {
-//     id: 'NotStartedLineupSharingMessages.lineup.set2',
-//     defaultMessage:
-//       '⚡️ It’s almost time for the {displayName} competition! Get your teams ready and challenge me on #Sorare! 🏆',
-//   },
-//   set3: {
-//     id: 'NotStartedLineupSharingMessages.lineup.set3',
-//     defaultMessage:
-//       '🌟 The {displayName} competition is coming up, and my team is ready to win! Can you beat me? Catch you on #Sorare! 🕶',
-//   },
-// });
+export const notStartedLineupSharingMessages = defineMessages({
+  set1: {
+    id: 'NotStartedLineupSharingMessages.lineup.set1',
+    defaultMessage:
+      '🚀 I’ve set my line-up for the {displayName} competition! Are you game? Join me on #Sorare and let’s compete! 🥇',
+  },
+  set2: {
+    id: 'NotStartedLineupSharingMessages.lineup.set2',
+    defaultMessage:
+      '⚡️ It’s almost time for the {displayName} competition! Get your teams ready and challenge me on #Sorare! 🏆',
+  },
+  set3: {
+    id: 'NotStartedLineupSharingMessages.lineup.set3',
+    defaultMessage:
+      '🌟 The {displayName} competition is coming up, and my team is ready to win! Can you beat me? Catch you on #Sorare! 🕶',
+  },
+});
 
-// export const getLeaderboardInfo = withFragments(
-//   (
-//     leaderboard: getLeaderboardInfo_so5Leaderboard
-//   ): {
-//     backgroundScarcity: ScarcityType;
-//     isTraining: boolean;
-//     weight: number;
-//     scarcityMessageDescriptor: MessageDescriptor;
-//     scarcity: ScarcityType;
-//     hasRewards: boolean;
-//     commonDraftCampaignSlug?: string;
-//   } => {
-//     const { totalRewards, rarityType, commonDraftCampaign, trainingCenter } =
-//       leaderboard;
-//     const rawScarcity = rarityType as LobbyRarity;
-//     const isPro = rawScarcity === 'rare_pro';
-//     const scarcity = isPro ? 'rare' : rawScarcity;
-//     const backgroundScarcity = scarcity;
-//     const scarcityMessageDescriptor = scarcityMessages[scarcity];
-//     let rankedScarcity: RankedScarcity = rawScarcity;
-//     if (trainingCenter) rankedScarcity = 'training';
-//     const hasCardsRewards = (totalRewards.cards as { rarities?: any[] })
-//       ?.rarities?.length;
-//     const hasEthRewards = totalRewards.prizePool;
-//     const hasCustomRewards = (totalRewards.experiences as { type?: any[] })
-//       ?.type?.length;
+export const getLeaderboardInfo = withFragments(
+  (
+    leaderboard: getLeaderboardInfo_so5Leaderboard
+  ): {
+    backgroundScarcity: ScarcityType;
+    isTraining: boolean;
+    weight: number;
+    scarcityMessageDescriptor: MessageDescriptor;
+    scarcity: ScarcityType;
+    hasRewards: boolean;
+    commonDraftCampaignSlug?: string;
+  } => {
+    const { totalRewards, rarityType, commonDraftCampaign, trainingCenter } =
+      leaderboard;
+    const rawScarcity = rarityType as LobbyRarity;
+    const isPro = rawScarcity === 'rare_pro';
+    const scarcity = isPro ? 'rare' : rawScarcity;
+    const backgroundScarcity = scarcity;
+    const scarcityMessageDescriptor = scarcityMessages[scarcity];
+    let rankedScarcity: RankedScarcity = rawScarcity;
+    if (trainingCenter) rankedScarcity = 'training';
+    const hasCardsRewards = (totalRewards.cards as { rarities?: any[] })
+      ?.rarities?.length;
+    const hasEthRewards = totalRewards.prizePool;
+    const hasCustomRewards = (totalRewards.experiences as { type?: any[] })
+      ?.type?.length;
 
-//     return {
-//       backgroundScarcity,
-//       isTraining: trainingCenter,
-//       weight: RANKED_SCARCITY[rankedScarcity],
-//       scarcityMessageDescriptor,
-//       scarcity,
-//       hasRewards: !!(hasCardsRewards || hasEthRewards || hasCustomRewards),
-//       commonDraftCampaignSlug: commonDraftCampaign?.slug,
-//     };
-//   },
-//   {
-//     so5Leaderboard: gql`
-//       fragment getLeaderboardInfo_so5Leaderboard on So5Leaderboard {
-//         slug
-//         trainingCenter
-//         commonDraftCampaign {
-//           slug
-//         }
-//         totalRewards {
-//           cards
-//           experiences
-//           prizePool
-//           prizePoolCurrency
-//         }
-//         ...Lib_So5_so5Leaderboard
-//       }
-//       ${fragments.so5Leaderboard}
-//     `,
-//   }
-// );
+    return {
+      backgroundScarcity,
+      isTraining: trainingCenter,
+      weight: RANKED_SCARCITY[rankedScarcity],
+      scarcityMessageDescriptor,
+      scarcity,
+      hasRewards: !!(hasCardsRewards || hasEthRewards || hasCustomRewards),
+      commonDraftCampaignSlug: commonDraftCampaign?.slug,
+    };
+  },
+  {
+    so5Leaderboard: gql`
+      fragment getLeaderboardInfo_so5Leaderboard on Vicc5Leaderboard {
+        slug
+        trainingCenter
+        commonDraftCampaign {
+          slug
+        }
+        totalRewards {
+          cards
+          experiences
+          prizePool
+          prizePoolCurrency
+        }
+        ...Lib_So5_so5Leaderboard
+      }
+      ${fragments.so5Leaderboard}
+    `,
+  }
+);
 
 // // sorted by display order
 // export const HANDLED_RULES = [

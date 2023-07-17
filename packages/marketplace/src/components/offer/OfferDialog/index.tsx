@@ -66,7 +66,7 @@ import { TokenTransferValidator } from '@marketplace/components/token/TokenTrans
 import { TokenTransferChildrenProps } from '@marketplace/components/token/TokenTransferValidator/types';
 import { useMarketplaceEvents } from '@marketplace/lib/events';
 
-import { PreLaunchFiatWalletListing } from '../PreLaunchFiatWalletListing';
+// import { PreLaunchFiatWalletListing } from '../PreLaunchFiatWalletListing';
 import { OfferDialog_token } from './__generated__/index.graphql';
 
 interface Props {
@@ -536,11 +536,11 @@ const OfferDialog = ({
                   />
                 </Row>
               </div>
-              {useEnableFiatWalletBeforeLaunch && !hasActiveFiatBalance && (
+              {/* {useEnableFiatWalletBeforeLaunch && !hasActiveFiatBalance && (
                 <PreLaunchFiatWalletListing
                   setNeedCreateFiatWallet={setNeedCreateFiatWallet}
                 />
-              )}
+              )} */}
               <SubmitButtonWrapper>
                 <SubmitButton
                   color="blue"

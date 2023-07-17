@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import Favico from 'favico.js';
+// import Favico from 'favico.js';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { NotificationCategoryInput, Sport } from '__generated__/globalTypes';
@@ -10,17 +10,17 @@ import idFromObject from '@core/gql/idFromObject';
 import useQuery from '@core/hooks/graphql/useQuery';
 import { Lifecycle } from '@core/hooks/useLifecycle';
 
-import {
-  InGameNotificationQuery,
-  InGameNotificationQueryVariables,
-  MarkNotificationsAsReadMutation,
-  MarkNotificationsAsReadMutationVariables,
-} from './__generated__/queries.graphql';
+// import {
+//   InGameNotificationQuery,
+//   InGameNotificationQueryVariables,
+//   MarkNotificationsAsReadMutation,
+//   MarkNotificationsAsReadMutationVariables,
+// } from './__generated__/queries.graphql';
 import InGameNotificationContextProvider from './index';
-import {
-  IN_GAME_NOTIFICATION_QUERY,
-  MARK_NOTIFICATIONS_AS_READ_MUTATION,
-} from './queries';
+// import {
+//   IN_GAME_NOTIFICATION_QUERY,
+//   MARK_NOTIFICATIONS_AS_READ_MUTATION,
+// } from './queries';
 
 const AnnouncementCategoryInput: NotificationCategoryInput = {
   name: 'announcement',
@@ -47,53 +47,55 @@ export const InGameNotificationProvider: FC = ({ children }) => {
     setLastGlobalUnreadNotificationsCount,
   ] = useState(globalUnreadNotificationsCount);
 
-  const { data, loading, refetch } = useQuery<
-    InGameNotificationQuery,
-    InGameNotificationQueryVariables
-  >(IN_GAME_NOTIFICATION_QUERY, {
-    variables: {
-      pageSize: NOTIFICATION_TO_DISPLAY,
-      sports: lastSport ? [lastSport] : undefined,
-      notificationCategories: flattenGroups(allGroups),
-      announcementCategories: [AnnouncementCategoryInput],
-    },
-  });
-  const [markNotificationsAsReadMutation] = useMutation<
-    MarkNotificationsAsReadMutation,
-    MarkNotificationsAsReadMutationVariables
-  >(MARK_NOTIFICATIONS_AS_READ_MUTATION);
+  const loading = false;
+  // const { data, loading, refetch } = useQuery<
+  //   InGameNotificationQuery,
+  //   InGameNotificationQueryVariables
+  // >(IN_GAME_NOTIFICATION_QUERY, {
+  //   variables: {
+  //     pageSize: NOTIFICATION_TO_DISPLAY,
+  //     sports: lastSport ? [lastSport] : undefined,
+  //     notificationCategories: flattenGroups(allGroups),
+  //     announcementCategories: [AnnouncementCategoryInput],
+  //   },
+  // });
+  // const [markNotificationsAsReadMutation] = useMutation<
+  //   MarkNotificationsAsReadMutation,
+  //   MarkNotificationsAsReadMutationVariables
+  // >(MARK_NOTIFICATIONS_AS_READ_MUTATION);
 
   if (lastSport !== lastVisitedSport) {
     setLastSport(lastVisitedSport);
-    refetch({
-      sports: lastVisitedSport ? [lastVisitedSport] : undefined,
-    });
+    // refetch({
+    //   sports: lastVisitedSport ? [lastVisitedSport] : undefined,
+    // });
   }
 
   const favicons = useMemo(() => {
     const faviconList: any[] = [];
-    document
-      .querySelectorAll('link[rel=icon], link[rel="shortcut icon"]')
-      .forEach(element => {
-        faviconList.push(
-          new Favico({
-            fontFamily: 'apercu-pro, sans-serif',
-            bgColor: '#4662f7',
-            element,
-          })
-        );
-      });
+    // document
+    //   .querySelectorAll('link[rel=icon], link[rel="shortcut icon"]')
+    //   .forEach(element => {
+    //     faviconList.push(
+    //       new Favico({
+    //         fontFamily: 'apercu-pro, sans-serif',
+    //         bgColor: '#4662f7',
+    //         element,
+    //       })
+    //     );
+    //   });
     return faviconList;
   }, []);
 
   if (globalUnreadNotificationsCount > lastGlobalUnreadNotificationsCount) {
-    setLastGlobalUnreadNotificationsCount(globalUnreadNotificationsCount);
-    refetch();
+    // setLastGlobalUnreadNotificationsCount(globalUnreadNotificationsCount);
+    // refetch();
   }
 
-  const unreadNotifications =
-    (data?.currentUser?.allUnreadNotificationsCount || 0) +
-    (data?.currentUser?.currentSportUnreadAnnouncementsCount || 0);
+  const unreadNotifications = 0;
+  // const unreadNotifications =
+  //   (data?.currentUser?.allUnreadNotificationsCount || 0) +
+  //   (data?.currentUser?.currentSportUnreadAnnouncementsCount || 0);
 
   useEffect(() => {
     // https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Errors/Dead_object
@@ -117,32 +119,32 @@ export const InGameNotificationProvider: FC = ({ children }) => {
 
   const markNotificationsAsRead = useCallback(
     async (notifications?: { id: string }[]) => {
-      const notificationIds = notifications
-        ?.map(({ id }) => idFromObject(id))
-        .filter(Boolean);
+      // const notificationIds = notifications
+      //   ?.map(({ id }) => idFromObject(id))
+      //   .filter(Boolean);
 
-      if ((unreadNotifications || 0) > 0 && !loading) {
-        const { data: mutationData } = await markNotificationsAsReadMutation({
-          variables: {
-            input: {
-              notificationIds,
-            },
-            sports: lastSport ? [lastSport] : undefined,
-            notificationCategories: flattenGroups(allGroups),
-            announcementCategories: [AnnouncementCategoryInput],
-          },
-        });
-        setLastGlobalUnreadNotificationsCount(
-          mutationData?.markNotificationsAsRead?.currentUser
-            ?.unreadNotificationsCount || 0
-        );
-      }
+      // if ((unreadNotifications || 0) > 0 && !loading) {
+      //   const { data: mutationData } = await markNotificationsAsReadMutation({
+      //     variables: {
+      //       input: {
+      //         notificationIds,
+      //       },
+      //       sports: lastSport ? [lastSport] : undefined,
+      //       notificationCategories: flattenGroups(allGroups),
+      //       announcementCategories: [AnnouncementCategoryInput],
+      //     },
+      //   });
+      //   setLastGlobalUnreadNotificationsCount(
+      //     mutationData?.markNotificationsAsRead?.currentUser
+      //       ?.unreadNotificationsCount || 0
+      //   );
+      // }
     },
-    [loading, markNotificationsAsReadMutation, unreadNotifications, lastSport]
+    [/*loading, markNotificationsAsReadMutation,*/ unreadNotifications, lastSport]
   );
 
   const notifications = useMemo(() => {
-    const allNotifications = data?.currentUser?.allNotifications.nodes;
+    /*const allNotifications = data?.currentUser?.allNotifications.nodes;
     const annoucements = data?.currentUser?.currentSportAnnouncements.nodes;
 
     const filteredNotifications = [
@@ -157,8 +159,9 @@ export const InGameNotificationProvider: FC = ({ children }) => {
       )
       .slice(0, NOTIFICATION_TO_DISPLAY);
 
-    return mostRecentNotifications;
-  }, [data]);
+    return mostRecentNotifications;*/
+    return [] as any;
+  }, [/*data*/]);
 
   const contextValue = useMemo(
     () => ({

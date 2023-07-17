@@ -42,23 +42,23 @@ const useUpdateCurrency = () => {
         value: string;
       } | null
     ) => {
-      mutateCurrency({
-        variables: {
-          input: {
-            [target]: option!.value,
-          },
-        },
-        optimisticResponse: {
-          updateUserSettings: {
-            __typename: 'updateUserSettingsPayload',
-            userSettings: {
-              ...currentUser!.userSettings,
-              [target]: option!.value,
-            },
-            errors: [],
-          },
-        },
-      });
+      // mutateCurrency({
+      //   variables: {
+      //     input: {
+      //       [target]: option!.value,
+      //     },
+      //   },
+      //   optimisticResponse: {
+      //     updateUserSettings: {
+      //       __typename: 'updateUserSettingsPayload',
+      //       userSettings: {
+      //         ...currentUser!.userSettings,
+      //         [target]: option!.value,
+      //       },
+      //       errors: [],
+      //     },
+      //   },
+      // });
     };
 
   return {

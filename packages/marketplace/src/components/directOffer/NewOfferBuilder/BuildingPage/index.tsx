@@ -286,7 +286,7 @@ const BuildingPage = <
         });
 
         dispatch(actionFactory(newState));
-        dispatch(refreshCardData(newCardData));
+        // dispatch(refreshCardData(newCardData));
         return Promise.resolve(true);
       } catch (e: any) {
         sendSafeError(e);

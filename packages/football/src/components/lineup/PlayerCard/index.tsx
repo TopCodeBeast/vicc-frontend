@@ -93,7 +93,7 @@ export const PlayerCard = ({ onClick, appearance, isLive }: Props) => {
   const { pictureUrl } = card || {};
   const { status, date } = so5Score?.game || {};
   const { score: playerScore, status: scoreStatus } = getPlayerScore(
-    so5Score,
+    so5Score as any, //TODO
     bonus
   );
   const gameIsScheduled = !!status && isGameScheduled(status);
@@ -175,9 +175,9 @@ PlayerCard.fragments = {
           date
         }
 
-        #...getPlayerScore_so5Score
+        ...getPlayerScore_so5Score
       }
     }
-    #{getPlayerScore.fragments.so5Score}
+    ${getPlayerScore.fragments.so5Score}
   `,
 };

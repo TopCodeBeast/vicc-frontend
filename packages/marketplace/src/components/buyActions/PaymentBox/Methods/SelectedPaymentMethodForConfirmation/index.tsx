@@ -10,7 +10,9 @@ import {
   PaymentProvider_paymentMethod,
   WalletPaymentMethod,
 } from '@marketplace/components/buyActions/PaymentProvider/types';
-import { DisposableCard } from '@marketplace/components/buyActions/PaymentProvider/useStripePayment';
+// import { DisposableCard } from '@marketplace/components/buyActions/PaymentProvider/useStripePayment';
+
+type DisposableCard = any;
 
 export type Props = {
   paymentCurrency: Currency | null;

@@ -11,7 +11,7 @@ import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { range } from '@sorare/core/src/lib/arrays';
 
 import NoCardEntry from '@football/components/so5/NoCardEntry';
-// import { getLeaderboardInfo } from '@football/lib/so5';
+import { getLeaderboardInfo } from '@football/lib/so5';
 import { SortAndFiltersType } from '@football/pages/Lobby/Components/CompetitionList/SortAndFilters';
 import { CompetitionListTable } from '@football/pages/Lobby/Components/CompetitionList/Table';
 
@@ -194,11 +194,11 @@ DateGroupedSection.fragments = {
       mySo5Lineups: myVicc5Lineups {
         id
       }
-      #...getLeaderboardInfo_so5Leaderboard
+      ...getLeaderboardInfo_so5Leaderboard
       ...CompetitionListTable_so5Leaderboard
     }
     ${CompetitionListTable.fragments.so5Leaderboard}
-    #{getLeaderboardInfo.fragments.so5Leaderboard}
+    ${getLeaderboardInfo.fragments.so5Leaderboard}
   `,
   so5Fixture: gql`
     fragment DateGroupedSection_so5Fixture on Vicc5Fixture {

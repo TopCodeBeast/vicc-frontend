@@ -46,7 +46,7 @@ const BLOCKED_USERS_QUERY = gql`
         nodes {
           slug
           nickname
-          #...Avatar_publicUserInfoInterface
+          ...Avatar_publicUserInfoInterface
         }
         pageInfo {
           endCursor
@@ -55,7 +55,7 @@ const BLOCKED_USERS_QUERY = gql`
       }
     }
   }
-  #{Avatar.fragments.publicUserInfoInterface}
+  ${Avatar.fragments.publicUserInfoInterface}
 `;
 
 const Line = styled.div`

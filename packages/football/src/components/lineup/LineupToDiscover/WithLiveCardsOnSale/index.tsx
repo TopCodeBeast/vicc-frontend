@@ -49,7 +49,7 @@ type CardHit = {
 };
 
 type CommonDraftCampaign = NonNullable<
-  WithLiveCardsOnSaleLeaderboardQuery['football']['so5']['so5Leaderboard']['commonDraftCampaign']
+  WithLiveCardsOnSaleLeaderboardQuery['so5']['so5Leaderboard']['commonDraftCampaign']
 >;
 
 const POSITIONS = [
@@ -120,7 +120,7 @@ const WithLiveCardsOnSale = ({
     );
 
   const { draftedPlayers } =
-    leaderboardData?.football.so5.so5Leaderboard?.commonDraftCampaign || {};
+    leaderboardData?.so5.so5Leaderboard?.commonDraftCampaign || {};
   const bestDraftedPlayers = useMemo(
     () => getBestPlayers(draftedPlayers || []),
     [draftedPlayers]

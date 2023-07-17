@@ -46,16 +46,17 @@ const Boosts = ({
       </Text14>
       <FlexContainer>
         {card.availableCardBoosts.map(cardBoost => (
-          <Boost
-            key={cardBoost.shopItem.id}
-            cardId={card.id}
-            cardBoost={cardBoost}
-            maxLevelUpAppliedCountReached={
-              card.levelUpAppliedCount === card.maxLevelUpAppliedCount
-            }
-            onMaxLevelUpAppliedCountReached={onMaxLevelUpAppliedCountReached}
-            closeDropdown={closeDropdown}
-          />
+          <>Boost555</>
+          // <Boost
+          //   key={cardBoost.shopItem.id}
+          //   cardId={card.id}
+          //   cardBoost={cardBoost}
+          //   maxLevelUpAppliedCountReached={
+          //     card.levelUpAppliedCount === card.maxLevelUpAppliedCount
+          //   }
+          //   onMaxLevelUpAppliedCountReached={onMaxLevelUpAppliedCountReached}
+          //   closeDropdown={closeDropdown}
+          // />
         ))}
       </FlexContainer>
     </Root>

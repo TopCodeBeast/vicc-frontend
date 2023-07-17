@@ -122,7 +122,7 @@ export const OwnerAccount = ({ children, account }: Props) => {
   ) {
     const accountable =
       account.accountable as OwnerAccount_account_accountable_StarkwareAccount;
-    return renderOwnerAccount(accountable, accountable.starkKey);
+    return renderOwnerAccount(accountable, 'accountable.starkKey55');
   }
 
   return null;

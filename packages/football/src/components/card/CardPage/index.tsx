@@ -99,9 +99,9 @@ export const CardPage = (props: Props) => {
   const OuterContainer = isModale ? Fragment : PageWrapper;
 
   useEffect(() => {
-    if (card) {
-      return setPageMetadata(card.name, { img: card?.pictureUrlForTwitter });
-    }
+    // if (card) {
+    //   return setPageMetadata(card.name, { img: card?.pictureUrlForTwitter });
+    // }
     return () => {};
   }, [card, setPageMetadata]);
 
@@ -117,7 +117,7 @@ export const CardPage = (props: Props) => {
       <OuterContainer>
         <InnerContainer>
           <Header card={card} />
-          <Content>
+          {/* <Content>
             <Title
               card={card}
               loading={loading}
@@ -249,7 +249,7 @@ export const CardPage = (props: Props) => {
                 token={token}
               />
             )}
-          </Content>
+          </Content> */}
         </InnerContainer>
       </OuterContainer>
       {addToListDialogOpen && (

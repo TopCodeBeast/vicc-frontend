@@ -106,18 +106,18 @@ export default <T, V>(mutation: DocumentNode, opts: Options<T, V> = {}) => {
           ({ data } = await mutate(options));
           const mutationData = (data as unknown as any)[mutationName];
           if (Array.isArray(mutationData?.errors)) {
-            errors.push(...mutationData.errors);
-            handleErrors(mutationData.errors);
+            // errors.push(...mutationData.errors);
+            // handleErrors(mutationData.errors);
           }
         } catch ({ graphQLErrors, networkError }: any) { //TODO
           // networkError is NOT an array
           if (networkError) {
-            errors.push(networkError);
-            handleErrors([networkError], true);
+            // errors.push(networkError);
+            // handleErrors([networkError], true);
           }
           if (graphQLErrors) {
-            errors.push(...graphQLErrors);
-            handleErrors(graphQLErrors);
+            // errors.push(...graphQLErrors);
+            // handleErrors(graphQLErrors);
           }
           if (
             !graphQLErrors &&

@@ -7,7 +7,7 @@ import {
   useSnackNotificationContext,
 } from '@sorare/core/src/contexts/snackNotification';
 import { formatGqlErrors } from '@sorare/core/src/gql';
-import useCreateEthMigration from '@sorare/core/src/hooks/starkware/useCreateEthMigration';
+// import useCreateEthMigration from '@sorare/core/src/hooks/starkware/useCreateEthMigration';
 import { generateDealId, isHandledError } from '@sorare/core/src/lib/deal';
 import { toWei } from '@sorare/core/src/lib/wei';
 
@@ -47,7 +47,7 @@ const useCreateDirectOffer = () => {
   const { showNotification } = useSnackNotificationContext();
   const approveMigrator = useApproveMigrator();
   const migrateCards = useMigrateCards();
-  const createEthMigration = useCreateEthMigration();
+  // const createEthMigration = useCreateEthMigration();
   const prepareOffer = usePrepareOffer();
 
   return useCallback(
@@ -64,7 +64,7 @@ const useCreateDirectOffer = () => {
         const receiveWeiAmount = toWei(receiveAmountInEth);
         const sendWeiAmount = toWei(sendAmountInEth);
         await approveMigrator(sendTokens);
-        await createEthMigration();
+        // await createEthMigration();
         const migrationData = await migrateCards(sendTokens);
 
         const { legacySignedLimitOrders, errors } = await prepareOffer({
@@ -78,6 +78,7 @@ const useCreateDirectOffer = () => {
 
         if (errors?.length) return errors;
 
+        //TODO-CreateOffer
         const result = await createOffer({
           variables: {
             input: {
@@ -91,7 +92,7 @@ const useCreateDirectOffer = () => {
               migrationData,
               duration,
               counteredOfferId,
-            },
+            } as any, //TODO
           },
           refetchQueries: [
             'MyOffersAllOffersSentQuery',
@@ -120,7 +121,7 @@ const useCreateDirectOffer = () => {
     },
     [
       approveMigrator,
-      createEthMigration,
+      // createEthMigration,
       createOffer,
       migrateCards,
       prepareOffer,

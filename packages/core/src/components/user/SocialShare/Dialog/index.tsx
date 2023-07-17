@@ -19,7 +19,7 @@ import { Text14, Title3 } from '@core/atoms/typography';
 import Scrollable from '@core/components/Scrollable';
 import Dialog from '@core/components/dialog';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
-import { useEventsContext } from '@core/contexts/events';
+// import { useEventsContext } from '@core/contexts/events';
 import { useIntlContext } from '@core/contexts/intl';
 import { useSportContext } from '@core/contexts/sport';
 import idFromObject from '@core/gql/idFromObject';
@@ -166,7 +166,7 @@ const SocialShareDialog = ({
   const { formatMessage } = useIntlContext();
   const [copied, setCopied] = useState(false);
   const timeoutRef = useRef(setTimeout(() => {}, 0));
-  const { track } = useEventsContext();
+  // const { track } = useEventsContext();
   const { setParams } = useUtmParams();
   const [step, setStep] = useState(defaultStep);
   const [selectedImage, setSelectedImage] = useState(
@@ -204,7 +204,7 @@ const SocialShareDialog = ({
     const clipboardUrl = setParams({ ...sharedParams });
     if (!clipboardUrl) return;
     const { name, properties } = shareByCopyLinkEvent(...trackingProps);
-    track(name, properties);
+    //track(name, properties);
     navigator.clipboard.writeText(clipboardUrl);
     clearTimeout(timeoutRef.current);
     setCopied(true);
@@ -212,19 +212,19 @@ const SocialShareDialog = ({
   };
   const onShareImageClick = () => {
     const { name, properties } = shareByImageEvent(...trackingProps);
-    track(name, properties);
+    //track(name, properties);
   };
   const onTwitterClick = () => {
     const { name, properties } = shareOnTwitterEvent(...trackingProps);
-    track(name, properties);
+    //track(name, properties);
   };
   const onFacebookClick = () => {
     const { name, properties } = shareOnFacebookEvent(...trackingProps);
-    track(name, properties);
+    //track(name, properties);
   };
   const onShareSheetClick = () => {
     const { name, properties } = shareWithShareSheetEvent(...trackingProps);
-    track(name, properties);
+    //track(name, properties);
     shareWithShareSheet();
   };
 

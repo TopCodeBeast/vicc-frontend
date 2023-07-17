@@ -206,7 +206,7 @@ export const convertCardHitToToken = (
   collection: Collection;
   sport: Sport;
   metadata: {
-    __typename: 'TokenBaseballMetadata' | 'TokenFootballMetadata';
+    __typename: 'TokenCricketMetadata';
     id: string;
     playerDisplayName: string;
     playerSlug: string;
@@ -231,7 +231,7 @@ export const convertCardHitToToken = (
   walletStatus: hit.wallet_status as WalletStatus,
   pictureUrl: hit.picture_url,
   metadata: {
-    __typename: 'TokenFootballMetadata',
+    __typename: 'TokenCricketMetadata',
     id: hit.sport === 'baseball' ? idFromObject(hit.objectID)! : hit.objectID, // TODO: replace with `assetId` when ready
     playerDisplayName: hit.player.display_name,
     playerSlug: hit.player.slug,

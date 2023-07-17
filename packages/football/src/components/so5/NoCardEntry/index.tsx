@@ -78,106 +78,107 @@ const DEFAULT_SO5_GAME_WEEK_POOL_COMPOSITION = {
 };
 
 const NoCardEntry = () => {
-  const [mainDialogOpened, setMainDialogOpened] = useState(false);
-  const [infoDialogOpened, setInfoDialogOpened] = useState(false);
-  const {
-    so5: {
-      noCardRoute: { nextOpenDate, nextCloseDate },
-    },
-  } = useConfigContext();
-  const { currentUser } = useCurrentUserContext();
-  const {
-    flags: { so5GameWeekPoolComposition = {} },
-  } = useFeatureFlags();
+  // const [mainDialogOpened, setMainDialogOpened] = useState(false);
+  // const [infoDialogOpened, setInfoDialogOpened] = useState(false);
+  // const {
+  //   so5: {
+  //     noCardRoute: { nextOpenDate, nextCloseDate },
+  //   },
+  // } = useConfigContext();
+  // const { currentUser } = useCurrentUserContext();
+  // const {
+  //   flags: { so5GameWeekPoolComposition = {} },
+  // } = useFeatureFlags();
 
-  const so5GameWeekPoolCompositionToDisplay =
-    Object.keys(so5GameWeekPoolComposition).length > 0
-      ? so5GameWeekPoolComposition
-      : DEFAULT_SO5_GAME_WEEK_POOL_COMPOSITION;
+  // const so5GameWeekPoolCompositionToDisplay =
+  //   Object.keys(so5GameWeekPoolComposition).length > 0
+  //     ? so5GameWeekPoolComposition
+  //     : DEFAULT_SO5_GAME_WEEK_POOL_COMPOSITION;
 
-  const onMainDialogClose = () => setMainDialogOpened(false);
-  const onInfoDialogClose = () => setInfoDialogOpened(false);
+  // const onMainDialogClose = () => setMainDialogOpened(false);
+  // const onInfoDialogClose = () => setInfoDialogOpened(false);
 
-  if (!currentUser?.noCardRouteEnabled) return null;
+  // if (!currentUser?.noCardRouteEnabled) return null;
 
-  const { so5NoCardRouteOpened } = currentUser;
-  const showOpensIn = !!nextOpenDate && new Date(nextOpenDate) > new Date();
-  const showCloseIn =
-    !showOpensIn && !!nextCloseDate && new Date(nextCloseDate) > new Date();
+  // const { so5NoCardRouteOpened } = currentUser;
+  // const showOpensIn = !!nextOpenDate && new Date(nextOpenDate) > new Date();
+  // const showCloseIn =
+  //   !showOpensIn && !!nextCloseDate && new Date(nextCloseDate) > new Date();
 
   return (
-    <>
-      <Root>
-        <Text16 bold as="div">
-          <Title>
-            <FormattedMessage {...messages.title} />
-            <Caption
-              as="button"
-              onClick={() => setInfoDialogOpened(true)}
-              type="button"
-            >
-              <Info />
-            </Caption>
-          </Title>
-          {(showOpensIn || showCloseIn) && (
-            <TimeLeftWrapper
-              as="div"
-              className={classnames({ closing: showCloseIn })}
-            >
-              <FontAwesomeIcon icon={faClock} />
-              {showOpensIn && (
-                <FormattedMessage
-                  {...messages.nextOpen}
-                  values={{ time: <TimeLeft time={new Date(nextOpenDate)} /> }}
-                />
-              )}
-              {showCloseIn && (
-                <FormattedMessage
-                  {...messages.nextClose}
-                  values={{ time: <TimeLeft time={new Date(nextCloseDate)} /> }}
-                />
-              )}
-            </TimeLeftWrapper>
-          )}
-        </Text16>
-        <Cta>
-          <Button
-            small
-            fullWidth
-            disabled={!so5NoCardRouteOpened}
-            color={so5NoCardRouteOpened ? 'blue' : 'darkGray'}
-            onClick={() => setMainDialogOpened(true)}
-          >
-            <FormattedMessage
-              id="Lobby.CompetitionList.NoCardEntry.cta"
-              defaultMessage="Register"
-            />
-          </Button>
-        </Cta>
-      </Root>
-      <>So5NoCardEntryRegisterDialog1</>
-      {/* <So5NoCardEntryRegisterDialog
-        open={mainDialogOpened}
-        onClose={onMainDialogClose}
-      /> */}
-      <NoCardEntryInfoDialog
-        open={infoDialogOpened}
-        onClose={onInfoDialogClose}
-        poolDetail={
-          <FormattedMessage
-            id="Lobby.CompetitionList.NoCardEntry.poolDetail"
-            defaultMessage="For instance, for Game Week {gameWeek}, the pool of players available was composed of {limitedCount} Limited Cards, {rareCount} Rare Cards, {superRareCount} Super Rare Cards, {uniqueCount} Unique Cards."
-            values={{
-              gameWeek: so5GameWeekPoolCompositionToDisplay.gameWeek,
-              limitedCount: so5GameWeekPoolCompositionToDisplay.limited,
-              rareCount: so5GameWeekPoolCompositionToDisplay.rare,
-              superRareCount: so5GameWeekPoolCompositionToDisplay.superRare,
-              uniqueCount: so5GameWeekPoolCompositionToDisplay.unique,
-            }}
-          />
-        }
-      />
-    </>
+    <>NoCardEntry123</>
+    // <>
+    //   <Root>
+    //     <Text16 bold as="div">
+    //       <Title>
+    //         <FormattedMessage {...messages.title} />
+    //         <Caption
+    //           as="button"
+    //           onClick={() => setInfoDialogOpened(true)}
+    //           type="button"
+    //         >
+    //           <Info />
+    //         </Caption>
+    //       </Title>
+    //       {(showOpensIn || showCloseIn) && (
+    //         <TimeLeftWrapper
+    //           as="div"
+    //           className={classnames({ closing: showCloseIn })}
+    //         >
+    //           <FontAwesomeIcon icon={faClock} />
+    //           {showOpensIn && (
+    //             <FormattedMessage
+    //               {...messages.nextOpen}
+    //               values={{ time: <TimeLeft time={new Date(nextOpenDate)} /> }}
+    //             />
+    //           )}
+    //           {showCloseIn && (
+    //             <FormattedMessage
+    //               {...messages.nextClose}
+    //               values={{ time: <TimeLeft time={new Date(nextCloseDate)} /> }}
+    //             />
+    //           )}
+    //         </TimeLeftWrapper>
+    //       )}
+    //     </Text16>
+    //     <Cta>
+    //       <Button
+    //         small
+    //         fullWidth
+    //         disabled={!so5NoCardRouteOpened}
+    //         color={so5NoCardRouteOpened ? 'blue' : 'darkGray'}
+    //         onClick={() => setMainDialogOpened(true)}
+    //       >
+    //         <FormattedMessage
+    //           id="Lobby.CompetitionList.NoCardEntry.cta"
+    //           defaultMessage="Register"
+    //         />
+    //       </Button>
+    //     </Cta>
+    //   </Root>
+    //   <>So5NoCardEntryRegisterDialog1</>
+    //   <So5NoCardEntryRegisterDialog
+    //     open={mainDialogOpened}
+    //     onClose={onMainDialogClose}
+    //   />
+    //   <NoCardEntryInfoDialog
+    //     open={infoDialogOpened}
+    //     onClose={onInfoDialogClose}
+    //     poolDetail={
+    //       <FormattedMessage
+    //         id="Lobby.CompetitionList.NoCardEntry.poolDetail"
+    //         defaultMessage="For instance, for Game Week {gameWeek}, the pool of players available was composed of {limitedCount} Limited Cards, {rareCount} Rare Cards, {superRareCount} Super Rare Cards, {uniqueCount} Unique Cards."
+    //         values={{
+    //           gameWeek: so5GameWeekPoolCompositionToDisplay.gameWeek,
+    //           limitedCount: so5GameWeekPoolCompositionToDisplay.limited,
+    //           rareCount: so5GameWeekPoolCompositionToDisplay.rare,
+    //           superRareCount: so5GameWeekPoolCompositionToDisplay.superRare,
+    //           uniqueCount: so5GameWeekPoolCompositionToDisplay.unique,
+    //         }}
+    //       />
+    //     }
+    //   />
+    // </>
   );
 };
 

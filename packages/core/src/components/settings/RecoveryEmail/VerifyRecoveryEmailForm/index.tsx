@@ -6,7 +6,7 @@ import { GraphQLResult, GraphqlForm, TextField } from '@core/components/form/For
 import { RECOVERY_EMAIL_VERIFICATION_CODE_LENGTH } from '@core/constants/verificationCode';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useSnackNotificationContext } from '@core/contexts/snackNotification';
-import useActivateWalletRecoveryEmail from '@core/hooks/recovery/useActivateWalletRecoveryEmail';
+// import useActivateWalletRecoveryEmail from '@core/hooks/recovery/useActivateWalletRecoveryEmail';
 import { glossary } from '@core/lib/glossary';
 
 const Wrapper = styled.div`
@@ -37,13 +37,13 @@ export const VerifyRecoveryEmailForm = ({
 }: Props) => {
   const { currentUser } = useCurrentUserContext();
   const { showNotification } = useSnackNotificationContext();
-  const { activateWalletRecoveryEmail } = useActivateWalletRecoveryEmail();
+  // const { activateWalletRecoveryEmail } = useActivateWalletRecoveryEmail();
   const submit = async (values: any, onResult: (r: GraphQLResult) => void) => {
-    const results = await activateWalletRecoveryEmail({
-      destination: email,
-      verificationCode: values.verificationCode,
-    });
-    onResult(results);
+    // const results = await activateWalletRecoveryEmail({
+    //   destination: email,
+    //   verificationCode: values.verificationCode,
+    // });
+    // onResult(results);
   };
 
   const onSuccess = () => {

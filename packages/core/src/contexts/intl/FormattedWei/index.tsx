@@ -7,7 +7,6 @@ import { useIntlContext } from '..';
 
 interface Props extends FormatNumberOptions {
   value: string;
-  roundingMode?: RoundingMode;
   context: string;
 }
 
@@ -28,7 +27,8 @@ export const FormattedWei = ({
     return null;
   }
 
-  return <span>{formatWei(value, roundingMode, rest)}</span>;
+  //TODO
+  return <span>{formatWei(value, roundingMode as any, rest)}</span>;
 };
 
 export default FormattedWei;

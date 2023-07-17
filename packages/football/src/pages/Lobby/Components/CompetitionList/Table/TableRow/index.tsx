@@ -28,12 +28,12 @@ import { Link } from '@sorare/core/src/routing/Link';
 import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 import { theme } from '@sorare/core/src/style/theme';
 
-// import { Rewards } from '@football/components/lineup/Rewards';
-// import HeadlineRewards from '@football/components/lobby/HeadlineRewards';
-// import DivisionLogo from '@football/components/so5/DivisionLogo';
+import { Rewards } from '@football/components/lineup/Rewards';
+import HeadlineRewards from '@football/components/lobby/HeadlineRewards';
+import DivisionLogo from '@football/components/so5/DivisionLogo';
 import { useFootballEvents } from '@football/lib/events';
 import getLineupDisplayName from '@football/lib/lineup/getLineupDisplayName';
-// import { getLeaderboardInfo } from '@football/lib/so5';
+import { getLeaderboardInfo } from '@football/lib/so5';
 // import CompetitionListActions from '@football/pages/Lobby/Components/CompetitionListActions';
 
 import { TableRow_so5Leaderboard } from './__generated__/index.graphql';
@@ -162,8 +162,8 @@ const TableRow = ({
   rowCta,
 }: Props) => {
   const { totalRewards, mySo5Lineups, so5LineupsCount } = so5Leaderboard;
-  const { scarcityMessageDescriptor, hasRewards } = {} as any;
-    // getLeaderboardInfo(so5Leaderboard);
+  const { scarcityMessageDescriptor, hasRewards } =
+    getLeaderboardInfo(so5Leaderboard);
   const track = useFootballEvents();
 
   const correspondingLineup = mySo5Lineups[lineupId];
@@ -237,8 +237,7 @@ const TableRow = ({
 
   const rewards = (
     <RewardsWrapper>
-      {/* <Rewards rewards={totalRewards} hideExperienceDescription /> */}
-      <>Rewards54</>
+      <Rewards rewards={totalRewards} hideExperienceDescription />
     </RewardsWrapper>
   );
 
@@ -274,8 +273,7 @@ const TableRow = ({
       <StatusCell area={Areas.status}>{getStatus()}</StatusCell>
 
       <DivisionCell area={Areas.logo}>
-        {/* <DivisionLogo so5Leaderboard={so5Leaderboard} /> */}
-        <>DivisionLogo432</>
+        <DivisionLogo so5Leaderboard={so5Leaderboard} />
       </DivisionCell>
       <Cell hideOnDesktop area={Areas.nameAndScarcity}>
         <NameAndScarcityWrapper>
@@ -359,8 +357,7 @@ const TableRow = ({
               competition: so5Leaderboard.slug,
             })}${competitionDetailsQueryParams}`}
           >
-            <>HeadlineRewards3232</>
-            {/* <HeadlineRewards leaderboard={so5Leaderboard} /> */}
+            <HeadlineRewards leaderboard={so5Leaderboard} />
           </HeadlineWrapper>
         </Prize>
       )}
@@ -381,20 +378,20 @@ TableRow.fragments = {
         name
         ...getLineupDisplayName_so5Lineup
       }
-      #totalRewards {
-      #  ...Rewards_rewardsOverview
-      #}
-      #...getLeaderboardInfo_so5Leaderboard
-      #...DivisionLogo_so5Leaderboard
+      totalRewards {
+        ...Rewards_rewardsOverview
+      }
+      ...getLeaderboardInfo_so5Leaderboard
+      ...DivisionLogo_so5Leaderboard
       #...CompetitionListActions_so5Leaderboard
-      #...HeadlineRewards_so5Leaderboard
+      ...HeadlineRewards_so5Leaderboard
       ...getLineupDisplayName_so5Leaderboard
     }
-    #{DivisionLogo.fragments.so5Leaderboard}
+    ${DivisionLogo.fragments.so5Leaderboard}
     #{CompetitionListActions.fragments.so5Leaderboard}
-    #{getLeaderboardInfo.fragments.so5Leaderboard}
-    #{HeadlineRewards.fragments.so5Leaderboard}
-    #{Rewards.fragments.reward}
+    ${getLeaderboardInfo.fragments.so5Leaderboard}
+    ${HeadlineRewards.fragments.so5Leaderboard}
+    ${Rewards.fragments.reward}
     ${getLineupDisplayName.fragments.so5Leaderboard}
     ${getLineupDisplayName.fragments.so5Lineup}
   `,

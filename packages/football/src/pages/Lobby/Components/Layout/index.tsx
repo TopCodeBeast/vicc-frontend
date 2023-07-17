@@ -90,7 +90,7 @@ export const Layout = ({
     displayName: UNBREAKABLE_SPACE,
     shortDisplayName: UNBREAKABLE_SPACE,
     transient: true,
-  },
+  } as any,
   hidePlayers,
 }: Props) => {
   const { formatMessage } = useIntlContext();

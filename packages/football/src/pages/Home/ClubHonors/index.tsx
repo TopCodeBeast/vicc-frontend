@@ -165,7 +165,7 @@ const ClubHonors = ({ user: { slug }, readOnly }: Props) => {
     usePaginatedQuery<ClubHonorsLineupsQuery>(CLUB_HONORS_LINEUPS_QUERY, {
       variables: {
         slug,
-        so5LeaderboardType: selectedLeaderboard?.so5LeaderboardType,
+        so5LeaderboardType: selectedLeaderboard?.vicc5LeaderboardType,
       },
       skip: readOnly,
       connection: 'So5RankingConnection',
@@ -184,7 +184,7 @@ const ClubHonors = ({ user: { slug }, readOnly }: Props) => {
     if (!summariesData) {
       return [];
     }
-    return [...summariesData.user.trophies]
+    return []//[...summariesData.user.trophies]
       .sort((a, b) => {
         if (a.unique !== b.unique) {
           return b.unique - a.unique;

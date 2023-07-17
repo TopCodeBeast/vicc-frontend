@@ -129,7 +129,7 @@ const useCreateSingleSaleOffer = () => {
             settlementCurrencies: [SupportedCurrency.WEI],
             approvals,
           }),
-        },
+        } as any, //TODO
       },
     });
 

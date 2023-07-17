@@ -34,10 +34,11 @@ const computeSendMinimumPrice: <T extends CardDataType>(
     return zero;
   }
   return receiveCards.reduce((prev: Big, curr) => {
-    const cardMinPrice = cardsData[curr.objectID]?.publicMinPrice;
-    if (!cardMinPrice) return prev;
-    const cardMinPriceBig = new Big(cardMinPrice || 0);
-    return cardMinPriceBig.gt(prev) ? cardMinPriceBig : prev;
+    // const cardMinPrice = cardsData[curr.objectID]?.publicMinPrice;
+    // if (!cardMinPrice) return prev;
+    // const cardMinPriceBig = new Big(cardMinPrice || 0);
+    // return cardMinPriceBig.gt(prev) ? cardMinPriceBig : prev;
+    return prev; //TODO****
   }, zero);
 };
 
@@ -52,10 +53,11 @@ const computeReceiveMinimumPrice: <T extends CardDataType>(
     return zero;
   }
   return sendCards.reduce((prev: Big, curr) => {
-    const cardMinPrice = cardsData[curr.objectID]?.publicMinPrice;
-    if (!cardMinPrice) return prev;
-    const cardMinPriceBig = new Big(cardMinPrice || 0);
-    return cardMinPriceBig.gt(prev) ? cardMinPriceBig : prev;
+    // const cardMinPrice = cardsData[curr.objectID]?.publicMinPrice;
+    // if (!cardMinPrice) return prev;
+    // const cardMinPriceBig = new Big(cardMinPrice || 0);
+    // return cardMinPriceBig.gt(prev) ? cardMinPriceBig : prev;
+    return prev; //TODO****
   }, zero);
 };
 
@@ -119,14 +121,15 @@ export const init = <T extends CardDataType>({
     sendCards: initialSendCards.map(convertToAlgoliaCardHit),
     receiveCards: initialReceiveCards.map(convertToAlgoliaCardHit),
     receiveMarketFeesEth: initialReceiveMarketFeesEth || 0,
-    cardsData: [...initialSendCards, ...initialReceiveCards].reduce(
-      (prev: Record<string, T>, curr) => {
-        const algoliaObjectId = buildAlgoliaObjectId(curr);
-        prev[algoliaObjectId] = curr;
-        return prev;
-      },
-      {}
-    ),
+    // cardsData: [...initialSendCards, ...initialReceiveCards].reduce(
+    //   (prev: Record<string, T>, curr) => {
+    //     const algoliaObjectId = buildAlgoliaObjectId(curr);
+    //     prev[algoliaObjectId] = curr;
+    //     return prev;
+    //   },
+    //   {}
+    // ),
+    cardsData: [] as any,
     duration: 7,
     minSendEth: 0,
     minReceiveEth: 0,
@@ -135,7 +138,7 @@ export const init = <T extends CardDataType>({
     isTradeForNothing: false,
     paymentMethod: initialPaymentMethod || null,
     currency: initialCurrency || null,
-  };
+  } as any;
   return refreshMinimumPriceAndValid(result);
 };
 
@@ -189,7 +192,7 @@ const actionHandlers: {
       receiveCards: [...action.cards],
     });
   },
-  refreshCardData: <D extends CardDataType>(
+  /*refreshCardData: <D extends CardDataType>(
     state: State<D>,
     action: RefreshCardData<D>
   ) => {
@@ -218,7 +221,7 @@ const actionHandlers: {
       ...(state.paymentMethod !== paymentMethod && { paymentMethod }),
       ...(state.currency !== currency && { currency }),
     };
-  },
+  },*/
 };
 
 export default <D extends CardDataType>() =>

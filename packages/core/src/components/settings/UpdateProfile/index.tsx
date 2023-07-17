@@ -85,7 +85,8 @@ const Content = ({
   if (!currentUser) return null;
 
   const { nickname, profile } = currentUser;
-  const { status, clubName, pictureUrl } = profile;
+  const { status, clubName, /*pictureUrl*/ } = profile;
+  const pictureUrl = null;//TODO
 
   return (
     <>

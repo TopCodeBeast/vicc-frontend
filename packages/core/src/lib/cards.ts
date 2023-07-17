@@ -4,13 +4,13 @@ import { RefinementListItem } from 'instantsearch.js/es/connectors/refinement-li
 
 import { OfferType, Sport } from '__generated__/globalTypes';
 
-// import {
-//   isListedOnMarket_card,
-//   isSentInDirectOffer_card,
-// } from './__generated__/cards.graphql';
+import {
+  isListedOnMarket_card,
+  isSentInDirectOffer_card,
+} from './__generated__/cards.graphql';
 import { sortBy } from './arrays';
 import { Token } from './deal';
-// import { withFragments } from './gql';
+import { withFragments } from './gql';
 import { formatWord } from './humanize';
 
 export const CARD_SIZE = 320;
@@ -231,7 +231,7 @@ export const sortHitByRarity = (items: RefinementListItem[]) =>
 
 interface XpCard {
   xp: number;
-  xpNeededForNextGrade: number | null;
+  xpNeededForNextGrade?: number | null;
   xpNeededForCurrentGrade: number;
 }
 
@@ -253,60 +253,62 @@ export const APPEARANCES_MIN = 0;
 export const APPEARANCES_5_MAX = 5;
 export const APPEARANCES_15_MAX = 15;
 
-// export const isListedOnMarket = withFragments(
-//   (card: isListedOnMarket_card) => {
-//     return !!card.token?.sentInLiveOffers?.some(
-//       offer =>
-//         offer.type === OfferType.SINGLE_SALE_OFFER &&
-//         // handle case when token listing ended but frontend hasn't
-//         // refetched the data yet
-//         isFuture(parseISO(offer.endDate))
-//     );
-//   },
-//   {
-//     card: gql`
-//       fragment isListedOnMarket_card on Card {
-//         slug
-//         assetId
-//         token {
-//           slug
-//           assetId
-//           sentInLiveOffers {
-//             id
-//             type
-//             endDate
-//           }
-//         }
-//       }
-//     `,
-//   }
-// );
+export const isListedOnMarket = withFragments(
+  (card: isListedOnMarket_card) => {
+    return false;
+    // return !!card.token?.sentInLiveOffers?.some(
+    //   offer =>
+    //     offer.type === OfferType.SINGLE_SALE_OFFER &&
+    //     // handle case when token listing ended but frontend hasn't
+    //     // refetched the data yet
+    //     isFuture(parseISO(offer.endDate))
+    // );
+  },
+  {
+    card: gql`
+      fragment isListedOnMarket_card on Card {
+        slug
+        assetId
+        token {
+          slug
+          assetId
+          # sentInLiveOffers {
+          #   id
+          #   type
+          #   endDate
+          # }
+        }
+      }
+    `,
+  }
+);
 
-// export const isSentInDirectOffer = withFragments(
-//   (card: isSentInDirectOffer_card) => {
-//     return !!card.token?.sentInLiveOffers?.some(
-//       offer =>
-//         offer.type === OfferType.DIRECT_OFFER &&
-//         // handle case when token listing ended but frontend hasn't
-//         // refetched the data yet
-//         isFuture(parseISO(offer.endDate))
-//     );
-//   },
-//   {
-//     card: gql`
-//       fragment isSentInDirectOffer_card on Card {
-//         slug
-//         assetId
-//         token {
-//           slug
-//           assetId
-//           sentInLiveOffers {
-//             id
-//             type
-//             endDate
-//           }
-//         }
-//       }
-//     `,
-//   }
-// );
+export const isSentInDirectOffer = withFragments(
+  (card: isSentInDirectOffer_card) => {
+    // return !!card.token?.sentInLiveOffers?.some(
+    //   offer =>
+    //     offer.type === OfferType.DIRECT_OFFER &&
+    //     // handle case when token listing ended but frontend hasn't
+    //     // refetched the data yet
+    //     isFuture(parseISO(offer.endDate))
+    // );
+    return false;
+  },
+  {
+    card: gql`
+      fragment isSentInDirectOffer_card on Card {
+        slug
+        assetId
+        token {
+          slug
+          assetId
+          # sentInLiveOffers {
+          #   id
+          #   type
+          #   endDate
+          # }
+        }
+      }
+    `,
+  }
+);

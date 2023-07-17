@@ -59,7 +59,7 @@ const WITH_LIVE_CARDS_ON_SALE_CARD_QUERY = gql`
 `;
 
 type CommonDraftCampaign = NonNullable<
-  WithLiveCardsOnSaleLeaderboardQuery['football']['so5']['so5Leaderboard']['commonDraftCampaign']
+  WithLiveCardsOnSaleLeaderboardQuery['so5']['so5Leaderboard']['commonDraftCampaign']
 >;
 const useLiveCardsOnSale = ({
   bestDraftedPlayers,

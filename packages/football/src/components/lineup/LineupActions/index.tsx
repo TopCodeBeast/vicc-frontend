@@ -18,9 +18,9 @@ import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { fantasy, glossary } from '@sorare/core/src/lib/glossary';
 import { Link } from '@sorare/core/src/routing/Link';
 
-// import LineupActionButton from '@football/components/lineup/LineupActionButton';
+import LineupActionButton from '@football/components/lineup/LineupActionButton';
 import { useFootballEvents } from '@football/lib/events';
-// import getLineupActions from '@football/lib/lineup/getLineupActions';
+import getLineupActions from '@football/lib/lineup/getLineupActions';
 // import { LeaderboardAction } from '@football/types/leaderboard';
 
 import { LineupActions_so5Leaderboard } from './__generated__/index.graphql';

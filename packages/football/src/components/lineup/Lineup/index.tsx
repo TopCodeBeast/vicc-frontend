@@ -33,7 +33,7 @@ import { useDisplaySemiProIncentive } from '@football/hooks/leaderboard/useDispl
 // import { lineupMessages } from '@football/lib/lineup/messages';
 import { RewardType } from '@football/lib/lineupRewards';
 
-// import { LineupRewards } from './LineupRewards';
+import { LineupRewards } from './LineupRewards';
 // import { LineupStatus } from './LineupStatus';
 import {
   Lineup_so5Leaderboard,
@@ -315,7 +315,7 @@ Lineup.fragments = {
         id
         score
         ranking
-        #...LineupRewards_so5Ranking
+        ...LineupRewards_so5Ranking
       }
       #...LineupHeader_so5Lineup
       ...PlayerCardPlaceholder_so5Lineup
@@ -323,7 +323,7 @@ Lineup.fragments = {
     }
     #{LineupHeader.fragments.so5Lineup}
     #{PlayerCard.fragments.so5Appearance}
-    #{LineupRewards.fragments.so5Ranking}
+    ${LineupRewards.fragments.so5Ranking}
     #{PlayerCardPlaceholder.fragments.so5Lineup}
     #{LineupStatus.fragments.so5Lineup}
   `,
@@ -332,9 +332,9 @@ Lineup.fragments = {
       slug
       so5LineupsCount: vicc5LineupsCount
       so5LeaderboardType: vicc5LeaderboardType
-      #totalRewards {
-      #  ...LineupRewards_rewardsOverview
-      #}
+      totalRewards {
+        ...LineupRewards_rewardsOverview
+      }
       commonDraftCampaign {
         slug
         status
@@ -353,7 +353,7 @@ Lineup.fragments = {
     }
     #{LineupHeader.fragments.so5Leaderboard}
     #{LineupActions.fragments.so5Leaderboard}
-    #{LineupRewards.fragments.rewardsOverview}
+    ${LineupRewards.fragments.rewardsOverview}
     #{PlayerCardPlaceholder.fragments.so5Leaderboard}
   `,
 };

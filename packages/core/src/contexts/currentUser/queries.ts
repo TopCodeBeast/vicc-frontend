@@ -110,6 +110,7 @@ export const currentUser = gql`
         id
         verified
       }
+      ...ActiveUserAvatar_user
     }
     referee
     referralRewardsCount
@@ -235,7 +236,21 @@ export const currentUser = gql`
     # noCardRouteEnabled
     # so5NoCardRouteOpened
     # blockchainCardsInLineups
+    #...CurrentUserProvider_conversionCredit
+    #...CurrentUserProvider_onboardingStatus
+    #...CurrentUseProvider_sportProfile
+    #...CurrentUserProvider_walletRecovery
+    #...CurrentUseProvider_ethereumAccounts
+    #...CurrentUseProvider_fiatAccounts
+    #...ActiveUserAvatar_user
   }
+  #{walletRecovery}
+  #{conversionCredit}
+  #{onboardingStatus}
+  #{sportProfile}
+  #{ethereumAccounts}
+  #{fiatAccounts}
+  #{ActiveUserAvatar.fragments.user}
 `;
 
 export const CURRENT_USER_QUERY = gql`

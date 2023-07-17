@@ -11,7 +11,7 @@ export type SearchTopic = {
 
 export interface Props {
   children?: ReactNode;
-  title: React.ReactNode;
+  title?: React.ReactNode;
   topic?: SearchTopic;
   subtitle?: React.ReactNode;
   toggleDesktopFilter?: boolean;

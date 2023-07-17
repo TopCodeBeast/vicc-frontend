@@ -16,9 +16,10 @@ import {
   PrepareOfferMutationVariables,
 } from './__generated__/usePrepareOffer.graphql';
 
-type AuthorizationRequest = NonNullable<
-  NonNullable<PrepareOfferMutation['prepareOffer']>['authorizations']
->[number];
+type AuthorizationRequest = any;
+// type AuthorizationRequest = NonNullable<
+//   NonNullable<PrepareOfferMutation['prepareOffer']>['authorizations']
+// >[number];
 
 const PREPARE_OFFER_MUTATION = gql`
   mutation PrepareOfferMutation($input: prepareOfferInput!) {
@@ -73,7 +74,7 @@ type PrepareOfferOutput = {
 };
 
 export default () => {
-  const getAuthorizationApprovals = useGetAuthorizationApprovals();
+  // const getAuthorizationApprovals = useGetAuthorizationApprovals();
   const { signLimitOrders } = useWalletContext();
   const [prepareOffer] = useMutation<
     PrepareOfferMutation,
@@ -111,7 +112,7 @@ export default () => {
           sendAmount,
           receiveAmount,
           settlementCurrencies,
-        },
+        } as any,
       },
     });
     if (!success)
@@ -120,16 +121,17 @@ export default () => {
         ...errorOutput,
       };
 
-    const authorizations = data?.prepareOffer?.authorizations || [];
+    const authorizations = []; //data?.prepareOffer?.authorizations || [];
 
     const useAuthorizations = authorizations?.length > 0;
 
     const legacyLimitOrders = data?.prepareOffer?.limitOrders;
 
-    const signedAuthorizations =
-      (useAuthorizations &&
-        (await getAuthorizationApprovals(authorizations))) ||
-      undefined;
+    const signedAuthorizations = undefined;
+    // const signedAuthorizations =
+    //   (useAuthorizations &&
+    //     (await getAuthorizationApprovals(authorizations))) ||
+    //   undefined;
 
     const { signatures: legacyStarkSignatures, starkKey: legacyStarkKey } =
       await signLimitOrders(legacyLimitOrders!);

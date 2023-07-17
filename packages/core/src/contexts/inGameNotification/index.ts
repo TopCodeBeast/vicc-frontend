@@ -1,7 +1,8 @@
 import { createContext, useContext } from 'react';
 
-import { InGameNotificationProvider_notification } from './__generated__/queries.graphql';
+// import { InGameNotificationProvider_notification } from './__generated__/queries.graphql';
 
+type InGameNotificationProvider_notification = any;
 interface InGameNotificationContext {
   notifications: InGameNotificationProvider_notification[];
   loading: boolean;

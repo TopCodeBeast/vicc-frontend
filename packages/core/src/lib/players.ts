@@ -156,7 +156,7 @@ export const positionNames = defineMessages<Position>({
     id: 'Player.coach',
     defaultMessage: 'Coach',
   },
-});
+} as any);
 
 export const attributes = defineMessages({
   position: {
