@@ -22,15 +22,15 @@ import { scarcityMessages } from '@sorare/core/src/lib/scarcity';
 import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import BidHistory from '@sorare/marketplace/src/components/auction/BidHistory';
-// import OpenAuction from '@sorare/marketplace/src/components/auction/OpenAuction';
+import OpenAuction from '@sorare/marketplace/src/components/auction/OpenAuction';
 import MinimumPrice from '@sorare/marketplace/src/components/directOffer/MinimumPrice';
 import CurrentOwner from '@sorare/marketplace/src/components/offer/CurrentOwner';
 import SingleSaleOffer from '@sorare/marketplace/src/components/offer/SingleSaleOffer';
 // import TokenPriceHistory from '@sorare/marketplace/src/components/price/TokenPriceHistory';
-// import OwnershipHistory from '@sorare/marketplace/src/components/token/OwnershipHistory';
+import OwnershipHistory from '@sorare/marketplace/src/components/token/OwnershipHistory';
 // import BlockchainInfo from '@sorare/marketplace/src/components/token/TokenPage/BlockchainInfo';
 // import TokensAvailableOnPrimaryWhenInsufficientFundsInWallet from '@sorare/marketplace/src/components/token/TokenPage/TokensAvailableOnPrimaryWhenInsufficientFundsInWallet';
-// import { tokenPageMessages } from '@sorare/marketplace/src/components/token/TokenPage/tokenPageMessages';
+import { tokenPageMessages } from '@sorare/marketplace/src/components/token/TokenPage/tokenPageMessages';
 // import TokenWithdrawal from '@sorare/marketplace/src/components/token/TokenWithdrawal';
 
 import AddCardToDeck from '@football/components/deck/AddCardToDeck';
@@ -236,7 +236,7 @@ export const CardPage = (props: Props) => {
                   {token && <TokenWithdrawal token={token} />}
                 </Block>
               </PageBlock>
-            )}
+            )} */}
             {token && (
               <OwnershipHistory
                 title={
@@ -248,7 +248,7 @@ export const CardPage = (props: Props) => {
                 }
                 token={token}
               />
-            )} */}
+            )}
           </Content>
         </InnerContainer>
       </OuterContainer>
@@ -326,11 +326,11 @@ CardPage.fragments = {
           bids(first: 5, after: $bidCursor) {
             ...BidHistory_tokenBidConnection
           }
-          #...OpenAuction_auction
+          ...OpenAuction_auction
         }
         ...SingleSaleOffer_token
         ...CurrentOwner_token
-        #...OwnershipHistory_token
+        ...OwnershipHistory_token
         #...BlockchainInfo_token
         ...MinimumPrice_token
         #...TokenWithdrawal_token
@@ -352,12 +352,12 @@ CardPage.fragments = {
     ${CommonCardCurrentOwner.fragments.card}
     ${MyOffers.fragments.token}
     ${MinimumPrice.fragments.token}
-    #{OpenAuction.fragments.auction}
+    ${OpenAuction.fragments.auction}
     ${CardAttributes.fragments.card}
     #{TokenWithdrawal.fragments.token}
     #{analyticsFragments.cardInfo}
     ${BidHistory.fragments.bid}
-    #{OwnershipHistory.fragments.token}
+    ${OwnershipHistory.fragments.token}
     ${SingleSaleOffer.fragments.token}
     ${CurrentOwner.fragments.token}
     #{BlockchainInfo.fragments.token}
