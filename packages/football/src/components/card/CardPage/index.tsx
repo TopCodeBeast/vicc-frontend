@@ -25,7 +25,7 @@ import BidHistory from '@sorare/marketplace/src/components/auction/BidHistory';
 // import OpenAuction from '@sorare/marketplace/src/components/auction/OpenAuction';
 import MinimumPrice from '@sorare/marketplace/src/components/directOffer/MinimumPrice';
 import CurrentOwner from '@sorare/marketplace/src/components/offer/CurrentOwner';
-// import SingleSaleOffer from '@sorare/marketplace/src/components/offer/SingleSaleOffer';
+import SingleSaleOffer from '@sorare/marketplace/src/components/offer/SingleSaleOffer';
 // import TokenPriceHistory from '@sorare/marketplace/src/components/price/TokenPriceHistory';
 // import OwnershipHistory from '@sorare/marketplace/src/components/token/OwnershipHistory';
 // import BlockchainInfo from '@sorare/marketplace/src/components/token/TokenPage/BlockchainInfo';
@@ -156,7 +156,7 @@ export const CardPage = (props: Props) => {
               </>
             )}*/}
 
-            {/* {token && <SingleSaleOffer token={token} />} */}
+            {token && <SingleSaleOffer token={token} />}
             {token && <MyOffers token={token} />}
             <ItemEligibility card={card} />
             <PageBlock>
@@ -328,11 +328,11 @@ CardPage.fragments = {
           }
           #...OpenAuction_auction
         }
-        #...SingleSaleOffer_token
+        ...SingleSaleOffer_token
         ...CurrentOwner_token
         #...OwnershipHistory_token
         #...BlockchainInfo_token
-        #...MinimumPrice_token
+        ...MinimumPrice_token
         #...TokenWithdrawal_token
         #...TokensAvailableOnPrimaryWhenInsufficientFundsInWallet_token
         ...MyOffers_token
@@ -351,14 +351,14 @@ CardPage.fragments = {
     ${Title.fragments.card}
     ${CommonCardCurrentOwner.fragments.card}
     ${MyOffers.fragments.token}
-    #{MinimumPrice.fragments.token}
+    ${MinimumPrice.fragments.token}
     #{OpenAuction.fragments.auction}
     ${CardAttributes.fragments.card}
     #{TokenWithdrawal.fragments.token}
     #{analyticsFragments.cardInfo}
     ${BidHistory.fragments.bid}
     #{OwnershipHistory.fragments.token}
-    #{SingleSaleOffer.fragments.token}
+    ${SingleSaleOffer.fragments.token}
     ${CurrentOwner.fragments.token}
     #{BlockchainInfo.fragments.token}
     ${ItemEligibility.fragments.card}
