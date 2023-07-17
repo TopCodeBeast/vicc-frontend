@@ -23,8 +23,8 @@ import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import BidHistory from '@sorare/marketplace/src/components/auction/BidHistory';
 // import OpenAuction from '@sorare/marketplace/src/components/auction/OpenAuction';
-// import MinimumPrice from '@sorare/marketplace/src/components/directOffer/MinimumPrice';
-// import CurrentOwner from '@sorare/marketplace/src/components/offer/CurrentOwner';
+import MinimumPrice from '@sorare/marketplace/src/components/directOffer/MinimumPrice';
+import CurrentOwner from '@sorare/marketplace/src/components/offer/CurrentOwner';
 // import SingleSaleOffer from '@sorare/marketplace/src/components/offer/SingleSaleOffer';
 // import TokenPriceHistory from '@sorare/marketplace/src/components/price/TokenPriceHistory';
 // import OwnershipHistory from '@sorare/marketplace/src/components/token/OwnershipHistory';
@@ -40,7 +40,7 @@ import CardAttributes from './CardAttributes';
 import CommonCardCurrentOwner from './CommonCardCurrentOwner';
 import Header from './Header';
 import ItemEligibility from './ItemEligibility';
-// import MyOffers from './MyOffers';
+import MyOffers from './MyOffers';
 import Title from './Title';
 import { CardPage_card } from './__generated__/index.graphql';
 
@@ -117,7 +117,7 @@ export const CardPage = (props: Props) => {
       <OuterContainer>
         <InnerContainer>
           <Header card={card} />
-          {/* <Content>
+          <Content>
             <Title
               card={card}
               loading={loading}
@@ -131,7 +131,7 @@ export const CardPage = (props: Props) => {
               )}
               {token && <MinimumPrice token={token} />}
             </div>
-            {token?.latestEnglishAuction?.open && (
+            {/* {token?.latestEnglishAuction?.open && (
               <>
                 <div>
                   <OpenAuction auction={token.latestEnglishAuction} />
@@ -154,9 +154,9 @@ export const CardPage = (props: Props) => {
                   </PageBlock>
                 )}
               </>
-            )}
+            )}*/}
 
-            {token && <SingleSaleOffer token={token} />}
+            {/* {token && <SingleSaleOffer token={token} />} */}
             {token && <MyOffers token={token} />}
             <ItemEligibility card={card} />
             <PageBlock>
@@ -170,7 +170,7 @@ export const CardPage = (props: Props) => {
               />
               <CardAttributes card={card} />
             </PageBlock>
-            {card.allSo5Scores.nodes.length > 0 && (
+            {/* {card.allSo5Scores.nodes.length > 0 && (
               <PageBlock>
                 <BlockHeader
                   title={
@@ -248,8 +248,8 @@ export const CardPage = (props: Props) => {
                 }
                 token={token}
               />
-            )}
-          </Content> */}
+            )} */}
+          </Content>
         </InnerContainer>
       </OuterContainer>
       {addToListDialogOpen && (
@@ -329,17 +329,17 @@ CardPage.fragments = {
           #...OpenAuction_auction
         }
         #...SingleSaleOffer_token
-        #...CurrentOwner_token
+        ...CurrentOwner_token
         #...OwnershipHistory_token
         #...BlockchainInfo_token
         #...MinimumPrice_token
         #...TokenWithdrawal_token
         #...TokensAvailableOnPrimaryWhenInsufficientFundsInWallet_token
-        #...MyOffers_token
+        ...MyOffers_token
       }
       ...CardPageHeader_card
       ...CommonCardCurrentOwner_card
-      #...CardPageTitle_card
+      ...CardPageTitle_card
       ...CardAttributes_card
       #...Analytics_cardInfo
       ...CardPage_ItemEligibility_card
@@ -348,9 +348,9 @@ CardPage.fragments = {
     #{LastScores.fragments.player}
     #{LastScores.fragments.so5Score}
     ${Header.fragments.card}
-    #{Title.fragments.card}
+    ${Title.fragments.card}
     ${CommonCardCurrentOwner.fragments.card}
-    #{MyOffers.fragments.token}
+    ${MyOffers.fragments.token}
     #{MinimumPrice.fragments.token}
     #{OpenAuction.fragments.auction}
     ${CardAttributes.fragments.card}
@@ -359,7 +359,7 @@ CardPage.fragments = {
     ${BidHistory.fragments.bid}
     #{OwnershipHistory.fragments.token}
     #{SingleSaleOffer.fragments.token}
-    #{CurrentOwner.fragments.token}
+    ${CurrentOwner.fragments.token}
     #{BlockchainInfo.fragments.token}
     ${ItemEligibility.fragments.card}
     #{TokensAvailableOnPrimaryWhenInsufficientFundsInWallet.fragments.token}

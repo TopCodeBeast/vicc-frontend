@@ -36,6 +36,7 @@ export interface Item {
 }
 
 const itemRoute = (item: Item) => {
+  console.log('itemRoute', item.__typename)
   switch (item.__typename) {
     case 'Card':
     case 'Token':
@@ -83,6 +84,7 @@ export const OpenItemDialogLink = ({
   const location = useLocation();
   const { generateSportPath } = useSportContext();
   const { route, params } = itemRoute(item);
+  console.log('~~~~~~~~~~~~~~~~OpenItemDialogLink', route, params, sport);
   const dest = route
     ? `${generateSportPath(route, {
         params,
@@ -90,6 +92,7 @@ export const OpenItemDialogLink = ({
       })}${location.search}`
     : undefined;
 
+  console.log('dest', dest)
   if (!dest) {
     return null;
   }

@@ -104,6 +104,7 @@ export const Token = ({
   const { algoliaCardIndexes } = useConfigContext();
 
   const stacked = stack && stack.count > 1;
+  console.log('tokentokentokentokentokentoken', token)
 
   const lowestPriceHits = useFacetedSearchCards({
     index: algoliaCardIndexes['Lowest Price'],

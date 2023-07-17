@@ -138,7 +138,8 @@ export const CardPreviewGrid = (props: Props) => {
       if (item?.token) {
         return (
           <Token
-            token={token as any}// token={item.token} //TODO*****************
+            // token={token as any}
+            token={item.token}
             galleryOwnerSlug={galleryOwnerSlug}
             displayMarketplaceOnboardingTooltip={
               displayMarketplaceOnboardingTooltip

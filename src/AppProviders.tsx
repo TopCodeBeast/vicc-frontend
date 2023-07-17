@@ -30,6 +30,8 @@ import WalletDrawerProvider from '@sorare/core/src/contexts/walletDrawer/Provide
 import HandledErrorBoundary from '@sorare/core/src/routing/HandledErrorBoundary';
 import ThemeProvider from '@sorare/core/src/style/theme';
 
+import SingleSaleOfferProvider from '@sorare/marketplace/src/contexts/singleSaleOffer/Provider';
+
 const AppProviders = ({ children }: { children: ReactNode }) => {
   return (
     <BrowserRouter>
@@ -49,30 +51,32 @@ const AppProviders = ({ children }: { children: ReactNode }) => {
                                 <SeoProvider>
                                   <RestrictedAccessProvider>
                                     <CurrentUserProvider>
-                                          <RestrictedAccessModals />
+                                      <RestrictedAccessModals />
                                       <AuthProvider>
                                         <FollowProvider>
                                           <WalletDrawerProvider>
                                             <WalletProvider>
                                               <ConnectionProvider>
-                                                <TickerProvider>
-                                                  <SvgProvider>
-                                                    <SportProvider>
-                                                      <OneTimeDialogProvider>
-                                                        <Suspense
-                                                          fallback={null}
-                                                        >
-                                                          {children}
-                                                        </Suspense>
-                                                        <Suspense
-                                                          fallback={null}
-                                                        >
-                                                          <WalletFrame />
-                                                        </Suspense>
-                                                      </OneTimeDialogProvider>
-                                                    </SportProvider>
-                                                  </SvgProvider>
-                                                </TickerProvider>
+                                                <SingleSaleOfferProvider>
+                                                  <TickerProvider>
+                                                    <SvgProvider>
+                                                      <SportProvider>
+                                                        <OneTimeDialogProvider>
+                                                          <Suspense
+                                                            fallback={null}
+                                                          >
+                                                            {children}
+                                                          </Suspense>
+                                                          <Suspense
+                                                            fallback={null}
+                                                          >
+                                                            <WalletFrame />
+                                                          </Suspense>
+                                                        </OneTimeDialogProvider>
+                                                      </SportProvider>
+                                                    </SvgProvider>
+                                                  </TickerProvider>
+                                                </SingleSaleOfferProvider>
                                               </ConnectionProvider>
                                             </WalletProvider>
                                           </WalletDrawerProvider>
