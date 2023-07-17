@@ -18,7 +18,7 @@
                         "__typename": "Token",
                         "assetId": "0x04007b0d083c805e3d6b791e224ef25fb54728a76ac5791b80e3f6b54a21b37c",
                         "slug": "andreas-luthe-2022-limited-460",
-                        "sport": "FOOTBALL",
+                        "sport": "CRICKET",
                         "pictureUrl": "https://assets.sorare.com/card/f6c65e20-2a10-431f-942b-6fe2bb5dcce9/picture/tinified-c6265e031ca064bda32ba8e10875a94e.png",
                         "metadata": {
                             "__typename": "TokenFootballMetadata",
@@ -30,7 +30,7 @@
                             "serialNumber": 460,
                             "singleCivilYear": false
                         },
-                        "collection": "FOOTBALL"
+                        "collection": "CRICKET"
                     }
                 ],
                 "blockchainId": "205274788645434901709181654935439567765",
@@ -76,7 +76,7 @@
             "liveSingleSaleOffer": null,
             "assetId": "0x04007b0d083c805e3d6b791e224ef25fb54728a76ac5791b80e3f6b54a21b37c",
             "slug": "andreas-luthe-2022-limited-460",
-            "sport": "FOOTBALL",
+            "sport": "CRICKET",
             "pictureUrl": "https://assets.sorare.com/card/f6c65e20-2a10-431f-942b-6fe2bb5dcce9/picture/tinified-c6265e031ca064bda32ba8e10875a94e.png",
             "metadata": {
                 "__typename": "TokenFootballMetadata",
@@ -93,7 +93,7 @@
             "myMintedSingleSaleOffer": null,
             "owner": null,
             "name": "Andreas Luthe 2022-23 • Limited 460/1000",
-            "collection": "FOOTBALL",
+            "collection": "CRICKET",
             "tradeableStatus": "NO",
             "priceRange": {
                 "__typename": "Range",

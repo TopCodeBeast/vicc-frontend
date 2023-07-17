@@ -18,8 +18,6 @@ export const CARD_QUERY = gql`
   query CardQuery(
     $slug: String!
     $bidCursor: String
-    $scoreCursor: String
-    $first: Int
   ) {
     card(slug: $slug) {
       slug
@@ -53,11 +51,12 @@ export const CardPage = () => {
   } = usePaginatedQuery<CardQuery, CardQueryVariables>(CARD_QUERY, {
     variables: {
       slug: slug!,
-      first: scoresLimit,
+      // first: scoresLimit,
     },
     skip: !slug,
     connection: 'TokenBidConnection',
   });
+  console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CardPage', slug);
 
   // const { InfiniteScrollLoader } = useInfiniteScroll(
   //   useCallback(() => {

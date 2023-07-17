@@ -2,14 +2,43 @@ import { Fragment, ReactNode, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
+import Backdrop from '@sorare/core/src/atoms/loader/Backdrop';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import {
+  ACCEPT_INVITATION,
+  ACTIVITY,
+  ACTIVITY_NEWS,
+  ACTIVITY_NEWS_SHOW,
+  AFFILIATE_PROGRAM,
+  CAREERS,
+  CONFIRM_DEVICE,
+  CONFIRM_EMAIL,
+  CONTENT_PREVIEW_WILDCARD,
+  COOKIE_POLICY,
+  DEBUG_DEVICE,
+  GAME_RULES,
   LANDING,
+  LICENSED_PARTNERS,
+  LICENSED_PARTNERS_BY_SPORT,
+  LICENSED_PARTNERS_FOOTBALL_TAB,
+  LINK,
+  LOCKEDON,
+  MLB_LOCKEDON,
+  MOBILE_SIGN_UP,
   MY_SORARE_HOME,
   MY_SORARE_NEW,
+  MY_SORARE_WILDCARD,
+  OAUTH_AUTORIZE,
+  PRESS,
+  PRIVACY_POLICY,
+  PROMO_CLAIM,
+  PROMO_SIGNUP,
+  REFERRER_LINK,
   SETTINGS_ACCOUNT,
   SETTINGS_HOME,
   SETTINGS_WILDCARD,
+  TERMS,
+  VERIFY_STRIPE_ACCOUNT,
 } from '@sorare/core/src/constants/routes';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
@@ -25,6 +54,7 @@ import RequireAuth from '@sorare/core/src/routing/RequireAuth';
 import { RoutesWithDialogs } from '@sorare/core/src/routing/Router';
 
 import Landing from '@sorare/shared-pages/src/Landing';
+import RedirectRouter from './RedirectRouter';
 
 const WalletDrawer = lazy(
   async () => import('@sorare/core/src/components/wallet/WalletDrawer')
@@ -77,6 +107,7 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
 
   return (
     <>
+      <RedirectRouter />
       <RoutesWithDialogs
         basePath="/"
       >

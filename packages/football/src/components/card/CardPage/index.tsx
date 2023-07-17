@@ -21,7 +21,7 @@ import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 import { scarcityMessages } from '@sorare/core/src/lib/scarcity';
 import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
-// import BidHistory from '@sorare/marketplace/src/components/auction/BidHistory';
+import BidHistory from '@sorare/marketplace/src/components/auction/BidHistory';
 // import OpenAuction from '@sorare/marketplace/src/components/auction/OpenAuction';
 // import MinimumPrice from '@sorare/marketplace/src/components/directOffer/MinimumPrice';
 // import CurrentOwner from '@sorare/marketplace/src/components/offer/CurrentOwner';
@@ -323,9 +323,9 @@ CardPage.fragments = {
               }
             }
           }
-          #bids(first: 5, after: $bidCursor) {
-          #  ...BidHistory_tokenBidConnection
-          #}
+          bids(first: 5, after: $bidCursor) {
+            ...BidHistory_tokenBidConnection
+          }
           #...OpenAuction_auction
         }
         #...SingleSaleOffer_token
@@ -356,7 +356,7 @@ CardPage.fragments = {
     ${CardAttributes.fragments.card}
     #{TokenWithdrawal.fragments.token}
     #{analyticsFragments.cardInfo}
-    #{BidHistory.fragments.bid}
+    ${BidHistory.fragments.bid}
     #{OwnershipHistory.fragments.token}
     #{SingleSaleOffer.fragments.token}
     #{CurrentOwner.fragments.token}
