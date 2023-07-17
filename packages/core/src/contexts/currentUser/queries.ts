@@ -242,7 +242,7 @@ export const currentUser = gql`
     #...CurrentUserProvider_walletRecovery
     #...CurrentUseProvider_ethereumAccounts
     #...CurrentUseProvider_fiatAccounts
-    #...ActiveUserAvatar_user
+    ...ActiveUserAvatar_user
   }
   #{walletRecovery}
   #{conversionCredit}
@@ -250,7 +250,7 @@ export const currentUser = gql`
   #{sportProfile}
   #{ethereumAccounts}
   #{fiatAccounts}
-  #{ActiveUserAvatar.fragments.user}
+  ${ActiveUserAvatar.fragments.user}
 `;
 
 export const CURRENT_USER_QUERY = gql`

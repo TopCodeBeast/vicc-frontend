@@ -8,8 +8,7 @@ import ActivityIndicator from '@core/components/user/ActivityIndicator';
 import Avatar from '@core/components/user/Avatar';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 
-// import { ActiveUserAvatar_user } from './__generated__/index.graphql';
-type ActiveUserAvatar_user = any;
+import { ActiveUserAvatar_user } from './__generated__/index.graphql';
 
 export interface Props {
   user: ActiveUserAvatar_user;
@@ -82,10 +81,10 @@ ActiveUserAvatar.fragments = {
     fragment ActiveUserAvatar_user on PublicUserInfoInterface {
       slug
       ...ActivityIndicator_user
-      #...Avatar_publicUserInfoInterface
+      ...Avatar_publicUserInfoInterface
     }
     ${ActivityIndicator.fragments.user}
-    #{Avatar.fragments.publicUserInfoInterface}
+    ${Avatar.fragments.publicUserInfoInterface}
   `,
 };
 
