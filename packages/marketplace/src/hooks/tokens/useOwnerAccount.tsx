@@ -98,7 +98,7 @@ export const useOwnerAccount = ({ account }: Props): ReturnedProps => {
       account.accountable as useOwnerAccount_account_accountable_StarkwareAccount;
     return {
       avatar: <Avatar user={accountable} />,
-      owner: accountable.starkKey,
+      owner: 'starkKey', //accountable.starkKey,
     };
   }
 
