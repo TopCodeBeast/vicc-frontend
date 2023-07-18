@@ -1,5 +1,5 @@
 import { Fragment, ReactNode, Suspense } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, generatePath } from 'react-router-dom';
 
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import Backdrop from '@sorare/core/src/atoms/loader/Backdrop';
@@ -53,9 +53,14 @@ import { EnsureTopVisibleOnMount } from '@sorare/core/src/routing/EnsureTopVisib
 import RequireAuth from '@sorare/core/src/routing/RequireAuth';
 import { RoutesWithDialogs } from '@sorare/core/src/routing/Router';
 
+// import { AppLayout } from '@sorare/us-sports/src/components/AppLayout';
+
 import Landing from '@sorare/shared-pages/src/Landing';
 import RedirectRouter from './RedirectRouter';
 
+const Dialog = lazy(
+  async () => import('@sorare/core/src/components/dialog/index')
+);
 const WalletDrawer = lazy(
   async () => import('@sorare/core/src/components/wallet/WalletDrawer')
 );
@@ -110,7 +115,35 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
       <RedirectRouter />
       <RoutesWithDialogs
         basePath="/"
+        dialogRoutes={({ isDialog }) => (
+          <Route
+            path={ACTIVITY_NEWS_SHOW}
+            element={
+              isDialog ? (
+                <Suspense fallback={<Backdrop />}>
+                  <Dialog
+                    defaultBackUrl={ACTIVITY}
+                    open
+                    fullWidth
+                    maxWidth="sm"
+                  >
+                    <>SpecificNews5</>
+                    {/* <SpecificNews /> */}
+                  </Dialog>
+                </Suspense>
+              ) : (
+                <DarkTheme>
+                  <>AppLayout6666</>
+                  {/* <AppLayout>
+                    <SpecificNews />
+                  </AppLayout> */}
+                </DarkTheme>
+              )
+            }
+          />
+        )}
       >
+        <Route path={LANDING} element={<Landing />} />
         <Route
           path={SETTINGS_HOME}
           element={
@@ -135,7 +168,6 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
           path={MY_SORARE_HOME}
           element={<Navigate to={MY_SORARE_NEW} replace />}
         />
-        <Route path={LANDING} element={<Landing />} />
         <Route
           path={'/*'}
           element={

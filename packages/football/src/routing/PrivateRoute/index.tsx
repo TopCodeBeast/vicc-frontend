@@ -1,8 +1,8 @@
 import { FC, ReactElement } from 'react';
 
 // import VerifyPhoneNumber from '@sorare/core/src/components/user/VerifyPhoneNumber';
-// import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-// import useRedirectToLogIn from '@sorare/core/src/hooks/auth/useRedirectToLogIn';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import useRedirectToLogIn from '@sorare/core/src/hooks/auth/useRedirectToLogIn';
 
 import Layout from '@football/routing/Layout';
 
@@ -20,15 +20,15 @@ export const PrivateRoute = ({
   withLayout,
   requireVerifiedPhoneNumber,
 }: Props) => {
-  // const { currentUser } = useCurrentUserContext();
-  // const redirectToLogIn = useRedirectToLogIn();
+  const { currentUser } = useCurrentUserContext();
+  const redirectToLogIn = useRedirectToLogIn();
 
   if (!Component) {
     throw new Error('Missing component to render');
   }
-  // if (!currentUser) {
-  //   return redirectToLogIn();
-  // }
+  if (!currentUser) {
+    return redirectToLogIn();
+  }
   return (
     <WithLayout withLayout={withLayout}>
       <>

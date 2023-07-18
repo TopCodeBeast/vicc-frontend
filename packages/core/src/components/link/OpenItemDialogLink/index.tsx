@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Sport } from '__generated__/globalTypes';
+import { Sport } from '@core/__generated__/globalTypes';
 import {
   LEGACY_BUNDLED_AUCTION,
   LEGACY_CARD_SHOW,
@@ -36,7 +36,6 @@ export interface Item {
 }
 
 const itemRoute = (item: Item) => {
-  console.log('itemRoute', item.__typename)
   switch (item.__typename) {
     case 'Card':
     case 'Token':
@@ -84,7 +83,6 @@ export const OpenItemDialogLink = ({
   const location = useLocation();
   const { generateSportPath } = useSportContext();
   const { route, params } = itemRoute(item);
-  console.log('~~~~~~~~~~~~~~~~OpenItemDialogLink', route, params, sport);
   const dest = route
     ? `${generateSportPath(route, {
         params,
@@ -92,7 +90,6 @@ export const OpenItemDialogLink = ({
       })}${location.search}`
     : undefined;
 
-  console.log('dest', dest)
   if (!dest) {
     return null;
   }

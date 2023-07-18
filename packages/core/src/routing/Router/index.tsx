@@ -41,12 +41,12 @@ export const RoutesWithDialogs = ({
       value={{
         dialogRoutes: [
           ...(dialogRoutesProps || []),
-          ...createRoutesFromChildren(dialogRoutes?.({ isDialog: true })).map(
-            ({ path, ...otherRouteProps }) => ({
-              ...otherRouteProps,
-              path: path ? resolvePath(path, basePath).pathname : undefined,
-            })
-          ),
+          // ...createRoutesFromChildren(dialogRoutes?.({ isDialog: true })).map(
+          //   ({ path, ...otherRouteProps }) => ({
+          //     ...otherRouteProps,
+          //     path: path ? resolvePath(path, basePath).pathname : undefined,
+          //   })
+          // ),
         ],
       }}
     >

@@ -7,7 +7,7 @@ import { DarkTheme } from '@sorare/core/src/routing/DarkTheme';
 //   tokenOfferSubscription,
 // } from '@sorare/marketplace/src/lib/fragments';
 
-// import UserDialog from '@football/components/user/UserDialog';
+import UserDialog from '@football/components/user/UserDialog';
 // import { useCheckRedirectToOnboarding } from '@football/hooks/onboarding/useCheckRedirectToOnboarding';
 
 import AppSwitch from './AppSwitch';
@@ -29,7 +29,7 @@ export const AppRouter = () => {
       <DarkTheme>
         <AppSwitch />
       </DarkTheme>
-      {/* <UserDialog /> */}
+      <UserDialog />
     </>
   );
 };
