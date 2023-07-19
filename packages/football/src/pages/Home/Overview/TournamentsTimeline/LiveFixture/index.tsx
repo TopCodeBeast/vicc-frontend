@@ -54,7 +54,7 @@ export const LiveFixture = ({ so5, loading }: Props) => {
         ) : null
       }
     >
-      LiveFixture666666666666666666666
+      
      <ContentWrapper>
          <ItemRows itemsCount={lineups.length} loading={loading}>
           {lineups.map(
