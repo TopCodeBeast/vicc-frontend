@@ -1,21 +1,20 @@
 import { useCallback } from 'react';
 
 import { AlgoliaCardIndexesName } from '@core/contexts/config';
-// import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useSportContext } from '@core/contexts/sport';
-// import { getInteractionContext } from '@core/lib/events';
+import { getInteractionContext } from '@core/lib/events';
 
 import useLifecycle, { LIFECYCLE, Lifecycle } from './useLifecycle';
 
 export const useMarketplaceLifecycle = () => {
   const { sport } = useSportContext();
   const { update } = useLifecycle();
-  const currentUser = undefined;// const { currentUser } = useCurrentUserContext();
+  const { currentUser } = useCurrentUserContext();
 
-  //TODO**************
-  const key = 'football';// const key = `${
-  //   sport ? sport.toLocaleLowerCase() : ''
-  // }_${getInteractionContext()}`;
+  const key = `${
+    sport ? sport.toLocaleLowerCase() : ''
+  }_${getInteractionContext()}`;
 
   const lifecycle = currentUser?.userSettings?.lifecycle as Lifecycle;
 

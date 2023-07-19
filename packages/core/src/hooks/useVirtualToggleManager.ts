@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useInstantSearch } from 'react-instantsearch-hooks-web';
 
 import { ExtendedUIState } from '@core/components/search/InstantSearch/types';
-// import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useSearchCardsContext } from '@core/contexts/searchCards';
 import { VIRTUAL_TOGGLE_FILTERS } from '@core/lib/filters';
 
@@ -20,7 +20,7 @@ export const useVirtualToggleManager = () => {
     setCustomDecksFilter,
     setNotInLineUpFilter,
   } = useSearchCardsContext() ?? {};
-  const currentUser = null;// const { currentUser } = useCurrentUserContext();
+  const { currentUser } = useCurrentUserContext();
   const { setIndexUiState } = useInstantSearch<ExtendedUIState>();
 
   const { toggle: togglePlayingNextGameweekFilter } = useVirtualToggle<boolean>(

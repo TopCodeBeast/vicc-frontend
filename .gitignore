@@ -31,3 +31,5 @@ dist-ssr
 # Graphql
 __generated__
 index.graphql.ts
+# Local Netlify folder
+.netlify

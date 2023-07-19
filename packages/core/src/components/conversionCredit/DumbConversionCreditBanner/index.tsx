@@ -9,7 +9,7 @@ import { MonetaryAmount, Sport } from '__generated__/globalTypes';
 import Container from '@core/atoms/layout/Container';
 import { Text14, Text16 } from '@core/atoms/typography';
 import { AUCTION_MARKET_URL, STARTER_BUNDLES_URL } from '@core/constants/routes';
-// import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useIntlContext } from '@core/contexts/intl';
 import useScreenSize from '@core/hooks/device/useScreenSize';
 import { sportsLabelsMessages } from '@core/lib/glossary';
@@ -83,7 +83,7 @@ export const DumbConversionCreditBanner = ({
   sport,
   rounded,
 }: Props) => {
-  const fiatCurrency: any = { code: "use" }; // const { fiatCurrency } = useCurrentUserContext(); //TOOD*****
+  const { fiatCurrency } = useCurrentUserContext();
   const { up: isTabletOrDesktop } = useScreenSize('tablet');
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const { formatNumber, formatDistanceToNowStrict } = useIntlContext();

@@ -46,7 +46,7 @@ const LoggedOutAppBar = () => {
         <Button medium color="white" onClick={onSignUpClick}>
           {formatMessage(glossary.signup)}
         </Button>
-        <Button medium color="blue" onClick={() => signIn()}>
+        <Button medium color="blue" onClick={signIn}>
           {formatMessage(glossary.signin)}
         </Button>
       </Actions>

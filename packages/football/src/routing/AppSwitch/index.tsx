@@ -76,15 +76,15 @@ import { useConfigContext } from '@sorare/core/src/contexts/config';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-// import useGetSplat from '@sorare/core/src/hooks/useGetSplat';
+import useGetSplat from '@sorare/core/src/hooks/useGetSplat';
 // import { importFactory } from '@sorare/core/src/lib/importFactory';
 import { lazy } from '@sorare/core/src/lib/retry';
-// import { catchAll } from '@sorare/core/src/lib/routing';
+import { catchAll } from '@sorare/core/src/lib/routing';
 import { EnsureTopVisibleOnMount } from '@sorare/core/src/routing/EnsureTopVisibleOnMount';
 import { RoutesWithDialogs } from '@sorare/core/src/routing/Router';
 import WithItemDialog from '@sorare/core/src/routing/WithItemDialog';
 
-// import Landing from '@sorare/shared-pages/src/Landing';
+import Landing from '@sorare/shared-pages/src/Landing';
 // import BundledAuctionPage from '@football/components/auction/BundledAuctionPage';
 // import EditDeckCards from '@football/components/deck/EditDeckCards';
 // import BundesligaLanding from '@football/pages/BundesligaLanding';
@@ -180,13 +180,69 @@ export const AppSwitch = () => {
   const { currentUser } = useCurrentUserContext();
   const { landingTheme } = useConfigContext();
   const location = useLocation();
-  // const getSplat = useGetSplat();
+  const getSplat = useGetSplat();
 
   return (
     <RoutesWithDialogs
       basePath={FOOTBALL_PATH}
       dialogRoutes={({ isDialog }) => (
         <>
+          {/*<Route
+            path={FOOTBALL_COMPETITION_DETAILS_WILDCARD}
+            element={
+              isDialog ? (
+                <Suspense fallback={<Backdrop />}>
+                  <Dialog
+                    open
+                    maxWidth="md"
+                    fullWidth
+                    fullHeight
+                    defaultBackUrl={FOOTBALL_HOME}
+                    body={<LobbyCompetitionDetails />}
+                  />
+                </Suspense>
+              ) : (
+                <PrivateRoute
+                  withLayout
+                  element={<LobbyCompetitionDetails />}
+                />
+              )
+            }
+          />
+          <Route path={FOOTBALL_VIDEOS} element={<ManagerHomeVideos />} />
+          <Route
+            path={FOOTBALL_LOBBY_UPCOMING_CLUB_BANNER}
+            element={<ClubGameDialog />}
+          />
+          <Route
+            path={FOOTBALL_LOBBY_STARTER_BUNDLES}
+            element={
+              <WithDialog
+                component={<StarterBundlesPage />}
+                defaultBackUrl={FOOTBALL_LOBBY_UPCOMING}
+              />
+            }
+          />
+          <Route
+            path={FOOTBALL_LOBBY_UPCOMING_SWAP}
+            element={
+              <Suspense fallback={<Backdrop />}>
+                <PrivateRoute element={<Swap />} />
+              </Suspense>
+            }
+          />
+          <Route
+            path={FOOTBALL_BUNDLED_AUCTION}
+            element={
+              <Suspense fallback={null}>
+                <WithItemDialog
+                  isDialog={isDialog}
+                  Layout={Layout}
+                  Component={BundledAuctionPage}
+                />
+              </Suspense>
+            }
+          />*/}
           <Route
             path={FOOTBALL_CARD_SHOW}
             element={
@@ -199,6 +255,48 @@ export const AppSwitch = () => {
               </Suspense>
             }
           />
+          {/*<Route
+            path={FOOTBALL_PRIVATE_LEAGUES_DETAILS}
+            element={
+              <WithDialog
+                defaultBackUrl={FOOTBALL_HOME}
+                component={<UserGroups showDetails />}
+              />
+            }
+          />
+          <Route
+            path={FOOTBALL_CUSTOM_DECK_EDIT}
+            element={
+              <PrivateRoute
+                element={
+                  isDialog ? (
+                    <Suspense fallback={<Backdrop />}>
+                      <Dialog
+                        open
+                        fullScreen
+                        defaultBackUrl={FOOTBALL_HOME}
+                        body={<EditDeckCards />}
+                      />
+                    </Suspense>
+                  ) : (
+                    <PrivateRoute withLayout element={<EditDeckCards />} />
+                  )
+                }
+              />
+            }
+          />
+          <Route
+            path={FOOTBALL_STARTER_BUNDLE_PAGE}
+            element={
+              <Suspense fallback={<Backdrop />}>
+                <WithItemDialog
+                  isDialog={isDialog}
+                  Layout={Layout}
+                  Component={StarterBundlePage}
+                />
+              </Suspense>
+            }
+          />*/}
         </>
       )}
     >
@@ -512,7 +610,7 @@ export const AppSwitch = () => {
               </EnsureTopVisibleOnMount>
             }
           />
-          {/* {
+          {
             landingTheme && landingTheme.slug !== 'default-landing-theme' ? (
               <Route path={catchAll(FOOTBALL_HOME)} element={<Landing />} />
             ) : (
@@ -521,7 +619,7 @@ export const AppSwitch = () => {
                 element={<Navigate to={FOOTBALL_HOME} replace />}
               />
             )
-          } */}
+          }
         </>
       )}
       <Route
@@ -545,7 +643,7 @@ export const AppSwitch = () => {
         }
       />
       {/* Force all Football routes to be prefixed with /football now */}
-      {/* <Route
+      <Route
         path="/*"
         element={
           <Navigate
@@ -553,7 +651,7 @@ export const AppSwitch = () => {
             replace
           />
         }
-      /> */}
+      />
     </RoutesWithDialogs>
   );
 };

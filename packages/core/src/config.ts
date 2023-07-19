@@ -54,7 +54,7 @@ const getEnvConfig = () => {
     // Always use local env in storybook
     return config.development;
   }
-  if (hostname.match(/sorare.dev/)) {
+  if (hostname.match(/vicc-dev/)) {
     return config.staging;
   }
   if (hostname.match(/sorare.tech/)) {
