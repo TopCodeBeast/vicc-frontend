@@ -33,7 +33,7 @@ import {
   getLeaderboardInfo_so5Leaderboard,
   getPlayerScore_so5Score,
   // hasBonuses_so5Leaderboard,
-  // isBlockchainLeague_so5League,
+  isBlockchainLeague_so5League,
   // sortLeaderboards_leaderboard,
 } from './__generated__/so5.graphql';
 
@@ -126,18 +126,18 @@ const fragments = {
 //       leagueOrder.indexOf(b.name as League)
 //   );
 
-// export const isBlockchainLeague = withFragments(
-//   (so5League: isBlockchainLeague_so5League) =>
-//     so5League.restrictionGroup === RestrictionGroup.BLOCKCHAIN_GROUP,
-//   {
-//     so5League: gql`
-//       fragment isBlockchainLeague_so5League on So5League {
-//         slug
-//         restrictionGroup
-//       }
-//     `,
-//   }
-// );
+export const isBlockchainLeague = withFragments(
+  (so5League: isBlockchainLeague_so5League) =>
+    so5League.restrictionGroup === RestrictionGroup.BLOCKCHAIN_GROUP,
+  {
+    so5League: gql`
+      fragment isBlockchainLeague_so5League on So5League {
+        slug
+        restrictionGroup
+      }
+    `,
+  }
+);
 
 // export const isWeekly = (league: { name: string }) => league.name === 'weekly';
 // export const isSpecialWeeklyEvent = (so5Fixture: {
@@ -170,17 +170,17 @@ const fragments = {
 //   'Extra Player': { ...emptyAppearance },
 // };
 
-// export const emptyLineup: {
-//   __typename: 'So5Lineup';
-//   id: string;
-//   name: string | null;
-//   so5Appearances: [];
-// } = {
-//   __typename: 'So5Lineup',
-//   id: '',
-//   name: null,
-//   so5Appearances: [],
-// };
+export const emptyLineup: {
+  __typename: 'Vicc5Lineup';
+  id: string;
+  name: string | null;
+  so5Appearances: [];
+} = {
+  __typename: 'Vicc5Lineup',
+  id: '',
+  name: null,
+  so5Appearances: [],
+};
 
 // export const hasAppearanceBeenUpdated = ({
 //   bonus,
@@ -240,7 +240,7 @@ export const isFixtureClosed = (fixture: { aasmState: string }): boolean =>
 //     ).length > 0,
 //   {
 //     so5Leaderboard: gql`
-//       fragment hasBonuses_so5Leaderboard on So5Leaderboard {
+//       fragment hasBonuses_so5Leaderboard on Vicc5Leaderboard {
 //         slug
 //         engineConfiguration {
 //           scarcity
@@ -783,7 +783,7 @@ export const sortLeaderboardsByTournamentType = (
 //   },
 //   {
 //     leaderboard: gql`
-//       fragment sortLeaderboards_leaderboard on So5Leaderboard {
+//       fragment sortLeaderboards_leaderboard on Vicc5Leaderboard {
 //         slug
 //         mainRarityType
 //       }
