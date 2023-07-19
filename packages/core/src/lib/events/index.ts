@@ -10,11 +10,13 @@ export const getInteractionContext = () => {
 
 export enum socialShareEventContext {
   CARD_PAGE,
+  LEADERBOARD,
   SQUAD,
 }
 
 export enum socialShareEventName {
   SHARE_CARD,
+  SHARE_LINEUP,
   SHARE_SQUAD,
 }
 
