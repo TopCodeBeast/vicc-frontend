@@ -7,7 +7,7 @@ import { Button } from '@sorare/core/src/atoms/buttons/Button';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 
-// import NewOfferBuilder from '@marketplace/components/directOffer/NewOfferBuilder';
+import NewOfferBuilder from '@marketplace/components/directOffer/NewOfferBuilder';
 import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
 import useTradeButtonVisible from '@marketplace/hooks/offers/useTradeButtonVisible';
 
@@ -43,13 +43,13 @@ export const TradeButton = ({ user }: Props) => {
           />
         </span>
       </Button>
-      {/* {offerBuilderOpen && currentUser && (
+      {offerBuilderOpen && currentUser && (
         <NewOfferBuilder
           onClose={toggleOfferBuilderOpen}
           to={user}
           currentUser={currentUser}
         />
-      )} */}
+      )}
     </>
   );
 };
@@ -59,8 +59,8 @@ TradeButton.fragments = {
     fragment TradeButton_publicUserInfoInterface on PublicUserInfoInterface {
       id
       slug
-      #...NewOfferBuilder_publicUserInfoInterface
+      ...NewOfferBuilder_publicUserInfoInterface
     }
-    #{NewOfferBuilder.fragments.user}
+    ${NewOfferBuilder.fragments.user}
   `,
 };
