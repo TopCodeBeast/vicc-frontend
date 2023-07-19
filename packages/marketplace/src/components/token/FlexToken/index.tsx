@@ -41,7 +41,6 @@ export const FlexToken: {
       trackClickCard: () => {},
     };
 
-    console.log('withLink~~~~~~~~~~~', withLink, token)
     if (withLink)
       return (
         <Root

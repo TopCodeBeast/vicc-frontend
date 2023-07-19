@@ -22,7 +22,6 @@ type Props = {
 
 export const AuctionBidsInfo = ({ auction }: Props) => {
   const doesBestBidBelongsToUser = useBestBidBelongsToUser();
-
   const bestBidBelongsToUser =
     auction.bestBid && doesBestBidBelongsToUser(auction.bestBid);
 
