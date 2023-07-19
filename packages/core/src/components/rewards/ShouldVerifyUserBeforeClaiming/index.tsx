@@ -1,7 +1,7 @@
 import { MouseEvent, useState } from 'react';
 import styled from 'styled-components';
 
-import VerifyPhoneNumber from '@core/components/user/VerifyPhoneNumber';
+// import VerifyPhoneNumber from '@core/components/user/VerifyPhoneNumber';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useEvents from '@core/lib/events/useEvents';
 
@@ -40,9 +40,9 @@ export const ShouldVerifyUserBeforeClaiming: React.FC<{
 
   return (
     <>
-      {verifyPhoneNumber && (
+      {/* {verifyPhoneNumber && (
         <VerifyPhoneNumber onCancel={() => setVerifyPhoneNumber(false)} />
-      )}
+      )} */}
       <Wrapper onClickCapture={onClick}>
         {children({ disabledClaim: shouldVerifyPhone })}
       </Wrapper>

@@ -54,11 +54,11 @@ export default () => {
   const { showNotification } = useSnackNotificationContext();
 
   return [
-    async (so5RewardIds: string[]) => {
+    async (vicc5RewardIds: string[]) => {
       const result = await claim({
         variables: {
           input: {
-            so5RewardIds,
+            vicc5RewardIds,
           },
         },
       });
