@@ -36,7 +36,7 @@ import {
 
 type Props = {
   lastFiveSo5AverageScore: number | null;
-  lastFifteenSo5AverageScore: number | null;
+  lastFifteenVicc5AverageScore: number | null;
   so5Scores: (LastScores_so5Score | null)[];
   player: LastScores_player;
   cardPositions?: Position[];
@@ -181,10 +181,10 @@ const StatusIcon: {
 const PerformancesSummary = ({
   player,
   lastFiveSo5AverageScore,
-  lastFifteenSo5AverageScore,
+  lastFifteenVicc5AverageScore,
 }: {
   lastFiveSo5AverageScore: number | null;
-  lastFifteenSo5AverageScore: number | null;
+  lastFifteenVicc5AverageScore: number | null;
   player: LastScores_player;
 }) => {
   const { formatNumber } = useIntl();
@@ -206,11 +206,11 @@ const PerformancesSummary = ({
   const summaryData = {
     [ScoreTabValue.l5]: {
       score: lastFiveSo5AverageScore,
-      appearanceRate: (player.lastFiveSo5Appearances || 0) / 5,
+      appearanceRate: (player.lastFiveVicc5Appearances || 0) / 5,
     },
     [ScoreTabValue.l15]: {
-      score: lastFifteenSo5AverageScore,
-      appearanceRate: (player.lastFifteenSo5Appearances || 0) / 15,
+      score: lastFifteenVicc5AverageScore,
+      appearanceRate: (player.lastFifteenVicc5Appearances || 0) / 15,
     },
   };
 
@@ -259,7 +259,7 @@ const PerformancesSummary = ({
 };
 
 const LastScores = ({
-  lastFifteenSo5AverageScore,
+  lastFifteenVicc5AverageScore,
   lastFiveSo5AverageScore,
   cardPositions = [],
   setPosition,
@@ -386,7 +386,7 @@ const LastScores = ({
         <PerformancesSummary
           player={player}
           lastFiveSo5AverageScore={lastFiveSo5AverageScore}
-          lastFifteenSo5AverageScore={lastFifteenSo5AverageScore}
+          lastFifteenVicc5AverageScore={lastFifteenVicc5AverageScore}
         />
       </Section>
       <Section>
@@ -462,8 +462,8 @@ LastScores.fragments = {
     fragment LastScores_player on Player {
       id
       slug
-      lastFiveSo5Appearances: lastFiveVicc5Appearances
-      lastFifteenSo5Appearances: lastFifteenVicc5Appearances
+      lastFiveVicc5Appearances: lastFiveVicc5Appearances
+      lastFifteenVicc5Appearances: lastFifteenVicc5Appearances
       injuries {
         id
         ...PlayerUnavailabilityBadge_injury

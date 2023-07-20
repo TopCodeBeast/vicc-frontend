@@ -20,14 +20,14 @@ const PlayerLastScores = ({
   selectedPosition,
   InfiniteScrollLoader,
 }: Props) => {
-  const { cardPositions, lastFiveSo5AverageScore, lastFifteenSo5AverageScore } =
+  const { cardPositions, lastFiveSo5AverageScore, lastFifteenVicc5AverageScore } =
     player;
 
   if (!player.allSo5Scores.nodes?.length) return null;
 
   return (
     <LastScores
-      lastFifteenSo5AverageScore={lastFifteenSo5AverageScore}
+      lastFifteenVicc5AverageScore={lastFifteenVicc5AverageScore}
       lastFiveSo5AverageScore={lastFiveSo5AverageScore}
       so5Scores={player.allSo5Scores.nodes}
       cardPositions={cardPositions}
@@ -51,11 +51,11 @@ PlayerLastScores.fragments = {
         type: LAST_FIVE_VICC5_AVERAGE_SCORE
         position: $position
       )
-      lastFifteenSo5AverageScore: averageScore(
+      lastFifteenVicc5AverageScore: averageScore(
         type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
         position: $position
       )
-      allSo5Scores(first: $first, after: $after, position: $position) {
+      allSo5Scores: allVicc5Scores(first: $first, after: $after, position: $position) {
         nodes {
           id
           ...LastScores_so5Score
