@@ -2,11 +2,11 @@ import { gql } from '@apollo/client';
 import { MessageDescriptor, defineMessages } from 'react-intl';
 import { generatePath } from 'react-router-dom';
 
-// import {
-//   Position as GlobalPosition,
-//   Rarity,
-//   RestrictionGroup,
-// } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  Position as GlobalPosition,
+  Rarity,
+  RestrictionGroup,
+} from '@sorare/core/src/__generated__/globalTypes';
 // import {
 //   INVITE_EPL_USER_GROUP,
 //   INVITE_USER_GROUP,
@@ -131,7 +131,7 @@ export const isBlockchainLeague = withFragments(
     so5League.restrictionGroup === RestrictionGroup.BLOCKCHAIN_GROUP,
   {
     so5League: gql`
-      fragment isBlockchainLeague_so5League on So5League {
+      fragment isBlockchainLeague_so5League on Vicc5League {
         slug
         restrictionGroup
       }
@@ -636,7 +636,7 @@ export const getLeaderboardInfo = withFragments(
 //   'atLeastOfClubs',
 // ] as const;
 
-// export const ELIGIBILITY_RULES = ['cardsCountOfCurrentUser'] as string[];
+export const ELIGIBILITY_RULES = ['cardsCountOfCurrentUser'] as string[];
 
 // export const captainDialogMessages = defineMessages({
 //   default: {

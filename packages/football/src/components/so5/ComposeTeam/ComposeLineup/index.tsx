@@ -314,7 +314,7 @@ ComposeLineup.fragments = {
         sumOfAverageScores
       }
       trainingCenter
-      so5League {
+      so5League: vicc5League {
         slug
         name
       }
@@ -332,9 +332,9 @@ ComposeLineup.fragments = {
     ${ComposeOnboarding.fragments.competition}
   `,
   so5Lineup: gql`
-    fragment ComposeLineup_so5Lineup on So5Lineup {
+    fragment ComposeLineup_so5Lineup on Vicc5Lineup {
       id
-      so5Appearances {
+      so5Appearances: vicc5Appearances {
         id
         ...Appearance_so5Appearance
         card {

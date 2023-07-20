@@ -501,23 +501,23 @@ ContextProvider.fragments = {
         captain
         scarcity
       }
-      so5League {
+      so5League: vicc5League {
         slug
         name
         category
         displayName
         shortDisplayName
         restrictionGroup
-        so5Fixture {
+        so5Fixture: vicc5Fixture {
           slug
         }
       }
-      so5Fixture {
+      so5Fixture: vicc5Fixture {
         slug
         startDate
         endDate
       }
-      so5LeaderboardType
+      so5LeaderboardType: vicc5LeaderboardType
       defaultAverageScore
       rules {
         id

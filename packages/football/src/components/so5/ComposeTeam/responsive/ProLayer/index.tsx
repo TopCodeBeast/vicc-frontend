@@ -143,12 +143,12 @@ ProLayer.fragments = {
       assetId
       player {
         slug
-        so5Scores(last: 5) {
+        so5Scores: vicc5Scores(last: 5) {
           id
           score
         }
       }
-      gameForLeague(so5LeaderboardSlug: $so5LeaderboardSlug) {
+      gameForLeague(vicc5LeaderboardSlug: $vicc5LeaderboardSlug) {
         id
         status
         homeTeam {
