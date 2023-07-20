@@ -147,7 +147,7 @@ const ContextProvider = ({
   const [favoriteAverageScore, setFavoriteAverageScore] =
     useLocalStorage<AveragePlayerScore>(
       'so5/ComposeTeam/ContextProvider/defaultFavoriteAverageScore',
-      AveragePlayerScore.LAST_FIFTEEN_SO5_AVERAGE_SCORE
+      AveragePlayerScore.LAST_FIFTEEN_VICC5_AVERAGE_SCORE
     );
 
   const [defaultAverageScore, setDefaultAverageScore] =
@@ -286,7 +286,7 @@ const ContextProvider = ({
   };
 
   const displayedAverageScore = isCappedMode
-    ? AveragePlayerScore.LAST_FIFTEEN_SO5_AVERAGE_SCORE
+    ? AveragePlayerScore.LAST_FIFTEEN_VICC5_AVERAGE_SCORE
     : defaultAverageScore || favoriteAverageScore;
 
   const averageScoreOptions: { value: AveragePlayerScore; label: string }[] =
@@ -294,7 +294,7 @@ const ContextProvider = ({
       () => [
         { value: AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE, label: 'L5' },
         {
-          value: AveragePlayerScore.LAST_FIFTEEN_SO5_AVERAGE_SCORE,
+          value: AveragePlayerScore.LAST_FIFTEEN_VICC5_AVERAGE_SCORE,
           label: 'L15',
         },
       ],
@@ -395,7 +395,7 @@ export const cardFragment = gql`
     avatarPictureUrl: pictureUrl(derivative: "avatar")
     lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
     lastFifteenSo5AverageScore: averageScore(
-      type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
+      type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
     )
     openedSo5Lineups {
       id
@@ -560,7 +560,7 @@ ContextProvider.fragments = {
     ${ComposeOnboarding.fragments.competition}
   `,
   so5Lineup: gql`
-    fragment ContextProvider_so5Lineup on So5Lineup {
+    fragment ContextProvider_so5Lineup on Vicc5Lineup {
       id
       name
       so5Appearances: vicc5Appearances {

@@ -61,7 +61,7 @@ const FIXTURE_SCORES_QUERY = gql`
         position: $position
       )
       lastFifteenSo5AverageScore: averageScore(
-        type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
+        type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
         position: $position
       )
       allSo5Scores(first: 10, after: $cursor, position: $position) {

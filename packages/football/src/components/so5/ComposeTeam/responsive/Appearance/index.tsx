@@ -160,7 +160,7 @@ Memoized.fragments = {
         slug
         lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
         lastFifteenSo5AverageScore: averageScore(
-          type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
+          type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
         )
         ...AppearancePower_card
       }

@@ -82,7 +82,7 @@ export const BenchCard = (props: Props) => {
           <Properties>
             <>
               {displayedAverageScore ===
-                AveragePlayerScore.LAST_FIFTEEN_SO5_AVERAGE_SCORE && (
+                AveragePlayerScore.LAST_FIFTEEN_VICC5_AVERAGE_SCORE && (
                 <AverageScore
                   capped={isCappedMode}
                   size="smaller"
@@ -133,7 +133,7 @@ BenchCard.fragments = {
       position: positionTyped
       lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
       lastFifteenSo5AverageScore: averageScore(
-        type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
+        type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
       )
       player {
         slug

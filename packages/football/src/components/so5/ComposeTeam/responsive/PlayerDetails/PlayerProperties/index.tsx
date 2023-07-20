@@ -129,7 +129,7 @@ PlayerProperties.fragments = {
       age
       position: positionTyped
       lastFifteenSo5AverageScore: averageScore(
-        type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
+        type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
       )
       activeClub {
         slug
