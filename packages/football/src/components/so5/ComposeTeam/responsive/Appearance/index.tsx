@@ -110,7 +110,7 @@ const Appearance = (props: Props) => {
                 displayedAverageScore ===
                 AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE
                   ? 'lastFiveSo5AverageScore'
-                  : 'lastFifteenSo5AverageScore'
+                  : 'lastFifteenVicc5AverageScore'
               ]
             }
             withTooltip
@@ -159,7 +159,7 @@ Memoized.fragments = {
         assetId
         slug
         lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
-        lastFifteenSo5AverageScore: averageScore(
+        lastFifteenVicc5AverageScore: averageScore(
           type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
         )
         ...AppearancePower_card

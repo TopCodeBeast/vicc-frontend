@@ -67,7 +67,7 @@ const ComposeLineup = () => {
   const totalFifteenAverageScore = useMemo(
     () =>
       Object.values(lineup).reduce((acc, cur) => {
-        return (cur.card?.lastFifteenSo5AverageScore || 0) + acc;
+        return (cur.card?.lastFifteenVicc5AverageScore || 0) + acc;
       }, 0),
     [lineup]
   );
@@ -111,7 +111,7 @@ const ComposeLineup = () => {
               position={position as LineupPosition}
             />
           )}
-          {typeof card?.lastFifteenSo5AverageScore === 'number' && (
+          {typeof card?.lastFifteenVicc5AverageScore === 'number' && (
             <PlayerScoreWrapper>
               <AverageScore
                 capped={isCappedMode}
@@ -120,7 +120,7 @@ const ComposeLineup = () => {
                     displayedAverageScore ===
                     AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE
                       ? 'lastFiveSo5AverageScore'
-                      : 'lastFifteenSo5AverageScore'
+                      : 'lastFifteenVicc5AverageScore'
                   ]
                 }
                 withTooltip

@@ -35,7 +35,7 @@ CompactNextGames.fragments = {
         activeClub {
           slug
         }
-        gamesForLeaderboard(so5LeaderboardSlug: $so5LeaderboardSlug) {
+        gamesForLeaderboard: gameForLeaderboard(vicc5LeaderboardSlug: $vicc5LeaderboardSlug) {
           id
           ...GameCompactInfo_game
         }

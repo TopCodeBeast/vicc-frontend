@@ -87,7 +87,7 @@ const ContextProvider = ({
     includeUsedCards: !showFilters,
     ...(isCappedMode
       ? {
-          lastFifteenSo5AverageScore: {
+          lastFifteenVicc5AverageScore: {
             min: 0,
             max: MAX_CARD_VALUE,
           },
@@ -272,7 +272,7 @@ const ContextProvider = ({
         cardSlug: l.card!.slug,
         captain: l.captain,
       })),
-      so5LineupId: so5Lineup.id.length === 0 ? null : so5Lineup.id,
+      vicc5LineupId: so5Lineup.id.length === 0 ? null : so5Lineup.id,
     });
     setSubmitting(false);
     if (!lineupErrors) {
@@ -388,16 +388,16 @@ export const cardFragment = gql`
   fragment ContextProvider_card on Card {
     slug
     assetId
-    position: positionTyped
+    position
     rarity
     grade
     pictureUrl: pictureUrl(derivative: "tinified")
     avatarPictureUrl: pictureUrl(derivative: "avatar")
     lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
-    lastFifteenSo5AverageScore: averageScore(
+    lastFifteenVicc5AverageScore: averageScore(
       type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
     )
-    openedSo5Lineups {
+    openedSo5Lineups: openedVicc5Lineups {
       id
       name
       so5Leaderboard: vicc5Leaderboard {
@@ -421,9 +421,9 @@ export const cardFragment = gql`
     }
     singleCivilYear
     serialNumber
-    power(so5LeaderboardSlug: $so5LeaderboardSlug)
+    power(vicc5LeaderboardSlug: $vicc5LeaderboardSlug)
     powerMalusAfterTransfer
-    powerBreakdown(so5LeaderboardSlug: $so5LeaderboardSlug) {
+    powerBreakdown(vicc5LeaderboardSlug: $vicc5LeaderboardSlug) {
       season
       xp
       scarcity
@@ -432,16 +432,16 @@ export const cardFragment = gql`
     player {
       slug
       displayName
-      so5Scores(last: 5) {
+      so5Scores: vicc5Scores(last: 5) {
         id
         score
       }
-      lastFiveSo5Appearances
-      lastFifteenSo5Appearances
+      lastFiveVicc5Appearances
+      lastFifteenVicc5Appearances
       activeClub {
         slug
       }
-      gamesForLeaderboard(so5LeaderboardSlug: $so5LeaderboardSlug) {
+      gamesForLeaderboard: gameForLeaderboard(vicc5LeaderboardSlug: $vicc5LeaderboardSlug) {
         id
         status
         date

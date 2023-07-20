@@ -55,7 +55,7 @@ const PlayerProperties = ({
   showCardBonusIndicator = true,
   budgetValue,
 }: Props) => {
-  const { displayName, age, position, lastFifteenSo5AverageScore } = player;
+  const { displayName, age, position, lastFifteenVicc5AverageScore } = player;
 
   const { name: clubName, pictureUrl: clubPictureUrl } =
     player?.activeClub || {};
@@ -73,7 +73,7 @@ const PlayerProperties = ({
         ) : (
           <>
             <AverageScore
-              score={lastFifteenSo5AverageScore}
+              score={lastFifteenVicc5AverageScore}
               withTooltip
               scoreMode="AVERAGE_LAST_15_GAMES"
               size="small"
@@ -127,8 +127,8 @@ PlayerProperties.fragments = {
       slug
       displayName
       age
-      position: positionTyped
-      lastFifteenSo5AverageScore: averageScore(
+      position
+      lastFifteenVicc5AverageScore: averageScore(
         type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
       )
       activeClub {

@@ -60,11 +60,11 @@ const FIXTURE_SCORES_QUERY = gql`
         type: LAST_FIVE_VICC5_AVERAGE_SCORE
         position: $position
       )
-      lastFifteenSo5AverageScore: averageScore(
+      lastFifteenVicc5AverageScore: averageScore(
         type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
         position: $position
       )
-      allSo5Scores(first: 10, after: $cursor, position: $position) {
+      allSo5Scores: allVicc5Scores(first: 10, after: $cursor, position: $position) {
         nodes {
           id
           ...LastScores_so5Score
@@ -201,8 +201,8 @@ const PlayerDetails = ({
         lastFiveSo5AverageScore={
           fixtureScoresData?.football.player.lastFiveSo5AverageScore
         }
-        lastFifteenSo5AverageScore={
-          fixtureScoresData?.football.player.lastFifteenSo5AverageScore
+        lastFifteenVicc5AverageScore={
+          fixtureScoresData?.football.player.lastFifteenVicc5AverageScore
         }
         player={fixtureScoresData?.football.player}
         so5Scores={fixtureScoresData?.football.player.allSo5Scores.nodes}
@@ -218,7 +218,7 @@ PlayerDetails.fragments = {
     fragment PlayerDetails_card on Card {
       slug
       assetId
-      position: positionTyped
+      position
       ...PlayerProperties_card
     }
     ${PlayerProperties.fragments.card}

@@ -142,10 +142,10 @@ PlayerStatusWarning.fragments = {
     fragment PlayerStatusWarning_card on Card {
       slug
       assetId
-      openedSo5Lineups {
+      openedSo5Lineups: openedVicc5Lineups {
         id
         name
-        so5Leaderboard {
+        so5Leaderboard: vicc5Leaderboard {
           slug
           gameWeek
           ...DivisionLogo_so5Leaderboard

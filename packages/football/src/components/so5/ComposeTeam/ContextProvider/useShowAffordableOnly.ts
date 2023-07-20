@@ -23,7 +23,7 @@ const useShowAffordableOnly = ({
   const totalFifteenAverageScore = useMemo(
     () =>
       Object.values(lineup).reduce((acc, cur) => {
-        return (cur.card?.lastFifteenSo5AverageScore || 0) + acc;
+        return (cur.card?.lastFifteenVicc5AverageScore || 0) + acc;
       }, 0),
     [lineup]
   );
@@ -36,7 +36,7 @@ const useShowAffordableOnly = ({
         fifteenGameAverageTotalLimit - totalFifteenAverageScore;
       setFilters(f => ({
         ...f,
-        lastFifteenSo5AverageScore:
+        lastFifteenVicc5AverageScore:
           remainingPoints >= MAX_CARD_VALUE
             ? undefined
             : {
@@ -55,7 +55,7 @@ const useShowAffordableOnly = ({
     if (!showAffordableOnly) {
       setFilters(f => ({
         ...f,
-        lastFifteenSo5AverageScore: undefined,
+        lastFifteenVicc5AverageScore: undefined,
       }));
     }
   }, [showAffordableOnly, setFilters]);

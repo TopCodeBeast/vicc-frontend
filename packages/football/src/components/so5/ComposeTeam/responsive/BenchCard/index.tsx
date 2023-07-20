@@ -86,7 +86,7 @@ export const BenchCard = (props: Props) => {
                 <AverageScore
                   capped={isCappedMode}
                   size="smaller"
-                  score={card.lastFifteenSo5AverageScore}
+                  score={card.lastFifteenVicc5AverageScore}
                   withTooltip
                   scoreMode="AVERAGE_LAST_15_GAMES"
                 />
@@ -130,9 +130,9 @@ BenchCard.fragments = {
       assetId
       rarity
       pictureUrl: pictureUrl(derivative: "tinified")
-      position: positionTyped
+      position
       lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
-      lastFifteenSo5AverageScore: averageScore(
+      lastFifteenVicc5AverageScore: averageScore(
         type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
       )
       player {

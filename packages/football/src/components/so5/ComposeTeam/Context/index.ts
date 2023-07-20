@@ -25,7 +25,7 @@ export type Errors = { path: string[] | null; message: string }[] | null;
 export type BenchFilters = {
   includeNoGameCards: boolean;
   includeUsedCards: boolean;
-  lastFifteenSo5AverageScore?: RangeInput;
+  lastFifteenVicc5AverageScore?: RangeInput;
 };
 
 const composeTeamContext = createContext<{

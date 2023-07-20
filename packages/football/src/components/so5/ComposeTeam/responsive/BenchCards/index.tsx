@@ -37,7 +37,7 @@ const cardFragment = gql`
 
 export const BENCH_CARDS_QUERY = gql`
   query BenchCardsQuery(
-    $so5LeaderboardSlug: String!
+    $vicc5LeaderboardSlug: String!
     $query: String
     $includeUsed: Boolean
     $includeNoGame: Boolean
@@ -46,43 +46,41 @@ export const BENCH_CARDS_QUERY = gql`
     $after: String
     $rarities: [Rarity!]!
     $sortType: EligibleCardsSort
-    $so5LineupId: String
+    $vicc5LineupId: String
     $statsView: Boolean!
-    $lastFifteenSo5AverageScore: RangeInput
+    $lastFifteenVicc5AverageScore: RangeInput
     $deckId: String
   ) {
-    football {
-      so5 {
-        so5Leaderboard(slug: $so5LeaderboardSlug) {
+    so5: vicc5Root {
+      so5Leaderboard: vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
+        slug
+        so5League: vicc5League {
           slug
-          so5League {
+          name
+        }
+        myEligibleCards(
+          query: $query
+          includeUsed: $includeUsed
+          includeNoGame: $includeNoGame
+          position: $position
+          selectedCards: $selectedCards
+          after: $after
+          rarities: $rarities
+          first: 10
+          sortType: $sortType
+          vicc5LineupId: $vicc5LineupId
+          lastFifteenVicc5AverageScore: $lastFifteenVicc5AverageScore
+          deckId: $deckId
+        ) {
+          nodes {
             slug
-            name
+            assetId
+            position
+            ...BenchCards_card
           }
-          myEligibleCards(
-            query: $query
-            includeUsed: $includeUsed
-            includeNoGame: $includeNoGame
-            position: $position
-            selectedCards: $selectedCards
-            after: $after
-            rarities: $rarities
-            first: 10
-            sortType: $sortType
-            so5LineupId: $so5LineupId
-            lastFifteenSo5AverageScore: $lastFifteenSo5AverageScore
-            deckId: $deckId
-          ) {
-            nodes {
-              slug
-              assetId
-              position: positionTyped
-              ...BenchCards_card
-            }
-            pageInfo {
-              endCursor
-              hasNextPage
-            }
+          pageInfo {
+            endCursor
+            hasNextPage
           }
         }
       }
@@ -150,7 +148,7 @@ export const BenchCards = () => {
   } = useFeatureFlags();
   const variables = useMemo(
     () => ({
-      so5LeaderboardSlug: so5Leaderboard.slug,
+      vicc5LeaderboardSlug: so5Leaderboard.slug,
       selectedCards: Object.values(lineup)
         .map(a => a.card)
         .filter(Boolean)
@@ -158,11 +156,11 @@ export const BenchCards = () => {
       query: search,
       includeUsed: filters.includeUsedCards,
       includeNoGame: filters.includeNoGameCards,
-      lastFifteenSo5AverageScore: filters.lastFifteenSo5AverageScore,
+      lastFifteenVicc5AverageScore: filters.lastFifteenVicc5AverageScore,
       position:
         activePosition === 'Extra Player' ? null : (activePosition as Position),
       rarities: cardsScarcities as Rarity[],
-      so5LineupId: idFromObject(so5Lineup.id),
+      vicc5LineupId: idFromObject(so5Lineup.id),
       sortType: {
         direction: SortingOption.DESC,
         type: displayedAverageScore,
