@@ -104,8 +104,8 @@ const LineupActions = ({
   //     <LineupActionButton
   //       as={Link}
   //       to={getComposeTeamRoute({
-  //         so5LeaderboardSlug: so5Leaderboard.slug,
-  //         so5LineupId: idFromObject(lineup?.id),
+  //         vicc5LeaderboardSlug: so5Leaderboard.slug,
+  //         vicc5LineupId: idFromObject(lineup?.id),
   //       })}
   //       onClick={() => {
   //         track('Click Edit Lineup', {
@@ -121,7 +121,7 @@ const LineupActions = ({
   //       className="primary"
   //       as={Link}
   //       to={getComposeTeamRoute({
-  //         so5LeaderboardSlug: so5Leaderboard.slug,
+  //         vicc5LeaderboardSlug: so5Leaderboard.slug,
   //       })}
   //       onClick={() => {
   //         track('Click Compose Lineup', {

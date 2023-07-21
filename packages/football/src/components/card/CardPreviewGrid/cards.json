@@ -125,7 +125,7 @@
         },
         "name": "Andreas Luthe 2022-23 • Limited 460/1000",
         "lastFiveSo5AverageScore": 39,
-        "lastFifteenSo5AverageScore": 47,
+        "lastFifteenVicc5AverageScore": 47,
         "player": {
             "__typename": "Player",
             "slug": "andreas-luthe",
@@ -139,8 +139,8 @@
                 "id": "Club:81912e32-350e-42e9-86ba-6d7dbb59b1dd",
                 "name": "1. FC Kaiserslautern"
             },
-            "lastFiveSo5Appearances": 4,
-            "lastFifteenSo5Appearances": 13,
+            "lastFiveVicc5Appearances": 4,
+            "lastFifteenVicc5Appearances": 13,
             "displayName": "Andreas Luthe",
             "id": "Player:4b50083b-4cf5-4315-8f39-72af648df9c5"
         },

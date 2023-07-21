@@ -115,8 +115,8 @@ const PlayerCardPlaceholder = ({ position, lineup, leaderboard }: Props) => {
       return generatePath(FOOTBALL_DRAFT, { slug: leaderboard.slug });
     }
     return getComposeTeamRoute({
-      so5LeaderboardSlug: leaderboard.slug,
-      so5LineupId: idFromObject(lineup?.id),
+      vicc5LeaderboardSlug: leaderboard.slug,
+      vicc5LineupId: idFromObject(lineup?.id),
     });
   };
 

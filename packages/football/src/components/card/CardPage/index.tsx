@@ -109,7 +109,7 @@ export const CardPage = (props: Props) => {
     return <LoadingIndicator fullHeight />;
   }
 
-  const { token, lastFifteenSo5AverageScore, lastFiveSo5AverageScore, rarity } =
+  const { token, lastFifteenVicc5AverageScore, lastFiveSo5AverageScore, rarity } =
     card;
 
   return (
@@ -183,7 +183,7 @@ export const CardPage = (props: Props) => {
                 <LastScores
                   player={card.player}
                   so5Scores={card.allSo5Scores.nodes}
-                  lastFifteenSo5AverageScore={lastFifteenSo5AverageScore}
+                  lastFifteenVicc5AverageScore={lastFifteenVicc5AverageScore}
                   lastFiveSo5AverageScore={lastFiveSo5AverageScore}
                   InfiniteScrollLoader={InfiniteScrollLoader}
                 />
@@ -281,7 +281,7 @@ CardPage.fragments = {
       slug
       assetId
       lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
-      lastFifteenSo5AverageScore: averageScore(
+      lastFifteenVicc5AverageScore: averageScore(
         type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
       )
       #allSo5Scores(first: $first, after: $scoreCursor) {
