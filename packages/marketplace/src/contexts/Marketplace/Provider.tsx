@@ -58,10 +58,10 @@ interface Props
 const cardInfoProperties = (card: Analytics_cardInfo) => ({
   cardSlug: card.slug,
   domesticLeagueSlug: card.player.activeClub?.domesticLeague?.slug || '',
-  lastFiveSo5Appearances: card.player.lastFiveSo5Appearances || 0,
+  lastFiveVicc5Appearances: card.player.lastFiveVicc5Appearances || 0,
   lastFiveSo5AverageScore: card.lastFiveSo5AverageScore || 0.0,
-  lastFifteenSo5Appearances: card.player.lastFifteenSo5Appearances || 0,
-  lastFifteenSo5AverageScore: card.lastFifteenSo5AverageScore || 0.0,
+  lastFifteenVicc5Appearances: card.player.lastFifteenVicc5Appearances || 0,
+  lastFifteenVicc5AverageScore: card.lastFifteenVicc5AverageScore || 0.0,
   playerSlug: card.player.slug,
   position: card.positionTyped,
   positions: [],
@@ -97,10 +97,10 @@ type TokenFootballMetadata = Analytics_tokenInfo_metadata_TokenFootballMetadata;
 const tokenInfoProperties = (token: Analytics_tokenInfo) => ({
   cardSlug: token.slug,
   domesticLeagueSlug: '',
-  lastFiveSo5Appearances: 0,
+  lastFiveVicc5Appearances: 0,
   lastFiveSo5AverageScore: 0.0,
-  lastFifteenSo5Appearances: 0,
-  lastFifteenSo5AverageScore: 0.0,
+  lastFifteenVicc5Appearances: 0,
+  lastFifteenVicc5AverageScore: 0.0,
   playerSlug: token.metadata.playerSlug,
   position: isA<TokenFootballMetadata>('TokenFootballMetadata', token.metadata)
     ? token.metadata.playerPosition

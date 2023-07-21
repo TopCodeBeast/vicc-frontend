@@ -68,7 +68,7 @@ type Props = {
     slug: string | null;
     endCursor?: string | null;
     so5FixtureId?: string | undefined;
-    so5LeaderboardSlug?: string | null;
+    vicc5LeaderboardSlug?: string | null;
     withTraining?: boolean;
     draft?: boolean;
     limit?: number | null;
