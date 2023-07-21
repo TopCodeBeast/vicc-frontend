@@ -96,10 +96,10 @@ export const FOOTBALL_USER_CARD_COLLECTION_CARDS = `${FOOTBALL_USER_CARD_COLLECT
 export const FOOTBALL_USER_CARD_COLLECTION_LEADERBOARD = `${FOOTBALL_USER_CARD_COLLECTION}/leaderboard`;
 export const FOOTBALL_NO_CARD_ENTRY = `${FOOTBALL_PATH}/no-card-route`;
 export const FOOTBALL_NO_CARD_ROUTE_REQUEST = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId`;
-export const FOOTBALL_NO_CARD_ROUTE_ACCEPT = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:so5LineupId/accept`;
-export const FOOTBALL_NO_CARD_ROUTE_CANCEL = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:so5LineupId/cancel`;
-export const FOOTBALL_NO_CARD_ROUTE_CONFIRM = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:so5LineupId/confirm`;
-export const FOOTBALL_NO_CARD_ROUTE_LEADERBOARDS = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:so5LineupId/leaderboards`;
+export const FOOTBALL_NO_CARD_ROUTE_ACCEPT = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:vicc5LineupId/accept`;
+export const FOOTBALL_NO_CARD_ROUTE_CANCEL = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:vicc5LineupId/cancel`;
+export const FOOTBALL_NO_CARD_ROUTE_CONFIRM = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:vicc5LineupId/confirm`;
+export const FOOTBALL_NO_CARD_ROUTE_LEADERBOARDS = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:vicc5LineupId/leaderboards`;
 
 export const LANDING = '/';
 export const TERMS = '/terms-and-conditions';
@@ -111,9 +111,9 @@ export const CONFIRM_EMAIL = '/confirm-email';
 export const CONFIRM_DEVICE = '/confirm-device';
 export const VERIFY_STRIPE_ACCOUNT = '/verify-identity/:id';
 export const DEBUG_DEVICE = '/debug-device';
-export const FOOTBALL_COMPOSE_TEAM = `/football/compose-team/:so5LeaderboardSlug`;
+export const FOOTBALL_COMPOSE_TEAM = `/football/compose-team/:vicc5LeaderboardSlug`;
 export const FOOTBALL_COMPOSE_TEAM_DRAFT = `${FOOTBALL_PATH}/compose/draft/:slug`;
-export const FOOTBALL_COMPOSE_TEAM_LINEUP = `${FOOTBALL_PATH}/compose-team/:so5LeaderboardSlug/:so5LineupId`;
+export const FOOTBALL_COMPOSE_TEAM_LINEUP = `${FOOTBALL_PATH}/compose-team/:vicc5LeaderboardSlug/:vicc5LineupId`;
 export const FOOTBALL_BUNDLED_AUCTION = `${FOOTBALL_PATH}${LEGACY_BUNDLED_AUCTION}`;
 export const LEGACY_TOKEN_AUCTION = `/auctions/:id`;
 export const TOKEN_AUCTION = `${FOOTBALL_PATH}/auctions/:id`;
@@ -486,20 +486,20 @@ export const BANNER_SET_PREVIEW = `/content/preview/banner-set/:name`;
 export const HERO_BANNER_SET_PREVIEW = `/content/preview/hero-banner-set/:name`;
 
 export function getComposeTeamRoute({
-  so5LeaderboardSlug,
-  so5LineupId,
+  vicc5LeaderboardSlug,
+  vicc5LineupId,
   ...rest
 }: {
-  so5LeaderboardSlug: string;
-  so5LineupId?: string;
+  vicc5LeaderboardSlug: string;
+  vicc5LineupId?: string;
   [key: string]: string | undefined;
 }) {
   let url;
   const params = {
-    so5LeaderboardSlug,
-    so5LineupId,
+    vicc5LeaderboardSlug,
+    vicc5LineupId,
   };
-  if (so5LineupId) {
+  if (vicc5LineupId) {
     url = generatePath(FOOTBALL_COMPOSE_TEAM_LINEUP, params);
   } else {
     url = generatePath(FOOTBALL_COMPOSE_TEAM, params);

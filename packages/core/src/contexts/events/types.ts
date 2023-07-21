@@ -21,7 +21,7 @@ export enum EventStep {
 //       assetId
 //       name
 //       lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
-//       lastFifteenSo5AverageScore: averageScore(
+//       lastFifteenVicc5AverageScore: averageScore(
 //         type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
 //       )
 //       player {
@@ -32,8 +32,8 @@ export enum EventStep {
 //             slug
 //           }
 //         }
-//         lastFiveSo5Appearances
-//         lastFifteenSo5Appearances
+//         lastFiveVicc5Appearances
+//         lastFifteenVicc5Appearances
 //       }
 //       positionTyped
 //       rarity
