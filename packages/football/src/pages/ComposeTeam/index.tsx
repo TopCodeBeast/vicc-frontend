@@ -34,9 +34,9 @@ import {
 } from './__generated__/index.graphql';
 
 const COMPOSE_TEAM_LEADERBOARD_QUERY = gql`
-  query ComposeTeamLeaderboardQuery($so5LeaderboardSlug: String!) {
+  query ComposeTeamLeaderboardQuery($vicc5LeaderboardSlug: String!) {
     so5: vicc5Root {
-      so5Leaderboard: vicc5Leaderboard(slug: $so5LeaderboardSlug) {
+      so5Leaderboard: vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
         slug
         trainingCenter
         so5League: vicc5League {
@@ -46,7 +46,7 @@ const COMPOSE_TEAM_LEADERBOARD_QUERY = gql`
         so5Fixture: vicc5Fixture {
           slug
           mySo5LineupsPaginated: myVicc5LineupsPaginated(
-            so5LeaderboardSlug: $so5LeaderboardSlug
+            vicc5LeaderboardSlug: $vicc5LeaderboardSlug
             first: 1
           ) {
             nodes {
@@ -60,19 +60,19 @@ const COMPOSE_TEAM_LEADERBOARD_QUERY = gql`
 `;
 const COMPOSE_TEAM_QUERY = gql`
   query ComposeTeamQuery(
-    $so5LeaderboardSlug: String!
-    $so5LineupId: String
+    $vicc5LeaderboardSlug: String!
+    $vicc5LineupId: String
     $statsView: Boolean!
   ) {
     so5: vicc5Root {
-      vicc5Leaderboard(slug: $so5LeaderboardSlug) {
+      vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
         slug
         so5League: vicc5League {
           slug
           name
           ...isBlockchainLeague_so5League
         }
-        vicc5Lineup(id: $so5LineupId) {
+        vicc5Lineup(id: $vicc5LineupId) {
           id
           ...ComposeTeamComponent_so5Lineup
         }
@@ -86,11 +86,11 @@ const COMPOSE_TEAM_QUERY = gql`
 `;
 
 type Props = {
-  so5LeaderboardSlug: string;
-  so5LineupId?: string;
+  vicc5LeaderboardSlug: string;
+  vicc5LineupId?: string;
 };
 
-export const ComposeTeam = ({ so5LeaderboardSlug, so5LineupId }: Props) => {
+export const ComposeTeam = ({ vicc5LeaderboardSlug, vicc5LineupId }: Props) => {
   const navigateWithDeeplink = useNavigateWithDeeplink();
   const navigate = useNavigate();
   const location = useLocation();
@@ -102,8 +102,8 @@ export const ComposeTeam = ({ so5LeaderboardSlug, so5LineupId }: Props) => {
     ComposeTeamQueryVariables
   >(COMPOSE_TEAM_QUERY, {
     variables: {
-      so5LeaderboardSlug: so5LeaderboardSlug || '',
-      so5LineupId,
+      vicc5LeaderboardSlug: vicc5LeaderboardSlug || '',
+      vicc5LineupId,
       statsView: false,
     },
     nextFetchPolicy: 'cache-first',
@@ -156,11 +156,11 @@ const ComposeTeamOrRedirect = () => {
   const {
     flags: { useSmartComposeTeamRedirection = false },
   } = useFeatureFlags();
-  const { so5LeaderboardSlug = '', so5LineupId } = useParams();
+  const { vicc5LeaderboardSlug = '', vicc5LineupId } = useParams();
   const { data: leaderboardData, loading } =
     useQuery<ComposeTeamLeaderboardQuery>(COMPOSE_TEAM_LEADERBOARD_QUERY, {
       variables: {
-        so5LeaderboardSlug,
+        vicc5LeaderboardSlug,
       },
       fetchPolicy: useSmartComposeTeamRedirection
         ? 'cache-and-network'
@@ -174,8 +174,8 @@ const ComposeTeamOrRedirect = () => {
     mySo5LineupsPaginated?.nodes?.[0]?.id
   );
   const navigateToValidLineup =
-    firstValidLineupId && firstValidLineupId !== so5LineupId && !trainingCenter;
-  const navigateToEmptyComposeTeam = !firstValidLineupId && so5LineupId;
+    firstValidLineupId && firstValidLineupId !== vicc5LineupId && !trainingCenter;
+  const navigateToEmptyComposeTeam = !firstValidLineupId && vicc5LineupId;
 
   if (!leaderboardData && loading) {
     return <LoadingIndicator fullScreen />;
@@ -185,8 +185,8 @@ const ComposeTeamOrRedirect = () => {
     return (
       <Navigate
         to={generatePath(FOOTBALL_COMPOSE_TEAM_LINEUP, {
-          so5LeaderboardSlug,
-          so5LineupId: firstValidLineupId,
+          vicc5LeaderboardSlug,
+          vicc5LineupId: firstValidLineupId,
         })}
         replace
       />
@@ -196,7 +196,7 @@ const ComposeTeamOrRedirect = () => {
     return (
       <Navigate
         to={generatePath(FOOTBALL_COMPOSE_TEAM, {
-          so5LeaderboardSlug,
+          vicc5LeaderboardSlug,
         })}
         replace
       />
@@ -205,8 +205,8 @@ const ComposeTeamOrRedirect = () => {
 
   return (
     <ComposeTeam
-      so5LeaderboardSlug={so5LeaderboardSlug}
-      so5LineupId={so5LineupId}
+      vicc5LeaderboardSlug={vicc5LeaderboardSlug}
+      vicc5LineupId={vicc5LineupId}
     />
   );
 };

@@ -38,7 +38,7 @@ function makeEmptyData(): SafeReadonly<CachedSo5LineupConnection> {
 }
 
 export default {
-  ...relayStylePagination(['withTraining', 'so5LeaderboardSlug', 'draft']),
+  ...relayStylePagination(['withTraining', 'vicc5LeaderboardSlug', 'draft']),
 
   // Override relayStylePagination merge function
   // Adapted from node_modules/@apollo/client/utilities/policies/pagination.js
