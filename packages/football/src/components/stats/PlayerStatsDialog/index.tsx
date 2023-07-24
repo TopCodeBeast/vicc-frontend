@@ -78,7 +78,7 @@ export const PlayerStatsDialog = ({
 
 PlayerStatsDialog.fragments = {
   so5Score: gql`
-    fragment PlayerStatsDialog_so5Score on So5Score {
+    fragment PlayerStatsDialog_so5Score on Vicc5Score {
       id
       ...PlayerGameScorePage_so5Score
     }

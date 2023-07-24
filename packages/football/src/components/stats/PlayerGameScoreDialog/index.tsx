@@ -22,7 +22,7 @@ const playerFragment = gql`
 export const PLAYER_GAME_SCORE_DIALOG_QUERY = gql`
   query PlayerGameScoreDialogQuery($id: ID!) {
     so5: vicc5Root {
-      so5Score(id: $id) {
+      so5Score: vicc5Score(id: $id) {
         id
         ...PlayerStatsDialog_so5Score
         player {
@@ -33,7 +33,7 @@ export const PLAYER_GAME_SCORE_DIALOG_QUERY = gql`
           id
           game {
             id
-            so5Fixture {
+            so5Fixture: vicc5Fixture {
               slug
               gameWeek
             }

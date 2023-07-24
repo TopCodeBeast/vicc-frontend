@@ -35,7 +35,7 @@ export const AppearanceDetailsFull = ({ so5Score, player }: Props) => {
 
 AppearanceDetailsFull.fragments = {
   so5Score: gql`
-    fragment AppearanceDetailsFull_so5Score on So5Score {
+    fragment AppearanceDetailsFull_so5Score on Vicc5Score {
       ...ViewAllDetailedScore_so5Score
       ...AppearanceDetails_so5Score
     }
