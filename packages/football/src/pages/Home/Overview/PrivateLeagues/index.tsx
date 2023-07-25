@@ -17,12 +17,12 @@ import {
 import { groupBy } from '@sorare/core/src/lib/arrays';
 
 import { HomeBlock } from '@football/components/Home/Block';
-// import { ItemRows } from '@football/components/Home/ItemRows';
-// import { SeeAllButton } from '@football/components/Home/SeeAllButton';
+import { ItemRows } from '@football/components/Home/ItemRows';
+import { SeeAllButton } from '@football/components/Home/SeeAllButton';
 import { homeLabels } from '@football/lib/home';
 import { sortLeaderboardsByTournamentType } from '@football/lib/so5';
 
-// import { PrivateLeagueBlock } from './PrivateLeagueBlock';
+import { PrivateLeagueBlock } from './PrivateLeagueBlock';
 import { PrivateLeagues_so5 } from './__generated__/index.graphql';
 
 const EmptyWrapper = styled(LinkBox)`
@@ -97,24 +97,22 @@ export const PrivateLeagues = ({ so5, loading }: Props) => {
         )
       }
       action={
-        <>SeeAllButton555</>
-        // <SeeAllButton
-        //   context="Private Leagues"
-        //   to={generatePath(FOOTBALL_PRIVATE_LEAGUES)}
-        // />
+        <SeeAllButton
+          context="Private Leagues"
+          to={generatePath(FOOTBALL_PRIVATE_LEAGUES)}
+        />
       }
     >
       {groupedByTournamentsGroups.length ? (
-        <>ItemRows5555</>
-        // <ItemRows
-        //   minHeight={200}
-        //   loading={loading}
-        //   itemsCount={groupedByTournamentsGroups.length}
-        // >
-        //   {groupedByTournamentsGroups.slice(0, 3).map(group => (
-        //     <PrivateLeagueBlock key={group[0].slug} userGroupsList={group} />
-        //   ))}
-        // </ItemRows>
+        <ItemRows
+          minHeight={200}
+          loading={loading}
+          itemsCount={groupedByTournamentsGroups.length}
+        >
+          {groupedByTournamentsGroups.slice(0, 3).map(group => (
+            <PrivateLeagueBlock key={group[0].slug} userGroupsList={group} />
+          ))}
+        </ItemRows>
       ) : (
         <EmptyWrapper>
           <img src={privateLeague} alt="private league" width={60} />
@@ -159,11 +157,11 @@ PrivateLeagues.fragments = {
             id
             so5LeaderboardType: vicc5LeaderboardType
           }
-          #...PrivateLeagueBlock_userGroup
+          ...PrivateLeagueBlock_userGroup
         }
         totalCount
       }
     }
-    #{PrivateLeagueBlock.fragments.userGroup}
+    ${PrivateLeagueBlock.fragments.userGroup}
   `,
 };
