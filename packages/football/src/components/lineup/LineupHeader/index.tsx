@@ -5,9 +5,9 @@ import { LinkOverlay } from '@sorare/core/src/atoms/navigation/Box';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import { Link } from '@sorare/core/src/routing/Link';
 
-// import DropdownActions from '@football/components/lineup/DropdownActions';
-// import { LineupDate } from '@football/components/lineup/LineupDate';
-// import DivisionLogo from '@football/components/so5/DivisionLogo';
+import DropdownActions from '@football/components/lineup/DropdownActions';
+import { LineupDate } from '@football/components/lineup/LineupDate';
+import DivisionLogo from '@football/components/so5/DivisionLogo';
 import { useFootballEvents } from '@football/lib/events';
 import getLineupDisplayName from '@football/lib/lineup/getLineupDisplayName';
 
@@ -96,25 +96,25 @@ LineupHeader.fragments = {
       so5Fixture: vicc5Fixture {
         slug
         id
-        #...LineupDate_fixture
+        ...LineupDate_fixture
       }
-      #...DivisionLogo_so5Leaderboard
-      #...DropdownActions_so5Leaderboard
+      ...DivisionLogo_so5Leaderboard
+      ...DropdownActions_so5Leaderboard
       ...getLineupDisplayName_so5Leaderboard
     }
-    #{DivisionLogo.fragments.so5Leaderboard}
-    #{LineupDate.fragments.fixture}
-    #{DropdownActions.fragments.so5Leaderboard}
+    ${DivisionLogo.fragments.so5Leaderboard}
+    ${LineupDate.fragments.fixture}
+    ${DropdownActions.fragments.so5Leaderboard}
     ${getLineupDisplayName.fragments.so5Leaderboard}
   `,
   so5Lineup: gql`
     fragment LineupHeader_so5Lineup on Vicc5Lineup {
       id
       name
-      #...DropdownActions_so5Lineup
+      ...DropdownActions_so5Lineup
       ...getLineupDisplayName_so5Lineup
     }
-    #{DropdownActions.fragments.so5Lineup}
+    ${DropdownActions.fragments.so5Lineup}
     ${getLineupDisplayName.fragments.so5Lineup}
   `,
 };

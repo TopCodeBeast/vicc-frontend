@@ -22,19 +22,19 @@ import {
   getSortedAppearances,
 } from '@sorare/core/src/lib/players';
 
-// import LineupActions, {
-//   Props as LineupActionsProps,
-// } from '@football/components/lineup/LineupActions';
-// import { LineupHeader } from '@football/components/lineup/LineupHeader';
-// import { PlayerCard } from '@football/components/lineup/PlayerCard';
-// import PlayerCardPlaceholder from '@football/components/lineup/PlayerCardPlaceholder';
-// import PlayerGameScoreDialog from '@football/components/stats/PlayerGameScoreDialog';
+import LineupActions, {
+  Props as LineupActionsProps,
+} from '@football/components/lineup/LineupActions';
+import { LineupHeader } from '@football/components/lineup/LineupHeader';
+import { PlayerCard } from '@football/components/lineup/PlayerCard';
+import PlayerCardPlaceholder from '@football/components/lineup/PlayerCardPlaceholder';
+import PlayerGameScoreDialog from '@football/components/stats/PlayerGameScoreDialog';
 import { useDisplaySemiProIncentive } from '@football/hooks/leaderboard/useDisplaySemiProIncentive';
-// import { lineupMessages } from '@football/lib/lineup/messages';
+import { lineupMessages } from '@football/lib/lineup/messages';
 import { RewardType } from '@football/lib/lineupRewards';
 
 import { LineupRewards } from './LineupRewards';
-// import { LineupStatus } from './LineupStatus';
+import { LineupStatus } from './LineupStatus';
 import {
   Lineup_so5Leaderboard,
   Lineup_so5Lineup,
@@ -96,7 +96,6 @@ const SemiProIncentive = styled.div`
   height: 32px;
 `;
 
-type LineupActionsProps = any;
 type Appearance = Lineup_so5Lineup['so5Appearances'][number];
 
 const isAppearance = (appearance: {
@@ -175,54 +174,53 @@ export const Lineup = ({
       ])
     : getMissingAppearances([]);
   const [rankingReward] = lineup?.so5Rankings || [];
-  // const { totalRewards } = leaderboard;
+  const { totalRewards } = leaderboard;
 
-  // const getLineupStatus = () => {
-  //   if (lineup) {
-  //     return (
-  //       <LineupStatus
-  //         so5Lineup={lineup}
-  //         displayScore={displayScore}
-  //         score={score}
-  //       />
-  //     );
-  //   }
+  const getLineupStatus = () => {
+    if (lineup) {
+      return (
+        <LineupStatus
+          so5Lineup={lineup}
+          displayScore={displayScore}
+          score={score}
+        />
+      );
+    }
 
-  //   if (locked) {
-  //     return (
-  //       <Text14 bold>
-  //         {formatMessage({
-  //           id: 'Lineup.Status.Locked',
-  //           defaultMessage: 'Locked',
-  //         })}
-  //       </Text14>
-  //     );
-  //   }
-  //   return null;
-  // };
+    if (locked) {
+      return (
+        <Text14 bold>
+          {formatMessage({
+            id: 'Lineup.Status.Locked',
+            defaultMessage: 'Locked',
+          })}
+        </Text14>
+      );
+    }
+    return null;
+  };
 
-  // const getRank = () => {
-  //   const isCancelled = !!lineup?.cancelledAt;
-  //   if (isCancelled) {
-  //     return null;
-  //   }
-  //   if (ranking) {
-  //     return <FormattedRank rank={ranking} total={lineupsCount} />;
-  //   }
-  //   return (
-  //     <>
-  //       <User />
-  //       <Text14 color="var(--c-neutral-600)">
-  //         <LineupCount count={lineupsCount} />
-  //       </Text14>
-  //     </>
-  //   );
-  // };
+  const getRank = () => {
+    const isCancelled = !!lineup?.cancelledAt;
+    if (isCancelled) {
+      return null;
+    }
+    if (ranking) {
+      return <FormattedRank rank={ranking} total={lineupsCount} />;
+    }
+    return (
+      <>
+        <User />
+        <Text14 color="var(--c-neutral-600)">
+          <LineupCount count={lineupsCount} />
+        </Text14>
+      </>
+    );
+  };
 
   return (
     <Wrapper>
-      <>Lineups5656</>
-      {/* <LineupHeader
+      <LineupHeader
         leaderboard={leaderboard}
         lineup={lineup}
         hideGameWeekInfo={hideGameWeekInfo}
@@ -231,8 +229,8 @@ export const Lineup = ({
       <Scores>
         <RankContainer>{getRank()}</RankContainer>
         {getLineupStatus()}
-      </Scores> */}
-      {/* <Cards>
+      </Scores>
+      <Cards>
         {players.map((appearance, idx) => {
           if (renderCard) {
             const element = renderCard({
@@ -263,8 +261,8 @@ export const Lineup = ({
             />
           );
         })}
-      </Cards> */}
-      {/* <LineupActions
+      </Cards>
+      <LineupActions
         so5Leaderboard={leaderboard}
         linkToCompetitionDetails={linkToCompetitionDetails}
         lineupId={lineup?.id}
@@ -288,7 +286,7 @@ export const Lineup = ({
         so5ScoreId={idFromObject(openPlayerGameScore)!}
         onClose={() => setOpenPlayerGameScore('')}
         open={!!openPlayerGameScore}
-      /> */}
+      />
     </Wrapper>
   );
 };
@@ -298,7 +296,7 @@ Lineup.fragments = {
     fragment Lineup_so5Lineup on Vicc5Lineup {
       id
       name
-      # cancelledAt # TODO*****************
+      cancelledAt
       so5Appearances: vicc5Appearances {
         id
         card {
@@ -309,7 +307,7 @@ Lineup.fragments = {
         so5Score: vicc5Score {
           id
         }
-        #...PlayerCard_so5Appearance
+        ...PlayerCard_so5Appearance
       }
       so5Rankings: vicc5Rankings {
         id
@@ -317,15 +315,15 @@ Lineup.fragments = {
         ranking
         ...LineupRewards_so5Ranking
       }
-      #...LineupHeader_so5Lineup
+      ...LineupHeader_so5Lineup
       ...PlayerCardPlaceholder_so5Lineup
-      #...LineupStatus_so5Lineup
+      ...LineupStatus_so5Lineup
     }
-    #{LineupHeader.fragments.so5Lineup}
-    #{PlayerCard.fragments.so5Appearance}
+    ${LineupHeader.fragments.so5Lineup}
+    ${PlayerCard.fragments.so5Appearance}
     ${LineupRewards.fragments.so5Ranking}
-    #{PlayerCardPlaceholder.fragments.so5Lineup}
-    #{LineupStatus.fragments.so5Lineup}
+    ${PlayerCardPlaceholder.fragments.so5Lineup}
+    ${LineupStatus.fragments.so5Lineup}
   `,
   so5Leaderboard: gql`
     fragment Lineup_so5Leaderboard on Vicc5Leaderboard {
@@ -347,13 +345,13 @@ Lineup.fragments = {
         startDate
         endDate
       }
-      #...LineupHeader_so5Leaderboard
-      #...LineupActions_so5Leaderboard
+      ...LineupHeader_so5Leaderboard
+      ...LineupActions_so5Leaderboard
       ...PlayerCardPlaceholder_so5Leaderboard
     }
-    #{LineupHeader.fragments.so5Leaderboard}
-    #{LineupActions.fragments.so5Leaderboard}
+    ${LineupHeader.fragments.so5Leaderboard}
+    ${LineupActions.fragments.so5Leaderboard}
     ${LineupRewards.fragments.rewardsOverview}
-    #{PlayerCardPlaceholder.fragments.so5Leaderboard}
+    ${PlayerCardPlaceholder.fragments.so5Leaderboard}
   `,
 };
