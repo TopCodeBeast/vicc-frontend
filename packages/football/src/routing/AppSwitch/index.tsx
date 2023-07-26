@@ -2,7 +2,7 @@ import { ReactElement, Suspense } from 'react';
 import { Navigate, Route, useLocation } from 'react-router-dom';
 
 import Backdrop from '@sorare/core/src/atoms/loader/Backdrop';
-// import ClubGameDialog from '@sorare/core/src/components/content/ResponsiveBanner/ClubGameDialog';
+import ClubGameDialog from '@sorare/core/src/components/content/ResponsiveBanner/ClubGameDialog';
 import Dialog from '@sorare/core/src/components/dialog/index';
 import {
   BUNDESLIGA_LANDING,

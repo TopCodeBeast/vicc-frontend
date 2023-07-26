@@ -49,7 +49,7 @@ const Cards = lazy(async () => import('@football/pages/Gallery/Cards'));
 const Collections = lazy(async () => import('@football/pages/Collections/Collections'));
 // const CustomDecks = lazy(async () => import('@football/pages/Gallery/CustomDecks'));
 const ClubHonors = lazy(async () => import('@football/pages/Home/ClubHonors'));
-// const Network = lazy(async () => import('@football/pages/Home/Network'));
+const Network = lazy(async () => import('@football/pages/Home/Network'));
 
 export const Tabs = ({ user, isOwnPage }: Props) => {
   const useCustomLists = useUseCustomLists();
@@ -98,7 +98,7 @@ export const Tabs = ({ user, isOwnPage }: Props) => {
     {
       path: FOOTBALL_USER_GALLERY_NETWORK,
       label: formatMessage(galleryTabs.network),
-      tabContent: <>Network555</>,//<Network user={user} />,
+      tabContent: <Network user={user} />,
     },
   ]
     .filter(Boolean)
