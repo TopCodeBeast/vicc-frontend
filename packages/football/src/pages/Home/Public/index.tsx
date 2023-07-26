@@ -40,7 +40,7 @@ import '@sorare/core/src/style/romieFontFaces.css';
 // const HOME_DATA_QUERY = gql`
 //   query HomeDataQuery {
 //     football {
-//       so5 {
+//       so5: vicc5Root {
 //         onboardingCommonDraftCampaigns {
 //           slug
 //           displayName
@@ -210,7 +210,7 @@ const FootballPublicHome = () => {
       competitions: [{ released: true, slug: id, logoUrl: '' }],
       upcomingSo5Leaderboard: { so5LineupsCount: 0, slug: '' },
     })),
-  } = {} as any; //data?.football.so5 || {};
+  } = {} as any; //data?.so5 || {};
   const sizes = Object.entries({
     sm: 600,
     md: 960,

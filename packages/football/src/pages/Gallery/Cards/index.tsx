@@ -31,7 +31,7 @@ import {
 
 // import LongLiveTheSquads from '@football/components/dialogs/LongLiveTheSquads';
 import AdvancedCardSearch from '@football/components/searchCards/AdvancedCardSearch';
-// import { RefineFootballPosition } from '@football/components/searchCards/RefinePosition';
+import { RefineFootballPosition } from '@football/components/searchCards/RefinePosition';
 // import ReferralBar from '@football/components/user/ReferralBar';
 
 interface Props {
@@ -58,7 +58,7 @@ export const Cards = ({ user, readOnly }: Props) => {
       PlayingNextGameweekFilter,
       FavoriteFilter,
       // useCustomLists ? CustomDecksFilter : RefineCustomDeck,
-      // RefineFootballPosition,
+      RefineFootballPosition,
       LeagueFilter,
       RefineLeague,
       RefineCardEdition,

@@ -77,7 +77,7 @@ import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import useGetSplat from '@sorare/core/src/hooks/useGetSplat';
-// import { importFactory } from '@sorare/core/src/lib/importFactory';
+import { importFactory } from '@sorare/core/src/lib/importFactory';
 import { lazy } from '@sorare/core/src/lib/retry';
 import { catchAll } from '@sorare/core/src/lib/routing';
 import { EnsureTopVisibleOnMount } from '@sorare/core/src/routing/EnsureTopVisibleOnMount';
@@ -91,7 +91,7 @@ import Landing from '@sorare/shared-pages/src/Landing';
 import Card from '@football/pages/Card';
 // import ClubShop from '@football/pages/ClubShop';
 // import Collection from '@football/pages/Collections/Collection';
-// import Country from '@football/pages/Country';
+import Country from '@football/pages/Country';
 // import CustomDeck from '@football/pages/CustomDeck';
 // import DiscoverScarcities from '@football/pages/DiscoverScarcities';
 // import EPLLanding, { metadata } from '@football/pages/EPLLanding';
@@ -132,7 +132,7 @@ import PrivateRoute from '@football/routing/PrivateRoute';
 //     import('pages/Lobby/Components/UserGroup/UserGroupInviteLinkEntryPoint')
 // );
 const LobbyUpcoming = lazy(async () => import('@football/pages/Lobby/Upcoming/index'));
-// const LobbyLive = lazy(async () => import('@football/pages/Lobby/Live/index'));
+const LobbyLive = lazy(async () => import('@football/pages/Lobby/Live/index'));
 // const LobbyPast = lazy(async () => import('@football/pages/Lobby/Past/index'));
 // const Swap = lazy(async () => import('@football/pages/Lobby/Upcoming/Swap'));
 // const LobbyPrizePool = lazy(async () => import('@football/pages/Lobby/PrizePool/index'));
@@ -455,7 +455,7 @@ export const AppSwitch = () => {
             </Layout>
           </EnsureTopVisibleOnMount>
         }
-      />
+      />*/}
       <Route
         path={FOOTBALL_COUNTRY_SHOW}
         element={
@@ -466,7 +466,7 @@ export const AppSwitch = () => {
           </EnsureTopVisibleOnMount>
         }
       />
-      <Route
+      {/*<Route
         path={FOOTBALL_CLUB_SHOW_WILDCARD}
         element={
           <EnsureTopVisibleOnMount>
@@ -514,7 +514,7 @@ export const AppSwitch = () => {
             </EnsureTopVisibleOnMount>
           }
         />
-      )}
+      )} */}
       <Route
         path={FOOTBALL_LOBBY_LIVE_WILDCARD}
         element={
@@ -523,7 +523,7 @@ export const AppSwitch = () => {
           </EnsureTopVisibleOnMount>
         }
       />
-      <Route
+      {/* <Route
         path={FOOTBALL_LOBBY_PAST_WILDCARD}
         element={
           <EnsureTopVisibleOnMount>

@@ -79,7 +79,7 @@ export const PlayerGameScoreDialog = ({
   });
 
   if (data) {
-    const { so5Score } = data.football.so5;
+    const { so5Score } = data.so5;
     const gameWeek = so5Score.playerGameStats.game.so5Fixture?.gameWeek;
     const {
       player,

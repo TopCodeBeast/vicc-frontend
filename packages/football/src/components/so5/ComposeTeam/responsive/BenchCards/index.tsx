@@ -191,7 +191,7 @@ export const BenchCards = () => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const cards = data?.football.so5.so5Leaderboard.myEligibleCards.nodes || [];
+  const cards = data?.so5.so5Leaderboard.myEligibleCards.nodes || [];
   const currentCard = lineup[activePosition].card && {
     ...lineup[activePosition].card!,
   };
@@ -221,22 +221,22 @@ export const BenchCards = () => {
       loadMore(false, {
         ...variables,
         after:
-          data?.football.so5.so5Leaderboard.myEligibleCards.pageInfo.endCursor,
+          data?.so5.so5Leaderboard.myEligibleCards.pageInfo.endCursor,
       });
     }, [
       loadMore,
       variables,
-      data?.football.so5.so5Leaderboard.myEligibleCards.pageInfo.endCursor,
+      data?.so5.so5Leaderboard.myEligibleCards.pageInfo.endCursor,
     ]),
     Boolean(
-      data?.football.so5.so5Leaderboard.myEligibleCards.pageInfo.hasNextPage
+      data?.so5.so5Leaderboard.myEligibleCards.pageInfo.hasNextPage
     ),
     loading
   );
 
   useEffect(() => {
     if (
-      data?.football.so5.so5Leaderboard.myEligibleCards.nodes.length === 0 &&
+      data?.so5.so5Leaderboard.myEligibleCards.nodes.length === 0 &&
       !loading &&
       !filters.includeNoGameCards
     ) {

@@ -23,13 +23,13 @@ import {
   filterSeparator,
 } from '@sorare/marketplace/src/searchCards';
 
-// import { RefineFootballPosition } from '@football/components/searchCards/RefinePosition';
+import { RefineFootballPosition } from '@football/components/searchCards/RefinePosition';
 
 const marketFilters = [
   RefineRarity(),
   filterSeparator,
   RefineLeague,
-  // RefineFootballPosition,
+  RefineFootballPosition,
   RefineTeam,
   RefineAverageScore(),
   RefineAppearances(),

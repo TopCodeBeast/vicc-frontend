@@ -117,7 +117,7 @@ export const ComposeTeam = ({ vicc5LeaderboardSlug, vicc5LineupId }: Props) => {
     return <Navigate to={FOOTBALL_LOBBY} />;
   }
 
-  const { so5Leaderboard } = data.football.so5;
+  const { so5Leaderboard } = data.so5;
   const { so5Lineup, so5League } = so5Leaderboard || {};
 
   const handleSubmitSuccess = (captainPictureUrl?: string) => {
@@ -167,7 +167,7 @@ const ComposeTeamOrRedirect = () => {
         : 'cache-only',
     });
 
-  const { so5Leaderboard } = leaderboardData?.football.so5 || {};
+  const { so5Leaderboard } = leaderboardData?.so5 || {};
   const { so5Fixture, trainingCenter } = so5Leaderboard || {};
   const { mySo5LineupsPaginated } = so5Fixture || {};
   const firstValidLineupId = idFromObject(
