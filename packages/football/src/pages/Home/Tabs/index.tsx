@@ -46,9 +46,9 @@ const Content = styled.div`
 
 const HomeOverview = lazy(async () => import('@football/pages/Home/Overview'));
 const Cards = lazy(async () => import('@football/pages/Gallery/Cards'));
-// const Collections = lazy(async () => import('@football/pages/Collections/Collections'));
+const Collections = lazy(async () => import('@football/pages/Collections/Collections'));
 // const CustomDecks = lazy(async () => import('@football/pages/Gallery/CustomDecks'));
-// const ClubHonors = lazy(async () => import('@football/pages/Home/ClubHonors'));
+const ClubHonors = lazy(async () => import('@football/pages/Home/ClubHonors'));
 // const Network = lazy(async () => import('@football/pages/Home/Network'));
 
 export const Tabs = ({ user, isOwnPage }: Props) => {
@@ -83,12 +83,12 @@ export const Tabs = ({ user, isOwnPage }: Props) => {
     {
       path: FOOTBALL_USER_GALLERY_CARD_COLLECTIONS,
       label: formatMessage(galleryTabs.cardCollections),
-      tabContent: <>Collections555</>,//<Collections readOnly={!isOwnPage} />,
+      tabContent: <Collections readOnly={!isOwnPage} />,
     },
     {
       path: FOOTBALL_USER_GALLERY_CLUB_HONORS,
       label: formatMessage(galleryTabs.clubHonors),
-      tabContent: <>ClubHonors555</>,//<ClubHonors user={user} readOnly={!isOwnPage} />,
+      tabContent: <ClubHonors user={user} readOnly={!isOwnPage} />,
     },
     !useCustomLists && {
       path: FOOTBALL_USER_GALLERY_SQUADS,

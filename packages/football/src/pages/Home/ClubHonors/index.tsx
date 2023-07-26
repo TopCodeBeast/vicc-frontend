@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { Vicc5Tournament as So5Tournament } from '@sorare/core/src/__generated__/globalTypes';
+import { So5Tournament } from '@sorare/core/src/__generated__/globalTypes';
 import Container from '@sorare/core/src/atoms/layout/Container';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Title4 } from '@sorare/core/src/atoms/typography';
@@ -20,11 +20,11 @@ import {
 import { Lineup } from '@football/components/lineup/Lineup';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import { RewardType } from '@football/lib/lineupRewards';
-// import HighlightedCards from '@football/pages/Gallery/HighlightedCards';
+import HighlightedCards from '@football/pages/Gallery/HighlightedCards';
 
-// import ClubHonorsSummaryByLeaderboard from './ClubHonorsSummaryByLeaderboard';
-// import EmptyState from './EmptyState';
-// import ClubHonorsSummary from './Summary';
+import ClubHonorsSummaryByLeaderboard from './ClubHonorsSummaryByLeaderboard';
+import EmptyState from './EmptyState';
+import ClubHonorsSummary from './Summary';
 import {
   ClubHonorsLineupsQuery,
   ClubHonorsSummariesQuery,
@@ -104,14 +104,14 @@ const CLUB_HONORS_SUMMARIES_QUERY = gql`
   query ClubHonorsSummariesQuery($slug: String!) {
     user(slug: $slug) {
       slug
-      #...ClubHonorsSummary_user
-      #...ClubHonorsSummaryByLeaderboard_user
-      #...HighlightedCards_user
+      ...ClubHonorsSummary_user
+      ...ClubHonorsSummaryByLeaderboard_user
+      ...HighlightedCards_user
     }
   }
-  #{ClubHonorsSummary.fragments.user}
-  #{ClubHonorsSummaryByLeaderboard.fragments.user}
-  #{HighlightedCards.fragments.user}
+  ${ClubHonorsSummary.fragments.user}
+  ${ClubHonorsSummaryByLeaderboard.fragments.user}
+  ${HighlightedCards.fragments.user}
 `;
 
 const CLUB_HONORS_LINEUPS_QUERY = gql`
@@ -165,7 +165,7 @@ const ClubHonors = ({ user: { slug }, readOnly }: Props) => {
     usePaginatedQuery<ClubHonorsLineupsQuery>(CLUB_HONORS_LINEUPS_QUERY, {
       variables: {
         slug,
-        so5LeaderboardType: selectedLeaderboard?.vicc5LeaderboardType,
+        so5LeaderboardType: selectedLeaderboard?.so5LeaderboardType,
       },
       skip: readOnly,
       connection: 'So5RankingConnection',
@@ -184,7 +184,7 @@ const ClubHonors = ({ user: { slug }, readOnly }: Props) => {
     if (!summariesData) {
       return [];
     }
-    return []//[...summariesData.user.trophies]
+    return [...summariesData.user.trophies]
       .sort((a, b) => {
         if (a.unique !== b.unique) {
           return b.unique - a.unique;
@@ -210,8 +210,7 @@ const ClubHonors = ({ user: { slug }, readOnly }: Props) => {
 
   return (
     <Root>
-      <>ClubHonors565656</>
-      {/* {loading ? (
+      {loading ? (
         <LoadingIndicator white />
       ) : (
         <FlexColContainer>
@@ -287,7 +286,7 @@ const ClubHonors = ({ user: { slug }, readOnly }: Props) => {
             <EmptyState />
           )}
         </FlexColContainer>
-      )} */}
+      )}
     </Root>
   );
 };
