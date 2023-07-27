@@ -3,14 +3,15 @@ import { MessageDescriptor, defineMessages } from 'react-intl';
 import { generatePath } from 'react-router-dom';
 
 import {
+  GameStatus as GameEventStatus,
   Position as GlobalPosition,
   Rarity,
   RestrictionGroup,
 } from '@sorare/core/src/__generated__/globalTypes';
-// import {
-//   INVITE_EPL_USER_GROUP,
-//   INVITE_USER_GROUP,
-// } from '@sorare/core/src/constants/routes';
+import {
+  INVITE_EPL_USER_GROUP,
+  INVITE_USER_GROUP,
+} from '@sorare/core/src/constants/routes';
 import { CamelCaseScarcity, Scarcity } from '@sorare/core/src/lib//cards';
 import {
   LobbyRarity,
@@ -339,14 +340,7 @@ export enum PlayerScoreStatus {
   PENDING = 'pending',
 }
 
-export enum GameEventStatus {
-  SCHEDULED = 'SCHEDULED',
-  PLAYING = 'PLAYING',
-  PLAYED = 'PLAYED',
-  CANCELLED = 'CANCELLED',
-  POSTPONED = 'POSTPONED',
-  SUSPENDED = 'SUSPENDED',
-}
+export { GameEventStatus };
 
 export const gameStatusMessages = defineMessages<string>({
   scheduled: { id: 'GameStatus.scheduled', defaultMessage: 'Scheduled' },
@@ -610,62 +604,62 @@ export const getLeaderboardInfo = withFragments(
   }
 );
 
-// // sorted by display order
-// export const HANDLED_RULES = [
-//   'rarityLimits',
-//   'age',
-//   'captainRarities',
-//   'sameActiveClub',
-//   'minimumPlayersAverageScore',
-//   'maximumPlayersAverageScore',
-//   'scarcity',
-//   'allowLegend',
-//   'cardEditionsCount',
-//   'sumOfAverageScores',
-//   'seasons',
-//   'leagues',
-//   'competitions',
-//   'internationalCompetitions',
-//   'notDomesticCompetitions',
-//   'activeClubs',
-//   'sameNationality',
-//   'serialNumber',
-//   'nationalities',
-//   'notNationalities',
-//   'atLeastOfCompetitions',
-//   'atLeastOfClubs',
-// ] as const;
+// sorted by display order
+export const HANDLED_RULES = [
+  'rarityLimits',
+  'age',
+  'captainRarities',
+  'sameActiveClub',
+  'minimumPlayersAverageScore',
+  'maximumPlayersAverageScore',
+  'scarcity',
+  'allowLegend',
+  'cardEditionsCount',
+  'sumOfAverageScores',
+  'seasons',
+  'leagues',
+  'competitions',
+  'internationalCompetitions',
+  'notDomesticCompetitions',
+  'activeClubs',
+  'sameNationality',
+  'serialNumber',
+  'nationalities',
+  'notNationalities',
+  'atLeastOfCompetitions',
+  'atLeastOfClubs',
+] as const;
 
 export const ELIGIBILITY_RULES = ['cardsCountOfCurrentUser'] as string[];
 
-// export const captainDialogMessages = defineMessages({
-//   default: {
-//     id: 'CaptainDialog.subtitle',
-//     defaultMessage:
-//       'The player you select as captain will get a 20% bonus to their score. Pick someone you think will perform very well this Game Week!',
-//   },
-// });
+export const captainDialogMessages = defineMessages({
+  default: {
+    id: 'CaptainDialog.subtitle',
+    defaultMessage:
+      'The player you select as captain will get a 20% bonus to their score. Pick someone you think will perform very well this Game Week!',
+  },
+});
 
-// export const generateUserGroupInviteLink = (
-//   joinSecret: string,
-//   userSlug?: string,
-//   so5LeaderboardType?: string
-// ) => {
-//   let link =
-//     window.location.origin +
-//     generatePath(
-//       so5LeaderboardType?.startsWith('FIRST_DIVISION_ENGLAND')
-//         ? INVITE_EPL_USER_GROUP
-//         : INVITE_USER_GROUP,
-//       {
-//         joinSecret,
-//       }
-//     );
-//   if (userSlug) {
-//     link = `${link}?referrer=${userSlug}`;
-//   }
-//   return link;
-// };
+export const generateUserGroupInviteLink = (
+  joinSecret: string,
+  userSlug?: string,
+  so5LeaderboardType?: string
+) => {
+  let link =
+    window.location.origin +
+    generatePath(
+      so5LeaderboardType?.startsWith('FIRST_DIVISION_ENGLAND')
+        ? INVITE_EPL_USER_GROUP
+        : INVITE_USER_GROUP,
+      {
+        joinSecret,
+      }
+    );
+  if (userSlug) {
+    link = `${link}?referrer=${userSlug}`;
+  }
+  return link;
+};
 
 // const TOURNAMENT_NAMES: { [so5LeaderboardTypePrefix: string]: string } = {
 //   FIRST_DIVISION_FRANCE: 'Ligue 1',

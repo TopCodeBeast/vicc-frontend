@@ -71,7 +71,7 @@ TournamentInput.fragments = {
     fragment TournamentInput_tournaments on Vicc5Tournament {
       id
       displayName
-      vicc5LeaderboardType
+      so5LeaderboardType: vicc5LeaderboardType
     }
   `,
 };

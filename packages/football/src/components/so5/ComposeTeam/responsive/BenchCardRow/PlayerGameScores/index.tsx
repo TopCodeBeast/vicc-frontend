@@ -37,7 +37,7 @@ PlayerGameScores.fragments = {
   player: gql`
     fragment PlayerGameScores_player on Player {
       slug
-      vicc5Scores(last: 5) {
+      so5Scores: vicc5Scores(last: 5) {
         id
         ...BenchPlayerGameScore_so5Score
       }

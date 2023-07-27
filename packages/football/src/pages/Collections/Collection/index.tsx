@@ -110,7 +110,7 @@ const CollectionWithParams = ({ slug, userSlug }: Props) => {
     }
   );
 
-  const cardCollection = data?.football.cardCollection;
+  const cardCollection = data?.cardCollection;
   const { user } = data || {};
   const userCardCollection = cardCollection?.userCardCollection;
   const slots = userCardCollection?.slots || cardCollection?.slots || [];

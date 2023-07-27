@@ -65,7 +65,7 @@ const COMPOSE_TEAM_QUERY = gql`
     $statsView: Boolean!
   ) {
     so5: vicc5Root {
-      vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
+      so5Leaderboard: vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
         slug
         so5League: vicc5League {
           slug
