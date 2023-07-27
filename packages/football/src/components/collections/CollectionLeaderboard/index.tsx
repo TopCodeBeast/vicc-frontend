@@ -68,7 +68,7 @@ const CollectionLeaderboard = ({ slug, userSlug }: Props) => {
         fetchPolicy: 'cache-and-network',
       }
     );
-  const pageInfo = data?.football.cardCollection.bestByScore.pageInfo;
+  const pageInfo = data?.cardCollection.bestByScore.pageInfo;
   const { InfiniteScrollLoader } = useInfiniteScroll(
     () => {
       loadMore(false, {
@@ -89,10 +89,10 @@ const CollectionLeaderboard = ({ slug, userSlug }: Props) => {
     );
   }
 
-  const myUserCardCollection = data.football.cardCollection.userCardCollection;
+  const myUserCardCollection = data.cardCollection.userCardCollection;
   const allUsersCardCollections =
-    data.football.cardCollection.bestByScore.nodes;
-  const slotsCount = data.football.cardCollection.slotsCount || 0;
+    data.cardCollection.bestByScore.nodes;
+  const slotsCount = data.cardCollection.slotsCount || 0;
 
   const addMyRankToLeaderboard =
     myUserCardCollection &&

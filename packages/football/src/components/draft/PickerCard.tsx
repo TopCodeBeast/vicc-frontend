@@ -13,7 +13,8 @@ import ResponsiveImg, {
 } from '@sorare/core/src/atoms/ui/ResponsiveImg';
 import { desktopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
-import { positionShortNames } from '@football/lib/so5';
+// import { positionShortNames } from '@football/lib/so5';
+type positionShortNames = any;
 
 const TooltipStyled = styled(Tooltip)`
   width: 100%;
@@ -137,7 +138,7 @@ const Value = styled.p`
   }
 `;
 type PickerCardProps = {
-  position: keyof typeof positionShortNames;
+  position: any;//keyof typeof positionShortNames;
   active?: boolean;
   error?: boolean;
   onClick?: () => void;
@@ -182,7 +183,8 @@ export const PickerCard = ({
             <FontAwesomeIcon icon={faUserPlus} size="lg" />
             <Text16>
               <strong>
-                <FormattedMessage {...positionShortNames[position]} />
+                {/* <FormattedMessage {...positionShortNames[position]} /> */}
+                <>positionShortNames5555</>
               </strong>
             </Text16>
           </>

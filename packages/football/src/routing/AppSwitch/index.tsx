@@ -133,7 +133,7 @@ import PrivateRoute from '@football/routing/PrivateRoute';
 // );
 const LobbyUpcoming = lazy(async () => import('@football/pages/Lobby/Upcoming/index'));
 const LobbyLive = lazy(async () => import('@football/pages/Lobby/Live/index'));
-// const LobbyPast = lazy(async () => import('@football/pages/Lobby/Past/index'));
+const LobbyPast = lazy(async () => import('@football/pages/Lobby/Past/index'));
 // const Swap = lazy(async () => import('@football/pages/Lobby/Upcoming/Swap'));
 // const LobbyPrizePool = lazy(async () => import('@football/pages/Lobby/PrizePool/index'));
 // const UserGroups = lazy(async () => import('@football/pages/Lobby/UserGroups/index'));
@@ -523,7 +523,7 @@ export const AppSwitch = () => {
           </EnsureTopVisibleOnMount>
         }
       />
-      {/* <Route
+      <Route
         path={FOOTBALL_LOBBY_PAST_WILDCARD}
         element={
           <EnsureTopVisibleOnMount>
@@ -531,7 +531,7 @@ export const AppSwitch = () => {
           </EnsureTopVisibleOnMount>
         }
       />
-      {[
+      {/* {[
         { path: FOOTBALL_PRIVATE_LEAGUES_WILDCARD, props: {} },
         { path: FOOTBALL_PRIVATE_LEAGUES_CREATE, props: { showDialog: true } },
         { path: FOOTBALL_PRIVATE_LEAGUES_CREATED, props: { showDialog: true } },

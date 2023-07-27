@@ -156,16 +156,16 @@ const PlayerDetails = ({
       loadMore(false, {
         slug: slug!,
         cursor:
-          fixtureScoresData?.football.player.allSo5Scores.pageInfo.endCursor,
+          fixtureScoresData?.player.allSo5Scores.pageInfo.endCursor,
         ...(card ? { position: card.position } : {}),
       });
     }, [
       card,
       slug,
       loadMore,
-      fixtureScoresData?.football.player.allSo5Scores.pageInfo.endCursor,
+      fixtureScoresData?.player.allSo5Scores.pageInfo.endCursor,
     ]),
-    fixtureScoresData?.football.player.allSo5Scores.pageInfo.hasNextPage ||
+    fixtureScoresData?.player.allSo5Scores.pageInfo.hasNextPage ||
       false,
     fixtureScoresLoading
   );
@@ -179,8 +179,8 @@ const PlayerDetails = ({
   }
 
   const upcomingGames = [
-    ...(playerDetailsData?.football.player.activeClub?.upcomingGames || []),
-    ...(playerDetailsData?.football.player.activeNationalTeam?.upcomingGames ||
+    ...(playerDetailsData?.player.activeClub?.upcomingGames || []),
+    ...(playerDetailsData?.player.activeNationalTeam?.upcomingGames ||
       []),
   ];
   return (
@@ -189,23 +189,23 @@ const PlayerDetails = ({
         <CloseButton onClose={onClose} />
       </CloseButtonWrapper>
       <PlayerProperties
-        player={playerDetailsData.football.player}
+        player={playerDetailsData.player}
         pictureUrl={pictureUrl}
         card={card}
         budgetValue={budgetValue}
         showCardBonusIndicator={showCardBonusIndicator}
       />
       {extraActions && <Actions>{extraActions}</Actions>}
-      <PlayerUnavailabilityPanel player={playerDetailsData.football.player} />
+      <PlayerUnavailabilityPanel player={playerDetailsData.player} />
       <LastScores
         lastFiveSo5AverageScore={
-          fixtureScoresData?.football.player.lastFiveSo5AverageScore
+          fixtureScoresData?.player.lastFiveSo5AverageScore
         }
         lastFifteenVicc5AverageScore={
-          fixtureScoresData?.football.player.lastFifteenVicc5AverageScore
+          fixtureScoresData?.player.lastFifteenVicc5AverageScore
         }
-        player={fixtureScoresData?.football.player}
-        so5Scores={fixtureScoresData?.football.player.allSo5Scores.nodes}
+        player={fixtureScoresData?.player}
+        so5Scores={fixtureScoresData?.player.allSo5Scores.nodes}
         InfiniteScrollLoader={<InfiniteScrollLoader />}
       />
       <PlayerUpcomingGames games={upcomingGames} />

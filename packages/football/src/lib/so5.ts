@@ -11,7 +11,7 @@ import {
 //   INVITE_EPL_USER_GROUP,
 //   INVITE_USER_GROUP,
 // } from '@sorare/core/src/constants/routes';
-// import { CamelCaseScarcity, Scarcity } from '@sorare/core/src/lib//cards';
+import { CamelCaseScarcity, Scarcity } from '@sorare/core/src/lib//cards';
 import {
   LobbyRarity,
   RANKED_SCARCITY,
@@ -252,46 +252,46 @@ export const isFixtureClosed = (fixture: { aasmState: string }): boolean =>
 //   }
 // );
 
-// export type EngineConfiguration = {
-//   captain: number;
-//   scarcity: { [key in Rarity]?: number };
-// };
+export type EngineConfiguration = {
+  captain: number;
+  scarcity: { [key in Rarity]?: number };
+};
 
-// export const getEngineConfigurationScarcities = (
-//   scarcity: EngineConfiguration['scarcity']
-// ): Partial<Record<CamelCaseScarcity, number>> => {
-//   if (!scarcity) return {};
-//   const scarcities = {
-//     ...scarcity,
-//     superRare: scarcity.super_rare,
-//   };
-//   delete scarcities.super_rare;
-//   return scarcities;
-// };
+export const getEngineConfigurationScarcities = (
+  scarcity: EngineConfiguration['scarcity']
+): Partial<Record<CamelCaseScarcity, number>> => {
+  if (!scarcity) return {};
+  const scarcities = {
+    ...scarcity,
+    superRare: scarcity.super_rare,
+  };
+  delete scarcities.super_rare;
+  return scarcities;
+};
 
-// export const ScoreModifier = {
-//   None: '',
-//   NoPoints: 'noPoints',
-//   Less: 'less',
-//   More: 'more',
-// } as const;
-// type ScoreModifierKeys = keyof typeof ScoreModifier;
-// export type ScoreModifierValues = (typeof ScoreModifier)[ScoreModifierKeys];
+export const ScoreModifier = {
+  None: '',
+  NoPoints: 'noPoints',
+  Less: 'less',
+  More: 'more',
+} as const;
+type ScoreModifierKeys = keyof typeof ScoreModifier;
+export type ScoreModifierValues = (typeof ScoreModifier)[ScoreModifierKeys];
 
-// export const getScoreModifiers = (
-//   rawModifier?: number
-// ): { score: ScoreModifierValues; scoreModifier: number } => {
-//   const scoreModifier = rawModifier || 0;
-//   let score: ScoreModifierValues = ScoreModifier.None;
-//   if (scoreModifier === -1) {
-//     score = ScoreModifier.NoPoints;
-//   } else if (scoreModifier < 0) {
-//     score = ScoreModifier.Less;
-//   } else if (scoreModifier > 0) {
-//     score = ScoreModifier.More;
-//   }
-//   return { score, scoreModifier };
-// };
+export const getScoreModifiers = (
+  rawModifier?: number
+): { score: ScoreModifierValues; scoreModifier: number } => {
+  const scoreModifier = rawModifier || 0;
+  let score: ScoreModifierValues = ScoreModifier.None;
+  if (scoreModifier === -1) {
+    score = ScoreModifier.NoPoints;
+  } else if (scoreModifier < 0) {
+    score = ScoreModifier.Less;
+  } else if (scoreModifier > 0) {
+    score = ScoreModifier.More;
+  }
+  return { score, scoreModifier };
+};
 
 // export type FormationName = 'defensive' | 'dense' | 'attacking' | 'default';
 // export type Formation = {
