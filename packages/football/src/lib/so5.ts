@@ -23,10 +23,10 @@ import {
 import { sortByArrayIndex } from '@sorare/core/src/lib/arrays';
 import { withFragments } from '@sorare/core/src/lib/gql';
 // import { asObject } from '@sorare/core/src/lib/json';
-// import {
-//   PlayablePosition,
-//   playablePositions,
-// } from '@sorare/core/src/lib/players';
+import {
+  PlayablePosition,
+  playablePositions,
+} from '@sorare/core/src/lib/players';
 
 import {
   Lib_So5_so5Leaderboard,
@@ -191,7 +191,7 @@ export const emptyLineup: {
 //   return bonus !== null;
 // };
 
-// export type Position = PlayablePosition | 'Extra Player';
+export type Position = PlayablePosition | 'Extra Player';
 
 // export const getMaxPower = (scarcity: Scarcity) => {
 //   return maxPower[scarcity];
@@ -437,36 +437,36 @@ export const getPlayerScore = withFragments(
   }
 );
 
-// export const positionShortNames = defineMessages<GlobalPosition | Position>({
-//   Forward: {
-//     id: 'Player.shortForward',
-//     defaultMessage: 'FW',
-//   },
-//   Midfielder: {
-//     id: 'Player.shortMidfielder',
-//     defaultMessage: 'MD',
-//   },
-//   Defender: {
-//     id: 'Player.shortDefender',
-//     defaultMessage: 'DF',
-//   },
-//   Goalkeeper: {
-//     id: 'Player.shortGoalkeeper',
-//     defaultMessage: 'GK',
-//   },
-//   'Extra Player': {
-//     id: 'Player.shortExtraPlayer',
-//     defaultMessage: 'Extra',
-//   },
-//   Coach: {
-//     id: 'Player.shortCoach',
-//     defaultMessage: 'Coach',
-//   },
-//   Unknown: {
-//     id: 'Player.shortUnknown',
-//     defaultMessage: 'Unknown',
-//   },
-// });
+export const positionShortNames = defineMessages<GlobalPosition | Position>({
+  Batsman: {
+    id: 'Player.shortForward',
+    defaultMessage: 'FW',
+  },
+  Bowler: {
+    id: 'Player.shortMidfielder',
+    defaultMessage: 'MD',
+  },
+  Fielder: {
+    id: 'Player.shortDefender',
+    defaultMessage: 'DF',
+  },
+  Wicketkeeper: {
+    id: 'Player.shortGoalkeeper',
+    defaultMessage: 'GK',
+  },
+  'Extra Player': {
+    id: 'Player.shortExtraPlayer',
+    defaultMessage: 'Extra',
+  },
+  Coach: {
+    id: 'Player.shortCoach',
+    defaultMessage: 'Coach',
+  },
+  Unknown: {
+    id: 'Player.shortUnknown',
+    defaultMessage: 'Unknown',
+  },
+});
 
 // type AppearanceWithPosition = {
 //   __typename: 'So5Appearance';

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import { LineupPosition } from '@sorare/core/src/lib/players';
 
-// import { positionShortNames } from '@football/lib/so5';
+import { positionShortNames } from '@football/lib/so5';
 
 const Root = styled.div`
   display: flex;
@@ -29,8 +29,7 @@ const CardPlaceholderInfo = ({ position }: Props) => {
       </Icon>
       <Text16>
         <strong>
-          <>PositionName12</>
-          {/* <FormattedMessage {...positionShortNames[position]} /> */}
+          <FormattedMessage {...positionShortNames[position]} />
         </strong>
       </Text16>
     </Root>

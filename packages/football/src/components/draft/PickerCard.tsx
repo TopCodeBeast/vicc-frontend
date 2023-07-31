@@ -13,7 +13,7 @@ import ResponsiveImg, {
 } from '@sorare/core/src/atoms/ui/ResponsiveImg';
 import { desktopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
-// import { positionShortNames } from '@football/lib/so5';
+import { positionShortNames } from '@football/lib/so5';
 type positionShortNames = any;
 
 const TooltipStyled = styled(Tooltip)`
@@ -183,8 +183,7 @@ export const PickerCard = ({
             <FontAwesomeIcon icon={faUserPlus} size="lg" />
             <Text16>
               <strong>
-                {/* <FormattedMessage {...positionShortNames[position]} /> */}
-                <>positionShortNames5555</>
+                <FormattedMessage {...positionShortNames[position]} />
               </strong>
             </Text16>
           </>

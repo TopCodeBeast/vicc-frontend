@@ -88,8 +88,8 @@ const PlayerDetails = ({ slug, gameId, onClose }: Props) => {
     skip: !gameId || !slug,
   });
 
-  if (data?.football.player && data.football.player !== currentSelectedPlayer) {
-    setCurrentSelectedPlayer(data.football.player);
+  if (data?.player && data.player !== currentSelectedPlayer) {
+    setCurrentSelectedPlayer(data.player);
   }
 
   return (

@@ -14,7 +14,7 @@ import { metadatas } from '@sorare/core/src/lib/seo/nba';
 import useDefaultFilters from '@sorare/marketplace/src/hooks/useDefaultFilters';
 import { AdvancedBlockchainCardSearch } from '@sorare/marketplace/src/searchCards/AdvancedCardSearch';
 
-// import PrimaryOfferResultsFromGraphQL from '@football/components/starterBundle/PrimaryOfferResultsFromGraphQL';
+import PrimaryOfferResultsFromGraphQL from '@football/components/starterBundle/PrimaryOfferResultsFromGraphQL';
 import StartersPacks from '@football/pages/TransferMarket/OnboardingDialog/StarterPacks';
 import PageTemplate from '@football/pages/TransferMarket/PageTemplate';
 import { starterBundlesMarketFilters } from '@football/pages/TransferMarket/cardFilters';
@@ -35,7 +35,7 @@ export const StarterBundles = () => {
     <>
       <ConversionCreditBanner />
       <PageTemplate>
-        {/* <AdvancedBlockchainCardSearch
+        <AdvancedBlockchainCardSearch
           sport={Sport.FOOTBALL}
           CardResultsComponent={PrimaryOfferResultsFromGraphQL}
           sorts={cardSorts}
@@ -58,7 +58,7 @@ export const StarterBundles = () => {
             </>
           }
           defaultHitsPerPage={20}
-        /> */}
+        />
       </PageTemplate>
       <StartersPacks
         open={forceShowOnboardingDialog}

@@ -5,7 +5,7 @@ import { Position } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
-// import { positionShortNames } from '@football/lib/so5';
+import { positionShortNames } from '@football/lib/so5';
 
 const Wrapper = styled.div`
   display: flex;
@@ -50,8 +50,7 @@ export const PositionTabs = ({
             disableDebounce
             color={isSelected ? 'darkGray' : 'gray'}
           >
-            {/* <FormattedMessage {...positionShortNames[position]} /> */}
-            positionShortNames5555
+            <FormattedMessage {...positionShortNames[position]} />
           </StyledButton>
         );
       })}

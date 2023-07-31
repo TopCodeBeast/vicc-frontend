@@ -44,10 +44,10 @@ export type LineupPosition = (typeof lineupPositions)[number];
 
 // Changing how this array is sorted will change how the compose team go to the next available slot
 export const playablePositions = [
-  // Position.Forward, //TODO******
-  // Position.Midfielder,
-  // Position.Defender,
-  // Position.Goalkeeper,
+  Position.Batsman, //TODO******
+  Position.Bowler,
+  Position.Coach,
+  Position.Wicketkeeper,
 ] as const;
 export type PlayablePosition = (typeof playablePositions)[number];
 
