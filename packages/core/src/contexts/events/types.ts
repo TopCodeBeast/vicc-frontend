@@ -14,77 +14,73 @@ export enum EventStep {
   FULFILLED = 'FULFILLED',
 }
 
-// export const fragments = {
-//   cardInfo: gql`
-//     fragment Analytics_cardInfo on Card {
-//       slug
-//       assetId
-//       name
-//       lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
-//       lastFifteenVicc5AverageScore: averageScore(
-//         type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
-//       )
-//       player {
-//         slug
-//         activeClub {
-//           slug
-//           domesticLeague {
-//             slug
-//           }
-//         }
-//         lastFiveVicc5Appearances
-//         lastFifteenVicc5Appearances
-//       }
-//       positionTyped
-//       rarity
-//       season {
-//         startYear
-//       }
-//       serialNumber
-//       team {
-//         ... on TeamInterface {
-//           slug
-//         }
-//       }
-//       user {
-//         slug
-//       }
-//     }
-//   `,
+export const fragments = {
+  cardInfo: gql`
+    fragment Analytics_cardInfo on Card {
+      slug
+      assetId
+      name
+      lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
+      lastFifteenVicc5AverageScore: averageScore(
+        type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
+      )
+      player {
+        slug
+        activeClub {
+          slug
+          domesticLeague {
+            slug
+          }
+        }
+        lastFiveVicc5Appearances
+        lastFifteenVicc5Appearances
+      }
+      position #positionTyped
+      rarity
+      season {
+        startYear
+      }
+      serialNumber
+      team {
+        ... on TeamInterface {
+          slug
+        }
+      }
+      user {
+        slug
+      }
+    }
+  `,
 
-//   tokenInfo: gql`
-//     fragment Analytics_tokenInfo on Token {
-//       assetId
-//       slug
-//       name
-//       metadata {
-//         ... on TokenBaseballMetadata {
-//           id
-//           playerPositions
-//         }
-//         ... on TokenFootballMetadata {
-//           id
-//           playerPosition
-//         }
-//         ... on TokenCardMetadataInterface {
-//           playerDisplayName
-//           playerSlug
-//           rarity
-//           seasonStartYear
-//           serialNumber
-//           singleCivilYear
-//           teamSlug
-//         }
-//       }
-//       owner {
-//         id
-//         user {
-//           slug
-//         }
-//       }
-//     }
-//   `,
-// };
+  tokenInfo: gql`
+    fragment Analytics_tokenInfo on Token {
+      assetId
+      slug
+      name
+      metadata {
+        ... on TokenCricketMetadata {
+          id
+          playerPosition
+        }
+        ... on TokenCardMetadataInterface {
+          playerDisplayName
+          playerSlug
+          rarity
+          seasonStartYear
+          serialNumber
+          singleCivilYear
+          teamSlug
+        }
+      }
+      owner {
+        id
+        user {
+          slug
+        }
+      }
+    }
+  `,
+};
 
 // const CARD_ANALYTICS_INFO_QUERY = gql`
 //   query CardAnalyticsInfoQuery($assetId: String!) {

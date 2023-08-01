@@ -18,6 +18,8 @@ export const CARD_QUERY = gql`
   query CardQuery(
     $slug: String!
     $bidCursor: String
+    $scoreCursor: String
+    $first: Int
   ) {
     card(slug: $slug) {
       slug
@@ -56,7 +58,6 @@ export const CardPage = () => {
     skip: !slug,
     connection: 'TokenBidConnection',
   });
-  console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CardPage', slug);
 
   // const { InfiniteScrollLoader } = useInfiniteScroll(
   //   useCallback(() => {

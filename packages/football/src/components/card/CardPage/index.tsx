@@ -15,7 +15,7 @@ import RarityGradientBackground from '@sorare/core/src/atoms/layout/RarityGradie
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Title3 } from '@sorare/core/src/atoms/typography';
 import CreateDeckDialog from '@sorare/core/src/components/deck/CreateDeckDialog';
-// import { fragments as analyticsFragments } from '@sorare/core/src/contexts/events/types';
+import { fragments as analyticsFragments } from '@sorare/core/src/contexts/events/types';
 import { useSeoContext } from '@sorare/core/src/contexts/seo';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 import { scarcityMessages } from '@sorare/core/src/lib/scarcity';
@@ -26,12 +26,12 @@ import OpenAuction from '@sorare/marketplace/src/components/auction/OpenAuction'
 import MinimumPrice from '@sorare/marketplace/src/components/directOffer/MinimumPrice';
 import CurrentOwner from '@sorare/marketplace/src/components/offer/CurrentOwner';
 import SingleSaleOffer from '@sorare/marketplace/src/components/offer/SingleSaleOffer';
-// import TokenPriceHistory from '@sorare/marketplace/src/components/price/TokenPriceHistory';
+import TokenPriceHistory from '@sorare/marketplace/src/components/price/TokenPriceHistory';
 import OwnershipHistory from '@sorare/marketplace/src/components/token/OwnershipHistory';
-// import BlockchainInfo from '@sorare/marketplace/src/components/token/TokenPage/BlockchainInfo';
-// import TokensAvailableOnPrimaryWhenInsufficientFundsInWallet from '@sorare/marketplace/src/components/token/TokenPage/TokensAvailableOnPrimaryWhenInsufficientFundsInWallet';
+import BlockchainInfo from '@sorare/marketplace/src/components/token/TokenPage/BlockchainInfo';
+import TokensAvailableOnPrimaryWhenInsufficientFundsInWallet from '@sorare/marketplace/src/components/token/TokenPage/TokensAvailableOnPrimaryWhenInsufficientFundsInWallet';
 import { tokenPageMessages } from '@sorare/marketplace/src/components/token/TokenPage/tokenPageMessages';
-// import TokenWithdrawal from '@sorare/marketplace/src/components/token/TokenWithdrawal';
+import TokenWithdrawal from '@sorare/marketplace/src/components/token/TokenWithdrawal';
 
 import AddCardToDeck from '@football/components/deck/AddCardToDeck';
 import LastScores from '@football/components/stats/LastScores';
@@ -131,7 +131,7 @@ export const CardPage = (props: Props) => {
               )}
               {token && <MinimumPrice token={token} />}
             </div>
-            {/* {token?.latestEnglishAuction?.open && (
+            {token?.latestEnglishAuction?.open && (
               <>
                 <div>
                   <OpenAuction auction={token.latestEnglishAuction} />
@@ -154,7 +154,7 @@ export const CardPage = (props: Props) => {
                   </PageBlock>
                 )}
               </>
-            )}*/}
+            )}
 
             {token && <SingleSaleOffer token={token} />}
             {token && <MyOffers token={token} />}
@@ -170,7 +170,7 @@ export const CardPage = (props: Props) => {
               />
               <CardAttributes card={card} />
             </PageBlock>
-            {/* {card.allSo5Scores.nodes.length > 0 && (
+            {card.allSo5Scores.nodes.length > 0 && (
               <PageBlock>
                 <BlockHeader
                   title={
@@ -236,7 +236,7 @@ export const CardPage = (props: Props) => {
                   {token && <TokenWithdrawal token={token} />}
                 </Block>
               </PageBlock>
-            )} */}
+            )}
             {token && (
               <OwnershipHistory
                 title={
@@ -284,19 +284,19 @@ CardPage.fragments = {
       lastFifteenVicc5AverageScore: averageScore(
         type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
       )
-      #allSo5Scores(first: $first, after: $scoreCursor) {
-      #  nodes {
-      #    id
-      #    #...LastScores_so5Score
-      #  }
-      #  pageInfo {
-      #    endCursor
-      #    hasNextPage
-      #  }
-      #}
+      allSo5Scores: allVicc5Scores(first: $first, after: $scoreCursor) {
+        nodes {
+          id
+          ...LastScores_so5Score
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
       player {
         slug
-        #...LastScores_player
+        ...LastScores_player
       }
       token {
         assetId
@@ -331,22 +331,22 @@ CardPage.fragments = {
         ...SingleSaleOffer_token
         ...CurrentOwner_token
         ...OwnershipHistory_token
-        #...BlockchainInfo_token
+        ...BlockchainInfo_token
         ...MinimumPrice_token
-        #...TokenWithdrawal_token
-        #...TokensAvailableOnPrimaryWhenInsufficientFundsInWallet_token
+        ...TokenWithdrawal_token
+        ...TokensAvailableOnPrimaryWhenInsufficientFundsInWallet_token
         ...MyOffers_token
       }
       ...CardPageHeader_card
       ...CommonCardCurrentOwner_card
       ...CardPageTitle_card
       ...CardAttributes_card
-      #...Analytics_cardInfo
+      ...Analytics_cardInfo
       ...CardPage_ItemEligibility_card
       ...AddCardToDeck_card
     }
-    #{LastScores.fragments.player}
-    #{LastScores.fragments.so5Score}
+    ${LastScores.fragments.player}
+    ${LastScores.fragments.so5Score}
     ${Header.fragments.card}
     ${Title.fragments.card}
     ${CommonCardCurrentOwner.fragments.card}
@@ -354,15 +354,15 @@ CardPage.fragments = {
     ${MinimumPrice.fragments.token}
     ${OpenAuction.fragments.auction}
     ${CardAttributes.fragments.card}
-    #{TokenWithdrawal.fragments.token}
-    #{analyticsFragments.cardInfo}
+    ${TokenWithdrawal.fragments.token}
+    ${analyticsFragments.cardInfo}
     ${BidHistory.fragments.bid}
     ${OwnershipHistory.fragments.token}
     ${SingleSaleOffer.fragments.token}
     ${CurrentOwner.fragments.token}
-    #{BlockchainInfo.fragments.token}
+    ${BlockchainInfo.fragments.token}
     ${ItemEligibility.fragments.card}
-    #{TokensAvailableOnPrimaryWhenInsufficientFundsInWallet.fragments.token}
+    ${TokensAvailableOnPrimaryWhenInsufficientFundsInWallet.fragments.token}
     ${AddCardToDeck.fragments.card}
   `,
 };
