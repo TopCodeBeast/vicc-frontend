@@ -50,7 +50,7 @@ import '@sorare/core/src/style/romieFontFaces.css';
 //             released
 //             logoUrl
 //           }
-//           upcomingSo5Leaderboard {
+//           upcomingSo5Leaderboard: upcomingVicc5Leaderboard {
 //             slug
 //             so5LineupsCount
 //           }
