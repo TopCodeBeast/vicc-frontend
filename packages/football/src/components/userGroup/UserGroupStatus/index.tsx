@@ -1,4 +1,4 @@
-import { So5UserGroupStatus } from '@sorare/core/src/__generated__/globalTypes';
+import { Vicc5UserGroupStatus as So5UserGroupStatus } from '@sorare/core/src/__generated__/globalTypes';
 import { Chip } from '@sorare/core/src/atoms/ui/Chip';
 
 type Props = {

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { useIntl } from 'react-intl';
 
-import { So5UserGroupStatus } from '@sorare/core/src/__generated__/globalTypes';
+import { Vicc5UserGroupStatus as So5UserGroupStatus } from '@sorare/core/src/__generated__/globalTypes';
 
 import UserGroupsStatus from '@football/components/userGroup/UserGroupStatus';
 

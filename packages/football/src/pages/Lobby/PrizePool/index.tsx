@@ -6,7 +6,7 @@ import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { So5LeaderboardRarity } from '@sorare/core/src/__generated__/globalTypes';
+import { Vicc5LeaderboardRarity as So5LeaderboardRarity } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import Body from '@sorare/core/src/atoms/layout/Body';
 import Container from '@sorare/core/src/atoms/layout/Container';
@@ -125,7 +125,7 @@ export const PrizePool = () => {
     connection: 'So5LeaderboardConnection',
   });
 
-  const so5Leaderboards = data?.football.so5.futureLeaderboardsPaginated.nodes;
+  const so5Leaderboards = data?.so5.futureLeaderboardsPaginated.nodes;
   const groupedSo5Leaderboards = useMemo(
     () =>
       sortBy(
@@ -141,11 +141,11 @@ export const PrizePool = () => {
     useCallback(() => {
       loadMore(false, {
         cursor:
-          data?.football.so5.futureLeaderboardsPaginated?.pageInfo.endCursor,
+          data?.so5.futureLeaderboardsPaginated?.pageInfo.endCursor,
       });
-    }, [data?.football.so5.futureLeaderboardsPaginated, loadMore]),
+    }, [data?.so5.futureLeaderboardsPaginated, loadMore]),
     Boolean(
-      data?.football.so5.futureLeaderboardsPaginated?.pageInfo?.hasNextPage
+      data?.so5.futureLeaderboardsPaginated?.pageInfo?.hasNextPage
     ),
     loading
   );

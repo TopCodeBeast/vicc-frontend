@@ -294,11 +294,11 @@ export const getScoreModifiers = (
   return { score, scoreModifier };
 };
 
-// export type FormationName = 'defensive' | 'dense' | 'attacking' | 'default';
-// export type Formation = {
-//   name: FormationName;
-//   formation: string;
-// };
+export type FormationName = 'defensive' | 'dense' | 'attacking' | 'default';
+export type Formation = {
+  name: FormationName;
+  formation: string;
+};
 
 // export const extraPlayerPosition: {
 //   [key in FormationName]: PlayablePosition | null;
@@ -661,59 +661,59 @@ export const generateUserGroupInviteLink = (
   return link;
 };
 
-// const TOURNAMENT_NAMES: { [so5LeaderboardTypePrefix: string]: string } = {
-//   FIRST_DIVISION_FRANCE: 'Ligue 1',
-//   FIRST_DIVISION_GERMANY: 'Bundesliga',
-//   FIRST_DIVISION_ENGLAND: 'Premier League',
-//   FIRST_DIVISION_ITALY: 'Serie A',
-//   FIRST_DIVISION_SPAIN: 'LaLiga',
-// };
+const TOURNAMENT_NAMES: { [so5LeaderboardTypePrefix: string]: string } = {
+  FIRST_DIVISION_FRANCE: 'Ligue 1',
+  FIRST_DIVISION_GERMANY: 'Bundesliga',
+  FIRST_DIVISION_ENGLAND: 'Premier League',
+  FIRST_DIVISION_ITALY: 'Serie A',
+  FIRST_DIVISION_SPAIN: 'LaLiga',
+};
 
-// const extractTournamentName = (so5LeaderboardType?: string) =>
-//   Object.entries(TOURNAMENT_NAMES).find(([prefix]) =>
-//     so5LeaderboardType?.startsWith(prefix)
-//   )?.[1];
+const extractTournamentName = (so5LeaderboardType?: string) =>
+  Object.entries(TOURNAMENT_NAMES).find(([prefix]) =>
+    so5LeaderboardType?.startsWith(prefix)
+  )?.[1];
 
-// const userGroupInvitationMessages = defineMessages({
-//   inviteTitle: {
-//     id: 'UserGroupInvitation.Field.Share',
-//     defaultMessage: 'Invite',
-//   },
-//   inviteMsg: {
-//     id: 'UserGroupInvitation.Field.Message',
-//     defaultMessage:
-//       'Come join my Sorare Private League to compete for great prizes!\n',
-//   },
-//   inviteMsgWithTournament: {
-//     id: 'UserGroupInvitation.Field.MessageWithTournament',
-//     defaultMessage:
-//       'Come join my Sorare {tournamentName} Private League to compete for great prizes!\n',
-//   },
-// });
+const userGroupInvitationMessages = defineMessages({
+  inviteTitle: {
+    id: 'UserGroupInvitation.Field.Share',
+    defaultMessage: 'Invite',
+  },
+  inviteMsg: {
+    id: 'UserGroupInvitation.Field.Message',
+    defaultMessage:
+      'Come join my Sorare Private League to compete for great prizes!\n',
+  },
+  inviteMsgWithTournament: {
+    id: 'UserGroupInvitation.Field.MessageWithTournament',
+    defaultMessage:
+      'Come join my Sorare {tournamentName} Private League to compete for great prizes!\n',
+  },
+});
 
-// export const generateUserGroupInvitationWording = (
-//   so5LeaderboardType?: string
-// ) => {
-//   const tournamentName = extractTournamentName(so5LeaderboardType); // only specific tournaments have their name interpolated
+export const generateUserGroupInvitationWording = (
+  so5LeaderboardType?: string
+) => {
+  const tournamentName = extractTournamentName(so5LeaderboardType); // only specific tournaments have their name interpolated
 
-//   return {
-//     title: userGroupInvitationMessages.inviteTitle,
-//     message: tournamentName
-//       ? userGroupInvitationMessages.inviteMsgWithTournament
-//       : userGroupInvitationMessages.inviteMsg,
-//     values: { tournamentName },
-//   };
-// };
+  return {
+    title: userGroupInvitationMessages.inviteTitle,
+    message: tournamentName
+      ? userGroupInvitationMessages.inviteMsgWithTournament
+      : userGroupInvitationMessages.inviteMsg,
+    values: { tournamentName },
+  };
+};
 
-// const RARITY_ORDER = [
-//   Rarity.unique,
-//   Rarity.super_rare,
-//   Rarity.rare,
-//   Rarity.limited,
-//   Rarity.common,
-//   Rarity.custom_series,
-//   '__DEFAULT__',
-// ];
+const RARITY_ORDER = [
+  Rarity.unique,
+  Rarity.super_rare,
+  Rarity.rare,
+  Rarity.limited,
+  Rarity.common,
+  Rarity.custom_series,
+  '__DEFAULT__',
+];
 
 const TOURNAMENT_TYPE_ORDER = [
   'global_kickoff',

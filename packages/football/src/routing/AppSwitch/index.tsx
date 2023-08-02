@@ -124,9 +124,9 @@ import PrivateRoute from '@football/routing/PrivateRoute';
 // const ComposeTeam = lazy(async () => import('@football/pages/ComposeTeam'));
 // const ComposeTeamDraft = lazy(async () => import('@football/pages/ComposeTeam/Draft'));
 // const Draft = lazy(draftImport);
-// const LobbyCompetitionDetails = lazy(
-//   async () => import('@football/pages/Lobby/CompetitionDetails/index')
-// );
+const LobbyCompetitionDetails = lazy(
+  async () => import('@football/pages/Lobby/CompetitionDetails/index')
+);
 // const UserGroupInviteLinkEntryPoint = lazy(
 //   async () =>
 //     import('pages/Lobby/Components/UserGroup/UserGroupInviteLinkEntryPoint')
@@ -135,11 +135,11 @@ const LobbyUpcoming = lazy(async () => import('@football/pages/Lobby/Upcoming/in
 const LobbyLive = lazy(async () => import('@football/pages/Lobby/Live/index'));
 const LobbyPast = lazy(async () => import('@football/pages/Lobby/Past/index'));
 // const Swap = lazy(async () => import('@football/pages/Lobby/Upcoming/Swap'));
-// const LobbyPrizePool = lazy(async () => import('@football/pages/Lobby/PrizePool/index'));
+const LobbyPrizePool = lazy(async () => import('@football/pages/Lobby/PrizePool/index'));
 const UserGroups = lazy(async () => import('@football/pages/Lobby/UserGroups/index'));
-// const StarterBundlesPage = lazy(
-//   async () => import('@football/pages/Lobby/StarterBundles')
-// );
+const StarterBundlesPage = lazy(
+  async () => import('@football/pages/Lobby/StarterBundles')
+);
 // const League = lazy(async () => import('@football/pages/League'));
 // const Club = lazy(async () => import('@football/pages/Club'));
 
@@ -187,7 +187,7 @@ export const AppSwitch = () => {
       basePath={FOOTBALL_PATH}
       dialogRoutes={({ isDialog }) => (
         <>
-          {/*<Route
+          <Route
             path={FOOTBALL_COMPETITION_DETAILS_WILDCARD}
             element={
               isDialog ? (
@@ -209,11 +209,11 @@ export const AppSwitch = () => {
               )
             }
           />
-          <Route path={FOOTBALL_VIDEOS} element={<ManagerHomeVideos />} />
+         {/* <Route path={FOOTBALL_VIDEOS} element={<ManagerHomeVideos />} />
           <Route
             path={FOOTBALL_LOBBY_UPCOMING_CLUB_BANNER}
             element={<ClubGameDialog />}
-          />
+          />*/}
           <Route
             path={FOOTBALL_LOBBY_STARTER_BUNDLES}
             element={
@@ -223,7 +223,7 @@ export const AppSwitch = () => {
               />
             }
           />
-          <Route
+          {/*<Route
             path={FOOTBALL_LOBBY_UPCOMING_SWAP}
             element={
               <Suspense fallback={<Backdrop />}>
@@ -505,7 +505,7 @@ export const AppSwitch = () => {
           </EnsureTopVisibleOnMount>
         }
       />
-      {/* {enablePrizePoolPage && (
+      {enablePrizePoolPage && (
         <Route
           path={FOOTBALL_LOBBY_PRIZE_POOL}
           element={
@@ -514,7 +514,7 @@ export const AppSwitch = () => {
             </EnsureTopVisibleOnMount>
           }
         />
-      )} */}
+      )}
       <Route
         path={FOOTBALL_LOBBY_LIVE_WILDCARD}
         element={
