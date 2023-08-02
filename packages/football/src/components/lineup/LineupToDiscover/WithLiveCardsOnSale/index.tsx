@@ -25,7 +25,7 @@ const WITH_LIVE_CARDS_ON_SALE_LEADERBOARD_QUERY = gql`
           slug
           draftedPlayers {
             id
-            position
+            position: positionTyped
             player {
               slug
               averageScore(type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE)

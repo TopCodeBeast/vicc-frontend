@@ -51,7 +51,10 @@ CounterOfferBuilder.fragments = {
     fragment CounterOfferBuilder_tokenOffer on TokenOffer {
       id
       blockchainId
-      marketFeeAmountWei: marketFeeAmount
+      marketFeeAmountWei
+      marketFeeAmounts {
+        ...MonetaryAmountFragment_monetaryAmount
+      }
       sender {
         ... on User {
           slug
@@ -60,7 +63,9 @@ CounterOfferBuilder.fragments = {
       }
       senderSide {
         id
-        wei: amount
+        amounts {
+          ...MonetaryAmountFragment_monetaryAmount
+        }
         nfts {
           assetId
           slug
@@ -76,7 +81,10 @@ CounterOfferBuilder.fragments = {
       }
       receiverSide {
         id
-        wei: amount
+        wei
+        amounts {
+          ...MonetaryAmountFragment_monetaryAmount
+        }
         nfts {
           assetId
           slug

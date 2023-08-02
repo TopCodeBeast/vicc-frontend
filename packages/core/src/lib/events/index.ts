@@ -18,6 +18,7 @@ export enum socialShareEventContext {
 export enum socialShareEventName {
   SHARE_CARD,
   SHARE_LINEUP,
+  SHARE_REFERRAL,
   SHARE_SQUAD,
 }
 

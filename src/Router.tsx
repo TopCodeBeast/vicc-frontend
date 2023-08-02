@@ -70,6 +70,7 @@ const BlockchainProvider = lazy(
 const Web3Provider = lazy(
   async () => import('@sorare/core/src/contexts/web3/Provider')
 );
+const MySorare = lazy(async () => import('@sorare/shared-pages/src/MySorare'));
 const Settings = lazy(async () => import('@sorare/shared-pages/src/Settings'));
 const FootballRoot = lazy(async () => import('@sorare/football/src/main'));
 
@@ -167,6 +168,16 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
         <Route
           path={MY_SORARE_HOME}
           element={<Navigate to={MY_SORARE_NEW} replace />}
+        />
+        <Route
+          path={MY_SORARE_WILDCARD}
+          element={
+            <RequireAuth>
+              <SharedPagesTheme>
+                <MySorare />
+              </SharedPagesTheme>
+            </RequireAuth>
+          }
         />
         <Route
           path={'/*'}

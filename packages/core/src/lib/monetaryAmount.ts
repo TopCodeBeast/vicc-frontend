@@ -1,7 +1,9 @@
+import { TypedDocumentNode, gql } from '@apollo/client';
 import BigNumber from 'bignumber.js';
 
 import { FiatCurrency, SupportedCurrency } from '__generated__/globalTypes';
 
+import { MonetaryAmountFragment_monetaryAmount } from './__generated__/monetaryAmount.graphql';
 import { CurrencyCode } from './fiat';
 
 const ETH_IN_WEI = new BigNumber('1000000000000000000');
@@ -180,5 +182,15 @@ class MonetaryAmount {
     return this[this.referenceCurrency]!;
   }
 }
+
+export const monetaryAmountFragment = gql`
+  fragment MonetaryAmountFragment_monetaryAmount on MonetaryAmount {
+    eur
+    usd
+    gbp
+    wei
+    referenceCurrency
+  }
+` as TypedDocumentNode<MonetaryAmountFragment_monetaryAmount>;
 
 export default MonetaryAmount;

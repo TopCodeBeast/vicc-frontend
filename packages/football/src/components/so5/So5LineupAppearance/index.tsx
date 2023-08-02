@@ -148,7 +148,7 @@ So5LineupAppearance.fragments = {
         player {
           slug
           displayName
-          position # positionTyped
+          position: positionTyped
           ...AppearanceDetailsFull_player
         }
         ...FlexCard_card

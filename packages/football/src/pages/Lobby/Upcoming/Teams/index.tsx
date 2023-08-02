@@ -272,8 +272,7 @@ export const LobbyUpcomingTeams = () => {
           </Button>
         </Actions>
       </Header>
-      <>Teams123</>
-      {/* <Teams
+      <Teams
         emptyDescription={messages.emptyDescription}
         queryVariables={{
           type: So5State.UPCOMING,
@@ -281,7 +280,7 @@ export const LobbyUpcomingTeams = () => {
           draft: isOnDraft,
         }}
         showRecommendedLeaderboard
-      /> */}
+      />
     </div>
   );
 };

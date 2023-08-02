@@ -35,7 +35,7 @@ export const fragments = {
         lastFiveVicc5Appearances
         lastFifteenVicc5Appearances
       }
-      position #positionTyped
+      position: positionTyped
       rarity
       season {
         startYear

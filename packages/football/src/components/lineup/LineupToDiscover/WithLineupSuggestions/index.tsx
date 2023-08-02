@@ -212,7 +212,7 @@ WithLineupSuggestions.fragments = {
   draftablePlayer: gql`
     fragment WithLineupSuggestions_draftablePlayer on DraftablePlayer {
       id
-      position
+      position: positionTyped
       player {
         slug
         averageScore(type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE)

@@ -190,7 +190,7 @@ DetailedScoreV4V5.fragments = {
   so5Score: gql`
     fragment DetailedScoreV4V5_so5Score on Vicc5Score {
       id
-      position
+      position: positionTyped
       decisiveScore {
         totalScore
       }

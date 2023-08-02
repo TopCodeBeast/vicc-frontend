@@ -113,7 +113,7 @@ CardAttributes.fragments = {
     fragment CardAttributes_card on Card {
       slug
       assetId
-      positionTyped: position
+      positionTyped
       age
       xp
       player {

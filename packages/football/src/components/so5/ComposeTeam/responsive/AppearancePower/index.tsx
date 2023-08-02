@@ -51,7 +51,7 @@ AppearancePower.fragments = {
     fragment AppearancePower_card on Card {
       slug
       assetId
-      position
+      position: positionTyped
       rarity
       ...CardBonus_WithEngine_card
     }

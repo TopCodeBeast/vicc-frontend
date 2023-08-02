@@ -254,7 +254,7 @@ export const formatReward = withFragments(
             rarity
             player {
               slug
-              position
+              position: positionTyped
               age
               country {
                 slug
