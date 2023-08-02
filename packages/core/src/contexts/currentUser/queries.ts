@@ -3,16 +3,16 @@ import { gql } from '@apollo/client';
 import ActiveUserAvatar from '@core/components/user/ActiveUserAvatar';
 import { useConversionCredit } from '@core/hooks/useConversionCredit';
 
-// export const onboardingStatus = gql`
-//   fragment CurrentUserProvider_onboardingStatus on CurrentUser {
-//     slug
-//     onboardingStatus {
-//       id
-//       enabled
-//       completed
-//     }
-//   }
-// `;
+export const onboardingStatus = gql`
+  fragment CurrentUserProvider_onboardingStatus on CurrentUser {
+    slug
+    onboardingStatus {
+      id
+      enabled
+      completed
+    }
+  }
+`;
 
 // const sportProfile = gql`
 //   fragment CurrentUseProvider_sportProfile on CurrentUser {
@@ -237,7 +237,7 @@ export const currentUser = gql`
     # so5NoCardRouteOpened
     # blockchainCardsInLineups
     #...CurrentUserProvider_conversionCredit
-    #...CurrentUserProvider_onboardingStatus
+    ...CurrentUserProvider_onboardingStatus
     #...CurrentUseProvider_sportProfile
     #...CurrentUserProvider_walletRecovery
     #...CurrentUseProvider_ethereumAccounts
@@ -246,7 +246,7 @@ export const currentUser = gql`
   }
   #{walletRecovery}
   #{conversionCredit}
-  #{onboardingStatus}
+  ${onboardingStatus}
   #{sportProfile}
   #{ethereumAccounts}
   #{fiatAccounts}

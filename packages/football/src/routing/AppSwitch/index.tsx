@@ -108,10 +108,10 @@ import HomePublic from '@football/pages/Home/Public';
 // import NoCardEntry from '@football/pages/NoCardEntry/index';
 // import PickLeague from '@football/pages/PickLeague';
 // import Player from '@football/pages/Player';
-// import ReferralProgram from '@football/pages/ReferralProgram';
+import ReferralProgram from '@football/pages/ReferralProgram';
 // import Rewards from '@football/pages/Rewards';
 // import SerieALanding from '@football/pages/SerieALanding';
-// import StarterBundlePage from '@football/pages/StarterBundle';
+import StarterBundlePage from '@football/pages/StarterBundle';
 import MarketHome from '@football/pages/TransferMarket/Home';
 import NewSignings from '@football/pages/TransferMarket/NewSignings';
 import StarterBundles from '@football/pages/TransferMarket/StarterBundles';
@@ -137,9 +137,9 @@ const LobbyPast = lazy(async () => import('@football/pages/Lobby/Past/index'));
 // const Swap = lazy(async () => import('@football/pages/Lobby/Upcoming/Swap'));
 const LobbyPrizePool = lazy(async () => import('@football/pages/Lobby/PrizePool/index'));
 const UserGroups = lazy(async () => import('@football/pages/Lobby/UserGroups/index'));
-const StarterBundlesPage = lazy(
-  async () => import('@football/pages/Lobby/StarterBundles')
-);
+// const StarterBundlesPage = lazy(
+//   async () => import('@football/pages/Lobby/StarterBundles')
+// );
 // const League = lazy(async () => import('@football/pages/League'));
 // const Club = lazy(async () => import('@football/pages/Club'));
 
@@ -213,7 +213,7 @@ export const AppSwitch = () => {
           <Route
             path={FOOTBALL_LOBBY_UPCOMING_CLUB_BANNER}
             element={<ClubGameDialog />}
-          />*/}
+          />
           <Route
             path={FOOTBALL_LOBBY_STARTER_BUNDLES}
             element={
@@ -222,7 +222,7 @@ export const AppSwitch = () => {
                 defaultBackUrl={FOOTBALL_LOBBY_UPCOMING}
               />
             }
-          />
+          />*/}
           {/*<Route
             path={FOOTBALL_LOBBY_UPCOMING_SWAP}
             element={
@@ -284,7 +284,7 @@ export const AppSwitch = () => {
                 }
               />
             }
-          />
+          />*/}
           <Route
             path={FOOTBALL_STARTER_BUNDLE_PAGE}
             element={
@@ -296,7 +296,7 @@ export const AppSwitch = () => {
                 />
               </Suspense>
             }
-          />*/}
+          />
         </>
       )}
     >
@@ -340,7 +340,7 @@ export const AppSwitch = () => {
       <Route
         path={INVITE_EPL_USER_GROUP}
         element={<UserGroupInviteLinkEntryPoint metadata={metadata} />}
-      />
+      />*/}
       <Route
         path={INVITE_WILDCARD}
         element={
@@ -354,7 +354,7 @@ export const AppSwitch = () => {
             requireVerifiedPhoneNumber
           />
         }
-      />*/}
+      />
       <Route
         path={FOOTBALL_NEW_SIGNINGS}
         element={
