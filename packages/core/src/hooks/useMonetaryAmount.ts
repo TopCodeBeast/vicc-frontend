@@ -15,6 +15,13 @@ export type MonetaryAmountOutput = Omit<
   '__typename' | 'referenceCurrency'
 >;
 
+export const zeroMonetaryAmount: MonetaryAmountOutput = {
+  eur: 0,
+  usd: 0,
+  gbp: 0,
+  wei: '0',
+};
+
 const useMonetaryAmount = () => {
   const { exchangeRate } = useConfigContext();
   const {

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faStopwatch } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage, defineMessages } from 'react-intl';
@@ -46,7 +46,7 @@ const TokenWithdrawal = ({ token }: Props) => {
   const { formatMessage } = useIntlContext();
   const { pendingWithdrawal, owner } = token;
 
-  const inRollup = false; //owner?.blockchain === Blockchain.STARKWARE;
+  const inRollup = owner?.blockchain === Blockchain.STARKWARE;
 
   const renderTransferInProgress = () => {
     if (!pendingWithdrawal) return null;
@@ -77,12 +77,12 @@ const TokenWithdrawal = ({ token }: Props) => {
       token.owner.optimistic
     )
       return null;
-    // if (
-    //   !isUserOwner<TokenWithdrawal_token_owner_account_owner_User>(token.owner)
-    // )
-    //   return null;
+    if (
+      !isUserOwner<TokenWithdrawal_token_owner_account_owner_User>(token.owner)
+    )
+      return null;
 
-    // if (token.owner.account.owner.slug !== currentUser?.slug) return null;
+    if (token.owner.account.owner.slug !== currentUser?.slug) return null;
 
     return (
       <div>
@@ -123,7 +123,7 @@ TokenWithdrawal.fragments = {
       ...TokenWithdrawalDialog_token
     }
     ${TokenWithdrawalDialog.fragments.token}
-  `,
+  ` as TypedDocumentNode<TokenWithdrawal_token>,
 };
 
 export default TokenWithdrawal;

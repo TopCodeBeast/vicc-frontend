@@ -12,7 +12,11 @@ type Props = {
   title: ReactNode;
   subtitle: ReactNode;
 };
-const Section: FC<Props> = ({ title, subtitle, children }) => {
+const Section: FC<React.PropsWithChildren<Props>> = ({
+  title,
+  subtitle,
+  children,
+}) => {
   return (
     <Container as="section">
       <Header>

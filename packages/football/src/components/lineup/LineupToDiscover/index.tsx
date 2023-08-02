@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { cloneElement } from 'react';
 
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
@@ -72,10 +72,10 @@ const LineupToDiscover = (props: Props) => {
 
 LineupToDiscover.fragments = {
   so5Leaderboard: gql`
-    fragment LineupToDiscover_so5Leaderboard on Vicc5Leaderboard {
+    fragment LineupToDiscover_so5Leaderboard on So5Leaderboard {
       slug
       division
-      so5League: vicc5League {
+      so5League {
         slug
         displayName
       }
@@ -84,7 +84,7 @@ LineupToDiscover.fragments = {
     }
     ${Lineup.fragments.so5Leaderboard}
     ${WithLiveCardsOnSale.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<LineupToDiscover_so5Leaderboard>,
 };
 
 export default LineupToDiscover;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import { generatePath } from 'react-router-dom';
 
@@ -48,12 +48,12 @@ export default SwapCta;
 
 SwapCta.fragments = {
   so5Leaderboard: gql`
-    fragment SwapCta_so5Leaderboard on Vicc5Leaderboard {
+    fragment SwapCta_so5Leaderboard on So5Leaderboard {
       slug
       commonDraftCampaign {
         slug
         availableSwapsCountForUpcoming
       }
     }
-  `,
+  ` as TypedDocumentNode<SwapCta_so5Leaderboard>,
 };

@@ -70,7 +70,7 @@ export const LazyLoader = ({ onEthereumSetup, source }: Props) => {
       relayConfig: {
         contractAddress: relayAddress,
       },
-      sorareTokensAddress: sorareTokensAddress,
+      sorareTokensAddress,
       sorareCardsAddress,
       sorareDataAddress: '',
       starkExchangeConfig,

@@ -53,7 +53,7 @@ const Currency = () => {
     currentUser,
     walletPreferences: { showEthWallet },
   } = useCurrentUserContext();
-  const { hasActiveFiatBalance } = useFiatBalance();
+  const { canListAndTrade } = useFiatBalance();
   if (!currentUser) return null;
   const { userSettings } = currentUser;
 
@@ -74,7 +74,7 @@ const Currency = () => {
     c => c.value === fiatCurrency
   );
 
-  if (!showEthWallet && hasActiveFiatBalance) return null;
+  if (!showEthWallet && canListAndTrade) return null;
 
   return (
     <SettingsSection title={messages.title}>
@@ -103,7 +103,7 @@ const Currency = () => {
           labelPlacement="start"
         />
       )}
-      {!hasActiveFiatBalance && (
+      {!canListAndTrade && (
         <StyledFormControlLabel
           control={
             <Select

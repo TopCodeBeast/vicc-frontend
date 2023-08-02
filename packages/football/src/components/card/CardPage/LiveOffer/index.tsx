@@ -1,7 +1,6 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 
-import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import Block from '@sorare/core/src/atoms/layout/Block';
 import { Text16 } from '@sorare/core/src/atoms/typography';
@@ -10,6 +9,7 @@ import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 import { glossary } from '@sorare/core/src/lib/glossary';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import useCancelOffer from '@sorare/marketplace/src/hooks/offers/useCancelOffer';
 
@@ -43,14 +43,7 @@ export const LiveOffer = ({ offer }: Props) => {
             day: 'numeric',
           })}
         </Text16>
-        {offer.senderSide.wei && (
-          <AmountWithConversion
-            monetaryAmount={{
-              referenceCurrency: SupportedCurrency.WEI,
-              [SupportedCurrency.WEI.toLowerCase()]: offer.senderSide.wei,
-            }}
-          />
-        )}
+        <AmountWithConversion monetaryAmount={offer.senderSide.amounts} />
       </div>
       <Button
         stroke
@@ -72,11 +65,15 @@ LiveOffer.fragments = {
       id
       createdAt
       senderSide {
-        wei
+        id
+        amounts {
+          ...MonetaryAmountFragment_monetaryAmount
+        }
       }
       blockchainId
     }
-  `,
+    ${monetaryAmountFragment}
+  ` as TypedDocumentNode<LiveOffer_tokenOffer>,
 };
 
 export default LiveOffer;

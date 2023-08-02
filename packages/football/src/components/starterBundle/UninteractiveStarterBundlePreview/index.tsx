@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { Position } from '@sorare/core/src/__generated__/globalTypes';
 import UninteractiveToken from '@sorare/core/src/components/token/UninteractiveToken';
@@ -17,10 +17,10 @@ export const UninteractiveStarterBundlePreview = ({
   bigger = false,
 }: Props) => {
   if (cards.length < 5) return null;
-  const forward = cards.find(c => c.position === Position.Batsman);
-  const goalkeeper = cards.find(c => c.position === Position.Wicketkeeper);
-  const defender = cards.find(c => c.position === Position.Coach);
-  const midfielder = cards.find(c => c.position === Position.Fielder);
+  const forward = cards.find(c => c.position === Position.Forward);
+  const goalkeeper = cards.find(c => c.position === Position.Goalkeeper);
+  const defender = cards.find(c => c.position === Position.Defender);
+  const midfielder = cards.find(c => c.position === Position.Midfielder);
   const extra = cards.find(
     c =>
       ![
@@ -68,6 +68,6 @@ UninteractiveStarterBundlePreview.fragments = {
       }
     }
     ${UninteractiveToken.fragments.token}
-  `,
+  ` as TypedDocumentNode<UninteractiveStarterBundlePreview_card>,
 };
 export default UninteractiveStarterBundlePreview;

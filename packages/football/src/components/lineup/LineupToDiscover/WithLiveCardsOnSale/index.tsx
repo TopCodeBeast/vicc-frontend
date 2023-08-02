@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useMemo } from 'react';
 import { useHits, usePagination } from 'react-instantsearch-hooks-web';
 
@@ -10,6 +10,7 @@ import WithLineupSuggestions from '@football/components/lineup/LineupToDiscover/
 
 import {
   WithLiveCardsOnSaleLeaderboardQuery,
+  WithLiveCardsOnSaleLeaderboardQueryVariables,
   WithLiveCardsOnSale_so5Leaderboard,
 } from './__generated__/index.graphql';
 import useLiveCardsOnSale from './useLiveCardsOnSale';
@@ -18,26 +19,31 @@ import useLiveCardsOnSale from './useLiveCardsOnSale';
 // it also should not be merged with card query to avoid refetching drafted players on shuffle
 const WITH_LIVE_CARDS_ON_SALE_LEADERBOARD_QUERY = gql`
   query WithLiveCardsOnSaleLeaderboardQuery($slug: String!) {
-    so5: vicc5Root {
-      so5Leaderboard: vicc5Leaderboard(slug: $slug) {
-        slug
-        commonDraftCampaign {
+    football {
+      so5 {
+        so5Leaderboard(slug: $slug) {
           slug
-          draftedPlayers {
-            id
-            position: positionTyped
-            player {
-              slug
-              averageScore(type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE)
+          commonDraftCampaign {
+            slug
+            draftedPlayers {
+              id
+              position
+              player {
+                slug
+                averageScore(type: LAST_FIFTEEN_SO5_AVERAGE_SCORE)
+              }
+              ...WithLineupSuggestions_draftablePlayer
             }
-            ...WithLineupSuggestions_draftablePlayer
           }
         }
       }
     }
   }
   ${WithLineupSuggestions.fragments.draftablePlayer}
-`;
+` as TypedDocumentNode<
+  WithLiveCardsOnSaleLeaderboardQuery,
+  WithLiveCardsOnSaleLeaderboardQueryVariables
+>;
 
 type CardHit = {
   active_club?: {
@@ -49,14 +55,14 @@ type CardHit = {
 };
 
 type CommonDraftCampaign = NonNullable<
-  WithLiveCardsOnSaleLeaderboardQuery['so5']['so5Leaderboard']['commonDraftCampaign']
+  WithLiveCardsOnSaleLeaderboardQuery['football']['so5']['so5Leaderboard']['commonDraftCampaign']
 >;
 
 const POSITIONS = [
-  // Position.Defender,
-  // Position.Goalkeeper,
-  // Position.Midfielder,
-  // Position.Forward,
+  Position.Defender,
+  Position.Goalkeeper,
+  Position.Midfielder,
+  Position.Forward,
 ];
 
 const findBestPlayer = (
@@ -87,8 +93,8 @@ const getBestPlayers = (
 };
 
 type Props = {
-  loadingView: JSX.Element;
-  children: (props: Partial<LineupProps>) => JSX.Element;
+  loadingView: React.JSX.Element;
+  children: (props: Partial<LineupProps>) => React.JSX.Element;
   amateurLeaderboardSlug: string;
   leagueFilter: string;
   so5Leaderboard: WithLiveCardsOnSale_so5Leaderboard;
@@ -107,20 +113,19 @@ const WithLiveCardsOnSale = ({
   fetchNextPage: () => void;
   isLastPage: boolean;
 }) => {
-  const { data: leaderboardData, loading: leaderboardLoading } =
-    useQuery<WithLiveCardsOnSaleLeaderboardQuery>(
-      WITH_LIVE_CARDS_ON_SALE_LEADERBOARD_QUERY,
-      {
-        fetchPolicy: 'cache-and-network',
-        nextFetchPolicy: 'cache-first',
-        variables: {
-          slug: amateurLeaderboardSlug,
-        },
-      }
-    );
+  const { data: leaderboardData, loading: leaderboardLoading } = useQuery(
+    WITH_LIVE_CARDS_ON_SALE_LEADERBOARD_QUERY,
+    {
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: 'cache-first',
+      variables: {
+        slug: amateurLeaderboardSlug,
+      },
+    }
+  );
 
   const { draftedPlayers } =
-    leaderboardData?.so5.so5Leaderboard?.commonDraftCampaign || {};
+    leaderboardData?.football.so5.so5Leaderboard?.commonDraftCampaign || {};
   const bestDraftedPlayers = useMemo(
     () => getBestPlayers(draftedPlayers || []),
     [draftedPlayers]
@@ -183,12 +188,12 @@ const WithLiveCardsOnSaleContainer = ({
 
 WithLiveCardsOnSaleContainer.fragments = {
   so5Leaderboard: gql`
-    fragment WithLiveCardsOnSale_so5Leaderboard on Vicc5Leaderboard {
+    fragment WithLiveCardsOnSale_so5Leaderboard on So5Leaderboard {
       slug
       ...WithLineupSuggestions_so5Leaderboard
     }
     ${WithLineupSuggestions.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<WithLiveCardsOnSale_so5Leaderboard>,
 };
 
 export default WithLiveCardsOnSaleContainer;

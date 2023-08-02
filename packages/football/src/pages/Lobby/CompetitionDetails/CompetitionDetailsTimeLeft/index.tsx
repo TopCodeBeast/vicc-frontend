@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { isPast, parseISO } from 'date-fns';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -71,11 +71,11 @@ export const CompetitionDetailsTimeLeft = ({ so5Fixture }: Props) => {
 
 CompetitionDetailsTimeLeft.fragments = {
   so5Fixture: gql`
-    fragment CompetitionDetailsTimeLeft_so5Fixture on Vicc5Fixture {
+    fragment CompetitionDetailsTimeLeft_so5Fixture on So5Fixture {
       slug
       endDate
       aasmState
       cutOffDate
     }
-  `,
+  ` as TypedDocumentNode<CompetitionDetailsTimeLeft_so5Fixture>,
 };

@@ -1,8 +1,8 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faArrowLeft } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
@@ -12,6 +12,7 @@ import { Text16, Title2 } from '@sorare/core/src/atoms/typography';
 import {
   FOOTBALL_DRAFT,
   FOOTBALL_HOME,
+  LANDING,
 } from '@sorare/core/src/constants/routes';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
@@ -24,12 +25,15 @@ import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { LeaguePicker } from '@football/components/draft/LeaguePicker';
 import { LeagueTile } from '@football/components/draft/LeagueTile';
-import { OnboardingVideoBanner } from '@football/components/draft/OnboardingVideoBanner';
 import { useActiveOnboarding } from '@football/hooks/onboarding/useActiveOnboarding';
 import { useFootballEvents } from '@football/lib/events';
 import useStartOnboarding from '@football/pages/PickLeague/useStartOnboarding';
 
-import { GetOnboardingDraftCampaignsQuery } from './__generated__/index.graphql';
+import {
+  GetOnboardingDraftCampaignsQuery,
+  GetOnboardingDraftCampaignsQueryVariables,
+} from './__generated__/index.graphql';
+import { useSkipOnboarding } from './useSkipOnboarding';
 
 const Root = styled.div`
   min-height: var(--100vh);
@@ -98,23 +102,28 @@ const LeagueTileWrapper = styled.div`
 
 const GET_ONBOARDING_DRAFT_CAMPAIGNS_QUERY = gql`
   query GetOnboardingDraftCampaignsQuery {
-    so5: vicc5Root {
-      onboardingCompetitions {
-        slug
-        commonDraftCampaign {
+    football {
+      so5 {
+        onboardingCompetitions {
           slug
-          upcomingSo5Leaderboard: upcomingVicc5Leaderboard {
+          commonDraftCampaign {
             slug
+            upcomingSo5Leaderboard {
+              slug
+            }
+            ...LeagueTile_commonDraftCampaign
           }
-          ...LeagueTile_commonDraftCampaign
+          ...LeaguePicker_onboardingCompetition
         }
-        ...LeaguePicker_onboardingCompetition
       }
     }
   }
   ${LeaguePicker.fragments.onboardingCompetition}
   ${LeagueTile.fragments.commonDraftCampaign}
-`;
+` as TypedDocumentNode<
+  GetOnboardingDraftCampaignsQuery,
+  GetOnboardingDraftCampaignsQueryVariables
+>;
 
 type Props = {
   preloads: (() => Promise<any>)[];
@@ -122,22 +131,21 @@ type Props = {
 };
 
 export const PickLeague = ({ preloads, allowClosing }: Props) => {
-  const { data, loading } = useQuery<GetOnboardingDraftCampaignsQuery>(
-    GET_ONBOARDING_DRAFT_CAMPAIGNS_QUERY
-  );
+  const { data, loading } = useQuery(GET_ONBOARDING_DRAFT_CAMPAIGNS_QUERY);
   const [searchParams] = useSearchParams();
   const track = useFootballEvents();
   const { currentUser } = useCurrentUserContext();
   const isOnboarding = useActiveOnboarding();
   const preloader = usePreloads(preloads);
   const startOnboarding = useStartOnboarding();
+  const skipOnboarding = useSkipOnboarding();
   const onGoBack = useSafePreviousNavigate(FOOTBALL_HOME);
   const generatePathWithSearch = useGeneratePathWithSearch();
-
   const { formatMessage } = useIntl();
   const {
-    flags: { showVideoBannerOnOnboarding = 'out' },
+    flags: { useDisableFootballOnboarding = false },
   } = useFeatureFlags();
+
   const trackLeagueSelection = (
     campaignSlug: string,
     automaticPick: boolean
@@ -153,9 +161,21 @@ export const PickLeague = ({ preloads, allowClosing }: Props) => {
     }
   };
 
-  const { onboardingCompetitions } = data?.so5 || {};
+  const { onboardingCompetitions } = data?.football.so5 || {};
 
-  if (!onboardingCompetitions || loading) {
+  const shouldSkipOnboarding =
+    useDisableFootballOnboarding ||
+    (!loading && !onboardingCompetitions?.length);
+
+  if (shouldSkipOnboarding) {
+    if (currentUser) {
+      skipOnboarding();
+    } else {
+      return <Navigate to={LANDING} replace />;
+    }
+  }
+
+  if (!onboardingCompetitions || loading || shouldSkipOnboarding) {
     return (
       <Container>
         <LoadingIndicator fullHeight />
@@ -177,9 +197,6 @@ export const PickLeague = ({ preloads, allowClosing }: Props) => {
 
   return (
     <Root>
-      {showVideoBannerOnOnboarding === 'treatment' && isOnboarding && (
-        <OnboardingVideoBanner />
-      )}
       <Container>
         <ContentWrapper>
           <HeaderWrapper>

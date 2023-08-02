@@ -1,6 +1,5 @@
 import { useMedia } from 'react-use';
 
-import { theme } from '@core/style/theme';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
-export const useIsDesktop = () =>
-  useMedia(`(min-width: ${theme.breakpoints.values.tablet}px)`);
+export const useIsDesktop = () => useMedia(tabletAndAbove);

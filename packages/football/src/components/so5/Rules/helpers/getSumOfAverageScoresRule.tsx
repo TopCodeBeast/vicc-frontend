@@ -1,10 +1,12 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage, defineMessages } from 'react-intl';
 
 import { AnimatedDiamond } from '@sorare/core/src/atoms/animations/AnimatedDiamond';
 import { withFragments } from '@sorare/core/src/lib/gql';
 
 import { RuleHelperFnReturnType } from '@football/components/so5/Rules/types';
+
+import { GetSumOfAverageScoresRule } from './__generated__/getSumOfAverageScoresRule.graphql';
 
 const messages = defineMessages({
   default: {
@@ -61,14 +63,14 @@ const getSumOfAverageScoresRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetSumOfAverageScoresRule on Vicc5Leaderboard {
+      fragment GetSumOfAverageScoresRule on So5Leaderboard {
         slug
         displayedRules {
           id
           sumOfAverageScores
         }
       }
-    `,
+    ` as TypedDocumentNode<GetSumOfAverageScoresRule>,
   }
 );
 

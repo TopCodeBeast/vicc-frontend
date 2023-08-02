@@ -45,12 +45,11 @@ export const ResponsiveSearchBar = () => {
   const { up: isDesktop } = useScreenSize('desktop');
   const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
   const [onExit, setOnExit] = useState<boolean>(false);
-
   const onClose = useCallback(() => {
     setMenuAnchor(null);
   }, []);
 
-  const toggleOpen = useCallback(event => {
+  const toggleOpen = useCallback((event: any) => {
     setMenuAnchor(anchor => {
       if (anchor) return null;
 

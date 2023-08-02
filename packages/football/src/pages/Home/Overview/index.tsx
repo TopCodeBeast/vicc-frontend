@@ -1,14 +1,17 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
-// import { ContentUnits } from './ContentUnits';
-// import { ManagerAssistant } from './ManagerAssistant';
+import { ContentUnits } from './ContentUnits';
+import { ManagerAssistant } from './ManagerAssistant';
 import { PrivateLeagues } from './PrivateLeagues';
 import { TournamentsTimeline } from './TournamentsTimeline';
-import { HomeLeaderboardsQuery } from './__generated__/index.graphql';
+import {
+  HomeLeaderboardsQuery,
+  HomeLeaderboardsQueryVariables,
+} from './__generated__/index.graphql';
 
 const Wrapper = styled.div`
   display: flex;
@@ -20,67 +23,65 @@ const HOME_LEADERBOARDS_QUERY = gql`
   query HomeLeaderboardsQuery {
     currentUser {
       slug
-      #...ManagerAssistant_currentUser
+      ...ManagerAssistant_currentUser
     }
-    so5: vicc5Root {
-      upcomingLeaderboards {
-        slug
-        canCompose {
-          value
-        }
-        commonDraftCampaign {
+    football {
+      so5 {
+        upcomingLeaderboards {
           slug
-          status
+          canCompose {
+            value
+          }
+          commonDraftCampaign {
+            slug
+            status
+          }
+          so5LeaderboardType
+          ...ManagerAssistant_so5Leaderboard
         }
-        so5LeaderboardType: vicc5LeaderboardType
-        #...ManagerAssistant_so5Leaderboard
+        ...PrivateLeagues_so5
+        ...TournamentsTimeline_so5
       }
-      ...PrivateLeagues_so5
-      #...TournamentsTimeline_so5
     }
   }
 
   ${PrivateLeagues.fragments.so5}
-  #{TournamentsTimeline.fragments.so5}
-  #{ManagerAssistant.fragments.currentUser}
-  #{ManagerAssistant.fragments.so5Leaderboard}
-`;
+  ${TournamentsTimeline.fragments.so5}
+  ${ManagerAssistant.fragments.currentUser}
+  ${ManagerAssistant.fragments.so5Leaderboard}
+` as TypedDocumentNode<HomeLeaderboardsQuery, HomeLeaderboardsQueryVariables>;
 
 export const Overview = () => {
   const {
     flags: { disableHomeContentUnits = false },
   } = useFeatureFlags();
-  const { data, loading } = useQuery<HomeLeaderboardsQuery>(
-    HOME_LEADERBOARDS_QUERY,
-    {
-      // need network to update discover & upcoming section if user buys a card from homepage
-      nextFetchPolicy: 'cache-and-network',
-      fetchPolicy: 'cache-and-network',
-    }
-  );
-  const leaderboards = data?.so5.upcomingLeaderboards;
+  const { data, loading } = useQuery(HOME_LEADERBOARDS_QUERY, {
+    // need network to update discover & upcoming section if user buys a card from homepage
+    nextFetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-and-network',
+  });
+  const leaderboards = data?.football.so5.upcomingLeaderboards;
   const user = data?.currentUser;
-  const so5 = data?.so5;
+  const so5 = data?.football.so5;
 
-  // const contentUnits = !disableHomeContentUnits && (
-  //   <ContentUnits
-  //     loading={
-  //       /* pretend to load for content to display at approximately the same time */
-  //       loading
-  //     }
-  //   />
-  // );
-  //TODO****
+  const contentUnits = !disableHomeContentUnits && (
+    <ContentUnits
+      loading={
+        /* pretend to load for content to display at approximately the same time */
+        loading
+      }
+    />
+  );
 
   return (
     <Wrapper>
-      {/* <ManagerAssistant
+      <ManagerAssistant
         user={user}
         leaderboards={leaderboards}
         loading={loading}
-      /> */}
+      />
       <TournamentsTimeline so5={so5} loading={loading} />
-      {/* {contentUnits} */}
+      {contentUnits}
       <PrivateLeagues so5={so5} loading={loading} />
     </Wrapper>
   );

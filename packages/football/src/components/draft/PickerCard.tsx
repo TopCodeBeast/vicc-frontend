@@ -14,7 +14,6 @@ import ResponsiveImg, {
 import { desktopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { positionShortNames } from '@football/lib/so5';
-type positionShortNames = any;
 
 const TooltipStyled = styled(Tooltip)`
   width: 100%;
@@ -27,12 +26,14 @@ const StyledAnimatedResponsiveImg = styled(animated(ResponsiveImg))`
   height: 100%;
 `;
 
-const Img: FC<{
-  src: string;
-  alt: string;
-  width: ValidWidths;
-  height: number;
-}> = ({ width, ...rest }) => {
+const Img: FC<
+  React.PropsWithChildren<{
+    src: string;
+    alt: string;
+    width: ValidWidths;
+    height: number;
+  }>
+> = ({ width, ...rest }) => {
   const animation = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
@@ -138,7 +139,7 @@ const Value = styled.p`
   }
 `;
 type PickerCardProps = {
-  position: any;//keyof typeof positionShortNames;
+  position: keyof typeof positionShortNames;
   active?: boolean;
   error?: boolean;
   onClick?: () => void;

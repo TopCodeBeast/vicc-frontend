@@ -4,11 +4,7 @@ import { relayStylePagination } from '@apollo/client/utilities';
 import { mergeDeep } from '@apollo/client/utilities/common/mergeDeep';
 import { Reference } from '@apollo/client/utilities/graphql/storeUtils';
 
-import { Vicc5LineupConnection, Vicc5LineupEdge } from '__generated__/globalTypes';
-
-//TODO*****
-type So5LineupConnection = Vicc5LineupConnection;
-type So5LineupEdge = Vicc5LineupEdge;
+import { So5LineupConnection, So5LineupEdge } from '__generated__/globalTypes';
 
 // Cached data has an extra __ref property that allows links between elements of the cache. They are unique identifiers in the cache
 type CachedSo5LineupEdge = So5LineupEdge & { node: Reference };
@@ -23,7 +19,7 @@ const getExtras = (obj: SafeReadonly<CachedSo5LineupConnection>) => {
 
 function makeEmptyData(): SafeReadonly<CachedSo5LineupConnection> {
   return {
-    __typename: 'Vicc5LineupConnection',
+    __typename: 'So5LineupConnection',
     nodes: [],
     edges: [],
     totalCount: 0,
@@ -38,7 +34,7 @@ function makeEmptyData(): SafeReadonly<CachedSo5LineupConnection> {
 }
 
 export default {
-  ...relayStylePagination(['withTraining', 'vicc5LeaderboardSlug', 'draft']),
+  ...relayStylePagination(['withTraining', 'so5LeaderboardSlug', 'draft']),
 
   // Override relayStylePagination merge function
   // Adapted from node_modules/@apollo/client/utilities/policies/pagination.js

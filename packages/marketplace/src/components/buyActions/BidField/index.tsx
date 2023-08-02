@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useState } from 'react';
 import { defineMessages } from 'react-intl';
 import styled from 'styled-components';
@@ -6,21 +6,21 @@ import styled from 'styled-components';
 import { Color } from '@sorare/core/src/atoms/buttons/Button';
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
-// import { useEventContext } from '@sorare/core/src/contexts/event';
+import { useEventContext } from '@sorare/core/src/contexts/event';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useLoggedCallback from '@sorare/core/src/hooks/useLoggedCallback';
 import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 
-// import usePollAuction from '@marketplace/components/auction/usePollAuction';
+import usePollAuction from '@marketplace/components/auction/usePollAuction';
 import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
-// import useBestBidBelongsToUser from '@marketplace/hooks/auctions/useBestBidBelongsToUser';
+import useBestBidBelongsToUser from '@marketplace/hooks/auctions/useBestBidBelongsToUser';
 import useCannotTrade from '@marketplace/hooks/offers/useCannotTrade';
 import { auctionMinNextBid } from '@marketplace/lib/auctions';
 
-// import BidBundleSummary from '../BidBundleSummary';
-// import BidTokenSummary from '../BidTokenSummary';
-// import BidConfirmedDialog from './BidConfirmedDialog';
-// import BidPaymentModal from './BidPaymentModal';
+import BidBundleSummary from '../BidBundleSummary';
+import BidTokenSummary from '../BidTokenSummary';
+import BidConfirmedDialog from './BidConfirmedDialog';
+import BidPaymentModal from './BidPaymentModal';
 import {
   BidField_auction,
   BidField_token,
@@ -63,39 +63,38 @@ const BidField = ({
   stroke,
   color = 'blue',
 }: BidFieldProps) => {
-  // const { toMonetaryAmount } = useMonetaryAmount();
-  // usePollAuction(auction);
-  // const [showBidConfirmationModal, setShowBidConfirmationModal] =
-  //   useState(false);
-  // const { open, cancelled } = auction;
-  // const { trackClickBid } = useMarketplaceContext();
+  const { toMonetaryAmount } = useMonetaryAmount();
+  usePollAuction(auction);
+  const [showBidConfirmationModal, setShowBidConfirmationModal] =
+    useState(false);
+  const { open, cancelled } = auction;
+  const { trackClickBid } = useMarketplaceContext();
   const cannotTrade = useCannotTrade();
   const cannotTradeToken = cannotTrade();
 
   const { formatMessage } = useIntlContext();
-  // const doesBestBidBelongsToUser = useBestBidBelongsToUser();
+  const doesBestBidBelongsToUser = useBestBidBelongsToUser();
   const [paymentStarted, setPaymentStarted] = useState(false);
-  // const trackingContext = useEventContext();
+  const trackingContext = useEventContext();
 
-  const bestBidBelongsToUser = false;
-  // const bestBidBelongsToUser =
-  //   auction?.bestBid && doesBestBidBelongsToUser(auction.bestBid);
+  const bestBidBelongsToUser =
+    auction?.bestBid && doesBestBidBelongsToUser(auction.bestBid);
 
-  // const loggedTogglePaymentStarted = useLoggedCallback<boolean>(b =>
-  //   setPaymentStarted(b)
-  // );
+  const loggedTogglePaymentStarted = useLoggedCallback<boolean>(b =>
+    setPaymentStarted(b)
+  );
 
-  // if (!bestBidBelongsToUser && showBidConfirmationModal)
-  //   setShowBidConfirmationModal(false);
+  if (!bestBidBelongsToUser && showBidConfirmationModal)
+    setShowBidConfirmationModal(false);
 
-  // if (!open || cancelled) return null;
+  if (!open || cancelled) return null;
 
-  // const minNextBid = auctionMinNextBid(auction);
+  const minNextBid = auctionMinNextBid(auction);
 
-  // const minNextBidMonetary = toMonetaryAmount({
-  //   [auction.currency.toLowerCase()]: minNextBid,
-  //   referenceCurrency: auction.currency,
-  // });
+  const minNextBidMonetary = toMonetaryAmount({
+    [auction.currency.toLowerCase()]: minNextBid,
+    referenceCurrency: auction.currency,
+  });
 
   return (
     <Root>
@@ -109,14 +108,14 @@ const BidField = ({
           small={small}
           disabled={Boolean(cannotTradeToken)}
           onClick={() => {
-            /*trackClickBid(
+            trackClickBid(
               auction,
               minNextBidMonetary,
               tokens.map(token => token.assetId),
               tokens[0].sport,
               trackingContext?.subPath
             );
-            return loggedTogglePaymentStarted(true);*/
+            return loggedTogglePaymentStarted(true);
           }}
           loading={paymentStarted}
         >
@@ -127,7 +126,7 @@ const BidField = ({
           )}
         </ActivateButton>
       </ActivateButtonTooltip>
-      {/* {paymentStarted && (
+      {paymentStarted && (
         <BidPaymentModal
           auction={auction}
           tokens={tokens}
@@ -151,7 +150,7 @@ const BidField = ({
         }
         auction={auction}
         open={showBidConfirmationModal}
-      /> */}
+      />
     </Root>
   );
 };
@@ -162,14 +161,14 @@ BidField.fragments = {
       assetId
       slug
       sport
-      #...BidPaymentModal_token
-      #...BidTokenSummary_token
-      #...BidBundleSummary_token
+      ...BidPaymentModal_token
+      ...BidTokenSummary_token
+      ...BidBundleSummary_token
     }
-    #{BidPaymentModal.fragments.token}
-    #{BidTokenSummary.fragments.token}
-    #{BidBundleSummary.fragments.token}
-  `,
+    ${BidPaymentModal.fragments.token}
+    ${BidTokenSummary.fragments.token}
+    ${BidBundleSummary.fragments.token}
+  ` as TypedDocumentNode<BidField_token>,
   auction: gql`
     fragment BidField_auction on TokenAuction {
       id
@@ -179,7 +178,7 @@ BidField.fragments = {
       bidsCount
       minNextBid
       privateMinNextBid
-      # currency
+      currency
       creditCardFee
       myLastBid {
         id
@@ -191,17 +190,17 @@ BidField.fragments = {
             slug
           }
         }
-        #...UseBestBidBelongsToUser_bestBid
+        ...UseBestBidBelongsToUser_bestBid
       }
-      #...BidPaymentModal_auction
-      #...UsePollAuction_auction
-      #...BidConfirmedDialogContent_tokenAuction
+      ...BidPaymentModal_auction
+      ...UsePollAuction_auction
+      ...BidConfirmedDialogContent_tokenAuction
     }
-    #{useBestBidBelongsToUser.fragments.bestBid}
-    #{BidConfirmedDialog.fragments.tokenAuction}
-    #{BidPaymentModal.fragments.auction}
-    #{usePollAuction.fragments.auction}
-  `,
+    ${useBestBidBelongsToUser.fragments.bestBid}
+    ${BidConfirmedDialog.fragments.tokenAuction}
+    ${BidPaymentModal.fragments.auction}
+    ${usePollAuction.fragments.auction}
+  ` as TypedDocumentNode<BidField_auction>,
 };
 
 export default BidField;

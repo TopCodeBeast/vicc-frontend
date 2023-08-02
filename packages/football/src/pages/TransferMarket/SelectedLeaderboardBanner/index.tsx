@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -67,37 +67,36 @@ const StyledButton = styled(Button)`
 
 const MARKET_LEADERBOARD_QUERY = gql`
   query MarketLeaderboardQuery($slug: String!) {
-    so5: vicc5Root {
-      so5Leaderboard: vicc5Leaderboard(slug: $slug) {
-        slug
-        displayName
-        canCompose {
-          ...MissingCardsMessage_validity
+    football {
+      so5 {
+        so5Leaderboard(slug: $slug) {
+          slug
+          displayName
+          canCompose {
+            ...MissingCardsMessage_validity
+          }
+          ...DivisionLogo_so5Leaderboard
         }
-        ...DivisionLogo_so5Leaderboard
       }
     }
   }
   ${DivisionLogo.fragments.so5Leaderboard}
   ${MissingCardsMessage.fragments.validity}
-`;
+` as TypedDocumentNode<MarketLeaderboardQuery, MarketLeaderboardQueryVariables>;
 
 export const SelectedLeaderboardBanner = () => {
   const [searchParams] = useSearchParams();
   const leaderboardSlug = searchParams.get('leaderboard');
   const generatePathWithSearch = useGeneratePathWithSearch();
 
-  const { data } = useQuery<
-    MarketLeaderboardQuery,
-    MarketLeaderboardQueryVariables
-  >(MARKET_LEADERBOARD_QUERY, {
+  const { data } = useQuery(MARKET_LEADERBOARD_QUERY, {
     variables: { slug: leaderboardSlug || '' },
     skip: !leaderboardSlug,
   });
 
   if (!data) return null;
 
-  const { so5Leaderboard } = data.so5;
+  const { so5Leaderboard } = data.football.so5;
   return (
     <StyledLink
       to={generatePathWithSearch(FOOTBALL_COMPETITION_DETAILS, {

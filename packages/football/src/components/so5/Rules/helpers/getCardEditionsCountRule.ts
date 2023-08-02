@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { defineMessages } from 'react-intl';
 
 import { withFragments } from '@sorare/core/src/lib/gql';
@@ -106,7 +106,7 @@ const getCardEditionsCountRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetCardEditionsCountRule on Vicc5Leaderboard {
+      fragment GetCardEditionsCountRule on So5Leaderboard {
         slug
         displayedRules {
           id
@@ -122,7 +122,7 @@ const getCardEditionsCountRule = withFragments(
           }
         }
       }
-    `,
+    ` as TypedDocumentNode<GetCardEditionsCountRule>,
   }
 );
 

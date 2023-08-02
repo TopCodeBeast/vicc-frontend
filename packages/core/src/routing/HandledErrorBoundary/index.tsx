@@ -8,7 +8,7 @@ import { ErrorProps, HandledError } from '@core/routing/HandledError';
 type Props = {
   children: ReactNode;
   messages?: { [key: string | number]: string };
-  Error?: FC<ErrorProps>;
+  Error?: FC<React.PropsWithChildren<ErrorProps>>;
 };
 const handleKnownError = (code: number | string, message?: string) => {
   return {

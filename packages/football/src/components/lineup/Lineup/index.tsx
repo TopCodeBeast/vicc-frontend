@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { isFuture, isPast } from 'date-fns';
 import qs from 'qs';
 import { cloneElement, useState } from 'react';
@@ -117,9 +117,10 @@ export type Props = {
       | {
           card: { position: string };
         };
-  }) => JSX.Element;
+  }) => React.JSX.Element;
   renderCta?: LineupActionsProps['renderCta'];
   hideGameWeekInfo?: boolean;
+  hideActions?: boolean;
 };
 
 export const Lineup = ({
@@ -128,6 +129,7 @@ export const Lineup = ({
   displayScore,
   rewardType = RewardType.Generic,
   hideGameWeekInfo,
+  hideActions,
   renderCard,
   renderCta,
 }: Props) => {
@@ -225,6 +227,7 @@ export const Lineup = ({
         lineup={lineup}
         hideGameWeekInfo={hideGameWeekInfo}
         linkToCompetitionDetails={linkToCompetitionDetails}
+        hideActions={hideActions}
       />
       <Scores>
         <RankContainer>{getRank()}</RankContainer>
@@ -293,23 +296,23 @@ export const Lineup = ({
 
 Lineup.fragments = {
   so5Lineup: gql`
-    fragment Lineup_so5Lineup on Vicc5Lineup {
+    fragment Lineup_so5Lineup on So5Lineup {
       id
       name
       cancelledAt
-      so5Appearances: vicc5Appearances {
+      so5Appearances {
         id
         card {
           assetId
           slug
           position: positionTyped
         }
-        so5Score: vicc5Score {
+        so5Score {
           id
         }
         ...PlayerCard_so5Appearance
       }
-      so5Rankings: vicc5Rankings {
+      so5Rankings {
         id
         score
         ranking
@@ -324,12 +327,12 @@ Lineup.fragments = {
     ${LineupRewards.fragments.so5Ranking}
     ${PlayerCardPlaceholder.fragments.so5Lineup}
     ${LineupStatus.fragments.so5Lineup}
-  `,
+  ` as TypedDocumentNode<Lineup_so5Lineup>,
   so5Leaderboard: gql`
-    fragment Lineup_so5Leaderboard on Vicc5Leaderboard {
+    fragment Lineup_so5Leaderboard on So5Leaderboard {
       slug
-      so5LineupsCount: vicc5LineupsCount
-      so5LeaderboardType: vicc5LeaderboardType
+      so5LineupsCount
+      so5LeaderboardType
       totalRewards {
         ...LineupRewards_rewardsOverview
       }
@@ -340,7 +343,7 @@ Lineup.fragments = {
       canCompose {
         value
       }
-      so5Fixture: vicc5Fixture {
+      so5Fixture {
         slug
         startDate
         endDate
@@ -353,5 +356,5 @@ Lineup.fragments = {
     ${LineupActions.fragments.so5Leaderboard}
     ${LineupRewards.fragments.rewardsOverview}
     ${PlayerCardPlaceholder.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<Lineup_so5Leaderboard>,
 };

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faClock } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage } from 'react-intl';
@@ -188,11 +188,11 @@ LeagueRow.fragments = {
     fragment LeagueRow_commonDraftCampaign on CommonDraftCampaign {
       slug
       status
-      upcomingSo5Leaderboard: upcomingVicc5Leaderboard {
+      upcomingSo5Leaderboard {
         slug
       }
     }
-  `,
+  ` as TypedDocumentNode<LeagueRow_commonDraftCampaign>,
   competition: gql`
     fragment LeagueRow_competition on Competition {
       slug
@@ -204,5 +204,5 @@ LeagueRow.fragments = {
         flagUrl
       }
     }
-  `,
+  ` as TypedDocumentNode<LeagueRow_competition>,
 };

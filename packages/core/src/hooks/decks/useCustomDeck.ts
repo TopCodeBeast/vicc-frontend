@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import useQuery from '@core/hooks/graphql/useQuery';
 
@@ -22,7 +22,7 @@ const LIST_CUSTOM_DECK_QUERY = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<ListCustomDeckQuery, ListCustomDeckQueryVariables>;
 
 type Props = {
   name?: string;
@@ -30,10 +30,7 @@ type Props = {
   skip?: boolean;
 };
 const useCustomDeckQuery = ({ name, cardsToFetch = 50, skip }: Props) => {
-  const { data, refetch, loading } = useQuery<
-    ListCustomDeckQuery,
-    ListCustomDeckQueryVariables
-  >(LIST_CUSTOM_DECK_QUERY, {
+  const { data, refetch, loading } = useQuery(LIST_CUSTOM_DECK_QUERY, {
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-first',
     variables: { name, first: cardsToFetch },

@@ -1,13 +1,14 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import styled from 'styled-components';
 
-import { isA } from '@core/lib/gql';
+import { isType } from '@core/lib/gql';
 
 import {
   Avatar_anonymousUser,
   Avatar_ethereumAccount,
   Avatar_publicUserInfoInterface,
+  Avatar_starkwareAccount,
   Avatar_user,
 } from './__generated__/index.graphql';
 
@@ -15,6 +16,7 @@ export type AvatarDisplayProps = {
   variant?: 'extraSmall' | 'small' | 'medium' | 'large' | 'extraLarge';
   rounded?: boolean;
   invert?: boolean;
+  largePictureUrl?: string | null;
 };
 
 type Props = {
@@ -22,6 +24,7 @@ type Props = {
     | Avatar_publicUserInfoInterface
     | Avatar_anonymousUser
     | Avatar_ethereumAccount
+    | Avatar_starkwareAccount
     | Avatar_user;
   placeholderUrl?: string;
 } & AvatarDisplayProps;
@@ -31,12 +34,15 @@ const isAnonymous = (
     | Avatar_publicUserInfoInterface
     | Avatar_anonymousUser
     | Avatar_ethereumAccount
+    | Avatar_starkwareAccount
 ): user is
   | Avatar_anonymousUser
-  | Avatar_ethereumAccount => {
+  | Avatar_ethereumAccount
+  | Avatar_starkwareAccount => {
   return (
-    isA<Avatar_anonymousUser>('AnonymousUser', user) ||
-    isA<Avatar_ethereumAccount>('EthereumAccount', user)
+    isType(user, 'AnonymousUser') ||
+    isType(user, 'EthereumAccount') ||
+    isType(user, 'StarkwareAccount')
   );
 };
 
@@ -123,17 +129,20 @@ export const PictureAvatar = ({
   );
 };
 
-const Avatar = ({ user, placeholderUrl, variant, ...rest }: Props) => {
+const Avatar = ({
+  user,
+  placeholderUrl,
+  variant,
+  largePictureUrl,
+  ...rest
+}: Props) => {
   const disabledAvatar = isAnonymous(user) || user.suspended;
   if (disabledAvatar) {
     return <DisabledAvatar {...rest} />;
   }
-  const { pictureUrl, fullPictureUrl } = user.profile;
+  const { pictureUrl } = user.profile;
 
-  const url =
-    variant === 'large' || variant === 'extraLarge'
-      ? fullPictureUrl
-      : pictureUrl;
+  const url = largePictureUrl || pictureUrl;
 
   if (url) {
     return (
@@ -161,11 +170,10 @@ Avatar.fragments = {
       suspended
       profile {
         id
-        fullPictureUrl: pictureUrl
         pictureUrl(derivative: "avatar")
       }
     }
-  `,
+  ` as TypedDocumentNode<Avatar_user>,
   publicUserInfoInterface: gql`
     fragment Avatar_publicUserInfoInterface on PublicUserInfoInterface {
       slug
@@ -173,21 +181,25 @@ Avatar.fragments = {
       suspended
       profile {
         id
-        fullPictureUrl: pictureUrl
         pictureUrl(derivative: "avatar")
       }
     }
-  `,
+  ` as TypedDocumentNode<Avatar_publicUserInfoInterface>,
   anonymousUser: gql`
     fragment Avatar_anonymousUser on AnonymousUser {
       id
     }
-  `,
+  ` as TypedDocumentNode<Avatar_anonymousUser>,
   ethereumAccount: gql`
     fragment Avatar_ethereumAccount on EthereumAccount {
       id
     }
-  `,
+  ` as TypedDocumentNode<Avatar_ethereumAccount>,
+  starkwareAccount: gql`
+    fragment Avatar_starkwareAccount on StarkwareAccount {
+      id
+    }
+  ` as TypedDocumentNode<Avatar_starkwareAccount>,
 };
 
 export default Avatar;

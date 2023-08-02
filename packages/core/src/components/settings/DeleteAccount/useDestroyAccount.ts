@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 
 // eslint-disable-next-line import/named
 import { destroyAccountInput } from '__generated__/globalTypes';
@@ -22,13 +22,13 @@ const DESTROY_USER_ACCOUNT_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  DestroyUserAccountMutation,
+  DestroyUserAccountMutationVariables
+>;
 
 export default () => {
-  const [mutate] = useMutation<
-    DestroyUserAccountMutation,
-    DestroyUserAccountMutationVariables
-  >(DESTROY_USER_ACCOUNT_MUTATION);
+  const [mutate] = useMutation(DESTROY_USER_ACCOUNT_MUTATION);
 
   return async (input: destroyAccountInput) => mutate({ variables: { input } });
 };

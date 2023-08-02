@@ -20,7 +20,7 @@ const Root = styled.button`
   text-align: left;
   width: 100%;
   b {
-    color: var(--c-yellow-600);
+    color: var(--c-yellow-800);
   }
   @media ${laptopAndAbove} {
     flex-wrap: nowrap;

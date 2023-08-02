@@ -9,7 +9,7 @@ interface PropsWithRef extends Props {
 }
 
 export interface Props {
-  children: (JSX.Element | null)[];
+  children: (React.JSX.Element | null)[];
   settings?: Settings;
   className?: string;
 }

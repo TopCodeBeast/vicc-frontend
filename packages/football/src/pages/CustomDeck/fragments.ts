@@ -1,8 +1,10 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import User from '@sorare/core/src/components/user/User';
 
 import EditableDeckCard from '@football/components/deck/EditableDeckCard';
+
+import { CustomDeck_customDeck } from './__generated__/fragments.graphql';
 
 export const deckFragment = gql`
   fragment CustomDeck_customDeck on CustomDeck {
@@ -27,4 +29,4 @@ export const deckFragment = gql`
   }
   ${User.fragments.user}
   ${EditableDeckCard.fragments.deckCard}
-`;
+` as TypedDocumentNode<CustomDeck_customDeck>;

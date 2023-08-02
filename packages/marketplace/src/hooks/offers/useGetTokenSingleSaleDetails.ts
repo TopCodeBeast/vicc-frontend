@@ -1,7 +1,8 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { isPast, parseISO } from 'date-fns';
 
 import useForceUpdateAfterEndDate from '@sorare/core/src/hooks/useForceUpdateAfterEndDate';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import { useGetTokenSingleSaleDetails_token } from './__generated__/useGetTokenSingleSaleDetails.graphql';
 
@@ -11,19 +12,19 @@ const useGetTokenSingleSaleDetails = (
   const singleSaleOffer =
     token.liveSingleSaleOffer || token.myMintedSingleSaleOffer;
   const endDateString = singleSaleOffer?.endDate;
-  const weiPrice = singleSaleOffer?.priceWei;
+  const price = singleSaleOffer?.receiverSide?.amounts;
 
   const isOnSale = !!singleSaleOffer;
 
   const endDate = (endDateString && parseISO(endDateString)) as null | Date;
 
   useForceUpdateAfterEndDate(endDate);
-  if (isOnSale && weiPrice && endDate) {
+  if (isOnSale && price && endDate) {
     const ended = isPast(endDate);
     return {
       endDate,
       ended,
-      weiPrice,
+      price,
     };
   }
   return undefined;
@@ -37,15 +38,26 @@ useGetTokenSingleSaleDetails.fragments = {
       myMintedSingleSaleOffer {
         id
         endDate
-        priceWei: price ####################
+        receiverSide {
+          id
+          amounts {
+            ...MonetaryAmountFragment_monetaryAmount
+          }
+        }
       }
       liveSingleSaleOffer {
         id
         endDate
-        priceWei: price ####################
+        receiverSide {
+          id
+          amounts {
+            ...MonetaryAmountFragment_monetaryAmount
+          }
+        }
       }
     }
-  `,
+    ${monetaryAmountFragment}
+  ` as TypedDocumentNode<useGetTokenSingleSaleDetails_token>,
 };
 
 export default useGetTokenSingleSaleDetails;

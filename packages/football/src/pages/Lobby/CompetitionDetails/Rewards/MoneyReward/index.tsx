@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useMemo } from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import styled from 'styled-components';
@@ -93,7 +93,7 @@ const MoneyReward = ({
   const { main: ethAmountDisplay } = useAmountWithConversion({
     monetaryAmount: {
       referenceCurrency: SupportedCurrency.WEI,
-      [SupportedCurrency.WEI.toLowerCase()]: amount,
+      wei: amount,
     },
     primaryCurrency: Currency.ETH,
   });
@@ -171,12 +171,12 @@ const MoneyReward = ({
 
 MoneyReward.fragments = {
   so5RewardConfig: gql`
-    fragment MoneyReward_so5RewardConfig on Vicc5RewardConfig {
+    fragment MoneyReward_so5RewardConfig on So5RewardConfig {
       ethAmount
       usdAmount
       minimumGuaranteedUsdAmount
     }
-  `,
+  ` as TypedDocumentNode<MoneyReward_so5RewardConfig>,
 };
 
 export default MoneyReward;

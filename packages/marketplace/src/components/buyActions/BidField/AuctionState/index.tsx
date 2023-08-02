@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { parseISO } from 'date-fns';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -82,7 +82,7 @@ AuctionState.fragments = {
       currentPrice
       currency
     }
-  `,
+  ` as TypedDocumentNode<AuctionState_tokenAuction>,
 };
 
 export default AuctionState;

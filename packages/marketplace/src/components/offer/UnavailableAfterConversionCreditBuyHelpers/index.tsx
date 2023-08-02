@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faInfoCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { parseISO } from 'date-fns';
@@ -93,6 +93,6 @@ UnavailableAfterConversionCreditBuyHelpers.fragments = {
       ...useTokenBelongsToUser_token
     }
     ${useTokenBelongsToUser.fragments.token}
-  `,
+  ` as TypedDocumentNode<UnavailableAfterConversionCreditBuyHelpers_token>,
 };
 export default UnavailableAfterConversionCreditBuyHelpers;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
@@ -17,36 +17,38 @@ const playerFragment = gql`
     ...PlayerStatsDialog_player
   }
   ${PlayerStatsDialog.fragments.player}
-`;
+` as TypedDocumentNode<PlayerGameScoreDialogQuery_player>;
 
 export const PLAYER_GAME_SCORE_DIALOG_QUERY = gql`
   query PlayerGameScoreDialogQuery($id: ID!) {
-    so5: vicc5Root {
-      so5Score: vicc5Score(id: $id) {
-        id
-        ...PlayerStatsDialog_so5Score
-        player {
-          slug
-          ...PlayerGameScoreDialogQuery_player
-        }
-        playerGameStats {
+    football {
+      so5 {
+        so5Score(id: $id) {
           id
-          game {
-            id
-            so5Fixture: vicc5Fixture {
-              slug
-              gameWeek
-            }
-          }
-          team {
-            ... on TeamInterface {
-              slug
-              name
-            }
-          }
+          ...PlayerStatsDialog_so5Score
           player {
             slug
-            ...PlayerStatsDialog_representativePlayer
+            ...PlayerGameScoreDialogQuery_player
+          }
+          playerGameStats {
+            id
+            game {
+              id
+              so5Fixture {
+                slug
+                gameWeek
+              }
+            }
+            team {
+              ... on TeamInterface {
+                slug
+                name
+              }
+            }
+            player {
+              slug
+              ...PlayerStatsDialog_representativePlayer
+            }
           }
         }
       }
@@ -55,7 +57,10 @@ export const PLAYER_GAME_SCORE_DIALOG_QUERY = gql`
   ${PlayerStatsDialog.fragments.so5Score}
   ${playerFragment}
   ${PlayerStatsDialog.fragments.representativePlayer}
-`;
+` as TypedDocumentNode<
+  PlayerGameScoreDialogQuery,
+  PlayerGameScoreDialogQueryVariables
+>;
 
 type Props = {
   open: boolean;
@@ -70,16 +75,13 @@ export const PlayerGameScoreDialog = ({
   so5ScoreId,
   player: effectivePlayer,
 }: Props) => {
-  const { data, loading } = useQuery<
-    PlayerGameScoreDialogQuery,
-    PlayerGameScoreDialogQueryVariables
-  >(PLAYER_GAME_SCORE_DIALOG_QUERY, {
+  const { data, loading } = useQuery(PLAYER_GAME_SCORE_DIALOG_QUERY, {
     variables: { id: idFromObject(so5ScoreId)! },
     skip: !open,
   });
 
   if (data) {
-    const { so5Score } = data.so5;
+    const { so5Score } = data.football.so5;
     const gameWeek = so5Score.playerGameStats.game.so5Fixture?.gameWeek;
     const {
       player,

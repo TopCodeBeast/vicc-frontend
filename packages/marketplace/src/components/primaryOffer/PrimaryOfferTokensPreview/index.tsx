@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 import { useMeasure } from 'react-use';
@@ -101,5 +101,5 @@ PrimaryOfferTokensPreview.fragments = {
       ...UninteractiveToken_token
     }
     ${UninteractiveToken.fragments.token}
-  `,
+  ` as TypedDocumentNode<PrimaryOfferTokensPreview_token>,
 };

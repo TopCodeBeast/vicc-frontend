@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -44,7 +44,7 @@ const StyledCaption = styled(Caption)`
 
 type Props = {
   token: PromotedToken_token;
-  CardInfo: () => JSX.Element | null;
+  CardInfo: () => React.JSX.Element | null;
   solidFavoriteIcon?: boolean;
   alwaysShowFavoriteButton?: boolean;
   className?: string;
@@ -103,5 +103,5 @@ PromotedToken.fragments = {
     ${TokenDetails.fragments.token}
     ${TokenMetas.fragments.token}
     ${TokenImg.fragments.token}
-  `,
+  ` as TypedDocumentNode<PromotedToken_token>,
 };

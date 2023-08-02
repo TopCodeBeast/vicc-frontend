@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -143,7 +143,7 @@ PlayerUnavailabilityBadge.fragments = {
       startDate
       endDate
     }
-  `,
+  ` as TypedDocumentNode<PlayerUnavailabilityBadge_suspension>,
   injury: gql`
     fragment PlayerUnavailabilityBadge_injury on Injury {
       id
@@ -151,7 +151,7 @@ PlayerUnavailabilityBadge.fragments = {
       startDate
       expectedEndDate
     }
-  `,
+  ` as TypedDocumentNode<PlayerUnavailabilityBadge_injury>,
 };
 
 export default PlayerUnavailabilityBadge;

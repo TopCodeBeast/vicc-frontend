@@ -1,10 +1,10 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
-// import { useBlockchainContext } from '@sorare/core/src/contexts/blockchain';
+import { useBlockchainContext } from '@sorare/core/src/contexts/blockchain';
 import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import { txLink } from '@sorare/core/src/lib/etherscan';
 import { glossary } from '@sorare/core/src/lib/glossary';
@@ -39,29 +39,29 @@ const EthereumCard = ({ token }: Props) => {
   const { showNotification } = useSnackNotificationContext();
   const [depositing, setDepositing] = useState(false);
   const [deposited, setDeposited] = useState(false);
-  // const blockchains = useBlockchainContext();
+  const blockchains = useBlockchainContext();
 
   const deposit = async () => {
-    // setDepositing(true);
-    // const result = await blockchains.depositNft(
-    //   token.contractAddress,
-    //   token.assetId
-    // );
-    // setDepositing(false);
+    setDepositing(true);
+    const result = await blockchains.depositNft(
+      token.contractAddress,
+      token.assetId
+    );
+    setDepositing(false);
 
-    // if (result?.err) {
-    //   showNotification('errors', { errors: result.err });
-    // } else {
-    //   const txHash = result?.txHash;
-    //   const link = txHash ? txLink(txHash) : undefined;
+    if (result?.err) {
+      showNotification('errors', { errors: result.err });
+    } else {
+      const txHash = result?.txHash;
+      const link = txHash ? txLink(txHash) : undefined;
 
-    //   if (result?.type === 'deposit')
-    //     showNotification('ethereumCard', {}, { link });
-    //   if (result?.type === 'approval')
-    //     showNotification('bridgeApproval', {}, { link });
+      if (result?.type === 'deposit')
+        showNotification('ethereumCard', {}, { link });
+      if (result?.type === 'approval')
+        showNotification('bridgeApproval', {}, { link });
 
-    //   setDeposited(true);
-    // }
+      setDeposited(true);
+    }
   };
 
   return (
@@ -100,7 +100,7 @@ EthereumCard.fragments = {
       ...FlexToken_token
     }
     ${FlexToken.fragments.token}
-  `,
+  ` as TypedDocumentNode<EthereumCard_token>,
 };
 
 export default EthereumCard;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import qs from 'qs';
 
 import { FOOTBALL_TRANSFER_MARKET } from '@sorare/core/src/constants/routes';
@@ -14,12 +14,12 @@ export const getMarketUrl = withFragments(
   },
   {
     so5Leaderboard: gql`
-      fragment getMarketUrl_so5Leaderboard on Vicc5Leaderboard {
+      fragment getMarketUrl_so5Leaderboard on So5Leaderboard {
         slug
         canCompose {
           transferMarketFilters
         }
       }
-    `,
+    ` as TypedDocumentNode<getMarketUrl_so5Leaderboard>,
   }
 );

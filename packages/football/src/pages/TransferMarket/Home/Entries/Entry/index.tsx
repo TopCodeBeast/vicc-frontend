@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
 import { FormattedMessage, MessageDescriptor } from 'react-intl';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
 import { LiveIndicator } from '@sorare/core/src/atoms/ui/LiveIndicator';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
+import { Link } from '@sorare/core/src/routing/Link';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { useFootballEvents } from '@football/lib/events';
@@ -82,8 +82,8 @@ export const Entry = ({
   to: string;
   title: MessageDescriptor;
   description: MessageDescriptor;
-  countMessage: MessageDescriptor;
-  count: number;
+  countMessage?: MessageDescriptor;
+  count?: number;
   desktopImage: ReactNode;
   mobileImage: ReactNode;
 }) => {
@@ -110,17 +110,19 @@ export const Entry = ({
             <FormattedMessage {...description} />
           </Text16>
         </SubContent>
-        <Count>
-          <Circle />
-          <Text14 color="var(--c-neutral-1000)">
-            <FormattedMessage
-              {...countMessage}
-              values={{
-                count,
-              }}
-            />
-          </Text14>
-        </Count>
+        {countMessage && (
+          <Count>
+            <Circle />
+            <Text14 color="var(--c-neutral-1000)">
+              <FormattedMessage
+                {...countMessage}
+                values={{
+                  count,
+                }}
+              />
+            </Text14>
+          </Count>
+        )}
       </Content>
     </EntryRoot>
   );

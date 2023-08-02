@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useQuery } from '@apollo/client/react/hooks';
 
 import { useConfigContext } from '@sorare/core/src/contexts/config';
@@ -6,39 +6,44 @@ import { joinFiltersWithAnd } from '@sorare/core/src/lib/algolia';
 
 import useFacetedSearchCards from '@sorare/marketplace/src/hooks/search/useFacetedSearchCards';
 
-import { myLastLineupQuery } from './__generated__/useFavPlayer.graphql';
+import {
+  myLastLineupQuery,
+  myLastLineupQueryVariables,
+} from './__generated__/useFavPlayer.graphql';
 
 export const LAST_LINEUP_QUERY = gql`
   query myLastLineupQuery {
-    so5: vicc5Root {
-      myUpcomingLineupsPaginated {
-        nodes {
-          name
-          draft
-          so5Appearances: vicc5Appearances {
-            captain
-            card {
-              slug
-              assetId
-              player {
+    football {
+      so5 {
+        myUpcomingLineupsPaginated {
+          nodes {
+            name
+            draft
+            so5Appearances {
+              captain
+              card {
                 slug
-                displayName
+                assetId
+                player {
+                  slug
+                  displayName
+                }
               }
             }
           }
+          totalCount
         }
-        totalCount
       }
     }
   }
-`;
+` as TypedDocumentNode<myLastLineupQuery, myLastLineupQueryVariables>;
 const useFavPlayer = ({ skip = false }: { skip?: boolean }) => {
   const { algoliaCardIndexes } = useConfigContext();
 
-  const { data } = useQuery<myLastLineupQuery>(LAST_LINEUP_QUERY, { skip });
+  const { data } = useQuery(LAST_LINEUP_QUERY, { skip });
 
   const card =
-    data?.so5.myUpcomingLineupsPaginated.nodes[0]?.so5Appearances.find(
+    data?.football.so5.myUpcomingLineupsPaginated.nodes[0]?.so5Appearances.find(
       so5Appearance => so5Appearance.captain
     )?.card;
 

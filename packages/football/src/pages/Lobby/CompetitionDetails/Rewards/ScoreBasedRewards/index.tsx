@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faChevronRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Fragment } from 'react';
@@ -157,15 +157,15 @@ const ScoreBasedRewards = ({
 
 ScoreBasedRewards.fragments = {
   so5Leaderboard: gql`
-    fragment ScoreBasedRewards_so5Leaderboard on Vicc5Leaderboard {
+    fragment ScoreBasedRewards_so5Leaderboard on So5Leaderboard {
       slug
-      so5League: vicc5League {
+      so5League {
         slug
       }
     }
-  `,
+  ` as TypedDocumentNode<ScoreBasedRewards_so5Leaderboard>,
   so5RewardConfig: gql`
-    fragment ScoreBasedRewards_so5RewardConfig on Vicc5RewardConfig {
+    fragment ScoreBasedRewards_so5RewardConfig on So5RewardConfig {
       ranks
       rankPct
       score
@@ -177,7 +177,7 @@ ScoreBasedRewards.fragments = {
     }
     ${MoneyReward.fragments.so5RewardConfig}
     ${CardReward.fragments.So5RewardCardConfig}
-  `,
+  ` as TypedDocumentNode<ScoreBasedRewards_so5RewardConfig>,
 };
 
 export default ScoreBasedRewards;

@@ -1,4 +1,5 @@
-import { Currency } from '@sorare/core/src/__generated__/globalTypes';
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
+import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { CardHit } from '@sorare/core/src/lib/algolia';
 
 import { WalletPaymentMethod } from '@marketplace/components/buyActions/PaymentProvider/types';
@@ -9,8 +10,8 @@ import {
   RefreshCardData,
   SetCurrencyAndPaymentMethod,
   SetDuration,
-  SetReceiveEth,
-  SetSendEth,
+  SetReceiveAmount,
+  SetSendAmount,
   SetStage,
   UpdateReceiveCards,
   UpdateSendCards,
@@ -30,14 +31,14 @@ export const setDuration = (duration: number): SetDuration => ({
 
 export const setCurrencyAndPaymentMethod = ({
   paymentMethod,
-  currency,
+  referenceCurrency,
 }: {
   paymentMethod: WalletPaymentMethod;
-  currency: Currency;
+  referenceCurrency: SupportedCurrency;
 }): SetCurrencyAndPaymentMethod => ({
   type: 'setCurrencyAndPaymentMethod',
   paymentMethod,
-  currency,
+  referenceCurrency,
 });
 
 export const updateSendCards = (cards: CardHit[]): UpdateSendCards => ({
@@ -50,18 +51,20 @@ export const updateReceiveCards = (cards: CardHit[]): UpdateReceiveCards => ({
   cards,
 });
 
-export const setSendEth = (sendEth: number): SetSendEth => ({
-  type: 'setSendEth',
-  sendEth,
+export const setSendAmount = (
+  sendAmount: MonetaryAmountOutput
+): SetSendAmount => ({
+  type: 'setSendAmount',
+  sendAmount,
 });
 
-export const setReceiveEth = (
-  receiveEth: number,
-  receiveMarketFeesEth?: number
-): SetReceiveEth => ({
-  type: 'setReceiveEth',
-  receiveEth,
-  receiveMarketFeesEth,
+export const setReceiveAmount = (
+  receiveAmount: MonetaryAmountOutput,
+  receiveMarketFeesAmount?: MonetaryAmountOutput
+): SetReceiveAmount => ({
+  type: 'setReceiveAmount',
+  receiveAmount,
+  receiveMarketFeesAmount,
 });
 
 export const switchToConfirming: SetStage = {

@@ -5,11 +5,12 @@ import {
 import classnames from 'classnames';
 import { Children, ReactNode, UIEventHandler, useState } from 'react';
 import { useDebounce } from 'react-use';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import IconButton from '@core/atoms/buttons/IconButton';
 import useIsOverflowing from '@core/hooks/ui/useIsOverflowing';
 import useScrollPosition from '@core/hooks/ui/useScrollPosition';
+import useScrollToIndex from '@core/hooks/ui/useScrollToIndex';
 import { range } from '@core/lib/arrays';
 import { desktopAndAbove, laptopAndAbove } from '@core/style/mediaQuery';
 import { hideScrollbar } from '@core/style/utils';
@@ -17,20 +18,29 @@ import { hideScrollbar } from '@core/style/utils';
 const ScrollableContent = styled.div<{
   itemToDisplay: number;
   withMask?: boolean;
+  overhang?: boolean;
 }>`
   --mask-size: calc(5 * var(--unit));
+  --item-gap: var(--double-unit);
 
   display: flex;
   overflow: auto;
   scroll-snap-type: x mandatory;
-  gap: var(--double-unit);
+  gap: var(--item-gap);
   padding: 0 100vw;
   margin: 0 -100vw;
   ${hideScrollbar};
+  ${({ overhang }) =>
+    overhang &&
+    css`
+      --item-wrapper-width: calc(100% - var(--double-unit));
+    `}
   @media ${laptopAndAbove} {
     --item-wrapper-width: ${({ itemToDisplay }) =>
       itemToDisplay > 1
-        ? `calc((100% - var(--quadruple-unit)) / ${itemToDisplay})`
+        ? `calc((100% - var(--item-gap) * ${
+            itemToDisplay - 1
+          }) / ${itemToDisplay})`
         : '100%'};
   }
 
@@ -53,9 +63,6 @@ const ItemWrapper = styled.div`
   scroll-snap-align: center;
   min-width: var(--item-wrapper-width, 100%);
   max-width: var(--item-wrapper-width, 100%);
-  > * {
-    width: 100%;
-  }
 
   &:empty {
     display: none;
@@ -85,6 +92,7 @@ const ScrollButtonWrapper = styled.div`
 `;
 const Root = styled.div`
   position: relative;
+  width: 100%;
   &:hover,
   &:focus-within {
     ${ScrollButtonWrapper} {
@@ -100,6 +108,13 @@ type Props = {
   className?: string;
   onVisibleItemsChanged?: (items: number[]) => void;
   contained?: boolean;
+  /**
+   * In a mobile viewport when there are multiple items to display, show a
+   * partial edge of the next offscreen item to indicate to the user that
+   * there are more items to scroll to (since no arrow buttons shown in mobile).
+   */
+  overhang?: boolean;
+  indexToScroll?: number;
 };
 
 const Scrollable = ({
@@ -109,8 +124,10 @@ const Scrollable = ({
   itemToDisplay,
   onVisibleItemsChanged,
   contained,
+  overhang,
+  indexToScroll,
 }: Props) => {
-  const numberOfItems = Children.count(children);
+  const numberOfItems = Children.toArray(children).length;
   const { containerRef, isOverflowing } = useIsOverflowing(numberOfItems);
   const [visibleIndexes, setVisibleIndexes] = useState(range(itemToDisplay));
   const { scrollPosition } = useScrollPosition(containerRef.current);
@@ -127,7 +144,8 @@ const Scrollable = ({
     );
   };
 
-  useDebounce(() => onVisibleItemsChanged?.(visibleIndexes), 10, [
+  useScrollToIndex(indexToScroll, containerRef.current);
+  useDebounce(() => onVisibleItemsChanged?.(visibleIndexes), 30, [
     visibleIndexes,
   ]);
 
@@ -139,6 +157,7 @@ const Scrollable = ({
         onScroll={onVisibleItemsChanged && detectVisibleIndexes}
         role="navigation"
         className={classnames(className, { withMask })}
+        overhang={overhang && numberOfItems > 1}
       >
         {Children.toArray(children).map((child, index) => (
           // eslint-disable-next-line react/no-array-index-key

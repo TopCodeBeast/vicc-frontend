@@ -58,7 +58,6 @@ const useFacetedSearchCards = (props: Props) => {
         },
       ])
       .then(({ results }) => {
-        console.log('~~~~~~~~~~~~~~~~~~~~FacedSearchCards', results)
         setResponse(results[0]);
       });
   }, [

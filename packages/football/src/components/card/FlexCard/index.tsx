@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { forwardRef, useMemo } from 'react';
 
 import { Collection, Sport } from '@sorare/core/src/__generated__/globalTypes';
@@ -25,7 +25,7 @@ export const FlexCard = forwardRef<HTMLDivElement, FlexCardProps>(
       () => ({
         ...card,
         assetId: card.assetId!,
-        collection: Collection.CRICKET, //TODO******************
+        collection: Collection.FOOTBALL,
         sport: Sport.FOOTBALL,
       }),
       [card]
@@ -42,7 +42,7 @@ FlexCard.fragments = {
       assetId
       pictureUrl: pictureUrl(derivative: "tinified")
     }
-  `,
+  ` as TypedDocumentNode<FlexCard_card>,
 };
 
 export default FlexCard;

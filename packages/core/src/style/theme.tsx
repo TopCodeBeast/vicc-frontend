@@ -6,13 +6,14 @@ import {
   createTheme,
   jssPreset,
 } from '@material-ui/core/styles';
-import createBreakpoints from '@material-ui/core/styles/createBreakpoints';
 import createSpacing from '@material-ui/core/styles/createSpacing';
 import { create } from 'jss';
 import rtl from 'jss-rtl';
 import { ReactNode, useMemo } from 'react';
 
 import { useIntlContext } from '@core/contexts/intl';
+
+import { tabletAndAbove } from './mediaQuery';
 
 // Inject jss styles first in order to override them with Styled-components without resorting to && or important
 // Inspired by https://v4.mui.com/guides/interoperability/#controlling-priority-3
@@ -25,19 +26,6 @@ export const jss = create({
   insertionPoint: injectFirstNode,
 });
 
-const breakpoints = createBreakpoints({
-  values: {
-    xs: 0, // deprecated
-    sm: 600, // deprecated
-    md: 960, // deprecated
-    lg: 1280, // deprecated
-    xl: 1920, // deprecated
-    mobile: 360,
-    tablet: 720,
-    laptop: 960,
-    desktop: 1200,
-  },
-});
 const spacing = createSpacing(10);
 
 const borderRadius = 8;
@@ -309,7 +297,7 @@ export const theme = {
     MuiTableCell: {
       root: {
         padding: 5,
-        [breakpoints.up('sm')]: {
+        [`@media ${tabletAndAbove}`]: {
           padding: 16,
         },
         borderBottom: 'none',
@@ -476,7 +464,6 @@ export const theme = {
       },
     },
   },
-  breakpoints,
   mlColors: {
     scarcity: {
       common: `var(--c-gradient-common)`,
@@ -496,28 +483,6 @@ export const theme = {
 };
 
 export type CustomTheme = typeof theme;
-
-declare module '@material-ui/core/styles/createBreakpoints' {
-  interface BreakpointOverrides {
-    xs: true; // deprecated
-    sm: true; // deprecated
-    md: true; // deprecated
-    lg: true; // deprecated
-    xl: true; // deprecated
-    mobile: true;
-    tablet: true;
-    laptop: true;
-    desktop: true;
-  }
-
-  interface Breakpoints {
-    /** @deprecated */
-    down: Breakpoints['down'];
-
-    /** @deprecated */
-    between: Breakpoints['between'];
-  }
-}
 
 declare module '@material-ui/core/styles/createTheme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface

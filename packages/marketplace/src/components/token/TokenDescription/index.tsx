@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ReactNode, useMemo } from 'react';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
@@ -60,7 +60,7 @@ const TokenDescription = ({
     <TokenDescriptionFromProps
       displayName={metadata.playerDisplayName}
       path={generateSportPath(LEGACY_PLAYER_SHOW, {
-        params: { slug: metadata.playerSlug || 'temp-slug' }, //TODO*****
+        params: { slug: metadata.playerSlug },
         sport,
       })}
       description={TokenMetasDatas}
@@ -82,10 +82,8 @@ TokenDescription.fragments = {
       slug
       sport
       metadata {
-        ... on TokenCricketMetadata {
-          id
-        }
         ... on TokenCardMetadataInterface {
+          id
           playerDisplayName
           playerSlug
         }
@@ -93,7 +91,7 @@ TokenDescription.fragments = {
       ...TokenDescription_tokenMetas
     }
     ${TokenMetas.fragments.token}
-  `,
+  ` as TypedDocumentNode<TokenDescription_token>,
 };
 
 export default TokenDescription;

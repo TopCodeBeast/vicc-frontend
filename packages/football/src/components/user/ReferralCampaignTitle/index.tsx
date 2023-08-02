@@ -1,9 +1,9 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faClock } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { parseISO } from 'date-fns';
 import { useState } from 'react';
-import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
+import { FormattedMessage, defineMessages } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -11,8 +11,8 @@ import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import Button, {
   Props as ButtonProps,
 } from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import { Caption, Text14, Text16 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@sorare/core/src/components/dialog';
 import { INVITE } from '@sorare/core/src/constants/routes';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { qualityNames } from '@sorare/core/src/lib/players';
@@ -69,7 +69,7 @@ const CampaignTitle = ({
 }: {
   startDate: string;
   endDate: string;
-  cardsCount?: number | null; //Modifled**************************
+  cardsCount: number | null | undefined;
 }) => {
   const { formatDate } = useIntlContext();
 
@@ -120,10 +120,14 @@ const CampaignTitle = ({
   );
 };
 
-const DialogRoot = styled.div`
+const Body = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--unit);
+  padding: var(--triple-unit);
+`;
+const CenteredText16 = styled(Text16)`
+  text-align: center;
 `;
 const Section = styled.div`
   display: flex;
@@ -152,94 +156,104 @@ const CampaignDetailsDialog = ({
   referralCampaign,
   onClose,
 }: CampaignDialogProps) => {
-  const { formatMessage } = useIntl();
   const { competitions, teams, tiers, playerPoolUrl } = referralCampaign;
 
   return (
-    <Dialog open onClose={onClose} title={formatMessage(messages.dialogTitle)}>
-      <DialogRoot>
-        <CampaignTitle {...referralCampaign} />
-        <Text14>
-          <FormattedMessage
-            id="CampaignDetailsDialog.details"
-            defaultMessage="Referrer and referee will get cards from:"
-          />
-        </Text14>
-        <div>
-          {(competitions || []).length > 0 && (
-            <Section>
-              <Text14 bold color="var(--c-neutral-600)">
-                <FormattedMessage
-                  id="CampaignDetailsDialog.competitions"
-                  defaultMessage="League"
-                />
-              </Text14>
-              <SectionList>
-                {competitions.map(competition => (
-                  <Chip key={competition.slug}>
-                    <CompetitionLogo small competition={competition} />
-                    <Text14 bold>{competition.displayName}</Text14>
+    <Dialog
+      maxWidth="xs"
+      fullWidth
+      open
+      onClose={onClose}
+      title={
+        <CenteredText16 bold>
+          <FormattedMessage {...messages.dialogTitle} />
+        </CenteredText16>
+      }
+      body={
+        <Body>
+          <CampaignTitle {...referralCampaign} />
+          <Text14>
+            <FormattedMessage
+              id="CampaignDetailsDialog.details"
+              defaultMessage="Referrer and referee will get cards from:"
+            />
+          </Text14>
+          <div>
+            {(competitions || []).length > 0 && (
+              <Section>
+                <Text14 bold color="var(--c-neutral-600)">
+                  <FormattedMessage
+                    id="CampaignDetailsDialog.competitions"
+                    defaultMessage="League"
+                  />
+                </Text14>
+                <SectionList>
+                  {competitions.map(competition => (
+                    <Chip key={competition.slug}>
+                      <CompetitionLogo small competition={competition} />
+                      <Text14 bold>{competition.displayName}</Text14>
+                    </Chip>
+                  ))}
+                </SectionList>
+              </Section>
+            )}
+          </div>
+          <div>
+            {(teams || []).length > 0 && (
+              <Section>
+                <Text14 bold color="var(--c-neutral-600)">
+                  <FormattedMessage
+                    id="CampaignDetailsDialog.teams"
+                    defaultMessage="Team"
+                  />
+                </Text14>
+                <SectionList>
+                  {teams.map(team => (
+                    <Chip key={team.slug}>
+                      <TeamAvatar team={team} size={48} />
+                      <Text14 bold>{team.name}</Text14>
+                    </Chip>
+                  ))}
+                </SectionList>
+              </Section>
+            )}
+          </div>
+          <div>
+            {(tiers || []).length > 0 && (
+              <Section>
+                <Text14 bold color="var(--c-neutral-600)">
+                  <FormattedMessage
+                    id="CampaignDetailsDialog.tiers"
+                    defaultMessage="Tiers"
+                  />
+                </Text14>
+                <SectionList>
+                  <Chip>
+                    <Text14 bold>
+                      {tiers!.map(tier => qualityNames[tier]).join(', ')}
+                    </Text14>
                   </Chip>
-                ))}
-              </SectionList>
-            </Section>
-          )}
-        </div>
-        <div>
-          {(teams || []).length > 0 && (
-            <Section>
-              <Text14 bold color="var(--c-neutral-600)">
-                <FormattedMessage
-                  id="CampaignDetailsDialog.teams"
-                  defaultMessage="Team"
-                />
-              </Text14>
-              <SectionList>
-                {teams.map(team => (
-                  <Chip key={team.slug}>
-                    <TeamAvatar team={team} size={48} />
-                    <Text14 bold>{team.name}</Text14>
-                  </Chip>
-                ))}
-              </SectionList>
-            </Section>
-          )}
-        </div>
-        <div>
-          {(tiers || []).length > 0 && (
-            <Section>
-              <Text14 bold color="var(--c-neutral-600)">
-                <FormattedMessage
-                  id="CampaignDetailsDialog.tiers"
-                  defaultMessage="Tiers"
-                />
-              </Text14>
-              <SectionList>
-                <Chip>
-                  <Text14 bold>
-                    {tiers!.map(tier => qualityNames[tier]).join(', ')}
-                  </Text14>
-                </Chip>
-                {playerPoolUrl && (
-                  <DialogLink
-                    href={playerPoolUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Caption color="var(--c-neutral-600)">
-                      <FormattedMessage
-                        id="CampaignDetailsDialog.playerPoolLinkg"
-                        defaultMessage="Player pool (informative)"
-                      />
-                    </Caption>
-                  </DialogLink>
-                )}
-              </SectionList>
-            </Section>
-          )}
-        </div>
-      </DialogRoot>
-    </Dialog>
+                  {playerPoolUrl && (
+                    <DialogLink
+                      href={playerPoolUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Caption color="var(--c-neutral-600)">
+                        <FormattedMessage
+                          id="CampaignDetailsDialog.playerPoolLinkg"
+                          defaultMessage="Player pool (informative)"
+                        />
+                      </Caption>
+                    </DialogLink>
+                  )}
+                </SectionList>
+              </Section>
+            )}
+          </div>
+        </Body>
+      }
+    />
   );
 };
 
@@ -344,7 +358,7 @@ ReferralCampaignTitle.fragments = {
     }
     ${TeamAvatar.fragments.team}
     ${CompetitionLogo.fragments.competition}
-  `,
+  ` as TypedDocumentNode<ReferralCampaignTitle_referralCampaign>,
 };
 
 export default ReferralCampaignTitle;

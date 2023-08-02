@@ -1,4 +1,4 @@
-import { gql, useSubscription } from '@apollo/client';
+import { TypedDocumentNode, gql, useSubscription } from '@apollo/client';
 import qs from 'qs';
 import { FormattedMessage } from 'react-intl';
 import { Navigate } from 'react-router-dom';
@@ -21,7 +21,12 @@ import { useLoadMore } from '@football/hooks/useLoadMore';
 import { GameEventStatus, gameStatusMessages } from '@football/lib/so5';
 import { ShowMoreButton } from '@football/pages/Lobby/Components/ShowMoreButton';
 
-import { GamesQuery } from './__generated__/index.graphql';
+import {
+  GamesQuery,
+  GamesQueryVariables,
+  onGameForLobbyUpdated,
+  onGameForLobbyUpdatedVariables,
+} from './__generated__/index.graphql';
 
 const Root = styled.section`
   display: flex;
@@ -64,37 +69,39 @@ const TAB = {
 
 const PAGE_SIZE = 6;
 
-// const subscription = gql`
-//   subscription onGameForLobbyUpdated {
-//     gameWasUpdated {
-//       id
-//       minute
-//       status
-//       awayGoals
-//       homeGoals
-//     }
-//   }
-// `;
+const subscription = gql`
+  subscription onGameForLobbyUpdated {
+    gameWasUpdated {
+      id
+      minute
+      status
+      awayGoals
+      homeGoals
+    }
+  }
+` as TypedDocumentNode<onGameForLobbyUpdated, onGameForLobbyUpdatedVariables>;
 
 const GAMES_QUERY = gql`
   query GamesQuery {
-    so5: vicc5Root {
-      so5Fixture: vicc5Fixture(type: LIVE) {
-        slug
-        games {
-          id
-          status
-          ...So5Game_game
-        }
-        mySo5Games: myVicc5Games {
-          id
-          ...So5Game_game
+    football {
+      so5 {
+        so5Fixture(type: LIVE) {
+          slug
+          games {
+            id
+            status
+            ...So5Game_game
+          }
+          mySo5Games {
+            id
+            ...So5Game_game
+          }
         }
       }
     }
   }
   ${Game.fragments.game}
-`;
+` as TypedDocumentNode<GamesQuery, GamesQueryVariables>;
 
 const placeholderGame = (id: string) => ({
   __typename: 'Game' as const,
@@ -118,14 +125,14 @@ const STATUS: Record<GameEventStatus, number> = {
 };
 
 export const Games = () => {
-  // useSubscription(subscription);
+  useSubscription(subscription);
   const isDesktop = useIsDesktop();
   const { formatMessage } = useIntlContext();
-  const { data, loading } = useQuery<GamesQuery>(GAMES_QUERY, {
+  const { data, loading } = useQuery(GAMES_QUERY, {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const { so5Fixture } = data?.so5 || {};
+  const { so5Fixture } = data?.football.so5 || {};
   const parseSearch = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
   });

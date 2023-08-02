@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import styled from 'styled-components';
 
@@ -36,7 +36,7 @@ TwitterUser.fragments = {
       id
       twitterUsername
     }
-  `,
+  ` as TypedDocumentNode<TwitterUser_userProfile>,
 };
 
 export default TwitterUser;

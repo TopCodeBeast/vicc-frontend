@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faArrowLeft } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Fragment, useCallback, useMemo, useState } from 'react';
@@ -6,7 +6,7 @@ import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Vicc5LeaderboardRarity as So5LeaderboardRarity } from '@sorare/core/src/__generated__/globalTypes';
+import { So5LeaderboardRarity } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import Body from '@sorare/core/src/atoms/layout/Body';
 import Container from '@sorare/core/src/atoms/layout/Container';
@@ -86,46 +86,48 @@ const Leaderboards = styled.div`
 export const LOBBY_PRIZE_POOL_QUERY = gql`
   query LobbyPrizePoolQuery(
     $cursor: String
-    $rarities: [Vicc5LeaderboardRarity!]
+    $rarities: [So5LeaderboardRarity!]
   ) {
-    so5: vicc5Root {
-      futureLeaderboardsPaginated(
-        after: $cursor
-        first: 50
-        rarities: $rarities
-      ) {
-        nodes {
-          slug
-          startDate
-          so5Fixture: vicc5Fixture {
+    football {
+      so5 {
+        futureLeaderboardsPaginated(
+          after: $cursor
+          first: 50
+          rarities: $rarities
+        ) {
+          nodes {
             slug
-            shortDisplayName
+            startDate
+            so5Fixture {
+              slug
+              shortDisplayName
+            }
+            ...LeaderboardRow_so5Leaderboard
           }
-          ...LeaderboardRow_so5Leaderboard
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
         }
       }
     }
   }
   ${LeaderboardRow.fragments.so5Leaderboard}
-`;
+` as TypedDocumentNode<LobbyPrizePoolQuery, LobbyPrizePoolQueryVariables>;
 
 export const PrizePool = () => {
   const [rarities, setRarities] = useState<So5LeaderboardRarity[]>([]);
-  const { data, loading, loadMore } = usePaginatedQuery<
-    LobbyPrizePoolQuery,
-    LobbyPrizePoolQueryVariables
-  >(LOBBY_PRIZE_POOL_QUERY, {
-    variables: { rarities },
-    nextFetchPolicy: 'cache-first',
-    fetchPolicy: 'cache-and-network',
-    connection: 'So5LeaderboardConnection',
-  });
+  const { data, loading, loadMore } = usePaginatedQuery(
+    LOBBY_PRIZE_POOL_QUERY,
+    {
+      variables: { rarities },
+      nextFetchPolicy: 'cache-first',
+      fetchPolicy: 'cache-and-network',
+      connection: 'So5LeaderboardConnection',
+    }
+  );
 
-  const so5Leaderboards = data?.so5.futureLeaderboardsPaginated.nodes;
+  const so5Leaderboards = data?.football.so5.futureLeaderboardsPaginated.nodes;
   const groupedSo5Leaderboards = useMemo(
     () =>
       sortBy(
@@ -141,11 +143,11 @@ export const PrizePool = () => {
     useCallback(() => {
       loadMore(false, {
         cursor:
-          data?.so5.futureLeaderboardsPaginated?.pageInfo.endCursor,
+          data?.football.so5.futureLeaderboardsPaginated?.pageInfo.endCursor,
       });
-    }, [data?.so5.futureLeaderboardsPaginated, loadMore]),
+    }, [data?.football.so5.futureLeaderboardsPaginated, loadMore]),
     Boolean(
-      data?.so5.futureLeaderboardsPaginated?.pageInfo?.hasNextPage
+      data?.football.so5.futureLeaderboardsPaginated?.pageInfo?.hasNextPage
     ),
     loading
   );

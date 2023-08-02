@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { Tab, Tabs } from '@material-ui/core';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
@@ -54,29 +54,31 @@ const COLLECTION_QUERY = gql`
       slug
       nickname
     }
-    cardCollection(slug: $slug) {
-      slug
-      name
-      ...CollectionSlots_cardCollection
-      slots @skip(if: $hasUserCollection) {
-        id
-        ...CollectionSlots_cardCollectionSlot
-      }
-      userCardCollection(forUserSlug: $userSlug)
-        @include(if: $hasUserCollection) {
-        id
-        slots {
-          slug
-          ...CollectionSlots_userCardCollectionSlot
+    football {
+      cardCollection(slug: $slug) {
+        slug
+        name
+        ...CollectionSlots_cardCollection
+        slots @skip(if: $hasUserCollection) {
+          id
+          ...CollectionSlots_cardCollectionSlot
         }
-        ...Header_userCardCollection
+        userCardCollection(forUserSlug: $userSlug)
+          @include(if: $hasUserCollection) {
+          id
+          slots {
+            slug
+            ...CollectionSlots_userCardCollectionSlot
+          }
+          ...Header_userCardCollection
+        }
+        socialPictureUrls(forUserSlug: $userSlug) {
+          post
+          square
+          story
+        }
+        ...Header_cardCollection
       }
-      socialPictureUrls(forUserSlug: $userSlug) {
-        post
-        square
-        story
-      }
-      ...Header_cardCollection
     }
   }
   ${CollectionSlots.fragments.userCardCollectionSlot}
@@ -84,7 +86,7 @@ const COLLECTION_QUERY = gql`
   ${CollectionSlots.fragments.cardCollection}
   ${Header.fragments.cardCollection}
   ${Header.fragments.userCardCollection}
-`;
+` as TypedDocumentNode<CollectionQuery, CollectionQueryVariables>;
 
 type Props = { slug: string; userSlug: string };
 
@@ -97,20 +99,17 @@ const CollectionWithParams = ({ slug, userSlug }: Props) => {
   const [hasUserCollection, setHasUserCollection] = useState(true);
   const { currentUser } = useCurrentUserContext();
 
-  const { data, loading } = useQuery<CollectionQuery, CollectionQueryVariables>(
-    COLLECTION_QUERY,
-    {
-      variables: {
-        slug,
-        userSlug,
-        hasUserCollection,
-      },
-      fetchPolicy: 'cache-and-network',
-      nextFetchPolicy: 'cache-and-network',
-    }
-  );
+  const { data, loading } = useQuery(COLLECTION_QUERY, {
+    variables: {
+      slug,
+      userSlug,
+      hasUserCollection,
+    },
+    fetchPolicy: 'cache-and-network',
+    nextFetchPolicy: 'cache-and-network',
+  });
 
-  const cardCollection = data?.cardCollection;
+  const cardCollection = data?.football.cardCollection;
   const { user } = data || {};
   const userCardCollection = cardCollection?.userCardCollection;
   const slots = userCardCollection?.slots || cardCollection?.slots || [];

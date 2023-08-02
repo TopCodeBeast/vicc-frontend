@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
@@ -8,25 +8,33 @@ import LineupToDiscover from '@football/components/lineup/LineupToDiscover';
 import { SEMI_PRO_TOURNAMENT_TYPES } from '@football/lib/leaderboard';
 import { isFreeUser } from '@football/lib/user';
 
-import { RecommendedLeaderboardsQuery } from './__generated__/useGetRecommendedLeaderboard.graphql';
+import {
+  RecommendedLeaderboardsQuery,
+  RecommendedLeaderboardsQueryVariables,
+} from './__generated__/useGetRecommendedLeaderboard.graphql';
 
 export const RECOMMENDED_LEADERBOARDS_QUERY = gql`
   query RecommendedLeaderboardsQuery {
-    so5: vicc5Root {
-      upcomingLeaderboards {
-        slug
-        so5LeaderboardType: vicc5LeaderboardType
-        tournamentType
-        commonDraftCampaign {
+    football {
+      so5 {
+        upcomingLeaderboards {
           slug
-          status
+          so5LeaderboardType
+          tournamentType
+          commonDraftCampaign {
+            slug
+            status
+          }
+          ...LineupToDiscover_so5Leaderboard
         }
-        ...LineupToDiscover_so5Leaderboard
       }
     }
   }
   ${LineupToDiscover.fragments.so5Leaderboard}
-`;
+` as TypedDocumentNode<
+  RecommendedLeaderboardsQuery,
+  RecommendedLeaderboardsQueryVariables
+>;
 
 const useGetRecommendedLeaderboard = ({
   showRecommendedLeaderboard,
@@ -35,18 +43,15 @@ const useGetRecommendedLeaderboard = ({
 }) => {
   const { currentUser } = useCurrentUserContext();
 
-  const { data, loading } = useQuery<RecommendedLeaderboardsQuery>(
-    RECOMMENDED_LEADERBOARDS_QUERY,
-    {
-      skip: !showRecommendedLeaderboard || !isFreeUser(currentUser),
-    }
-  );
+  const { data, loading } = useQuery(RECOMMENDED_LEADERBOARDS_QUERY, {
+    skip: !showRecommendedLeaderboard || !isFreeUser(currentUser),
+  });
 
   if (!isFreeUser(currentUser)) {
     return {};
   }
 
-  const leaderboards = data?.so5.upcomingLeaderboards;
+  const leaderboards = data?.football.so5.upcomingLeaderboards;
 
   const draftedLeaderboards =
     leaderboards?.filter(

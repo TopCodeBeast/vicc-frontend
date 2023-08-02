@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { generatePath } from 'react-router-dom';
 
 import { FOOTBALL_DRAFT } from '@sorare/core/src/constants/routes';
@@ -28,11 +28,11 @@ export const getDraftUrl = withFragments(
   },
   {
     so5Leaderboard: gql`
-      fragment getDraftUrl_so5Leaderboard on Vicc5Leaderboard {
+      fragment getDraftUrl_so5Leaderboard on So5Leaderboard {
         slug
-        so5League: vicc5League {
+        so5League {
           slug
-          so5Leaderboards: vicc5Leaderboards {
+          so5Leaderboards {
             slug
             commonDraftCampaign {
               slug
@@ -40,6 +40,6 @@ export const getDraftUrl = withFragments(
           }
         }
       }
-    `,
+    ` as TypedDocumentNode<getDraftUrl_so5Leaderboard>,
   }
 );

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { GameCoverageStatus } from '@sorare/core/src/__generated__/globalTypes';
@@ -76,16 +76,16 @@ PlayerGame.fragments = {
     ${Game.fragments.game}
     ${Game.fragments.gameWeek}
     ${Game.fragments.competitionName}
-  `,
+  ` as TypedDocumentNode<PlayerGame_game>,
   so5Score: gql`
-    fragment PlayerGame_so5Score on Vicc5Score {
+    fragment PlayerGame_so5Score on So5Score {
       id
       score
       scoringVersion
       ...getPlayerScore_so5Score
     }
     ${getPlayerScore.fragments.so5Score}
-  `,
+  ` as TypedDocumentNode<PlayerGame_so5Score>,
 };
 
 export default PlayerGame;

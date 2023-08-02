@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import {
   CustomRewardExperience,
@@ -19,14 +19,14 @@ export const hasUnclaimedRewards = withFragments(
   },
   {
     so5Fixture: gql`
-      fragment hasUnclaimedRewards_so5Fixture on Vicc5Fixture {
+      fragment hasUnclaimedRewards_so5Fixture on So5Fixture {
         slug
-        mySo5Rewards: myVicc5Rewards {
+        mySo5Rewards {
           slug
           aasmState
         }
       }
-    `,
+    ` as TypedDocumentNode<hasUnclaimedRewards_so5Fixture>,
   }
 );
 
@@ -53,7 +53,7 @@ export const hasRewards = withFragments(
         prizePool
         prizePoolCurrency
       }
-    `,
+    ` as TypedDocumentNode<hasRewards_rewardsOverview>,
   }
 );
 
@@ -72,7 +72,7 @@ export const hasEligibleRewards = withFragments(
   },
   {
     rewardConfig: gql`
-      fragment hasEligibleRewards_so5RewardConfig on Vicc5RewardConfig {
+      fragment hasEligibleRewards_so5RewardConfig on So5RewardConfig {
         cards {
           quality
           rarity
@@ -84,7 +84,7 @@ export const hasEligibleRewards = withFragments(
         usdAmount
         coinAmount
       }
-    `,
+    ` as TypedDocumentNode<hasEligibleRewards_so5RewardConfig>,
   }
 );
 
@@ -95,6 +95,7 @@ export type TotalRewards = {
   prizePoolCurrency: PaymentCurrency;
   cards: Json;
   experiences?: Json | null;
+  coins?: number;
 };
 
 type CardsPerRarity = {

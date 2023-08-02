@@ -1,7 +1,12 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
-import { Sport } from '@sorare/core/src/__generated__/globalTypes';
-import { fromWei } from '@sorare/core/src/lib/wei';
+import {
+  Sport,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import NewOfferBuilder, {
   SharedProps as NewOfferBuilderSharedProps,
@@ -18,6 +23,11 @@ const CounterOfferBuilder = ({
   previousOffer,
   currentUser,
 }: Props) => {
+  const {
+    walletPreferences: { showFiatWallet },
+    fiatCurrency,
+  } = useCurrentUserContext();
+  const { toMonetaryAmount } = useMonetaryAmount();
   const tokens = [
     ...previousOffer.senderSide.nfts,
     ...previousOffer.receiverSide.nfts,
@@ -26,23 +36,31 @@ const CounterOfferBuilder = ({
   const counterOfferSport =
     tokens.length > 0 ? tokens[0].sport : Sport.FOOTBALL;
 
+  const receiveAmount = toMonetaryAmount(previousOffer.senderSide.amounts);
+  const receiveMarketFeesAmount =
+    previousOffer?.marketFeeAmounts &&
+    toMonetaryAmount(previousOffer.marketFeeAmounts);
+  const sendAmount = toMonetaryAmount(previousOffer.receiverSide.amounts);
   return (
     <NewOfferBuilder
       receiveCards={previousOffer.senderSide.nfts}
-      receiveEth={fromWei(previousOffer.senderSide.wei)}
-      receiveMarketFeesEth={
-        previousOffer?.marketFeeAmountWei
-          ? fromWei(previousOffer.marketFeeAmountWei)
-          : 0
-      }
+      receiveAmount={receiveAmount}
+      receiveMarketFeesAmount={receiveMarketFeesAmount || undefined}
       sendCards={previousOffer.receiverSide.nfts}
-      sendEth={fromWei(previousOffer.receiverSide.wei)}
+      sendAmount={sendAmount}
       onClose={onClose}
       to={to}
       counterOfferId={previousOffer.id!}
       counterOfferSport={counterOfferSport}
       currentUser={currentUser}
-      lockReceiveEthInput={fromWei(previousOffer.senderSide.wei) <= 0}
+      lockReceiveEthInput={receiveAmount.eur <= 0}
+      {...(showFiatWallet && {
+        referenceCurrency:
+          previousOffer.senderSide.amounts.referenceCurrency ===
+          SupportedCurrency.WEI
+            ? previousOffer.senderSide.amounts.referenceCurrency
+            : (fiatCurrency.code as SupportedCurrency),
+      })}
     />
   );
 };
@@ -93,8 +111,9 @@ CounterOfferBuilder.fragments = {
         }
       }
     }
+    ${monetaryAmountFragment}
     ${NewOfferBuilder.fragments.token}
     ${NewOfferBuilder.fragments.user}
-  `,
+  ` as TypedDocumentNode<CounterOfferBuilder_tokenOffer>,
 };
 export default CounterOfferBuilder;

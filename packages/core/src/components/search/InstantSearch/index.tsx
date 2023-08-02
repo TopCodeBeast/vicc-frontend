@@ -482,7 +482,7 @@ const cleanFixedRangeRefinements = (helper: AlgoliaSearchHelper) => {
   });
 };
 
-export const InstantSearch: React.FC<Props> = ({
+export const InstantSearch: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   indexes,
   defaultHitsPerPage,
@@ -678,7 +678,9 @@ export const InstantSearch: React.FC<Props> = ({
   );
 };
 
-export const InstantCardSearch: React.FC<SearchProps> = ({
+export const InstantCardSearch: React.FC<
+  React.PropsWithChildren<SearchProps>
+> = ({
   children,
   analyticsTags,
   defaultHitsPerPage = 40,
@@ -702,7 +704,12 @@ export const InstantCardSearch: React.FC<SearchProps> = ({
 );
 
 export const InstantBlockchainCardSearch: React.FC<
-  SearchProps & { attributesToRetrieve?: string[]; distinct?: number | boolean }
+  React.PropsWithChildren<
+    SearchProps & {
+      attributesToRetrieve?: string[];
+      distinct?: number | boolean;
+    }
+  >
 > = ({
   children,
   indexes = ['Ending Soon'],
@@ -730,7 +737,9 @@ export const InstantBlockchainCardSearch: React.FC<
   </InstantSearch>
 );
 
-export const InstantPlayerSearch: React.FC<SearchProps> = ({
+export const InstantPlayerSearch: React.FC<
+  React.PropsWithChildren<SearchProps>
+> = ({
   children,
   indexes = ['Player'],
   defaultHitsPerPage = 20,
@@ -750,7 +759,9 @@ export const InstantPlayerSearch: React.FC<SearchProps> = ({
   </InstantSearch>
 );
 
-export const InstantClubSearch: React.FC<SearchProps> = ({
+export const InstantClubSearch: React.FC<
+  React.PropsWithChildren<SearchProps>
+> = ({
   children,
   indexes = ['Club'],
   defaultHitsPerPage = 64,

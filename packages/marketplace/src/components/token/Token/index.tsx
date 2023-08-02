@@ -1,8 +1,7 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ReactNode, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import { Text14 } from '@sorare/core/src/atoms/typography';
 import ManagerTaskTooltip from '@sorare/core/src/components/onboarding/managerTask/ManagerTaskTooltip';
 import MarketplaceOnboardingTask, {
@@ -16,10 +15,12 @@ import {
 } from '@sorare/core/src/contexts/managerTask';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
-// import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
+import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
+import { zeroMonetaryAmount } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { StackProps, assetIdFromHit } from '@sorare/core/src/lib/algolia';
 import { groupBy } from '@sorare/core/src/lib/arrays';
-// import { formatScarcity } from '@sorare/core/src/lib/cards';
+import { formatScarcity } from '@sorare/core/src/lib/cards';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import useFacetedSearchCards from '@marketplace/hooks/search/useFacetedSearchCards';
 
@@ -41,16 +42,28 @@ export type Props = {
   hideSorareUser?: boolean;
   stack?: StackProps;
   TokenPropertiesButtonComponent?: ReactNode;
+  hideDetails?: boolean;
+  action?: ReactNode;
 };
 
 const tokenFragment = gql`
   fragment Token_token on Token {
     assetId
     slug
+    liveSingleSaleOffer {
+      id
+      receiverSide {
+        id
+        amounts {
+          ...MonetaryAmountFragment_monetaryAmount
+        }
+      }
+    }
     ...TokenContent_token
   }
+  ${monetaryAmountFragment}
   ${TokenContent.fragments.token}
-`;
+` as TypedDocumentNode<Token_token>;
 
 export const ALTERNATIVE_STACKED_TOKENS_BY_IDS_QUERY = gql`
   query AlternativeStackedTokensByIdsQuery($assetIds: [String!]!) {
@@ -63,23 +76,22 @@ export const ALTERNATIVE_STACKED_TOKENS_BY_IDS_QUERY = gql`
     }
   }
   ${tokenFragment}
-`;
+` as TypedDocumentNode<
+  AlternativeStackedTokensByIdsQuery,
+  AlternativeStackedTokensByIdsQueryVariables
+>;
 
 const ATTRIBUTES_TO_RETRIEVE = ['objectID', 'asset_id', 'sport'];
 
 const TooltipDescription = ({ token }: { token: Token_token }) => {
-  // const { main } = useAmountWithConversion({
-  //   monetaryAmount: {
-  //     referenceCurrency: SupportedCurrency.WEI,
-  //     [SupportedCurrency.WEI.toLowerCase()]:
-  //       token.liveSingleSaleOffer?.priceWei || '0',
-  //   },
-  // });
+  const { main } = useAmountWithConversion({
+    monetaryAmount:
+      token.liveSingleSaleOffer?.receiverSide.amounts || zeroMonetaryAmount,
+  });
 
   return (
     <Text14 color="var(--c-neutral-600)">
-      <>TooltipDescription555</>
-      {/* <FormattedMessage
+      <FormattedMessage
         {...marketplaceTaskDescription[
           MarketplaceOnboardingStep.marketplaceItem
         ]}
@@ -88,7 +100,7 @@ const TooltipDescription = ({ token }: { token: Token_token }) => {
           price: main,
           rarity: formatScarcity(token.metadata.rarity),
         }}
-      /> */}
+      />
     </Text14>
   );
 };
@@ -97,6 +109,8 @@ export const Token = ({
   token,
   stack,
   displayMarketplaceOnboardingTooltip,
+  hideDetails,
+  action,
   ...rest
 }: Props) => {
   const { step, setStep, task } = useManagerTaskContext();
@@ -112,13 +126,10 @@ export const Token = ({
     attributesToRetrieve: ATTRIBUTES_TO_RETRIEVE,
     hitsPerPage: 20,
     params: stack?.params,
-    skip: false,//!stacked || !!token.liveSingleSaleOffer, //TODO*****
+    skip: !stacked || !!token.liveSingleSaleOffer,
   });
 
-  const { data } = useQuery<
-    AlternativeStackedTokensByIdsQuery,
-    AlternativeStackedTokensByIdsQueryVariables
-  >(ALTERNATIVE_STACKED_TOKENS_BY_IDS_QUERY, {
+  const { data } = useQuery(ALTERNATIVE_STACKED_TOKENS_BY_IDS_QUERY, {
     variables: {
       assetIds: lowestPriceHits?.hits.map(hit => assetIdFromHit(hit)) || [],
     },
@@ -130,9 +141,9 @@ export const Token = ({
       return token;
     }
     const tokensByAssetId = groupBy(t => t.assetId, data.tokens.nfts);
-    const alternativeHit = null/*lowestPriceHits?.hits.find(
+    const alternativeHit = lowestPriceHits?.hits.find(
       hit => tokensByAssetId[assetIdFromHit(hit)]?.[0]?.liveSingleSaleOffer
-    );*/ //TODO****
+    );
     if (!alternativeHit) {
       return token;
     }
@@ -142,12 +153,11 @@ export const Token = ({
   const stackedTokensCount = useMemo(() => {
     if (!lowestPriceHits) return stack?.count || 1;
 
-    const alreadySoldHits = 0;///TODO******
-      //data?.tokens.nfts.filter(t => !t.liveSingleSaleOffer).length || 0;
+    const alreadySoldHits =
+      data?.tokens.nfts.filter(t => !t.liveSingleSaleOffer).length || 0;
 
     return lowestPriceHits.nbHits - alreadySoldHits;
   }, [data?.tokens.nfts, lowestPriceHits, stack?.count]);
-  
   return (
     <ManagerTaskTooltip
       name={MarketplaceOnboardingStep.marketplaceItem}
@@ -180,6 +190,8 @@ export const Token = ({
         displayMarketplaceOnboardingTooltip={
           displayMarketplaceOnboardingTooltip
         }
+        hideDetails={!!hideDetails}
+        action={action}
         {...rest}
       />
     </ManagerTaskTooltip>

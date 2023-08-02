@@ -3,6 +3,8 @@ import { generatePath, matchPath } from 'react-router-dom';
 
 import { Sport } from '__generated__/globalTypes';
 
+import { API_ROOT } from '../config';
+
 export const FOOTBALL_PATH = '/football';
 export const MLB_PATH = '/mlb';
 export const NBA_PATH = '/nba';
@@ -96,10 +98,10 @@ export const FOOTBALL_USER_CARD_COLLECTION_CARDS = `${FOOTBALL_USER_CARD_COLLECT
 export const FOOTBALL_USER_CARD_COLLECTION_LEADERBOARD = `${FOOTBALL_USER_CARD_COLLECTION}/leaderboard`;
 export const FOOTBALL_NO_CARD_ENTRY = `${FOOTBALL_PATH}/no-card-route`;
 export const FOOTBALL_NO_CARD_ROUTE_REQUEST = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId`;
-export const FOOTBALL_NO_CARD_ROUTE_ACCEPT = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:vicc5LineupId/accept`;
-export const FOOTBALL_NO_CARD_ROUTE_CANCEL = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:vicc5LineupId/cancel`;
-export const FOOTBALL_NO_CARD_ROUTE_CONFIRM = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:vicc5LineupId/confirm`;
-export const FOOTBALL_NO_CARD_ROUTE_LEADERBOARDS = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:vicc5LineupId/leaderboards`;
+export const FOOTBALL_NO_CARD_ROUTE_ACCEPT = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:so5LineupId/accept`;
+export const FOOTBALL_NO_CARD_ROUTE_CANCEL = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:so5LineupId/cancel`;
+export const FOOTBALL_NO_CARD_ROUTE_CONFIRM = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:so5LineupId/confirm`;
+export const FOOTBALL_NO_CARD_ROUTE_LEADERBOARDS = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:so5LineupId/leaderboards`;
 
 export const LANDING = '/';
 export const TERMS = '/terms-and-conditions';
@@ -111,9 +113,9 @@ export const CONFIRM_EMAIL = '/confirm-email';
 export const CONFIRM_DEVICE = '/confirm-device';
 export const VERIFY_STRIPE_ACCOUNT = '/verify-identity/:id';
 export const DEBUG_DEVICE = '/debug-device';
-export const FOOTBALL_COMPOSE_TEAM = `/football/compose-team/:vicc5LeaderboardSlug`;
+export const FOOTBALL_COMPOSE_TEAM = `/football/compose-team/:so5LeaderboardSlug`;
 export const FOOTBALL_COMPOSE_TEAM_DRAFT = `${FOOTBALL_PATH}/compose/draft/:slug`;
-export const FOOTBALL_COMPOSE_TEAM_LINEUP = `${FOOTBALL_PATH}/compose-team/:vicc5LeaderboardSlug/:vicc5LineupId`;
+export const FOOTBALL_COMPOSE_TEAM_LINEUP = `${FOOTBALL_PATH}/compose-team/:so5LeaderboardSlug/:so5LineupId`;
 export const FOOTBALL_BUNDLED_AUCTION = `${FOOTBALL_PATH}${LEGACY_BUNDLED_AUCTION}`;
 export const LEGACY_TOKEN_AUCTION = `/auctions/:id`;
 export const TOKEN_AUCTION = `${FOOTBALL_PATH}/auctions/:id`;
@@ -145,14 +147,14 @@ export const EPL_DRAFT = `${FOOTBALL_ONBOARDING}?league=premier_league`;
 export const SERIE_A_DRAFT = `${FOOTBALL_ONBOARDING}?league=serie_a`;
 export const MLS_DRAFT = `${FOOTBALL_ONBOARDING}?league=mls`;
 export const BUNDESLIGA_DRAFT = `${FOOTBALL_ONBOARDING}?league=bundesliga`;
-export const LALIGA_DRAFT = `${FOOTBALL_ONBOARDING}?league=laliga_santander`;
+export const LALIGA_DRAFT = `${FOOTBALL_ONBOARDING}?league=la_liga`;
 export const FOOTBALL_PICK_LEAGUE = `${FOOTBALL_PATH}/pick-league`;
 export const FOOTBALL_SCARCITIES = `${FOOTBALL_PATH}/scarcities`;
 
-export const FOOTBALL_MARKET = `${FOOTBALL_PATH}/market/`;
-export const FOOTBALL_NEW_SIGNINGS = `${FOOTBALL_MARKET}new-signings`;
-export const FOOTBALL_STARTER_BUNDLES = `${FOOTBALL_MARKET}starter-packs`;
-export const FOOTBALL_TRANSFER_MARKET = `${FOOTBALL_MARKET}transfers`;
+export const FOOTBALL_PLAY = `${FOOTBALL_PATH}/play`;
+export const FOOTBALL_MARKET = `${FOOTBALL_PATH}/market`;
+export const FOOTBALL_NEW_SIGNINGS = `${FOOTBALL_MARKET}/new-signings`;
+export const FOOTBALL_TRANSFER_MARKET = `${FOOTBALL_MARKET}/transfers`;
 export const FOOTBALL_TRANSFER_MARKET_STACK_SHOW = `${FOOTBALL_TRANSFER_MARKET}/:player_slug/:rarity`;
 
 export const CAREERS = '/careers';
@@ -173,12 +175,16 @@ export const FOOTBALL_COMPETITION_DETAILS_REWARDS = `${FOOTBALL_PATH}/competitio
 export const FOOTBALL_COMPETITION_DETAILS_LEADERBOARD = `${FOOTBALL_PATH}/competition-details/:competition/leaderboards`;
 export const FOOTBALL_COMPETITION_DETAILS_DETAILS = `${FOOTBALL_PATH}/competition-details/:competition/details`;
 
+export const FOOTBALL_LIVE = `${FOOTBALL_PATH}/live`;
+export const FOOTBALL_LIVE_LINEUPS = `${FOOTBALL_LIVE}/lineups`;
+export const FOOTBALL_LIVE_GAME = `${FOOTBALL_LIVE}/game/:id`;
+export const FOOTBALL_LIVE_GAME_MY_LINEUPS = `${FOOTBALL_LIVE}/game/:id/my-lineups`;
+
 export const FOOTBALL_LOBBY_ROOT = `${FOOTBALL_PATH}/lobby`;
 export const FOOTBALL_LOBBY = `${FOOTBALL_LOBBY_ROOT}/upcoming`;
 export const FOOTBALL_LOBBY_UPCOMING_WILDCARD = `${FOOTBALL_LOBBY_ROOT}/upcoming/*`;
 export const FOOTBALL_LOBBY_UPCOMING_SWAP = `${FOOTBALL_LOBBY_ROOT}/upcoming/swap/:leaderboardSlug`;
 export const FOOTBALL_LOBBY_UPCOMING = `${FOOTBALL_LOBBY_ROOT}/upcoming/:tab`;
-export const FOOTBALL_LOBBY_UPCOMING_CLUB_BANNER = `${FOOTBALL_LOBBY}/club`;
 export const FOOTBALL_LOBBY_STARTER_BUNDLES = `${FOOTBALL_LOBBY_ROOT}/starter-bundles/:competition`;
 export const FOOTBALL_LOBBY_PRIVATE_LEAGUES = `${FOOTBALL_LOBBY_ROOT}/private-leagues/*`;
 export const FOOTBALL_LOBBY_PRIZE_POOL = `${FOOTBALL_LOBBY_ROOT}/prize-pool`;
@@ -188,6 +194,10 @@ export const FOOTBALL_PRIVATE_LEAGUES_WILDCARD = `${FOOTBALL_PRIVATE_LEAGUES}/*`
 export const FOOTBALL_PRIVATE_LEAGUES_CREATE = `${FOOTBALL_PRIVATE_LEAGUES}/:step`;
 export const FOOTBALL_PRIVATE_LEAGUES_CREATED = `${FOOTBALL_PRIVATE_LEAGUES}/:slug/:step`;
 export const FOOTBALL_PRIVATE_LEAGUES_DETAILS = `${FOOTBALL_PRIVATE_LEAGUES}/:slug/details/:tab`;
+export const FOOTBALL_PRIVATE_LEAGUES_PRIVATE = `${FOOTBALL_PRIVATE_LEAGUES}/private`;
+export const FOOTBALL_PRIVATE_LEAGUES_PUBLIC = `${FOOTBALL_PRIVATE_LEAGUES}/public`;
+export const FOOTBALL_PRIVATE_LEAGUES_PUBLIC_DETAILS = `${FOOTBALL_PRIVATE_LEAGUES}/public/:slug/details/:tab`;
+export const FOOTBALL_PRIVATE_LEAGUES_PUBLIC_USER_DETAILS = `${FOOTBALL_PRIVATE_LEAGUES_PUBLIC_DETAILS}/:membershipId`;
 
 export const FOOTBALL_VIDEOS = `${FOOTBALL_PATH}/videos/:slug`;
 export const FOOTBALL_HOME = FOOTBALL_PATH;
@@ -197,12 +207,25 @@ export const FOOTBALL_MANAGER_HOME_CARD_COLLECTIONS = `${FOOTBALL_HOME}/collecti
 export const FOOTBALL_MANAGER_HOME_SQUADS = `${FOOTBALL_HOME}/squads`; // deprecated. Only kept for legacy links
 export const FOOTBALL_MANAGER_HOME_CLUB_HONORS = `${FOOTBALL_HOME}/club-honors`; // deprecated. Only kept for legacy links
 export const FOOTBALL_MANAGER_HOME_NETWORK = `${FOOTBALL_HOME}/network`; // deprecated. Only kept for legacy links
+export const FOOTBALL_MY_CLUB = `${FOOTBALL_PATH}/my-club`;
+export const FOOTBALL_MY_CLUB_CARDS = `${FOOTBALL_MY_CLUB}/cards`;
+export const FOOTBALL_MY_CLUB_COLLECTIONS = `${FOOTBALL_MY_CLUB}/collections`;
+export const FOOTBALL_MY_CLUB_HISTORY = `${FOOTBALL_MY_CLUB}/history`;
+export const FOOTBALL_MY_CLUB_NETWORK = `${FOOTBALL_MY_CLUB}/network`;
+export const FOOTBALL_MY_CLUB_HONORS = `${FOOTBALL_MY_CLUB}/honors`;
+export const FOOTBALL_PLAY_WEEKLY = `${FOOTBALL_PATH}/play/weekly`;
+export const FOOTBALL_PLAY_PRIVATE_LEAGUES = `${FOOTBALL_PATH}/play/private-leagues`;
+export const FOOTBALL_HALL_OF_FAME = `${FOOTBALL_PATH}/hall-of-fame`;
+export const FOOTBALL_MARKET_STARTER_PACKS = `${FOOTBALL_MARKET}/starter-packs`;
+export const FOOTBALL_MARKET_MANAGER_SALES = `${FOOTBALL_MARKET}/manager-sales`;
+
 export enum PrivateLeaguesStep {
   CREATE = 'create',
   CREATE_FORM = 'create-form',
   CONGRATS = 'congrats',
 }
 export enum PrivateLeaguesTab {
+  TEAMS = 'teams',
   LEADERBOARD = 'leaderboard',
   LEAGUE = 'league',
   MEMBERS = 'members',
@@ -223,7 +246,8 @@ export const INVITE_EPL_USER_GROUP = `${EPL_LANDING}${INVITE_USER_GROUP}`;
 export const SERIEA_LANDING = `${FOOTBALL_PATH}/serie-a`;
 export const MLS_LANDING = `${FOOTBALL_PATH}/major-league-soccer`;
 export const MLS_LANDING_SHORT = `${FOOTBALL_PATH}/mls`;
-export const LALIGA_LANDING = `${FOOTBALL_PATH}/laliga-santander`;
+export const LALIGA_SANTANDER_LANDING = `${FOOTBALL_PATH}/laliga-santander`;
+export const LALIGA_LANDING = `${FOOTBALL_PATH}/laliga`;
 export const BUNDESLIGA_LANDING = `${FOOTBALL_PATH}/bundesliga`;
 
 export const FOOTBALL_STARTER_BUNDLE_PAGE = `${FOOTBALL_PATH}/starter-packs/:id`;
@@ -248,7 +272,10 @@ export const MLB_LEAGUES_SLUG = `${MLB_LEAGUES}/:leagueSlug`;
 export const MLB_LEAGUES_SLUG_LEADERBOARDS = `${MLB_LEAGUES_SLUG}/leaderboards`;
 export const MLB_LEAGUES_SLUG_MEMBERS = `${MLB_LEAGUES_SLUG}/members`;
 
-export const MLB_SEATTLE_2023 = `${MLB_PATH}/seattle2023`;
+export const MLB_CLUB_SHOP = `${MLB_PATH}/club-shop`;
+export const MLB_CLUB_SHOP_UTILITY = `${MLB_PATH}/club-shop/utility`;
+export const MLB_CLUB_SHOP_MERCH = `${MLB_PATH}/club-shop/merch`;
+export const MLB_CLUB_SHOP_MY_ITEMS = `${MLB_PATH}/club-shop/my-items`;
 
 export const MLB_PLAYER = `${MLB_PATH}${LEGACY_PLAYER_SHOW}`;
 export const MLB_PLAYER_DESCRIPTION = `${MLB_PLAYER}/description`;
@@ -299,6 +326,8 @@ export const MLB_DAILY_GAMES = `${MLB_PATH}/daily-exhibitions`;
 export const MLB_DAILY_GAMES_PAST = `${MLB_DAILY_GAMES}/past`;
 export const MLB_DAILY_GAMES_LIVE = `${MLB_DAILY_GAMES}/live`;
 export const MLB_DAILY_GAMES_UPCOMING = `${MLB_DAILY_GAMES}/upcoming`;
+export const MLB_DAILY_GAMES_COMPOSE = `${MLB_DAILY_GAMES_UPCOMING}/:dailyGameId`;
+export const MLB_DAILY_GAMES_RESULTS = `${MLB_DAILY_GAMES}/:dailyGameId/results`;
 
 export const MLB_COMPETITION_DETAILS = `${MLB_HOME}competition-details/:leaderboardSlug`;
 export const MLB_COMPETITION_DETAILS_LEAGUE = `${MLB_COMPETITION_DETAILS}/league/:leagueSlug`;
@@ -451,7 +480,7 @@ export const AUCTION_MARKET_URL: Record<Sport, string> = {
 export const STARTER_BUNDLES_URL: Record<Sport, string> = {
   [Sport.BASEBALL]: MLB_STARTER_BUNDLES,
   [Sport.NBA]: NBA_STARTER_BUNDLES,
-  [Sport.FOOTBALL]: FOOTBALL_STARTER_BUNDLES,
+  [Sport.FOOTBALL]: FOOTBALL_MARKET_STARTER_PACKS,
 };
 
 export const LOBBY_TABS = {
@@ -481,25 +510,22 @@ export function goToLobby(
       return generatePath(FOOTBALL_LOBBY_UPCOMING.replace('/:tab', ''));
   }
 }
-export const CONTENT_PREVIEW_WILDCARD = `/content/preview/*`;
-export const BANNER_SET_PREVIEW = `/content/preview/banner-set/:name`;
-export const HERO_BANNER_SET_PREVIEW = `/content/preview/hero-banner-set/:name`;
 
 export function getComposeTeamRoute({
-  vicc5LeaderboardSlug,
-  vicc5LineupId,
+  so5LeaderboardSlug,
+  so5LineupId,
   ...rest
 }: {
-  vicc5LeaderboardSlug: string;
-  vicc5LineupId?: string;
+  so5LeaderboardSlug: string;
+  so5LineupId?: string;
   [key: string]: string | undefined;
 }) {
   let url;
   const params = {
-    vicc5LeaderboardSlug,
-    vicc5LineupId,
+    so5LeaderboardSlug,
+    so5LineupId,
   };
-  if (vicc5LineupId) {
+  if (so5LineupId) {
     url = generatePath(FOOTBALL_COMPOSE_TEAM_LINEUP, params);
   } else {
     url = generatePath(FOOTBALL_COMPOSE_TEAM, params);
@@ -560,9 +586,10 @@ export function isMarket(pathname: string) {
 // this should stay a hook for future feature flags integration
 export const useDefaultSportPages = (): { [key in Sport]: string } => {
   return {
-    CRICKET: FOOTBALL_HOME,
+    FOOTBALL: FOOTBALL_HOME,
     BASEBALL: MLB_HOME,
     NBA: NBA_HOME,
   };
 };
 
+export const RAMP_TRANSACTION_WEBHOOK = `${API_ROOT}/webhooks/ramp/transaction_state_updated`;

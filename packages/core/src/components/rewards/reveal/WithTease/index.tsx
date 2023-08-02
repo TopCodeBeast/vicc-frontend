@@ -44,9 +44,9 @@ const Front = styled.div`
 `;
 
 type Props = {
-  back: JSX.Element;
-  front: ((isClaimed: boolean) => JSX.Element) | JSX.Element;
-  teasers: JSX.Element[];
+  back: React.JSX.Element;
+  front: ((isClaimed: boolean) => React.JSX.Element) | React.JSX.Element;
+  teasers: React.JSX.Element[];
   reveal: boolean;
   onClickBack?: () => void;
   onFinish?: () => void;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { withFragments } from '@sorare/core/src/gql';
 
@@ -20,18 +20,18 @@ const getLineupDisplayName = withFragments(
   },
   {
     so5Leaderboard: gql`
-      fragment getLineupDisplayName_so5Leaderboard on Vicc5Leaderboard {
+      fragment getLineupDisplayName_so5Leaderboard on So5Leaderboard {
         slug
         displayName
         teamsCap
       }
-    `,
+    ` as TypedDocumentNode<getLineupDisplayName_so5Leaderboard>,
     so5Lineup: gql`
-      fragment getLineupDisplayName_so5Lineup on Vicc5Lineup {
+      fragment getLineupDisplayName_so5Lineup on So5Lineup {
         id
         name
       }
-    `,
+    ` as TypedDocumentNode<getLineupDisplayName_so5Lineup>,
   }
 );
 

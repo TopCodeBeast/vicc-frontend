@@ -1,4 +1,5 @@
-import { faInfoCircle } from '@fortawesome/pro-solid-svg-icons';
+import { TypedDocumentNode, gql } from '@apollo/client';
+import { faCircleInfo, faInfoCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -6,6 +7,8 @@ import styled from 'styled-components';
 
 import {
   Currency,
+  EnabledWallet,
+  FiatWalletAccountState,
   SupportedCurrency,
 } from '@sorare/core/src/__generated__/globalTypes';
 import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
@@ -13,6 +16,9 @@ import Dropdown from '@sorare/core/src/atoms/dropdowns/Dropdown';
 import { ChevronRightBold } from '@sorare/core/src/atoms/icons/ChevronRightBold';
 import RadioGroup from '@sorare/core/src/atoms/inputs/RadioGroup';
 import { Text14 } from '@sorare/core/src/atoms/typography';
+import Bold from '@sorare/core/src/atoms/typography/Bold';
+import { CreateFiatWalletWithInterstitialModal } from '@sorare/core/src/components/fiatWallet/CreateFiatWalletWithInterstitialModal';
+import { InterstitialContextModalMode } from '@sorare/core/src/components/fiatWallet/InterstitialContextModal';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import {
@@ -20,9 +26,8 @@ import {
   useWalletDrawerContext,
 } from '@sorare/core/src/contexts/walletDrawer';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
+import { useFiatBalance } from '@sorare/core/src/hooks/wallets/useFiatBalance';
 import { wallet } from '@sorare/core/src/lib/glossary';
-import { toWei } from '@sorare/core/src/lib/wei';
 
 import EthWallet from '@marketplace/components/buyActions/PaymentBox/Methods/EthWallet';
 import FiatWallet from '@marketplace/components/buyActions/PaymentBox/Methods/FiatWallet';
@@ -31,6 +36,7 @@ import useHasInsufficientFundsInWallets from '@marketplace/hooks/useHasInsuffici
 
 import { setCurrencyAndPaymentMethod } from '../../actions';
 import { CardDataType, StateProps } from '../../types';
+import { TradePaymentMethods_publicUserInfoInterface } from './__generated__/index.graphql';
 
 const Wrapper = styled.div`
   display: flex;
@@ -46,7 +52,7 @@ const Frame = styled(ButtonBase)`
   border: 1px solid var(--c-neutral-400);
   border-radius: var(--double-unit);
 `;
-const Row = styled(ButtonBase)`
+const Row = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -82,6 +88,22 @@ const HelperRoot = styled.div`
   align-items: center;
 `;
 
+const WarningRoot = styled.div`
+  width: 100%;
+  padding: 0 var(--double-unit) var(--unit);
+`;
+
+const Warning = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--unit);
+  padding: var(--intermediate-unit);
+  background-color: var(--c-neutral-300);
+  border: 1px solid var(--c-neutral-400);
+  border-radius: var(--unit);
+  color: var(--c-neutral-1000);
+`;
+
 const Helper = ({
   diffAmount,
   onClick,
@@ -114,91 +136,152 @@ const Helper = ({
     </Text>
   </HelperRoot>
 );
+
 export const TradePaymentMethods = <D extends CardDataType>({
-  state: { sendEth, paymentMethod: selectedPaymentMethod },
+  state: { sendAmount, paymentMethod: selectedPaymentMethod },
   dispatch,
   onClose,
-}: StateProps<D> & { onClose: () => void }) => {
+  to,
+}: StateProps<D> & {
+  onClose: () => void;
+  to: TradePaymentMethods_publicUserInfoInterface;
+}) => {
   const {
-    flags: { useNewWallet },
+    flags: { useCashWallet },
   } = useFeatureFlags();
+
+  const [showCreateFiatWallet, setShowCreateFiatWallet] = useState(false);
 
   const [expanded, setExpanded] = useState(false);
   const { setCurrentTab, showDrawer } = useWalletDrawerContext();
-  const { toMonetaryAmount } = useMonetaryAmount();
   const { formatNumber, formatWei } = useIntlContext();
   const {
     currency: userSettingsCurrency,
     fiatCurrency: { code: currencyCode },
+    walletPreferences: { showEthWallet, showFiatWallet },
   } = useCurrentUserContext();
+  const { canDepositAndWithdraw } = useFiatBalance();
   const hasInsufficientFundsInWallets = useHasInsufficientFundsInWallets();
   const {
     insufficientFundsInEthWallet,
     diffInWeiForEthWallet,
     insufficientFundsInFiatWallet,
     diffInFiatCentsForFiatWallet,
-  } = hasInsufficientFundsInWallets(
-    toMonetaryAmount({
-      wei: toWei(sendEth),
-      referenceCurrency: SupportedCurrency.WEI,
-    })
-  );
+  } = hasInsufficientFundsInWallets(sendAmount);
+
+  const acceptEthWallet =
+    to.profile.enabledWallets?.includes(EnabledWallet.ETH) ||
+    to.profile.enabledWallets === null;
 
   useEffect(() => {
     if (selectedPaymentMethod === null) {
+      if (!acceptEthWallet) {
+        dispatch(
+          setCurrencyAndPaymentMethod({
+            paymentMethod: WalletPaymentMethod.FIAT_WALLET,
+            referenceCurrency: currencyCode as SupportedCurrency,
+          })
+        );
+        return;
+      }
       dispatch(
         setCurrencyAndPaymentMethod({
           paymentMethod:
             userSettingsCurrency === Currency.ETH
               ? WalletPaymentMethod.ETH_WALLET
               : WalletPaymentMethod.FIAT_WALLET,
-          currency: userSettingsCurrency,
+          referenceCurrency:
+            userSettingsCurrency === Currency.ETH
+              ? SupportedCurrency.WEI
+              : (currencyCode as SupportedCurrency),
         })
       );
     }
-  }, [dispatch, selectedPaymentMethod, userSettingsCurrency]);
+  }, [
+    currencyCode,
+    dispatch,
+    selectedPaymentMethod,
+    acceptEthWallet,
+    userSettingsCurrency,
+  ]);
 
   if (!selectedPaymentMethod) return null;
 
-  const onAddFundsClick = () => {
+  const onAddFunds = (tab: WalletTab) => {
     onClose();
-    setCurrentTab(WalletTab.ADD_FUNDS);
+    setCurrentTab(tab);
     showDrawer();
+  };
+
+  const onAddFundsFiat = () => {
+    if (canDepositAndWithdraw) {
+      onAddFunds(WalletTab.ADD_FUNDS_TO_FIAT_WALLET);
+    } else {
+      setShowCreateFiatWallet(true);
+    }
   };
 
   const paymentMethods = {
     [WalletPaymentMethod.ETH_WALLET]: {
       label: <EthWallet />,
+      disabled: !acceptEthWallet,
       value: WalletPaymentMethod.ETH_WALLET,
-      currency: Currency.ETH,
-      helper: insufficientFundsInEthWallet && (
-        <Helper
-          diffAmount={formatWei(diffInWeiForEthWallet!.toString(), undefined, {
-            maximumFractionDigits: 4,
-          })}
-          onClick={onAddFundsClick}
-        />
+      referenceCurrency: SupportedCurrency.WEI,
+      helper: (
+        <>
+          {insufficientFundsInEthWallet && (
+            <Helper
+              diffAmount={formatWei(
+                diffInWeiForEthWallet!.toString(),
+                undefined,
+                {
+                  maximumFractionDigits: 4,
+                }
+              )}
+              onClick={() => onAddFunds(WalletTab.ADD_FUNDS_TO_ETH_WALLET)}
+            />
+          )}
+          {!acceptEthWallet && (
+            <WarningRoot>
+              <Warning>
+                <FontAwesomeIcon icon={faCircleInfo} />
+                <Text14>
+                  <FormattedMessage
+                    id="NewOfferBuilder.TradePaymentMethods.cantAcceptETH"
+                    defaultMessage="<b>{nickname}</b> can't accept ETH."
+                    values={{ b: Bold, nickname: to.nickname }}
+                  />
+                </Text14>
+              </Warning>
+            </WarningRoot>
+          )}
+        </>
       ),
     },
-    [WalletPaymentMethod.FIAT_WALLET]: {
-      label: <FiatWallet />,
-      value: WalletPaymentMethod.FIAT_WALLET,
-      currency: Currency.FIAT,
-      helper: insufficientFundsInFiatWallet && diffInFiatCentsForFiatWallet && (
-        <Helper
-          diffAmount={formatNumber(diffInFiatCentsForFiatWallet / 100, {
-            style: 'currency',
-            currency: currencyCode,
-          })}
-          onClick={onAddFundsClick}
-        />
-      ),
-    },
+    ...(showFiatWallet
+      ? {
+          [WalletPaymentMethod.FIAT_WALLET]: {
+            label: <FiatWallet />,
+            value: WalletPaymentMethod.FIAT_WALLET,
+            referenceCurrency: currencyCode as SupportedCurrency,
+            helper: insufficientFundsInFiatWallet &&
+              diffInFiatCentsForFiatWallet && (
+                <Helper
+                  diffAmount={formatNumber(diffInFiatCentsForFiatWallet / 100, {
+                    style: 'currency',
+                    currency: currencyCode,
+                  })}
+                  onClick={onAddFundsFiat}
+                />
+              ),
+          },
+        }
+      : {}),
   };
 
   const paymentOptions = [
-    paymentMethods[WalletPaymentMethod.ETH_WALLET],
-    ...((useNewWallet && [paymentMethods[WalletPaymentMethod.FIAT_WALLET]]) ||
+    ...(showEthWallet ? [paymentMethods[WalletPaymentMethod.ETH_WALLET]] : []),
+    ...((useCashWallet && [paymentMethods[WalletPaymentMethod.FIAT_WALLET]]) ||
       []),
   ];
 
@@ -214,9 +297,11 @@ export const TradePaymentMethods = <D extends CardDataType>({
         onOpen={() => setExpanded(true)}
         onClose={() => setExpanded(false)}
         label={
-          <Frame disableDebounce disableRipple>
-            <Row disableDebounce disableRipple>
-              <Selected>{paymentMethods[selectedPaymentMethod].label}</Selected>
+          <Frame disabled={disabled} disableDebounce disableRipple>
+            <Row>
+              <Selected>
+                {paymentMethods[selectedPaymentMethod]?.label}
+              </Selected>
               {!disabled && <StyledChevronRightBold expanded={expanded} />}
             </Row>
           </Frame>
@@ -228,20 +313,45 @@ export const TradePaymentMethods = <D extends CardDataType>({
             value={paymentMethods[selectedPaymentMethod]?.value}
             name="select-trade-payment-method"
             onChange={(value: string) => {
-              const { currency, value: paymentMethod } =
-                paymentMethods[value as WalletPaymentMethod];
-              dispatch(
-                setCurrencyAndPaymentMethod({
-                  currency,
-                  paymentMethod,
-                })
-              );
-              closeDropdown();
+              const method = paymentMethods[value as WalletPaymentMethod];
+
+              if (method) {
+                dispatch(
+                  setCurrencyAndPaymentMethod({
+                    referenceCurrency: method.referenceCurrency,
+                    paymentMethod: method.value,
+                  })
+                );
+                closeDropdown();
+              }
             }}
           />
         )}
       </Dropdown>
-      {paymentMethods[selectedPaymentMethod].helper}
+      {paymentMethods[selectedPaymentMethod]?.helper}
+      {showCreateFiatWallet && (
+        <CreateFiatWalletWithInterstitialModal
+          onClose={() => setShowCreateFiatWallet(false)}
+          statusTarget={FiatWalletAccountState.VALIDATED_OWNER}
+          onDecline={() => setShowCreateFiatWallet(false)}
+          mode={InterstitialContextModalMode.DEPOSIT}
+          canDismissAfterActivation={false}
+        />
+      )}
     </Wrapper>
   );
+};
+
+TradePaymentMethods.fragments = {
+  publicUserInfoInterface: gql`
+    fragment TradePaymentMethods_publicUserInfoInterface on PublicUserInfoInterface {
+      id
+      slug
+      nickname
+      profile {
+        id
+        enabledWallets
+      }
+    }
+  ` as TypedDocumentNode<TradePaymentMethods_publicUserInfoInterface>,
 };

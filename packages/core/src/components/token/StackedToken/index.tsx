@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import qs from 'qs';
 import { useCallback, useMemo } from 'react';
 import { useInstantSearch } from 'react-instantsearch-hooks-web';
@@ -97,10 +97,8 @@ StackedToken.fragments = {
       pictureUrl(derivative: "tinified")
       sport
       metadata {
-        ... on TokenCricketMetadata {
-          id
-        }
         ... on TokenCardMetadataInterface {
+          id
           playerSlug
           teamSlug
           rarity
@@ -108,7 +106,7 @@ StackedToken.fragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<StackedToken_token>,
 };
 
 export default StackedToken;

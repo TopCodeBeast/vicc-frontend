@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components';
@@ -107,7 +107,7 @@ export const DetailedScore = ({ so5Score, dark, withDetails }: Props) => {
 
 DetailedScore.fragments = {
   so5Score: gql`
-    fragment DetailedScore_so5Score on Vicc5Score {
+    fragment DetailedScore_so5Score on So5Score {
       id
       scoringVersion
       detailedScore {
@@ -118,7 +118,7 @@ DetailedScore.fragments = {
       ...DetailedScoreV4V5_so5Score
     }
     ${DetailedScoreV4V5.fragments.so5Score}
-  `,
+  ` as TypedDocumentNode<DetailedScore_so5Score>,
 };
 
 export default DetailedScore;

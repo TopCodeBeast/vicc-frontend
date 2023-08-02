@@ -1,8 +1,8 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-  schema: 'http://localhost:4000/graphql',
-  // schema: 'https://api.sorare.com/graphql',
+  //schema: 'http://localhost:4000/graphql',
+   schema: 'https://api.sorare.com/graphql',
   documents: 'packages/**/!(__generated__)/*.{ts,tsx}',
   generates: {
     './packages/core/src/__generated__/globalTypes.ts': {

@@ -1,14 +1,27 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import Big from 'bignumber.js';
 
 import { withFragments } from '@sorare/core/src/gql';
+import {
+  MonetaryAmountParams,
+  monetaryAmountFragment,
+} from '@sorare/core/src/lib/monetaryAmount';
+
+import { auctionCurrentPrice_auction } from './__generated__/auctions.graphql';
 
 export const auctionCurrentPrice = withFragments(
-  (auction: { currentPrice: string; privateCurrentPrice: string }) => {
-    const { currentPrice, privateCurrentPrice } = auction;
-    return new Big(privateCurrentPrice).gt(currentPrice)
-      ? privateCurrentPrice
-      : currentPrice;
+  (auction: auctionCurrentPrice_auction): MonetaryAmountParams => {
+    const { currentPrice, privateCurrentPrice, currency, myBestBid } = auction;
+    if (myBestBid) {
+      const { maximumAmounts } = myBestBid;
+      return maximumAmounts;
+    }
+    return {
+      referenceCurrency: currency,
+      [currency.toLowerCase()]: new Big(privateCurrentPrice).gt(currentPrice)
+        ? privateCurrentPrice
+        : currentPrice,
+    };
   },
   {
     auction: gql`
@@ -16,8 +29,16 @@ export const auctionCurrentPrice = withFragments(
         id
         currentPrice
         privateCurrentPrice
+        currency
+        myBestBid {
+          id
+          maximumAmounts {
+            ...MonetaryAmountFragment_monetaryAmount
+          }
+        }
       }
-    `,
+      ${monetaryAmountFragment}
+    ` as TypedDocumentNode<auctionCurrentPrice_auction>,
   }
 );
 

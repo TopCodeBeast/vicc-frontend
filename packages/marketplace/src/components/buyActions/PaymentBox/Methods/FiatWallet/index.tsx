@@ -17,7 +17,7 @@ export const FiatWallet = ({ withoutBalance }: Props) => {
     <SorareWallet
       icon={getFaCurrencySymbol(fiatCurrency)}
       color="var(--c-green-600)"
-      label={<FormattedMessage {...payment.sorareWallet} />}
+      label={<FormattedMessage {...payment.sorareCashWallet} />}
       balance={
         <Text14 color="var(--c-neutral-1000)">
           {availableBalanceWithCurrencySymbol}

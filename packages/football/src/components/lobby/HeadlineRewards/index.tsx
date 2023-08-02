@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { Fragment } from 'react';
 import { defineMessages } from 'react-intl';
 
@@ -19,7 +19,7 @@ type Props = {
 };
 
 const rewardFragment = gql`
-  fragment HeadlineRewards_so5RewardConfig on Vicc5RewardConfig {
+  fragment HeadlineRewards_so5RewardConfig on So5RewardConfig {
     score
     usdAmount
     ethAmount
@@ -28,7 +28,7 @@ const rewardFragment = gql`
       type
     }
   }
-`;
+` as TypedDocumentNode<HeadlineRewards_so5RewardConfig>;
 
 const messages = defineMessages({
   threshold: {
@@ -114,7 +114,7 @@ export const HeadlineRewards = ({ leaderboard }: Props) => {
 
 HeadlineRewards.fragments = {
   so5Leaderboard: gql`
-    fragment HeadlineRewards_so5Leaderboard on Vicc5Leaderboard {
+    fragment HeadlineRewards_so5Leaderboard on So5Leaderboard {
       slug
       totalRewards {
         prizePoolCurrency
@@ -129,7 +129,7 @@ HeadlineRewards.fragments = {
       }
     }
     ${rewardFragment}
-  `,
+  ` as TypedDocumentNode<HeadlineRewards_so5Leaderboard>,
 };
 
 export default HeadlineRewards;

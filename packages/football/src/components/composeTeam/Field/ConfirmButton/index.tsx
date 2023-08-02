@@ -2,11 +2,13 @@ import { FC } from 'react';
 
 import Button from '@sorare/core/src/atoms/buttons/LoadingButton';
 
-export type Props = FC<{
-  onClick?: () => void;
-  loading?: boolean;
-  lineupComplete: boolean;
-}>;
+export type Props = FC<
+  React.PropsWithChildren<{
+    onClick?: () => void;
+    loading?: boolean;
+    lineupComplete: boolean;
+  }>
+>;
 
 const ConfirmButton: Props = ({
   onClick,

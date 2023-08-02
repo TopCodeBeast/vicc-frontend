@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 import { Color } from '@core/atoms/buttons/Button';
@@ -17,6 +17,7 @@ interface Props {
   small?: boolean;
   color?: Color;
   solid?: boolean;
+  onAddToFavoritesSuccess?: () => void;
 }
 
 export const FavoriteHeartButton = ({
@@ -24,6 +25,7 @@ export const FavoriteHeartButton = ({
   small,
   color = 'transparent',
   solid = true,
+  onAddToFavoritesSuccess = () => {},
 }: Props) => {
   const { formatMessage } = useIntl();
   const { getCurrentUserSubscription } = useFollowContext();
@@ -33,6 +35,10 @@ export const FavoriteHeartButton = ({
 
   const toggleSubscription = useToggleSubscription(subscription, subscribable);
 
+  useEffect(() => {
+    setSubscriptionState(!!getCurrentUserSubscription(subscribable));
+  }, [subscribable, getCurrentUserSubscription]);
+
   if (!currentUser) return null;
 
   return (
@@ -40,8 +46,12 @@ export const FavoriteHeartButton = ({
       small={small}
       color={color}
       onClick={() => {
-        setSubscriptionState(sub => !sub);
+        setSubscriptionState(!subscriptionState);
         toggleSubscription();
+
+        if (!subscriptionState) {
+          onAddToFavoritesSuccess();
+        }
       }}
       aria-label={
         subscriptionState

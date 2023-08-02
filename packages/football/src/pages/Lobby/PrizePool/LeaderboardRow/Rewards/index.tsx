@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components';
 
@@ -136,7 +136,7 @@ const Rewards = ({ rewards }: Props) => {
 
 Rewards.fragments = {
   so5RewardConfig: gql`
-    fragment Rewards_so5RewardConfig on Vicc5RewardConfig {
+    fragment Rewards_so5RewardConfig on So5RewardConfig {
       score
       ethAmount
       coinAmount
@@ -151,7 +151,7 @@ Rewards.fragments = {
         type
       }
     }
-  `,
+  ` as TypedDocumentNode<Rewards_so5RewardConfig>,
 };
 
 export default Rewards;

@@ -8,7 +8,7 @@ import messi from './assets/messi.jpg';
 
 const message = defineMessage({
   id: 'Landing.NewOtherSports.football',
-  defaultMessage: 'Featuring over 300 officially licensed soccer clubs',
+  defaultMessage: 'Featuring over 300 officially licensed football clubs',
 });
 
 export const footballCards = [

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faCamera } from '@fortawesome/pro-solid-svg-icons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import styled, { StyledComponent } from 'styled-components';
@@ -59,6 +59,7 @@ export const BigInfo = ({ user, setPickingSkin, Camera, children }: Props) => {
             user={user}
             variant="large"
             placeholderUrl={ecusson}
+            largePictureUrl={user.profile.fullPictureUrl}
           />
           <PersonalInfos>
             <Title2 color="var(--c-static-neutral-100)">
@@ -96,6 +97,7 @@ BigInfo.fragments = {
       slug
       profile {
         id
+        fullPictureUrl: pictureUrl
       }
       ...ClubName_user
       ...UserName_publicUserInfoInterface
@@ -106,7 +108,7 @@ BigInfo.fragments = {
     ${ClubName.fragments.user}
     ${Banner.fragments.user}
     ${ActiveUserAvatar.fragments.user}
-  `,
+  ` as TypedDocumentNode<BigInfo_user>,
 };
 
 export default BigInfo;

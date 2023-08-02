@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage, defineMessages } from 'react-intl';
 
 import Switch from '@core/atoms/inputs/Switch';
@@ -8,7 +8,10 @@ import useQuery from '@core/hooks/graphql/useQuery';
 import useLifecycle, { LIFECYCLE, Lifecycle } from '@core/hooks/useLifecycle';
 
 import SettingsSection from '../SettingsSection';
-import { PrivacyQuery } from './__generated__/index.graphql';
+import {
+  PrivacyQuery,
+  PrivacyQueryVariables,
+} from './__generated__/index.graphql';
 
 const messages = defineMessages({
   title: {
@@ -31,10 +34,10 @@ const PRIVACY_QUERY = gql`
   query PrivacyQuery {
     currentUser {
       slug
-      # hoursToAnswerTrades //TODO******
+      hoursToAnswerTrades
     }
   }
-`;
+` as TypedDocumentNode<PrivacyQuery, PrivacyQueryVariables>;
 
 const Privacy = () => {
   const { currentUser } = useCurrentUserContext();
@@ -43,7 +46,7 @@ const Privacy = () => {
   const { update } = useLifecycle();
 
   // we query the `hoursToAnswerTrades` lazily as it's a bit expensive
-  const { data } = useQuery<PrivacyQuery>(PRIVACY_QUERY);
+  const { data } = useQuery(PRIVACY_QUERY);
 
   return (
     <SettingsSection
@@ -56,15 +59,14 @@ const Privacy = () => {
         />
       }
     >
-      <>hoursToAnswerTrades5555</>
-      {/* {data?.currentUser?.hoursToAnswerTrades && (
+      {data?.currentUser?.hoursToAnswerTrades && (
         <span>
           <FormattedMessage
             {...messages.answersIn}
             values={{ hours: data.currentUser.hoursToAnswerTrades, bold: Bold }}
           />
         </span>
-      )} */}
+      )}
     </SettingsSection>
   );
 };

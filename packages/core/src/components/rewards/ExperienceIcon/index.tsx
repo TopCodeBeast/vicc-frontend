@@ -34,6 +34,7 @@ const ExperienceIcon = ({ type, pictureUrl, sm }: Props) => {
 
   return (
     <Img
+      title={type as string}
       className={classNames({ sm })}
       src={pictureUrl || imgUrl}
       alt=""

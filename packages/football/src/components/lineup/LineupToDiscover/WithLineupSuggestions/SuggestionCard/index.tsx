@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -86,7 +86,7 @@ SuggestionCard.fragments = {
       assetId
       pictureUrl
     }
-  `,
+  ` as TypedDocumentNode<SuggestionCard_card>,
 };
 
 export default SuggestionCard;

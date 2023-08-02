@@ -1,15 +1,12 @@
 import { HTMLAttributes } from 'react';
 
-import { Rarity, Sport } from '@core/__generated__/globalTypes';
-// import { CardRarity } from '@core/__generated__/usSportsGlobalTypes';
+import { CardRarity, Rarity, Sport } from '__generated__/globalTypes';
 import { FRONTEND_ASSET_HOST } from '@core/constants/assets';
 
 import { CardBack as BaseballCardBack } from './Baseball';
 import { CardBack as FootballCardBack } from './Football';
 import { CardBack as GenericCardBack } from './Generic';
 import { CardBack as NbaCardBack } from './Nba';
-
-type CardRarity = any;
 
 type USSportProps = {
   sport: Sport.BASEBALL | Sport.NBA;

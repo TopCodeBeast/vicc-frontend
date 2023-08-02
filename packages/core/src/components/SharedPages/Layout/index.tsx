@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import { SmallContainer } from '@core/atoms/container';
 import TabContainer from '@core/atoms/layout/TabContainer';
 import { Title2 } from '@core/atoms/typography';
+import { AppLayout } from '@core/components/navigation/AppLayout';
+import useIsReorgApp from '@core/hooks/ui/useIsReorgApp';
 import MultiSportAppBar from '@core/routing/MultiSportAppBar';
 import MultiSportBottomNavBar from '@core/routing/MultiSportBottomNavBar';
 import MultiSportFooter from '@core/routing/MultiSportFooter';
@@ -44,36 +46,44 @@ export const Layout = ({ title, defaultTab, tabs }: Props) => {
   const [activeTab, setActiveTab] = useState<string | undefined>(
     defaultTab || tabs[0].value
   );
+  const isReorgApp = useIsReorgApp();
+
+  const content = (
+    <StyledContainer>
+      <InnerContainer>
+        <Title2>{title}</Title2>
+        <div>
+          <Tabs
+            value={activeTab}
+            onChange={(_event, val) => {
+              setActiveTab(val);
+            }}
+          >
+            {tabs.map(tab => (
+              <Tab
+                key={tab.value}
+                label={tab.label}
+                value={tab.value}
+                component={Link}
+                to={tab.href}
+              />
+            ))}
+          </Tabs>
+          <TabContainer>
+            {tabs.find(tab => tab.value === activeTab)?.content}
+          </TabContainer>
+        </div>
+      </InnerContainer>
+    </StyledContainer>
+  );
+  if (isReorgApp) {
+    return <AppLayout>{content}</AppLayout>;
+  }
 
   return (
     <Root>
       <MultiSportAppBar />
-      <StyledContainer>
-        <InnerContainer>
-          <Title2>{title}</Title2>
-          <div>
-            <Tabs
-              value={activeTab}
-              onChange={(_event, val) => {
-                setActiveTab(val);
-              }}
-            >
-              {tabs.map(tab => (
-                <Tab
-                  key={tab.value}
-                  label={tab.label}
-                  value={tab.value}
-                  component={Link}
-                  to={tab.href}
-                />
-              ))}
-            </Tabs>
-            <TabContainer>
-              {tabs.find(tab => tab.value === activeTab)?.content}
-            </TabContainer>
-          </div>
-        </InnerContainer>
-      </StyledContainer>
+      {content}
       <MultiSportFooter />
       <MultiSportBottomNavBar />
     </Root>

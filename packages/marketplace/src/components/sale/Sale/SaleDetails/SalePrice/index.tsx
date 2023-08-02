@@ -1,10 +1,11 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
-import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
+import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
-import ItemPrice from '@marketplace/components/ItemPreview/ItemPrice';
 import { TokenDetailsRow } from '@marketplace/components/ItemPreview/ui';
 import FeesDetailsTooltip from '@marketplace/components/offer/FeesDetailsTooltip';
 
@@ -20,32 +21,31 @@ type Props = {
 };
 
 export const SalePrice = ({ sale, showFees }: Props) => {
+  const { toMonetaryAmount } = useMonetaryAmount();
   const belongsToUser = useTokenOfferBelongsToUser();
   const saleBelongsToUser = belongsToUser(sale);
 
   const {
     owners,
-    priceWei: offerPriceWei,
-    priceFiat: offerPriceFiat,
-    marketFeeAmountWei,
-    marketFeeAmountFiat,
+    marketFeeAmounts,
+    receiverSide: { amounts: offerAmounts },
   } = sale;
 
-  const priceWei = owners?.[0]?.priceWei || offerPriceWei;
-  const priceFiat = owners?.[0]?.priceFiat || offerPriceFiat;
+  const price = owners?.[0]?.price || offerAmounts;
 
-  const hasFees = marketFeeAmountWei && Number(marketFeeAmountWei) > 0;
+  const marketFeeMonetaryAmount =
+    marketFeeAmounts && toMonetaryAmount(marketFeeAmounts);
+  const hasFees = marketFeeMonetaryAmount && marketFeeMonetaryAmount.eur > 0;
 
   return (
     <StyledTokenDetailsRow>
-      <ItemPrice amount={priceWei} referenceCurrency={SupportedCurrency.WEI} />
+      <AmountWithConversion monetaryAmount={price} />
       {showFees && saleBelongsToUser && hasFees && (
         <FeesDetailsTooltip
           completed
-          priceWei={priceWei}
-          priceFiat={priceFiat}
-          marketFeeAmountWei={marketFeeAmountWei}
-          marketFeeAmountFiat={marketFeeAmountFiat}
+          monetaryAmount={toMonetaryAmount(price)}
+          marketFeeMonetaryAmount={marketFeeMonetaryAmount}
+          referenceCurrency={price.referenceCurrency}
         />
       )}
     </StyledTokenDetailsRow>
@@ -56,26 +56,14 @@ SalePrice.fragments = {
   offer: gql`
     fragment SalePrice_offer on TokenOffer {
       id
-      priceWei: price
-      priceFiat: priceInFiat {
-        eur
-        usd
-        gbp
-      }
       owners {
         id
-        priceWei: price
-        priceFiat: priceInFiat {
-          eur
-          usd
-          gbp
+        price {
+          ...MonetaryAmountFragment_monetaryAmount
         }
       }
-      marketFeeAmountWei: marketFeeAmount
-      marketFeeAmountFiat: marketFeeAmountInFiat {
-        eur
-        usd
-        gbp
+      marketFeeAmounts {
+        ...MonetaryAmountFragment_monetaryAmount
       }
       acceptedAt
       sender {
@@ -83,8 +71,15 @@ SalePrice.fragments = {
           slug
         }
       }
+      receiverSide {
+        id
+        amounts {
+          ...MonetaryAmountFragment_monetaryAmount
+        }
+      }
       ...useTokenOfferBelongsToUser_offer
     }
+    ${monetaryAmountFragment}
     ${useTokenOfferBelongsToUser.fragments.offer}
-  `,
+  ` as TypedDocumentNode<SalePrice_offer>,
 };

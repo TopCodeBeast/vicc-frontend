@@ -151,7 +151,7 @@ export type Props = {
     CardPlaceholder: CardPlaceholderProps;
   }) => ReactNode;
   confirm: (props: {
-    CtaWrapper: React.FC;
+    CtaWrapper: React.FC<React.PropsWithChildren<unknown>>;
     ConfirmButton: ConfirmButtonProps;
   }) => ReactNode;
   showTerms?: boolean;

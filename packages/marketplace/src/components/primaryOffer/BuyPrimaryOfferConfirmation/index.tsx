@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -11,6 +11,7 @@ import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import CardsPreviewContainer from '@sorare/core/src/components/bundled/CardsPreviewContainer';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import BuyConfirmation from '@marketplace/components/buyActions/BuyConfirmation';
 import { PaymentBoxAmountWithConversion } from '@marketplace/components/buyActions/PaymentBox/AmountWithConversion';
@@ -40,16 +41,12 @@ export const BuyPrimaryOfferConfirmation = ({
     fiatCurrency: { code },
   } = useCurrentUserContext();
   const { toMonetaryAmount } = useMonetaryAmount();
-  const { priceWei, priceFiat, nfts } = primaryOffer;
+  const { price, nfts } = primaryOffer;
   const isFiat = payment?.paymentCurrency === Currency.FIAT;
   const referenceCurrency = isFiat
     ? (code as SupportedCurrency)
     : SupportedCurrency.WEI;
-  const monetaryAmount = toMonetaryAmount({
-    wei: priceWei,
-    ...priceFiat,
-    referenceCurrency,
-  });
+  const monetaryAmount = toMonetaryAmount(price);
 
   const sport = nfts?.[0]?.sport;
 
@@ -60,7 +57,8 @@ export const BuyPrimaryOfferConfirmation = ({
     usingConversionCredit,
   } = useCalculateAmounts({
     creditCardFee: 0,
-    activeFee: isFiat,
+    activeFee:
+      isFiat && payment?.paymentMethod !== WalletPaymentMethod.FIAT_WALLET,
     isFiat,
     sport,
     canUseConversionCredit: true,
@@ -91,11 +89,7 @@ export const BuyPrimaryOfferConfirmation = ({
           tokens={nfts}
           price={
             <PaymentBoxAmountWithConversion
-              monetaryAmount={{
-                wei: priceWei,
-                ...priceFiat,
-                referenceCurrency,
-              }}
+              monetaryAmount={monetaryAmount}
               hideExponent
               primaryCurrency={isFiat ? Currency.FIAT : Currency.ETH}
             />
@@ -135,11 +129,8 @@ BuyPrimaryOfferConfirmation.fragments = {
   primaryOffer: gql`
     fragment BuyPrimaryOfferConfirmation_primaryOffer on TokenPrimaryOffer {
       id
-      priceWei: price
-      priceFiat: priceInFiat {
-        eur
-        usd
-        gbp
+      price {
+        ...MonetaryAmountFragment_monetaryAmount
       }
       nfts {
         assetId
@@ -149,9 +140,10 @@ BuyPrimaryOfferConfirmation.fragments = {
         ...PrimaryOfferTokensSummary_token
       }
     }
+    ${monetaryAmountFragment}
     ${PrimaryOfferTokensPreview.fragments.token}
     ${PrimaryOfferTokensSummary.fragments.token}
-  `,
+  ` as TypedDocumentNode<BuyPrimaryOfferConfirmation_primaryOffer>,
 };
 
 export default BuyPrimaryOfferConfirmation;

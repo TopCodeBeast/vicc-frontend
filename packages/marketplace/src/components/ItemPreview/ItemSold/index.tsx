@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -68,15 +68,15 @@ export const ItemSold = ({
       <ItemForSaleSecondRow>
         <ItemOwnerSince token={token} />
       </ItemForSaleSecondRow>
-      <ItemForSaleSecondRow>
-        {!hideOwner && (
+      {!hideOwner && (
+        <ItemForSaleSecondRow>
           <ItemOwner
             variant={ownerVariant}
             user={token.owner?.user}
             sport={token.sport}
           />
-        )}
-      </ItemForSaleSecondRow>
+        </ItemForSaleSecondRow>
+      )}
       {owner?.user && hideOwner && galleryOwnerSlug !== owner.user.slug && (
         <TransferInProgress>
           <FormattedMessage
@@ -108,7 +108,7 @@ ItemSold.fragments = {
     ${ItemOwnerSince.fragments.token}
     ${ItemOwner.fragments.user}
     ${TokenOwnerTransfer.fragments.tokenOwner}
-  `,
+  ` as TypedDocumentNode<ItemSold_token>,
 };
 
 export default ItemSold;

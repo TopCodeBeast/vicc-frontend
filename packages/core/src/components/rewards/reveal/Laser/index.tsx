@@ -83,10 +83,9 @@ const Highlight = styled.div`
   }
 `;
 
-export const LaserReveal: React.FC<HTMLAttributes<HTMLElement>> = ({
-  children,
-  ...props
-}) => {
+export const LaserReveal: React.FC<
+  React.PropsWithChildren<HTMLAttributes<HTMLElement>>
+> = ({ children, ...props }) => {
   return (
     <Wrapper {...props}>
       <Clip>{children}</Clip>

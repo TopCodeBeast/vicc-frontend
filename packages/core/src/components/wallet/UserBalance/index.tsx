@@ -129,7 +129,7 @@ export const UserBalance = ({
           inline={!!inline}
           monetaryAmount={{
             referenceCurrency: SupportedCurrency.WEI,
-            [SupportedCurrency.WEI.toLowerCase()]: availableBalance,
+            wei: availableBalance,
           }}
           hideBalance={
             disableToggle ? false : currentUser?.userSettings?.hideBalance

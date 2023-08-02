@@ -46,7 +46,7 @@ type Props = {
   className?: string;
 } & HTMLAttributes<HTMLElement>;
 
-export const ScarcityBackground: React.FC<Props> = ({
+export const ScarcityBackground: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   className = '',
   ...elementProps

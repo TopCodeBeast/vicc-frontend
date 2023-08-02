@@ -1,11 +1,10 @@
 import { useCallback } from 'react';
 
 import {
-  // ConversionCreditCampaign,
+  ConversionCreditCampaign,
   MonetaryAmount,
   Sport,
 } from '__generated__/globalTypes';
-type ConversionCreditCampaign = any;
 
 export enum SESSION_STORAGE {
   sport = 'sport',

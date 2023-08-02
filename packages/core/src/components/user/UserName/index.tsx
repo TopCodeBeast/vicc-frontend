@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import verifiedBadge from '@core/assets/user/verified_badge.png';
@@ -44,7 +44,7 @@ UserName.fragments = {
         verified
       }
     }
-  `,
+  ` as TypedDocumentNode<UserName_publicUserInfoInterface>,
 };
 
 export default UserName;

@@ -29,7 +29,7 @@ const ButtonWrapper = styled.div`
   padding: var(--triple-unit);
 `;
 
-const messages: { [key in ShopItemType]: MessageDescriptor } = defineMessages({
+const messages: { [key in ShopItemType]?: MessageDescriptor } = defineMessages({
   [ShopItemType.BANNER]: {
     id: 'ShopItemDialog.Title.Banner',
     defaultMessage: 'My Banners',
@@ -50,10 +50,6 @@ const messages: { [key in ShopItemType]: MessageDescriptor } = defineMessages({
     id: 'ShopItemDialog.Title.Logo',
     defaultMessage: 'My Logos',
   },
-  [ShopItemType.XP_RESTORE]: {
-    id: 'ShopItemDialog.Title.XpRestore',
-    defaultMessage: 'My XP restores',
-  },
   [ShopItemType.LEVEL_UP]: {
     id: 'ShopItemDialog.Title.LevelUp',
     defaultMessage: 'My level ups',
@@ -61,6 +57,10 @@ const messages: { [key in ShopItemType]: MessageDescriptor } = defineMessages({
   [ShopItemType.JERSEY]: {
     id: 'ShopItemDialog.Title.Jersey',
     defaultMessage: 'My Jerseys',
+  },
+  [ShopItemType.DELIVERABLE_WITH_NO_VARIANT]: {
+    id: 'ShopItemDialog.Title.DeliverableWithNoVariant',
+    defaultMessage: 'My Caps',
   },
 });
 
@@ -75,7 +75,7 @@ const ShopItemDialog = ({ open, type, onSelect, onClose }: Props) => {
     flags: { disableClubShopPage = false },
   } = useFeatureFlags();
 
-  if (!type) {
+  if (!type || !messages[type]) {
     return null;
   }
 

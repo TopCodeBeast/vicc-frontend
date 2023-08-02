@@ -52,14 +52,13 @@ const EthereumAccounts = () => {
 
   const onClose = () => setShowAddEthereumAccount(false);
 
-  //TODO*************
-  const addresses = [];// const addresses = currentUser.accounts
-  //   .map(a =>
-  //     a.accountable.__typename === 'EthereumAccount' && !a.sorareManaged
-  //       ? a.accountable.address
-  //       : null
-  //   )
-  //   .filter(Boolean);
+  const addresses = currentUser.accounts
+    .map(a =>
+      a.accountable.__typename === 'EthereumAccount' && !a.sorareManaged
+        ? a.accountable.address
+        : null
+    )
+    .filter(Boolean);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { useMarketFeesHelperStatus_token } from './__generated__/useMarketFeesHelperStatus.graphql';
 
@@ -36,7 +36,7 @@ useMarketFeesHelperStatus.fragments = {
       slug
       secondaryMarketFeeEnabled
     }
-  `,
+  ` as TypedDocumentNode<useMarketFeesHelperStatus_token>,
 };
 
 export default useMarketFeesHelperStatus;

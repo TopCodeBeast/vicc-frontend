@@ -6,12 +6,21 @@ import { Color } from '@core/style/types';
 
 import SimpleRadio from '../SimpleRadio';
 
-const Label = styled.label<{ reverse: boolean; disabled: boolean }>`
+const Label = styled.label<{
+  reverse: boolean;
+  disabled: boolean;
+  hideRadio: boolean;
+}>`
   color: currentColor;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: var(--double-unit);
+  ${({ hideRadio }) =>
+    !hideRadio
+      ? css`
+          gap: var(--double-unit);
+        `
+      : 'justify-content: center;'}
   cursor: pointer;
   ${({ disabled }) =>
     disabled
@@ -60,7 +69,7 @@ export const Radio = (props: Props) => {
     ...rest
   } = props;
   return (
-    <Label reverse={reverse} disabled={disabled}>
+    <Label reverse={reverse} disabled={disabled} hideRadio={hideRadio}>
       {labelContent}
       <HideRadio enable={hideRadio}>
         <SimpleRadio {...rest} disabled={disabled} />

@@ -1,15 +1,18 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
 import { CardImg } from '@sorare/core/src/components/card/CardImg';
 import { FOOTBALL_PLAYER_SHOW_CARDS } from '@sorare/core/src/constants/routes';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 import { glossary } from '@sorare/core/src/lib/glossary';
+import {
+  MonetaryAmountParams,
+  monetaryAmountFragment,
+} from '@sorare/core/src/lib/monetaryAmount';
 import { Link } from '@sorare/core/src/routing/Link';
 
 import {
@@ -56,12 +59,13 @@ const PriceWrapper = styled.div`
   flex-direction: column;
 `;
 
-const Amount = ({ amount }: { amount: string }) => {
+const Amount = ({
+  monetaryAmount,
+}: {
+  monetaryAmount: MonetaryAmountParams;
+}) => {
   const { main, exponent } = useAmountWithConversion({
-    monetaryAmount: {
-      referenceCurrency: SupportedCurrency.WEI,
-      [SupportedCurrency.WEI.toLowerCase()]: amount,
-    },
+    monetaryAmount,
   });
   return (
     <>
@@ -84,7 +88,7 @@ export const EmptySlot = ({ slot, saleToken, readOnly }: Props) => {
     slug: player.slug,
   })}?${transferMarketFilters}`;
 
-  const priceWei = saleToken?.liveSingleSaleOffer?.priceWei;
+  const amounts = saleToken?.liveSingleSaleOffer?.receiverSide.amounts;
 
   return (
     <StyledLink to={cardLink}>
@@ -101,7 +105,7 @@ export const EmptySlot = ({ slot, saleToken, readOnly }: Props) => {
             <Caption color="var(--c-neutral-600)">
               <FormattedMessage {...glossary.startingAt} />
             </Caption>
-            {priceWei ? <Amount amount={priceWei} /> : '– –'}
+            {amounts ? <Amount monetaryAmount={amounts} /> : '– –'}
           </PriceWrapper>
         )}
       </Wrapper>
@@ -123,7 +127,7 @@ EmptySlot.fragments = {
         displayName
       }
     }
-  `,
+  ` as TypedDocumentNode<EmptySlot_cardCollectionSlot>,
   token: gql`
     fragment EmptySlot_token on Token {
       assetId
@@ -131,8 +135,14 @@ EmptySlot.fragments = {
       pictureUrl
       liveSingleSaleOffer {
         id
-        priceWei: price
+        receiverSide {
+          id
+          amounts {
+            ...MonetaryAmountFragment_monetaryAmount
+          }
+        }
       }
     }
-  `,
+    ${monetaryAmountFragment}
+  ` as TypedDocumentNode<EmptySlot_token>,
 };

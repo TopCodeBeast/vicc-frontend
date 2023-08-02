@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import qs from 'qs';
 import { useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -43,17 +43,19 @@ const StyledGame = styled(Game)`
 
 const COMPETITION_DETAILS_MATCHES_TAB_QUERY = gql`
   query CompetitionDetailsMatchesTabQuery($leaderboardSlug: String!) {
-    so5: vicc5Root {
-      so5Leaderboard: vicc5Leaderboard(slug: $leaderboardSlug) {
-        slug
-        title
-        so5League: vicc5League {
+    football {
+      so5 {
+        so5Leaderboard(slug: $leaderboardSlug) {
           slug
-          games {
-            ...CompetitionDetailsMatchesTabQuery_game
-          }
-          mySo5Games: myVicc5Games {
-            ...CompetitionDetailsMatchesTabQuery_game
+          title
+          so5League {
+            slug
+            games {
+              ...CompetitionDetailsMatchesTabQuery_game
+            }
+            mySo5Games {
+              ...CompetitionDetailsMatchesTabQuery_game
+            }
           }
         }
       }
@@ -72,7 +74,6 @@ const COMPETITION_DETAILS_MATCHES_TAB_QUERY = gql`
     }
     homeGoals
     awayGoals
-    status
     competition {
       slug
       displayName
@@ -89,7 +90,10 @@ const COMPETITION_DETAILS_MATCHES_TAB_QUERY = gql`
     }
   }
   ${Game.fragments.game}
-`;
+` as TypedDocumentNode<
+  CompetitionDetailsMatchesTabQuery,
+  CompetitionDetailsMatchesTabQueryVariables
+>;
 
 export const TAB = {
   ALL: 'all',
@@ -140,10 +144,7 @@ const CompetitionDetailsMatchesTab = () => {
   )
     ? `${qsParams.tab}`
     : TAB.ALL;
-  const { data, loading } = useQuery<
-    CompetitionDetailsMatchesTabQuery,
-    CompetitionDetailsMatchesTabQueryVariables
-  >(COMPETITION_DETAILS_MATCHES_TAB_QUERY, {
+  const { data, loading } = useQuery(COMPETITION_DETAILS_MATCHES_TAB_QUERY, {
     variables: { leaderboardSlug: competition || '' },
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',

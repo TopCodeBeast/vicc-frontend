@@ -1,11 +1,18 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
+import { Text16 } from '@sorare/core/src/atoms/typography';
+import { Dialog } from '@sorare/core/src/components/dialog';
 
 import PlayerGameScorePage from '@football/components/stats/PlayerGameScorePage';
 import useTitle from '@football/components/stats/PlayerGameScorePage/useTitle';
+
+import {
+  PlayerStatsDialog_player,
+  PlayerStatsDialog_representativePlayer,
+  PlayerStatsDialog_so5Score,
+} from './__generated__/index.graphql';
 
 type Props = {
   open: boolean;
@@ -38,6 +45,9 @@ const isLoadingContentProps = (
   props: PlayerStatsDialogContentsProps
 ): props is { loading: true } & LoadingContentsProps => props.loading;
 
+const CenteredText16 = styled(Text16)`
+  text-align: center;
+`;
 const Loading = styled.div`
   margin: 20px 0px;
 `;
@@ -70,34 +80,39 @@ export const PlayerStatsDialog = ({
   const title = useTitle(gameWeek);
 
   return (
-    <Dialog open={open} title={title} onClose={onClose} hideScrollBar noMargin>
-      <PlayerStatsDialogContents {...contentProps} />
-    </Dialog>
+    <Dialog
+      maxWidth="sm"
+      fullWidth
+      open={open}
+      title={<CenteredText16 bold>{title}</CenteredText16>}
+      onClose={onClose}
+      body={<PlayerStatsDialogContents {...contentProps} />}
+    />
   );
 };
 
 PlayerStatsDialog.fragments = {
   so5Score: gql`
-    fragment PlayerStatsDialog_so5Score on Vicc5Score {
+    fragment PlayerStatsDialog_so5Score on So5Score {
       id
       ...PlayerGameScorePage_so5Score
     }
     ${PlayerGameScorePage.fragments.so5Score}
-  `,
+  ` as TypedDocumentNode<PlayerStatsDialog_so5Score>,
   player: gql`
     fragment PlayerStatsDialog_player on Player {
       slug
       ...PlayerGameScorePage_player
     }
     ${PlayerGameScorePage.fragments.player}
-  `,
+  ` as TypedDocumentNode<PlayerStatsDialog_player>,
   representativePlayer: gql`
     fragment PlayerStatsDialog_representativePlayer on Player {
       slug
       ...PlayerGameScorePage_representativePlayer
     }
     ${PlayerGameScorePage.fragments.representativePlayer}
-  `,
+  ` as TypedDocumentNode<PlayerStatsDialog_representativePlayer>,
 };
 
 export default PlayerStatsDialog;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -93,7 +93,7 @@ Congrats.fragments = {
         myPurchasesCount
       }
     }
-  `,
+  ` as TypedDocumentNode<Congrats_shopItem>,
 };
 
 export default Congrats;

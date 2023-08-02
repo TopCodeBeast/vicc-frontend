@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import {
   AmountInput,
@@ -6,8 +6,11 @@ import {
   SupportedCurrency,
 } from '@sorare/core/src/__generated__/globalTypes';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
-// import useCreateEthMigration from '@sorare/core/src/hooks/starkware/useCreateEthMigration';
+import useCreateEthMigration from '@sorare/core/src/hooks/starkware/useCreateEthMigration';
+import { useSettlementCurrencies } from '@sorare/core/src/hooks/useSettlementCurrencies';
+import { useFiatBalance } from '@sorare/core/src/hooks/wallets/useFiatBalance';
 import { generateDealId } from '@sorare/core/src/lib/deal';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import { useSingleSaleOfferContext } from '@marketplace/contexts/singleSaleOffer';
 
@@ -30,16 +33,12 @@ const CREATE_SINGLE_SALE_OFFER_MUTATION = gql`
             slug
           }
         }
-        priceWei: price
         createdAt
         startDate
         endDate
         blockchainId
-        marketFeeAmountWei: marketFeeAmount
-        marketFeeAmountFiat: marketFeeAmountInFiat {
-          eur
-          usd
-          gbp
+        marketFeeAmounts {
+          ...MonetaryAmountFragment_monetaryAmount
         }
         senderSide {
           id
@@ -55,6 +54,12 @@ const CREATE_SINGLE_SALE_OFFER_MUTATION = gql`
             }
           }
         }
+        receiverSide {
+          id
+          amounts {
+            ...MonetaryAmountFragment_monetaryAmount
+          }
+        }
       }
       errors {
         path
@@ -63,7 +68,11 @@ const CREATE_SINGLE_SALE_OFFER_MUTATION = gql`
       }
     }
   }
-`;
+  ${monetaryAmountFragment}
+` as TypedDocumentNode<
+  CreateSingleSaleOfferMutation,
+  CreateSingleSaleOfferMutationVariables
+>;
 
 type CreateSingleSaleOfferArgs = {
   amountInput: AmountInput;
@@ -73,14 +82,15 @@ type CreateSingleSaleOfferArgs = {
 };
 
 const useCreateSingleSaleOffer = () => {
-  const [createOffer] = useMutation<
-    CreateSingleSaleOfferMutation,
-    CreateSingleSaleOfferMutationVariables
-  >(CREATE_SINGLE_SALE_OFFER_MUTATION);
+  const [createOffer] = useMutation(CREATE_SINGLE_SALE_OFFER_MUTATION, {
+    showErrorsWithSnackNotification: true,
+  });
+  const { canListAndTrade: canListAndTradeInFiat } = useFiatBalance();
+  const settlementCurrencies = useSettlementCurrencies();
   const { showPopin } = useSingleSaleOfferContext();
   const approveMigrator = useApproveMigrator();
   const migrateCards = useMigrateCards();
-  // const createEthMigration = useCreateEthMigration();
+  const createEthMigration = useCreateEthMigration();
   const prepareOffer = usePrepareOffer();
 
   return async ({
@@ -90,8 +100,14 @@ const useCreateSingleSaleOffer = () => {
     duration,
   }: CreateSingleSaleOfferArgs) => {
     await approveMigrator([token]);
-    // await createEthMigration();
+    await createEthMigration();
     const migrationData = await migrateCards([token]);
+    const receiveAmount = canListAndTradeInFiat
+      ? amountInput
+      : {
+          amount: legacyWeiAmount,
+          currency: SupportedCurrency.WEI,
+        };
 
     const {
       useAuthorizations,
@@ -104,11 +120,8 @@ const useCreateSingleSaleOffer = () => {
       receiveAssetIds: [],
       sendWeiAmount: '0',
       receiveWeiAmount: legacyWeiAmount,
-      receiveAmount: {
-        ...amountInput,
-      },
-      // TODO: PLUG TO USER SETTINGS WHEN AVAILABLE
-      settlementCurrencies: [SupportedCurrency.WEI],
+      receiveAmount,
+      settlementCurrencies,
     });
 
     if (signingErrors?.length) return signingErrors;
@@ -118,18 +131,19 @@ const useCreateSingleSaleOffer = () => {
         input: {
           dealId: generateDealId(),
           assetId: token.assetId,
-          price: legacyWeiAmount,
           migrationData,
-          starkSignatures: legacySignedLimitOrders,
           duration,
-          ...(useAuthorizations && {
-            receiveAmount: {
-              ...amountInput,
-            },
-            settlementCurrencies: [SupportedCurrency.WEI],
-            approvals,
-          }),
-        } as any, //TODO
+          ...(useAuthorizations
+            ? {
+                receiveAmount,
+                settlementCurrencies,
+                approvals,
+              }
+            : {
+                starkSignatures: legacySignedLimitOrders,
+                price: legacyWeiAmount,
+              }),
+        },
       },
     });
 
@@ -154,7 +168,7 @@ useCreateSingleSaleOffer.fragments = {
     }
     ${useApproveMigrator.fragments.token}
     ${useMigrateCards.fragments.token}
-  `,
+  ` as TypedDocumentNode<useCreateSingleSaleOffer_token>,
 };
 
 export default useCreateSingleSaleOffer;

@@ -1,17 +1,18 @@
-import { faExclamation } from '@fortawesome/pro-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-// import { CardCollectionCardScoreBreakdown } from '__generated__/globalTypes';
+import { CardCollectionCardScoreBreakdown } from '__generated__/globalTypes';
 import { Caption, Text14 } from '@core/atoms/typography';
 import { Score } from '@core/components/collections/Score';
+import firstOwner from '@core/components/collections/assets/firstOwner.png';
+import firstSerialNumber from '@core/components/collections/assets/firstSerialNumber.png';
 import holding from '@core/components/collections/assets/holding.png';
-import jersey from '@core/components/collections/assets/jersey.png';
 import owner from '@core/components/collections/assets/owner.png';
-import special from '@core/components/collections/assets/special.png';
-import ticket from '@core/components/collections/assets/ticket.png';
+import shirtMatchingSerialNumber from '@core/components/collections/assets/shirtMatchingSerialNumber.png';
+import specialEdition from '@core/components/collections/assets/specialEdition.png';
+
+import { Image } from './Image';
 
 const Item = styled.div`
   display: grid;
@@ -27,27 +28,6 @@ const Item = styled.div`
     border-bottom: 1px solid var(--c-neutral-400);
   }
 `;
-const ImageWrapper = styled.div`
-  position: relative;
-  grid-area: img;
-`;
-const ExclamationWrapper = styled.div`
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: var(--triple-unit);
-  height: var(--triple-unit);
-  background-color: var(--c-yellow-600);
-  border-radius: 100%;
-  border: 3px solid var(--c-neutral-200);
-`;
-const Img = styled.img`
-  width: 40px;
-  aspect-ratio: 1;
-`;
 const StyledText14 = styled(Text14)`
   grid-area: label;
 `;
@@ -59,7 +39,6 @@ const ScoreWrapper = styled.div`
   margin-left: auto;
 `;
 
-type CardCollectionCardScoreBreakdown = any;
 export type DetailedScoreKey = keyof Omit<
   CardCollectionCardScoreBreakdown,
   '__typename' | 'total'
@@ -101,7 +80,7 @@ export const detailedScores: Record<
     value: 10,
   },
   firstOwner: {
-    img: owner,
+    img: firstOwner,
     label: (
       <FormattedMessage
         id="collections.DetailsDialog.stages.firstOwner"
@@ -117,7 +96,7 @@ export const detailedScores: Record<
     value: 20,
   },
   specialEdition: {
-    img: special,
+    img: specialEdition,
     label: (
       <FormattedMessage
         id="collections.DetailsDialog.stages.specialEdition"
@@ -133,7 +112,7 @@ export const detailedScores: Record<
     value: 20,
   },
   firstSerialNumber: {
-    img: ticket,
+    img: firstSerialNumber,
     label: (
       <FormattedMessage
         id="collections.DetailsDialog.stages.firstSerialNumber"
@@ -149,7 +128,7 @@ export const detailedScores: Record<
     value: 30,
   },
   shirtMatchingSerialNumber: {
-    img: jersey,
+    img: shirtMatchingSerialNumber,
     label: (
       <FormattedMessage
         id="collections.DetailsDialog.stages.shirtMatchingSerialNumber"
@@ -182,22 +161,11 @@ const DetailedScoreLine = ({
 }: Props) => {
   return (
     <Item>
-      <ImageWrapper>
-        {listed && (
-          <ExclamationWrapper>
-            <FontAwesomeIcon
-              color="var(--c-static-neutral-1000)"
-              icon={faExclamation}
-              size="sm"
-            />
-          </ExclamationWrapper>
-        )}
-        <Img src={img} alt="" />
-      </ImageWrapper>
+      <Image img={img} listed={listed} />
       <StyledText14 bold>
         <span>{label}</span>
       </StyledText14>
-      <StyledCaption bold color="var(--c-neutral-700)">
+      <StyledCaption color="var(--c-neutral-700)" as="div">
         {explanation}
       </StyledCaption>
       <ScoreWrapper>

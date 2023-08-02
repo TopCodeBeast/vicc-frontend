@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faTimes } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -13,7 +13,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components';
 
-import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
 import { Popup } from '@sorare/core/src/atoms/layout/Popup';
@@ -21,6 +20,7 @@ import { Caption } from '@sorare/core/src/atoms/typography';
 import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 import { OverrideClasses } from '@sorare/core/src/style/utils';
 
 import TokenNameCancelSalePopin from '@marketplace/components/token/TokenNameCancelSalePopin';
@@ -29,6 +29,7 @@ import useCancelOffer from '@marketplace/hooks/offers/useCancelOffer';
 import {
   CancelSalePopinQuery,
   CancelSalePopinQueryVariables,
+  CancelSalePopin_token,
 } from './__generated__/index.graphql';
 
 export interface Props {
@@ -70,18 +71,24 @@ const tokenFragment = gql`
     slug
     myMintedSingleSaleOffer {
       id
-      priceWei: price
       createdAt
       startDate
       blockchainId
+      receiverSide {
+        id
+        amounts {
+          ...MonetaryAmountFragment_monetaryAmount
+        }
+      }
     }
     liveSingleSaleOffer {
       id
     }
     ...TokenNameCancelSalePopin_token
   }
+  ${monetaryAmountFragment}
   ${TokenNameCancelSalePopin.fragments.token}
-`;
+` as TypedDocumentNode<CancelSalePopin_token>;
 
 const CANCEL_SALE_POPIN_QUERY = gql`
   query CancelSalePopinQuery($assetId: String!) {
@@ -94,7 +101,7 @@ const CANCEL_SALE_POPIN_QUERY = gql`
     }
   }
   ${tokenFragment}
-`;
+` as TypedDocumentNode<CancelSalePopinQuery, CancelSalePopinQueryVariables>;
 
 const Popin = styled.div`
   padding: var(--unit);
@@ -172,10 +179,7 @@ export const CancelSalePopin = ({ assetId, onClose }: Props) => {
     if (onClose) onClose();
   }, [onClose]);
 
-  const { data } = useQuery<
-    CancelSalePopinQuery,
-    CancelSalePopinQueryVariables
-  >(CANCEL_SALE_POPIN_QUERY, {
+  const { data } = useQuery(CANCEL_SALE_POPIN_QUERY, {
     variables: {
       assetId,
     },
@@ -227,7 +231,11 @@ export const CancelSalePopin = ({ assetId, onClose }: Props) => {
   if (!myMintedSingleSaleOffer || closed || liveSingleSaleOffer) {
     return null;
   }
-  const { priceWei, startDate, blockchainId } = myMintedSingleSaleOffer;
+  const {
+    receiverSide: { amounts },
+    startDate,
+    blockchainId,
+  } = myMintedSingleSaleOffer;
 
   if (isPast(parseISO(startDate))) {
     return null;
@@ -260,13 +268,7 @@ export const CancelSalePopin = ({ assetId, onClose }: Props) => {
             <TokenNameCancelSalePopin token={token} />
           </LeftContent>
           <RightContent>
-            <AmountWithConversion
-              monetaryAmount={{
-                referenceCurrency: SupportedCurrency.WEI,
-                [SupportedCurrency.WEI.toLowerCase()]: priceWei,
-              }}
-              column
-            />
+            <AmountWithConversion monetaryAmount={amounts} column />
           </RightContent>
         </Content>
         <div>

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ReactNode } from 'react';
 
 import { getHumanReadableSerialNumber } from '@core/lib/cards';
@@ -22,11 +22,11 @@ const TokenMetas = ({ token, separator }: Props) => {
         { singleCivilYear: metadata.singleCivilYear }
       )}
       {separator}
-      {/* {getHumanReadableSerialNumber({
+      {getHumanReadableSerialNumber({
         rarity: metadata.rarity,
         serialNumber: metadata.serialNumber,
         sport,
-      })} */}
+      })}
     </span>
   );
 };
@@ -38,10 +38,8 @@ TokenMetas.fragments = {
       assetId
       sport
       metadata {
-        ... on TokenCricketMetadata {
-          id
-        }
         ... on TokenCardMetadataInterface {
+          id
           playerDisplayName
           playerSlug
           rarity
@@ -51,7 +49,7 @@ TokenMetas.fragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<TokenDescription_tokenMetas>,
 };
 
 export default TokenMetas;

@@ -1,11 +1,11 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import { SettlementDelayReason } from '@sorare/core/src/__generated__/globalTypes';
 import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
-import { isA } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
 
 import MakeOffer from '@marketplace/components/directOffer/MakeOffer';
 import Sell from '@marketplace/components/offer/Sell';
@@ -19,12 +19,6 @@ import OwnerAccount from '../OwnerAccount';
 import UnavailableAfterConversionCreditBuyHelpers from '../UnavailableAfterConversionCreditBuyHelpers';
 import CurrentOwnerSection from './CurrentOwnerSection';
 import { CurrentOwner_token } from './__generated__/index.graphql';
-
-type CurrentOwner_token_owner_account_owner_Contract = NonNullable<
-  NonNullable<CurrentOwner_token['owner']>['account']
->['owner'] & {
-  __typename: 'Contract';
-};
 
 type Props = {
   token: CurrentOwner_token;
@@ -45,11 +39,7 @@ export const CurrentOwner = ({ token }: Props) => {
   } = token;
 
   const notOwnedOrOwnByAContract =
-    !owner ||
-    isA<CurrentOwner_token_owner_account_owner_Contract>(
-      'Contract',
-      owner.account?.owner
-    );
+    !owner || isType(owner.account?.owner, 'Contract');
 
   const onSale =
     myMintedSingleSaleOffer && belongsToUser(myMintedSingleSaleOffer);
@@ -153,7 +143,7 @@ CurrentOwner.fragments = {
     ${OwnerAccount.fragments.account}
     ${MakeOffer.fragments.token}
     ${UnavailableAfterConversionCreditBuyHelpers.fragments.token}
-  `,
+  ` as TypedDocumentNode<CurrentOwner_token>,
 };
 
 export default CurrentOwner;

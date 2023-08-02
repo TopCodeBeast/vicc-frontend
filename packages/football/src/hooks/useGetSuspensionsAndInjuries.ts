@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import {
   useGetSuspensionsAndInjuries_player,
@@ -41,7 +41,7 @@ const useGetSuspensionsAndInjuries = (
 
 useGetSuspensionsAndInjuries.fragments = {
   so5Score: gql`
-    fragment useGetSuspensionsAndInjuries_so5Score on Vicc5Score {
+    fragment useGetSuspensionsAndInjuries_so5Score on So5Score {
       id
       game {
         id
@@ -51,7 +51,7 @@ useGetSuspensionsAndInjuries.fragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<useGetSuspensionsAndInjuries_so5Score>,
   player: gql`
     fragment useGetSuspensionsAndInjuries_player on Player {
       slug
@@ -70,7 +70,7 @@ useGetSuspensionsAndInjuries.fragments = {
         endDate
       }
     }
-  `,
+  ` as TypedDocumentNode<useGetSuspensionsAndInjuries_player>,
 };
 
 export default useGetSuspensionsAndInjuries;

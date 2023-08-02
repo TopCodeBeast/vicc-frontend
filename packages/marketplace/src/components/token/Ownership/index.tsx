@@ -1,28 +1,24 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { parseISO } from 'date-fns';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import {
-  OwnerTransfer,
-  TokenAuction,
-  TokenOffer,
-} from '@sorare/core/src/__generated__/globalTypes';
+import { OwnerTransfer } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { glossary } from '@sorare/core/src/lib/glossary';
-import { isA } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
 import { transferTypes } from '@sorare/core/src/lib/owners';
 
 import { useOwnerAccount } from '@marketplace/hooks/tokens/useOwnerAccount';
 
 import { TokenOwnerPrice } from '../TokenOwnerPrice';
-// import { AuctionOwnershipDetails } from './AuctionOwnershipDetails';
-// import { DirectOfferOwnershipDetails } from './DirectOfferOwnershipDetails';
+import { AuctionOwnershipDetails } from './AuctionOwnershipDetails';
+import { DirectOfferOwnershipDetails } from './DirectOfferOwnershipDetails';
 import { Ownership_tokenOwner } from './__generated__/index.graphql';
 
 type Props = {
@@ -58,17 +54,15 @@ export const Ownership = ({ owner }: Props) => {
   const { up: laptop } = useScreenSize('laptop');
 
   const date = parseISO(owner.from);
-  const auction = isA<TokenAuction>('TokenAuction', owner.deal)
-    ? owner.deal
-    : undefined;
+  const auction = isType(owner.deal, 'TokenAuction') ? owner.deal : undefined;
   const directOffer =
-    isA<TokenOffer>('TokenOffer', owner.deal) &&
+    isType(owner.deal, 'TokenOffer') &&
     owner.transferType === OwnerTransfer.DIRECT_OFFER
       ? owner.deal
       : undefined;
 
   const showViewMore = (auction && auction.bidsCount > 1) || directOffer;
-  const ownerAccount = useOwnerAccount(owner as any); //TODO*****************
+  const ownerAccount = useOwnerAccount(owner);
 
   return (
     <Root>
@@ -112,12 +106,12 @@ export const Ownership = ({ owner }: Props) => {
           </div>
         </Row>
       </div>
-      {/* {showDetails && (
+      {showDetails && (
         <DetailsContent>
           {auction && <AuctionOwnershipDetails auction={auction} />}
           {directOffer && <DirectOfferOwnershipDetails offer={directOffer} />}
         </DetailsContent>
-      )} */}
+      )}
     </Root>
   );
 };
@@ -145,7 +139,7 @@ Ownership.fragments = {
     }
     ${useOwnerAccount.fragments.account}
     ${TokenOwnerPrice.fragments.tokenOwner}
-  `,
+  ` as TypedDocumentNode<Ownership_tokenOwner>,
 };
 
 export default Ownership;

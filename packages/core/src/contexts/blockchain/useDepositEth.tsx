@@ -4,7 +4,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import { AccountData } from '@core/contexts/blockchain';
 import usePrepareEthDeposit from '@core/contexts/blockchain/usePrepareEthDeposit';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
-// import { EventStep } from '@core/contexts/events/types';
+import { EventStep } from '@core/contexts/events/types';
 import { useSentryContext } from '@core/contexts/sentry';
 import { useWeb3Context } from '@core/contexts/web3';
 import useDepositEthEvent from '@core/hooks/events/useDeposithEthEvent';
@@ -48,26 +48,25 @@ export const useDepositEth = (accountData: AccountData | null) => {
       const ethDeposit = await prepareEthDeposit(toWei(amountInEth));
       if (!ethDeposit) return null;
 
-      // const { assetType, vaultId, weiAmount } = ethDeposit;
+      const { assetType, vaultId, weiAmount } = ethDeposit;
 
-      // const result =
-      //   await ethereumInstance.starkExchangeManager?.depositEthAsync(
-      //     ethAccount!,
-      //     starkKey,
-      //     assetType,
-      //     vaultId,
-      //     Number(weiAmount)
-      //   );
+      const result =
+        await ethereumInstance.starkExchangeManager?.depositEthAsync(
+          ethAccount!,
+          starkKey,
+          assetType,
+          vaultId,
+          Number(weiAmount)
+        );
 
-      // trackDepositEthEvent(EventStep.FULFILLED, {
-      //   ethAmount: amountInEth,
-      //   wallet: browserWallet,
-      // });
+      trackDepositEthEvent(EventStep.FULFILLED, {
+        ethAmount: amountInEth,
+        wallet: browserWallet,
+      });
 
-      // await createPendingDeposit(result, weiAmount);
+      await createPendingDeposit(result, weiAmount);
 
-      // return result;
-      return {} as any;
+      return result;
     },
     [
       accountData,
@@ -82,45 +81,44 @@ export const useDepositEth = (accountData: AccountData | null) => {
 
   return useCallback(
     async (amountInEth: number) => {
-      // if (!accountData) return null;
-      // if (loading)
-      //   return {
-      //     err: {
-      //       message: formatMessage(messages.pendingDepositError),
-      //     },
-      //   };
-      // try {
-      //   trackDepositEthEvent(EventStep.STARTED, {
-      //     ethAmount: amountInEth,
-      //     wallet: browserWallet,
-      //   });
+      if (!accountData) return null;
+      if (loading)
+        return {
+          err: {
+            message: formatMessage(messages.pendingDepositError),
+          },
+        };
+      try {
+        trackDepositEthEvent(EventStep.STARTED, {
+          ethAmount: amountInEth,
+          wallet: browserWallet,
+        });
 
-      //   if (!currentUser) throw new Error('No current user');
+        if (!currentUser) throw new Error('No current user');
 
-      //   setLoading(true);
-      //   const result = await deposit(amountInEth);
-      //   setLoading(false);
+        setLoading(true);
+        const result = await deposit(amountInEth);
+        setLoading(false);
 
-      //   return { result };
-      // } catch (err: any) {
-      //   setLoading(false);
+        return { result };
+      } catch (err) {
+        setLoading(false);
 
-      //   if (browserWallet === Wallet.TRUST) {
-      //     // Hide Trust errors as it does not support eth_subscribe until we find a solution
-      //     sendSafeError(err);
+        if (browserWallet === Wallet.TRUST) {
+          // Hide Trust errors as it does not support eth_subscribe until we find a solution
+          sendSafeError(err);
 
-      //     return { err: undefined };
-      //   }
-      //   if (err.code === userRejectedRequestErrorCode) {
-      //     return {
-      //       err: {
-      //         message: formatMessage(messages.userRejectedRequestError),
-      //       },
-      //     };
-      //   }
-      //   return { err };
-      // }
-      return {} as any;
+          return { err: undefined };
+        }
+        if (err.code === userRejectedRequestErrorCode) {
+          return {
+            err: {
+              message: formatMessage(messages.userRejectedRequestError),
+            },
+          };
+        }
+        return { err };
+      }
     },
     [
       accountData,

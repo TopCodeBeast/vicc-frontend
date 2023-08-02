@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { BenchPlayerGameScore } from '@football/components/so5/ComposeTeam/responsive/BenchCardRow/BenchPlayerGameScore';
@@ -37,11 +37,11 @@ PlayerGameScores.fragments = {
   player: gql`
     fragment PlayerGameScores_player on Player {
       slug
-      so5Scores: vicc5Scores(last: 5) {
+      so5Scores(last: 5) {
         id
         ...BenchPlayerGameScore_so5Score
       }
     }
     ${BenchPlayerGameScore.fragments.so5Score}
-  `,
+  ` as TypedDocumentNode<PlayerGameScores_player>,
 };

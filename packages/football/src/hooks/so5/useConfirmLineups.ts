@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 
 import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import { formatGqlErrors } from '@sorare/core/src/gql';
@@ -9,13 +9,13 @@ import {
 } from './__generated__/useConfirmLineups.graphql';
 
 const CONFIRM_SO5_LINEUPS_MUTATION = gql`
-  mutation ConfirmSo5LineupsMutation($input: confirmVicc5LineupsInput!) {
-    confirmVicc5Lineups(input: $input) {
-      # currentUser {
-      #   slug
-      #   blockchainCardsInLineups
-      # }
-      so5Lineups: vicc5Lineups {
+  mutation ConfirmSo5LineupsMutation($input: confirmSo5LineupsInput!) {
+    confirmSo5Lineups(input: $input) {
+      currentUser {
+        slug
+        blockchainCardsInLineups
+      }
+      so5Lineups {
         id
         name
         draft
@@ -27,25 +27,25 @@ const CONFIRM_SO5_LINEUPS_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  ConfirmSo5LineupsMutation,
+  ConfirmSo5LineupsMutationVariables
+>;
 
 export default () => {
-  const [confirmLineups] = useMutation<
-    ConfirmSo5LineupsMutation,
-    ConfirmSo5LineupsMutationVariables
-  >(CONFIRM_SO5_LINEUPS_MUTATION);
+  const [confirmLineups] = useMutation(CONFIRM_SO5_LINEUPS_MUTATION);
   const { showNotification } = useSnackNotificationContext();
 
-  return async (vicc5LineupIds: string[]) => {
+  return async (so5LineupIds: string[]) => {
     const result = await confirmLineups({
       variables: {
         input: {
-          vicc5LineupIds,
+          so5LineupIds,
         },
       },
     });
 
-    const errors = result.data?.confirmVicc5Lineups?.errors || [];
+    const errors = result.data?.confirmSo5Lineups?.errors || [];
 
     if (errors.length) {
       showNotification('errors', { errors: formatGqlErrors(errors) });

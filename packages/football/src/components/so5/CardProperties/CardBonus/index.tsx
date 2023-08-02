@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faDown, faUp } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Big from 'bignumber.js';
@@ -13,7 +13,10 @@ import { format } from '@sorare/core/src/lib/seasons';
 
 import Item from '@football/components/so5/CardProperties/Item';
 
-import { CardBonus_card } from './__generated__/index.graphql';
+import {
+  CardBonus_WithEngine_card,
+  CardBonus_card,
+} from './__generated__/index.graphql';
 import { useCardBonus } from './useCardBonus';
 import useRenderValue from './useRenderValue';
 
@@ -217,26 +220,26 @@ CardBonus.fragments = {
         collection
       }
     }
-  `,
+  ` as TypedDocumentNode<CardBonus_card>,
   cardWithEngine: gql`
     fragment CardBonus_WithEngine_card on Card {
       slug
       assetId
       rarity
-      power(vicc5LeaderboardSlug: $vicc5LeaderboardSlug)
+      power(so5LeaderboardSlug: $so5LeaderboardSlug)
       powerMalusAfterTransfer
       grade
       season {
         startYear
       }
-      powerBreakdown(vicc5LeaderboardSlug: $vicc5LeaderboardSlug) {
+      powerBreakdown(so5LeaderboardSlug: $so5LeaderboardSlug) {
         season
         xp
         scarcity
         collection
       }
     }
-  `,
+  ` as TypedDocumentNode<CardBonus_WithEngine_card>,
 };
 
 export default CardBonus;

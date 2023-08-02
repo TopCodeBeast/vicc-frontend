@@ -6,11 +6,11 @@ import {
 } from '@sorare/core/src/style/mediaQuery';
 
 export const Root = styled.div`
-  color: var(--c-neutral-1000);
+  color: var(--c-static-neutral-100);
   background: linear-gradient(
       180deg,
-      rgba(var(--c-rgb-neutral-100), 0.8) 0%,
-      var(--c-neutral-100) 100%
+      rgba(var(--c-static-rgb-neutral-1000), 0.8) 0%,
+      var(--c-static-neutral-1000) 100%
     ),
     var(--c-gradient-rare);
 `;

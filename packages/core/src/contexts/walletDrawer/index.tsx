@@ -17,29 +17,20 @@ export enum WalletTab {
   PRIVATE_KEY_EXPORT = 'privateKeyExport',
   DEPOSIT = 'deposit',
   ADD_FUNDS = 'addFunds',
-  ADD_FUNDS_FIAT = 'addFundsFiat',
-  ADD_FUNDS_ETH = 'addFundsEth',
-  WITHDRAW = 'withdraw',
+  ADD_FUNDS_TO_FIAT_WALLET = 'addFundsToFiatWallet',
+  ADD_FUNDS_TO_FIAT_WALLET_SUCCEEDED = 'addFundsToFiatWalletSucceeded',
+  ADD_FUNDS_TO_FIAT_WALLET_REVIEW = 'addFundsToFiatWalletReview',
+  ADD_FUNDS_TO_ETH_WALLET = 'addFundsToEthWallet',
+  ADD_FUNDS_TO_ETH_WALLET_FIAT = 'addFundsFiat',
+  ADD_FUNDS_TO_ETH_WALLET_ETH = 'addFundsEth',
+  WITHDRAW_WALLET_CONNECT = 'withdrawWalletConnect',
   WITHDRAW_TO = 'withdrawTo',
+  WITHDRAW_TO_ETH_WALLET = 'withdrawToEthWallet',
+  WITHDRAW_TO_FIAT_WALLET = 'withdrawToFiatWallet',
+  WITHDRAW_TO_FIAT_WALLET_REVIEW = 'withdrawToFiatWalletReview',
+  WITHDRAW_TO_FIAT_WALLET_SUCCESS = 'withdrawToFiatWalletSuccess',
+  WITHDRAW_TO_FIAT_WALLET_ADD_BANK_ACCOUNT = 'withdrawToFiatWalletAddBankAccount',
 }
-
-export const backButtonDestinations = {
-  [WalletTab.RECOVER_KEY]: null,
-  [WalletTab.RESTORE_WALLET]: WalletTab.HOME,
-  [WalletTab.GENERATE_KEY]: null,
-  [WalletTab.GENERATE_KEYS]: null,
-  [WalletTab.CHANGE_PASSWORD]: null,
-  [WalletTab.GET_PASSWORD]: null,
-  [WalletTab.HOME]: null,
-  [WalletTab.SETTINGS]: WalletTab.HOME,
-  [WalletTab.PRIVATE_KEY_EXPORT]: WalletTab.SETTINGS,
-  [WalletTab.DEPOSIT]: WalletTab.SETTINGS,
-  [WalletTab.ADD_FUNDS]: WalletTab.HOME,
-  [WalletTab.ADD_FUNDS_FIAT]: WalletTab.ADD_FUNDS,
-  [WalletTab.ADD_FUNDS_ETH]: WalletTab.ADD_FUNDS,
-  [WalletTab.WITHDRAW]: WalletTab.HOME,
-  [WalletTab.WITHDRAW_TO]: WalletTab.HOME,
-};
 
 type VoidFn = () => void;
 

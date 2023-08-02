@@ -14,10 +14,12 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-export const ConfirmButton: FC<{
-  onClick?: () => void;
-  lineupComplete: boolean;
-}> = ({ onClick, children, lineupComplete }) => {
+export const ConfirmButton: FC<
+  React.PropsWithChildren<{
+    onClick?: () => void;
+    lineupComplete: boolean;
+  }>
+> = ({ onClick, children, lineupComplete }) => {
   return (
     <ButtonWrapper className={classnames({ enter: lineupComplete })}>
       <Button

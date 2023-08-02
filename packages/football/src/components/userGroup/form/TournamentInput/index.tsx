@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
@@ -68,12 +68,12 @@ export const TournamentInput = ({ tournaments }: Props) => {
 
 TournamentInput.fragments = {
   tournaments: gql`
-    fragment TournamentInput_tournaments on Vicc5Tournament {
+    fragment TournamentInput_tournaments on So5Tournament {
       id
       displayName
-      so5LeaderboardType: vicc5LeaderboardType
+      so5LeaderboardType
     }
-  `,
+  ` as TypedDocumentNode<TournamentInput_tournaments>,
 };
 
 export default TournamentInput;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback } from 'react';
 
 import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery';
@@ -28,7 +28,7 @@ const NETWORK_FOLLOWERS_QUERY = gql`
     }
   }
   ${Template.fragments.user}
-`;
+` as TypedDocumentNode<NetworkFollowersQuery, NetworkFollowersQueryVariables>;
 
 type Props = {
   user: {
@@ -37,13 +37,13 @@ type Props = {
 };
 
 export const Followers = ({ user }: Props) => {
-  const { loading, data, loadMore } = usePaginatedQuery<
-    NetworkFollowersQuery,
-    NetworkFollowersQueryVariables
-  >(NETWORK_FOLLOWERS_QUERY, {
-    variables: { slug: user.slug },
-    connection: 'UserWithSubscriptionSlugConnection',
-  });
+  const { loading, data, loadMore } = usePaginatedQuery(
+    NETWORK_FOLLOWERS_QUERY,
+    {
+      variables: { slug: user.slug },
+      connection: 'UserWithSubscriptionSlugConnection',
+    }
+  );
 
   const load = useCallback(() => {
     loadMore(false, {

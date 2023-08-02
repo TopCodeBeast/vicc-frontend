@@ -44,19 +44,28 @@ const GW = styled(Caption).attrs({ bold: true })`
   margin-bottom: calc(-1 * var(--half-unit));
 `;
 
+const parseFixtureShortDisplayName = (fixtureShortDisplayName?: string) => {
+  const words = fixtureShortDisplayName?.split(' ');
+
+  if (words?.length === 2) return words; // Don't use the short display name if it's not in two words
+
+  return [];
+};
+
 export type Props = {
   gameWeek: number;
   type: 'past' | 'live' | 'upcoming';
+  fixtureShortDisplayName?: string;
 };
 
-const GameWeekLabel = ({ gameWeek, type }: Props) => {
+const GameWeekLabel = ({ gameWeek, type, fixtureShortDisplayName }: Props) => {
+  const words = parseFixtureShortDisplayName(fixtureShortDisplayName);
+
   return (
     <Wrapper>
-      <GW>
-        <FormattedMessage {...glossary.gw} />
-      </GW>
+      <GW>{words[0] || <FormattedMessage {...glossary.gw} />}</GW>
       <Text16 color="var(--c-neutral-1000)" bold>
-        {gameWeek}
+        {words[1] || gameWeek}
       </Text16>
       <IconWrapper className={type}>
         {type === 'past' && (

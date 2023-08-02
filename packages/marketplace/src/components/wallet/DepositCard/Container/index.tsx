@@ -1,4 +1,4 @@
-import { gql, useLazyQuery } from '@apollo/client';
+import { TypedDocumentNode, gql, useLazyQuery } from '@apollo/client';
 import { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -25,7 +25,7 @@ const ETHEREUM_TOKENS_QUERY = gql`
     }
   }
   ${EthereumCard.fragments.token}
-`;
+` as TypedDocumentNode<EthereumTokensQuery, EthereumTokensQueryVariables>;
 
 const Container = styled.div`
   width: 100%;
@@ -59,10 +59,7 @@ type Props = {
 const DialogContainer = ({ closeDialog }: Props) => {
   const accountData = useBlockchainAccountData();
 
-  const [loadCards, { loading, data }] = useLazyQuery<
-    EthereumTokensQuery,
-    EthereumTokensQueryVariables
-  >(ETHEREUM_TOKENS_QUERY);
+  const [loadCards, { loading, data }] = useLazyQuery(ETHEREUM_TOKENS_QUERY);
 
   useEffect(() => {
     if (!accountData?.ethAccount) return;

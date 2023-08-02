@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ComponentType, useMemo } from 'react';
 import styled from 'styled-components';
 
@@ -41,7 +41,7 @@ type Props = {
   hitsPerRow: number;
   slugs?: string[];
   assetIds?: string[];
-  CardInfo?: ComponentType<{ assetId: string }>;
+  CardInfo?: ComponentType<React.PropsWithChildren<{ assetId: string }>>;
 };
 
 const token = gql`
@@ -51,7 +51,7 @@ const token = gql`
     ...Token_token
   }
   ${Token.fragments.token}
-`;
+` as TypedDocumentNode<TokensRows_token>;
 
 const card = gql`
   fragment TokensRows_card on Card {
@@ -64,7 +64,7 @@ const card = gql`
     }
   }
   ${token}
-`;
+` as TypedDocumentNode<TokensRows_card>;
 
 export const TOKENS_ROWS_BY_OBJECT_IDS_QUERY = gql`
   query TokensRowsByObjectIds($slugs: [String!], $assetIds: [String!]!) {
@@ -83,15 +83,12 @@ export const TOKENS_ROWS_BY_OBJECT_IDS_QUERY = gql`
   }
   ${token}
   ${card}
-`;
+` as TypedDocumentNode<TokensRowsByObjectIds, TokensRowsByObjectIdsVariables>;
 
 type MappedTokens = Record<string, TokensRows_token>;
 
 export const TokensRow = ({ hitsPerRow, slugs = [], assetIds = [] }: Props) => {
-  const { data, loading } = useQuery<
-    TokensRowsByObjectIds,
-    TokensRowsByObjectIdsVariables
-  >(TOKENS_ROWS_BY_OBJECT_IDS_QUERY, {
+  const { data, loading } = useQuery(TOKENS_ROWS_BY_OBJECT_IDS_QUERY, {
     variables: {
       slugs,
       assetIds,

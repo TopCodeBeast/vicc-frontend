@@ -1,7 +1,7 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 
 import { GetCurrentUserSubscriptionProps } from '@core/contexts/follow';
-// import { getInteractionContext } from '@core/lib/events';
+import { getInteractionContext } from '@core/lib/events';
 
 import {
   CreateSubscriptionMutation,
@@ -34,24 +34,24 @@ const CREATE_SUBSCRIPTION_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  CreateSubscriptionMutation,
+  CreateSubscriptionMutationVariables
+>;
 
 export default function useSubscription() {
-  const [subscribe] = useMutation<
-    CreateSubscriptionMutation,
-    CreateSubscriptionMutationVariables
-  >(CREATE_SUBSCRIPTION_MUTATION);
-  // const interactionContext = getInteractionContext();
+  const [subscribe] = useMutation(CREATE_SUBSCRIPTION_MUTATION);
+  const interactionContext = getInteractionContext();
 
   return async (subscribable: GetCurrentUserSubscriptionProps) => {
     return subscribe({
       variables: {
         input: {
           subscribable: {
-            type: subscribable.__typename as any, //TODO****
+            type: subscribable.__typename,
             slug: subscribable.slug,
           },
-          // interactionContext,
+          interactionContext,
         },
       },
       refetchQueries: [SUBSCRIPTION_STATS_QUERY, 'NetworkFollowingQuery'],

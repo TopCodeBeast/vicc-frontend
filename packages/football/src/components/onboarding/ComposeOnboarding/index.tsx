@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -139,5 +139,5 @@ ComposeOnboarding.fragments = {
       ...LeagueHeader_competition
     }
     ${LeagueHeader.fragments.competition}
-  `,
+  ` as TypedDocumentNode<ComposeOnboarding_competition>,
 };

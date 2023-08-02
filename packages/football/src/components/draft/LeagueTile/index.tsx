@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -167,5 +167,5 @@ LeagueTile.fragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<LeagueTile_commonDraftCampaign>,
 };

@@ -10,22 +10,25 @@ import useLifecycle, {
 
 import OneTimeDialogContextProvider, { useOneTimeDialogContext } from '.';
 
-type OneTimeDialogProps = FC<{
+type OneTimeDialogProps = {
   dialogId: LIFECYCLE;
   getter?: (lifecycle: LifecycleValue) => LifecycleGetter;
   setter?: (lifecycle: LifecycleValue) => LifecycleValue;
   show?: boolean;
   force?: boolean;
-  children: FC<{ onClose: () => void; open: boolean }>;
-}>;
-export const OneTimeDialog: OneTimeDialogProps = ({
+  children: (props: {
+    onClose: () => void;
+    open: boolean;
+  }) => React.JSX.Element;
+};
+export const OneTimeDialog = ({
   dialogId,
   getter = (lifecycle: LifecycleValue) => lifecycle,
   setter = () => true,
   show = true,
   force,
   children,
-}) => {
+}: OneTimeDialogProps) => {
   const { activeDialog, onMount, onUnmount, sawDialog } =
     useOneTimeDialogContext();
   const { currentUser } = useCurrentUserContext();
@@ -57,7 +60,9 @@ export const OneTimeDialog: OneTimeDialogProps = ({
   });
 };
 
-export const OneTimeDialogProvider: FC = ({ children }) => {
+export const OneTimeDialogProvider: FC<React.PropsWithChildren<unknown>> = ({
+  children,
+}) => {
   const [queue, setQueue] = useState<LIFECYCLE[]>([]);
   const { currentUser } = useCurrentUserContext();
 

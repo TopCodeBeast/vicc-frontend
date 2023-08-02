@@ -7,9 +7,9 @@ import styled from 'styled-components';
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import Container from '@sorare/core/src/atoms/layout/Container';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import FixedAppBar from '@sorare/core/src/atoms/layout/FixedAppBar';
 import { Text16 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@sorare/core/src/components/dialog';
 import { InstantSearch } from '@sorare/core/src/components/search/InstantSearch';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useInfiniteScroll from '@sorare/core/src/hooks/useInfiniteScroll';
@@ -154,23 +154,28 @@ export const CardPickerDialog = ({
   const userIdFilter = `user.id:${idFromObject(owner.id)}`;
 
   return (
-    <Dialog fullScreen open={open} onClose={onClose}>
-      <InstantSearch
-        indexes={['Cards New']}
-        distinct={false}
-        defaultHitsPerPage={30}
-        analyticsTags={['CardPicker']}
-        defaultFilters={[
-          visibleCardFilter,
-          userIdFilter,
-          sportFilter(Sport.FOOTBALL),
-          ...excluding.map(slug => `NOT objectID:${slug}`),
-          ...(filters || []),
-        ]}
-      >
-        <CardPicker {...props} />
-      </InstantSearch>
-    </Dialog>
+    <Dialog
+      fullScreen
+      open={open}
+      onClose={onClose}
+      body={
+        <InstantSearch
+          indexes={['Cards New']}
+          distinct={false}
+          defaultHitsPerPage={30}
+          analyticsTags={['CardPicker']}
+          defaultFilters={[
+            visibleCardFilter,
+            userIdFilter,
+            sportFilter(Sport.FOOTBALL),
+            ...excluding.map(slug => `NOT objectID:${slug}`),
+            ...(filters || []),
+          ]}
+        >
+          <CardPicker {...props} />
+        </InstantSearch>
+      }
+    />
   );
 };
 

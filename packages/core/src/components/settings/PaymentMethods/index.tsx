@@ -1,22 +1,33 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
+import { PaymentMethodProvider } from '__generated__/globalTypes';
 import Button from '@core/atoms/buttons/Button';
 import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
 import CreditCard from '@core/components/buyActions/CreditCard';
 import Warning from '@core/contexts/intl/Warning';
 import useQuery from '@core/hooks/graphql/useQuery';
+import useMangopayCreditCardsEnabled from '@core/hooks/useMangopayCreditCardsEnabled';
 
 import SettingsSection from '../SettingsSection';
-import { CurrentUserPaymentMethodsQuery } from './__generated__/index.graphql';
+import {
+  CurrentUserPaymentMethodsQuery,
+  CurrentUserPaymentMethodsQueryVariables,
+} from './__generated__/index.graphql';
 import useDetachPaymentMethod from './useDetachPaymentMethod';
 
 const CURRENT_USER_PAYMENT_METHODS_QUERY = gql`
   query CurrentUserPaymentMethodsQuery {
     currentUser {
       slug
-      paymentMethods {
+      stripePaymentMethods: paymentMethods(provider: STRIPE) {
+        id
+        card {
+          ...CreditCard_creditCard
+        }
+      }
+      mangopayPaymentMethods: paymentMethods(provider: MANGOPAY) {
         id
         card {
           ...CreditCard_creditCard
@@ -25,7 +36,10 @@ const CURRENT_USER_PAYMENT_METHODS_QUERY = gql`
     }
   }
   ${CreditCard.fragments.creditCard}
-`;
+` as TypedDocumentNode<
+  CurrentUserPaymentMethodsQuery,
+  CurrentUserPaymentMethodsQueryVariables
+>;
 const messages = defineMessages({
   title: {
     id: 'Settings.paymentMethods.title',
@@ -38,6 +52,10 @@ const messages = defineMessages({
   remove: {
     id: 'Settings.paymentMethods.remove',
     defaultMessage: 'Remove',
+  },
+  disabled: {
+    id: 'Settings.paymentMethods.disabled',
+    defaultMessage: 'disabled',
   },
 });
 
@@ -60,19 +78,30 @@ const Card = styled.div`
 
 export const PaymentMethods = () => {
   const detachPaymentMethod = useDetachPaymentMethod();
+  const useMangopayCreditCards = useMangopayCreditCardsEnabled();
 
-  const { data } = useQuery<CurrentUserPaymentMethodsQuery>(
-    CURRENT_USER_PAYMENT_METHODS_QUERY,
-    {
-      fetchPolicy: 'cache-and-network',
-    }
-  );
+  const { data } = useQuery(CURRENT_USER_PAYMENT_METHODS_QUERY, {
+    fetchPolicy: 'cache-and-network',
+  });
 
   if (!data?.currentUser) return <LoadingIndicator />;
 
   const {
-    currentUser: { paymentMethods },
+    currentUser: { stripePaymentMethods, mangopayPaymentMethods },
   } = data;
+
+  const paymentMethods = [
+    ...stripePaymentMethods.map(m => ({
+      provider: PaymentMethodProvider.STRIPE,
+      disabled: useMangopayCreditCards,
+      ...m,
+    })),
+    ...mangopayPaymentMethods.map(m => ({
+      provider: PaymentMethodProvider.MANGOPAY,
+      disabled: false,
+      ...m,
+    })),
+  ];
 
   return (
     <SettingsSection title={messages.title}>
@@ -83,13 +112,26 @@ export const PaymentMethods = () => {
         <Cards>
           {paymentMethods.map(paymentMethod => (
             <Card key={paymentMethod.id}>
-              <CreditCard creditCard={paymentMethod.card} selected={false} />
+              <CreditCard
+                creditCard={paymentMethod.card}
+                selected={false}
+                color={
+                  paymentMethod.disabled ? 'var(--c-neutral-600)' : undefined
+                }
+                suffixText={
+                  paymentMethod.disabled ? (
+                    <>
+                      (<FormattedMessage {...messages.disabled} />)
+                    </>
+                  ) : undefined
+                }
+              />
               <Button
                 color="darkGray"
                 small
                 medium={false}
                 onClick={() => {
-                  detachPaymentMethod(paymentMethod.id);
+                  detachPaymentMethod(paymentMethod.id, paymentMethod.provider);
                 }}
               >
                 <FormattedMessage {...messages.remove} />

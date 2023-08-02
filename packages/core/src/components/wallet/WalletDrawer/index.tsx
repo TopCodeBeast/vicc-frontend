@@ -20,21 +20,20 @@ import {
 import IconButton from '@core/atoms/buttons/IconButton';
 import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
 import { Title6 } from '@core/atoms/typography';
-// import { DeviceNeedsConfirming } from '@core/components/devices/DeviceNeedsConfirming';
+import { DeviceNeedsConfirming } from '@core/components/devices/DeviceNeedsConfirming';
 import { useBlockchainContext } from '@core/contexts/blockchain';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useMessagingContext } from '@core/contexts/wallet';
 import WalletPlaceholder from '@core/contexts/wallet/Placeholder';
 import { WalletTab, useWalletDrawerContext } from '@core/contexts/walletDrawer';
 import useWalletNeedsRecover from '@core/hooks/recovery/useWalletNeedsRecover';
-import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import { nullAddress } from '@core/lib/ethereum';
 import { wallet } from '@core/lib/glossary';
 import { lazy } from '@core/lib/retry';
 import { tabletAndAbove } from '@core/style/mediaQuery';
 
-// import { WalletNeedsRecover } from '../WalletNeedsRecover';
-// import Wallet2FA from '../WalletTwoFA';
+import { WalletNeedsRecover } from '../WalletNeedsRecover';
+import Wallet2FA from '../WalletTwoFA';
 import DrawerWithNavigation from './DrawerWithNavigation';
 
 const BankEthAccounting = lazy(async () => import('../BankEthAccounting'));
@@ -78,21 +77,57 @@ const tabTitles = defineMessages<WalletTab, MessageDescriptor>({
     id: 'NewWalletDrawer.addFunds',
     defaultMessage: 'Add funds',
   },
-  [WalletTab.ADD_FUNDS_ETH]: {
+  [WalletTab.ADD_FUNDS_TO_FIAT_WALLET]: {
+    id: 'NewWalletDrawer.addFundsToFiatWallet',
+    defaultMessage: 'Add cash',
+  },
+  [WalletTab.ADD_FUNDS_TO_FIAT_WALLET_SUCCEEDED]: {
+    id: 'NewWalletDrawer.addFundsToFiatWalletSucceeded',
+    defaultMessage: 'Confirmation',
+  },
+  [WalletTab.ADD_FUNDS_TO_FIAT_WALLET_REVIEW]: {
+    id: 'NewWalletDrawer.addFundsToFiatWalletReview',
+    defaultMessage: 'Review & Deposit',
+  },
+  [WalletTab.ADD_FUNDS_TO_ETH_WALLET]: {
+    id: 'NewWalletDrawer.addFundsToEthWallet',
+    defaultMessage: 'Add funds',
+  },
+  [WalletTab.ADD_FUNDS_TO_ETH_WALLET_ETH]: {
     id: 'NewWalletDrawer.addFundsEth',
     defaultMessage: 'Add funds',
   },
-  [WalletTab.ADD_FUNDS_FIAT]: {
+  [WalletTab.ADD_FUNDS_TO_ETH_WALLET_FIAT]: {
     id: 'NewWalletDrawer.addFundsFiat',
     defaultMessage: 'Add funds',
   },
-  [WalletTab.WITHDRAW]: {
+  [WalletTab.WITHDRAW_WALLET_CONNECT]: {
     id: 'NewWalletDrawer.withdraw',
     defaultMessage: 'Withdraw',
   },
   [WalletTab.WITHDRAW_TO]: {
     id: 'NewWalletDrawer.withdrawTo',
     defaultMessage: 'Withdraw',
+  },
+  [WalletTab.WITHDRAW_TO_ETH_WALLET]: {
+    id: 'NewWalletDrawer.withdrawEth',
+    defaultMessage: 'Withdraw ETH',
+  },
+  [WalletTab.WITHDRAW_TO_FIAT_WALLET]: {
+    id: 'NewWalletDrawer.withdrawCash',
+    defaultMessage: 'Withdraw cash',
+  },
+  [WalletTab.WITHDRAW_TO_FIAT_WALLET_REVIEW]: {
+    id: 'NewWalletDrawer.reviewAndWithdraw',
+    defaultMessage: 'Review & withdraw',
+  },
+  [WalletTab.WITHDRAW_TO_FIAT_WALLET_SUCCESS]: {
+    id: 'NewWalletDrawer.withdrawConfirmation',
+    defaultMessage: 'Withdraw confirmation',
+  },
+  [WalletTab.WITHDRAW_TO_FIAT_WALLET_ADD_BANK_ACCOUNT]: {
+    id: 'NewWalletDrawer.addBankAccount',
+    defaultMessage: 'Add bank account',
   },
   [WalletTab.GENERATE_KEY]: {
     id: 'NewWalletDrawer.generateKey',
@@ -179,9 +214,6 @@ export const WalletDrawer = () => {
   const { registerHandler, sendRequest } = useMessagingContext();
   const [showWalletPlaceholder, setShowWalletPlaceholder] =
     useState<boolean>(false);
-  const {
-    flags: { onlyAllowPrivateKeyAccessFromConfirmedDevice = false },
-  } = useFeatureFlags();
 
   useEffect(() => {
     if (!mounted) {
@@ -295,36 +327,37 @@ export const WalletDrawer = () => {
       contentTitle={<WalletTitle {...{ walletIsLocked, currentTab }} />}
     >
       <Content>
-        {!walletNeedsRecover && drawerOpened && !walletOpened && (
-          <Accounting>
-            <Suspense fallback={<LoadingIndicator />}>
-              <BankEthAccounting
-                settingsButton={
-                  currentTab === WalletTab.HOME && (
-                    <CustomButton
-                      color="white"
-                      icon={faGear}
-                      onClick={handleClick}
-                    />
-                  )
-                }
-              />
-            </Suspense>
-          </Accounting>
+        {currentUser.confirmedDevice &&
+          !walletNeedsRecover &&
+          drawerOpened &&
+          !walletOpened && (
+            <Accounting>
+              <Suspense fallback={<LoadingIndicator />}>
+                <BankEthAccounting
+                  settingsButton={
+                    currentTab === WalletTab.HOME && (
+                      <CustomButton
+                        color="white"
+                        icon={faGear}
+                        onClick={handleClick}
+                      />
+                    )
+                  }
+                />
+              </Suspense>
+            </Accounting>
+          )}
+        {walletNeedsRecover && <WalletNeedsRecover walletTab={currentTab} />}
+        {!walletNeedsRecover && !currentUser.confirmedDevice && (
+          <DeviceNeedsConfirming walletTab={currentTab} />
         )}
-        {/* {walletNeedsRecover && <WalletNeedsRecover walletTab={currentTab} />}
-        {!walletNeedsRecover &&
-          !currentUser.confirmedDevice &&
-          onlyAllowPrivateKeyAccessFromConfirmedDevice && (
-            <DeviceNeedsConfirming walletTab={currentTab} />
-          )} */}
         {walletOpened && showWalletPlaceholder && (
           <WalletFrame>
             <WalletPlaceholder />
           </WalletFrame>
         )}
       </Content>
-      {/* <Wallet2FA /> */}
+      <Wallet2FA />
     </DrawerWithNavigation>
   );
 };

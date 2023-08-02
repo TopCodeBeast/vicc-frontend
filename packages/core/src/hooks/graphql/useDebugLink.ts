@@ -33,6 +33,7 @@ export const useDebugLink = () => {
           operation,
           complexity: Number(headers.get('x-gql-complexity')),
           depth: Number(headers.get('x-gql-depth')),
+          subgraphs: headers.get('x-gql-subgraphs')?.split(',') || [],
         });
 
         return response;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { SearchParameters } from 'algoliasearch-helper';
 import { BaseHit } from 'instantsearch.js';
 import shuffle from 'shuffle-array';
@@ -13,10 +13,9 @@ import {
 import { AlgoliaCardIndexesNames } from '@core/contexts/config';
 import idFromObject from '@core/gql/idFromObject';
 
-// import { Algolia_CardHit_token } from './__generated__/algolia.graphql';
+import { Algolia_CardHit_token } from './__generated__/algolia.graphql';
 import { Scarcity } from './cards';
 
-type Algolia_CardHit_token = any; //TODO
 type AlgoliaSport = 'baseball' | 'football' | 'nba';
 
 export const TOKENS_STACKED_LIMIT = 2;
@@ -56,9 +55,9 @@ const SportsMappings: Readonly<{ [key in Sport]: AlgoliaSport }> = {
 
 const FakeCollectionMappings: Readonly<{ [key in AlgoliaSport]: Collection }> =
   {
-    nba: Collection.CRICKET,
-    baseball: Collection.CRICKET,
-    football: Collection.CRICKET,//TODO******
+    nba: Collection.NBA,
+    baseball: Collection.BASEBALL,
+    football: Collection.FOOTBALL,
   };
 
 export interface SaleHit {
@@ -120,7 +119,6 @@ export const convertUserHit = (
     __typename: 'UserProfile';
     id: string;
     pictureUrl: string;
-    fullPictureUrl: string;
     verified: boolean;
   };
 } => ({
@@ -134,7 +132,6 @@ export const convertUserHit = (
     __typename: 'UserProfile',
     id: hit.id,
     pictureUrl: hit.profile?.picture,
-    fullPictureUrl: hit.profile?.picture,
     verified: !!hit.profile?.verified,
   },
 });
@@ -206,7 +203,7 @@ export const convertCardHitToToken = (
   collection: Collection;
   sport: Sport;
   metadata: {
-    __typename: 'TokenCricketMetadata';
+    __typename: 'TokenBaseballMetadata' | 'TokenFootballMetadata';
     id: string;
     playerDisplayName: string;
     playerSlug: string;
@@ -231,7 +228,7 @@ export const convertCardHitToToken = (
   walletStatus: hit.wallet_status as WalletStatus,
   pictureUrl: hit.picture_url,
   metadata: {
-    __typename: 'TokenCricketMetadata',
+    __typename: 'TokenFootballMetadata',
     id: hit.sport === 'baseball' ? idFromObject(hit.objectID)! : hit.objectID, // TODO: replace with `assetId` when ready
     playerDisplayName: hit.player.display_name,
     playerSlug: hit.player.slug,
@@ -245,7 +242,7 @@ export const convertCardHitToToken = (
   },
   singleCivilYear: false,
   sport: AlgoliaSportsMappings[hit.sport] || Sport.FOOTBALL,
-  collection: FakeCollectionMappings[hit.sport] || Collection.CRICKET, // this assertion is factually wrong but that's a separate concern
+  collection: FakeCollectionMappings[hit.sport] || Collection.FOOTBALL, // this assertion is factually wrong but that's a separate concern
 });
 
 export const tokenHitFragment = gql`
@@ -255,10 +252,8 @@ export const tokenHitFragment = gql`
     collection
     sport
     metadata {
-      ... on TokenCricketMetadata {
-        id
-      }
       ... on TokenCardMetadataInterface {
+        id
         rarity
         serialNumber
         seasonStartYear
@@ -277,7 +272,7 @@ export const tokenHitFragment = gql`
     tradeableStatus
     walletStatus
   }
-`;
+` as TypedDocumentNode<Algolia_CardHit_token>;
 
 export function isCardHit(card: any): card is CardHit {
   return (card as CardHit).objectID !== undefined;

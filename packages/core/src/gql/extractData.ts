@@ -1,7 +1,7 @@
 type Connection<T> = {
   nodes: T[];
   totalCount?: number;
-  pageInfo: { endCursor?: string | null; hasNextPage: boolean };
+  pageInfo: { endCursor: string | null; hasNextPage: boolean };
 };
 
 type ExtractedData<T> = {

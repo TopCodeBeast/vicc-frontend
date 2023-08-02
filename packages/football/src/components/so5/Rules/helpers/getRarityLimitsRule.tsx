@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
@@ -213,7 +213,7 @@ const getRarityLimitsRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetRarityLimitsRule on Vicc5Leaderboard {
+      fragment GetRarityLimitsRule on So5Leaderboard {
         slug
         displayedRules {
           id
@@ -244,7 +244,7 @@ const getRarityLimitsRule = withFragments(
           scarcity
         }
       }
-    `,
+    ` as TypedDocumentNode<GetRarityLimitsRule>,
   }
 );
 

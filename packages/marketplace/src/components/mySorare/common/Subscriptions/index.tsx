@@ -9,9 +9,6 @@ import { groupBy } from '@sorare/core/src/lib/arrays';
 import Follow from '../Follow';
 import { UnfollowableSubscription } from '../Follow/types';
 import { Subscriptions_subscription } from './__generated__/index.graphql';
-import useBaseballSubscriptionItems from './useBaseballSubscriptionItems';
-import useNBASubscriptionItems from './useNBASubscriptionItems';
-import useSo5SubscriptionItems from './useSo5SubscriptionItems';
 
 interface Props {
   subscriptions: UnfollowableSubscription[];
@@ -28,40 +25,7 @@ export const Subscriptions = ({
   subscriptions,
   ItemComponent = Follow,
 }: Props) => {
-  const { so5SubscriptionsInput, so5CachedData } = useSo5SubscriptionItems({
-    subscriptions,
-  });
-  const { baseballSubscriptionsInput, baseballCachedData } =
-    useBaseballSubscriptionItems({
-      subscriptions,
-    });
-  const { nbaSubscriptionsInput, nbaCachedData } = useNBASubscriptionItems({
-    subscriptions,
-  });
-
-  const itemsBySlug = useMemo(() => {
-    if (
-      (so5SubscriptionsInput.length > 0 && !so5CachedData) ||
-      (baseballSubscriptionsInput.length > 0 && !baseballCachedData) ||
-      (nbaSubscriptionsInput.length > 0 && !nbaCachedData)
-    )
-      return null;
-    return {
-      ...(so5CachedData &&
-        groupBy(t => t!.slug, Object.values(so5CachedData).flat())),
-      ...(baseballCachedData &&
-        groupBy(t => t!.slug, Object.values(baseballCachedData).flat())),
-      ...(nbaCachedData &&
-        groupBy(t => t!.slug, Object.values(nbaCachedData).flat())),
-    };
-  }, [
-    so5CachedData,
-    baseballCachedData,
-    nbaCachedData,
-    so5SubscriptionsInput,
-    baseballSubscriptionsInput,
-    nbaSubscriptionsInput,
-  ]);
+  const itemsBySlug = false;
 
   if (!subscriptions || subscriptions.length === 0) return null;
 

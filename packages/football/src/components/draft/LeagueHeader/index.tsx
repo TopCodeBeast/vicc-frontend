@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faTimes } from '@fortawesome/pro-solid-svg-icons';
 import { ReactNode } from 'react';
 import { useIntl } from 'react-intl';
@@ -66,5 +66,5 @@ LeagueHeader.fragments = {
       backgroundColor
       backgroundPictureUrl
     }
-  `,
+  ` as TypedDocumentNode<LeagueHeader_competition>,
 };

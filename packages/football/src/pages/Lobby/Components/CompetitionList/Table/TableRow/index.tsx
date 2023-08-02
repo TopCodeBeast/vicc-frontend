@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faCheck, faClose } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import qs from 'qs';
@@ -25,8 +25,10 @@ import {
 } from '@sorare/core/src/constants/routes';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import { Link } from '@sorare/core/src/routing/Link';
-import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
-import { theme } from '@sorare/core/src/style/theme';
+import {
+  laptopAndAbove,
+  tabletAndAbove,
+} from '@sorare/core/src/style/mediaQuery';
 
 import { Rewards } from '@football/components/lineup/Rewards';
 import HeadlineRewards from '@football/components/lobby/HeadlineRewards';
@@ -34,7 +36,7 @@ import DivisionLogo from '@football/components/so5/DivisionLogo';
 import { useFootballEvents } from '@football/lib/events';
 import getLineupDisplayName from '@football/lib/lineup/getLineupDisplayName';
 import { getLeaderboardInfo } from '@football/lib/so5';
-// import CompetitionListActions from '@football/pages/Lobby/Components/CompetitionListActions';
+import CompetitionListActions from '@football/pages/Lobby/Components/CompetitionListActions';
 
 import { TableRow_so5Leaderboard } from './__generated__/index.graphql';
 
@@ -65,7 +67,7 @@ const Participants = styled(Caption)`
   display: flex;
   align-items: center;
   gap: var(--half-unit);
-  @media (min-width: ${theme.breakpoints.values.sm}px) {
+  @media ${tabletAndAbove} {
     padding-top: 0;
     gap: var(--unit);
   }
@@ -109,7 +111,7 @@ const RewardsWrapper = styled.span`
   height: fit-content;
   display: flex;
   ${caption}
-  @media (min-width: ${theme.breakpoints.values.sm}px) {
+  @media ${tabletAndAbove} {
     padding-top: 0;
     ${text14}
   }
@@ -339,15 +341,14 @@ const TableRow = ({
         )}
       </Cell>
       <Cell area={Areas.cta}>
-        <>CompetitionListActions444</>
-        {/* {rowCta ?? (
+        {rowCta ?? (
           <CompetitionListActions
             so5Leaderboard={so5Leaderboard}
             onActionSuccess={onActionSuccess}
             lineupId={lineupId}
             linkToCompetitionDetails={linkToCompetitionDetails}
           />
-        )} */}
+        )}
       </Cell>
       {so5Leaderboard && (
         <Prize area={Areas.prize}>
@@ -367,12 +368,12 @@ const TableRow = ({
 
 TableRow.fragments = {
   so5Leaderboard: gql`
-    fragment TableRow_so5Leaderboard on Vicc5Leaderboard {
+    fragment TableRow_so5Leaderboard on So5Leaderboard {
       slug
       description
-      so5LineupsCount: vicc5LineupsCount
+      so5LineupsCount
       startDate
-      mySo5Lineups: myVicc5Lineups {
+      mySo5Lineups {
         id
         draft
         name
@@ -383,18 +384,18 @@ TableRow.fragments = {
       }
       ...getLeaderboardInfo_so5Leaderboard
       ...DivisionLogo_so5Leaderboard
-      #...CompetitionListActions_so5Leaderboard
+      ...CompetitionListActions_so5Leaderboard
       ...HeadlineRewards_so5Leaderboard
       ...getLineupDisplayName_so5Leaderboard
     }
     ${DivisionLogo.fragments.so5Leaderboard}
-    #{CompetitionListActions.fragments.so5Leaderboard}
+    ${CompetitionListActions.fragments.so5Leaderboard}
     ${getLeaderboardInfo.fragments.so5Leaderboard}
     ${HeadlineRewards.fragments.so5Leaderboard}
     ${Rewards.fragments.reward}
     ${getLineupDisplayName.fragments.so5Leaderboard}
     ${getLineupDisplayName.fragments.so5Lineup}
-  `,
+  ` as TypedDocumentNode<TableRow_so5Leaderboard>,
 };
 
 export default TableRow;

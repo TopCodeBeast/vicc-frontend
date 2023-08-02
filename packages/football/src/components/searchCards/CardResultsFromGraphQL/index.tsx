@@ -1,5 +1,5 @@
-import { gql } from '@apollo/client';
-import { useEffect, useMemo, useState } from 'react';
+import { TypedDocumentNode, gql } from '@apollo/client';
+import { useMemo, useState } from 'react';
 import {
   useHits,
   useInstantSearch,
@@ -30,10 +30,14 @@ import { CardResultsProps } from '@sorare/marketplace/src/searchCards/AdvancedCa
 
 import CardPreviewGrid from '@football/components/card/CardPreviewGrid';
 
-import { CardsQuery, CardsQueryVariables } from './__generated__/index.graphql';
+import {
+  CardResultsFromGraphQL_card,
+  CardsQuery,
+  CardsQueryVariables,
+} from './__generated__/index.graphql';
 import useRecentCurrentUserCardsQuery from './useRecentCurrentUserCardsQuery';
 
-type CardsQuery_cards = CardsQuery['cards'][number];//CardsQuery['football']['cards'][number];
+type CardsQuery_cards = CardsQuery['football']['cards'][number];
 
 type Item = CardsQuery_cards & { stack?: StackProps };
 
@@ -48,23 +52,24 @@ const cardFragment = gql`
     ...CardPreviewGrid_card
   }
   ${CardPreviewGrid.fragments.card}
-`;
+` as TypedDocumentNode<CardResultsFromGraphQL_card>;
 
-//TODO***********Remove-Football
 export const CARDS_QUERY = gql`
   query CardsQuery($slugs: [String!]!) {
-    cards(slugs: $slugs) {
-      slug
-      assetId
-      visible
-      ...CardResultsFromGraphQL_card
+    football {
+      cards(slugs: $slugs) {
+        slug
+        assetId
+        visible
+        ...CardResultsFromGraphQL_card
+      }
     }
   }
   ${cardFragment}
-`;
+` as TypedDocumentNode<CardsQuery, CardsQueryVariables>;
 
 const filterVisibleCards = (cards?: CardsQuery_cards[]) =>
-  cards?.filter(card => true);// cards?.filter(card => card.visible); //TODO*****MAIN*************
+  cards?.filter(card => card.visible);
 
 const Root = styled.div`
   display: flex;
@@ -74,24 +79,25 @@ const Root = styled.div`
   padding: 20px;
 `;
 
-export const CardResultsFromGraphQL = (props: CardResultsProps) => {
-  const {
-    hideOwner,
-    galleryOwnerSlug,
-    removeFinishedAuctions,
-    removeEndedSingleSaleOffers,
-    topic,
-    hideSorareUser,
-    stackable,
-    showDesktopFilter,
-  } = props;
+export const CardResultsFromGraphQL = ({
+  hideOwner,
+  galleryOwnerSlug,
+  removeFinishedAuctions,
+  removeEndedSingleSaleOffers,
+  topic,
+  hideSorareUser,
+  stackable,
+  showDesktopFilter,
+  editableLists,
+}: CardResultsProps) => {
   const { hits: hitsWithDistinct, results } = useHits<MarketplaceHit>();
   const { currentRefinement: page, nbPages, refine: setPage } = usePagination();
   const index = results?.index;
 
-  const sortByPrice = useSortByPrice<any>();//useSortByPrice<Token | Item>();
+  const sortByPrice = useSortByPrice<Token | Item>();
 
   const [sortedItems, setSortedItems] = useState<Item[] | null>(null);
+  const [previousCards, setPreviousCards] = useState<Item[] | undefined>([]);
   const { algoliaCardIndexes } = useConfigContext();
   const { currentUser } = useCurrentUserContext();
   const { includeCommonCards } = useSearchCardsContext();
@@ -166,108 +172,86 @@ export const CardResultsFromGraphQL = (props: CardResultsProps) => {
     ];
   }, [lowestPriceHits, distinctHits, page, recentCurrentUserCardsSlugs]);
 
-  const { data, loading } = useQuery<CardsQuery, CardsQueryVariables>(
-    CARDS_QUERY,
-    {
-      variables: {
-        slugs: hitsWithRecentCurrentUserCards.map(h => h.objectID),
-      },
-      skip: hitsWithRecentCurrentUserCards.length === 0,
-    }
-  );
+  const { data, loading } = useQuery(CARDS_QUERY, {
+    variables: {
+      slugs: hitsWithRecentCurrentUserCards.map(h => h.objectID),
+    },
+    skip: hitsWithRecentCurrentUserCards.length === 0,
+  });
 
   const cards = useMemo(
-    () => filterVisibleCards(data?.cards),//(data?.football?.cards),
+    () => filterVisibleCards(data?.football?.cards),
     [data]
   );
+  const getSortedHits = () => {
+    if (!cards) {
+      return [];
+    }
+    const cardsBySlug = groupBy(c => c.slug, cards);
 
-  // Dependency array needs to be updated manually
-  // react-hooks/exhaustive-deps is disabled for the following useEffect
-  useEffect(() => {
-    if (loading) return;
+    let sortedHits = hitsWithRecentCurrentUserCards;
 
-    if (cards) {
-      const cardsBySlug = groupBy(c => c.slug, cards);
-      console.log('cardsBySlug', cardsBySlug)
+    // Cards are already sorted through Algolia but for the ones that were just claimed
+    // and ownerSince not yet indexed in Algolia, we need to force the sorting through frontend
+    // in order for new card rewards to show first in the user gallery after he claims it.
+    // This only works for rewards that appears in 1st Algolia page hits.
+    // If the reward card can be claimed since a long time ago, the user will need to
+    // wait few minutes for the card to be indexed and to show first in his gallery.
+    if (index === algoliaCardIndexes['Cards New']) {
+      sortedHits = sortedHits.sort((a, b) => {
+        return cardsBySlug[a.objectID]?.[0] && cardsBySlug[b.objectID]?.[0]
+          ? Date.parse(cardsBySlug[b.objectID][0].ownerSince!) -
+              Date.parse(cardsBySlug[a.objectID][0].ownerSince!)
+          : 0;
+      });
+    } else if (index === algoliaCardIndexes['Popular Player']) {
+      const tempSortedHits: any[] = [];
 
-      let sortedHits = hitsWithRecentCurrentUserCards;
-
-      // Cards are already sorted through Algolia but for the ones that were just claimed
-      // and ownerSince not yet indexed in Algolia, we need to force the sorting through frontend
-      // in order for new card rewards to show first in the user gallery after he claims it.
-      // This only works for rewards that appears in 1st Algolia page hits.
-      // If the reward card can be claimed since a long time ago, the user will need to
-      // wait few minutes for the card to be indexed and to show first in his gallery.
-      if (index === algoliaCardIndexes['Cards New']) {
-        sortedHits = sortedHits.sort((a, b) => {
-          return cardsBySlug[a.objectID]?.[0] && cardsBySlug[b.objectID]?.[0]
-            ? Date.parse(cardsBySlug[b.objectID][0].ownerSince!) -
-                Date.parse(cardsBySlug[a.objectID][0].ownerSince!)
-            : 0;
-        });
-      } else if (index === algoliaCardIndexes['Popular Player']) {
-        const tempSortedHits: any[] = [];
-
-        for (let i = 0; i < sortedHits.length; i += 1) {
-          const { slug } = sortedHits[i].player || {};
-          if (!slug) {
-            tempSortedHits.push(sortedHits[i]);
-          } else if (!tempSortedHits.find(h => h.player?.slug === slug)) {
-            tempSortedHits.push(
-              ...sortedHits
-                .slice(i)
-                .filter(h => h.player?.slug === slug)
-                .sort(
-                  (a, b) =>
-                    (a.rarity || '').localeCompare(b.rarity || '') ||
-                    (b.season || 0) - (a.season || 0)
-                )
-            );
-          }
+      for (let i = 0; i < sortedHits.length; i += 1) {
+        const { slug } = sortedHits[i].player || {};
+        if (!slug) {
+          tempSortedHits.push(sortedHits[i]);
+        } else if (!tempSortedHits.find(h => h.player?.slug === slug)) {
+          tempSortedHits.push(
+            ...sortedHits
+              .slice(i)
+              .filter(h => h.player?.slug === slug)
+              .sort(
+                (a, b) =>
+                  (a.rarity || '').localeCompare(b.rarity || '') ||
+                  (b.season || 0) - (a.season || 0)
+              )
+          );
         }
-
-        sortedHits = tempSortedHits;
       }
 
-      setSortedItems(
-        sortedHits
-          .map(hit => {
-            if (cardsBySlug[hit.objectID])
-              return {
-                ...(stacked &&
-                  hit.sale?.distinct_key && {
-                    stack: {
-                      algoliaDistinctKey: hit.sale.distinct_key,
-                      // eslint-disable-next-line no-underscore-dangle
-                      params: results?._state,
-                      count: stackedTokensCounts[hit.sale.distinct_key],
-                    },
-                  }),
-                ...cardsBySlug[hit.objectID][0]!,
-              };
-
-            return undefined;
-          })
-          .filter(Boolean)
-      );
-    } else {
-      setSortedItems([]);
+      sortedHits = tempSortedHits;
     }
-    // we explicitly ignore the hitsWithRecentCurrentUserCards dependencies
-    // because WithInstantSearch returns a new Array on every render.
-    // cards is a consequence of hitsWithRecentCurrentUserCards so it does not change anything.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    cards,
-    setSortedItems,
-    loading,
-    index,
-    algoliaCardIndexes,
-    stackedTokensCounts,
-    stacked,
-    // eslint-disable-next-line no-underscore-dangle
-    results?._state,
-  ]);
+    return sortedHits
+      .map(hit => {
+        if (cardsBySlug[hit.objectID])
+          return {
+            ...(stacked &&
+              hit.sale?.distinct_key && {
+                stack: {
+                  algoliaDistinctKey: hit.sale.distinct_key,
+                  // eslint-disable-next-line no-underscore-dangle
+                  params: results?._state,
+                  count: stackedTokensCounts[hit.sale.distinct_key],
+                },
+              }),
+            ...cardsBySlug[hit.objectID][0]!,
+          };
+
+        return undefined;
+      })
+      .filter(Boolean);
+  };
+
+  if (!loading && cards !== previousCards) {
+    setSortedItems(getSortedHits());
+    setPreviousCards(cards);
+  }
 
   // eslint-disable-next-line no-underscore-dangle
   if (!sortedItems || !results || results?.__isArtificial) {
@@ -304,8 +288,9 @@ export const CardResultsFromGraphQL = (props: CardResultsProps) => {
       topic={topic}
       hideSorareUser={hideSorareUser}
       stackable={stackable}
-      loading={loading && !data}
+      loading={loading}
       showDesktopFilter={showDesktopFilter}
+      editableLists={editableLists}
     />
   );
 };

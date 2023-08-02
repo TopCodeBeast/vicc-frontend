@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { TextField } from '@material-ui/core';
 import Big from 'bignumber.js';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -51,7 +51,10 @@ const CREATE_TOKEN_WITHDRAWAL_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  CreateTokenWithdrawalMutation,
+  CreateTokenWithdrawalMutationVariables
+>;
 
 const messages = defineMessages({
   destinationError: {
@@ -84,7 +87,7 @@ const FeeAmount = ({ feeAmount }: { feeAmount: string }) => {
   const { main, exponent } = useAmountWithConversion({
     monetaryAmount: {
       referenceCurrency: SupportedCurrency.WEI,
-      [SupportedCurrency.WEI.toLowerCase()]: feeAmount,
+      wei: feeAmount,
     },
     primaryCurrency: Currency.ETH,
   });
@@ -164,17 +167,12 @@ const TokenWithdrawalInfo = ({ token, transferRequest, onComplete }: Props) => {
   const [address, setAddress] = useState<string>('');
   const [withdrawing, setWithdrawing] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
-  const [create] = useMutation<
-    CreateTokenWithdrawalMutation,
-    CreateTokenWithdrawalMutationVariables
-  >(CREATE_TOKEN_WITHDRAWAL_MUTATION, {
+  const [create] = useMutation(CREATE_TOKEN_WITHDRAWAL_MUTATION, {
     showErrorsWithSnackNotification: true,
   });
-
-  const feeAmount =  0;
-  // const feeAmount = unquantizeAmount(
-  //   transferRequest.feeInfoUser?.feeLimit || '0'
-  // );
+  const feeAmount = unquantizeAmount(
+    transferRequest.feeInfoUser?.feeLimit || '0'
+  );
 
   const canPay =
     new Big(currentUser?.availableBalance || 0).comparedTo(feeAmount) > 0;
@@ -193,32 +191,32 @@ const TokenWithdrawalInfo = ({ token, transferRequest, onComplete }: Props) => {
   };
 
   const submit = async () => {
-    // setWithdrawing(true);
-    // if (!isAddress(address)) {
-    //   setError(formatMessage(messages.destinationError));
-    //   setWithdrawing(false);
-    //   return;
-    // }
-    // const signature = await signTransfer({
-    //   ...transferRequest,
-    //   receiverPublicKey: address!,
-    //   feeInfoUser: transferRequest?.feeInfoUser || undefined,
-    // });
-    // await create({
-    //   variables: {
-    //     input: {
-    //       assetId,
-    //       destination: address!,
-    //       starkSignatures: [
-    //         {
-    //           nonce: transferRequest!.nonce,
-    //           expirationTimestamp: transferRequest!.expirationTimestamp,
-    //           data: signature!,
-    //         },
-    //       ],
-    //     },
-    //   },
-    // });
+    setWithdrawing(true);
+    if (!isAddress(address)) {
+      setError(formatMessage(messages.destinationError));
+      setWithdrawing(false);
+      return;
+    }
+    const signature = await signTransfer({
+      ...transferRequest,
+      receiverPublicKey: address!,
+      feeInfoUser: transferRequest?.feeInfoUser || undefined,
+    });
+    await create({
+      variables: {
+        input: {
+          assetId,
+          destination: address!,
+          starkSignatures: [
+            {
+              nonce: transferRequest!.nonce,
+              expirationTimestamp: transferRequest!.expirationTimestamp,
+              data: signature!,
+            },
+          ],
+        },
+      },
+    });
 
     setWithdrawing(false);
     onComplete();
@@ -228,7 +226,7 @@ const TokenWithdrawalInfo = ({ token, transferRequest, onComplete }: Props) => {
   return (
     <div>
       <TotalPrice>
-        {/* <FeeAmount feeAmount={feeAmount} /> */}
+        <FeeAmount feeAmount={feeAmount} />
       </TotalPrice>
       <Sections>
         {!ethereumOwner && (
@@ -252,7 +250,7 @@ const TokenWithdrawalInfo = ({ token, transferRequest, onComplete }: Props) => {
               <AmountWithConversion
                 monetaryAmount={{
                   referenceCurrency: SupportedCurrency.WEI,
-                  [SupportedCurrency.WEI.toLowerCase()]: new Big(feeAmount)
+                  wei: new Big(feeAmount)
                     .multipliedBy(MINTING_COST_RATIO)
                     .toString(),
                 }}
@@ -279,7 +277,7 @@ const TokenWithdrawalInfo = ({ token, transferRequest, onComplete }: Props) => {
               <AmountWithConversion
                 monetaryAmount={{
                   referenceCurrency: SupportedCurrency.WEI,
-                  [SupportedCurrency.WEI.toLowerCase()]: new Big(feeAmount)
+                  wei: new Big(feeAmount)
                     .multipliedBy(ethereumOwner ? 1 : 1 - MINTING_COST_RATIO)
                     .toString(),
                 }}
@@ -384,7 +382,7 @@ TokenWithdrawalInfo.fragments = {
       ...TokenName_token
     }
     ${TokenName.fragments.token}
-  `,
+  ` as TypedDocumentNode<TokenWithdrawalInfo_token>,
   transferRequest: gql`
     fragment TokenWithdrawalInfo_transferRequest on TransferRequest {
       senderVaultId
@@ -393,13 +391,13 @@ TokenWithdrawalInfo.fragments = {
       token
       nonce
       expirationTimestamp
-      # feeInfoUser {
-      #   tokenId
-      #   sourceVaultId
-      #   feeLimit
-      # }
+      feeInfoUser {
+        tokenId
+        sourceVaultId
+        feeLimit
+      }
     }
-  `,
+  ` as TypedDocumentNode<TokenWithdrawalInfo_transferRequest>,
 };
 
 export default TokenWithdrawalInfo;

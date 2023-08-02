@@ -4,15 +4,14 @@ import { useIntlContext } from '@core/contexts/intl';
 import { MonetaryAmountParams } from '@core/lib/monetaryAmount';
 import { ETH_DECIMAL_PLACES } from '@core/lib/wei';
 
-import useMonetaryAmount from './useMonetaryAmount';
+import useMonetaryAmount, { MonetaryAmountOutput } from './useMonetaryAmount';
 
 export type Props = {
-  monetaryAmount: MonetaryAmountParams;
+  monetaryAmount: MonetaryAmountParams | MonetaryAmountOutput;
   primaryCurrency?: Currency;
   usingLegacyFiat?: boolean;
 };
 
-//TODO*******************
 const useAmountWithConversion = ({
   monetaryAmount,
   primaryCurrency,
@@ -23,11 +22,13 @@ const useAmountWithConversion = ({
   const {
     fiatCurrency: userFiatCurrency,
     currency: userCurrency,
-    // walletPreferences: { onlyShowFiatCurrency },
+    walletPreferences: { onlyShowFiatCurrency },
   } = useCurrentUserContext();
-  const onlyShowFiatCurrency = false;
 
-  const fullMonetaryAmount = toMonetaryAmount(monetaryAmount);
+  const fullMonetaryAmount =
+    'referenceCurrency' in monetaryAmount
+      ? toMonetaryAmount(monetaryAmount)
+      : monetaryAmount;
 
   const monetaryAmountFiatKey = userFiatCurrency.code.toLowerCase() as
     | 'eur'
@@ -54,7 +55,10 @@ const useAmountWithConversion = ({
 
   return {
     main: actualPrimaryCurrency === Currency.ETH ? ethFormatted : fiatFormatted,
-    exponent: primaryCurrency || !onlyShowFiatCurrency ? exponent : null,
+    exponent:
+      primaryCurrency === Currency.ETH || !onlyShowFiatCurrency
+        ? exponent
+        : null,
   };
 };
 

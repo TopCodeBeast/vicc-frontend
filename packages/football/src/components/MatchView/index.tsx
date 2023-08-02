@@ -1,4 +1,4 @@
-import { gql, useSubscription } from '@apollo/client';
+import { TypedDocumentNode, gql, useSubscription } from '@apollo/client';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
@@ -16,6 +16,8 @@ import PlayerDetails from './PlayerDetails';
 import {
   MatchViewFormationsQuery,
   MatchViewFormationsQueryVariables,
+  onMatchViewDataUpdated,
+  onMatchViewDataUpdatedVariables,
 } from './__generated__/index.graphql';
 import { SelectedTeam } from './types';
 
@@ -38,36 +40,41 @@ const MatchViewContainer = styled.div`
   border-radius: var(--double-unit);
 `;
 
-// const subscription = gql`
-//   subscription onMatchViewDataUpdated($id: ID!) {
-//     aGameWasUpdated(id: $id) {
-//       id
-//       #...Overview_game
-//       #...FootballField_game
-//     }
-//   }
-//   #{Overview.fragments.game}
-//   #{FootballField.fragments.game}
-// `;
-
-const MATCH_VIEW_FORMATIONS_QUERY = gql`
-  query MatchViewFormationsQuery($id: ID!) {
-    game(id: $id) {
+const subscription = gql`
+  subscription onMatchViewDataUpdated($id: ID!) {
+    aGameWasUpdated(id: $id) {
       id
       ...Overview_game
-      #...FootballField_game
+      ...FootballField_game
     }
   }
   ${Overview.fragments.game}
-  #{FootballField.fragments.game}
-`;
+  ${FootballField.fragments.game}
+` as TypedDocumentNode<onMatchViewDataUpdated, onMatchViewDataUpdatedVariables>;
+
+const MATCH_VIEW_FORMATIONS_QUERY = gql`
+  query MatchViewFormationsQuery($id: ID!) {
+    football {
+      game(id: $id) {
+        id
+        ...Overview_game
+        ...FootballField_game
+      }
+    }
+  }
+  ${Overview.fragments.game}
+  ${FootballField.fragments.game}
+` as TypedDocumentNode<
+  MatchViewFormationsQuery,
+  MatchViewFormationsQueryVariables
+>;
 
 type Props = {
   id: string;
   desktop?: boolean;
 };
 const MatchView = ({ id, desktop }: Props) => {
-  // useSubscription(subscription, { variables: { id: idFromObject(id) } });
+  useSubscription(subscription, { variables: { id: idFromObject(id) } });
   const track = useFootballEvents();
   const { up: isDesktop } = useScreenSize('desktop');
   const [selectedTeam, setSelectedTeam] = useState(SelectedTeam.HOME);
@@ -78,23 +85,23 @@ const MatchView = ({ id, desktop }: Props) => {
   const [isPlayerDetailsOpen, setIsPlayerDetailsOpen] =
     useState<boolean>(false);
   const gameId = idFromObject(id);
-  const { data: formationData, loading: formationLoading } = useQuery<
-    MatchViewFormationsQuery,
-    MatchViewFormationsQueryVariables
-  >(MATCH_VIEW_FORMATIONS_QUERY, {
-    variables: {
-      id: gameId!,
-    },
-    skip: !gameId,
-    nextFetchPolicy: 'cache-first',
-    fetchPolicy: 'cache-and-network',
-  });
+  const { data: formationData, loading: formationLoading } = useQuery(
+    MATCH_VIEW_FORMATIONS_QUERY,
+    {
+      variables: {
+        id: gameId!,
+      },
+      skip: !gameId,
+      nextFetchPolicy: 'cache-first',
+      fetchPolicy: 'cache-and-network',
+    }
+  );
 
   useEffect(() => {
     if (formationData) {
       track('Open Match View', {
         gameId,
-        gameStatus: formationData.game.status,
+        gameStatus: formationData.football.game.status,
         deviceType: `web_${desktop ? 'desktop' : 'mobile'}`,
       });
     }
@@ -107,7 +114,7 @@ const MatchView = ({ id, desktop }: Props) => {
       </LoaderContainer>
     );
   }
-  const { game } = formationData;
+  const { game } = formationData.football;
 
   const onPlayerDetailsClick = (playerSlug?: string) => {
     if (isPlayerDetailsOpen && selectedPlayerSlug === playerSlug) {
@@ -150,14 +157,13 @@ const MatchView = ({ id, desktop }: Props) => {
       )}
       <MatchViewContainer ref={matchViewRef}>
         <Overview game={game} selectedTeam={selectedTeam} desktop={desktop} />
-        <>FootballField555</>
-        {/* <FootballField
+        <FootballField
           game={game}
           selectedTeam={selectedTeam}
           setSelectedTeam={setSelectedTeam}
           onPlayerDetailsClick={onPlayerDetailsClick}
           desktop={desktop}
-        /> */}
+        />
       </MatchViewContainer>
     </Root>
   );

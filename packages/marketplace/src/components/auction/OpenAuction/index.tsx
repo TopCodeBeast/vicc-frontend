@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import Big from 'bignumber.js';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
@@ -7,8 +7,8 @@ import { MonetaryAmount } from '@sorare/core/src/__generated__/globalTypes';
 import Block from '@sorare/core/src/atoms/layout/Block';
 import ButtonWithConfirmDialog from '@sorare/core/src/components/form/ButtonWithConfirmDialog';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
-import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
-import { theme } from '@sorare/core/src/style/theme';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
+import { breakpoints, tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import BidInfos from '@marketplace/components/auction/BidInfos';
 import BidField from '@marketplace/components/buyActions/BidField';
@@ -33,13 +33,13 @@ const ButtonsContainer = styled.div`
   display: flex;
   gap: var(--unit);
 
-  @media (max-width: ${theme.breakpoints.values.tablet}px) {
+  @media (max-width: ${breakpoints.tablet}px) {
     flex-direction: column;
     justify-content: space-between;
   }
 `;
 const StopButton = styled(ButtonWithConfirmDialog)`
-  @media (max-width: ${theme.breakpoints.values.tablet}px) {
+  @media (max-width: ${breakpoints.tablet}px) {
     order: 1;
   }
 `;
@@ -133,11 +133,7 @@ OpenAuction.fragments = {
       bestBid {
         id
         amounts {
-          wei
-          eur
-          usd
-          gbp
-          referenceCurrency
+          ...MonetaryAmountFragment_monetaryAmount
         }
         ...useStopAutoBid_bid
         ...UseBestBidBelongsToUser_bestBid
@@ -145,11 +141,7 @@ OpenAuction.fragments = {
       myBestBid {
         id
         maximumAmounts {
-          wei
-          eur
-          usd
-          gbp
-          referenceCurrency
+          ...MonetaryAmountFragment_monetaryAmount
         }
       }
       ...BidField_auction
@@ -161,13 +153,14 @@ OpenAuction.fragments = {
         ...useTokenTakesPartPromotionalEvent_token
       }
     }
+    ${monetaryAmountFragment}
     ${BidField.fragments.auction}
     ${BidInfos.fragments.auction}
     ${BidField.fragments.token}
     ${useStopAutoBid.fragments.bid}
     ${useBestBidBelongsToUser.fragments.bestBid}
     ${useTokenTakesPartPromotionalEvent.fragments.token}
-  `,
+  ` as TypedDocumentNode<OpenAuction_auction>,
 };
 
 export default OpenAuction;

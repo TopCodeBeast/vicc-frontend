@@ -1,11 +1,11 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useState } from 'react';
 import styled from 'styled-components';
 
 import FollowButton from '@sorare/core/src/components/favorites/FollowButton';
 import SubscribersCount from '@sorare/core/src/components/favorites/SubscribersCount';
 import { useFollowContext } from '@sorare/core/src/contexts/follow';
-import { isA } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
 
 import NotificationPreference from '@football/components/favorites/NotificationPreference';
 import { usePageContext } from '@football/contexts/page';
@@ -37,7 +37,7 @@ export const Follower = ({ dataPartner }: Props) => {
 
   return (
     <Root>
-      {isA('Player', object) && currentUserSubscription && (
+      {isType(object, 'Player') && currentUserSubscription && (
         <NotificationPreference subscription={currentUserSubscription} />
       )}
       <FollowButton subscribable={object} onChange={onChange} />
@@ -59,7 +59,7 @@ Follower.fragments = {
       ...PrivacyPolicyDialog_dataPartner
     }
     ${PrivacyPolicyDialog.fragments.dataPartner}
-  `,
+  ` as TypedDocumentNode<Follower_dataPartner>,
 };
 
 export default Follower;

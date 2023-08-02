@@ -1,3 +1,5 @@
+import { tabletAndAbove } from '@core/style/mediaQuery';
+
 const backgroundColor = 'transparent';
 
 export default (theme: any) => {
@@ -111,7 +113,7 @@ export default (theme: any) => {
     return {
       ...base,
       marginRight: 'var(--unit)',
-      [theme.breakpoints.up('sm')]: {
+      [`@media ${tabletAndAbove}`]: {
         marginRight: 'var(--double-unit)',
       },
       padding: 0,
@@ -158,7 +160,7 @@ export default (theme: any) => {
       '&:hover': {
         color: 'var(--c-neutral-600)',
       },
-      [theme.breakpoints.up('sm')]: {
+      [`@media ${tabletAndAbove}`]: {
         marginRight: 'var(--half-unit)',
       },
     }),

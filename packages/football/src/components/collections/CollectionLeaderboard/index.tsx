@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
@@ -6,7 +6,10 @@ import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery'
 import useInfiniteScroll from '@sorare/core/src/hooks/useInfiniteScroll';
 
 import LeaderboardRow from './LeaderboardRow';
-import { CollectionLeaderboardQuery } from './__generated__/index.graphql';
+import {
+  CollectionLeaderboardQuery,
+  CollectionLeaderboardQueryVariables,
+} from './__generated__/index.graphql';
 
 const Root = styled.div`
   display: flex;
@@ -26,49 +29,54 @@ const COLLECTION_LEADERBOARD_QUERY = gql`
     $includeUserCardCollection: Boolean!
     $cursor: String
   ) {
-    cardCollection(slug: $slug) {
-      slug
-      slotsCount
-      bestByScore(after: $cursor, first: 10) {
-        nodes {
+    football {
+      cardCollection(slug: $slug) {
+        slug
+        slotsCount
+        bestByScore(after: $cursor, first: 10) {
+          nodes {
+            id
+            ...LeaderboardRow_userCardCollection
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
+        }
+        userCardCollection(forUserSlug: $userSlug)
+          @include(if: $includeUserCardCollection) {
           id
           ...LeaderboardRow_userCardCollection
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-        }
-      }
-      userCardCollection(forUserSlug: $userSlug)
-        @include(if: $includeUserCardCollection) {
-        id
-        ...LeaderboardRow_userCardCollection
       }
     }
   }
   ${LeaderboardRow.fragments.userCardCollection}
-`;
+` as TypedDocumentNode<
+  CollectionLeaderboardQuery,
+  CollectionLeaderboardQueryVariables
+>;
 
 type Props = {
   slug: string;
   userSlug?: string;
 };
 const CollectionLeaderboard = ({ slug, userSlug }: Props) => {
-  const { data, loading, loadMore } =
-    usePaginatedQuery<CollectionLeaderboardQuery>(
-      COLLECTION_LEADERBOARD_QUERY,
-      {
-        variables: {
-          slug,
-          userSlug,
-          includeUserCardCollection: !!userSlug,
-        },
-        connection: 'UserCardCollectionConnection',
-        nextFetchPolicy: 'cache-first',
-        fetchPolicy: 'cache-and-network',
-      }
-    );
-  const pageInfo = data?.cardCollection.bestByScore.pageInfo;
+  const { data, loading, loadMore } = usePaginatedQuery(
+    COLLECTION_LEADERBOARD_QUERY,
+    {
+      variables: {
+        slug,
+        // FIXME undefined case is improperly handled
+        userSlug: userSlug ?? '',
+        includeUserCardCollection: !!userSlug,
+      },
+      connection: 'UserCardCollectionConnection',
+      nextFetchPolicy: 'cache-first',
+      fetchPolicy: 'cache-and-network',
+    }
+  );
+  const pageInfo = data?.football.cardCollection.bestByScore.pageInfo;
   const { InfiniteScrollLoader } = useInfiniteScroll(
     () => {
       loadMore(false, {
@@ -89,10 +97,10 @@ const CollectionLeaderboard = ({ slug, userSlug }: Props) => {
     );
   }
 
-  const myUserCardCollection = data.cardCollection.userCardCollection;
+  const myUserCardCollection = data.football.cardCollection.userCardCollection;
   const allUsersCardCollections =
-    data.cardCollection.bestByScore.nodes;
-  const slotsCount = data.cardCollection.slotsCount || 0;
+    data.football.cardCollection.bestByScore.nodes;
+  const slotsCount = data.football.cardCollection.slotsCount || 0;
 
   const addMyRankToLeaderboard =
     myUserCardCollection &&

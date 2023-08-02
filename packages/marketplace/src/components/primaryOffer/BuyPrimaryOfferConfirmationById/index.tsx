@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ReactNode } from 'react';
 
 import idFromObject from '@sorare/core/src/gql/idFromObject';
@@ -22,7 +22,10 @@ const BUY_PRIMARY_OFFER_CONFIRMATION_QUERY = gql`
     }
   }
   ${BuyPrimaryOfferConfirmation.fragments.primaryOffer}
-`;
+` as TypedDocumentNode<
+  BuyPrimaryOfferConfirmationQueryById,
+  BuyPrimaryOfferConfirmationQueryByIdVariables
+>;
 
 export type Props = {
   primaryOfferId: string;
@@ -35,10 +38,7 @@ export const BuyPrimaryOfferConfirmationById = ({
   customAmountDisplay,
   payment,
 }: Props) => {
-  const { data, loading } = useQuery<
-    BuyPrimaryOfferConfirmationQueryById,
-    BuyPrimaryOfferConfirmationQueryByIdVariables
-  >(BUY_PRIMARY_OFFER_CONFIRMATION_QUERY, {
+  const { data, loading } = useQuery(BUY_PRIMARY_OFFER_CONFIRMATION_QUERY, {
     variables: { id: idFromObject(primaryOfferId)! },
     fetchPolicy: 'cache-first',
     skip: !primaryOfferId,

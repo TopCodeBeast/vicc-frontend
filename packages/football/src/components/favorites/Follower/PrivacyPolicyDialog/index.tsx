@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -99,7 +99,7 @@ PrivacyPolicyDialog.fragments = {
       name
       termsUrl
     }
-  `,
+  ` as TypedDocumentNode<PrivacyPolicyDialog_dataPartner>,
 };
 
 export default PrivacyPolicyDialog;

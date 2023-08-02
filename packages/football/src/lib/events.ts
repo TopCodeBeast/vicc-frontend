@@ -1,9 +1,9 @@
-// import { FootballManagerTaskSlug } from '@sorare/core/src/__generated__/globalTypes';
-// import generateUseEvents from '@sorare/core/src/lib/events/generateUseEvents';
-// import {
-//   Sport,
-//   sportToJSON,
-// } from '@sorare/core/src/protos/events/shared/events';
+import { FootballManagerTaskSlug } from '@sorare/core/src/__generated__/globalTypes';
+import generateUseEvents from '@sorare/core/src/lib/events/generateUseEvents';
+import {
+  Sport,
+  sportToJSON,
+} from '@sorare/core/src/protos/events/shared/events';
 
 export type UnlockButtonAction =
   | 'Open Starter Bundle Dialog'
@@ -32,10 +32,9 @@ export type FootballEventTypes = {
   'Click Content Unit': {
     title: string;
   };
-  'Click How To Video': void;
-  // 'Click Manager Assistant Task': {
-  //   task: FootballManagerTaskSlug;
-  // };
+  'Click Manager Assistant Task': {
+    task: FootballManagerTaskSlug;
+  };
   'Click Submit Draft': {
     campaignSlug: string;
     success: boolean;
@@ -104,14 +103,8 @@ export type FootballEventTypes = {
   };
 };
 
-// export const useFootballEvents = generateUseEvents<FootballEventTypes>({
-//   defaultProperties: {
-//     sport: sportToJSON(Sport.FOOTBALL),
-//   },
-// });
-
-export const useFootballEvents = () => {
-  return (msg: any, ...params: any) => {
-    return 1;
-  };
-};
+export const useFootballEvents = generateUseEvents<FootballEventTypes>({
+  defaultProperties: {
+    sport: sportToJSON(Sport.FOOTBALL),
+  },
+});

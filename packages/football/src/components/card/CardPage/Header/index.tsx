@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import GlareEffect from '@sorare/core/src/atoms/animations/GlareEffect';
@@ -11,9 +11,10 @@ import { CardPageHeader_card } from './__generated__/index.graphql';
 interface Props {
   card: CardPageHeader_card;
   onClose?: () => void;
+  inDialog?: boolean;
 }
 
-const Root = styled.div`
+const Root = styled.div<{ inDialog?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,6 +24,11 @@ const Root = styled.div`
   @media ${laptopAndAbove} {
     height: auto;
     flex-grow: 1;
+    position: sticky;
+    top: ${({ inDialog }) =>
+      inDialog
+        ? `calc(5 * var(--unit))`
+        : `calc(var(--navbar-height-desktop) + 5 * var(--unit))`};
   }
 `;
 
@@ -37,9 +43,9 @@ const PictureContainer = styled.div`
   filter: drop-shadow(0px 5px 10px rgb(0 0 0 / 40%));
 `;
 
-export const Header = ({ card }: Props) => {
+export const Header = ({ card, inDialog }: Props) => {
   return (
-    <Root>
+    <Root inDialog={inDialog}>
       <PictureContainer>
         <GlareEffect pictureUrl={card.pictureUrl} />
         <CardProperties card={card} />
@@ -57,7 +63,7 @@ Header.fragments = {
       ...CardProperties_card
     }
     ${CardProperties.fragments.card}
-  `,
+  ` as TypedDocumentNode<CardPageHeader_card>,
 };
 
 export default Header;

@@ -161,7 +161,6 @@ export const ClaimRewards = ({ rewards, onClaim }: Props) => {
     setAutomaticallyRevealed(manuallyRevealed);
   }, [manuallyRevealed, setAutomaticallyRevealed]);
   const setAllCardsRevealed = useToggleArray(setAutomaticallyRevealed);
-
   const { formatMessage } = useIntl();
   const scrollableArea = useRef<HTMLDivElement | null>(null);
   const [selectedIndex, dangerousSetSelectedIndex] = useState(
@@ -219,7 +218,7 @@ export const ClaimRewards = ({ rewards, onClaim }: Props) => {
   );
 
   const clickHandler = useCallback(
-    index => {
+    (index: any) => {
       if (index === selectedIndex) {
         // startAnimation
         setRevealingRewardIndex(index);
@@ -261,17 +260,19 @@ export const ClaimRewards = ({ rewards, onClaim }: Props) => {
       >
         <Content>
           <RewardSelector className={classnames({ revealing })}>
-            <IconButton
-              disableDebounce
-              color="white"
-              disabled={selectedIndex === 0 || rewards.length < 2}
-              onClick={() => safeSetSelectedIndex(i => i - 1)}
-              title={formatMessage({
-                id: 'ClaimRewards.nav.previous',
-                defaultMessage: 'Previous',
-              })}
-              icon={faAngleLeft}
-            />
+            {rewards.length > 1 && (
+              <IconButton
+                disableDebounce
+                color="white"
+                disabled={selectedIndex === 0}
+                onClick={() => safeSetSelectedIndex(i => i - 1)}
+                title={formatMessage({
+                  id: 'ClaimRewards.nav.previous',
+                  defaultMessage: 'Previous',
+                })}
+                icon={faAngleLeft}
+              />
+            )}
             <VisibleWindow
               ref={scrollableArea}
               className="hiddenScrollbars"
@@ -290,16 +291,16 @@ export const ClaimRewards = ({ rewards, onClaim }: Props) => {
                 </Header>
               ))}
             </VisibleWindow>
-            <IconButton
-              disableDebounce
-              color="white"
-              disabled={
-                selectedIndex === rewards.length - 1 || rewards.length < 2
-              }
-              onClick={() => safeSetSelectedIndex(i => i + 1)}
-              title={formatMessage(glossary.next)}
-              icon={faAngleRight}
-            />
+            {rewards.length > 1 && (
+              <IconButton
+                disableDebounce
+                color="white"
+                disabled={selectedIndex === rewards.length - 1}
+                onClick={() => safeSetSelectedIndex(i => i + 1)}
+                title={formatMessage(glossary.next)}
+                icon={faAngleRight}
+              />
+            )}
           </RewardSelector>
 
           <CarouselWrapper>
@@ -355,18 +356,19 @@ export const ClaimRewards = ({ rewards, onClaim }: Props) => {
                             shine: selectedIndex === index,
                           })}
                           teasers={reward.teasers}
-                          onClickBack={() => {
-                            clickHandler(index);
-                          }}
+                          onClickBack={
+                            reward.onClick ?? (() => clickHandler(index))
+                          }
                           reveal={manuallyRevealed[index]}
                           onFinish={clearRevealingRewardIndex}
                         />
                       }
                       revealed={
-                        alreadyClaimed[index] ||
-                        (claimingAll &&
-                          automaticallyRevealed[index] &&
-                          !manuallyRevealed[index])
+                        !reward.onClick &&
+                        (alreadyClaimed[index] ||
+                          (claimingAll &&
+                            automaticallyRevealed[index] &&
+                            !manuallyRevealed[index]))
                       }
                     />
                   </animated.div>
@@ -406,22 +408,27 @@ export const ClaimRewards = ({ rewards, onClaim }: Props) => {
             medium
             disabled={
               revealingRewardIndex !== undefined ||
-              automaticallyRevealed.every(r => r === true)
+              automaticallyRevealed.every(r => r === true) ||
+              rewards.every(r => r.onClick)
             }
             onClick={() => {
               setClaimingAll(true);
               // claim the cards not yet revealed
-              const cardsIdToReveal = rewards
-                .map(r => r.ids)
-                .filter(
-                  (id, index) =>
-                    !manuallyRevealed[index] && !alreadyClaimed[index]
-                );
+              const cards = rewards.map((r, index) => ({
+                ids: r.ids,
+                revealable:
+                  !manuallyRevealed[index] &&
+                  !alreadyClaimed[index] &&
+                  !r.onClick,
+              }));
+              const cardsIdToReveal = cards
+                .filter(r => r.revealable)
+                .flatMap(r => r.ids);
               if (cardsIdToReveal.length) {
-                onClaim(cardsIdToReveal.flatMap(ids => ids));
+                onClaim(cardsIdToReveal);
               }
               // mark all as revealed
-              setAllCardsRevealed(true);
+              setAllCardsRevealed(cards.map(r => r.revealable));
             }}
           >
             <FormattedMessage

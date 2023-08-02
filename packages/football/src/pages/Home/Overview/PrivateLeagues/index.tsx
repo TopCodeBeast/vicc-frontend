@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faChevronRight } from '@fortawesome/pro-solid-svg-icons';
 import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -16,9 +16,9 @@ import {
 } from '@sorare/core/src/constants/routes';
 import { groupBy } from '@sorare/core/src/lib/arrays';
 
-import { HomeBlock } from '@football/components/Home/Block';
-import { ItemRows } from '@football/components/Home/ItemRows';
-import { SeeAllButton } from '@football/components/Home/SeeAllButton';
+import { HomeBlock } from '@football/components/home/Block';
+import { ItemRows } from '@football/components/home/ItemRows';
+import { SeeAllButton } from '@football/components/home/SeeAllButton';
 import { homeLabels } from '@football/lib/home';
 import { sortLeaderboardsByTournamentType } from '@football/lib/so5';
 
@@ -33,6 +33,7 @@ const EmptyWrapper = styled(LinkBox)`
   border-radius: var(--intermediate-unit);
   gap: var(--double-unit);
   align-items: center;
+  color: var(--c-neutral-1000);
 `;
 
 const EmptyContent = styled.div`
@@ -51,7 +52,7 @@ type Props = {
 };
 
 export const PrivateLeagues = ({ so5, loading }: Props) => {
-  const userGroups = so5?.mySo5UserGroups?.nodes; //TODO*************
+  const userGroups = so5?.mySo5UserGroups.nodes;
   const { totalCount } = so5?.mySo5UserGroups || {};
 
   const groupedByTournamentsGroups = useMemo(
@@ -137,8 +138,7 @@ export const PrivateLeagues = ({ so5, loading }: Props) => {
             to={generatePath(FOOTBALL_PRIVATE_LEAGUES_CREATE, {
               step: PrivateLeaguesStep.CREATE,
             })}
-            color="dark"
-            className="light-theme"
+            color="white"
             small
           />
         </EmptyWrapper>
@@ -149,13 +149,13 @@ export const PrivateLeagues = ({ so5, loading }: Props) => {
 
 PrivateLeagues.fragments = {
   so5: gql`
-    fragment PrivateLeagues_so5 on Vicc5Root {
-      mySo5UserGroups: myVicc5UserGroups(first: 20, statuses: [STARTED, TO_START]) {
+    fragment PrivateLeagues_so5 on So5Root {
+      mySo5UserGroups(first: 20, statuses: [STARTED, TO_START]) {
         nodes {
           slug
-          so5TournamentType: vicc5TournamentType {
+          so5TournamentType {
             id
-            so5LeaderboardType: vicc5LeaderboardType
+            so5LeaderboardType
           }
           ...PrivateLeagueBlock_userGroup
         }
@@ -163,5 +163,5 @@ PrivateLeagues.fragments = {
       }
     }
     ${PrivateLeagueBlock.fragments.userGroup}
-  `,
+  ` as TypedDocumentNode<PrivateLeagues_so5>,
 };

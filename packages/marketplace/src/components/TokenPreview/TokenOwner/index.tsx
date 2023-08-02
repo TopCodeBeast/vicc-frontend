@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
@@ -75,7 +75,7 @@ OwnerGalleryLink.fragments = {
     }
     ${ActiveUserAvatar.fragments.user}
     ${Nickname.fragments.user}
-  `,
+  ` as TypedDocumentNode<OwnerGalleryLink_User>,
 };
 
 TokenOwner.fragments = {
@@ -93,7 +93,7 @@ TokenOwner.fragments = {
       }
     }
     ${OwnerGalleryLink.fragments.user}
-  `,
+  ` as TypedDocumentNode<TokenOwner_token>,
 };
 
 export default TokenOwner;

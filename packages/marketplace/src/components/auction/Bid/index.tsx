@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { parseISO } from 'date-fns';
 import styled from 'styled-components';
 
@@ -11,13 +11,10 @@ import {
 } from '@sorare/core/src/components/user/GalleryLink';
 import UserName from '@sorare/core/src/components/user/UserName';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
-import { isA } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import { Bid_tokenBid } from './__generated__/index.graphql';
-
-type Bid_tokenBid_bidder_User = Bid_tokenBid['bidder'] & {
-  __typename: 'User';
-};
 
 type Props = {
   bid: Bid_tokenBid;
@@ -53,7 +50,7 @@ const Bid = ({
   const { formatDate, formatDistanceToNow } = useIntlContext();
   const galleryLinkPath = useCurrentSportGallery();
 
-  if (!bidder || !isA<Bid_tokenBid_bidder_User>('User', bidder)) return null;
+  if (!bidder || !isType(bidder, 'User')) return null;
 
   return (
     <Root>
@@ -88,11 +85,7 @@ Bid.fragments = {
     fragment Bid_tokenBid on TokenBid {
       id
       amounts {
-        eur
-        gbp
-        usd
-        wei
-        referenceCurrency
+        ...MonetaryAmountFragment_monetaryAmount
       }
       createdAt
       bidder {
@@ -104,10 +97,11 @@ Bid.fragments = {
         }
       }
     }
+    ${monetaryAmountFragment}
     ${Avatar.fragments.publicUserInfoInterface}
     ${UserName.fragments.user}
     ${GalleryLink.fragments.user}
-  `,
+  ` as TypedDocumentNode<Bid_tokenBid>,
 };
 
 export default Bid;

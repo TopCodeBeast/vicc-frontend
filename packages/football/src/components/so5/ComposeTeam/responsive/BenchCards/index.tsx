@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import styled from 'styled-components';
@@ -9,7 +9,6 @@ import {
   SortingOption,
 } from '@sorare/core/src/__generated__/globalTypes';
 import { Text16 } from '@sorare/core/src/atoms/typography';
-import { ResponsiveBanner } from '@sorare/core/src/components/content/ResponsiveBanner';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
@@ -24,6 +23,7 @@ import { Position as So5Position } from '@football/lib/so5';
 import {
   BenchCardsQuery,
   BenchCardsQueryVariables,
+  BenchCards_card,
 } from './__generated__/index.graphql';
 
 const cardFragment = gql`
@@ -33,11 +33,11 @@ const cardFragment = gql`
     ...BenchCardRow_card
   }
   ${BenchCardRow.fragments.card}
-`;
+` as TypedDocumentNode<BenchCards_card>;
 
 export const BENCH_CARDS_QUERY = gql`
   query BenchCardsQuery(
-    $vicc5LeaderboardSlug: String!
+    $so5LeaderboardSlug: String!
     $query: String
     $includeUsed: Boolean
     $includeNoGame: Boolean
@@ -46,48 +46,50 @@ export const BENCH_CARDS_QUERY = gql`
     $after: String
     $rarities: [Rarity!]!
     $sortType: EligibleCardsSort
-    $vicc5LineupId: String
+    $so5LineupId: String
     $statsView: Boolean!
-    $lastFifteenVicc5AverageScore: RangeInput
+    $lastFifteenSo5AverageScore: RangeInput
     $deckId: String
   ) {
-    so5: vicc5Root {
-      so5Leaderboard: vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
-        slug
-        so5League: vicc5League {
+    football {
+      so5 {
+        so5Leaderboard(slug: $so5LeaderboardSlug) {
           slug
-          name
-        }
-        myEligibleCards(
-          query: $query
-          includeUsed: $includeUsed
-          includeNoGame: $includeNoGame
-          position: $position
-          selectedCards: $selectedCards
-          after: $after
-          rarities: $rarities
-          first: 10
-          sortType: $sortType
-          vicc5LineupId: $vicc5LineupId
-          lastFifteenVicc5AverageScore: $lastFifteenVicc5AverageScore
-          deckId: $deckId
-        ) {
-          nodes {
+          so5League {
             slug
-            assetId
-            position: positionTyped
-            ...BenchCards_card
+            name
           }
-          pageInfo {
-            endCursor
-            hasNextPage
+          myEligibleCards(
+            query: $query
+            includeUsed: $includeUsed
+            includeNoGame: $includeNoGame
+            position: $position
+            selectedCards: $selectedCards
+            after: $after
+            rarities: $rarities
+            first: 10
+            sortType: $sortType
+            so5LineupId: $so5LineupId
+            lastFifteenSo5AverageScore: $lastFifteenSo5AverageScore
+            deckId: $deckId
+          ) {
+            nodes {
+              slug
+              assetId
+              position: positionTyped
+              ...BenchCards_card
+            }
+            pageInfo {
+              endCursor
+              hasNextPage
+            }
           }
         }
       }
     }
   }
   ${cardFragment}
-`;
+` as TypedDocumentNode<BenchCardsQuery, BenchCardsQueryVariables>;
 
 const Container = styled.div`
   display: flex;
@@ -148,7 +150,7 @@ export const BenchCards = () => {
   } = useFeatureFlags();
   const variables = useMemo(
     () => ({
-      vicc5LeaderboardSlug: so5Leaderboard.slug,
+      so5LeaderboardSlug: so5Leaderboard.slug,
       selectedCards: Object.values(lineup)
         .map(a => a.card)
         .filter(Boolean)
@@ -156,11 +158,11 @@ export const BenchCards = () => {
       query: search,
       includeUsed: filters.includeUsedCards,
       includeNoGame: filters.includeNoGameCards,
-      lastFifteenVicc5AverageScore: filters.lastFifteenVicc5AverageScore,
+      lastFifteenSo5AverageScore: filters.lastFifteenSo5AverageScore,
       position:
         activePosition === 'Extra Player' ? null : (activePosition as Position),
       rarities: cardsScarcities as Rarity[],
-      vicc5LineupId: idFromObject(so5Lineup.id),
+      so5LineupId: idFromObject(so5Lineup.id),
       sortType: {
         direction: SortingOption.DESC,
         type: displayedAverageScore,
@@ -182,16 +184,13 @@ export const BenchCards = () => {
     ]
   );
 
-  const { data, loading, loadMore } = usePaginatedQuery<
-    BenchCardsQuery,
-    BenchCardsQueryVariables
-  >(BENCH_CARDS_QUERY, {
+  const { data, loading, loadMore } = usePaginatedQuery(BENCH_CARDS_QUERY, {
     connection: 'CardConnection',
     variables,
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const cards = data?.so5.so5Leaderboard.myEligibleCards.nodes || [];
+  const cards = data?.football.so5.so5Leaderboard.myEligibleCards.nodes || [];
   const currentCard = lineup[activePosition].card && {
     ...lineup[activePosition].card!,
   };
@@ -221,26 +220,29 @@ export const BenchCards = () => {
       loadMore(false, {
         ...variables,
         after:
-          data?.so5.so5Leaderboard.myEligibleCards.pageInfo.endCursor,
+          data?.football.so5.so5Leaderboard.myEligibleCards.pageInfo.endCursor,
       });
     }, [
       loadMore,
       variables,
-      data?.so5.so5Leaderboard.myEligibleCards.pageInfo.endCursor,
+      data?.football.so5.so5Leaderboard.myEligibleCards.pageInfo.endCursor,
     ]),
     Boolean(
-      data?.so5.so5Leaderboard.myEligibleCards.pageInfo.hasNextPage
+      data?.football.so5.so5Leaderboard.myEligibleCards.pageInfo.hasNextPage
     ),
     loading
   );
 
   useEffect(() => {
     if (
-      data?.so5.so5Leaderboard.myEligibleCards.nodes.length === 0 &&
+      data?.football.so5.so5Leaderboard.myEligibleCards.nodes.length === 0 &&
       !loading &&
       !filters.includeNoGameCards
     ) {
-      setFilters(prevFilters => ({ ...prevFilters, includeNoGameCards: true }));
+      setFilters(prevFilters => ({
+        ...prevFilters,
+        includeNoGameCards: true,
+      }));
     }
   }, [data, loading, setFilters, filters.includeNoGameCards]);
 
@@ -251,10 +253,6 @@ export const BenchCards = () => {
   return (
     <div>
       <Container>
-        <ResponsiveBanner
-          slotName="so5_compose_team"
-          so5LeaderboardType={so5Leaderboard.so5LeaderboardType}
-        />
         {displayedCards.length > 0 &&
           displayedCards.map((c, idx) => (
             <BenchCardRow

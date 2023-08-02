@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { Title2, Title6 } from '@sorare/core/src/atoms/typography';
@@ -27,7 +27,7 @@ CardTitle.fragments = {
       ...CardDescription_card
     }
     ${CardDescription.fragments.card}
-  `,
+  ` as TypedDocumentNode<CardTitle_card>,
 };
 
 export default CardTitle;

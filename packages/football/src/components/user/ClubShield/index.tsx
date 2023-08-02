@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import styled from 'styled-components';
 
@@ -55,7 +55,7 @@ ClubShield.fragments = {
         pictureUrl
       }
     }
-  `,
+  ` as TypedDocumentNode<ClubShield_userProfile>,
 };
 
 export default ClubShield;

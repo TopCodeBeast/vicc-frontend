@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { add, isFuture, isPast, parseISO } from 'date-fns';
 
 import useForceUpdateAfterEndDate from '@sorare/core/src/hooks/useForceUpdateAfterEndDate';
@@ -25,7 +25,7 @@ const useGetAuctionDetails = (auction: useGetAuctionDetails_auction | null) => {
       endDate,
       ended,
       price,
-      currency: '' as any, ///auction?.currency,//TODO****
+      currency: auction?.currency,
     };
   }
   return undefined;
@@ -38,9 +38,11 @@ useGetAuctionDetails.fragments = {
       endDate
       currentPrice
       privateCurrentPrice
-      # currency
+      currency
+      ...auctionCurrentPrice_auction
     }
-  `,
+    ${auctionCurrentPrice.fragments.auction}
+  ` as TypedDocumentNode<useGetAuctionDetails_auction>,
 };
 
 export default useGetAuctionDetails;

@@ -3,7 +3,7 @@ import { createContext, useContext } from 'react';
 import {
   Currency,
   EnabledWallet,
-//   FiatWalletAccount,
+  FiatWalletAccount,
 } from '__generated__/globalTypes';
 import { Currency as FiatCurrency } from '@core/lib/fiat';
 
@@ -31,19 +31,42 @@ export interface SignInArgs {
   otpSessionChallenge?: string;
 }
 
+export type CurrentUserFiatWalletAccountDepositBankAccount =
+  (CurrentUserQuery_currentUser['accounts'][number]['accountable'] & {
+    __typename: 'FiatWalletAccount';
+  })['depositBankAccount'];
+
+export type CurrentUserFiatWalletAccount = Pick<
+  FiatWalletAccount,
+  | 'id'
+  | 'firstName'
+  | 'lastName'
+  | 'dob'
+  | 'nationalityCode'
+  | 'currency'
+  | 'availableBalance'
+  | 'state'
+  | 'totalBalance'
+  | 'countryOfResidenceCode'
+  | 'kycStatus'
+  | 'kycRefusedReason'
+> & {
+  depositBankAccount: CurrentUserFiatWalletAccountDepositBankAccount;
+};
+
 interface CurrentUserContext {
   currentUser: CurrentUser | null | undefined;
   fiatCurrency: FiatCurrency;
   currency: Currency;
-  // displayEth: boolean;
+  displayEth: boolean;
   refetch: () => Promise<any>;
   signIn: (
     args: SignInArgs
   ) => Promise<SignInMutation_signIn | null | undefined>;
-  // blockchainCardsCount: number;
-  // fiatWalletAccountable: FiatWalletAccount | null;
+  blockchainCardsCount: number;
+  fiatWalletAccountable: CurrentUserFiatWalletAccount | null;
   walletPreferences: {
-  //   enabledWallets?: EnabledWallet[];
+    enabledWallets?: EnabledWallet[];
     showEthWallet: boolean;
     showFiatWallet: boolean;
     onlyShowFiatCurrency: boolean;

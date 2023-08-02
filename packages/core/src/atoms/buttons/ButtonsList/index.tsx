@@ -31,10 +31,12 @@ const Wrapper = styled.div`
   }
 `;
 
-export type ButtonProps = FC<{
-  onClick?: () => void;
-  href?: string;
-}>;
+export type ButtonProps = FC<
+  React.PropsWithChildren<{
+    onClick?: () => void;
+    href?: string;
+  }>
+>;
 const ButtonComponent: ButtonProps = ({ children, href, onClick }) => {
   return (
     <StyledButton

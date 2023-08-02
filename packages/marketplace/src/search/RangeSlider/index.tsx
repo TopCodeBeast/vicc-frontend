@@ -256,7 +256,7 @@ export const RangeSlider = ({
     return null;
   }
 
-  const disabled = false;//minimum === maximum; //TODO******************************filter
+  const disabled = minimum === maximum;
   const shouldDisplayPlus = needGreaterThanMode && reachEnd;
 
   return (

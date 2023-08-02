@@ -24,12 +24,12 @@ import {
   MY_GALLERY_WILDCARD,
 } from '@sorare/core/src/constants/routes';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-// import useGetSplat from '@sorare/core/src/hooks/useGetSplat';
+import useGetSplat from '@sorare/core/src/hooks/useGetSplat';
 
 const RedirectRouter = () => {
   const { currentUser } = useCurrentUserContext();
   const location = useLocation();
-  // const getSplat = useGetSplat();
+  const getSplat = useGetSplat();
   const { slug } = useParams();
 
   return (
@@ -37,15 +37,15 @@ const RedirectRouter = () => {
       {[
         ...(currentUser
           ? [
-              // {
-              //   from: MY_GALLERY_WILDCARD,
-              //   to: getSplat(
-              //     MY_GALLERY_WILDCARD,
-              //     generatePath(FOOTBALL_USER_GALLERY_WILDCARD, {
-              //       slug: currentUser.slug,
-              //     })
-              //   ),
-              // },
+              {
+                from: MY_GALLERY_WILDCARD,
+                to: getSplat(
+                  MY_GALLERY_WILDCARD,
+                  generatePath(FOOTBALL_USER_GALLERY_WILDCARD, {
+                    slug: currentUser.slug,
+                  })
+                ),
+              },
               {
                 from: FOOTBALL_MANAGER_HOME_CARDS,
                 to: generatePath(FOOTBALL_USER_GALLERY_CARDS, {

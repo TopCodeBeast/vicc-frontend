@@ -1,10 +1,9 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
-import {
-  OwnerTransfer,
-  SupportedCurrency,
-} from '@sorare/core/src/__generated__/globalTypes';
+import { OwnerTransfer } from '@sorare/core/src/__generated__/globalTypes';
 import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
+import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import { TokenOwnerPrice_tokenOwner } from './__generated__/index.graphql';
 
@@ -13,9 +12,11 @@ type Props = {
 };
 
 export const TokenOwnerPrice = ({ tokenOwner }: Props) => {
+  const { toMonetaryAmount } = useMonetaryAmount();
   if (!tokenOwner) return null;
 
-  const { priceWei, transferType, priceFiat } = tokenOwner;
+  const { price, transferType } = tokenOwner;
+  const priceMonetaryAmount = toMonetaryAmount(price);
   const renderPrice = () => {
     if (
       [
@@ -23,18 +24,9 @@ export const TokenOwnerPrice = ({ tokenOwner }: Props) => {
         OwnerTransfer.ENGLISH_AUCTION,
         OwnerTransfer.SINGLE_BUY_OFFER,
       ].includes(transferType) &&
-      priceWei !== '0'
+      priceMonetaryAmount.eur !== 0
     ) {
-      return (
-        <AmountWithConversion
-          monetaryAmount={{
-            referenceCurrency: SupportedCurrency.WEI,
-            [SupportedCurrency.WEI.toLowerCase()]: priceWei,
-            ...priceFiat,
-          }}
-          usingLegacyFiat
-        />
-      );
+      return <AmountWithConversion monetaryAmount={priceMonetaryAmount} />;
     }
     return null;
   };
@@ -47,12 +39,10 @@ TokenOwnerPrice.fragments = {
     fragment TokenOwnerPrice_tokenOwner on TokenOwner {
       id
       transferType
-      priceWei: price ##############
-      priceFiat: priceInFiat {
-        eur
-        usd
-        gbp
+      price {
+        ...MonetaryAmountFragment_monetaryAmount
       }
     }
-  `,
+    ${monetaryAmountFragment}
+  ` as TypedDocumentNode<TokenOwnerPrice_tokenOwner>,
 };

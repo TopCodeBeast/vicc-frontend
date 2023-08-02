@@ -15,7 +15,7 @@ type Props = {
 };
 
 const BlockHeader = ({ title }: Props) => {
-  return <Root as="h6">{title}</Root>;
+  return <Root>{title}</Root>;
 };
 
 export default BlockHeader;

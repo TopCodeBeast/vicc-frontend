@@ -23,7 +23,7 @@ export const Right = styled.div`
 type Props = {
   onBack?: () => void;
   onClose?: () => void;
-  title?: JSX.Element;
+  title?: React.JSX.Element;
 };
 const Header = ({ onBack, title, onClose }: Props) => (
   <Container>

@@ -1,15 +1,8 @@
-// export { default as mapNodes } from './mapNodes';
+export { default as mapNodes } from './mapNodes';
 
 export interface GqlType {
   __typename: string;
 }
-
-export const isA = <T extends GqlType>(
-  typename: string,
-  item: GqlType | null | undefined
-): item is T => {
-  return item?.__typename === typename;
-};
 
 type GraphQLResult = { __typename: string };
 type ValueOfTypename<T extends GraphQLResult> = T['__typename'];
@@ -18,7 +11,7 @@ export const isType = <
   Result extends GraphQLResult,
   Typename extends ValueOfTypename<Result>
 >(
-  result: Result,
+  result: Result | null | undefined,
   typename: Typename
 ): result is Extract<Result, { __typename: Typename }> => {
   return result?.__typename === typename;

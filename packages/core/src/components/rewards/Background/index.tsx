@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Fragment } from 'react';
+import { Fragment, ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { range } from '@core/lib/arrays';
@@ -59,13 +59,13 @@ const Line = styled.div`
 `;
 
 type Props = {
-  text: string;
+  text: ReactNode;
   className?: string;
   tiltText?: boolean;
   black?: boolean;
 };
 
-export const Background: React.FC<Props> = ({
+export const Background: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   text,
   className,

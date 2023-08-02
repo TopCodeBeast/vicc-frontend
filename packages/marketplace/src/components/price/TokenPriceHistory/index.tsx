@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback } from 'react';
 
 import {
@@ -9,6 +9,7 @@ import {
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 
 import PriceHistoryFromProps from '../PriceHistoryFromProps';
+import { TokenPriceHistory_token } from './__generated__/index.graphql';
 
 export type FakeToken = {
   slug: string;
@@ -60,16 +61,14 @@ TokenPriceHistory.fragments = {
       slug
       collection
       metadata {
-        ... on TokenCricketMetadata {
-          id
-        }
         ... on TokenCardMetadataInterface {
+          id
           playerDisplayName
           playerSlug
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<TokenPriceHistory_token>,
 };
 
 export default TokenPriceHistory;

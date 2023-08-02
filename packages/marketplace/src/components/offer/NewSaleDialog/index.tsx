@@ -1,9 +1,10 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage, defineMessages } from 'react-intl';
 
 import { AmountInput, Sport } from '@sorare/core/src/__generated__/globalTypes';
 import { Caption } from '@sorare/core/src/atoms/typography';
 import useSnackErrorHandler from '@sorare/core/src/hooks/useSnackErrorHandler';
+import { MonetaryAmountParams } from '@sorare/core/src/lib/monetaryAmount';
 
 import useCreateSingleSaleOffer from '@marketplace/hooks/offers/useCreateSingleSaleOffer';
 
@@ -34,10 +35,10 @@ export interface Props {
   open: boolean;
   onClose: () => void;
   token: NewSaleDialog_token;
-  initialWeiAmount?: string;
+  initialAmount?: MonetaryAmountParams;
 }
 
-const NewSaleDialog = ({ token, onClose, open, initialWeiAmount }: Props) => {
+const NewSaleDialog = ({ token, onClose, open, initialAmount }: Props) => {
   const createOffer = useCreateSingleSaleOffer();
   const snackErrorHandler = useSnackErrorHandler();
 
@@ -50,15 +51,12 @@ const NewSaleDialog = ({ token, onClose, open, initialWeiAmount }: Props) => {
     legacyWeiAmount: string;
     duration?: number;
   }) => {
-    const errors = await snackErrorHandler(createOffer)({
+    await snackErrorHandler(createOffer)({
       amountInput,
       legacyWeiAmount,
       token,
       duration,
     });
-    if (!errors.result) {
-      onClose();
-    }
   };
 
   return (
@@ -80,7 +78,7 @@ const NewSaleDialog = ({ token, onClose, open, initialWeiAmount }: Props) => {
       }
       confirmationMessage={messages.confirmationMessage}
       minimumPrice={token.priceRange?.min}
-      initialWeiAmount={initialWeiAmount}
+      initialAmount={initialAmount}
     />
   );
 };
@@ -100,7 +98,7 @@ NewSaleDialog.fragments = {
     }
     ${useCreateSingleSaleOffer.fragments.token}
     ${OfferDialog.fragments.token}
-  `,
+  ` as TypedDocumentNode<NewSaleDialog_token>,
 };
 
 export default NewSaleDialog;

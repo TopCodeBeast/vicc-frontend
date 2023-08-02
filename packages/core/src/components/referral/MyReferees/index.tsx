@@ -66,11 +66,11 @@ export const MyReferees = () => {
   const selectedOption = selectOptions.find(o => o.value === referralState);
   const showBreakdownTooltip =
     currentUser.referralRewardsCount !==
-      currentUser.footballReferralsCompleted.totalCount; /*&&
+      currentUser.footballReferralsCompleted.totalCount &&
     currentUser.referralRewardsCount !==
       currentUser.nbaReferralsCompleted.totalCount &&
     currentUser.referralRewardsCount !==
-      currentUser.baseballReferralsCompleted.totalCount;*/
+      currentUser.baseballReferralsCompleted.totalCount;
 
   return (
     <Root>
@@ -87,17 +87,17 @@ export const MyReferees = () => {
               showBreakdownTooltip ? (
                 <div>
                   <div>
-                    <FormattedMessage {...sportsLabelsMessages.CRICKET} />:{' '}
+                    <FormattedMessage {...sportsLabelsMessages.FOOTBALL} />:{' '}
                     {currentUser.footballReferralsCompleted.totalCount}
                   </div>
-                  {/* <div>
+                  <div>
                     <FormattedMessage {...sportsLabelsMessages.NBA} />:{' '}
                     {currentUser.nbaReferralsCompleted.totalCount}
                   </div>
                   <div>
                     <FormattedMessage {...sportsLabelsMessages.BASEBALL} />:{' '}
                     {currentUser.baseballReferralsCompleted.totalCount}
-                  </div> */}
+                  </div>
                 </div>
               ) : (
                 ''

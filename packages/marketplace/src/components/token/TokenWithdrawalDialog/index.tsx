@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faEthereum } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
@@ -37,7 +37,10 @@ const GET_TRANSFER_REQUEST_MUTATION = gql`
     }
   }
   ${TokenWithdrawalInfo.fragments.transferRequest}
-`;
+` as TypedDocumentNode<
+  GetTransferRequestMutation,
+  GetTransferRequestMutationVariables
+>;
 
 const messages = defineMessages({
   withdraw: {
@@ -70,10 +73,9 @@ const ButtonIcon = styled(FontAwesomeIcon)`
 const TokenWithdrawalDialog = ({ token }: Props) => {
   const { assetId, ethereumOwner } = token;
   const { formatMessage } = useIntlContext();
-  const [prepare] = useMutation<
-    GetTransferRequestMutation,
-    GetTransferRequestMutationVariables
-  >(GET_TRANSFER_REQUEST_MUTATION, { showErrorsWithSnackNotification: true });
+  const [prepare] = useMutation(GET_TRANSFER_REQUEST_MUTATION, {
+    showErrorsWithSnackNotification: true,
+  });
   const [open, setOpen] = useState(false);
   const [transferRequest, setTransferRequest] = useState<
     | GetTransferRequestMutation_prepareCardWithdrawal_transferRequest
@@ -143,7 +145,7 @@ TokenWithdrawalDialog.fragments = {
       ...TokenWithdrawalInfo_token
     }
     ${TokenWithdrawalInfo.fragments.token}
-  `,
+  ` as TypedDocumentNode<TokenWithdrawalDialog_token>,
 };
 
 export default TokenWithdrawalDialog;

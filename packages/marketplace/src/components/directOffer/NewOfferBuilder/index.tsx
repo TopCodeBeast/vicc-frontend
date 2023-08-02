@@ -1,11 +1,23 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useReducer } from 'react';
 import { useIntl } from 'react-intl';
 
-import { Sport } from '@sorare/core/src/__generated__/globalTypes';
-import { CurrentUser } from '@sorare/core/src/contexts/currentUser';
+import {
+  Currency,
+  Sport,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
+import {
+  CurrentUser,
+  useCurrentUserContext,
+} from '@sorare/core/src/contexts/currentUser';
+import {
+  MonetaryAmountOutput,
+  zeroMonetaryAmount,
+} from '@sorare/core/src/hooks/useMonetaryAmount';
 import { convertToCardHit } from '@sorare/core/src/lib/algolia';
 import { tradeLabels } from '@sorare/core/src/lib/glossary';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import BuildingPage from './BuildingPage';
 import { OfferUser } from './OfferUser';
@@ -14,6 +26,7 @@ import {
   NewOfferBuilder_publicUserInfoInterface,
   NewOfferBuilder_token,
   NewOfferCardsQuery,
+  NewOfferCardsQueryVariables,
 } from './__generated__/index.graphql';
 import reducer, { init } from './reducer';
 import { OfferBuilderStage, StateProps } from './types';
@@ -30,28 +43,33 @@ export interface SharedProps {
 
 type Props = SharedProps & {
   receiveCards?: NewOfferBuilder_token[];
-  receiveEth?: number;
-  receiveMarketFeesEth?: number;
+  receiveAmount?: MonetaryAmountOutput;
+  receiveMarketFeesAmount?: MonetaryAmountOutput;
   sendCards?: NewOfferBuilder_token[];
-  sendEth?: number;
+  sendAmount?: MonetaryAmountOutput;
+  referenceCurrency?: SupportedCurrency;
 };
 
 type StagePage = React.ComponentType<
-  SharedProps & StateProps<NewOfferBuilder_token>
+  React.PropsWithChildren<SharedProps & StateProps<NewOfferBuilder_token>>
 >;
 
 const tokenFragment = gql`
   fragment NewOfferBuilder_token on Token {
     assetId
     slug
+    publicMinPrices {
+      ...MonetaryAmountFragment_monetaryAmount
+    }
     ...OfferBuilderBuildingPage_token
     ...OfferBuilderSummary_token
     ...useOnSubmit_token
   }
+  ${monetaryAmountFragment}
   ${useOnSubmit.fragments.token}
   ${Summary.fragments.token}
   ${BuildingPage.fragments.token}
-`;
+` as TypedDocumentNode<NewOfferBuilder_token>;
 
 const NEW_OFFER_CARDS_QUERY = gql`
   query NewOfferCardsQuery($assetIds: [String!]!) {
@@ -64,7 +82,7 @@ const NEW_OFFER_CARDS_QUERY = gql`
     }
   }
   ${tokenFragment}
-`;
+` as TypedDocumentNode<NewOfferCardsQuery, NewOfferCardsQueryVariables>;
 
 const SummaryPage = ({
   to,
@@ -131,30 +149,51 @@ export const NewOfferBuilder = ({
   onClose,
   to,
   receiveCards: initialReceiveCards = [],
-  receiveEth: initialReceiveEth = 0,
-  receiveMarketFeesEth: initialReceiveMarketFeesEth = 0,
+  receiveAmount: initialReceiveAmount = zeroMonetaryAmount,
+  receiveMarketFeesAmount: initialReceiveMarketFeesAmount = zeroMonetaryAmount,
   sendCards: initialSendCards = [],
-  sendEth: initialSendEth = 0,
+  sendAmount: initialSendAmount = zeroMonetaryAmount,
   counterOfferId = undefined,
   counterOfferSport = undefined,
   currentUser,
   lockReceiveEthInput,
+  referenceCurrency,
 }: Props) => {
+  const {
+    currency,
+    fiatCurrency: { code },
+    walletPreferences: { showFiatWallet, showEthWallet },
+  } = useCurrentUserContext();
   const onSubmit = useOnSubmit<NewOfferBuilder_token>(
     to,
     onClose,
     counterOfferId
   );
+  const initialCurrency =
+    currency === Currency.ETH
+      ? SupportedCurrency.WEI
+      : (code as SupportedCurrency);
+
   const [state, dispatch] = useReducer(
     offerBuilderReducer,
     {
-      initialReceiveCards,
-      initialReceiveEth,
-      initialReceiveMarketFeesEth,
+      initialReceiveAmount,
       initialSendCards,
-      initialSendEth,
+      initialSendAmount,
       submit: onSubmit,
+      initialReceiveMarketFeesAmount,
+      initialReceiveCurrency:
+        referenceCurrency ||
+        (showEthWallet && initialCurrency) ||
+        (showFiatWallet && (code as SupportedCurrency)) ||
+        undefined,
+      initialSendCurrency:
+        referenceCurrency ||
+        (showEthWallet && initialCurrency) ||
+        (showFiatWallet && (code as SupportedCurrency)) ||
+        undefined,
       convertToAlgoliaCardHit: convertToCardHit,
+      initialReceiveCards,
     },
     init
   );
@@ -187,7 +226,7 @@ NewOfferBuilder.fragments = {
     }
     ${BuildingPage.fragments.user}
     ${OfferUser.fragments.publicUserInfoInterface}
-  `,
+  ` as TypedDocumentNode<NewOfferBuilder_publicUserInfoInterface>,
   token: tokenFragment,
 };
 

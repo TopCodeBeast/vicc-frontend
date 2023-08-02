@@ -1,9 +1,9 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { ItemPropertiesContainer } from '@marketplace/components/ItemPreview/ui';
-// import Bundle from '@marketplace/components/auction/Bundle';
+import Bundle from '@marketplace/components/auction/Bundle';
 import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
 
 import { TokenProperties_token } from './__generated__/index.graphql';
@@ -33,7 +33,7 @@ export const TokenProperties = ({
   if (isBundledAuction) {
     return (
       <StyledItemPropertiesContainer>
-        {/* <Bundle /> */}<>Bundle5555</>
+        <Bundle />
         {!disableSportSpecific && (
           <TokenAuctionEligibility auction={token.latestEnglishAuction} />
         )}
@@ -66,5 +66,5 @@ TokenProperties.fragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<TokenProperties_token>,
 };

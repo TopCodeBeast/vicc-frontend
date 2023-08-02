@@ -1,8 +1,7 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { isType } from '@sorare/core/src/gql';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { EmptySlot } from '@football/components/collections/EmptySlot';
@@ -30,22 +29,19 @@ type Props = {
   slots:
     | CollectionSlots_userCardCollectionSlot[]
     | CollectionSlots_cardCollectionSlot[];
-  cardCollection?: CollectionSlots_cardCollection;
+  cardCollection: CollectionSlots_cardCollection;
   readOnly: boolean;
 };
 
 export const CollectionSlots = ({ cardCollection, slots, readOnly }: Props) => {
-  const {
-    flags: { usePricesInCollection = false },
-  } = useFeatureFlags();
   const { emptySlotsSales } = useEmptySlotsSales(
     slots,
     cardCollection,
-    readOnly || !usePricesInCollection
+    readOnly
   );
   return (
     <Wrapper>
-      {slots.map((slot: any) => {
+      {slots.map(slot => {
         if (isType(slot, 'UserCardCollectionSlot')) {
           const isFilled = slot.cardCollectionCardsCount > 0;
           return isFilled ? (
@@ -60,17 +56,17 @@ export const CollectionSlots = ({ cardCollection, slots, readOnly }: Props) => {
               slot={slot.slot}
               key={slot.slot.id}
               saleToken={emptySlotsSales?.[slot.slot.player.slug]}
-              readOnly={readOnly || !usePricesInCollection}
+              readOnly={readOnly}
             />
           );
         }
-        if (false) { //if (isType(slot, 'CardCollectionSlot')) { //*************TODO */
+        if (isType(slot, 'CardCollectionSlot')) {
           return (
             <EmptySlot
               slot={slot}
               key={slot.id}
               saleToken={emptySlotsSales?.[slot.player.slug]}
-              readOnly={readOnly || !usePricesInCollection}
+              readOnly={readOnly}
             />
           );
         }
@@ -97,7 +93,7 @@ CollectionSlots.fragments = {
     }
     ${EmptySlot.fragments.cardCollectionSlot}
     ${FulfilledSlot.fragments.userCardCollectionSlot}
-  `,
+  ` as TypedDocumentNode<CollectionSlots_userCardCollectionSlot>,
   cardCollectionSlot: gql`
     fragment CollectionSlots_cardCollectionSlot on CardCollectionSlot {
       id
@@ -107,7 +103,7 @@ CollectionSlots.fragments = {
       ...EmptySlot_cardCollectionSlot
     }
     ${EmptySlot.fragments.cardCollectionSlot}
-  `,
+  ` as TypedDocumentNode<CollectionSlots_cardCollectionSlot>,
   cardCollection: gql`
     fragment CollectionSlots_cardCollection on CardCollection {
       slug
@@ -116,7 +112,6 @@ CollectionSlots.fragments = {
       season {
         startYear
       }
-      bannerPictureUrl
       team {
         ... on TeamInterface {
           slug
@@ -125,5 +120,5 @@ CollectionSlots.fragments = {
       ...FulfilledSlot_cardCollection
     }
     ${FulfilledSlot.fragments.cardCollection}
-  `,
+  ` as TypedDocumentNode<CollectionSlots_cardCollection>,
 };

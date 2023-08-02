@@ -10,4 +10,9 @@ export const messages = defineMessages({
     defaultMessage:
       'When your friend collects {count} new cards via auctions or a starter pack, you’ll both win free cards.',
   },
+  conversionCreditDescription: {
+    id: 'ReferralProgram.Notice.conversionCreditDescription',
+    defaultMessage:
+      'When your friend collects {count} new cards via auctions or a starter pack, you’ll both get up to <span>{amount} in credits</span>.',
+  },
 });

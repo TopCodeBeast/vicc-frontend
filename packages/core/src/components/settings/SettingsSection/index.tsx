@@ -4,6 +4,7 @@ import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import styled from 'styled-components';
 
 import { Text16, Title4 } from '@core/atoms/typography';
+import Bold from '@core/atoms/typography/Bold';
 import { glossary } from '@core/lib/glossary';
 
 const SingleDescription = ({
@@ -12,7 +13,7 @@ const SingleDescription = ({
   description: MessageDescriptor;
 }) => (
   <Text16 color="var(--c-neutral-600)">
-    <FormattedMessage {...description} />
+    <FormattedMessage {...description} values={{ bold: Bold }} />
   </Text16>
 );
 

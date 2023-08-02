@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -99,11 +99,11 @@ const ComposeTeamReminderBanner = ({ so5Fixture }: Props) => {
 
 ComposeTeamReminderBanner.fragments = {
   so5Fixture: gql`
-    fragment ComposeTeamReminderBanner_so5Fixture on Vicc5Fixture {
+    fragment ComposeTeamReminderBanner_so5Fixture on So5Fixture {
       slug
       displayName
     }
-  `,
+  ` as TypedDocumentNode<ComposeTeamReminderBanner_so5Fixture>,
 };
 
 export default ComposeTeamReminderBanner;

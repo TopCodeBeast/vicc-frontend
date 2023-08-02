@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faInfoCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ReactNode, useState } from 'react';
@@ -12,6 +12,7 @@ import Blockquote from '@sorare/core/src/atoms/layout/Blockquote';
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
+import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
 import TokenSummary from '@marketplace/components/buyActions/TokenSummary';
@@ -42,7 +43,8 @@ const Exponent = styled(Text14)`
 `;
 
 type Props = {
-  weiAmount: string;
+  monetaryAmount: MonetaryAmountOutput;
+  referenceCurrency: SupportedCurrency;
   onClose: () => void;
   showWarningMessage: boolean;
   submitting: boolean;
@@ -90,7 +92,8 @@ const Title = styled(Text16).attrs({ bold: true })`
 
 const ConfirmationDialogContent = ({
   showWarningMessage,
-  weiAmount,
+  monetaryAmount,
+  referenceCurrency,
   onClose,
   submitting,
   submit,
@@ -102,8 +105,8 @@ const ConfirmationDialogContent = ({
 }: Props) => {
   const { main, exponent } = useAmountWithConversion({
     monetaryAmount: {
-      referenceCurrency: SupportedCurrency.WEI,
-      [SupportedCurrency.WEI.toLowerCase()]: weiAmount,
+      referenceCurrency,
+      ...monetaryAmount,
     },
   });
   const [consentAgreed, setConsentAgreed] = useState(false);
@@ -128,7 +131,8 @@ const ConfirmationDialogContent = ({
                   placement="top"
                   title={
                     <CalculatedFeesTooltip
-                      priceWei={weiAmount}
+                      referenceCurrency={referenceCurrency}
+                      monetaryAmount={monetaryAmount}
                       feesRate={secondaryMarketFeesRate}
                     />
                   }
@@ -153,8 +157,7 @@ const ConfirmationDialogContent = ({
         {validationMessages}
       </DetailsWrapper>
       {ConsentMessage && (
-        <>ConsentMessage55551</>
-        // <ConsentMessage value={consentAgreed} onChange={setConsentAgreed} />
+        <ConsentMessage value={consentAgreed} onChange={setConsentAgreed} />
       )}
       <Actions>
         <Button medium onClick={onClose} color="white" disabled={submitting}>
@@ -182,6 +185,6 @@ ConfirmationDialogContent.fragments = {
       ...TokenSummary_token
     }
     ${TokenSummary.fragments.token}
-  `,
+  ` as TypedDocumentNode<ConfirmationDialogContent_token>,
 };
 export default ConfirmationDialogContent;

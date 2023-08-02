@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedList, FormattedMessage, useIntl } from 'react-intl';
 
 import { scarcityMessages } from '@sorare/core/src/lib/scarcity';
@@ -56,5 +56,5 @@ MissingCardsMessage.fragments = {
       ...getMissingCards_validity
     }
     ${getMissingCards.fragments.validity}
-  `,
+  ` as TypedDocumentNode<MissingCardsMessage_validity>,
 };

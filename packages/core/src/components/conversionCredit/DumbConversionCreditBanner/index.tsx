@@ -11,7 +11,9 @@ import { Text14, Text16 } from '@core/atoms/typography';
 import { AUCTION_MARKET_URL, STARTER_BUNDLES_URL } from '@core/constants/routes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useIntlContext } from '@core/contexts/intl';
+import { useSportContext } from '@core/contexts/sport';
 import useScreenSize from '@core/hooks/device/useScreenSize';
+import { Lifecycle } from '@core/hooks/useLifecycle';
 import { sportsLabelsMessages } from '@core/lib/glossary';
 import { MonetaryAmountCurrency } from '@core/lib/monetaryAmount';
 import { tabletAndAbove } from '@core/style/mediaQuery';
@@ -70,7 +72,7 @@ type Props = {
   endDate: string;
   maxDiscount: MonetaryAmount;
   percentageDiscount: number;
-  sport: Sport;
+  sport?: Sport | null;
   rounded?: boolean;
 };
 
@@ -83,7 +85,8 @@ export const DumbConversionCreditBanner = ({
   sport,
   rounded,
 }: Props) => {
-  const { fiatCurrency } = useCurrentUserContext();
+  const { currentUser, fiatCurrency } = useCurrentUserContext();
+  const { sport: sportFromContext } = useSportContext();
   const { up: isTabletOrDesktop } = useScreenSize('tablet');
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const { formatNumber, formatDistanceToNowStrict } = useIntlContext();
@@ -96,6 +99,13 @@ export const DumbConversionCreditBanner = ({
   >;
   const maxDiscountInFiat =
     ((currencyCode in maxDiscount && maxDiscount?.[currencyCode]) || 0) / 100;
+
+  const actualSport =
+    sport ||
+    sportFromContext ||
+    (currentUser?.userSettings?.lifecycle as Lifecycle)?.lastVisitedSport;
+
+  if (!actualSport) return null;
 
   return (
     <Banner className={classNames({ rounded })}>
@@ -128,14 +138,14 @@ export const DumbConversionCreditBanner = ({
                   },
                   link1: (...chunks: string[]) => {
                     return (
-                      <StyledLink to={AUCTION_MARKET_URL[sport]}>
+                      <StyledLink to={AUCTION_MARKET_URL[actualSport]}>
                         {chunks}
                       </StyledLink>
                     );
                   },
                   link2: (...chunks: string[]) => {
                     return (
-                      <StyledLink to={STARTER_BUNDLES_URL[sport]}>
+                      <StyledLink to={STARTER_BUNDLES_URL[actualSport]}>
                         {chunks}
                       </StyledLink>
                     );
@@ -145,7 +155,9 @@ export const DumbConversionCreditBanner = ({
                     style: 'currency',
                     currency: fiatCurrency.code,
                   }),
-                  sport: <FormattedMessage {...sportsLabelsMessages[sport]} />,
+                  sport: (
+                    <FormattedMessage {...sportsLabelsMessages[actualSport]} />
+                  ),
                 }}
               />
             </Text16>

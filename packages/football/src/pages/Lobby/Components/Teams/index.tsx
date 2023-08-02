@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback } from 'react';
 import {
   FormattedMessage,
@@ -7,7 +7,7 @@ import {
 } from 'react-intl';
 import styled from 'styled-components';
 
-import { Vicc5State as So5State } from '@sorare/core/src/__generated__/globalTypes';
+import { So5State } from '@sorare/core/src/__generated__/globalTypes';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Empty } from '@sorare/core/src/components/cards/Empty';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
@@ -18,10 +18,10 @@ import {
 } from '@sorare/core/src/style/mediaQuery';
 
 import { Lineup } from '@football/components/lineup/Lineup';
-// import LineupToDiscover from '@football/components/lineup/LineupToDiscover';
-// import useNavigateToComposeTeam from '@football/hooks/so5/useNavigateToComposeTeam';
+import LineupToDiscover from '@football/components/lineup/LineupToDiscover';
+import useNavigateToComposeTeam from '@football/hooks/so5/useNavigateToComposeTeam';
 import { getRewardType } from '@football/lib/lineupRewards';
-// import { ShowMoreButton } from '@football/pages/Lobby/Components/ShowMoreButton';
+import { ShowMoreButton } from '@football/pages/Lobby/Components/ShowMoreButton';
 import useGetRecommendedLeaderboard from '@football/pages/useGetRecommendedLeaderboard';
 
 import { Teams_so5Fixture } from './__generated__/index.graphql';
@@ -68,7 +68,7 @@ type Props = {
     slug: string | null;
     endCursor?: string | null;
     so5FixtureId?: string | undefined;
-    vicc5LeaderboardSlug?: string | null;
+    so5LeaderboardSlug?: string | null;
     withTraining?: boolean;
     draft?: boolean;
     limit?: number | null;
@@ -114,7 +114,7 @@ export const Teams = ({
   const { hasNextPage, endCursor } = pageInfo || {};
   const lineups = edges?.map(edge => edge.node);
   const lineupsToShow = lineups?.filter(
-    lineup => !queryVariables.draft // || lineup?.draft
+    lineup => !queryVariables.draft || lineup?.draft
   );
   let alreadyfetched = lineupsToShow?.length || 0;
   if (displayRecommendedLeaderboard) {
@@ -135,11 +135,12 @@ export const Teams = ({
       });
     }
   }, [endCursor, loadMore]);
-  // const navigateToComposeTeam = useNavigateToComposeTeam();
+  const navigateToComposeTeam = useNavigateToComposeTeam();
   const { ref: refTriggeringInfiniteScroll } = useInfiniteScroll(
     useCallback(() => {
       loadMore(false, {
-        startCursor: endCursor,
+        // FIXME undefined case is improperly handled
+        startCursor: endCursor ?? undefined,
         limit: restToFetch,
       });
     }, [loadMore, endCursor, restToFetch]),
@@ -154,7 +155,7 @@ export const Teams = ({
           <LoadingIndicator />
         </LoadingBox>
       )}
-      {/* {displayLineupsBlock && (
+      {displayLineupsBlock && (
         <Lineups>
           {displayRecommendedLeaderboard && !loading && (
             <LineupToDiscover
@@ -180,8 +181,8 @@ export const Teams = ({
               )
           )}
         </Lineups>
-      )} */}
-      {/* {hasNextPage && (
+      )}
+      {hasNextPage && (
         <ShowMoreButton
           ref={
             (lineupsToShow?.length || 0) !== lineupPaginationLimit
@@ -200,7 +201,7 @@ export const Teams = ({
           }
           onClick={loadMoreCallback}
         />
-      )} */}
+      )}
       {!lineups?.length && !loading && !displayRecommendedLeaderboard && (
         <Empty
           title={formatMessage(messages.emptyTitle)}
@@ -214,12 +215,12 @@ export const Teams = ({
 };
 Teams.fragments = {
   so5Fixture: gql`
-    fragment Teams_so5Fixture on Vicc5Fixture {
+    fragment Teams_so5Fixture on So5Fixture {
       slug
       ...getRewardType_so5Fixture
     }
     ${getRewardType.fragments.so5Fixture}
-  `,
+  ` as TypedDocumentNode<Teams_so5Fixture>,
 };
 
 export default Teams;

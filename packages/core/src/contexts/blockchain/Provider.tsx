@@ -3,7 +3,7 @@
 import Big from 'bignumber.js';
 import { ReactNode, Suspense, useCallback, useEffect, useState } from 'react';
 
-import { Deal, EthereumManagers } from '@sorare/blockchain';
+import { EthereumManagers } from '@sorare/blockchain';
 import BlockchainContextProvider, {
   AccountData,
   EthereumAccountHandler,
@@ -11,9 +11,9 @@ import BlockchainContextProvider, {
 } from '@core/contexts/blockchain';
 import { useConfigContext } from '@core/contexts/config';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
-// import { EventStep } from '@core/contexts/events/types';
+import { EventStep } from '@core/contexts/events/types';
 import { useWeb3Context } from '@core/contexts/web3';
-// import useWithdrawEthEvent from '@core/hooks/events/useWithdrawEthEvent';
+import useWithdrawEthEvent from '@core/hooks/events/useWithdrawEthEvent';
 import { ethNetworkName } from '@core/lib/ethereum';
 import { lazy } from '@core/lib/retry';
 import { fromWei } from '@core/lib/wei';
@@ -32,7 +32,7 @@ export const BlockchainProvider = ({ children }: Props) => {
   const { ethereumNetworkId } = useConfigContext();
   const { wallet: browserWallet } = useWeb3Context();
 
-  // const trackWithdrawEthEvent = useWithdrawEthEvent();
+  const trackWithdrawEthEvent = useWithdrawEthEvent();
   const [loading, setLoading] = useState(true);
   const [promptEthereumAccount, setPromptEthereumAccount] = useState(false);
   const [ethereumAccountHandlers, setEthereumAccountHandlers] = useState<
@@ -109,7 +109,7 @@ export const BlockchainProvider = ({ children }: Props) => {
     });
   }, [accountData, promptEthereumAccountWithCallbacks]);
 
-  const onEthereumSetup = useCallback(eth => {
+  const onEthereumSetup = useCallback((eth: any) => {
     if (eth) {
       setEthereum(eth);
       setPromptEthereumAccount(false);
@@ -145,10 +145,10 @@ export const BlockchainProvider = ({ children }: Props) => {
     const { ethereum: ethereumInstance } = await getAccountData();
     const result = await depositEth(amountInEth);
 
-    // if (result?.result) {
-    //   refetch();
-    //   await refresh(ethereumInstance);
-    // }
+    if (result?.result) {
+      refetch();
+      await refresh(ethereumInstance);
+    }
 
     return result;
   };
@@ -167,28 +167,28 @@ export const BlockchainProvider = ({ children }: Props) => {
     nonce: number,
     signature: string
   ) => {
-    // const { ethAccount, ethereum: ethereumInstance } = await getAccountData();
+    const { ethAccount, ethereum: ethereumInstance } = await getAccountData();
 
-    // trackWithdrawEthEvent(EventStep.STARTED, {
-    //   ethAmount: fromWei(amountInWei),
-    //   wallet: browserWallet,
-    // });
-    // const result = await ethereumInstance.bankManager.withdrawETH(
-    //   ethAccount!,
-    //   sorareAddress!,
-    //   amountInWei,
-    //   nonce,
-    //   signature
-    // );
-    // trackWithdrawEthEvent(EventStep.FULFILLED, {
-    //   ethAmount: fromWei(amountInWei),
-    //   wallet: browserWallet,
-    // });
+    trackWithdrawEthEvent(EventStep.STARTED, {
+      ethAmount: fromWei(amountInWei),
+      wallet: browserWallet,
+    });
+    const result = await ethereumInstance.bankManager.withdrawETH(
+      ethAccount!,
+      sorareAddress!,
+      amountInWei,
+      nonce,
+      signature
+    );
+    trackWithdrawEthEvent(EventStep.FULFILLED, {
+      ethAmount: fromWei(amountInWei),
+      wallet: browserWallet,
+    });
 
-    // refetch();
-    // await refresh(ethereum);
+    refetch();
+    await refresh(ethereum);
 
-    // return { result };
+    return { result };
   };
 
   const depositCardOnAccount = async (cardId: string) => {
@@ -208,30 +208,6 @@ export const BlockchainProvider = ({ children }: Props) => {
     return ethereumInstance.cardManager
       .transfer(ethAccount, sorareAddress, cardId)
       .catch(err => ({ err: [err.toString()] }));
-  };
-
-  const signMappedTokensForDeal = async (
-    deal: Deal,
-    side: 'sender' | 'receiver'
-  ) => {
-    const { ethAccount, ethereum: ethereumInstance } = await getAccountData();
-
-    if (side === 'sender') {
-      return ethereumInstance.bankManager.sendMappedTokensSignature(
-        deal,
-        ethAccount!
-      );
-    }
-    return ethereumInstance.bankManager.receiveMappedTokensSignature(
-      deal,
-      ethAccount!
-    );
-  };
-
-  const unmapWallet = async () => {
-    const { ethAccount, ethereum: ethereumInstance } = await getAccountData();
-
-    return ethereumInstance.bankManager.unmap(ethAccount!, sorareAddress!);
   };
 
   const signMigratorApprovalForMappedAccount = async (
@@ -270,14 +246,12 @@ export const BlockchainProvider = ({ children }: Props) => {
         connectToEthereum: (source: InitEthereumSource) =>
           setInitEthereumSource(source),
         depositCardOnAccount,
-        signMappedTokensForDeal,
         signMigratorApprovalForMappedAccount,
         signMigration,
         promptEthereumAccount,
         expectedEthereumNetwork: ethNetworkName(ethereumNetworkId),
         ethereumNetworkId,
         ethereumAccountHandlers,
-        unmapWallet,
       }}
     >
       <Suspense fallback={null}>

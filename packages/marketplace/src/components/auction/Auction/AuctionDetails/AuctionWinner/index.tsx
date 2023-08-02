@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { Caption } from '@sorare/core/src/atoms/typography';
@@ -58,5 +58,5 @@ AuctionWinner.fragments = {
       }
     }
     ${ItemOwner.fragments.user}
-  `,
+  ` as TypedDocumentNode<AuctionWinner_auction>,
 };

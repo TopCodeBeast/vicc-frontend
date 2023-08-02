@@ -121,8 +121,10 @@ export const Enable2FAForm = ({ onEnabling2FA }: Props) => {
       }}
       onSuccess={onSuccess}
       render={(
-        Error: React.ComponentType,
-        SubmitButton: FunctionComponent<SubmitButtonProps>
+        Error: React.ComponentType<React.PropsWithChildren<unknown>>,
+        SubmitButton: FunctionComponent<
+          React.PropsWithChildren<SubmitButtonProps>
+        >
       ) => (
         <DialogContent>
           <Title5>

@@ -14,6 +14,7 @@ import { useAppBarContext } from '../context';
 type MenuItem = {
   key: string;
   to?: string;
+  exactMatch?: boolean;
   onClick?: () => void;
   label?: MessageDescriptor;
   content?: ReactNode;
@@ -24,7 +25,7 @@ type MenuItem = {
   sport?: Sport;
   href?: string;
   externalLink?: boolean;
-  Wrapper?: ComponentType;
+  Wrapper?: ComponentType<React.PropsWithChildren<unknown>>;
 };
 
 export type MenuItems = MenuItem[];

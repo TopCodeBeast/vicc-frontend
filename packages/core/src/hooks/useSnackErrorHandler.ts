@@ -1,5 +1,5 @@
 import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
-import { AppError, errorWrapper } from '@core/errors';
+import { AppError, errorWrapper } from 'errors';
 
 const useSnackErrorHandler = () => {
   const { showNotification } = useSnackNotificationContext();
@@ -22,7 +22,7 @@ const useSnackErrorHandler = () => {
         return { error };
       }
 
-      return { result } as any;
+      return { result };
     };
   }
 

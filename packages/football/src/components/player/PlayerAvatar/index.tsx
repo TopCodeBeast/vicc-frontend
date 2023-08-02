@@ -1,11 +1,11 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import DumbPlayerAvatar from '@sorare/core/src/components/player/DumbPlayerAvatar';
 
-import { PlayerAvatar_player } from './__generated__/index.graphql';
+import { FootballPlayerAvatar_player } from './__generated__/index.graphql';
 
 interface Props {
-  player: PlayerAvatar_player;
+  player: FootballPlayerAvatar_player;
   contained?: boolean;
   className?: string;
 }
@@ -22,12 +22,12 @@ export const PlayerAvatar = ({ player, className }: Props) => {
 
 PlayerAvatar.fragments = {
   player: gql`
-    fragment PlayerAvatar_player on Player {
+    fragment FootballPlayerAvatar_player on Player {
       slug
       displayName
       avatarPictureUrl: pictureUrl(derivative: "avatar")
     }
-  `,
+  ` as TypedDocumentNode<FootballPlayerAvatar_player>,
 };
 
 export default PlayerAvatar;

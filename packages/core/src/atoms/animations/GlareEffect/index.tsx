@@ -48,8 +48,14 @@ type Props = {
   pictureUrl: string | null;
   width?: number;
   wigglePower?: number;
+  alt?: string;
 };
-const GlareEffect = ({ pictureUrl, width, wigglePower = 0.07 }: Props) => {
+const GlareEffect = ({
+  pictureUrl,
+  width,
+  wigglePower = 0.07,
+  alt = '',
+}: Props) => {
   const cardRef = useRef<HTMLImageElement>(null);
   const [styles, api] = useSpring(() => ({
     '--mx': 0,
@@ -98,9 +104,9 @@ const GlareEffect = ({ pictureUrl, width, wigglePower = 0.07 }: Props) => {
     >
       <AnimatedBlock>
         {width ? (
-          <ResponsiveCardImage src={pictureUrl} alt="" width={width} />
+          <ResponsiveCardImage src={pictureUrl} alt={alt} width={width} />
         ) : (
-          <CardImage src={pictureUrl} alt="" />
+          <CardImage src={pictureUrl} alt={alt} />
         )}
         <Glare
           style={{

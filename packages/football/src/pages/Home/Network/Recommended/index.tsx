@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback } from 'react';
 
 import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery';
@@ -27,15 +27,18 @@ const NETWORK_RECOMMENDED_QUERY = gql`
     }
   }
   ${Template.fragments.user}
-`;
+` as TypedDocumentNode<
+  NetworkRecommendedQuery,
+  NetworkRecommendedQueryVariables
+>;
 
 export const Recommended = () => {
-  const { loading, data, loadMore } = usePaginatedQuery<
-    NetworkRecommendedQuery,
-    NetworkRecommendedQueryVariables
-  >(NETWORK_RECOMMENDED_QUERY, {
-    connection: 'UserConnection',
-  });
+  const { loading, data, loadMore } = usePaginatedQuery(
+    NETWORK_RECOMMENDED_QUERY,
+    {
+      connection: 'UserConnection',
+    }
+  );
 
   const load = useCallback(() => {
     loadMore(false, {

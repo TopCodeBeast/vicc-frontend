@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -42,7 +42,7 @@ RelatedNationalTeam.fragments = {
         slug
       }
     }
-  `,
+  ` as TypedDocumentNode<RelatedNationalTeam_nationalTeam>,
 };
 
 export default RelatedNationalTeam;

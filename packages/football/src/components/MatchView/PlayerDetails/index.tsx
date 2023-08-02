@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useState } from 'react';
 import { Link, generatePath } from 'react-router-dom';
 import styled from 'styled-components';
@@ -19,7 +19,7 @@ import {
 } from './__generated__/index.graphql';
 
 type MatchViewPlayerDetailsQuery_player =
-  MatchViewPlayerDetailsQuery['player'];
+  MatchViewPlayerDetailsQuery['football']['player'];
 
 const Root = styled.div`
   position: relative;
@@ -61,26 +61,28 @@ const LoaderContainer = styled.div`
 
 const MATCH_VIEW_PLAYER_SCORE_QUERY = gql`
   query MatchViewPlayerDetailsQuery($slug: String!, $id: ID!) {
-    player(slug: $slug) {
-      slug
-      displayName
-      avatarPictureUrl: pictureUrl(derivative: "avatar")
-      so5Score: vicc5Score(gameId: $id) {
-        ...DetailedScoreV4V5_so5Score
+    football {
+      player(slug: $slug) {
+        slug
+        displayName
+        avatarPictureUrl: pictureUrl(derivative: "avatar")
+        so5Score(gameId: $id) {
+          ...DetailedScoreV4V5_so5Score
+        }
       }
     }
   }
   ${DetailedScoreV4V5.fragments.so5Score}
-`;
+` as TypedDocumentNode<
+  MatchViewPlayerDetailsQuery,
+  MatchViewPlayerDetailsQueryVariables
+>;
 
 type Props = { slug?: string; gameId?: string; onClose: () => void };
 const PlayerDetails = ({ slug, gameId, onClose }: Props) => {
   const [currentSelectedPlayer, setCurrentSelectedPlayer] =
     useState<MatchViewPlayerDetailsQuery_player | null>(null);
-  const { data, loading } = useQuery<
-    MatchViewPlayerDetailsQuery,
-    MatchViewPlayerDetailsQueryVariables
-  >(MATCH_VIEW_PLAYER_SCORE_QUERY, {
+  const { data, loading } = useQuery(MATCH_VIEW_PLAYER_SCORE_QUERY, {
     variables: {
       slug: slug!,
       id: gameId!,
@@ -88,8 +90,8 @@ const PlayerDetails = ({ slug, gameId, onClose }: Props) => {
     skip: !gameId || !slug,
   });
 
-  if (data?.player && data.player !== currentSelectedPlayer) {
-    setCurrentSelectedPlayer(data.player);
+  if (data?.football.player && data.football.player !== currentSelectedPlayer) {
+    setCurrentSelectedPlayer(data.football.player);
   }
 
   return (

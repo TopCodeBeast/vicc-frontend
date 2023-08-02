@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useMemo } from 'react';
 import { Link, generatePath } from 'react-router-dom';
 import styled from 'styled-components';
@@ -79,13 +79,13 @@ const CardReward = ({ card, slug }: Props) => {
 
 CardReward.fragments = {
   So5RewardCardConfig: gql`
-    fragment CardReward_so5RewardCardConfig on Vicc5RewardCardConfig {
+    fragment CardReward_so5RewardCardConfig on So5RewardCardConfig {
       quantity
       quality
       rarity
       displayEdition
     }
-  `,
+  ` as TypedDocumentNode<CardReward_so5RewardCardConfig>,
 };
 
 export default CardReward;

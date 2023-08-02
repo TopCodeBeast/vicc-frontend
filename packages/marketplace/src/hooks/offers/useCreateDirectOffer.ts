@@ -1,15 +1,19 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
 
-import { OfferType } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  OfferType,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import {
   Level,
   useSnackNotificationContext,
 } from '@sorare/core/src/contexts/snackNotification';
 import { formatGqlErrors } from '@sorare/core/src/gql';
-// import useCreateEthMigration from '@sorare/core/src/hooks/starkware/useCreateEthMigration';
+import useCreateEthMigration from '@sorare/core/src/hooks/starkware/useCreateEthMigration';
+import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { generateDealId, isHandledError } from '@sorare/core/src/lib/deal';
-import { toWei } from '@sorare/core/src/lib/wei';
+import { getMonetaryAmountIndex } from '@sorare/core/src/lib/monetaryAmount';
 
 import {
   CreateDirectOfferMutation,
@@ -37,62 +41,111 @@ const CREATE_DIRECT_OFFER_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  CreateDirectOfferMutation,
+  CreateDirectOfferMutationVariables
+>;
+
+type CreateDirectOfferArgs = {
+  receiverSlug: string;
+  sendMonetaryAmount: MonetaryAmountOutput;
+  receiveMonetaryAmount: MonetaryAmountOutput;
+  sendTokens: useCreateDirectOffer_token[];
+  receiveTokens: useCreateDirectOffer_token[];
+  duration?: number;
+  counteredOfferId?: string;
+  sendAmountCurrency: SupportedCurrency;
+  receiveAmountCurrency: SupportedCurrency;
+};
 
 const useCreateDirectOffer = () => {
-  const [createOffer] = useMutation<
-    CreateDirectOfferMutation,
-    CreateDirectOfferMutationVariables
-  >(CREATE_DIRECT_OFFER_MUTATION);
+  const [createOffer] = useMutation(CREATE_DIRECT_OFFER_MUTATION);
   const { showNotification } = useSnackNotificationContext();
   const approveMigrator = useApproveMigrator();
   const migrateCards = useMigrateCards();
-  // const createEthMigration = useCreateEthMigration();
+  const createEthMigration = useCreateEthMigration();
   const prepareOffer = usePrepareOffer();
 
   return useCallback(
-    async (
-      receiver: { slug: string },
-      sendAmountInEth: string,
-      receiveAmountInEth: string,
-      sendTokens: useCreateDirectOffer_token[],
-      receiveTokens: useCreateDirectOffer_token[],
-      duration?: number,
-      counteredOfferId?: string
-    ) => {
+    async (args: CreateDirectOfferArgs) => {
+      const {
+        receiverSlug,
+        sendMonetaryAmount,
+        receiveMonetaryAmount,
+        sendTokens,
+        receiveTokens,
+        duration,
+        counteredOfferId,
+        sendAmountCurrency,
+        receiveAmountCurrency,
+      } = args;
       try {
-        const receiveWeiAmount = toWei(receiveAmountInEth);
-        const sendWeiAmount = toWei(sendAmountInEth);
         await approveMigrator(sendTokens);
-        // await createEthMigration();
+        await createEthMigration();
         const migrationData = await migrateCards(sendTokens);
 
-        const { legacySignedLimitOrders, errors } = await prepareOffer({
+        const sendMonetaryAmountIndex =
+          getMonetaryAmountIndex(sendAmountCurrency);
+        const receiveMonetaryAmountIndex = getMonetaryAmountIndex(
+          receiveAmountCurrency
+        );
+        const sendAmount = {
+          amount: sendMonetaryAmount[sendMonetaryAmountIndex]?.toString(),
+          currency: sendAmountCurrency,
+        };
+        const receiveAmount = {
+          amount: receiveMonetaryAmount[receiveMonetaryAmountIndex]?.toString(),
+          currency: receiveAmountCurrency,
+        };
+
+        const settlementCurrencies =
+          sendMonetaryAmount.eur > 0
+            ? [sendAmountCurrency]
+            : [receiveAmountCurrency];
+
+        const {
+          approvals,
+          useAuthorizations,
+          legacySignedLimitOrders,
+          errors,
+        } = await prepareOffer({
           type: OfferType.DIRECT_OFFER,
           sendAssetIds: sendTokens.map(t => t.assetId!),
           receiveAssetIds: receiveTokens.map(t => t.assetId!),
-          sendWeiAmount,
-          receiveWeiAmount,
-          receiverSlug: receiver.slug,
+          sendWeiAmount: sendMonetaryAmount.wei,
+          receiveWeiAmount: receiveMonetaryAmount.wei,
+          receiverSlug,
+          sendAmount,
+          receiveAmount,
+          settlementCurrencies,
         });
 
         if (errors?.length) return errors;
 
-        //TODO-CreateOffer
         const result = await createOffer({
           variables: {
             input: {
               dealId: generateDealId(),
               receiveAssetIds: receiveTokens.map(t => t.assetId!),
               sendAssetIds: sendTokens.map(t => t.assetId!),
-              receiverSlug: receiver.slug,
-              sendWeiAmount,
-              ...(counteredOfferId && { receiveWeiAmount }),
-              starkSignatures: legacySignedLimitOrders,
+              receiverSlug,
               migrationData,
               duration,
               counteredOfferId,
-            } as any, //TODO
+              ...(useAuthorizations
+                ? {
+                    ...(counteredOfferId && { receiveAmount }),
+                    sendAmount,
+                    approvals,
+                  }
+                : {
+                    starkSignatures: legacySignedLimitOrders,
+                    sendWeiAmount: sendMonetaryAmount.wei,
+                    ...(counteredOfferId && {
+                      receiveWeiAmount: receiveMonetaryAmount.wei,
+                    }),
+                  }),
+            },
           },
           refetchQueries: [
             'MyOffersAllOffersSentQuery',
@@ -121,7 +174,7 @@ const useCreateDirectOffer = () => {
     },
     [
       approveMigrator,
-      // createEthMigration,
+      createEthMigration,
       createOffer,
       migrateCards,
       prepareOffer,
@@ -140,7 +193,7 @@ useCreateDirectOffer.fragments = {
     }
     ${useApproveMigrator.fragments.token}
     ${useMigrateCards.fragments.token}
-  `,
+  ` as TypedDocumentNode<useCreateDirectOffer_token>,
 };
 
 export default useCreateDirectOffer;

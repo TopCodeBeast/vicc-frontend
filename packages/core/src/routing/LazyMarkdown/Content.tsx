@@ -1,17 +1,13 @@
 import ReactMarkdown, { Options } from 'react-markdown';
 import styled from 'styled-components';
 
-import { theme } from '@core/style/theme';
-
 export type Props = Pick<Options, 'skipHtml' | 'rehypePlugins' | 'children'>;
 
 const StyledReactMarkdown = styled(ReactMarkdown)`
   word-break: break-word;
   h1 {
     margin-bottom: var(--unit);
-    font-size: 16px;
-    line-height: 12;
-    font-weight: 700;
+    font: var(--t-bold) var(--t-24);
     letter-spacing: -0.04em;
   }
   p + h1,
@@ -22,17 +18,19 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
     margin-top: var(--unit);
   }
   h2 {
-    font-size: 16px;
-    line-height: 12;
+    font: var(--t-bold) var(--t-20);
     margin: calc(2 * var(--double-unit)) 0 var(--unit);
+    letter-spacing: -0.04em;
+  }
+  h3 {
+    font: var(--t-14);
+    margin-top: var(--unit);
     letter-spacing: -0.04em;
   }
   p,
   ul,
   li {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 12;
+    font: var(--t-14);
     letter-spacing: -0.03em;
   }
 

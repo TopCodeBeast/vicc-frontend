@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ComponentProps, FC, Fragment, PropsWithChildren } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -6,6 +6,8 @@ import { Sport } from '__generated__/globalTypes';
 import { LEGACY_USER_GALLERY } from '@core/constants/routes';
 import { useSportContext } from '@core/contexts/sport';
 import { galleryPathFromSport } from '@core/lib/galleryPathFromSport';
+
+import { GalleryLink_publicUserInfoInterface } from './__generated__/index.graphql';
 
 type UserWithGalleryPathFactory<T> = {
   user: T & { suspended: boolean };
@@ -24,14 +26,18 @@ type Props<T = never> = PropsWithChildren<
         galleryPathFactory?: never;
       }
   ) & {
-    WhenSuspended?: FC;
+    WhenSuspended?: FC<React.PropsWithChildren<unknown>>;
   } & (
       | {
           Link?: never;
           className?: string;
         }
       | {
-          Link?: FC<{ to: ComponentProps<typeof RouterLink>['to'] }>;
+          Link?: FC<
+            React.PropsWithChildren<{
+              to: ComponentProps<typeof RouterLink>['to'];
+            }>
+          >;
           className?: never;
         }
     )
@@ -60,8 +66,8 @@ export const GalleryLink = <T,>({
     return <WhenSuspended>{children}</WhenSuspended>;
   }
   const to = galleryPathFactory
-    ? galleryPathFactory(user as any)
-    : galleryPathFromSport((user as any).slug, galleryType);
+    ? galleryPathFactory(user)
+    : galleryPathFromSport(user.slug, galleryType);
   if (Link) {
     return <Link to={to}>{children}</Link>;
   }
@@ -78,5 +84,5 @@ GalleryLink.fragments = {
       slug
       suspended
     }
-  `,
+  ` as TypedDocumentNode<GalleryLink_publicUserInfoInterface>,
 };

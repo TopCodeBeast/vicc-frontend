@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import {
   Navigate,
   generatePath,
@@ -8,17 +8,18 @@ import {
 } from 'react-router-dom';
 
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-// import VerifyPhoneNumber from '@sorare/core/src/components/user/VerifyPhoneNumber';
+import VerifyPhoneNumber from '@sorare/core/src/components/user/VerifyPhoneNumber';
 import {
   FOOTBALL_COMPOSE_TEAM,
   FOOTBALL_COMPOSE_TEAM_LINEUP,
   FOOTBALL_HOME,
   FOOTBALL_LOBBY,
+  FOOTBALL_PLAY_WEEKLY,
   FOOTBALL_SCARCITIES,
 } from '@sorare/core/src/constants/routes';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
-import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import useIsReorgApp from '@sorare/core/src/hooks/ui/useIsReorgApp';
 import { useGeneratePathWithSearch } from '@sorare/core/src/hooks/useGeneratePathWithSearch';
 import useNavigateWithDeeplink from '@sorare/core/src/hooks/useNavigateWithDeeplink';
 import useSafePreviousNavigate from '@sorare/core/src/hooks/useSafePreviousNavigate';
@@ -29,81 +30,87 @@ import { RouteState } from '@football/types/routes';
 
 import {
   ComposeTeamLeaderboardQuery,
+  ComposeTeamLeaderboardQueryVariables,
   ComposeTeamQuery,
   ComposeTeamQueryVariables,
 } from './__generated__/index.graphql';
 
 const COMPOSE_TEAM_LEADERBOARD_QUERY = gql`
-  query ComposeTeamLeaderboardQuery($vicc5LeaderboardSlug: String!) {
-    so5: vicc5Root {
-      so5Leaderboard: vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
-        slug
-        trainingCenter
-        so5League: vicc5League {
+  query ComposeTeamLeaderboardQuery($so5LeaderboardSlug: String!) {
+    football {
+      so5 {
+        so5Leaderboard(slug: $so5LeaderboardSlug) {
           slug
-          name
-        }
-        so5Fixture: vicc5Fixture {
-          slug
-          mySo5LineupsPaginated: myVicc5LineupsPaginated(
-            vicc5LeaderboardSlug: $vicc5LeaderboardSlug
-            first: 1
-          ) {
-            nodes {
-              id
+          trainingCenter
+          so5League {
+            slug
+            name
+          }
+          so5Fixture {
+            slug
+            mySo5LineupsPaginated(
+              so5LeaderboardSlug: $so5LeaderboardSlug
+              first: 1
+            ) {
+              nodes {
+                id
+              }
             }
           }
         }
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  ComposeTeamLeaderboardQuery,
+  ComposeTeamLeaderboardQueryVariables
+>;
 const COMPOSE_TEAM_QUERY = gql`
   query ComposeTeamQuery(
-    $vicc5LeaderboardSlug: String!
-    $vicc5LineupId: String
+    $so5LeaderboardSlug: String!
+    $so5LineupId: String
     $statsView: Boolean!
   ) {
-    so5: vicc5Root {
-      so5Leaderboard: vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
-        slug
-        so5League: vicc5League {
+    football {
+      so5 {
+        so5Leaderboard(slug: $so5LeaderboardSlug) {
           slug
-          name
-          ...isBlockchainLeague_so5League
+          so5League {
+            slug
+            name
+            ...isBlockchainLeague_so5League
+          }
+          so5Lineup(id: $so5LineupId) {
+            id
+            ...ComposeTeamComponent_so5Lineup
+          }
+          ...ComposeTeamComponent_so5Leaderboard
         }
-        vicc5Lineup(id: $vicc5LineupId) {
-          id
-          ...ComposeTeamComponent_so5Lineup
-        }
-        ...ComposeTeamComponent_so5Leaderboard
       }
     }
   }
   ${ComposeTeamComponent.fragments.so5Leaderboard}
   ${ComposeTeamComponent.fragments.so5Lineup}
   ${isBlockchainLeague.fragments.so5League}
-`;
+` as TypedDocumentNode<ComposeTeamQuery, ComposeTeamQueryVariables>;
 
 type Props = {
-  vicc5LeaderboardSlug: string;
-  vicc5LineupId?: string;
+  so5LeaderboardSlug: string;
+  so5LineupId?: string;
 };
 
-export const ComposeTeam = ({ vicc5LeaderboardSlug, vicc5LineupId }: Props) => {
+export const ComposeTeam = ({ so5LeaderboardSlug, so5LineupId }: Props) => {
   const navigateWithDeeplink = useNavigateWithDeeplink();
   const navigate = useNavigate();
   const location = useLocation();
   const generatePathWithSearch = useGeneratePathWithSearch();
   const goBack = useSafePreviousNavigate(FOOTBALL_HOME);
+  const isReorgApp = useIsReorgApp();
 
-  const { data, loading } = useQuery<
-    ComposeTeamQuery,
-    ComposeTeamQueryVariables
-  >(COMPOSE_TEAM_QUERY, {
+  const { data, loading } = useQuery(COMPOSE_TEAM_QUERY, {
     variables: {
-      vicc5LeaderboardSlug: vicc5LeaderboardSlug || '',
-      vicc5LineupId,
+      so5LeaderboardSlug: so5LeaderboardSlug || '',
+      so5LineupId,
       statsView: false,
     },
     nextFetchPolicy: 'cache-first',
@@ -114,10 +121,10 @@ export const ComposeTeam = ({ vicc5LeaderboardSlug, vicc5LineupId }: Props) => {
     if (loading) {
       return <LoadingIndicator fullScreen />;
     }
-    return <Navigate to={FOOTBALL_LOBBY} />;
+    return <Navigate to={isReorgApp ? FOOTBALL_PLAY_WEEKLY : FOOTBALL_LOBBY} />;
   }
 
-  const { so5Leaderboard } = data.so5;
+  const { so5Leaderboard } = data.football.so5;
   const { so5Lineup, so5League } = so5Leaderboard || {};
 
   const handleSubmitSuccess = (captainPictureUrl?: string) => {
@@ -146,57 +153,44 @@ export const ComposeTeam = ({ vicc5LeaderboardSlug, vicc5LineupId }: Props) => {
 
   return (
     <>
-      {/* {so5League && isBlockchainLeague(so5League) && <VerifyPhoneNumber />} */}
+      {so5League && isBlockchainLeague(so5League) && <VerifyPhoneNumber />}
       <ComposeTeamComponent {...props} />
     </>
   );
 };
 
 const ComposeTeamOrRedirect = () => {
-  const {
-    flags: { useSmartComposeTeamRedirection = false },
-  } = useFeatureFlags();
-  const { vicc5LeaderboardSlug = '', vicc5LineupId } = useParams();
-  const { data: leaderboardData, loading } =
-    useQuery<ComposeTeamLeaderboardQuery>(COMPOSE_TEAM_LEADERBOARD_QUERY, {
-      variables: {
-        vicc5LeaderboardSlug,
-      },
-      fetchPolicy: useSmartComposeTeamRedirection
-        ? 'cache-and-network'
-        : 'cache-only',
-    });
+  const { so5LeaderboardSlug = '', so5LineupId } = useParams();
 
-  const { so5Leaderboard } = leaderboardData?.so5 || {};
+  const { data: leaderboardData, loading } = useQuery(
+    COMPOSE_TEAM_LEADERBOARD_QUERY,
+    {
+      variables: {
+        so5LeaderboardSlug,
+      },
+      fetchPolicy: 'cache-and-network',
+    }
+  );
+
+  const { so5Leaderboard } = leaderboardData?.football.so5 || {};
   const { so5Fixture, trainingCenter } = so5Leaderboard || {};
   const { mySo5LineupsPaginated } = so5Fixture || {};
   const firstValidLineupId = idFromObject(
     mySo5LineupsPaginated?.nodes?.[0]?.id
   );
   const navigateToValidLineup =
-    firstValidLineupId && firstValidLineupId !== vicc5LineupId && !trainingCenter;
-  const navigateToEmptyComposeTeam = !firstValidLineupId && vicc5LineupId;
+    firstValidLineupId && firstValidLineupId !== so5LineupId && !trainingCenter;
 
   if (!leaderboardData && loading) {
     return <LoadingIndicator fullScreen />;
   }
 
-  if (useSmartComposeTeamRedirection && navigateToValidLineup) {
+  if (navigateToValidLineup) {
     return (
       <Navigate
         to={generatePath(FOOTBALL_COMPOSE_TEAM_LINEUP, {
-          vicc5LeaderboardSlug,
-          vicc5LineupId: firstValidLineupId,
-        })}
-        replace
-      />
-    );
-  }
-  if (useSmartComposeTeamRedirection && navigateToEmptyComposeTeam) {
-    return (
-      <Navigate
-        to={generatePath(FOOTBALL_COMPOSE_TEAM, {
-          vicc5LeaderboardSlug,
+          so5LeaderboardSlug,
+          so5LineupId: firstValidLineupId,
         })}
         replace
       />
@@ -205,8 +199,8 @@ const ComposeTeamOrRedirect = () => {
 
   return (
     <ComposeTeam
-      vicc5LeaderboardSlug={vicc5LeaderboardSlug}
-      vicc5LineupId={vicc5LineupId}
+      so5LeaderboardSlug={so5LeaderboardSlug}
+      so5LineupId={so5LineupId}
     />
   );
 };

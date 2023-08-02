@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ReactNode, useCallback } from 'react';
 import styled from 'styled-components';
 
@@ -54,59 +54,63 @@ const FIXTURE_SCORES_QUERY = gql`
     $cursor: String
     $position: Position
   ) {
-    player(slug: $slug) {
-      slug
-      lastFiveSo5AverageScore: averageScore(
-        type: LAST_FIVE_VICC5_AVERAGE_SCORE
-        position: $position
-      )
-      lastFifteenVicc5AverageScore: averageScore(
-        type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
-        position: $position
-      )
-      allSo5Scores: allVicc5Scores(first: 10, after: $cursor, position: $position) {
-        nodes {
-          id
-          ...LastScores_so5Score
+    football {
+      player(slug: $slug) {
+        slug
+        lastFiveSo5AverageScore: averageScore(
+          type: LAST_FIVE_SO5_AVERAGE_SCORE
+          position: $position
+        )
+        lastFifteenSo5AverageScore: averageScore(
+          type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
+          position: $position
+        )
+        allSo5Scores(first: 10, after: $cursor, position: $position) {
+          nodes {
+            id
+            ...LastScores_so5Score
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-        }
+        ...LastScores_player
       }
-      ...LastScores_player
     }
   }
   ${LastScores.fragments.so5Score}
   ${LastScores.fragments.player}
-`;
+` as TypedDocumentNode<FixtureScoresQuery, FixtureScoresQueryVariables>;
 
 const PLAYER_DETAILS_QUERY = gql`
   query PlayerDetailsQuery($slug: String!) {
-    player(slug: $slug) {
-      slug
-      activeClub {
+    football {
+      player(slug: $slug) {
         slug
-        upcomingGames(first: 3) {
-          id
-          ...PlayerUpcomingGames_game
+        activeClub {
+          slug
+          upcomingGames(first: 3) {
+            id
+            ...PlayerUpcomingGames_game
+          }
         }
-      }
-      activeNationalTeam {
-        slug
-        upcomingGames(first: 3) {
-          id
-          ...PlayerUpcomingGames_game
+        activeNationalTeam {
+          slug
+          upcomingGames(first: 3) {
+            id
+            ...PlayerUpcomingGames_game
+          }
         }
+        ...PlayerProperties_player
+        ...PlayerUnavailabilityPanel_player
       }
-      ...PlayerProperties_player
-      ...PlayerUnavailabilityPanel_player
     }
   }
   ${PlayerUpcomingGames.fragments.game}
   ${PlayerProperties.fragments.player}
   ${PlayerUnavailabilityPanel.fragments.player}
-`;
+` as TypedDocumentNode<PlayerDetailsQuery, PlayerDetailsQueryVariables>;
 
 type Props = {
   slug: string;
@@ -126,46 +130,43 @@ const PlayerDetails = ({
   extraActions,
   budgetValue,
 }: Props) => {
-  const { data: playerDetailsData, loading: playerDetailsLoading } = useQuery<
-    PlayerDetailsQuery,
-    PlayerDetailsQueryVariables
-  >(PLAYER_DETAILS_QUERY, {
-    variables: {
-      slug,
-    },
-  });
+  const { data: playerDetailsData, loading: playerDetailsLoading } = useQuery(
+    PLAYER_DETAILS_QUERY,
+    {
+      variables: {
+        slug,
+      },
+    }
+  );
   const {
     data: fixtureScoresData,
     loading: fixtureScoresLoading,
     loadMore,
-  } = usePaginatedQuery<FixtureScoresQuery, FixtureScoresQueryVariables>(
-    FIXTURE_SCORES_QUERY,
-    {
-      variables: {
-        slug,
-        ...(card ? { position: card.position } : {}),
-      },
-      connection: 'So5ScoreConnection',
-      nextFetchPolicy: 'cache-first',
-      fetchPolicy: 'cache-and-network',
-    }
-  );
+  } = usePaginatedQuery(FIXTURE_SCORES_QUERY, {
+    variables: {
+      slug,
+      ...(card ? { position: card.position } : {}),
+    },
+    connection: 'So5ScoreConnection',
+    nextFetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
+  });
 
   const { InfiniteScrollLoader } = useInfiniteScroll(
     useCallback(() => {
       loadMore(false, {
         slug: slug!,
         cursor:
-          fixtureScoresData?.player.allSo5Scores.pageInfo.endCursor,
+          fixtureScoresData?.football.player.allSo5Scores.pageInfo.endCursor,
         ...(card ? { position: card.position } : {}),
       });
     }, [
       card,
       slug,
       loadMore,
-      fixtureScoresData?.player.allSo5Scores.pageInfo.endCursor,
+      fixtureScoresData?.football.player.allSo5Scores.pageInfo.endCursor,
     ]),
-    fixtureScoresData?.player.allSo5Scores.pageInfo.hasNextPage ||
+    fixtureScoresData?.football.player.allSo5Scores.pageInfo.hasNextPage ||
       false,
     fixtureScoresLoading
   );
@@ -179,8 +180,8 @@ const PlayerDetails = ({
   }
 
   const upcomingGames = [
-    ...(playerDetailsData?.player.activeClub?.upcomingGames || []),
-    ...(playerDetailsData?.player.activeNationalTeam?.upcomingGames ||
+    ...(playerDetailsData?.football.player.activeClub?.upcomingGames || []),
+    ...(playerDetailsData?.football.player.activeNationalTeam?.upcomingGames ||
       []),
   ];
   return (
@@ -189,23 +190,23 @@ const PlayerDetails = ({
         <CloseButton onClose={onClose} />
       </CloseButtonWrapper>
       <PlayerProperties
-        player={playerDetailsData.player}
+        player={playerDetailsData.football.player}
         pictureUrl={pictureUrl}
         card={card}
         budgetValue={budgetValue}
         showCardBonusIndicator={showCardBonusIndicator}
       />
       {extraActions && <Actions>{extraActions}</Actions>}
-      <PlayerUnavailabilityPanel player={playerDetailsData.player} />
+      <PlayerUnavailabilityPanel player={playerDetailsData.football.player} />
       <LastScores
         lastFiveSo5AverageScore={
-          fixtureScoresData?.player.lastFiveSo5AverageScore
+          fixtureScoresData?.football.player.lastFiveSo5AverageScore
         }
-        lastFifteenVicc5AverageScore={
-          fixtureScoresData?.player.lastFifteenVicc5AverageScore
+        lastFifteenSo5AverageScore={
+          fixtureScoresData?.football.player.lastFifteenSo5AverageScore
         }
-        player={fixtureScoresData?.player}
-        so5Scores={fixtureScoresData?.player.allSo5Scores.nodes}
+        player={fixtureScoresData?.football.player}
+        so5Scores={fixtureScoresData?.football.player.allSo5Scores.nodes}
         InfiniteScrollLoader={<InfiniteScrollLoader />}
       />
       <PlayerUpcomingGames games={upcomingGames} />
@@ -222,7 +223,7 @@ PlayerDetails.fragments = {
       ...PlayerProperties_card
     }
     ${PlayerProperties.fragments.card}
-  `,
+  ` as TypedDocumentNode<PlayerDetails_card>,
 };
 
 export default PlayerDetails;

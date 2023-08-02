@@ -8,7 +8,9 @@ export const DarkThemeContext = createContext({
   withinDarkTheme: false,
 });
 
-const DarkThemeContent: FC = ({ children }) => {
+const DarkThemeContent: FC<React.PropsWithChildren<unknown>> = ({
+  children,
+}) => {
   const { sendRequest } = useContext(MessagingContext)!;
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { CardImg } from '@sorare/core/src/components/card/CardImg';
@@ -37,5 +37,5 @@ CommonPlayerCard.fragments = {
       id
       pictureUrl
     }
-  `,
+  ` as TypedDocumentNode<CommonPlayerCard_draftablePlayer>,
 };

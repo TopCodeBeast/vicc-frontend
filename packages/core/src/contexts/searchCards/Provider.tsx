@@ -1,9 +1,9 @@
 import { ReactNode, useState } from 'react';
 
 import { SEARCH_PARAMS } from '@core/components/search/InstantSearch/types';
-import { useConfigContext } from '@core/contexts/config';
 import { useSportContext } from '@core/contexts/sport';
 import useCustomDeck from '@core/hooks/decks/useCustomDeck';
+import useMarketplacePromotionalEvents from '@core/hooks/search/useMarketplacePromotionalEvents';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import useQueryString from '@core/hooks/useQueryString';
 import { clearAll } from '@core/hooks/useVirtualToggle';
@@ -66,12 +66,11 @@ const SearchCardsProvider = ({
   const [playingNextGameweekFilter, setPlayingNextGameweekFilter] =
     useState<boolean>(Boolean(useQueryString(SEARCH_PARAMS.PLAYING_NEXT)));
 
-  const { marketplacePromotionalEvents } = useConfigContext();
+  const { marketplacePromotionalEvents } = useMarketplacePromotionalEvents();
   const { sport } = useSportContext();
   const [promotion, setPromotion] = useState<string | undefined>(
     useQueryString(SEARCH_PARAMS.PROMOTION)
   );
-
   const leagueFilterValue = useLeagueFilterValue(leagueFilter);
   const favoriteFilterValue = useFavoriteFilterValue();
   const notInLineupFilterValue = useNotInLineupFilterValue();
@@ -87,9 +86,8 @@ const SearchCardsProvider = ({
 
   const hasCollectibleFilter = !!collectibleFilterWidget;
 
-  //TODO************
   const promotedCards =
-    (marketplacePromotionalEvents || [])
+    marketplacePromotionalEvents
       .find(e => e.sport === sport)
       ?.events?.find(e => e.name === promotion)?.objectIds || [];
 

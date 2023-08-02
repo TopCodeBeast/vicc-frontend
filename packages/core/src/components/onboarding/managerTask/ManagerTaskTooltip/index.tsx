@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { css } from 'styled-components';
 
 import HighlightableWrapper from '@core/components/HighlightableWrapper';
-// import { useManagerTaskContext } from '@core/contexts/managerTask';
+import { useManagerTaskContext } from '@core/contexts/managerTask';
 import { OverrideClasses } from '@core/style/utils';
 
 type Props = {
@@ -47,8 +47,8 @@ export const ManagerTaskTooltip = (props: Props) => {
     backgroundColor,
   } = props;
   const [TooltipOverride, classes] = Tooltip;
-  // const { step } = useManagerTaskContext(); //TODO****
-  const tooltipOpen = false;//name === step;
+  const { step } = useManagerTaskContext();
+  const tooltipOpen = name === step;
   const highlightOpen = tooltipOpen || forceAreaHighlight;
   if (disable) return <>{children}</>;
 

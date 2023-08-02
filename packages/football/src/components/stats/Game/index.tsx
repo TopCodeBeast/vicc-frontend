@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -11,7 +11,12 @@ import { GameEventStatus } from '@football/lib/so5';
 
 import { StatusRow, StatusRowProps } from './StatusRow';
 import { TeamRow } from './TeamRow';
-import { So5Game_game as So5Game } from './__generated__/index.graphql';
+import {
+  So5Game_game as So5Game,
+  So5Game_competitionName,
+  So5Game_gameWeek,
+  So5Game_teamCountry,
+} from './__generated__/index.graphql';
 
 const MatchViewButon = styled.button`
   display: block;
@@ -171,15 +176,15 @@ Game.fragments = {
       penaltyScoreHome
       penaltyScoreAway
     }
-  `,
+  ` as TypedDocumentNode<So5Game>,
   gameWeek: gql`
     fragment So5Game_gameWeek on Game {
-      so5Fixture: vicc5Fixture {
+      so5Fixture {
         slug
         shortDisplayName
       }
     }
-  `,
+  ` as TypedDocumentNode<So5Game_gameWeek>,
   competitionName: gql`
     fragment So5Game_competitionName on Game {
       competition {
@@ -187,7 +192,7 @@ Game.fragments = {
         displayName
       }
     }
-  `,
+  ` as TypedDocumentNode<So5Game_competitionName>,
   teamCountry: gql`
     fragment So5Game_teamCountry on Game {
       awayTeam {
@@ -207,5 +212,5 @@ Game.fragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<So5Game_teamCountry>,
 };

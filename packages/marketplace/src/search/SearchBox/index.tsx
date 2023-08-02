@@ -10,7 +10,7 @@ import MarketplaceOnboardingTask from '@sorare/core/src/components/onboarding/ma
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import {
   MarketplaceOnboardingStep,
-  // useManagerTaskContext,
+  useManagerTaskContext,
 } from '@sorare/core/src/contexts/managerTask';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
@@ -36,7 +36,7 @@ const DEFAULT_MARKETPLACE_TASK_SEARCH = 'saka';
 
 export const SearchBox = (props: Props) => {
   const { placeholder, withClearIcon, favPlayerHit } = props;
-  // const { setStep, task } = useManagerTaskContext();
+  const { setStep, task } = useManagerTaskContext();
   const { formatMessage } = useIntl();
   const { query, refine } = useSearchBox();
   const [value, setValue] = useState(query);
@@ -57,10 +57,10 @@ export const SearchBox = (props: Props) => {
 
   useEffect(() => {
     if (query === value && shouldOpenNextOnboarding) {
-      // setStep(MarketplaceOnboardingStep.marketplaceItem);
+      setStep(MarketplaceOnboardingStep.marketplaceItem);
       setShouldOpenNextOnboarding(false);
     }
-  }, [shouldOpenNextOnboarding, value, query/*, setStep*/]);
+  }, [shouldOpenNextOnboarding, value, query, setStep]);
 
   // Track when the InstantSearch query changes to synchronize it with the React state.
   useEffect(() => {
@@ -83,7 +83,7 @@ export const SearchBox = (props: Props) => {
           <MarketplaceOnboardingTask
             name={MarketplaceOnboardingStep.search}
             onClick={() => {
-              // setStep();
+              setStep();
               setValue(
                 favPlayerHit?.display_name || DEFAULT_MARKETPLACE_TASK_SEARCH
               );
@@ -94,7 +94,7 @@ export const SearchBox = (props: Props) => {
         placement="bottom-start"
         name={MarketplaceOnboardingStep.search}
         fullWidth
-        // disable={!task}
+        disable={!task}
       >
         <SearchInput
           fullWidth

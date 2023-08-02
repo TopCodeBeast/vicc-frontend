@@ -7,10 +7,9 @@ import { CardQuality, Rarity, Sport } from '__generated__/globalTypes';
 import { Ball } from '@core/atoms/icons/Ball';
 import { MLBBall } from '@core/atoms/icons/MLBBall';
 import { NBABall } from '@core/atoms/icons/NBABall';
-import { SecondaryTabs } from '@core/atoms/navigation/SecondaryTabs';
 import { Text18, Title3, Title4 } from '@core/atoms/typography';
+import { Tab, TabBar } from '@core/components/TabBar';
 import CardBack from '@core/components/card/Back';
-import { INVITE } from '@core/constants/routes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import { Lifecycle } from '@core/hooks/useLifecycle';
@@ -105,15 +104,22 @@ const GenericNotice = ({
   );
 };
 
+const SportIcon = ({ sport }: { sport: Sport }) => {
+  if (sport === Sport.FOOTBALL) return <Ball />;
+  if (sport === Sport.NBA) return <NBABall />;
+  return <MLBBall />;
+};
+
 const Header = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: start;
   gap: var(--unit);
 `;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: var(--unit);
+  gap: var(--intermediate-unit);
 `;
 
 export const Notice = () => {
@@ -129,36 +135,8 @@ export const Notice = () => {
       : sport
   );
 
-  const TabsItems = [
-    {
-      key: Sport.FOOTBALL,
-      to: INVITE,
-      onClick: () => setSelectedSport(Sport.FOOTBALL),
-      active: selectedSport === Sport.FOOTBALL,
-      label: <FormattedMessage {...sportsLabelsMessages.FOOTBALL} />,
-      icon: <Ball />,
-    },
-    {
-      key: Sport.NBA,
-      to: INVITE,
-      active: selectedSport === Sport.NBA,
-      onClick: () => setSelectedSport(Sport.NBA),
-      label: <FormattedMessage {...sportsLabelsMessages.NBA} />,
-      icon: <NBABall />,
-    },
-    ...(useNewMlbReferralProgram
-      ? [
-          {
-            key: Sport.BASEBALL,
-            to: INVITE,
-            active: selectedSport === Sport.BASEBALL,
-            onClick: () => setSelectedSport(Sport.BASEBALL),
-            label: <FormattedMessage {...sportsLabelsMessages.BASEBALL} />,
-            icon: <MLBBall />,
-          },
-        ]
-      : []),
-  ];
+  const sports = [Sport.FOOTBALL, Sport.NBA];
+  if (useNewMlbReferralProgram) sports.push(Sport.BASEBALL);
 
   return (
     <Container>
@@ -166,7 +144,14 @@ export const Notice = () => {
         <Title4>
           <FormattedMessage {...messages.title} />
         </Title4>
-        <SecondaryTabs items={TabsItems} noBorder />
+        <TabBar value={selectedSport}>
+          {sports.map(s => (
+            <Tab key={s} value={s} onClick={() => setSelectedSport(s)}>
+              <SportIcon sport={s} />
+              <FormattedMessage {...sportsLabelsMessages[s]} />
+            </Tab>
+          ))}
+        </TabBar>
       </Header>
       {selectedSport &&
         [Sport.FOOTBALL, Sport.BASEBALL].includes(selectedSport) && (

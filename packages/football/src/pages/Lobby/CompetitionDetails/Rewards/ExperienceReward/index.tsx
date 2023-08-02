@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import ExperienceIcon from '@sorare/core/src/components/rewards/ExperienceIcon';
@@ -21,11 +21,11 @@ const ExperienceReward = ({ experience: { description, type } }: Props) => {
 
 ExperienceReward.fragments = {
   So5RewardExperience: gql`
-    fragment ExperienceReward_so5RewardExperience on Vicc5RewardExperience {
+    fragment ExperienceReward_so5RewardExperience on So5RewardExperience {
       description
       type
     }
-  `,
+  ` as TypedDocumentNode<ExperienceReward_so5RewardExperience>,
 };
 
 export default ExperienceReward;

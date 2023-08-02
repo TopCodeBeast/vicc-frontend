@@ -15,7 +15,7 @@ function useFocusTrap(trigger: boolean) {
   }, [trigger]);
 
   const focusNextElement = useCallback(
-    e => {
+    (e: any) => {
       if (!trigger) {
         return;
       }
@@ -31,7 +31,7 @@ function useFocusTrap(trigger: boolean) {
     [focusableEls, trigger]
   );
   const focusPreviousElement = useCallback(
-    e => {
+    (e: any) => {
       if (!trigger) {
         return;
       }

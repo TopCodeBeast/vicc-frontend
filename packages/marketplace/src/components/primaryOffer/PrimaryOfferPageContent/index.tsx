@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -87,6 +87,6 @@ PrimaryOfferPageContent.fragments = {
     }
     ${PrimaryOfferSale.fragments.primaryOffer}
     ${PrimaryOfferTokensPreview.fragments.token}
-  `,
+  ` as TypedDocumentNode<PrimaryOfferPageContent_primaryOffer>,
 };
 export default PrimaryOfferPageContent;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import { Link, generatePath } from 'react-router-dom';
 import styled from 'styled-components';
@@ -133,7 +133,7 @@ CardAttributes.fragments = {
       }
     }
     ${TeamAvatar.fragments.team}
-  `,
+  ` as TypedDocumentNode<CardAttributes_card>,
 };
 
 export default CardAttributes;

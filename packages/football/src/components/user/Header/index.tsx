@@ -1,5 +1,6 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faCalendar } from '@fortawesome/pro-regular-svg-icons';
+import { faCartShopping } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -7,28 +8,36 @@ import { Link, generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { ShopItemType } from '@sorare/core/src/__generated__/globalTypes';
+import Button from '@sorare/core/src/atoms/buttons/Button';
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
+// eslint-disable-next-line sorare/no-unrendered-component-imports
 import { Container } from '@sorare/core/src/atoms/container';
 import Coin from '@sorare/core/src/atoms/icons/Coin';
 import ScarcityIcon from '@sorare/core/src/atoms/icons/ScarcityIcon';
 import { Text14 } from '@sorare/core/src/atoms/typography';
+import ClubShopButtonBase from '@sorare/core/src/components/clubShop/ClubShopButton';
+import CoinAmount from '@sorare/core/src/components/clubShop/CoinAmount';
 import { buildFilterQuery } from '@sorare/core/src/components/search/InstantSearch';
 import { SEARCH_PARAMS } from '@sorare/core/src/components/search/InstantSearch/types';
 import DiscordUser from '@sorare/core/src/components/user/DiscordUser';
 import FollowButton from '@sorare/core/src/components/user/FollowButton';
 import TwitterUser from '@sorare/core/src/components/user/TwitterUser';
-import { FOOTBALL_USER_GALLERY_CARDS } from '@sorare/core/src/constants/routes';
+import {
+  FOOTBALL_CLUB_SHOP,
+  FOOTBALL_USER_GALLERY_CARDS,
+} from '@sorare/core/src/constants/routes';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
+import { useIsDesktop } from '@sorare/core/src/hooks/device/useIsDesktop';
+import useIsReorgApp from '@sorare/core/src/hooks/ui/useIsReorgApp';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { playableBlockchainRarities } from '@sorare/core/src/lib/cards';
+import { navLabels } from '@sorare/core/src/lib/glossary';
 import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { TradeButton } from '@sorare/marketplace/src/components/TradeButton';
 
-import ClubShopButton from '@football/components/clubShop/ClubShopButton';
-// import ShopItemDialog from '@football/components/shopItems/ShopItemDialog';
+import ShopItemDialog from '@football/components/shopItems/ShopItemDialog';
 import BigInfo from '@football/components/user/BigInfo';
-import CoinAmount from '@football/components/user/CoinAmount';
 import Follows from '@football/components/user/Follows';
 
 import {
@@ -108,33 +117,89 @@ const Card = styled.div`
   align-items: center;
 `;
 
+const StyledButton = styled(Button)`
+  display: inline-flex;
+`;
+const ClubShopButton = ({
+  readOnly,
+  user,
+}: {
+  readOnly?: boolean;
+  user: UserHeader_publicUserInfoInterface | UserHeader_currentUser;
+}) => {
+  const {
+    flags: { disableClubShopPage = false },
+  } = useFeatureFlags();
+  const isDesktop = useIsDesktop();
+  const isReorgApp = useIsReorgApp();
+  const shouldShowClubShopBalance =
+    'coinBalance' in user && user.coinBalance > 0;
+  if (disableClubShopPage || readOnly) {
+    return null;
+  }
+
+  if (isReorgApp) {
+    return (
+      <StyledButton
+        color="white"
+        small={!isDesktop}
+        medium={isDesktop}
+        to={FOOTBALL_CLUB_SHOP}
+        component={Link}
+        startIcon={<FontAwesomeIcon icon={faCartShopping} />}
+      >
+        {isDesktop && <FormattedMessage {...navLabels.clubshop} />}
+      </StyledButton>
+    );
+  }
+
+  return (
+    <ClubShopButtonBase to={FOOTBALL_CLUB_SHOP}>
+      {shouldShowClubShopBalance ? (
+        <CoinAmount amount={'coinBalance' in user ? user.coinBalance : 0} />
+      ) : (
+        <>
+          <Coin />
+          <FormattedMessage
+            id="Header.ClubShopLink"
+            defaultMessage="Club Shop"
+          />
+        </>
+      )}
+    </ClubShopButtonBase>
+  );
+};
+
 type Props = {
   user: UserHeader_publicUserInfoInterface | UserHeader_currentUser;
   readOnly?: boolean;
 };
 
+const ReorgHeaderContent = styled.div`
+  padding: 0 var(--double-unit);
+  @media ${laptopAndAbove} {
+    padding: var(--double-unit) var(--quadruple-unit);
+  }
+`;
+
 export const Header = ({ user, readOnly }: Props) => {
-  const {
-    flags: { disableClubShopPage = false },
-  } = useFeatureFlags();
   const { formatDate, formatNumber } = useIntlContext();
+  const isReorgApp = useIsReorgApp();
   const [pickingSkin, setPickingSkin] = useState<
     ShopItemType.BANNER | ShopItemType.SHIELD
   >();
 
   const { profile, followed, slug, cardCounts } = user;
 
-  const shouldShowClubShopBalance =
-    'coinBalance' in user && user.coinBalance > 0;
+  const ContentWrapper = isReorgApp ? ReorgHeaderContent : Container;
   return (
     <Wrapper className="dark-theme">
-      <>Header5555555555555555</>
-      {/* <ShopItemDialog
+      <ShopItemDialog
         open={!readOnly && !!pickingSkin}
         type={pickingSkin}
         onClose={() => setPickingSkin(undefined)}
-      />*/}
-      <Container>
+      />
+      <ContentWrapper>
         <BigInfo
           user={user}
           setPickingSkin={readOnly ? undefined : setPickingSkin}
@@ -191,27 +256,11 @@ export const Header = ({ user, readOnly }: Props) => {
                   );
                 })}
               </Cards>
-              {/* {!disableClubShopPage && !readOnly && (
-                <ClubShopButton>
-                  {shouldShowClubShopBalance ? (
-                    <CoinAmount
-                      amount={'coinBalance' in user ? user.coinBalance : 0}
-                    />
-                  ) : (
-                    <>
-                      <Coin />
-                      <FormattedMessage
-                        id="Header.ClubShopLink"
-                        defaultMessage="Club Shop"
-                      />
-                    </>
-                  )}
-                </ClubShopButton>
-              )} */}
+              <ClubShopButton user={user} readOnly={readOnly} />
             </FullLine>
           </Details>
         </BigInfo>
-      </Container>
+      </ContentWrapper>
     </Wrapper>
   );
 };
@@ -249,7 +298,7 @@ Header.fragments = {
     ${TwitterUser.fragments.userProfile}
     ${Follows.fragments.user}
     ${BigInfo.fragments.user}
-  `,
+  ` as TypedDocumentNode<UserHeader_publicUserInfoInterface>,
   currentUser: gql`
     fragment UserHeader_currentUser on CurrentUser {
       slug
@@ -283,7 +332,7 @@ Header.fragments = {
     ${TwitterUser.fragments.userProfile}
     ${Follows.fragments.user}
     ${BigInfo.fragments.user}
-  `,
+  ` as TypedDocumentNode<UserHeader_currentUser>,
 };
 
 export default Header;

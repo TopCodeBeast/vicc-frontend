@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import qs from 'qs';
 import { useCallback, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -18,9 +18,9 @@ import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery'
 import { useQueryStrings } from '@sorare/core/src/hooks/useQueryStrings';
 import { playablePositions, positionNames } from '@sorare/core/src/lib/players';
 
-// import PlayerGameScoreDialog from '@football/components/stats/PlayerGameScoreDialog';
-// import PlayerScore from '@football/components/stats/PlayerScore';
-// import { getPlayerScore } from '@football/lib/so5';
+import PlayerGameScoreDialog from '@football/components/stats/PlayerGameScoreDialog';
+import PlayerScore from '@football/components/stats/PlayerScore';
+import { getPlayerScore } from '@football/lib/so5';
 
 import {
   LobbyTopPlayersPerPositionQuery,
@@ -99,62 +99,67 @@ const Footer = styled.footer`
 export const LOBBY_TOP_PLAYERS_PER_POSITION_QUERY = gql`
   query LobbyTopPlayersPerPositionQuery(
     $slug: String
-    $position: Position!
+    $position: String!
     $cursor: String
   ) {
-    so5: vicc5Root {
-      so5Fixture: vicc5Fixture(slug: $slug) {
-        slug
-        orderedSo5Scores: orderedVicc5Scores(first: 1) {
-          position
-          so5Scores: vicc5Scores {
-            id
-          }
-        }
-        orderedSo5ScoresByPosition: orderedVicc5ScoresByPosition(
-          position: $position
-          minScore: 1
-          after: $cursor
-          first: 10
-        ) {
-          nodes {
-            id
-            score
-            player {
-              slug
-              displayName
-              avatarPictureUrl: pictureUrl(derivative: "avatar")
-            }
-            playerGameStats {
+    football {
+      so5 {
+        so5Fixture(slug: $slug) {
+          slug
+          orderedSo5Scores(first: 1) {
+            position
+            so5Scores {
               id
-              team {
-                ... on Club {
-                  slug
-                  name
-                }
-                ... on NationalTeam {
-                  slug
-                  name
-                }
-              }
+            }
+          }
+          orderedSo5ScoresByPosition(
+            position: $position
+            minScore: 1
+            after: $cursor
+            first: 10
+          ) {
+            nodes {
+              id
+              score
               player {
                 slug
                 displayName
                 avatarPictureUrl: pictureUrl(derivative: "avatar")
               }
+              playerGameStats {
+                id
+                team {
+                  ... on Club {
+                    slug
+                    name
+                  }
+                  ... on NationalTeam {
+                    slug
+                    name
+                  }
+                }
+                player {
+                  slug
+                  displayName
+                  avatarPictureUrl: pictureUrl(derivative: "avatar")
+                }
+              }
+              ...getPlayerScore_so5Score
             }
-            #...getPlayerScore_so5Score
-          }
-          pageInfo {
-            endCursor
-            hasNextPage
+            pageInfo {
+              endCursor
+              hasNextPage
+            }
           }
         }
       }
     }
   }
-  #{getPlayerScore.fragments.so5Score}
-`;
+  ${getPlayerScore.fragments.so5Score}
+` as TypedDocumentNode<
+  LobbyTopPlayersPerPositionQuery,
+  LobbyTopPlayersPerPositionQueryVariables
+>;
 
 export const TopPlayers = ({ so5Fixture }: Props) => {
   const { formatMessage } = useIntl();
@@ -167,20 +172,20 @@ export const TopPlayers = ({ so5Fixture }: Props) => {
   if (!sortedPlayablePosition.includes(position)) {
     [position] = sortedPlayablePosition;
   }
-  const { loading, data, loadMore } = usePaginatedQuery<
-    LobbyTopPlayersPerPositionQuery,
-    LobbyTopPlayersPerPositionQueryVariables
-  >(LOBBY_TOP_PLAYERS_PER_POSITION_QUERY, {
-    variables: {
-      slug: so5Fixture?.slug,
-      position,
-    },
-    nextFetchPolicy: 'cache-first',
-    fetchPolicy: 'cache-and-network',
-    connection: 'So5ScoreConnection',
-    skip: !so5Fixture?.slug,
-  });
-  const fixture = data?.so5.so5Fixture;
+  const { loading, data, loadMore } = usePaginatedQuery(
+    LOBBY_TOP_PLAYERS_PER_POSITION_QUERY,
+    {
+      variables: {
+        slug: so5Fixture?.slug,
+        position,
+      },
+      nextFetchPolicy: 'cache-first',
+      fetchPolicy: 'cache-and-network',
+      connection: 'So5ScoreConnection',
+      skip: !so5Fixture?.slug,
+    }
+  );
+  const fixture = data?.football.so5.so5Fixture;
   const hasScores = !!fixture?.orderedSo5Scores.find(
     ({ so5Scores }) => so5Scores.length
   );
@@ -240,7 +245,7 @@ export const TopPlayers = ({ so5Fixture }: Props) => {
                   player,
                   playerGameStats: { player: representativePlayer, team },
                 } = so5Score;
-                // const { score, status } = getPlayerScore(so5Score);
+                const { score, status } = getPlayerScore(so5Score);
                 const isIrlScore = representativePlayer.slug === player.slug;
                 return (
                   <PlayerButton
@@ -270,7 +275,7 @@ export const TopPlayers = ({ so5Fixture }: Props) => {
                       <Text16 bold>{player.displayName}</Text16>
                       <Text16>{team.name}</Text16>
                     </PlayerInfoWrapper>
-                    {/* <PlayerScore score={score} status={status} /> */}
+                    <PlayerScore score={score} status={status} />
                   </PlayerButton>
                 );
               })}
@@ -285,12 +290,11 @@ export const TopPlayers = ({ so5Fixture }: Props) => {
                 </Button>
               </Footer>
             )}
-            <>PlayerGameScoreDialog555</>
-            {/* <PlayerGameScoreDialog
+            <PlayerGameScoreDialog
               so5ScoreId={idFromObject(openPlayerGameScore)!}
               onClose={() => setOpenPlayerGameScore('')}
               open={!!openPlayerGameScore}
-            /> */}
+            />
           </>
         ) : (
           <div>

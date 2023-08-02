@@ -4,11 +4,11 @@ import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { TokenComponentType } from '@sorare/core/src/types';
 
-// import { BidField_auction } from '@marketplace/components/buyActions/BidField/__generated__/index.graphql';
-type BidField_auction = any;//TODO***
+import { BidField_auction } from '@marketplace/components/buyActions/BidField/__generated__/index.graphql';
 
 export interface MarketplaceContextType {
-  secondaryMarketFeesRate: number;
+  setHideDetails: (newValue: boolean) => void;
+  hideDetails: boolean;
   TokenPropertiesComponent: TokenComponentType;
   TokenAuctionEligibility: TokenComponentType;
   MobileTokenDetailsComponent: TokenComponentType;

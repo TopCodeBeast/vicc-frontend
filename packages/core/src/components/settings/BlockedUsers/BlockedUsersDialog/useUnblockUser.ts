@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 
 import {
   UnblockUserMutation,
@@ -13,13 +13,10 @@ const UNBLOCK_USER_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<UnblockUserMutation, UnblockUserMutationVariables>;
 
 const useUnblockUser = () => {
-  const [mutate] = useMutation<
-    UnblockUserMutation,
-    UnblockUserMutationVariables
-  >(UNBLOCK_USER_MUTATION);
+  const [mutate] = useMutation(UNBLOCK_USER_MUTATION);
 
   return {
     unblockUser: mutate,

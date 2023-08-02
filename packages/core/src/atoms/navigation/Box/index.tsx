@@ -7,8 +7,13 @@ export const LinkBox = styled.div`
 
 export const LinkOverlay = styled.a`
   position: static; /* If it's not static, the whole component doesn't work per design. */
+  &,
+  &:hover,
+  &:focus {
+    color: inherit;
+  }
   a&,
-  button& {
+  button:not(:disabled)& {
     cursor: pointer;
   }
   &::before {
@@ -23,7 +28,7 @@ export const LinkOther = styled.a`
   position: relative;
   z-index: 1;
   a&,
-  button& {
+  button:not(:disabled)& {
     cursor: pointer;
   }
   &,

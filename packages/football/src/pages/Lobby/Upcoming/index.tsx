@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import Helmet from 'react-helmet';
 import { defineMessages } from 'react-intl';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
@@ -19,7 +19,10 @@ import { Layout } from '@football/pages/Lobby/Components/Layout';
 import { LobbyUpcomingTeams } from '@football/pages/Lobby/Upcoming/Teams';
 import { LobbyUpcomingTournaments } from '@football/pages/Lobby/Upcoming/Tournaments';
 
-import { LineupsCountQuery } from './__generated__/index.graphql';
+import {
+  LineupsCountQuery,
+  LineupsCountQueryVariables,
+} from './__generated__/index.graphql';
 
 const UpcomingContent = styled.div<{ hide?: boolean }>`
   display: flex;
@@ -31,13 +34,15 @@ const UpcomingContent = styled.div<{ hide?: boolean }>`
 
 export const LINEUPS_COUNT_QUERY = gql`
   query LineupsCountQuery {
-    so5: vicc5Root {
-      myUpcomingLineupsPaginated {
-        totalCount
+    football {
+      so5 {
+        myUpcomingLineupsPaginated {
+          totalCount
+        }
       }
     }
   }
-`;
+` as TypedDocumentNode<LineupsCountQuery, LineupsCountQueryVariables>;
 
 const PageMenu = defineMessages({
   tournaments: {
@@ -64,13 +69,13 @@ export const LobbyUpcoming = () => {
   const { ...restParams } = useParams();
   const tab: any = (restParams['*'] || '').split('/')[0];
 
-  const { data } = useQuery<LineupsCountQuery>(LINEUPS_COUNT_QUERY, {
+  const { data } = useQuery(LINEUPS_COUNT_QUERY, {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
 
   const { formatMessage } = useIntlContext();
-  const { myUpcomingLineupsPaginated } = data?.so5 || {};
+  const { myUpcomingLineupsPaginated } = data?.football.so5 || {};
   const totalLineups = myUpcomingLineupsPaginated?.totalCount || 0;
 
   if (tab && !Object.values(LOBBY_TABS).includes(tab)) {

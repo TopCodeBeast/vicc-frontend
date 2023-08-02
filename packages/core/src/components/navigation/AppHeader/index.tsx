@@ -1,18 +1,18 @@
 import { useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import Coin from 'atoms/icons/Coin';
-import { Text14 } from 'atoms/typography';
-import Notifications from 'components/notification/Notifications';
-import ResponsiveSearchBar from 'components/search/ResponsiveSearchBar';
-import { FOOTBALL_CLUB_SHOP } from 'constants/routes';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import useIsLoggedIn from 'hooks/auth/useIsLoggedIn';
-import { useIsDesktop } from 'hooks/device/useIsDesktop';
-import { Link } from 'routing/Link';
-import { Balances } from 'routing/MultiSportAppBar/Balances';
-import AppBarProvider from 'routing/MultiSportAppBar/context/Provider';
-import { tabletAndAbove } from 'style/mediaQuery';
+import Coin from '@core/atoms/icons/Coin';
+import { Text14 } from '@core/atoms/typography';
+import Notifications from '@core/components/notification/Notifications';
+import ResponsiveSearchBar from '@core/components/search/ResponsiveSearchBar';
+import { FOOTBALL_CLUB_SHOP } from '@core/constants/routes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useIsLoggedIn from '@core/hooks/auth/useIsLoggedIn';
+import { useIsDesktop } from '@core/hooks/device/useIsDesktop';
+import { Link } from '@core/routing/Link';
+import { Balances } from '@core/routing/MultiSportAppBar/Balances';
+import AppBarProvider from '@core/routing/MultiSportAppBar/context/Provider';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { AppContent } from '../AppContent';
 import { ProfileDrawer } from '../ProfileDrawer';

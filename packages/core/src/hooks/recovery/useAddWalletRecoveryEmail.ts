@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback } from 'react';
 
 import { PrivateKeyRecoveryInput } from '__generated__/globalTypes';
@@ -25,13 +25,15 @@ const ADD_WALLET_RECOVERY_EMAIL = gql`
     }
   }
   ${walletRecovery}
-`;
+` as TypedDocumentNode<
+  AddWalletRecoveryEmailMutation,
+  AddWalletRecoveryEmailMutationVariables
+>;
 
 export const useAddWalletRecoveryEmail = () => {
-  const [mutate, { loading }] = useMutation<
-    AddWalletRecoveryEmailMutation,
-    AddWalletRecoveryEmailMutationVariables
-  >(ADD_WALLET_RECOVERY_EMAIL, { showErrorsInForm: true });
+  const [mutate, { loading }] = useMutation(ADD_WALLET_RECOVERY_EMAIL, {
+    showErrorsInForm: true,
+  });
 
   const addWalletRecoveryEmail = useCallback(
     async ({

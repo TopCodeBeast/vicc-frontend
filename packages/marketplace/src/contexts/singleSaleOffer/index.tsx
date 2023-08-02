@@ -1,8 +1,10 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { createContext, useContext } from 'react';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import CancelSalePopin from '@marketplace/components/offer/CancelSalePopin';
+
+import { SingleSaleOfferContext_token } from './__generated__/index.graphql';
 
 export interface SingleSaleOfferPopinInfo {
   assetId: string;
@@ -28,5 +30,5 @@ export const singleSaleOfferContextFragments = {
       ...CancelSalePopin_token
     }
     ${CancelSalePopin.fragments.token}
-  `,
+  ` as TypedDocumentNode<SingleSaleOfferContext_token>,
 };

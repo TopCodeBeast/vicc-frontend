@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 import { DndContext, DragOverlay } from '@dnd-kit/core';
 import { SortableContext } from '@dnd-kit/sortable';
 import { useCallback, useEffect, useState } from 'react';
@@ -69,7 +69,7 @@ const fragments = {
     }
     ${EditableDeckCard.fragments.deckCard}
     ${Banner.fragments.user}
-  `,
+  ` as TypedDocumentNode<HighlightedCards_user>,
 };
 
 const REMOVE_CARD_FROM_DECK_MUTATION = gql`
@@ -82,7 +82,10 @@ const REMOVE_CARD_FROM_DECK_MUTATION = gql`
     }
   }
   ${fragments.user}
-`;
+` as TypedDocumentNode<
+  RemoveCardFromDeckMutation,
+  RemoveCardFromDeckMutationVariables
+>;
 
 const ADD_CARDS_TO_DECK_MUTATION = gql`
   mutation AddCardsToDeckMutation($input: addCardsToDeckInput!) {
@@ -94,7 +97,7 @@ const ADD_CARDS_TO_DECK_MUTATION = gql`
     }
   }
   ${fragments.user}
-`;
+` as TypedDocumentNode<AddCardsToDeckMutation, AddCardsToDeckMutationVariables>;
 
 const EDIT_CARD_IN_HIGHLIGHTED_DECK_MUTATION = gql`
   mutation EditCardInHighlightedDeckMutation($input: editCardInDeckInput!) {
@@ -106,20 +109,17 @@ const EDIT_CARD_IN_HIGHLIGHTED_DECK_MUTATION = gql`
     }
   }
   ${fragments.user}
-`;
+` as TypedDocumentNode<
+  EditCardInHighlightedDeckMutation,
+  EditCardInHighlightedDeckMutationVariables
+>;
 
 export const HighlightedCards = ({ user, readOnly }: Props) => {
   const deck = user.highlightedDeck;
   const { currentUser } = useCurrentUserContext();
   const [cardPickerOpened, setCardPickerOpened] = useState(false);
-  const [removeCard] = useMutation<
-    RemoveCardFromDeckMutation,
-    RemoveCardFromDeckMutationVariables
-  >(REMOVE_CARD_FROM_DECK_MUTATION);
-  const [editCard] = useMutation<
-    EditCardInHighlightedDeckMutation,
-    EditCardInHighlightedDeckMutationVariables
-  >(EDIT_CARD_IN_HIGHLIGHTED_DECK_MUTATION);
+  const [removeCard] = useMutation(REMOVE_CARD_FROM_DECK_MUTATION);
+  const [editCard] = useMutation(EDIT_CARD_IN_HIGHLIGHTED_DECK_MUTATION);
   const { dndContextProps, items, setItems, activeId } =
     useDragAndDrop<HighlightedCards_user_highlightedDeck_deckCards_nodes>(
       ({ activeObject, newIndex }) => {
@@ -135,10 +135,7 @@ export const HighlightedCards = ({ user, readOnly }: Props) => {
       }
     );
 
-  const [addCards] = useMutation<
-    AddCardsToDeckMutation,
-    AddCardsToDeckMutationVariables
-  >(ADD_CARDS_TO_DECK_MUTATION);
+  const [addCards] = useMutation(ADD_CARDS_TO_DECK_MUTATION);
 
   const addCard = useCallback(
     (card: { objectID: string }) => {

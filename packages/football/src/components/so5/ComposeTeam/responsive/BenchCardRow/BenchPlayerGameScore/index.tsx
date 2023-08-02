@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedDate } from 'react-intl';
 import styled from 'styled-components';
 
@@ -64,7 +64,7 @@ export const BenchPlayerGameScore = ({ so5Score }: Props) => {
 
 BenchPlayerGameScore.fragments = {
   so5Score: gql`
-    fragment BenchPlayerGameScore_so5Score on Vicc5Score {
+    fragment BenchPlayerGameScore_so5Score on So5Score {
       id
       score
       playerGameStats {
@@ -97,5 +97,5 @@ BenchPlayerGameScore.fragments = {
       }
     }
     ${TeamAvatar.fragments.team}
-  `,
+  ` as TypedDocumentNode<BenchPlayerGameScore_so5Score>,
 };

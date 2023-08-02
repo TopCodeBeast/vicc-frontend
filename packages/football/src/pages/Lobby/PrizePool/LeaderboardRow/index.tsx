@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useIntl } from 'react-intl';
 import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
@@ -118,7 +118,7 @@ const LeaderboardRow = ({ so5Leaderboard }: Props) => {
 
 LeaderboardRow.fragments = {
   so5Leaderboard: gql`
-    fragment LeaderboardRow_so5Leaderboard on Vicc5Leaderboard {
+    fragment LeaderboardRow_so5Leaderboard on So5Leaderboard {
       slug
       displayName
       rarityType
@@ -137,7 +137,7 @@ LeaderboardRow.fragments = {
     }
     ${Rewards.fragments.so5RewardConfig}
     ${getLeaderboardInfo.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<LeaderboardRow_so5Leaderboard>,
 };
 
 export default LeaderboardRow;

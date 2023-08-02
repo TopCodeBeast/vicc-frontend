@@ -14,7 +14,6 @@ import UploadFile from '@core/components/form/UploadFile';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useSnackNotificationContext } from '@core/contexts/snackNotification';
 import { useSportContext } from '@core/contexts/sport';
-import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import useLifecycle, { LIFECYCLE, Lifecycle } from '@core/hooks/useLifecycle';
 import useUpdateUserProfile from '@core/hooks/useUpdateUserProfile';
 import { glossary, userAttributes } from '@core/lib/glossary';
@@ -71,29 +70,27 @@ const Content = ({
   setPicture,
   withinSettings,
 }: {
-  SubmitButton: React.ComponentType<SubmitButtonProps>;
+  SubmitButton: React.ComponentType<React.PropsWithChildren<SubmitButtonProps>>;
   setPicture: React.Dispatch<React.SetStateAction<null>>;
   withinSettings?: boolean;
 }) => {
   const { currentUser } = useCurrentUserContext();
   const { formatMessage } = useIntl();
   const { sport } = useSportContext();
-  const {
-    flags: { displayActiveUser = false },
-  } = useFeatureFlags();
 
   if (!currentUser) return null;
 
+  const lifecycle = currentUser.userSettings?.lifecycle as Lifecycle;
+
   const { nickname, profile } = currentUser;
-  const { status, clubName, /*pictureUrl*/ } = profile;
-  const pictureUrl = null;//TODO
+  const { status, clubName, pictureUrl } = profile;
 
   return (
     <>
       <UploadFile
         name="picture"
         currentFileUrl={pictureUrl}
-        onChange={(pic: any) => setPicture(pic)}
+        onChange={(pic: { file: any }) => setPicture(pic.file)}
         type="image/*"
         buttonLabel={
           <FormattedMessage
@@ -108,7 +105,7 @@ const Content = ({
         defaultValue={nickname}
         helperText={formatMessage(messages.nicknameWarning)}
       />
-      {sport === Sport.FOOTBALL && (
+      {(sport || lifecycle?.lastVisitedSport) === Sport.FOOTBALL && (
         <TextField
           name="clubName"
           maxLength={100}
@@ -122,17 +119,14 @@ const Content = ({
         label={formatMessage(userAttributes.status)}
         defaultValue={status || undefined}
       />
-      {displayActiveUser && (
-        <SwitchField
-          name="hideOnlineStatus"
-          label={formatMessage(messages.hideOnlineStatusTitle)}
-          helperText={formatMessage(messages.hideOnlineStatusDescription)}
-          defaultValue={
-            !!(currentUser.userSettings.lifecycle as Lifecycle)
-              ?.hideOnlineStatus
-          }
-        />
-      )}
+      <SwitchField
+        name="hideOnlineStatus"
+        label={formatMessage(messages.hideOnlineStatusTitle)}
+        helperText={formatMessage(messages.hideOnlineStatusDescription)}
+        defaultValue={
+          !!(currentUser.userSettings.lifecycle as Lifecycle)?.hideOnlineStatus
+        }
+      />
       <ButtonRow fullWidth={!withinSettings}>
         <SubmitButton small color="blue">
           <FormattedMessage {...glossary.submit} />
@@ -147,9 +141,6 @@ const UpdateProfile = ({ withinSettings, onSubmit }: Props) => {
   const updateUserProfile = useUpdateUserProfile();
   const { showNotification } = useSnackNotificationContext();
   const { update: updateLifecycle } = useLifecycle();
-  const {
-    flags: { displayActiveUser = false },
-  } = useFeatureFlags();
 
   const submit = async (
     attributes: any,
@@ -157,12 +148,10 @@ const UpdateProfile = ({ withinSettings, onSubmit }: Props) => {
   ) => {
     const { nickname, clubName, status, hideOnlineStatus } = attributes;
 
-    if (displayActiveUser) {
-      await updateLifecycle(
-        LIFECYCLE.hideOnlineStatus,
-        hideOnlineStatus === SwitchField.ON
-      );
-    }
+    await updateLifecycle(
+      LIFECYCLE.hideOnlineStatus,
+      hideOnlineStatus === SwitchField.ON
+    );
 
     const result = await updateUserProfile({
       clubName,
@@ -189,8 +178,10 @@ const UpdateProfile = ({ withinSettings, onSubmit }: Props) => {
         onSubmit?.();
       }}
       render={(
-        Error: React.ComponentType,
-        SubmitButton: React.ComponentType<SubmitButtonProps>
+        Error: React.ComponentType<React.PropsWithChildren<unknown>>,
+        SubmitButton: React.ComponentType<
+          React.PropsWithChildren<SubmitButtonProps>
+        >
       ) =>
         withinSettings ? (
           <SettingsSection title={messages.title}>

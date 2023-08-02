@@ -1,17 +1,23 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback, useMemo, useState } from 'react';
+import { generatePath, useNavigate } from 'react-router-dom';
 
 import {
   AveragePlayerScore,
   Position as GlobalPosition,
 } from '@sorare/core/src/__generated__/globalTypes';
+// eslint-disable-next-line sorare/no-unrendered-component-imports
+import SocialShare from '@sorare/core/src/components/user/SocialShare';
+import { FOOTBALL_COMPOSE_TEAM_LINEUP } from '@sorare/core/src/constants/routes';
+import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
+import useIsReorgApp from '@sorare/core/src/hooks/ui/useIsReorgApp';
 import useLocalStorage from '@sorare/core/src/hooks/useLocalStorage';
 import useLocalStorageToggle from '@sorare/core/src/hooks/useLocalStorageToggle';
 import {
   CamelCaseScarcity,
   Scarcity,
-  isListedOnMarket,
+  isMyCardListedOnMarket,
   rarities,
 } from '@sorare/core/src/lib/cards';
 import { PlayablePosition as CardPositionType } from '@sorare/core/src/lib/players';
@@ -41,6 +47,7 @@ import {
   FormationName,
   Position,
   emptyAppearance,
+  emptyLineup,
   formationFromExtraPlayerPosition,
   getAppearancesByPosition,
   getPositionSelectionOrder,
@@ -81,13 +88,13 @@ const ContextProvider = ({
   const showFilters = !onboarding;
   const fifteenGameAverageTotalLimit = so5Leaderboard.rules?.sumOfAverageScores;
   const isCappedMode = !!fifteenGameAverageTotalLimit;
-
+  const isReorgApp = useIsReorgApp();
   const initialFilters: BenchFilters = {
     includeNoGameCards: !showFilters,
     includeUsedCards: !showFilters,
     ...(isCappedMode
       ? {
-          lastFifteenVicc5AverageScore: {
+          lastFifteenSo5AverageScore: {
             min: 0,
             max: MAX_CARD_VALUE,
           },
@@ -106,6 +113,9 @@ const ContextProvider = ({
   const [activePosition, setActivePosition] = useState<Position>(
     GlobalPosition.Goalkeeper
   );
+  const navigate = useNavigate();
+  const [previousActivePosition, setPreviousActivePosition] =
+    useState(activePosition);
   const [search, setSearch] = useState('');
   const [customListFilter, setCustomListFilter] = useState<
     string | undefined
@@ -147,7 +157,7 @@ const ContextProvider = ({
   const [favoriteAverageScore, setFavoriteAverageScore] =
     useLocalStorage<AveragePlayerScore>(
       'so5/ComposeTeam/ContextProvider/defaultFavoriteAverageScore',
-      AveragePlayerScore.LAST_FIFTEEN_VICC5_AVERAGE_SCORE
+      AveragePlayerScore.LAST_FIFTEEN_SO5_AVERAGE_SCORE
     );
 
   const [defaultAverageScore, setDefaultAverageScore] =
@@ -172,7 +182,7 @@ const ContextProvider = ({
 
   const isComplete = useCallback(
     (l = lineup) =>
-      Object.values<ContextProvider_so5Lineup_so5Appearances>(l!)
+      Object.values(l)
         .map(a => a.card)
         .filter(Boolean).length === 5,
     [lineup]
@@ -263,38 +273,61 @@ const ContextProvider = ({
   const [cardsScarcities, setCardsScarcities] =
     useState<readonly Scarcity[]>(leaderboardRarities);
 
+  const isCreateMode = so5Lineup === emptyLineup;
+
   const submit = async () => {
     setSubmitting(true);
-    const lineupErrors = await doCreateOrUpdateLineup({
+    const result = await doCreateOrUpdateLineup({
       so5LeaderboardId: so5Leaderboard.id,
       name: so5Lineup.name,
       so5Appearances: Object.values(lineup).map(l => ({
         cardSlug: l.card!.slug,
         captain: l.captain,
       })),
-      vicc5LineupId: so5Lineup.id.length === 0 ? null : so5Lineup.id,
+      so5LineupId: so5Lineup.id.length === 0 ? null : so5Lineup.id,
     });
     setSubmitting(false);
-    if (!lineupErrors) {
+
+    const mutationData = result.data?.createOrUpdateSo5Lineup || {};
+    if (
+      !result.handledErrors &&
+      !result.unhandledErrors &&
+      !result.data?.createOrUpdateSo5Lineup?.errors.length
+    ) {
+      if (isReorgApp && isCreateMode && 'so5Lineup' in mutationData) {
+        navigate(
+          generatePath(FOOTBALL_COMPOSE_TEAM_LINEUP, {
+            so5LeaderboardSlug: so5Leaderboard.slug,
+            so5LineupId: idFromObject((mutationData.so5Lineup as any)?.id),
+          }),
+          {
+            state: {
+              shouldShowSuccessDialog: true,
+            },
+            replace: true,
+          }
+        );
+        return;
+      }
       onSubmitSuccess(captain?.card?.pictureUrl || '');
     } else {
-      const { handledErrors } = lineupErrors;
-      if (handledErrors.length) {
+      const { handledErrors } = result;
+      if (handledErrors?.length) {
         setErrors(handledErrors);
       }
     }
   };
 
   const displayedAverageScore = isCappedMode
-    ? AveragePlayerScore.LAST_FIFTEEN_VICC5_AVERAGE_SCORE
+    ? AveragePlayerScore.LAST_FIFTEEN_SO5_AVERAGE_SCORE
     : defaultAverageScore || favoriteAverageScore;
 
   const averageScoreOptions: { value: AveragePlayerScore; label: string }[] =
     useMemo(
       () => [
-        { value: AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE, label: 'L5' },
+        { value: AveragePlayerScore.LAST_FIVE_SO5_AVERAGE_SCORE, label: 'L5' },
         {
-          value: AveragePlayerScore.LAST_FIFTEEN_VICC5_AVERAGE_SCORE,
+          value: AveragePlayerScore.LAST_FIFTEEN_SO5_AVERAGE_SCORE,
           label: 'L15',
         },
       ],
@@ -323,6 +356,11 @@ const ContextProvider = ({
     setFilters,
     fifteenGameAverageTotalLimit,
   });
+
+  if (activePosition !== previousActivePosition) {
+    setIsDrawerOpen(false);
+    setPreviousActivePosition(activePosition);
+  }
 
   return (
     <Context.Provider
@@ -377,6 +415,7 @@ const ContextProvider = ({
         toggleAvgScore,
         customListFilter,
         setCustomListFilter,
+        isCreateMode,
       }}
     >
       {children}
@@ -393,14 +432,14 @@ export const cardFragment = gql`
     grade
     pictureUrl: pictureUrl(derivative: "tinified")
     avatarPictureUrl: pictureUrl(derivative: "avatar")
-    lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
-    lastFifteenVicc5AverageScore: averageScore(
-      type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
+    lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_SO5_AVERAGE_SCORE)
+    lastFifteenSo5AverageScore: averageScore(
+      type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
     )
-    openedSo5Lineups: openedVicc5Lineups {
+    openedSo5Lineups {
       id
       name
-      so5Leaderboard: vicc5Leaderboard {
+      so5Leaderboard {
         slug
         iconUrl
         rarityType
@@ -408,7 +447,7 @@ export const cardFragment = gql`
         trainingCenter
         svgLogoUrl
         gameWeek
-        so5League: vicc5League {
+        so5League {
           slug
           name
           category
@@ -421,9 +460,9 @@ export const cardFragment = gql`
     }
     singleCivilYear
     serialNumber
-    power(vicc5LeaderboardSlug: $vicc5LeaderboardSlug)
+    power(so5LeaderboardSlug: $so5LeaderboardSlug)
     powerMalusAfterTransfer
-    powerBreakdown(vicc5LeaderboardSlug: $vicc5LeaderboardSlug) {
+    powerBreakdown(so5LeaderboardSlug: $so5LeaderboardSlug) {
       season
       xp
       scarcity
@@ -432,16 +471,16 @@ export const cardFragment = gql`
     player {
       slug
       displayName
-      so5Scores: vicc5Scores(last: 5) {
+      so5Scores(last: 5) {
         id
         score
       }
-      lastFiveVicc5Appearances
-      lastFifteenVicc5Appearances
+      lastFiveSo5Appearances
+      lastFifteenSo5Appearances
       activeClub {
         slug
       }
-      gamesForLeaderboard: gameForLeaderboard(vicc5LeaderboardSlug: $vicc5LeaderboardSlug) {
+      gamesForLeaderboard(so5LeaderboardSlug: $so5LeaderboardSlug) {
         id
         status
         date
@@ -472,18 +511,18 @@ export const cardFragment = gql`
         type
       }
     }
-    ...isListedOnMarket_card
+    ...isMyCardListedOnMarket_card
     ...LineupCard_card
   }
   ${TeamAvatar.fragments.team}
   ${PlayerCurrentUnavailabilityBadge.fragments.player}
   ${LineupCard.fragments.card}
-  ${isListedOnMarket.fragments.card}
-`;
+  ${isMyCardListedOnMarket.fragments.card}
+` as TypedDocumentNode<ContextProvider_card>;
 
 ContextProvider.fragments = {
   so5Leaderboard: gql`
-    fragment ContextProvider_so5Leaderboard on Vicc5Leaderboard {
+    fragment ContextProvider_so5Leaderboard on So5Leaderboard {
       id
       slug
       title
@@ -501,23 +540,23 @@ ContextProvider.fragments = {
         captain
         scarcity
       }
-      so5League: vicc5League {
+      so5League {
         slug
         name
         category
         displayName
         shortDisplayName
         restrictionGroup
-        so5Fixture: vicc5Fixture {
+        so5Fixture {
           slug
         }
       }
-      so5Fixture: vicc5Fixture {
+      so5Fixture {
         slug
         startDate
         endDate
       }
-      so5LeaderboardType: vicc5LeaderboardType
+      so5LeaderboardType
       defaultAverageScore
       rules {
         id
@@ -558,12 +597,12 @@ ContextProvider.fragments = {
     }
     ${Rules.fragments.so5Leaderboard}
     ${ComposeOnboarding.fragments.competition}
-  `,
+  ` as TypedDocumentNode<ContextProvider_so5Leaderboard>,
   so5Lineup: gql`
-    fragment ContextProvider_so5Lineup on Vicc5Lineup {
+    fragment ContextProvider_so5Lineup on So5Lineup {
       id
       name
-      so5Appearances: vicc5Appearances {
+      so5Appearances {
         id
         captain
         card {
@@ -572,9 +611,11 @@ ContextProvider.fragments = {
           ...ContextProvider_card
         }
       }
+      ...SocialShare_SocialPictures
     }
+    ${SocialShare.fragments.socialPictures}
     ${cardFragment}
-  `,
+  ` as TypedDocumentNode<ContextProvider_so5Lineup>,
 };
 
 export default ContextProvider;

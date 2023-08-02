@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -68,7 +68,7 @@ OfferUser.fragments = {
     }
     ${Avatar.fragments.publicUserInfoInterface}
     ${ActivityIndicator.fragments.user}
-  `,
+  ` as TypedDocumentNode<OfferUser_publicUserInfoInterface>,
   user: gql`
     fragment OfferUser_user on User {
       slug
@@ -77,5 +77,5 @@ OfferUser.fragments = {
     }
     ${Avatar.fragments.user}
     ${ActivityIndicator.fragments.user}
-  `,
+  ` as TypedDocumentNode<OfferUser_user>,
 };

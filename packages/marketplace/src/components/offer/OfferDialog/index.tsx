@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faChevronDown, faInfoCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Big from 'bignumber.js';
@@ -19,6 +19,7 @@ import styled from 'styled-components';
 import {
   AmountInput,
   Currency,
+  FiatWalletAccountState,
   Sport,
   SupportedCurrency,
 } from '@sorare/core/src/__generated__/globalTypes';
@@ -32,7 +33,7 @@ import {
   GraphqlForm,
   SubmitButtonProps,
 } from '@sorare/core/src/components/form/Form';
-import BidInputField from '@sorare/core/src/components/form/Form/BidInputField';
+import MonetaryInputField from '@sorare/core/src/components/form/Form/MonetaryInputField';
 import {
   FEES_HELP_LINKS,
   HREF_HELP,
@@ -41,6 +42,10 @@ import { useConfigContext } from '@sorare/core/src/contexts/config';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
+import {
+  AcceptedCurrenciesValue,
+  useAcceptedCurrencies,
+} from '@sorare/core/src/hooks/useAcceptedCurrencies';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import useLifecycle, {
   LIFECYCLE,
@@ -50,7 +55,8 @@ import useMonetaryAmount, {
   MonetaryAmountOutput,
 } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { useFiatBalance } from '@sorare/core/src/hooks/wallets/useFiatBalance';
-import { tradeLabels } from '@sorare/core/src/lib/glossary';
+import { fiatWallet, tradeLabels } from '@sorare/core/src/lib/glossary';
+import { MonetaryAmountParams } from '@sorare/core/src/lib/monetaryAmount';
 import {
   ETH_DECIMAL_PLACES,
   RoundingMode,
@@ -66,8 +72,9 @@ import { TokenTransferValidator } from '@marketplace/components/token/TokenTrans
 import { TokenTransferChildrenProps } from '@marketplace/components/token/TokenTransferValidator/types';
 import { useMarketplaceEvents } from '@marketplace/lib/events';
 
-// import { PreLaunchFiatWalletListing } from '../PreLaunchFiatWalletListing';
+import { AcceptedCurrenciesOnListing } from '../AcceptedCurrenciesOnListing';
 import { OfferDialog_token } from './__generated__/index.graphql';
+import { useCalculateFees } from './useCalculateFees';
 
 interface Props {
   open: boolean;
@@ -82,7 +89,7 @@ interface Props {
   description: ReactNode;
   showSaleDuration?: boolean;
   cta: MessageDescriptor;
-  initialWeiAmount?: string;
+  initialAmount?: MonetaryAmountParams;
   token: OfferDialog_token;
   confirmationMessage: MessageDescriptor;
   minimumPrice?: string;
@@ -234,6 +241,21 @@ const SubmitButtonWrapper = styled.div`
   padding-top: var(--double-unit);
 `;
 
+const Helper = styled.div`
+  display: flex;
+  gap: var(--intermediate-unit);
+  padding: var(--double-unit);
+  border: 1px solid var(--c-neutral-400);
+  background-color: var(--c-neutral-300);
+  border-radius: var(--double-unit);
+  align-items: baseline;
+`;
+const HelperText = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--unit);
+`;
+
 const OfferDialog = ({
   onClose,
   open,
@@ -242,18 +264,24 @@ const OfferDialog = ({
   onSuccess,
   description,
   cta,
-  initialWeiAmount,
+  initialAmount,
   token,
   confirmationMessage,
   minimumPrice,
 }: Props) => {
   const {
-    flags: { useEnableFiatWalletBeforeLaunch = false },
+    flags: { useEnableFiatWalletBeforeLaunch = false, useCashWallet = false },
   } = useFeatureFlags();
 
-  const { hasActiveFiatBalance } = useFiatBalance();
+  const {
+    acceptedCurrencies,
+    updateAcceptedCurrencies,
+    acceptedCurrenciesHaveBeenSet,
+  } = useAcceptedCurrencies();
+  const { canListAndTrade } = useFiatBalance();
   const [promptCreateFiatWallet, setPromptCreateFiatWallet] = useState(false);
-  const [needCreateFiatWallet, setNeedCreateFiatWallet] = useState(false);
+  const [acceptCurrenciesRadioInput, setAcceptCurrenciesRadioInput] =
+    useState<AcceptedCurrenciesValue | null>(null);
 
   const [promptConfirm, setPromptConfirm] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -264,6 +292,7 @@ const OfferDialog = ({
   const {
     currentUser,
     fiatCurrency: { code: currencyCode },
+    walletPreferences: { onlyShowFiatCurrency },
   } = useCurrentUserContext();
   const lifecycle = currentUser?.userSettings?.lifecycle as Lifecycle;
   const lastSaleDuration = lifecycle?.lastSaleDuration;
@@ -271,26 +300,29 @@ const OfferDialog = ({
 
   const track = useMarketplaceEvents();
 
-  // TODO: PLUG TO USER SETTINGS WHEN AVAILABLE
-  const [referenceCurrency, setReferenceCurrency] = useState<SupportedCurrency>(
-    SupportedCurrency.WEI
-  );
-  // TODO: PLUG TO USER SETTINGS WHEN AVAILABLE
+  const referenceCurrency = useMemo(() => {
+    if (acceptedCurrencies === AcceptedCurrenciesValue.ETH)
+      return SupportedCurrency.WEI;
+    return currencyCode as SupportedCurrency;
+  }, [acceptedCurrencies, currencyCode]);
+
   const [monetaryAmount, setMonetaryAmount] = useState<MonetaryAmountOutput>(
-    toMonetaryAmount({
-      wei: initialWeiAmount || '0',
-      referenceCurrency: SupportedCurrency.WEI,
-    })
+    initialAmount
+      ? toMonetaryAmount(initialAmount)
+      : toMonetaryAmount({
+          [referenceCurrency.toLowerCase()]: '0',
+          referenceCurrency,
+        })
   );
   const [durationInDays, setDurationInDays] = useState<number>(
     lastSaleDuration || defaultDurationInDays
   );
 
   const { sport, secondaryMarketFeeEnabled } = token;
-  const { getMarketFeesRateBySport, minimumReceiveWeiAmount } =
+  const { marketFeeRateBasisPoints, minimumReceiveWeiAmount } =
     useConfigContext();
   const secondaryMarketFeesRate = secondaryMarketFeeEnabled
-    ? getMarketFeesRateBySport(sport)
+    ? marketFeeRateBasisPoints
     : 0;
 
   const { fiatCurrency, currency } = useCurrentUserContext();
@@ -309,7 +341,6 @@ const OfferDialog = ({
       [inputRefCurrency.toLowerCase()]: amount,
     };
     setMonetaryAmount(toMonetaryAmount(inputMonetaryParams));
-    setReferenceCurrency(inputRefCurrency);
   };
 
   const onDurationChange = useCallback(
@@ -333,26 +364,17 @@ const OfferDialog = ({
     ({ value }) => value === durationInDays
   );
 
-  const bigWeiAmount = useMemo(
-    () => new Big(monetaryAmount.wei),
-    [monetaryAmount.wei]
-  );
-
   const ethAmount = useMemo(
     () =>
       fromWei(monetaryAmount.wei, ETH_DECIMAL_PLACES, RoundingMode.ROUND_DOWN),
     [monetaryAmount.wei]
   );
 
-  const weiFeesAmount = useMemo(
-    () => bigWeiAmount.multipliedBy(secondaryMarketFeesRate),
-    [bigWeiAmount, secondaryMarketFeesRate]
-  );
-
-  const youReceiveWeiAmount = useMemo(
-    () => bigWeiAmount.minus(weiFeesAmount),
-    [bigWeiAmount, weiFeesAmount]
-  );
+  const { feesMonetaryAmount, youReceiveMonetaryAmount } = useCalculateFees({
+    monetaryAmount,
+    referenceCurrency,
+    feesRate: secondaryMarketFeesRate,
+  });
 
   const showWarningMessage =
     new Big(minimumPrice || 0).comparedTo(monetaryAmount.wei) > 0;
@@ -367,7 +389,11 @@ const OfferDialog = ({
   };
 
   const gateAskForConfirmationWithCreateFiatWallet = () => {
-    if (useEnableFiatWalletBeforeLaunch && needCreateFiatWallet) {
+    if (onlyShowFiatCurrency && !canListAndTrade) {
+      setPromptCreateFiatWallet(true);
+      return;
+    }
+    if (acceptCurrenciesRadioInput === AcceptedCurrenciesValue.BOTH) {
       setPromptCreateFiatWallet(true);
       return;
     }
@@ -392,8 +418,36 @@ const OfferDialog = ({
         ethAmount,
       });
     }
+    if (
+      !acceptedCurrenciesHaveBeenSet &&
+      acceptCurrenciesRadioInput === AcceptedCurrenciesValue.ETH
+    ) {
+      updateAcceptedCurrencies(AcceptedCurrenciesValue.ETH);
+    }
     setSubmitting(false);
   };
+  const onCloseCreateFiatWallet = () => {
+    setAcceptCurrenciesRadioInput(null);
+    setPromptCreateFiatWallet(false);
+  };
+
+  const showAcceptedCurrenciesRadioInput = useMemo(() => {
+    if (onlyShowFiatCurrency) return false;
+    if (!canListAndTrade && !acceptedCurrenciesHaveBeenSet) {
+      if (useCashWallet) return true;
+      if (useEnableFiatWalletBeforeLaunch) return true;
+    }
+    return false;
+  }, [
+    acceptedCurrenciesHaveBeenSet,
+    canListAndTrade,
+    onlyShowFiatCurrency,
+    useEnableFiatWalletBeforeLaunch,
+    useCashWallet,
+  ]);
+
+  const disabledWhenAcceptedCurrenciesNotSet =
+    showAcceptedCurrenciesRadioInput && !acceptCurrenciesRadioInput;
 
   const dialogContent = ({
     validationMessages,
@@ -402,29 +456,13 @@ const OfferDialog = ({
   }: TokenTransferChildrenProps) => {
     const validationMessagesList = Object.values(validationMessages);
 
-    if (promptCreateFiatWallet) {
-      return (
-        <CreateFiatWallet
-          cta={
-            <FormattedMessage
-              id="OfferDialog.createFiatWallet.cta"
-              defaultMessage="Confirm and List Card"
-            />
-          }
-          onSuccess={() => {
-            setNeedCreateFiatWallet(false);
-            setPromptCreateFiatWallet(false);
-            askForConfirmation();
-          }}
-        />
-      );
-    }
     if (promptConfirm) {
       return (
         <ConfirmationDialogContent
           token={token}
           showWarningMessage={showWarningMessage}
-          weiAmount={monetaryAmount.wei}
+          monetaryAmount={monetaryAmount}
+          referenceCurrency={referenceCurrency}
           onClose={onClose}
           submitting={submitting}
           submit={() => {
@@ -444,14 +482,44 @@ const OfferDialog = ({
       );
     }
 
+    if (promptCreateFiatWallet) {
+      return (
+        <CreateFiatWallet
+          statusTarget={FiatWalletAccountState.OWNER}
+          canDismissAfterActivation
+          activationSuccessCta={
+            <FormattedMessage
+              id="OfferDialog.createFiatWallet.activationSuccess.cta"
+              defaultMessage="Finish listing my card"
+            />
+          }
+          unsupportedCountryCta={
+            <FormattedMessage
+              id="OfferDialog.createFiatWallet.unsupportedCountryCta"
+              defaultMessage="Agree and return to listing"
+            />
+          }
+          onDeclarativeFormSuccess={() => {
+            updateAcceptedCurrencies(AcceptedCurrenciesValue.BOTH);
+          }}
+          onDismissActivationSuccess={() => {
+            onCloseCreateFiatWallet();
+          }}
+          onClose={onCloseCreateFiatWallet}
+        />
+      );
+    }
+
     return (
       <>
         <StyledGraphqlForm
           onSubmit={gateAskForConfirmationWithCreateFiatWallet}
           onSuccess={onSuccess || onClose}
           render={(
-            Error: React.ComponentType,
-            SubmitButton: FunctionComponent<SubmitButtonProps>
+            Error: React.ComponentType<React.PropsWithChildren<unknown>>,
+            SubmitButton: FunctionComponent<
+              React.PropsWithChildren<SubmitButtonProps>
+            >
           ) => (
             <>
               <Title>
@@ -465,7 +533,7 @@ const OfferDialog = ({
                 name="price"
                 defaultValue={ethAmount}
                 render={() => (
-                  <BidInputField
+                  <MonetaryInputField
                     ethAmount={ethAmount}
                     fiatAmount={Math.round(
                       getUserFiatAmount(monetaryAmount) / 100
@@ -500,8 +568,8 @@ const OfferDialog = ({
                 >
                   <PaymentBoxAmountWithConversion
                     monetaryAmount={{
-                      referenceCurrency: SupportedCurrency.WEI,
-                      [SupportedCurrency.WEI.toLowerCase()]: weiFeesAmount,
+                      referenceCurrency,
+                      ...feesMonetaryAmount,
                     }}
                   />
                 </Row>
@@ -512,9 +580,8 @@ const OfferDialog = ({
                 >
                   <PaymentBoxAmountWithConversion
                     monetaryAmount={{
-                      referenceCurrency: SupportedCurrency.WEI,
-                      [SupportedCurrency.WEI.toLowerCase()]:
-                        youReceiveWeiAmount,
+                      referenceCurrency,
+                      ...youReceiveMonetaryAmount,
                     }}
                   />
                 </Row>
@@ -536,21 +603,50 @@ const OfferDialog = ({
                   />
                 </Row>
               </div>
-              {/* {useEnableFiatWalletBeforeLaunch && !hasActiveFiatBalance && (
-                <PreLaunchFiatWalletListing
-                  setNeedCreateFiatWallet={setNeedCreateFiatWallet}
+              {showAcceptedCurrenciesRadioInput && (
+                <AcceptedCurrenciesOnListing
+                  onChange={setAcceptCurrenciesRadioInput}
                 />
-              )} */}
+              )}
+              {useEnableFiatWalletBeforeLaunch &&
+                acceptedCurrenciesHaveBeenSet &&
+                acceptedCurrencies === AcceptedCurrenciesValue.BOTH && (
+                  <Helper>
+                    <Text16>
+                      <FontAwesomeIcon icon={faInfoCircle} />
+                    </Text16>
+                    <HelperText>
+                      <Text16 bold>
+                        <FormattedMessage
+                          id="OfferDialog.enableFiatWalletBeforeLaunch.acceptedCurrenciesHaveBeenSet.BOTH.title"
+                          defaultMessage="Your Cash Wallet is active"
+                        />
+                      </Text16>
+                      <Text16 color="var(--c-neutral-600)">
+                        <FormattedMessage
+                          id="OfferDialog.enableFiatWalletBeforeLaunch.acceptedCurrenciesHaveBeenSet.BOTH.description"
+                          defaultMessage="Starting on Wednesday, Sorare Managers can pay you in either cash or ETH, and you can change your accepted payment types (e.g. only cash or only ETH)."
+                        />
+                      </Text16>
+                    </HelperText>
+                  </Helper>
+                )}
               <SubmitButtonWrapper>
                 <SubmitButton
                   color="blue"
                   disabled={
                     validationLoading ||
-                    new Big(minimumReceiveWeiAmount).gt(monetaryAmount.wei)
+                    new Big(minimumReceiveWeiAmount).gt(monetaryAmount.wei) ||
+                    disabledWhenAcceptedCurrenciesNotSet
                   }
                   fullWidth
                 >
-                  <FormattedMessage {...cta} />
+                  <FormattedMessage
+                    {...(acceptCurrenciesRadioInput ===
+                    AcceptedCurrenciesValue.BOTH
+                      ? fiatWallet.activateCashWallet
+                      : cta)}
+                  />
                 </SubmitButton>
               </SubmitButtonWrapper>
             </>
@@ -610,7 +706,7 @@ OfferDialog.fragments = {
     ${TokenSummary.fragments.token}
     ${TokenTransferValidator.fragments.token}
     ${ConfirmationDialogContent.fragments.token}
-  `,
+  ` as TypedDocumentNode<OfferDialog_token>,
 };
 
 export default OfferDialog;

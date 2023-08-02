@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
@@ -14,20 +14,22 @@ import {
 
 const BATCH_STARTER_BUNDLE_PREVIEW_QUERY = gql`
   query BatchStarterBundlePreviewQuery($assetIds: [String!]!) {
-    cards(assetIds: $assetIds) {
-      slug
-      assetId
-      ...CustomStarterBundlePreview_card
+    football {
+      cards(assetIds: $assetIds) {
+        slug
+        assetId
+        ...CustomStarterBundlePreview_card
+      }
     }
   }
   ${CustomStarterBundlePreview.fragments.card}
-`;
+` as TypedDocumentNode<
+  BatchStarterBundlePreviewQuery,
+  BatchStarterBundlePreviewQueryVariables
+>;
 
 const BatchSO5Query = ({ assetIds }: { assetIds: string[] }) => {
-  useQuery<
-    BatchStarterBundlePreviewQuery,
-    BatchStarterBundlePreviewQueryVariables
-  >(BATCH_STARTER_BUNDLE_PREVIEW_QUERY, {
+  useQuery(BATCH_STARTER_BUNDLE_PREVIEW_QUERY, {
     variables: { assetIds },
     skip: !assetIds.length,
   });

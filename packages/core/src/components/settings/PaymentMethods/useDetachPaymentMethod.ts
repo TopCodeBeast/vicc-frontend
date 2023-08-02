@@ -1,5 +1,6 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 
+import { PaymentMethodProvider } from '__generated__/globalTypes';
 import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
 import { formatGqlErrors } from '@core/lib/gql';
 
@@ -13,7 +14,10 @@ const DETACH_PAYMENT_METHOD_MUTATION = gql`
     detachPaymentMethod(input: $input) {
       currentUser {
         slug
-        paymentMethods {
+        stripePaymentMethods: paymentMethods(provider: STRIPE) {
+          id
+        }
+        mangopayPaymentMethods: paymentMethods(provider: MANGOPAY) {
           id
         }
       }
@@ -24,18 +28,18 @@ const DETACH_PAYMENT_METHOD_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  DetachPaymentMethodMutation,
+  DetachPaymentMethodMutationVariables
+>;
 
 export default () => {
-  const [detachPaymentMethod] = useMutation<
-    DetachPaymentMethodMutation,
-    DetachPaymentMethodMutationVariables
-  >(DETACH_PAYMENT_METHOD_MUTATION);
+  const [detachPaymentMethod] = useMutation(DETACH_PAYMENT_METHOD_MUTATION);
   const { showNotification } = useSnackNotificationContext();
 
-  return async (paymentMethod: string) => {
+  return async (paymentMethod: string, provider: PaymentMethodProvider) => {
     const result = await detachPaymentMethod({
-      variables: { input: { paymentMethod } },
+      variables: { input: { paymentMethod, provider } },
     });
 
     const errors = result.data?.detachPaymentMethod?.errors || [];

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { Caption } from '@sorare/core/src/atoms/typography';
@@ -45,7 +45,7 @@ ItemUser.fragments = {
     }
     ${GalleryLink.fragments.user}
     ${Nickname.fragments.user}
-  `,
+  ` as TypedDocumentNode<ItemUser_user>,
 };
 
 export default ItemUser;

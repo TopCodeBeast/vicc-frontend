@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faXmark } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage, defineMessages } from 'react-intl';
@@ -61,7 +61,7 @@ const getCardBonusRule = withFragments(
   },
   {
     so5Leaderboard: gql`
-      fragment getCardBonusRule_so5Leaderboard on Vicc5Leaderboard {
+      fragment getCardBonusRule_so5Leaderboard on So5Leaderboard {
         slug
         mainRarityType
         engineConfiguration {
@@ -70,7 +70,7 @@ const getCardBonusRule = withFragments(
           season
         }
       }
-    `,
+    ` as TypedDocumentNode<getCardBonusRule_so5Leaderboard>,
   }
 );
 

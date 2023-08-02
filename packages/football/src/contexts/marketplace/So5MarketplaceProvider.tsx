@@ -1,7 +1,4 @@
-import { ReactNode } from 'react';
-
-import { Sport } from '@sorare/core/src/__generated__/globalTypes';
-import { useConfigContext } from '@sorare/core/src/contexts/config';
+import { ReactNode, useState } from 'react';
 
 import MarketplaceProvider from '@sorare/marketplace/src/contexts/Marketplace/Provider';
 
@@ -10,10 +7,9 @@ import CardPropertiesByAssetId from '@football/components/card/CardPropertiesByA
 import CardTeamsByAssetId from '@football/components/card/CardTeamsByAssetId';
 
 const So5MarketplaceProvider = ({ children }: { children: ReactNode }) => {
-  const { getMarketFeesRateBySport } = useConfigContext();
+  const [hideDetails, setHideDetails] = useState(false);
   return (
     <MarketplaceProvider
-      secondaryMarketFeesBasisPoints={getMarketFeesRateBySport(Sport.FOOTBALL)}
       TokenPropertiesComponent={({ assetId }) => (
         <CardPropertiesByAssetId assetId={assetId} />
       )}
@@ -24,6 +20,8 @@ const So5MarketplaceProvider = ({ children }: { children: ReactNode }) => {
       TokenTeamsComponent={({ assetId }) => (
         <CardTeamsByAssetId assetId={assetId} />
       )}
+      hideDetails={hideDetails}
+      setHideDetails={setHideDetails}
     >
       {children}
     </MarketplaceProvider>

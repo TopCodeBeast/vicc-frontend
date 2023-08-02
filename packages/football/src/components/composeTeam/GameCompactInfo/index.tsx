@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedDate, FormattedMessage, FormattedTime } from 'react-intl';
 import styled from 'styled-components';
 
@@ -213,7 +213,7 @@ GameCompactInfo.fragments = {
       }
     }
     ${TeamAvatar.fragments.team}
-  `,
+  ` as TypedDocumentNode<GameCompactInfo_game>,
 };
 
 export default GameCompactInfo;

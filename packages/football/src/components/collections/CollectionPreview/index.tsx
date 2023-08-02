@@ -1,16 +1,16 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import { Rarity } from '@sorare/core/src/__generated__/globalTypes';
 import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
 import { Bonus } from '@sorare/core/src/components/collections/Bonus';
+import { CardsNumber } from '@sorare/core/src/components/collections/CardsNumber';
+import { Ranking } from '@sorare/core/src/components/collections/Ranking';
 import { Score } from '@sorare/core/src/components/collections/Score';
 import { fantasy, glossary } from '@sorare/core/src/lib/glossary';
 
-import { CardsNumber } from '@football/components/collections/CardsNumber';
 import CollectionBackground from '@football/components/collections/CollectionBackground';
-import { Ranking } from '@football/components/collections/Ranking';
 import { ScarcityLabel } from '@football/components/collections/ScarcityLabel';
 
 import { CollectionPreview_cardCollection } from './__generated__/index.graphql';
@@ -167,5 +167,5 @@ CollectionPreview.fragments = {
         liveRanking
       }
     }
-  `,
+  ` as TypedDocumentNode<CollectionPreview_cardCollection>,
 };

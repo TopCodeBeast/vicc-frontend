@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import DetailedScore from '@football/components/stats/DetailedScore';
@@ -44,7 +44,7 @@ export const AppearanceDetails = ({ so5Score, withDetails }: Props) => {
 
 AppearanceDetails.fragments = {
   so5Score: gql`
-    fragment AppearanceDetails_so5Score on Vicc5Score {
+    fragment AppearanceDetails_so5Score on So5Score {
       id
       playerGameStats {
         id
@@ -59,7 +59,7 @@ AppearanceDetails.fragments = {
     }
     ${DetailedScore.fragments.so5Score}
     ${Game.fragments.game}
-  `,
+  ` as TypedDocumentNode<AppearanceDetails_so5Score>,
 };
 
 export default AppearanceDetails;

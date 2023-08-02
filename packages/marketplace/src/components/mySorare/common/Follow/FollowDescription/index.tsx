@@ -18,7 +18,6 @@ import {
   FollowDescription_NBAPlayer,
   FollowDescription_baseballPlayer,
 } from '@sorare/core/src/lib/usSportsGraphql/__generated__/queries.graphql';
-import { US_SPORTS_FOLLOW_DESCRIPTION_FRAGMENTS } from '@sorare/core/src/lib/usSportsGraphql/queries';
 
 import DumbPlayerDescription from '../../DumbPlayerDescription';
 import {
@@ -154,8 +153,6 @@ FollowDescription.fragments = {
       avatarImageUrl: pictureUrl(derivative: "avatar")
     }
   ` as TypedDocumentNode<FollowDescription_player>,
-  baseballPlayer: US_SPORTS_FOLLOW_DESCRIPTION_FRAGMENTS.baseballPlayer,
-  nbaPlayer: US_SPORTS_FOLLOW_DESCRIPTION_FRAGMENTS.nbaPlayer,
 };
 
 export default FollowDescription;

@@ -2,11 +2,10 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
-  FOOTBALL_HOME,
   FOOTBALL_MARKET,
   MLB_HOME,
   NBA_HOME,
-  // useDefaultSportPages,
+  useDefaultSportPages,
 } from '@core/constants/routes';
 import { useConfigContext } from '@core/contexts/config';
 import useAfterLoggedInTarget from '@core/hooks/useAfterLoggedInTarget';
@@ -25,22 +24,21 @@ export default () => {
   const { landingTheme } = useConfigContext();
   const sportTarget = landingTheme?.sport;
   const navigate = useNavigate();
-  // const defaultSportPages = useDefaultSportPages();
+  const defaultSportPages = useDefaultSportPages();
 
   return useCallback(
     (currentUser: SignInMutation_signIn_currentUser | null) => {
       const lifecycle = currentUser?.userSettings?.lifecycle as Lifecycle;
       const lastVisitedSport = lifecycle?.lastVisitedSport;
 
-      /*const fromPath =
+      const fromPath =
         redirectUrl ||
         currentUser?.fromPath ||
         afterLoggedInTarget ||
         (sportTarget && defaultSportPages[sportTarget]) ||
-        (lastVisitedSport && defaultSportPages[lastVisitedSport]);*/
-
+        (lastVisitedSport && defaultSportPages[lastVisitedSport]);
       if (currentUser) {
-        /*if (fromPath) {
+        if (fromPath) {
           // make sure we don't redirect to an external URL as it would be a security issue.
           const url = new URL(fromPath, window.location.origin);
           navigate(`${url.pathname}${url.search}`, {
@@ -70,13 +68,9 @@ export default () => {
             }
             navigate(FOOTBALL_MARKET);
           }
-        }*/
-
-        //TODO****
-        console.log('RedirectAfterSignIn')
-        navigate(FOOTBALL_HOME);//navigate(FOOTBALL_MARKET);
+        }
       }
     },
-    [redirectUrl, afterLoggedInTarget, sportTarget, /*defaultSportPages,*/ navigate]
+    [redirectUrl, afterLoggedInTarget, sportTarget, defaultSportPages, navigate]
   );
 };

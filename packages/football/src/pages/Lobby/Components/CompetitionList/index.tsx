@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useMemo } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
@@ -20,7 +20,7 @@ import {
   scarcities,
 } from '@sorare/core/src/lib/scarcity';
 
-// import { getLeaderboardInfo } from '@football/lib/so5';
+import { getLeaderboardInfo } from '@football/lib/so5';
 
 import CongratsDialog from './CongratsDialog';
 import DateGroupedSection, {
@@ -136,23 +136,23 @@ export const CompetitionList = ({
     }
 
     return so5Leaderboards.filter(leaderboard => {
-      const { backgroundScarcity } = {} as any;//getLeaderboardInfo(leaderboard);
+      const { backgroundScarcity } = getLeaderboardInfo(leaderboard);
       const { cardsCountOfCurrentUser } = leaderboard?.rules || {};
       const { showRecommended, scarcity = 'all' } = sortAndFilters.filter!;
       const filteredByScarcity = ['all', backgroundScarcity].includes(scarcity);
-      const { hasFeaturedStarterPacks, /*canCompose,*/ rarityType } = leaderboard;
+      const { hasFeaturedStarterPacks, canCompose, rarityType } = leaderboard;
 
       if (!showRecommended) {
         return filteredByScarcity;
       }
 
-      // if (
-      //   hasFeaturedStarterPacks ||
-      //   canCompose.value ||
-      //   rarityType === Rarity.common
-      // ) {
-      //   return filteredByScarcity;
-      // }
+      if (
+        hasFeaturedStarterPacks ||
+        canCompose.value ||
+        rarityType === Rarity.common
+      ) {
+        return filteredByScarcity;
+      }
 
       const availableKickoff =
         cardsCountOfCurrentUser?.maximumCards === 10 &&
@@ -236,10 +236,10 @@ export const CompetitionList = ({
 
 CompetitionList.fragments = {
   so5Leaderboard: gql`
-    fragment CompetitionList_so5Leaderboard on Vicc5Leaderboard {
+    fragment CompetitionList_so5Leaderboard on So5Leaderboard {
       slug
       hasFeaturedStarterPacks
-      so5Fixture: vicc5Fixture {
+      so5Fixture {
         slug
         ...DateGroupedSection_so5Fixture
       }
@@ -251,16 +251,16 @@ CompetitionList.fragments = {
         }
       }
       ...DateGroupedSection_so5Leaderboard
-      #...getLeaderboardInfo_so5Leaderboard
+      ...getLeaderboardInfo_so5Leaderboard
     }
     ${DateGroupedSection.fragments.so5Leaderboard}
     ${DateGroupedSection.fragments.so5Fixture}
-    #{getLeaderboardInfo.fragments.so5Leaderboard}
-  `,
+    ${getLeaderboardInfo.fragments.so5Leaderboard}
+  ` as TypedDocumentNode<CompetitionList_so5Leaderboard>,
   clubShopItem: gql`
     fragment CompetitionList_clubShopItem on ClubShopItem {
       ...DateGroupedSection_clubShopItem
     }
     ${DateGroupedSection.fragments.clubShopItem}
-  `,
+  ` as TypedDocumentNode<CompetitionList_clubShopItem>,
 };

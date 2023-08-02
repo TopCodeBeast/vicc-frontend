@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import { formatGqlErrors } from '@sorare/core/src/gql';
@@ -14,12 +14,12 @@ const CLAIM_REWARDS_MUTATION = gql`
     claimRewards(input: $input) {
       currentUser {
         slug
-        unclaimedSo5Rewards: unclaimedVicc5Rewards {
+        unclaimedSo5Rewards {
           slug
         }
         coinBalance
       }
-      so5Rewards: vicc5Rewards {
+      so5Rewards {
         slug
         aasmState
         rewardCards {
@@ -30,9 +30,9 @@ const CLAIM_REWARDS_MUTATION = gql`
             visible
           }
         }
-        so5Fixture: vicc5Fixture {
+        so5Fixture {
           slug
-          mySo5Rewards: myVicc5Rewards {
+          mySo5Rewards {
             slug
             aasmState
           }
@@ -44,21 +44,18 @@ const CLAIM_REWARDS_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<ClaimRewardsMutation, ClaimRewardsMutationVariables>;
 
 export default () => {
-  const [claim, { loading }] = useMutation<
-    ClaimRewardsMutation,
-    ClaimRewardsMutationVariables
-  >(CLAIM_REWARDS_MUTATION);
+  const [claim, { loading }] = useMutation(CLAIM_REWARDS_MUTATION);
   const { showNotification } = useSnackNotificationContext();
 
   return [
-    async (vicc5RewardIds: string[]) => {
+    async (so5RewardIds: string[]) => {
       const result = await claim({
         variables: {
           input: {
-            vicc5RewardIds,
+            so5RewardIds,
           },
         },
       });

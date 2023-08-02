@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { isFuture, parseISO } from 'date-fns';
 
 import { EndedSaleDetails } from './EndedSaleDetails';
@@ -64,7 +64,7 @@ SaleDetails.fragments = {
     }
     ${LiveSaleDetails.fragments.token}
     ${EndedSaleDetails.fragments.token}
-  `,
+  ` as TypedDocumentNode<SaleDetails_token>,
   offer: gql`
     fragment SaleDetails_offer on TokenOffer {
       id
@@ -74,5 +74,5 @@ SaleDetails.fragments = {
     }
     ${LiveSaleDetails.fragments.offer}
     ${EndedSaleDetails.fragments.offer}
-  `,
+  ` as TypedDocumentNode<SaleDetails_offer>,
 };

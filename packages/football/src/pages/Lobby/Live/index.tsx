@@ -1,9 +1,9 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { defineMessages } from 'react-intl';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Vicc5State as So5State } from '@sorare/core/src/__generated__/globalTypes';
+import { So5State } from '@sorare/core/src/__generated__/globalTypes';
 import { Container } from '@sorare/core/src/atoms/container';
 import { Flag } from '@sorare/core/src/atoms/icons/Flag';
 import { Jersey } from '@sorare/core/src/atoms/icons/Jersey';
@@ -23,7 +23,10 @@ import Teams from '@football/pages/Lobby/Components/Teams';
 import { Games } from '@football/pages/Lobby/Live/Components/Games';
 
 import ComposeTeamReminderBanner from './ComposeTeamReminderBanner';
-import { LobbyLiveIndexQuery } from './__generated__/index.graphql';
+import {
+  LobbyLiveIndexQuery,
+  LobbyLiveIndexQueryVariables,
+} from './__generated__/index.graphql';
 
 const Loading = styled.div`
   margin: calc(8 * var(--unit)) 0;
@@ -40,24 +43,26 @@ const TeamsRoutes = styled.div`
 
 const LOBBY_LIVE_INDEX_QUERY = gql`
   query LobbyLiveIndexQuery {
-    so5: vicc5Root {
-      so5Fixture: vicc5Fixture(type: LIVE) {
-        slug
-        totalLineups: myVicc5LineupsCount(draft: false)
-        ...Lobby_Layout_so5Fixture
-        ...ComposeTeamReminderBanner_so5Fixture
-        ...Teams_so5Fixture
-      }
-      so5FixtureUpcoming: vicc5Fixture(type: UPCOMING) {
-        slug
-        ...ComposeTeamReminderBanner_so5Fixture
+    football {
+      so5 {
+        so5Fixture(type: LIVE) {
+          slug
+          totalLineups: mySo5LineupsCount(draft: false)
+          ...Lobby_Layout_so5Fixture
+          ...ComposeTeamReminderBanner_so5Fixture
+          ...Teams_so5Fixture
+        }
+        so5FixtureUpcoming: so5Fixture(type: UPCOMING) {
+          slug
+          ...ComposeTeamReminderBanner_so5Fixture
+        }
       }
     }
   }
   ${Teams.fragments.so5Fixture}
   ${Layout.fragments.so5Fixture}
   ${ComposeTeamReminderBanner.fragments.so5Fixture}
-`;
+` as TypedDocumentNode<LobbyLiveIndexQuery, LobbyLiveIndexQueryVariables>;
 
 const messages = defineMessages({
   myPlayers: {
@@ -97,20 +102,17 @@ const messages = defineMessages({
 export const LobbyLiveIndex = () => {
   const { formatMessage } = useIntlContext();
   const bgLocation = useBgLocation();
-  const { data, loading } = useQuery<LobbyLiveIndexQuery>(
-    LOBBY_LIVE_INDEX_QUERY,
-    {
-      nextFetchPolicy: 'cache-first',
-      fetchPolicy: 'cache-and-network',
-    }
-  );
-  const so5Fixture = data?.so5.so5Fixture || undefined;
+  const { data, loading } = useQuery(LOBBY_LIVE_INDEX_QUERY, {
+    nextFetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
+  });
+  const so5Fixture = data?.football.so5.so5Fixture || undefined;
 
   return (
     <Layout so5Fixture={so5Fixture}>
       <Container>
         <ComposeTeamReminderBanner
-          so5Fixture={data?.so5.so5FixtureUpcoming}
+          so5Fixture={data?.football.so5.so5FixtureUpcoming}
         />
         {!so5Fixture && loading && (
           <Loading>

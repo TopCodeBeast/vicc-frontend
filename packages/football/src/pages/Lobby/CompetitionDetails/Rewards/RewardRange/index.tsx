@@ -2,7 +2,7 @@ import { ReactElement, ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { theme } from '@sorare/core/src/style/theme';
+import { breakpoints } from '@sorare/core/src/style/mediaQuery';
 
 import { ActionableRewardRow } from '@football/pages/Lobby/CompetitionDetails/Rewards/RewardRow';
 
@@ -14,7 +14,7 @@ const Row = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   color: var(--c-neutral-1000);
-  @media (max-width: ${theme.breakpoints.values.laptop}px) {
+  @media (max-width: ${breakpoints.laptop}px) {
     flex-direction: column;
   }
 `;

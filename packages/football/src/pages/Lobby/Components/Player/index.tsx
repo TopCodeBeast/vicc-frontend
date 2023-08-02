@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -133,9 +133,9 @@ export const Player = ({ player }: { player: LobbyPlayer_so5Appearance }) => {
 
 Player.fragments = {
   so5Appearance: gql`
-    fragment LobbyPlayer_so5Appearance on Vicc5Appearance {
+    fragment LobbyPlayer_so5Appearance on So5Appearance {
       id
-      so5Score: vicc5Score {
+      so5Score {
         id
         game {
           id
@@ -163,5 +163,5 @@ Player.fragments = {
     ${Game.fragments.game}
     ${Game.fragments.teamCountry}
     ${getPlayerScore.fragments.so5Score}
-  `,
+  ` as TypedDocumentNode<LobbyPlayer_so5Appearance>,
 };

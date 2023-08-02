@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import {
   faArrowUp,
   faEllipsis,
@@ -30,7 +30,7 @@ import {
 } from '@sorare/core/src/lib/events';
 import { useUseCustomLists } from '@sorare/core/src/lib/featureFlags';
 import { glossary } from '@sorare/core/src/lib/glossary';
-import { isA } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
 
 import Boosts from '@football/components/card/CardPage/Boosts';
 import CardTitle from '@football/components/card/CardTitle';
@@ -129,7 +129,7 @@ export const Title = ({ card, loading, onAddToListClick }: Props) => {
   const isMyCard = card.user?.slug && card.user?.slug === currentUser?.slug;
 
   const hasLevelUp = card.availableCardBoosts.some(({ shopItem }) =>
-    isA('LevelUpShopItem', shopItem)
+    isType(shopItem, 'LevelUpShopItem')
   );
 
   const cardUrl = `${window.location.origin}${generatePath(FOOTBALL_CARD_SHOW, {
@@ -156,7 +156,6 @@ export const Title = ({ card, loading, onAddToListClick }: Props) => {
             >
               {({ closeDropdown }) => (
                 <SocialShare
-                  key="share"
                   image={{
                     post: card.pictureUrlForTwitter,
                     square: null,
@@ -291,6 +290,8 @@ Title.fragments = {
         slug
       }
       availableCardBoosts {
+        # shopItem does not expose an ID because it's a union type
+        # eslint-disable-next-line sorare/enforce-apollo-typepolicies
         shopItem {
           ... on ShopItemInterface {
             id
@@ -302,7 +303,7 @@ Title.fragments = {
     }
     ${CardTitle.fragments.card}
     ${Boosts.fragments.card}
-  `,
+  ` as TypedDocumentNode<CardPageTitle_card>,
 };
 
 export default Title;

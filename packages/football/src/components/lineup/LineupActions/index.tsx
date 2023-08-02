@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faUnlockAlt } from '@fortawesome/pro-regular-svg-icons';
 import { faRandom, faRotate } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -42,7 +42,7 @@ export type Props = {
   so5Leaderboard: LineupActions_so5Leaderboard;
   linkToCompetitionDetails: string;
   lineupId?: string;
-  renderCta?: () => JSX.Element;
+  renderCta?: () => React.JSX.Element;
 };
 
 const LineupActions = ({
@@ -104,8 +104,8 @@ const LineupActions = ({
       <LineupActionButton
         as={Link}
         to={getComposeTeamRoute({
-          vicc5LeaderboardSlug: so5Leaderboard.slug,
-          vicc5LineupId: idFromObject(lineup?.id),
+          so5LeaderboardSlug: so5Leaderboard.slug,
+          so5LineupId: idFromObject(lineup?.id),
         })}
         onClick={() => {
           track('Click Edit Lineup', {
@@ -121,7 +121,7 @@ const LineupActions = ({
         className="primary"
         as={Link}
         to={getComposeTeamRoute({
-          vicc5LeaderboardSlug: so5Leaderboard.slug,
+          so5LeaderboardSlug: so5Leaderboard.slug,
         })}
         onClick={() => {
           track('Click Compose Lineup', {
@@ -166,10 +166,10 @@ const LineupActions = ({
 
 LineupActions.fragments = {
   so5Leaderboard: gql`
-    fragment LineupActions_so5Leaderboard on Vicc5Leaderboard {
+    fragment LineupActions_so5Leaderboard on So5Leaderboard {
       slug
       displayName
-      mySo5Lineups: myVicc5Lineups {
+      mySo5Lineups {
         id
         ...getLineupActions_so5Lineup
       }
@@ -177,7 +177,7 @@ LineupActions.fragments = {
     }
     ${getLineupActions.fragments.so5Lineup}
     ${getLineupActions.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<LineupActions_so5Leaderboard>,
 };
 
 export default LineupActions;

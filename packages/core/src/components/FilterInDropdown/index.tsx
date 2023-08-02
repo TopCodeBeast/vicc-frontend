@@ -54,11 +54,14 @@ const CloseContent = styled.span`
 type Props = {
   buttonLabel: ReactNode;
   buttonSize?: 'small' | 'medium';
-  children: ReactElement | FC<{ closeDropdown: () => void }>;
+  children:
+    | ReactElement
+    | FC<React.PropsWithChildren<{ closeDropdown: () => void }>>;
   fullWidth?: boolean;
   filterSelected?: boolean;
   onClearFilter?: () => void;
   darkTheme?: boolean;
+  gap?: 0 | 4 | 8 | 16;
 };
 
 export const FilterInDropdown = ({
@@ -69,6 +72,7 @@ export const FilterInDropdown = ({
   onClearFilter = () => {},
   children,
   darkTheme,
+  gap,
 }: Props) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -108,7 +112,7 @@ export const FilterInDropdown = ({
           )}
         </ButtonsWrapper>
       }
-      gap={16}
+      gap={gap || 16}
       onOpen={() => setExpanded(true)}
       onClose={() => setExpanded(false)}
     >

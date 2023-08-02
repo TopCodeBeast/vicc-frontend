@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faDesktop, faMobile } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -10,56 +10,76 @@ import {
 import styled from 'styled-components';
 
 import LoadingButton from '@core/atoms/buttons/LoadingButton';
+import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
 import { Text14, Text16 } from '@core/atoms/typography';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import idFromObject from '@core/gql/idFromObject';
 import useMutation from '@core/hooks/graphql/useMutation';
+import useQuery from '@core/hooks/graphql/useQuery';
 import { glossary } from '@core/lib/glossary';
 
-// import {
-//   Devices_UserDevice,
-//   revokeDeviceMutation,
-//   revokeDeviceMutationVariables,
-// } from './__generated__/index.graphql';
-
-type Devices_UserDevice = any;
+import {
+  DevicesQuery,
+  DevicesQueryVariables,
+  Devices_UserDevice,
+  revokeDeviceMutation,
+  revokeDeviceMutationVariables,
+} from './__generated__/index.graphql';
 
 const messages = defineMessages({
   lastUsed: {
     id: 'Device.lastUsedAt',
     defaultMessage: 'Last used on {date}',
   },
+  noDevices: {
+    id: 'Device.noDevices',
+    defaultMessage:
+      "You currently don't have any registered confirmed devices.",
+  },
 });
 
-// const fragment = gql`
-//   fragment Devices_UserDevice on UserDevice {
-//     deviceType
-//     id
-//     os
-//     userAgent
-//     lastUsedAt
-//   }
-// `;
+const fragment = gql`
+  fragment Devices_UserDevice on UserDevice {
+    deviceType
+    id
+    os
+    userAgent
+    lastUsedAt
+  }
+` as TypedDocumentNode<Devices_UserDevice>;
 
-// const REVOKE_DEVICE_MUTATION = gql`
-//   mutation revokeDeviceMutation($input: revokeDeviceInput!) {
-//     revokeDevice(input: $input) {
-//       currentUser {
-//         id
-//         slug
-//         devices {
-//           ...Devices_UserDevice
-//         }
-//       }
-//       errors {
-//         path
-//         message
-//         code
-//       }
-//     }
-//   }
-//   ${fragment}
-// `;
+const DEVICES_QUERY = gql`
+  query DevicesQuery {
+    currentUser {
+      id
+      slug
+      devices {
+        ...Devices_UserDevice
+      }
+    }
+  }
+  ${fragment}
+` as TypedDocumentNode<DevicesQuery, DevicesQueryVariables>;
+
+const REVOKE_DEVICE_MUTATION = gql`
+  mutation revokeDeviceMutation($input: revokeDeviceInput!) {
+    revokeDevice(input: $input) {
+      currentUser {
+        id
+        slug
+        devices {
+          ...Devices_UserDevice
+        }
+      }
+      errors {
+        path
+        message
+        code
+      }
+    }
+  }
+  ${fragment}
+` as TypedDocumentNode<revokeDeviceMutation, revokeDeviceMutationVariables>;
 
 const title = defineMessage({
   id: 'Settings.Devices.title',
@@ -122,20 +142,18 @@ const Device = ({
   isCurrent: boolean;
 }) => {
   const { formatDate, formatMessage } = useIntl();
-  const loading = false; //TODO****
-  // const [revokeDevice, { loading }] = useMutation<
-  //   revokeDeviceMutation,
-  //   revokeDeviceMutationVariables
-  // >(REVOKE_DEVICE_MUTATION, { showErrorsWithSnackNotification: true });
+  const [revokeDevice, { loading }] = useMutation(REVOKE_DEVICE_MUTATION, {
+    showErrorsWithSnackNotification: true,
+  });
 
   const onClick = async () => {
-    // await revokeDevice({
-    //   variables: {
-    //     input: {
-    //       deviceId: idFromObject(device.id),
-    //     },
-    //   },
-    // });
+    await revokeDevice({
+      variables: {
+        input: {
+          deviceId: idFromObject(device.id),
+        },
+      },
+    });
   };
 
   return (
@@ -190,22 +208,39 @@ const Device = ({
 
 const Devices = () => {
   const { currentUser } = useCurrentUserContext();
+  const { data, loading } = useQuery(DEVICES_QUERY);
+
   if (!currentUser) return null;
-  // const { devices, currentDevice } = currentUser;
+
+  if (loading) {
+    return <LoadingIndicator small />;
+  }
+
+  const { currentDevice } = currentUser;
+  const devices = data?.currentUser?.devices;
+
   return (
     <div>
       <Text16 bold>
         <FormattedMessage {...title} />
       </Text16>
-      {/* {(devices || []).map(device => {
-        return (
-          <Device
-            key={device.id}
-            device={device}
-            isCurrent={!!currentDevice && currentDevice.id === device.id}
-          />
-        );
-      })} */}
+      {devices?.length ? (
+        <>
+          {devices.map(device => {
+            return (
+              <Device
+                key={device.id}
+                device={device}
+                isCurrent={!!currentDevice && currentDevice.id === device.id}
+              />
+            );
+          })}
+        </>
+      ) : (
+        <Text16 color="var(--c-neutral-600)">
+          <FormattedMessage {...messages.noDevices} />
+        </Text16>
+      )}
     </div>
   );
 };

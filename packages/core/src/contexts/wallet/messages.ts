@@ -419,7 +419,7 @@ export const messages = defineMessages<keyof Dict>({
   },
   laliga: {
     id: 'walletApp.partners.laliga',
-    defaultMessage: 'LaLiga Santander',
+    defaultMessage: 'LALIGA',
   },
   nba: {
     id: 'walletApp.partners.nba',

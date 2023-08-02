@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
@@ -82,10 +82,8 @@ CardPreview.fragments = {
       slug
       sport
       metadata {
-        ... on TokenCricketMetadata {
-          id
-        }
         ... on TokenCardMetadataInterface {
+          id
           rarity
           serialNumber
           playerDisplayName
@@ -94,7 +92,7 @@ CardPreview.fragments = {
       ...FlexToken_token
     }
     ${FlexToken.fragments.token}
-  `,
+  ` as TypedDocumentNode<CardPreview_token>,
 };
 
 export default CardPreview;

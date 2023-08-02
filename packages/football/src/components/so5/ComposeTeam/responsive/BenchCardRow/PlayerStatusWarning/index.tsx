@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faRepeat, faStore } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext } from 'react';
@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { Caption } from '@sorare/core/src/atoms/typography';
 import Bold from '@sorare/core/src/atoms/typography/Bold';
 import {
-  isListedOnMarket,
+  isMyCardListedOnMarket,
   isSentInDirectOffer,
 } from '@sorare/core/src/lib/cards';
 import { formatLineupDisplayName } from '@sorare/core/src/lib/so5';
@@ -65,7 +65,7 @@ const PlayerStatusWarning = ({ card }: Props) => {
     );
   });
 
-  const listedOnMarket = isListedOnMarket(card);
+  const listedOnMarket = isMyCardListedOnMarket(card);
   const sentInDirectOffer = isSentInDirectOffer(card);
 
   if (!lineupUsingThisPlayer && !listedOnMarket && !sentInDirectOffer) {
@@ -142,10 +142,10 @@ PlayerStatusWarning.fragments = {
     fragment PlayerStatusWarning_card on Card {
       slug
       assetId
-      openedSo5Lineups: openedVicc5Lineups {
+      openedSo5Lineups {
         id
         name
-        so5Leaderboard: vicc5Leaderboard {
+        so5Leaderboard {
           slug
           gameWeek
           ...DivisionLogo_so5Leaderboard
@@ -153,13 +153,13 @@ PlayerStatusWarning.fragments = {
         ...formatLineupDisplayName_so5Lineup
       }
       ...isSentInDirectOffer_card
-      ...isListedOnMarket_card
+      ...isMyCardListedOnMarket_card
     }
-    ${isListedOnMarket.fragments.card}
+    ${isMyCardListedOnMarket.fragments.card}
     ${isSentInDirectOffer.fragments.card}
     ${DivisionLogo.fragments.so5Leaderboard}
     ${formatLineupDisplayName.fragments.so5Lineup}
-  `,
+  ` as TypedDocumentNode<PlayerStatusWarning_card>,
 };
 
 export default PlayerStatusWarning;

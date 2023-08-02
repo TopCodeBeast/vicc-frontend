@@ -15,6 +15,7 @@ import { AlgoliaCardIndexesNames } from '@sorare/core/src/contexts/config';
 import Highlightable from '@sorare/core/src/contexts/highlight/Highlightable';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
+import useIsReorgApp from '@sorare/core/src/hooks/ui/useIsReorgApp';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 import { FILTERS, FilterWidget } from '@sorare/core/src/lib/filters';
 import useBottomBarNavItems from '@sorare/core/src/routing/MultiSportBottomNavBar/useBottomBarNavItems';
@@ -135,6 +136,7 @@ export const SearchLayout = (props: Props) => {
     toggleDesktopFilter = true,
     hideSavedFilters = false,
     alwaysShowFavoriteButton = false,
+    editableLists = false,
   } = props;
   const { up: isLaptop } = useScreenSize('laptop');
   const [showDesktopFilter, toggleShowDesktopFilters] =
@@ -142,7 +144,7 @@ export const SearchLayout = (props: Props) => {
   const bottomNavBarItems = useBottomBarNavItems();
   const [filtersOpen, toggleFilters] = useToggle(false);
   const { formatMessage, formatNumber } = useIntlContext();
-
+  const isReorgApp = useIsReorgApp();
   // We compute the number of results by summing the counts of the `rarity` facet items
   // to work-around the distinct side-effects, which results in the number of distinct hits
   // instead of total number of hits (before distinct).
@@ -203,7 +205,7 @@ export const SearchLayout = (props: Props) => {
   return (
     <Root ref={ref}>
       <NoSmoothScrollStyle />
-      {(title || subtitle) && (
+      {(title || subtitle) && !isReorgApp && (
         <Heading>
           {title && (
             <TitleContainer>
@@ -273,6 +275,7 @@ export const SearchLayout = (props: Props) => {
                 stackable={stackable}
                 showDesktopFilter={showDesktopFilter}
                 alwaysShowFavoriteButton={alwaysShowFavoriteButton}
+                editableLists={editableLists}
               />
             </Cards>
           </Highlightable>

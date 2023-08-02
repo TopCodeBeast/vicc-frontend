@@ -1,9 +1,9 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled, { css } from 'styled-components';
 
 import { proxyUrl } from '@sorare/core/src/atoms/ui/ResponsiveImg';
 
-import defaultBanner from '@football/assets/club/banner_none.jpg';
+import defaultBanner from 'assets/club/banner_none.jpg';
 
 import { Banner_user } from './__generated__/index.graphql';
 
@@ -76,7 +76,7 @@ Banner.fragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<Banner_user>,
 };
 
 export default Banner;

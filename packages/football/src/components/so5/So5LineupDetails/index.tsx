@@ -1,12 +1,12 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
 import Bold from '@sorare/core/src/atoms/typography/Bold';
 import { Chip } from '@sorare/core/src/atoms/ui/Chip';
+import Dialog from '@sorare/core/src/components/dialog';
 import { Rank } from '@sorare/core/src/components/lobby/Rank';
 import { GalleryLink } from '@sorare/core/src/components/user/GalleryLink';
 import { Nickname } from '@sorare/core/src/components/user/Nickname';
@@ -30,46 +30,15 @@ import {
   So5RankingDetailsQueryVariables,
 } from './__generated__/index.graphql';
 
-export const SO5_RANKING_DETAILS_QUERY = gql`
-  query So5RankingDetailsQuery($id: ID!) {
-    so5: vicc5Root {
-      so5Ranking: vicc5Ranking(id: $id) {
-        id
-        ranking
-        score
-        tiebreakerScore
-        so5Leaderboard: vicc5Leaderboard {
-          slug
-          displayName
-          ...DivisionLogo_so5Leaderboard
-        }
-        so5Lineup: vicc5Lineup {
-          id
-          cancelledAt
-          user {
-            slug
-            ...Nickname_publicUserInfoInterface
-          }
-          so5Appearances: vicc5Appearances {
-            ...So5LineupAppearance_so5Appearance
-          }
-          ...SocialShare_SocialPictures
-        }
-      }
-    }
-  }
-  ${DivisionLogo.fragments.so5Leaderboard}
-  ${So5LineupAppearance.fragments.so5Appearance}
-  ${SocialShare.fragments.socialPictures}
-  ${Nickname.fragments.user}
+const Header = styled.div`
+  width: 100%;
+  padding: 0 var(--unit);
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr min-content;
 `;
-type Props = {
-  so5RankingId: string | null;
-  onClose: () => void;
-};
-
-const User = styled.div`
-  flex: 1;
+const CenteredText16 = styled(Text16)`
+  text-align: center;
 `;
 const StyledLoadingIndicator = styled.div`
   padding: 20px;
@@ -100,13 +69,50 @@ const TiebreakerScore = styled.div`
   padding: 10px;
 `;
 
+export const SO5_RANKING_DETAILS_QUERY = gql`
+  query So5RankingDetailsQuery($id: ID!) {
+    football {
+      so5 {
+        so5Ranking(id: $id) {
+          id
+          ranking
+          score
+          tiebreakerScore
+          so5Leaderboard {
+            slug
+            displayName
+            ...DivisionLogo_so5Leaderboard
+          }
+          so5Lineup {
+            id
+            cancelledAt
+            user {
+              slug
+              ...Nickname_publicUserInfoInterface
+            }
+            so5Appearances {
+              ...So5LineupAppearance_so5Appearance
+            }
+            ...SocialShare_SocialPictures
+          }
+        }
+      }
+    }
+  }
+  ${DivisionLogo.fragments.so5Leaderboard}
+  ${So5LineupAppearance.fragments.so5Appearance}
+  ${SocialShare.fragments.socialPictures}
+  ${Nickname.fragments.user}
+` as TypedDocumentNode<So5RankingDetailsQuery, So5RankingDetailsQueryVariables>;
+type Props = {
+  so5RankingId: string | null;
+  onClose: () => void;
+};
+
 export const So5LineupDetails = (props: Props) => {
   const { formatMessage } = useIntlContext();
   const { so5RankingId, onClose } = props;
-  const { loading, data } = useQuery<
-    So5RankingDetailsQuery,
-    So5RankingDetailsQueryVariables
-  >(SO5_RANKING_DETAILS_QUERY, {
+  const { loading, data } = useQuery(SO5_RANKING_DETAILS_QUERY, {
     variables: { id: idFromObject(so5RankingId)! },
     skip: !so5RankingId,
     nextFetchPolicy: 'cache-first',
@@ -125,20 +131,22 @@ export const So5LineupDetails = (props: Props) => {
     return null;
   }
 
-  const { so5Ranking } = data.so5;
+  const { so5Ranking } = data.football.so5;
   const { ranking, score, so5Leaderboard, so5Lineup } = so5Ranking;
   const { cancelledAt, so5Appearances, user } = so5Lineup;
 
   return (
     <Dialog
+      maxWidth="xs"
+      fullWidth
       open
       title={
-        <>
-          <User>
+        <Header>
+          <CenteredText16 bold>
             <GalleryLink user={user}>
               <Nickname user={user} />
             </GalleryLink>
-          </User>
+          </CenteredText16>
           <SocialShare
             image={so5Lineup.socialPictureUrls}
             title={formatMessage(socialSharingMessages.lineup)}
@@ -150,60 +158,60 @@ export const So5LineupDetails = (props: Props) => {
               </ShareButton>
             )}
           />
-        </>
+        </Header>
       }
       onClose={onClose}
-      noMargin
-    >
-      <Content>
-        <Leaderboard>
-          <Division>
-            <DivisionLogo so5Leaderboard={so5Leaderboard} />
-            <Text16 bold>{so5Leaderboard.displayName}</Text16>
-          </Division>
-          <RankAndScore>
-            {cancelledAt ? (
-              <Chip
-                label={<FormattedMessage {...glossary.canceled} />}
-                custom={{
-                  color: 'white',
-                  background: 'var(--c-red-600)',
-                }}
-                size="smaller"
+      body={
+        <Content>
+          <Leaderboard>
+            <Division>
+              <DivisionLogo so5Leaderboard={so5Leaderboard} />
+              <Text16 bold>{so5Leaderboard.displayName}</Text16>
+            </Division>
+            <RankAndScore>
+              {cancelledAt ? (
+                <Chip
+                  label={<FormattedMessage {...glossary.canceled} />}
+                  custom={{
+                    color: 'white',
+                    background: 'var(--c-red-600)',
+                  }}
+                  size="smaller"
+                />
+              ) : (
+                <>
+                  <Text16 bold as="div">
+                    <Rank rank={ranking} />
+                  </Text16>
+                  <Text16 bold color="var(--c-neutral-600)">
+                    <Points score={score} />
+                  </Text16>
+                </>
+              )}
+            </RankAndScore>
+          </Leaderboard>
+          <div>
+            {so5Appearances.map(so5Appearance => (
+              <So5LineupAppearance
+                key={so5Appearance.id}
+                so5Appearance={so5Appearance}
               />
-            ) : (
-              <>
-                <Text16 bold as="div">
-                  <Rank rank={ranking} />
-                </Text16>
-                <Text16 bold color="var(--c-neutral-600)">
-                  <Points score={score} />
-                </Text16>
-              </>
-            )}
-          </RankAndScore>
-        </Leaderboard>
-        <div>
-          {so5Appearances.map(so5Appearance => (
-            <So5LineupAppearance
-              key={so5Appearance.id}
-              so5Appearance={so5Appearance}
-            />
-          ))}
-        </div>
-        {so5Ranking.tiebreakerScore > 0 && (
-          <TiebreakerScore>
-            <Text14>
-              <FormattedMessage
-                id="So5LienupDetails.tiebreakerScore"
-                defaultMessage="Tiebreaker score: <strong>{score, number, ::.00} pts</strong>"
-                values={{ strong: Bold, score: so5Ranking.tiebreakerScore }}
-              />
-            </Text14>
-          </TiebreakerScore>
-        )}
-      </Content>
-    </Dialog>
+            ))}
+          </div>
+          {so5Ranking.tiebreakerScore > 0 && (
+            <TiebreakerScore>
+              <Text14>
+                <FormattedMessage
+                  id="So5LienupDetails.tiebreakerScore"
+                  defaultMessage="Tiebreaker score: <strong>{score, number, ::.00} pts</strong>"
+                  values={{ strong: Bold, score: so5Ranking.tiebreakerScore }}
+                />
+              </Text14>
+            </TiebreakerScore>
+          )}
+        </Content>
+      }
+    />
   );
 };
 

@@ -12,7 +12,7 @@ const pulse = keyframes`
   }
 `;
 
-export const LiveIndicator = styled.div`
+export const LiveIndicator = styled.div.attrs({ 'aria-label': 'Live' })`
   --rgb-bg-color: var(--c-rgb-red-600);
 
   width: var(--unit);

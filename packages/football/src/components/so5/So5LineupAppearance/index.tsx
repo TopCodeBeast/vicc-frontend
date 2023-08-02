@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { Collapse } from '@material-ui/core';
 import styled from 'styled-components';
 
@@ -138,7 +138,7 @@ export const So5LineupAppearance = ({ so5Appearance }: Props) => {
 
 So5LineupAppearance.fragments = {
   so5Appearance: gql`
-    fragment So5LineupAppearance_so5Appearance on Vicc5Appearance {
+    fragment So5LineupAppearance_so5Appearance on So5Appearance {
       id
       captain
       bonus
@@ -154,7 +154,7 @@ So5LineupAppearance.fragments = {
         ...FlexCard_card
         ...CardBonus_card
       }
-      so5Score: vicc5Score {
+      so5Score {
         id
         score
         playerGameStats {
@@ -173,7 +173,7 @@ So5LineupAppearance.fragments = {
     ${AppearanceDetailsFull.fragments.so5Score}
     ${AppearanceDetailsFull.fragments.player}
     ${getPlayerScore.fragments.so5Score}
-  `,
+  ` as TypedDocumentNode<So5LineupAppearance_so5Appearance>,
 };
 
 export default So5LineupAppearance;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ForwardRefExoticComponent, RefAttributes, forwardRef } from 'react';
 import styled from 'styled-components';
 
@@ -78,7 +78,7 @@ FlexToken.fragments = {
       ...UninteractiveToken_token
     }
     ${UninteractiveToken.fragments.token!}
-  `,
+  ` as TypedDocumentNode<FlexToken_token>,
 };
 
 export default FlexToken;

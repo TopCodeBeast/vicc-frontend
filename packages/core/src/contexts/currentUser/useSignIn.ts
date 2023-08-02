@@ -12,10 +12,7 @@ import useEvents from '@core/lib/events/useEvents';
 import { getClientId } from '@core/lib/ga';
 
 import { SignInArgs } from '.';
-import {
-  SignInMutation,
-  SignInMutationVariables,
-} from './__generated__/queries.graphql';
+import { SignInMutation } from './__generated__/queries.graphql';
 import { SIGN_IN_MUTATION } from './queries';
 import { CurrentUserQuery_currentUser } from './types';
 
@@ -28,10 +25,7 @@ export default (): [
   const { showNotification } = useSnackNotificationContext();
   const track = useEvents();
   const { setShowRestrictedAccess } = useRestrictedAccessContext();
-  const [signIn, { data }] = useMutation<
-    SignInMutation,
-    SignInMutationVariables
-  >(SIGN_IN_MUTATION);
+  const [signIn, { data }] = useMutation(SIGN_IN_MUTATION);
   const { deviceFingerprint: getDeviceFingerPrint } =
     useDeviceFingerprintContext();
   return [

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { isPast, parseISO } from 'date-fns';
 import styled from 'styled-components';
 
@@ -43,5 +43,5 @@ AuctionStatus.fragments = {
       ...AuctionBidsInfo_auction
     }
     ${AuctionBidsInfo.fragments.auction}
-  `,
+  ` as TypedDocumentNode<AuctionStatus_auction>,
 };

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import { useCallback, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -23,9 +23,16 @@ import {
 import { ShopItemLogo } from '@football/components/userGroup/form/AvatarInput/types';
 
 import FilterBy from './FilterBy';
-import Item from './Item';
+import { DefaultListing } from './Listings/DefaultListing';
+import { DeliverableWithNoVariantShopItemListing } from './Listings/DeliverableWithNoVariantShopItemListing';
+import { ExtraSwapShopItemListing } from './Listings/ExtraSwapShopItemListing';
+import { JerseyShopItemListing } from './Listings/JerseyShopItemListing';
+import { LevelUpShopItemListing } from './Listings/LevelUpShopItemListing';
 import SortBy, { SortValues } from './SortBy';
-import { ShopItemPickerQuery } from './__generated__/index.graphql';
+import {
+  ShopItemPickerQuery,
+  ShopItemPickerQueryVariables,
+} from './__generated__/index.graphql';
 
 const Root = styled.div`
   display: flex;
@@ -96,34 +103,46 @@ export const SHOP_ITEM_PICKER_QUERY = gql`
     $types: [ShopItemType!]
     $unlocked: Boolean
   ) {
-    shopItems(
-      first: 12
-      after: $cursor
-      types: $types
-      unlockedOnly: $unlocked
-      sortType: $sort
-    ) {
-      nodes {
-        ... on ShopItemInterface {
-          id
-          myAvailableTotalPurchasesCount
-          pictureUrl
+    football {
+      shopItems(
+        first: 12
+        after: $cursor
+        types: $types
+        unlockedOnly: $unlocked
+        sortType: $sort
+      ) {
+        nodes {
+          ... on ShopItemInterface {
+            id
+            myAvailableTotalPurchasesCount
+            pictureUrl
+          }
+          ...DefaultListing_shopItem
+          ...LevelUpShopItemListing_LevelUpShopItem
+          ...ExtraSwapShopItemListing_ExtraSwapShopItem
+          ...JerseyShopItemListing_JerseyShopItem
+          ...DeliverableWithNoVariantShopItemListing_deliverableWithNoVariantShopItem
         }
-        ...Item_shopItem
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+        totalCount
       }
     }
+    currentUser {
+      slug
+      ...DefaultListing_user
+    }
   }
-  currentUser {
-    slug
-    ...Item_user
-  }
-  ${Item.fragments.shopItem}
-  ${Item.fragments.user}
-`;
+  ${DefaultListing.fragments.shopItem}
+  ${DefaultListing.fragments.user}
+  ${LevelUpShopItemListing.fragments.LevelUpShopItem}
+  ${ExtraSwapShopItemListing.fragments.ExtraSwapShopItem}
+  ${JerseyShopItemListing.fragments.JerseyShopItem}
+  ${DeliverableWithNoVariantShopItemListing.fragments
+    .deliverableWithNoVariantShopItem}
+` as TypedDocumentNode<ShopItemPickerQuery, ShopItemPickerQueryVariables>;
 
 type Props = {
   onSelect?: (shopItem: ShopItemLogo) => void;
@@ -144,7 +163,7 @@ const ShopItemPicker = ({
     sort: SortValues.NEWEST,
     filter: types,
   });
-  const { data, loading, loadMore } = usePaginatedQuery<ShopItemPickerQuery>(
+  const { data, loading, loadMore } = usePaginatedQuery(
     SHOP_ITEM_PICKER_QUERY,
     {
       variables: {
@@ -161,11 +180,11 @@ const ShopItemPicker = ({
   const { InfiniteScrollLoader } = useInfiniteScroll(
     useCallback(() => {
       loadMore(false, {
-        cursor: data?.shopItems?.pageInfo.endCursor,
+        cursor: data?.football?.shopItems?.pageInfo.endCursor,
         types,
       });
-    }, [data?.shopItems?.pageInfo.endCursor, loadMore, types]),
-    Boolean(data?.shopItems?.pageInfo?.hasNextPage),
+    }, [data?.football?.shopItems?.pageInfo.endCursor, loadMore, types]),
+    Boolean(data?.football?.shopItems?.pageInfo?.hasNextPage),
     loading
   );
 
@@ -178,14 +197,14 @@ const ShopItemPicker = ({
   }
 
   const excludeNoCooldownJerseyFromInventory = (
-    item: ShopItemPickerQuery['shopItems']['nodes'][number]
+    item: ShopItemPickerQuery['football']['shopItems']['nodes'][number]
   ) => {
     if (isType(item, 'JerseyShopItem') && inventory) {
       return item.myLimitResetAt !== null;
     }
     return true;
   };
-  const items = data?.shopItems.nodes.filter(
+  const items = data?.football?.shopItems.nodes.filter(
     excludeNoCooldownJerseyFromInventory
   );
 
@@ -196,7 +215,7 @@ const ShopItemPicker = ({
           <FormattedMessage
             id="ClubShop.Items.Number"
             defaultMessage="{number} items"
-            values={{ number: items?.length || 0 }}
+            values={{ number: data?.football?.shopItems.totalCount || 0 }}
           />
         </Text14>
         {!hideSort && (
@@ -231,15 +250,55 @@ const ShopItemPicker = ({
               if (inventory && item.myAvailableTotalPurchasesCount === 0) {
                 return null;
               }
+              const listingProps = {
+                onSelect: () => onSelect?.(item),
+                inventory,
+                user: data.currentUser,
+                inDialog,
+              };
+
+              if (isType(item, 'LevelUpShopItem')) {
+                return (
+                  <LevelUpShopItemListing
+                    key={item.id}
+                    item={item}
+                    {...listingProps}
+                  />
+                );
+              }
+
+              if (isType(item, 'ExtraSwapShopItem')) {
+                return (
+                  <ExtraSwapShopItemListing
+                    key={item.id}
+                    item={item}
+                    {...listingProps}
+                  />
+                );
+              }
+
+              if (isType(item, 'JerseyShopItem')) {
+                return (
+                  <JerseyShopItemListing
+                    key={item.id}
+                    item={item}
+                    {...listingProps}
+                  />
+                );
+              }
+
+              if (isType(item, 'DeliverableWithNoVariantShopItem')) {
+                return (
+                  <DeliverableWithNoVariantShopItemListing
+                    key={item.id}
+                    item={item}
+                    {...listingProps}
+                  />
+                );
+              }
+
               return (
-                <Item
-                  onSelect={() => onSelect?.(item)}
-                  inventory={inventory}
-                  key={item.id}
-                  item={item}
-                  user={data.currentUser}
-                  inDialog={inDialog}
-                />
+                <DefaultListing key={item.id} item={item} {...listingProps} />
               );
             })}
           </ItemsGrid>

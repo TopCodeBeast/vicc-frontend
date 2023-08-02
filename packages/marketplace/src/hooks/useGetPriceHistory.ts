@@ -1,6 +1,7 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import {
   PriceHistoryQuery,
@@ -20,11 +21,8 @@ const PRICE_HISTORY_QUERY = gql`
         rarity: $rarity
       ) {
         id
-        amount
-        amountInFiat {
-          eur
-          usd
-          gbp
+        amounts {
+          ...MonetaryAmountFragment_monetaryAmount
         }
         date
         deal {
@@ -41,6 +39,7 @@ const PRICE_HISTORY_QUERY = gql`
           ... on TokenOffer {
             id
             senderSide {
+              id
               nfts {
                 assetId
                 slug
@@ -64,13 +63,11 @@ const PRICE_HISTORY_QUERY = gql`
       }
     }
   }
-`;
+  ${monetaryAmountFragment}
+` as TypedDocumentNode<PriceHistoryQuery, PriceHistoryQueryVariables>;
 
 const useGetPriceHistory = (args: PriceHistoryQueryVariables) => {
-  const prepareAcceptOffer = useQuery<
-    PriceHistoryQuery,
-    PriceHistoryQueryVariables
-  >(PRICE_HISTORY_QUERY, {
+  const prepareAcceptOffer = useQuery(PRICE_HISTORY_QUERY, {
     variables: args,
   });
   return prepareAcceptOffer;

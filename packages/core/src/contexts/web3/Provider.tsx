@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 import {
   ReactNode,
   Suspense,
@@ -20,27 +20,30 @@ import {
   getWalletStatus,
 } from '@core/lib/web3';
 
-// import {
-//   UpdateUserSettingsLastWeb3ProviderMutation,
-//   UpdateUserSettingsLastWeb3ProviderMutationVariables,
-// } from './__generated__/Provider.graphql';
+import {
+  UpdateUserSettingsLastWeb3ProviderMutation,
+  UpdateUserSettingsLastWeb3ProviderMutationVariables,
+} from './__generated__/Provider.graphql';
 
-// const PortisLoader = lazy(async () => import('./PortisLoader'));
-// const WalletConnectLoader = lazy(async () => import('./WalletConnectLoader'));
-// const CoinbaseWalletLoader = lazy(async () => import('./CoinbaseWalletLoader'));
+const PortisLoader = lazy(async () => import('./PortisLoader'));
+const WalletConnectLoader = lazy(async () => import('./WalletConnectLoader'));
+const CoinbaseWalletLoader = lazy(async () => import('./CoinbaseWalletLoader'));
 
-// const UPDATE_USER_SETTINGS_LAST_WEB3_PROVIDER_MUTATION = gql`
-//   mutation UpdateUserSettingsLastWeb3ProviderMutation(
-//     $input: updateUserSettingsInput!
-//   ) {
-//     updateUserSettings(input: $input) {
-//       errors {
-//         message
-//         code
-//       }
-//     }
-//   }
-// `;
+const UPDATE_USER_SETTINGS_LAST_WEB3_PROVIDER_MUTATION = gql`
+  mutation UpdateUserSettingsLastWeb3ProviderMutation(
+    $input: updateUserSettingsInput!
+  ) {
+    updateUserSettings(input: $input) {
+      errors {
+        message
+        code
+      }
+    }
+  }
+` as TypedDocumentNode<
+  UpdateUserSettingsLastWeb3ProviderMutation,
+  UpdateUserSettingsLastWeb3ProviderMutationVariables
+>;
 
 export const nativeWalletProvider = () => {
   if (window.ethereum) {
@@ -90,10 +93,9 @@ export const Web3Provider = ({ children }: Props) => {
   ] = useState(false);
   const [loadWalletConnect, setLoadWalletConnect] = useState(false);
   const [loadCoinbaseWallet, setLoadCoinbaseWallet] = useState(false);
-  // const [saveLastWeb3Provider] = useMutation<
-  //   UpdateUserSettingsLastWeb3ProviderMutation,
-  //   UpdateUserSettingsLastWeb3ProviderMutationVariables
-  // >(UPDATE_USER_SETTINGS_LAST_WEB3_PROVIDER_MUTATION);
+  const [saveLastWeb3Provider] = useMutation(
+    UPDATE_USER_SETTINGS_LAST_WEB3_PROVIDER_MUTATION
+  );
 
   const wallet = useMemo(() => getWallet(currentProvider), [currentProvider]);
 
@@ -126,13 +128,13 @@ export const Web3Provider = ({ children }: Props) => {
           await provider.request({ method: 'eth_requestAccounts' });
         }
         setCurrentProvider(provider);
-        // saveLastWeb3Provider({
-        //   variables: {
-        //     input: {
-        //       lastWeb3Provider: getWallet(provider),
-        //     },
-        //   },
-        // });
+        saveLastWeb3Provider({
+          variables: {
+            input: {
+              lastWeb3Provider: getWallet(provider),
+            },
+          },
+        });
         setEthereumSetupStatus(await getEthereumSetupStatus());
         setWalletConnectRequestPending(false);
         return true;
@@ -149,7 +151,7 @@ export const Web3Provider = ({ children }: Props) => {
         return false;
       }
     },
-    [/*saveLastWeb3Provider,*/ getEthereumSetupStatus, wallet, sendSafeError]
+    [saveLastWeb3Provider, getEthereumSetupStatus, wallet, sendSafeError]
   );
 
   const setupCoinbaseWallet = () => {
@@ -194,13 +196,13 @@ export const Web3Provider = ({ children }: Props) => {
     >
       <Suspense fallback={<div />}>
         <>
-          {/* {loadPortis && <PortisLoader onEnabled={onWalletEnabled} />}
+          {loadPortis && <PortisLoader onEnabled={onWalletEnabled} />}
           {loadWalletConnect && (
             <WalletConnectLoader onEnabled={onWalletEnabled} />
           )}
           {loadCoinbaseWallet && (
             <CoinbaseWalletLoader onEnabled={onWalletEnabled} />
-          )} */}
+          )}
         </>
       </Suspense>
       {children}

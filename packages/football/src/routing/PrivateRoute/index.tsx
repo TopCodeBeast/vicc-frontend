@@ -1,8 +1,11 @@
 import { FC, ReactElement } from 'react';
 
-// import VerifyPhoneNumber from '@sorare/core/src/components/user/VerifyPhoneNumber';
+// eslint-disable-next-line sorare/no-unrendered-component-imports
+import { AppLayout } from '@sorare/core/src/components/navigation/AppLayout';
+import VerifyPhoneNumber from '@sorare/core/src/components/user/VerifyPhoneNumber';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useRedirectToLogIn from '@sorare/core/src/hooks/auth/useRedirectToLogIn';
+import useIsReorgApp from '@sorare/core/src/hooks/ui/useIsReorgApp';
 
 import Layout from '@football/routing/Layout';
 
@@ -12,8 +15,18 @@ interface Props {
   requireVerifiedPhoneNumber?: boolean;
 }
 
-const WithLayout: FC<{ withLayout?: boolean }> = ({ withLayout, children }) =>
-  withLayout ? <Layout>{children}</Layout> : <>{children}</>;
+const WithLayout: FC<React.PropsWithChildren<{ withLayout?: boolean }>> = ({
+  withLayout,
+  children,
+}) => {
+  const isReorgApp = useIsReorgApp();
+  const LayoutComponent = isReorgApp ? AppLayout : Layout;
+  return withLayout ? (
+    <LayoutComponent>{children}</LayoutComponent>
+  ) : (
+    <>{children}</>
+  );
+};
 
 export const PrivateRoute = ({
   element: Component,
@@ -32,7 +45,7 @@ export const PrivateRoute = ({
   return (
     <WithLayout withLayout={withLayout}>
       <>
-        {/* {requireVerifiedPhoneNumber && <VerifyPhoneNumber />} */}
+        {requireVerifiedPhoneNumber && <VerifyPhoneNumber />}
         {Component}
       </>
     </WithLayout>

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { compareDesc, parseISO } from 'date-fns';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
@@ -51,6 +51,6 @@ OwnershipHistory.fragments = {
       }
     }
     ${Ownership.fragments.tokenOwner}
-  `,
+  ` as TypedDocumentNode<OwnershipHistory_token>,
 };
 export default OwnershipHistory;

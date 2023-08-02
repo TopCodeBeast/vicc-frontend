@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classNames from 'classnames';
 import { isFuture, parseISO } from 'date-fns';
 import { ReactNode } from 'react';
@@ -18,26 +18,39 @@ import { TokenImg } from './TokenImg';
 import { TokenProperties } from './TokenProperties';
 import { TokenContent_token } from './__generated__/index.graphql';
 
-export type Props = {
+type Props = {
   token: TokenContent_token;
+  hideOwner?: boolean;
+  disableSportSpecific?: boolean;
+  displayMarketplaceOnboardingTooltip?: boolean;
   forceMobileLayout?: boolean;
   forceDesktopLayout?: boolean;
-  disableSportSpecific?: boolean;
-  hideOwner?: boolean;
-  hideSorareUser?: boolean;
   galleryOwnerSlug?: string;
+  hideSorareUser?: boolean;
   stackedTokensCount?: number;
   TokenPropertiesButtonComponent?: ReactNode;
-  displayMarketplaceOnboardingTooltip?: boolean;
+  hideDetails: boolean;
+  action?: ReactNode;
 };
 
 const Root = styled.div`
+  position: relative;
   display: grid;
   grid-template-columns: min-content 1fr;
   gap: var(--intermediate-unit);
   &.isDesktopLayout {
     display: flex;
     flex-direction: column;
+  }
+`;
+
+const ActionWrapper = styled.div`
+  position: absolute;
+  right: var(--unit);
+  top: var(--unit);
+  display: none;
+  ${Root}:hover & {
+    display: block;
   }
 `;
 
@@ -52,10 +65,14 @@ export const TokenContent = ({
   hideSorareUser,
   galleryOwnerSlug,
   TokenPropertiesButtonComponent,
+  hideDetails,
+  action,
 }: Props) => {
   const { up: isTabletOrDesktop } = useScreenSize('tablet');
   const isDesktopLayout =
-    forceDesktopLayout || (isTabletOrDesktop && !forceMobileLayout);
+    hideDetails ||
+    forceDesktopLayout ||
+    (isTabletOrDesktop && !forceMobileLayout);
 
   const isBundledAuction = !!(
     token.latestEnglishAuction &&
@@ -72,36 +89,39 @@ export const TokenContent = ({
           isBundledAuction={isBundledAuction}
           isDesktopLayout={isDesktopLayout}
         />
+        {action && <ActionWrapper>{action}</ActionWrapper>}
       </ItemImgContainer>
-      <ItemInfosContainer className={classNames({ isDesktopLayout })}>
-        <TokenProperties
-          token={token}
-          isBundledAuction={isBundledAuction}
-          disableSportSpecific={disableSportSpecific}
-          TokenPropertiesButtonComponent={TokenPropertiesButtonComponent}
-        />
-        {!isDesktopLayout && !isBundledAuction && (
-          <TokenDescription
+      {!hideDetails && (
+        <ItemInfosContainer className={classNames({ isDesktopLayout })}>
+          <TokenProperties
             token={token}
-            Details={Text14}
-            detailsColor="var(--c-neutral-600)"
-            withDetails
+            isBundledAuction={isBundledAuction}
             disableSportSpecific={disableSportSpecific}
+            TokenPropertiesButtonComponent={TokenPropertiesButtonComponent}
           />
-        )}
-        <TokenDetails
-          token={token}
-          stackedTokensCount={stackedTokensCount}
-          isDesktopLayout={isDesktopLayout}
-          hideSorareUser={hideSorareUser}
-          hideOwner={hideOwner}
-          galleryOwnerSlug={galleryOwnerSlug}
-          disableSportSpecific={disableSportSpecific}
-          displayMarketplaceOnboardingTooltip={
-            displayMarketplaceOnboardingTooltip
-          }
-        />
-      </ItemInfosContainer>
+          {!isDesktopLayout && !isBundledAuction && (
+            <TokenDescription
+              token={token}
+              Details={Text14}
+              detailsColor="var(--c-neutral-600)"
+              withDetails
+              disableSportSpecific={disableSportSpecific}
+            />
+          )}
+          <TokenDetails
+            token={token}
+            stackedTokensCount={stackedTokensCount}
+            isDesktopLayout={isDesktopLayout}
+            hideSorareUser={hideSorareUser}
+            hideOwner={hideOwner}
+            galleryOwnerSlug={galleryOwnerSlug}
+            disableSportSpecific={disableSportSpecific}
+            displayMarketplaceOnboardingTooltip={
+              displayMarketplaceOnboardingTooltip
+            }
+          />
+        </ItemInfosContainer>
+      )}
     </Root>
   );
 };
@@ -127,5 +147,5 @@ TokenContent.fragments = {
     ${TokenProperties.fragments.token}
     ${TokenDescription.fragments.token}
     ${TokenDetails.fragments.token}
-  `,
+  ` as TypedDocumentNode<TokenContent_token>,
 };

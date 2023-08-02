@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -8,23 +8,25 @@ import { Props as ButtonProps } from '@sorare/core/src/atoms/buttons/Button';
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
 import { Title5 } from '@sorare/core/src/atoms/typography';
 import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
-import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useEventContext } from '@sorare/core/src/contexts/event';
-import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
 import useLoggedCallback from '@sorare/core/src/hooks/useLoggedCallback';
+import useMangopayCreditCardsEnabled from '@sorare/core/src/hooks/useMangopayCreditCardsEnabled';
+import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 import { Currency } from '@sorare/core/src/lib/currency';
 import { glossary, payment } from '@sorare/core/src/lib/glossary';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import LazyPaymentProvider from '@marketplace/components/buyActions/LazyPaymentProvider';
 import PrimaryOfferTokensSummary from '@marketplace/components/primaryOffer/PrimaryOfferTokensSummary';
 import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
 import { useBuyConfirmationContext } from '@marketplace/contexts/buyingConfirmation';
-// import useAcceptOffer from '@marketplace/hooks/offers/useAcceptOffer';
+import useAcceptOffer from '@marketplace/hooks/offers/useAcceptOffer';
 import { useMarketplaceEvents } from '@marketplace/lib/events';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import BuyPrimaryOfferConfirmation from '../BuyPrimaryOfferConfirmation';
 import { PrimaryOfferBuyField_primaryOffer } from './__generated__/index.graphql';
+import usePollPrimaryOfferBuyer from './usePollPrimaryOfferBuyer';
 
 interface Props {
   primaryOffer: PrimaryOfferBuyField_primaryOffer;
@@ -38,23 +40,39 @@ export const PrimaryOfferBuyField = ({
   primaryOffer,
   ...rest
 }: Props & ButtonProps) => {
-  const { id, nfts, priceFiat, priceWei } = primaryOffer;
+  const { id, nfts, price } = primaryOffer;
+  const { toMonetaryAmount } = useMonetaryAmount();
   const [paymentStarted, setPaymentStarted] = useState(false);
   const track = useMarketplaceEvents();
   const { setShowBuyingConfirmation } = useBuyConfirmationContext();
-  // const acceptOffer = useAcceptOffer();
+  const acceptOffer = useAcceptOffer();
   const { trackClickBuy } = useMarketplaceContext();
-  const { convertFromWei } = useCurrencyConverters();
   const trackingContext = useEventContext();
-
-  const {
-    currency,
-    fiatCurrency: { code },
-  } = useCurrentUserContext();
+  const [polling, setPolling] = useState(false);
+  const [pollIsLoading, setPollIsLoading] = useState(false);
+  const [timeoutPolling, setTimeoutPolling] = useState<ReturnType<
+    typeof setTimeout
+  > | null>(null);
 
   const onPaymentSuccess = useCallback(() => {
+    setPaymentStarted(false);
     setShowBuyingConfirmation(true);
   }, [setShowBuyingConfirmation]);
+
+  const onPaymentSuccessWithTracking = () => {
+    track('Starter Bundles Payment successful');
+    onPaymentSuccess();
+  };
+
+  const onPollingEnd = (success: boolean) => {
+    setPolling(false);
+    if (timeoutPolling) clearTimeout(timeoutPolling);
+    if (success) onPaymentSuccessWithTracking();
+    setPollIsLoading(false);
+  };
+
+  usePollPrimaryOfferBuyer(polling, primaryOffer, onPollingEnd);
+  const useMangopayCreditCards = useMangopayCreditCardsEnabled();
 
   const buyWithEth = async ({
     conversionCreditId,
@@ -63,41 +81,46 @@ export const PrimaryOfferBuyField = ({
     conversionCreditId?: string;
     supportedCurrency: SupportedCurrency;
   }) => {
-    // const errors = await acceptOffer({
-    //   offerId: id,
-    //   receiveTokens: nfts,
-    //   conversionCreditId,
-    //   supportedCurrency,
-    // });
-    // if (!errors || errors.length === 0) {
-    //   return onPaymentSuccess();
-    // }
-    // return { err: errors };
-    return { err: null };
+    const errors = await acceptOffer({
+      offerId: id,
+      receiveTokens: nfts,
+      conversionCreditId,
+      supportedCurrency,
+    });
+    if (!errors || errors.length === 0) {
+      return onPaymentSuccess();
+    }
+    return { err: errors };
   };
 
+  const priceMonetaryAmount = toMonetaryAmount(price);
   const onBuyButtonClick = useLoggedCallback(() => {
     setPaymentStarted(true);
     trackClickBuy(
       id,
-      priceWei,
-      convertFromWei(priceWei, 'EUR'),
+      priceMonetaryAmount.wei,
+      priceMonetaryAmount.eur / 100,
       nfts.map(nft => nft.assetId),
       nfts[0].sport,
       trackingContext?.subPath
     );
   });
 
-  const onPaymentSuccessWithTracking = () => {
-    track('Starter Bundles Payment successful');
-    setPaymentStarted(false);
-    onPaymentSuccess();
+  // For mangopay, we do not know if the 3DS has failed or not. We need to fetch the primary offer and check buyer
+  const onPaymentSuccessWrapper = () => {
+    if (useMangopayCreditCards) {
+      setPollIsLoading(true);
+      setPolling(true);
+      setTimeoutPolling(
+        setTimeout(() => {
+          setPolling(false);
+          setPollIsLoading(false);
+        }, 10000)
+      );
+    } else {
+      onPaymentSuccessWithTracking();
+    }
   };
-
-  const referenceCurrency =
-    currency === Currency.ETH
-      ? SupportedCurrency.WEI
-      : (code as SupportedCurrency);
 
   const OrderSummaryComponent = useCallback(
     ({ isFiat }: { isFiat: boolean }) => (
@@ -106,11 +129,7 @@ export const PrimaryOfferBuyField = ({
         price={
           <PriceWrapper>
             <AmountWithConversion
-              monetaryAmount={{
-                wei: priceWei,
-                ...priceFiat,
-                referenceCurrency,
-              }}
+              monetaryAmount={price}
               primaryCurrency={isFiat ? Currency.FIAT : Currency.ETH}
               hideExponent
               column
@@ -119,7 +138,7 @@ export const PrimaryOfferBuyField = ({
         }
       />
     ),
-    [nfts, priceFiat, priceWei, referenceCurrency]
+    [nfts, price]
   );
 
   return (
@@ -129,7 +148,7 @@ export const PrimaryOfferBuyField = ({
         onClick={() => {
           onBuyButtonClick(null);
         }}
-        loading={paymentStarted}
+        loading={paymentStarted || pollIsLoading}
         {...rest}
       >
         <FormattedMessage {...glossary.buy} />
@@ -139,19 +158,16 @@ export const PrimaryOfferBuyField = ({
           paymentProps={{
             canChangeRefCurrency: true,
             objectId: id,
-            onSuccess: onPaymentSuccessWithTracking,
+            onSuccess: onPaymentSuccessWrapper,
             onSubmit: buyWithEth,
-            price: {
-              referenceCurrency,
-              wei: priceWei,
-              ...priceFiat,
-            },
+            price,
             cta: payment.confirmAndPay,
             canUseConversionCredit: true,
             currencies: [Currency.FIAT, Currency.ETH],
             sport: nfts[0].sport,
           }}
           paymentBoxProps={{
+            loadingPolling: polling,
             onClose: () => setPaymentStarted(false),
             hideFees: true,
             hideSubtotal: true,
@@ -176,25 +192,25 @@ PrimaryOfferBuyField.fragments = {
   primaryOffer: gql`
     fragment PrimaryOfferBuyField_primaryOffer on TokenPrimaryOffer {
       id
-      priceWei: price
-      priceFiat: priceInFiat {
-        eur
-        usd
-        gbp
+      price {
+        ...MonetaryAmountFragment_monetaryAmount
       }
       nfts {
         assetId
         slug
         sport
-        #...useAcceptOffer_token
+        ...useAcceptOffer_token
         ...PrimaryOfferTokensSummary_token
       }
       ...BuyPrimaryOfferConfirmation_primaryOffer
+      ...usePollPrimaryOfferBuyer_primaryOffer
     }
-    #{useAcceptOffer.fragments.token}
+    ${monetaryAmountFragment}
+    ${useAcceptOffer.fragments.token}
     ${PrimaryOfferTokensSummary.fragments.token}
     ${BuyPrimaryOfferConfirmation.fragments.primaryOffer}
-  `,
+    ${usePollPrimaryOfferBuyer.fragments.primaryOffer}
+  ` as TypedDocumentNode<PrimaryOfferBuyField_primaryOffer>,
 };
 
 export default PrimaryOfferBuyField;

@@ -1,17 +1,18 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { isFuture, parseISO } from 'date-fns';
 import { RefinementListItem } from 'instantsearch.js/es/connectors/refinement-list/connectRefinementList';
 
-import { OfferType, Sport } from '__generated__/globalTypes';
+import { OfferType, Sport, SupportedCurrency } from '__generated__/globalTypes';
+import { GqlType, withFragments } from '@core/lib/gql';
 
 import {
-  isListedOnMarket_card,
+  isMyCardListedOnMarket_card,
   isSentInDirectOffer_card,
 } from './__generated__/cards.graphql';
 import { sortBy } from './arrays';
 import { Token } from './deal';
-import { withFragments } from './gql';
 import { formatWord } from './humanize';
+import { MonetaryAmountParams } from './monetaryAmount';
 
 export const CARD_SIZE = 320;
 export const CARD_ASPECT_RATIO = 50 / 81;
@@ -39,6 +40,22 @@ export interface TokenWithUser extends Token {
       slug: string;
     };
   };
+}
+
+export interface Card extends GqlType {
+  assetId: string | null;
+  liveSingleSaleOffer?: {
+    receiverSide: {
+      amounts: MonetaryAmountParams;
+    };
+  } | null;
+  latestEnglishAuction?: {
+    id: string;
+    currentPrice: string;
+    currency: SupportedCurrency;
+    endDate: string;
+    open: boolean;
+  } | null;
 }
 
 export function isTokenWithUser(card: {
@@ -231,7 +248,7 @@ export const sortHitByRarity = (items: RefinementListItem[]) =>
 
 interface XpCard {
   xp: number;
-  xpNeededForNextGrade?: number | null;
+  xpNeededForNextGrade: number | null;
   xpNeededForCurrentGrade: number;
 }
 
@@ -253,46 +270,45 @@ export const APPEARANCES_MIN = 0;
 export const APPEARANCES_5_MAX = 5;
 export const APPEARANCES_15_MAX = 15;
 
-export const isListedOnMarket = withFragments(
-  (card: isListedOnMarket_card) => {
-    return false;
-    // return !!card.token?.sentInLiveOffers?.some(
-    //   offer =>
-    //     offer.type === OfferType.SINGLE_SALE_OFFER &&
-    //     // handle case when token listing ended but frontend hasn't
-    //     // refetched the data yet
-    //     isFuture(parseISO(offer.endDate))
-    // );
+export const isMyCardListedOnMarket = withFragments(
+  (card: isMyCardListedOnMarket_card) => {
+    // sentInLiveOffers will only have data if the card belongs to the currentUser
+    return !!card.token?.sentInLiveOffers?.some(
+      offer =>
+        offer.type === OfferType.SINGLE_SALE_OFFER &&
+        // handle case when token listing ended but frontend hasn't
+        // refetched the data yet
+        isFuture(parseISO(offer.endDate))
+    );
   },
   {
     card: gql`
-      fragment isListedOnMarket_card on Card {
+      fragment isMyCardListedOnMarket_card on Card {
         slug
         assetId
         token {
           slug
           assetId
-          # sentInLiveOffers {
-          #   id
-          #   type
-          #   endDate
-          # }
+          sentInLiveOffers {
+            id
+            type
+            endDate
+          }
         }
       }
-    `,
+    ` as TypedDocumentNode<isMyCardListedOnMarket_card>,
   }
 );
 
 export const isSentInDirectOffer = withFragments(
   (card: isSentInDirectOffer_card) => {
-    // return !!card.token?.sentInLiveOffers?.some(
-    //   offer =>
-    //     offer.type === OfferType.DIRECT_OFFER &&
-    //     // handle case when token listing ended but frontend hasn't
-    //     // refetched the data yet
-    //     isFuture(parseISO(offer.endDate))
-    // );
-    return false;
+    return !!card.token?.sentInLiveOffers?.some(
+      offer =>
+        offer.type === OfferType.DIRECT_OFFER &&
+        // handle case when token listing ended but frontend hasn't
+        // refetched the data yet
+        isFuture(parseISO(offer.endDate))
+    );
   },
   {
     card: gql`
@@ -302,13 +318,13 @@ export const isSentInDirectOffer = withFragments(
         token {
           slug
           assetId
-          # sentInLiveOffers {
-          #   id
-          #   type
-          #   endDate
-          # }
+          sentInLiveOffers {
+            id
+            type
+            endDate
+          }
         }
       }
-    `,
+    ` as TypedDocumentNode<isSentInDirectOffer_card>,
   }
 );

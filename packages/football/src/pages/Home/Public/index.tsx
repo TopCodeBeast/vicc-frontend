@@ -1,3 +1,4 @@
+import { TypedDocumentNode } from '@apollo/client';
 import { gql } from '@apollo/client/core';
 import { faUsers } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,52 +14,55 @@ import tickets from '@sorare/core/src/assets/rewards/tickets.png';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import { Caption, Text14 } from '@sorare/core/src/atoms/typography';
 import Bold from '@sorare/core/src/atoms/typography/Bold';
-// import { ConversionCreditCampaignBanner } from '@sorare/core/src/components/conversionCredit/ConversionCreditCampaignBanner';
+import { ConversionCreditCampaignBanner } from '@sorare/core/src/components/conversionCredit/ConversionCreditCampaignBanner';
 import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
 import {
   FOOTBALL_DRAFT,
   FOOTBALL_ONBOARDING,
 } from '@sorare/core/src/constants/routes';
-// import { useSeoContext } from '@sorare/core/src/contexts/seo';
-// import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
+import { useConnectionContext } from '@sorare/core/src/contexts/connection';
+import { useSeoContext } from '@sorare/core/src/contexts/seo';
+import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
+import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import cards from '@football/assets/home/rewards/cards.png';
-import coin from '@football/assets/home/rewards/coin.png';
-import eth from '@football/assets/home/rewards/eth.png';
+import cards from 'assets/home/rewards/cards.png';
+import coin from 'assets/home/rewards/coin.png';
+import eth from 'assets/home/rewards/eth.png';
 
 import Section from './Section';
 import Slider from './Slider';
-// import {
-//   HomeDataQuery,
-//   HomeDataQueryVariables,
-// } from './__generated__/index.graphql';
+import {
+  HomeDataQuery,
+  HomeDataQueryVariables,
+} from './__generated__/index.graphql';
 
 import '@sorare/core/src/style/drukFontFaces.css';
 import '@sorare/core/src/style/romieFontFaces.css';
 
-// const HOME_DATA_QUERY = gql`
-//   query HomeDataQuery {
-//     football {
-//       so5: vicc5Root {
-//         onboardingCommonDraftCampaigns {
-//           slug
-//           displayName
-//           competitions {
-//             slug
-//             name
-//             released
-//             logoUrl
-//           }
-//           upcomingSo5Leaderboard: upcomingVicc5Leaderboard {
-//             slug
-//             so5LineupsCount
-//           }
-//         }
-//       }
-//     }
-//   }
-// `;
+const HOME_DATA_QUERY = gql`
+  query HomeDataQuery {
+    football {
+      so5 {
+        onboardingCommonDraftCampaigns {
+          slug
+          displayName
+          competitions {
+            slug
+            name
+            released
+            logoUrl
+          }
+          upcomingSo5Leaderboard {
+            slug
+            so5LineupsCount
+          }
+        }
+      }
+    }
+  }
+` as TypedDocumentNode<HomeDataQuery, HomeDataQueryVariables>;
 
 const Root = styled.section`
   display: flex;
@@ -200,17 +204,20 @@ const rewards = [
 
 const FootballPublicHome = () => {
   const { formatMessage } = useIntl();
-  // const { setPageMetadata } = useSeoContext();
-  // const { data } = useQuery<HomeDataQuery, HomeDataQueryVariables>(
-  //   HOME_DATA_QUERY
-  // );
+  const track = useEvents();
+  const { setPageMetadata } = useSeoContext();
+  const { signUp } = useConnectionContext();
+  const { data } = useQuery(HOME_DATA_QUERY);
+  const {
+    flags: { useDisableFootballOnboarding = false },
+  } = useFeatureFlags();
   const {
     onboardingCommonDraftCampaigns = [1, 2, 3, 4].map(id => ({
       displayName: '',
       competitions: [{ released: true, slug: id, logoUrl: '' }],
       upcomingSo5Leaderboard: { so5LineupsCount: 0, slug: '' },
     })),
-  } = {} as any; //data?.so5 || {};
+  } = data?.football.so5 || {};
   const sizes = Object.entries({
     sm: 600,
     md: 960,
@@ -219,17 +226,21 @@ const FootballPublicHome = () => {
     full: undefined,
   });
 
-  // useEffect(
-  //   () =>
-  //     setPageMetadata(formatMessage(meta.title), {
-  //       description: formatMessage(meta.description),
-  //     }),
-  //   [setPageMetadata, formatMessage]
-  // );
+  useEffect(
+    () =>
+      setPageMetadata(formatMessage(meta.title), {
+        description: formatMessage(meta.description),
+      }),
+    [setPageMetadata, formatMessage]
+  );
+
+  const regularSignup =
+    !data?.football.so5.onboardingCommonDraftCampaigns?.length ||
+    useDisableFootballOnboarding;
 
   return (
     <>
-      {/* <ConversionCreditCampaignBanner /> */}
+      <ConversionCreditCampaignBanner />
       <section>
         <Root className="dark-theme">
           <Slider
@@ -270,10 +281,16 @@ const FootballPublicHome = () => {
             ]}
           >
             <Button
-              component={Link}
-              to={FOOTBALL_ONBOARDING}
+              component={regularSignup ? undefined : Link}
+              to={regularSignup ? undefined : FOOTBALL_ONBOARDING}
               color="black"
               medium
+              onClick={() => {
+                if (regularSignup) {
+                  signUp();
+                }
+                track('[FOOTBALL_LANDING] Click Start your journey');
+              }}
             >
               <FormattedMessage
                 id="Football.Home.Public.cta"
@@ -296,68 +313,93 @@ const FootballPublicHome = () => {
               />
             }
           >
-            <List>
-              {onboardingCommonDraftCampaigns.map(
-                ({ competitions, displayName, upcomingSo5Leaderboard }: any) => {
-                  const competition = competitions[0];
-                  if (!competition) {
-                    return null;
-                  }
-                  return (
-                    <Article
-                      as={Link}
-                      key={competition.slug}
-                      to={generatePath(FOOTBALL_DRAFT, {
-                        slug: upcomingSo5Leaderboard?.slug,
-                      })}
-                    >
-                      {competition.logoUrl ? (
-                        <img
-                          src={competition.logoUrl}
-                          alt=""
-                          width="32"
-                          height="32"
-                        />
-                      ) : (
-                        <svg viewBox="0 0 32 32" width="32">
-                          <circle fill="currentColor" r="16" cx="16" cy="16" />
-                        </svg>
-                      )}
-                      <div>
-                        <Text14 bold>{displayName}</Text14>
-                        <ArticleCaption color="var(--c-neutral-600)">
-                          <FormattedMessage
-                            id="Football.Home.Public.TotalManagers"
-                            defaultMessage={`{
+            {regularSignup ? (
+              <div>
+                <Button
+                  color="blue"
+                  medium
+                  onClick={() => {
+                    signUp();
+                    track('[FOOTBALL_LANDING] Click Signup to compete');
+                  }}
+                >
+                  <FormattedMessage
+                    id="Football.Home.Public.compete.cta"
+                    defaultMessage="Signup to compete"
+                  />
+                </Button>
+              </div>
+            ) : (
+              <>
+                <List>
+                  {onboardingCommonDraftCampaigns.map(
+                    ({ competitions, displayName, upcomingSo5Leaderboard }) => {
+                      const competition = competitions[0];
+                      if (!competition) {
+                        return null;
+                      }
+                      return (
+                        <Article
+                          as={Link}
+                          key={competition.slug}
+                          to={generatePath(FOOTBALL_DRAFT, {
+                            slug: upcomingSo5Leaderboard?.slug,
+                          })}
+                        >
+                          {competition.logoUrl ? (
+                            <img
+                              src={competition.logoUrl}
+                              alt=""
+                              width="32"
+                              height="32"
+                            />
+                          ) : (
+                            <svg viewBox="0 0 32 32" width="32">
+                              <circle
+                                fill="currentColor"
+                                r="16"
+                                cx="16"
+                                cy="16"
+                              />
+                            </svg>
+                          )}
+                          <div>
+                            <Text14 bold>{displayName}</Text14>
+                            <ArticleCaption color="var(--c-neutral-600)">
+                              <FormattedMessage
+                                id="Football.Home.Public.TotalManagers"
+                                defaultMessage={`{
                     nb, plural, =0 {No Managers entered yet}
                     one {<strong>{icon} #</strong> Manager entered}
                     other {<strong>{icon} #</strong> Managers entered}}`}
-                            values={{
-                              nb: upcomingSo5Leaderboard?.so5LineupsCount,
-                              icon: <FontAwesomeIcon icon={faUsers} />,
-                              strong: Bold,
-                            }}
-                          />
-                        </ArticleCaption>
-                      </div>
-                    </Article>
-                  );
-                }
-              )}
-            </List>
-            <MoreLeagues>
-              <Link to={FOOTBALL_ONBOARDING}>
-                <Text14 bold color="var(--c-neutral-1000)">
-                  <FormattedMessage
-                    id="Football.Home.Public.compete.more"
-                    defaultMessage="+{nb} more leagues"
-                    values={{
-                      nb: 32,
-                    }}
-                  />
-                </Text14>
-              </Link>
-            </MoreLeagues>
+                                values={{
+                                  nb: upcomingSo5Leaderboard?.so5LineupsCount,
+                                  icon: <FontAwesomeIcon icon={faUsers} />,
+                                  strong: Bold,
+                                }}
+                              />
+                            </ArticleCaption>
+                          </div>
+                        </Article>
+                      );
+                    }
+                  )}
+                </List>
+                <MoreLeagues>
+                  <Link to={FOOTBALL_ONBOARDING}>
+                    <Text14 bold color="var(--c-neutral-1000)">
+                      <FormattedMessage
+                        id="Football.Home.Public.compete.more"
+                        defaultMessage="+{nb} more leagues"
+                        values={{
+                          nb: 32,
+                        }}
+                      />
+                    </Text14>
+                  </Link>
+                </MoreLeagues>
+              </>
+            )}
           </Section>
           <Section
             title={

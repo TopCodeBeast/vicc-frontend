@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { isFuture, isPast } from 'date-fns';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -65,12 +65,12 @@ export const LineupDate = ({ fixture }: Props) => {
 
 LineupDate.fragments = {
   fixture: gql`
-    fragment LineupDate_fixture on Vicc5Fixture {
+    fragment LineupDate_fixture on So5Fixture {
       slug
       id
       startDate
       endDate
       shortDisplayName
     }
-  `,
+  ` as TypedDocumentNode<LineupDate_fixture>,
 };

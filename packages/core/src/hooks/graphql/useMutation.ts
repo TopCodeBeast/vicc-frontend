@@ -1,8 +1,9 @@
 import {
-  DocumentNode,
   FetchResult,
   MutationFunctionOptions,
   MutationHookOptions,
+  OperationVariables,
+  TypedDocumentNode,
   useMutation,
 } from '@apollo/client';
 import { FieldNode, OperationDefinitionNode } from 'graphql';
@@ -32,7 +33,10 @@ export const errorCodes = {
   unverifiedPhoneNumber: 20010,
 };
 
-export default <T, V>(mutation: DocumentNode, opts: Options<T, V> = {}) => {
+export default <TData = any, TVariables = OperationVariables>(
+  mutation: TypedDocumentNode<TData, TVariables>,
+  opts: Options<TData, TVariables> = {}
+) => {
   const {
     showErrorsWithSnackNotification,
     showErrorsInForm,
@@ -41,7 +45,7 @@ export default <T, V>(mutation: DocumentNode, opts: Options<T, V> = {}) => {
     ...mutationOptions
   } = opts;
 
-  const [mutate, { loading }] = useMutation<T, V>(mutation, mutationOptions);
+  const [mutate, { loading }] = useMutation(mutation, mutationOptions);
   const { showNotification } = useSnackNotificationContext();
   const { setShowRestrictedAccess } = useRestrictedAccessContext();
   const { sendSafeError } = useSentryContext();
@@ -99,25 +103,25 @@ export default <T, V>(mutation: DocumentNode, opts: Options<T, V> = {}) => {
 
   return [
     useCallback(
-      async (options?: MutationFunctionOptions<T, V>) => {
+      async (options?: MutationFunctionOptions<TData, TVariables>) => {
         const errors: { message: string }[] = [];
-        let data: FetchResult<T>['data'];
+        let data: FetchResult<TData>['data'];
         try {
           ({ data } = await mutate(options));
           const mutationData = (data as unknown as any)[mutationName];
           if (Array.isArray(mutationData?.errors)) {
-            // errors.push(...mutationData.errors);
-            // handleErrors(mutationData.errors);
+            errors.push(...mutationData.errors);
+            handleErrors(mutationData.errors);
           }
-        } catch ({ graphQLErrors, networkError }: any) { //TODO
+        } catch ({ graphQLErrors, networkError }) {
           // networkError is NOT an array
           if (networkError) {
-            // errors.push(networkError);
-            // handleErrors([networkError], true);
+            errors.push(networkError);
+            handleErrors([networkError], true);
           }
           if (graphQLErrors) {
-            // errors.push(...graphQLErrors);
-            // handleErrors(graphQLErrors);
+            errors.push(...graphQLErrors);
+            handleErrors(graphQLErrors);
           }
           if (
             !graphQLErrors &&

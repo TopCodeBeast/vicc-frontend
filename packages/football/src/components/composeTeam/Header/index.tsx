@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faXmark } from '@fortawesome/pro-solid-svg-icons';
 import { FC, ReactNode } from 'react';
 import { FormattedDate, FormattedMessage, useIntl } from 'react-intl';
@@ -89,8 +89,8 @@ const Period = ({ start, end }: { start: string; end: string }) => {
 type Props = {
   so5Leaderboard?: ComposeTeamDraftHeader_so5Leaderboard;
   so5Lineup: Nullable<ComposeTeamDraftHeader_so5Lineup>;
-  Back: FC;
-  renderExtra?: (props: FC) => ReactNode;
+  Back: FC<React.PropsWithChildren<unknown>>;
+  renderExtra?: (props: FC<React.PropsWithChildren<unknown>>) => ReactNode;
 };
 const Header = ({ so5Leaderboard, so5Lineup, Back, renderExtra }: Props) => {
   const { formatMessage } = useIntl();
@@ -138,11 +138,11 @@ export default Header;
 
 Header.fragments = {
   so5Leaderboard: gql`
-    fragment ComposeTeamDraftHeader_so5Leaderboard on Vicc5Leaderboard {
+    fragment ComposeTeamDraftHeader_so5Leaderboard on So5Leaderboard {
       slug
       displayName
       rarityType
-      so5Fixture: vicc5Fixture {
+      so5Fixture {
         slug
         startDate
         endDate
@@ -152,12 +152,12 @@ Header.fragments = {
     }
     ${DivisionLogo.fragments.so5Leaderboard}
     ${getLineupDisplayName.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<ComposeTeamDraftHeader_so5Leaderboard>,
   so5Lineup: gql`
-    fragment ComposeTeamDraftHeader_so5Lineup on Vicc5Lineup {
+    fragment ComposeTeamDraftHeader_so5Lineup on So5Lineup {
       id
       ...getLineupDisplayName_so5Lineup
     }
     ${getLineupDisplayName.fragments.so5Lineup}
-  `,
+  ` as TypedDocumentNode<ComposeTeamDraftHeader_so5Lineup>,
 };

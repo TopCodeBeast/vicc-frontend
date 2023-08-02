@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useInstantSearch } from 'react-instantsearch-hooks-web';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -26,14 +26,16 @@ interface Props {
 
 const CARDS_ON_SALE_QUERY = gql`
   query CardsOnSaleQuery($slugs: [String!]!) {
-    cards(slugs: $slugs) {
-      slug
-      assetId
-      ...CardRow_card
+    football {
+      cards(slugs: $slugs) {
+        slug
+        assetId
+        ...CardRow_card
+      }
     }
   }
   ${CardRow.fragments.card}
-`;
+` as TypedDocumentNode<CardsOnSaleQuery, CardsOnSaleQueryVariables>;
 
 const Section = styled(Title4)`
   display: flex;
@@ -43,17 +45,14 @@ const Section = styled(Title4)`
 
 const CardsOnSale = () => {
   const { results: searchResults } = useInstantSearch();
-  const { data } = useQuery<CardsOnSaleQuery, CardsOnSaleQueryVariables>(
-    CARDS_ON_SALE_QUERY,
-    {
-      variables: { slugs: searchResults?.hits.map(h => h.objectID) },
-      skip: searchResults?.hits?.length === 0,
-    }
-  );
+  const { data } = useQuery(CARDS_ON_SALE_QUERY, {
+    variables: { slugs: searchResults?.hits.map(h => h.objectID) },
+    skip: searchResults?.hits?.length === 0,
+  });
 
-  if (!data || data.cards.length === 0) return null;
+  if (!data || data.football.cards.length === 0) return null;
 
-  const cardsBySlug = groupBy(c => c!.slug, data.cards);
+  const cardsBySlug = groupBy(c => c!.slug, data.football.cards);
 
   return (
     <Section>
@@ -65,7 +64,7 @@ const CardsOnSale = () => {
       </Title4>
       <CardRow
         cards={searchResults?.hits
-          .map(h => cardsBySlug[h.objectID] && cardsBySlug[h.objectID][0]!)
+          .map(h => cardsBySlug[h.objectID]?.[0])
           .filter(Boolean)}
       />
     </Section>
@@ -99,5 +98,5 @@ CardsOnSale.fragments = {
       id
       slug
     }
-  `,
+  ` as TypedDocumentNode<CardsOnSale_user>,
 };

@@ -9,14 +9,14 @@ const ItemDialog = lazy(
 
 type Props = {
   isDialog: boolean;
-  Component: FC;
-  Layout: FC<any>;
+  Component: FC<React.PropsWithChildren<{ inDialog?: boolean }>>;
+  Layout: FC<React.PropsWithChildren<any>>;
 };
 const WithItemDialog = ({ isDialog, Layout, Component }: Props) => {
   return isDialog ? (
     <Suspense fallback={<Backdrop />}>
       <ItemDialog>
-        <Component />
+        <Component inDialog />
       </ItemDialog>
     </Suspense>
   ) : (

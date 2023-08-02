@@ -1,3 +1,5 @@
+import { faGavel } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { defineMessages } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -5,26 +7,28 @@ import styled from 'styled-components';
 import ManagerTaskTooltip from '@sorare/core/src/components/onboarding/managerTask/ManagerTaskTooltip';
 import MarketplaceOnboardingTask from '@sorare/core/src/components/onboarding/managerTask/MarketplaceOnboardingTask';
 import {
+  FOOTBALL_MARKET_STARTER_PACKS,
   FOOTBALL_NEW_SIGNINGS,
-  FOOTBALL_STARTER_BUNDLES,
   FOOTBALL_TRANSFER_MARKET,
+  MY_SORARE_HOME,
 } from '@sorare/core/src/constants/routes';
-// import { useConfigContext } from '@sorare/core/src/contexts/config';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import {
   MarketplaceOnboardingStep,
-  // useManagerTaskContext,
+  useManagerTaskContext,
 } from '@sorare/core/src/contexts/managerTask';
+import useUsersCount from '@sorare/core/src/hooks/config/useUsersCount';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
-import { transferMarket } from '@sorare/core/src/lib/glossary';
+import useIsReorgApp from '@sorare/core/src/hooks/ui/useIsReorgApp';
+import { navLabels, transferMarket } from '@sorare/core/src/lib/glossary';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
-import auctionsDesktop from '@football/pages/TransferMarket/assets/auctions_desktop.png';
-import auctionsMobile from '@football/pages/TransferMarket/assets/auctions_mobile.png';
-import managerSalesDesktop from '@football/pages/TransferMarket/assets/manager_sales_desktop.png';
-import managerSalesMobile from '@football/pages/TransferMarket/assets/manager_sales_mobile.png';
-import starterPacksDesktop from '@football/pages/TransferMarket/assets/starter_packs_desktop.png';
-import starterPacksMobile from '@football/pages/TransferMarket/assets/starter_packs_mobile.png';
+import auctionsDesktop from '@football/pages/TransferMarket/assets/auctions_desktop.jpg';
+import auctionsMobile from '@football/pages/TransferMarket/assets/auctions_mobile.jpg';
+import managerSalesDesktop from '@football/pages/TransferMarket/assets/manager_sales_desktop.jpg';
+import managerSalesMobile from '@football/pages/TransferMarket/assets/manager_sales_mobile.jpg';
+import starterPacksDesktop from '@football/pages/TransferMarket/assets/starter_packs_desktop.jpg';
+import starterPacksMobile from '@football/pages/TransferMarket/assets/starter_packs_mobile.jpg';
 
 import { Entry } from './Entry';
 
@@ -64,6 +68,10 @@ const messages = defineMessages({
     id: 'TransferMarket.Home.primarySecondaryCount',
     defaultMessage: '{count, plural, =0 {# card} one {# card} other {# cards}}',
   },
+  mySorareDescription: {
+    id: 'TransferMarket.Home.mySorareDescription',
+    defaultMessage: 'Manage my sales',
+  },
 });
 
 const Root = styled.div`
@@ -77,12 +85,15 @@ const Root = styled.div`
   }
 `;
 
+const MySorareImage = styled.div`
+  padding: calc(6 * var(--unit)) var(--double-unit);
+`;
 export const Entries = () => {
+  const { counts } = useUsersCount();
   const navigate = useNavigate();
-  const task = undefined;// const { setStep, task } = useManagerTaskContext();
+  const { setStep, task } = useManagerTaskContext();
   const { up: isTablet } = useScreenSize('tablet');
-  // const { counts } = useConfigContext();
-
+  const isReorgApp = useIsReorgApp();
   return (
     <Root>
       <Entry
@@ -94,12 +105,12 @@ export const Entries = () => {
             : messages.mobileAuctionsDescription
         }
         countMessage={messages.primarySecondaryCount}
-        count={1}// count={counts.football.auctionsCount} //TODO***********
+        count={counts.football.auctionsCount}
         mobileImage={<img src={auctionsMobile} alt="Auctions" />}
         desktopImage={<img src={auctionsDesktop} alt="Auctions" />}
       />
       <Entry
-        to={FOOTBALL_STARTER_BUNDLES}
+        to={FOOTBALL_MARKET_STARTER_PACKS}
         title={transferMarket.starterPacks}
         description={
           isTablet
@@ -107,7 +118,7 @@ export const Entries = () => {
             : messages.mobileStarterPacksDescription
         }
         countMessage={messages.starterPacksCount}
-        count={1}// count={counts.football.starterPacksCount} //TODO***********
+        count={counts.football.starterPacksCount}
         mobileImage={<img src={starterPacksMobile} alt="Starter Packs" />}
         desktopImage={<img src={starterPacksDesktop} alt="Starter Packs" />}
       />
@@ -118,7 +129,7 @@ export const Entries = () => {
             name={MarketplaceOnboardingStep.managerSalesLink}
             onClick={() => {
               navigate(FOOTBALL_TRANSFER_MARKET);
-              // setStep(MarketplaceOnboardingStep.search);
+              setStep(MarketplaceOnboardingStep.search);
             }}
           />
         }
@@ -134,11 +145,28 @@ export const Entries = () => {
               : messages.mobileManagerSalesDescription
           }
           countMessage={messages.primarySecondaryCount}
-          count={1} // count={counts.football.managerSalesCount} //TODO***********
+          count={counts.football.managerSalesCount}
           mobileImage={<img src={managerSalesMobile} alt="Manager Sales" />}
           desktopImage={<img src={managerSalesDesktop} alt="Manager Sales" />}
         />
       </ManagerTaskTooltip>
+      {isReorgApp && (
+        <Entry
+          to={MY_SORARE_HOME}
+          title={navLabels.myMarketActivity}
+          description={messages.mySorareDescription}
+          desktopImage={
+            <MySorareImage>
+              <FontAwesomeIcon icon={faGavel} size="4x" />
+            </MySorareImage>
+          }
+          mobileImage={
+            <MySorareImage>
+              <FontAwesomeIcon icon={faGavel} size="4x" />
+            </MySorareImage>
+          }
+        />
+      )}
     </Root>
   );
 };

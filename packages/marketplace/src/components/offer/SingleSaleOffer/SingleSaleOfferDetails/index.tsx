@@ -8,6 +8,7 @@ import {
 } from '@sorare/core/src/__generated__/globalTypes';
 import { Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
+import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
 import { ItemSpecialRewardBadge } from '@marketplace/components/ItemPreview/ItemSpecialRewardBadge';
@@ -27,7 +28,7 @@ const Exponent = styled(Text16)`
 `;
 
 type Props = {
-  price: WeiAmount;
+  priceMonetaryAmount: MonetaryAmountOutput;
   endDate: string;
   cancelled: boolean;
   privatePrice?: WeiAmount;
@@ -35,19 +36,23 @@ type Props = {
 };
 
 export const SingleSaleOfferDetails = ({
-  price,
+  priceMonetaryAmount,
   privatePrice,
   endDate,
   cancelled,
   promotionalEvent,
 }: Props) => {
-  const amount =
-    privatePrice && new Big(privatePrice).gt(price) ? privatePrice : price;
+  const usePrivatePrice =
+    privatePrice && new Big(privatePrice).gt(priceMonetaryAmount.wei);
+  const monetaryAmount = usePrivatePrice
+    ? {
+        referenceCurrency: SupportedCurrency.WEI,
+        wei: privatePrice,
+      }
+    : priceMonetaryAmount;
+
   const { main, exponent } = useAmountWithConversion({
-    monetaryAmount: {
-      referenceCurrency: SupportedCurrency.WEI,
-      [SupportedCurrency.WEI.toLowerCase()]: amount,
-    },
+    monetaryAmount,
   });
   return (
     <Column>

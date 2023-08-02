@@ -19,8 +19,7 @@ import {
 } from '@core/constants/routes';
 import useEvents from '@core/lib/events/useEvents';
 import { navLabels } from '@core/lib/glossary';
-import { tabletAndAbove } from '@core/style/mediaQuery';
-import { theme } from '@core/style/theme';
+import { mobileAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
 
 const FooterLink = styled(Text16)`
   display: block;
@@ -44,7 +43,7 @@ const MenuItems = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   padding: var(--triple-unit) 0;
-  @media (min-width: ${theme.breakpoints.values.sm}px) {
+  @media ${mobileAndAbove} {
     grid-template-columns: repeat(2, 1fr);
   }
   @media ${tabletAndAbove} {

@@ -1,4 +1,4 @@
-import { NotificationCategoryInput } from '@core/__generated__/globalTypes';
+import { NotificationCategoryInput } from '__generated__/globalTypes';
 
 import {
   NotificationGroup,

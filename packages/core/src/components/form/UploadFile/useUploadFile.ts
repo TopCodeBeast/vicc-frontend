@@ -4,17 +4,21 @@ import { useIntl } from 'react-intl';
 import { sameArrays } from '@core/lib/arrays';
 import { hasValidExtension, imgExtension, readFile } from '@core/lib/files';
 
-const maxFileSizeMb = 1; // 1 Megabyte
-const maxFileSizeinBytes = maxFileSizeMb * 10 ** 6;
+export type FileWithDataURL = {
+  file: File;
+  dataURL: string;
+};
 
 export const useUploadFile = (
-  onChange: (file: File) => void,
-  validExtensions: string[] = imgExtension
+  onChange: (file: FileWithDataURL) => void,
+  validExtensions: string[] = imgExtension,
+  maxFileSizeMb = 1 // 1 Megabyte
 ) => {
   const [fileTypeError, setFileTypeError] = useState<string | null>(null);
   const [fileSizeError, setFileSizeError] = useState<string | null>(null);
   const [fileUrl, setFileUrl] = useState<string | null>(null);
   const { formatMessage } = useIntl();
+  const maxFileSizeinBytes = maxFileSizeMb * 10 ** 6;
 
   const onDropFile = async (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
@@ -57,7 +61,7 @@ export const useUploadFile = (
 
     const newFileData = await readFile(file);
     setFileUrl(newFileData.dataURL);
-    onChange(file);
+    onChange(newFileData);
   };
 
   return {

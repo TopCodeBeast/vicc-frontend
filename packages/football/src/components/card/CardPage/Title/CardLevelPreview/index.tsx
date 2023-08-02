@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { animated } from '@react-spring/web';
 import styled, { keyframes } from 'styled-components';
@@ -86,7 +86,9 @@ const CardLevelPreview = ({ card }: Props) => {
               defaultMessage="<animatedText></animatedText> / {nextlevelXP, number} XP"
               values={{
                 animatedText: () => (
-                  <animated.span>{xp.to(n => n.toFixed(0))}</animated.span>
+                  <animated.span>
+                    {xp.to(n => formatNumber(Math.floor(n)))}
+                  </animated.span>
                 ),
                 nextlevelXP,
               }}
@@ -118,7 +120,7 @@ CardLevelPreview.fragments = {
       xpNeededForNextGrade
       xp
     }
-  `,
+  ` as TypedDocumentNode<CardLevelPreview_card>,
 };
 
 export default CardLevelPreview;

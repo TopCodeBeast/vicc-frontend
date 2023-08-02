@@ -1,6 +1,8 @@
 import { format } from 'date-fns';
 import qs from 'qs';
 
+import { randomUUID } from '@core/lib/uuid';
+
 import config from './config.json';
 
 type Environment = 'staging' | 'development' | 'production' | 'mockprod';
@@ -54,7 +56,7 @@ const getEnvConfig = () => {
     // Always use local env in storybook
     return config.development;
   }
-  if (hostname.match(/vicc-dev/)) {
+  if (hostname.match(/sorare.dev/)) {
     return config.staging;
   }
   if (hostname.match(/sorare.tech/)) {
@@ -155,8 +157,6 @@ export const SOFE_API_PATH =
     ? '/graphql'
     : '/federation/graphql';
 export const WS_ROOT = `${envConfig.wsUrl}/cable`;
-export const BRAZE_SDK_ENDPOINT = envConfig.brazeSdkEndpoint;
-export const BRAZE_API_KEY = envConfig.brazeApiKey;
 export const STRIPE_PUBLIC_KEY = envConfig.stripePublicKey;
 export const WALLET_URL = envConfig.walletUrl;
 export const ETHERSCAN_URL =
@@ -171,12 +171,15 @@ export const LAUNCH_DARKLY_CLIENT_SIDE_ID = envConfig.launchDarklyClientSideID;
 export const SEGMENT_API_KEY = envConfig.segmentApiKey;
 export const IMPACT_PAGE_LOAD_API_URL = envConfig.impactPageLoadAPIUrl;
 export const WALLET_CONNECT_PROJECT_ID = 'b1e8df3bb981e9917bfeeb0ad4110bb7';
+export const MANGOPAY_BASE_URL = envConfig.mangopayBaseUrl;
+export const MANGOPAY_CLIENT_ID = envConfig.mangopayClientId;
 
 export const CLIENT_TYPE = 'Web';
 export const REVISION = import.meta.env?.VITE_COMMIT_REF || 'development';
 export const IS_TEST_RUNNER =
   import.meta.env.NODE_ENV === 'test' || import.meta.env.STORYBOOK === 'true';
-export const TAB_VERSION = format(new Date(), 'yyyyMMddHHmmss');
+export const TAB_VERSION =
+  randomUUID().substring(0, 4) + format(new Date(), 'yyyyMMddHHmmss');
 export const VERSION =
   REVISION === 'development' || import.meta.env.MODE === 'development'
     ? TAB_VERSION

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { defineMessage, defineMessages } from 'react-intl';
 
 import { CardCoverageStatus } from '@sorare/core/src/__generated__/globalTypes';
@@ -104,7 +104,7 @@ ItemEligibility.fragments = {
         name
       }
     }
-  `,
+  ` as TypedDocumentNode<CardPage_ItemEligibility_card>,
 };
 
 export default ItemEligibility;

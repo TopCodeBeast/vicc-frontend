@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -56,7 +56,7 @@ AppearancePower.fragments = {
       ...CardBonus_WithEngine_card
     }
     ${CardBonus.fragments.cardWithEngine}
-  `,
+  ` as TypedDocumentNode<AppearancePower_card>,
 };
 
 export default AppearancePower;

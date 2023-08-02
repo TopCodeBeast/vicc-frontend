@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { Collapse } from '@material-ui/core';
 import { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -28,9 +28,10 @@ const Row = styled.div`
   gap: var(--unit);
 `;
 
-const Image = styled.div`
+const Image = styled.div<{ small: boolean }>`
   flex-shrink: 0;
   width: 52px;
+  ${({ small }) => (small ? 'width: 40px;' : '')}
 `;
 
 const Metas = styled.div`
@@ -47,6 +48,7 @@ type Props = {
   title?: ReactNode;
   price?: ReactNode;
   withoutRecentSales?: boolean;
+  small?: boolean;
 };
 
 export const TokenSummary = ({
@@ -54,6 +56,7 @@ export const TokenSummary = ({
   title,
   price,
   withoutRecentSales = false,
+  small = false,
 }: Props) => {
   const [viewRecentSales, toggleViewRecentSales] = useToggle(false);
   const { TokenTeamsComponent = () => null } = useMarketplaceContext();
@@ -65,7 +68,7 @@ export const TokenSummary = ({
       <Summary>
         {title}
         <Row>
-          <Image>
+          <Image small={small}>
             <UninteractiveToken token={token} />
           </Image>
           <Metas>
@@ -136,7 +139,7 @@ TokenSummary.fragments = {
     ${UninteractiveToken.fragments.token}
     ${TokenDescription.fragments.token}
     ${TokenPriceHistory.fragments.token}
-  `,
+  ` as TypedDocumentNode<TokenSummary_token>,
 };
 
 export default TokenSummary;

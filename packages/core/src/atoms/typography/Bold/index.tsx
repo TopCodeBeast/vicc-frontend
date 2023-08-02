@@ -1,4 +1,6 @@
-const Bold = (...chunks: string[]) => {
+import { ReactNode } from 'react';
+
+const Bold = (chunks: ReactNode[]) => {
   return <b>{chunks}</b>;
 };
 

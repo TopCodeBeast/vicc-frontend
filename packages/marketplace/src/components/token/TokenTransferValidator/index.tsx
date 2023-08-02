@@ -1,8 +1,9 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 
 import So5TransferValidator from './So5TransferValidator';
+import { TokenTransferValidator_token } from './__generated__/index.graphql';
 import { TokenTransferValidatorProps } from './types';
 
 export const TokenTransferValidator = ({
@@ -41,5 +42,5 @@ TokenTransferValidator.fragments = {
       slug
       sport
     }
-  `,
+  ` as TypedDocumentNode<TokenTransferValidator_token>,
 };

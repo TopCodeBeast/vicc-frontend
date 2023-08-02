@@ -1,13 +1,16 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
 import { Text14 } from '@sorare/core/src/atoms/typography';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
+import {
+  MonetaryAmountParams,
+  monetaryAmountFragment,
+} from '@sorare/core/src/lib/monetaryAmount';
 
-// import BuyField from '@sorare/marketplace/src/components/buyActions/BuyField';
+import BuyField from '@sorare/marketplace/src/components/buyActions/BuyField';
 
 import { BuyButton_token } from './__generated__/index.graphql';
 
@@ -26,21 +29,26 @@ type Props = {
   loading: boolean;
 };
 
-const BuyButton = ({ token, loading, onPaymentSuccess }: Props) => {
-  const priceWei = token?.liveSingleSaleOffer?.priceWei;
+const DisplayAmount = ({
+  monetaryAmount,
+}: {
+  monetaryAmount: MonetaryAmountParams;
+}) => {
   const { main } = useAmountWithConversion({
-    monetaryAmount: {
-      referenceCurrency: SupportedCurrency.WEI,
-      [SupportedCurrency.WEI.toLowerCase()]: priceWei,
-    },
+    monetaryAmount,
   });
-  if (!priceWei) {
+  return <>{main}</>;
+};
+
+const BuyButton = ({ token, loading, onPaymentSuccess }: Props) => {
+  const amounts = token?.liveSingleSaleOffer?.receiverSide.amounts;
+
+  if (!amounts) {
     return null;
   }
   return (
     <Wrapper>
-      <>BuyField53</>
-      {/* <BuyField
+      <BuyField
         onSuccess={onPaymentSuccess}
         token={token}
         renderButton={buttonProps => (
@@ -58,11 +66,11 @@ const BuyButton = ({ token, loading, onPaymentSuccess }: Props) => {
                   defaultMessage="Buy this card for"
                 />
               </Text14>
-              {main}
+              <DisplayAmount monetaryAmount={amounts} />
             </ButtonWrapper>
           </LoadingButton>
         )}
-      /> */}
+      />
     </Wrapper>
   );
 };
@@ -74,12 +82,18 @@ BuyButton.fragments = {
       slug
       liveSingleSaleOffer {
         id
-        priceWei: price
+        receiverSide {
+          id
+          amounts {
+            ...MonetaryAmountFragment_monetaryAmount
+          }
+        }
       }
-      #...BuyField_token
+      ...BuyField_token
     }
-    #{BuyField.fragments.token}
-  `,
+    ${monetaryAmountFragment}
+    ${BuyField.fragments.token}
+  ` as TypedDocumentNode<BuyButton_token>,
 };
 
 export default BuyButton;

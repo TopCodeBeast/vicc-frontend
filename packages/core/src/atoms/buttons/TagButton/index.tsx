@@ -1,10 +1,12 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import Block from '@core/atoms/layout/Block';
 import { Text16 } from '@core/atoms/typography';
+
+import { TagButton_card } from './__generated__/index.graphql';
 
 interface Props {
   children: ReactNode;
@@ -61,7 +63,7 @@ TagButton.fragments = {
       slug
       assetId
     }
-  `,
+  ` as TypedDocumentNode<TagButton_card>,
 };
 
 export default TagButton;

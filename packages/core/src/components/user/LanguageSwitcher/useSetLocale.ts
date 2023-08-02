@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 import { useEffect } from 'react';
 
 import { LOCALE_STORAGE_KEY } from '@core/constants/intl';
@@ -25,7 +25,10 @@ const UPDATE_USER_SETTINGS_LOCALE_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  UpdateUserSettingsLocaleMutation,
+  UpdateUserSettingsLocaleMutationVariables
+>;
 
 export const useSetLocale = () => {
   const { locale, setLocale } = useIntlContext();
@@ -33,10 +36,9 @@ export const useSetLocale = () => {
   const [storageLocale] = useLocalStorage(LOCALE_STORAGE_KEY, '');
   const userLocale = currentUser ? currentUser.userSettings.locale : null;
 
-  const [mutate, { loading }] = useMutation<
-    UpdateUserSettingsLocaleMutation,
-    UpdateUserSettingsLocaleMutationVariables
-  >(UPDATE_USER_SETTINGS_LOCALE_MUTATION);
+  const [mutate, { loading }] = useMutation(
+    UPDATE_USER_SETTINGS_LOCALE_MUTATION
+  );
 
   useEffect(() => {
     const saveUserLocale = (newLocale: string) => {

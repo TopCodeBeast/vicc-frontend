@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 
 import { Caption } from '@sorare/core/src/atoms/typography';
@@ -27,5 +27,5 @@ BidsCount.fragments = {
       id
       bidsCount
     }
-  `,
+  ` as TypedDocumentNode<BidsCount_auction>,
 };

@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 
 import {
   DeleteSubscriptionMutation,
@@ -25,13 +25,13 @@ const DELETE_SUBSCRIPTION_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  DeleteSubscriptionMutation,
+  DeleteSubscriptionMutationVariables
+>;
 
 export default function useUnsubscription() {
-  const [unsubscribe] = useMutation<
-    DeleteSubscriptionMutation,
-    DeleteSubscriptionMutationVariables
-  >(DELETE_SUBSCRIPTION_MUTATION);
+  const [unsubscribe] = useMutation(DELETE_SUBSCRIPTION_MUTATION);
 
   return async (subscription: { slug: string }) =>
     unsubscribe({

@@ -1,11 +1,14 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { CardCoverageStatus } from '@sorare/core/src/__generated__/globalTypes';
 
 import So5Eligibility from '@football/components/so5/CardProperties/So5Eligibility';
 import { messages } from '@football/lib/cardCoverage';
 
-import { ItemEligibility_card } from './__generated__/index.graphql';
+import {
+  ItemEligibility_auction,
+  ItemEligibility_card,
+} from './__generated__/index.graphql';
 
 type Props = {
   cards: ItemEligibility_card[];
@@ -53,7 +56,7 @@ const cardFragment = gql`
     assetId
     coverageStatus
   }
-`;
+` as TypedDocumentNode<ItemEligibility_card>;
 
 ItemEligibility.fragments = {
   card: cardFragment,
@@ -67,7 +70,7 @@ ItemEligibility.fragments = {
       }
     }
     ${cardFragment}
-  `,
+  ` as TypedDocumentNode<ItemEligibility_auction>,
 };
 
 export default ItemEligibility;

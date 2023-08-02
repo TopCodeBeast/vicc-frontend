@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { faMinus, faPlus } from '@fortawesome/pro-solid-svg-icons';
@@ -128,7 +128,7 @@ EditableDeckCard.fragments = {
       }
     }
     ${FlexCard.fragments.card}
-  `,
+  ` as TypedDocumentNode<EditableDeckCard_deckCard>,
 };
 
 export default EditableDeckCard;

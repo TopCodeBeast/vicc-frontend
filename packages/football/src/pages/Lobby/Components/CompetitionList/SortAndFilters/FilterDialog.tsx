@@ -4,15 +4,22 @@ import { ReactNode, useState } from 'react';
 import styled from 'styled-components';
 
 import AtomButton from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { MLHeader } from '@sorare/core/src/atoms/layout/Dialog/Headers/ML';
+import { Text16 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@sorare/core/src/components/dialog';
 
+const Root = styled.div`
+  padding: var(--triple-unit);
+`;
+const CenteredText16 = styled(Text16)`
+  text-align: center;
+`;
 const Button = styled(AtomButton)`
   > * {
     display: flex;
     justify-content: space-between;
   }
 `;
+
 type Props = {
   buttonLabel: ReactNode;
   onCloseWithoutSaving: () => void;
@@ -32,6 +39,12 @@ export const FilterDialog = ({
   children,
 }: Props) => {
   const [open, setOpen] = useState(false);
+
+  const onClose = () => {
+    onCloseWithoutSaving();
+    setOpen(false);
+  };
+
   return (
     <>
       <Button onClick={() => setOpen(true)} color="gray" medium fullWidth>
@@ -42,31 +55,25 @@ export const FilterDialog = ({
       <Dialog
         open={open}
         fullScreen
-        header={
-          <MLHeader
-            onClose={() => {
-              onCloseWithoutSaving();
-              setOpen(false);
-            }}
-            label={headerLabel}
-          />
-        }
+        onClose={onClose}
+        title={<CenteredText16 bold>{headerLabel}</CenteredText16>}
+        body={<Root>{children}</Root>}
         footer={
-          <AtomButton
-            onClick={() => {
-              onSave();
-              setOpen(false);
-            }}
-            fullWidth
-            color="black"
-            medium
-          >
-            {saveLabel}
-          </AtomButton>
+          <Root>
+            <AtomButton
+              onClick={() => {
+                onSave();
+                setOpen(false);
+              }}
+              fullWidth
+              color="black"
+              medium
+            >
+              {saveLabel}
+            </AtomButton>
+          </Root>
         }
-      >
-        {children}
-      </Dialog>
+      />
     </>
   );
 };

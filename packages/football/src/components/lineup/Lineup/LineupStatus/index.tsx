@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
@@ -82,10 +82,10 @@ export const LineupStatus = ({ so5Lineup, displayScore, score }: Props) => {
 
 LineupStatus.fragments = {
   so5Lineup: gql`
-    fragment LineupStatus_so5Lineup on Vicc5Lineup {
+    fragment LineupStatus_so5Lineup on So5Lineup {
       id
       draft
       cancelledAt
     }
-  `,
+  ` as TypedDocumentNode<LineupStatus_so5Lineup>,
 };

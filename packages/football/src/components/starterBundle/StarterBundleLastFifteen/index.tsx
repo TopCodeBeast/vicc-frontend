@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -25,7 +25,7 @@ export const starterThresholds = thresholds.map(t => [
 ]);
 
 const findStarterThreshold = (score: number) => {
-  const starterThreshold = starterThresholds.find(t => Number(t[0]) > score);
+  const starterThreshold = starterThresholds.find(t => t[0] > score);
   return starterThreshold ? starterThreshold[1] : 'high';
 };
 
@@ -63,11 +63,11 @@ StarterBundleLastFifteen.fragments = {
       player {
         slug
         lastFifteenSo5AverageScore: averageScore(
-          type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
+          type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
         )
       }
     }
-  `,
+  ` as TypedDocumentNode<StarterBundleLastFifteen_card>,
 };
 
 export default StarterBundleLastFifteen;

@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 import { ReactNode } from 'react';
 
 import { useCurrentUserContext } from '@core/contexts/currentUser';
@@ -25,14 +25,16 @@ const UPDATE_USER_SETTINGS_CURRENCY_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  UpdateUserSettingsCurrencyMutation,
+  UpdateUserSettingsCurrencyMutationVariables
+>;
 
 const useUpdateCurrency = () => {
   const { currentUser } = useCurrentUserContext();
-  const [mutateCurrency, { loading }] = useMutation<
-    UpdateUserSettingsCurrencyMutation,
-    UpdateUserSettingsCurrencyMutationVariables
-  >(UPDATE_USER_SETTINGS_CURRENCY_MUTATION);
+  const [mutateCurrency, { loading }] = useMutation(
+    UPDATE_USER_SETTINGS_CURRENCY_MUTATION
+  );
 
   const updateCurrency =
     (target: string) =>
@@ -42,23 +44,23 @@ const useUpdateCurrency = () => {
         value: string;
       } | null
     ) => {
-      // mutateCurrency({
-      //   variables: {
-      //     input: {
-      //       [target]: option!.value,
-      //     },
-      //   },
-      //   optimisticResponse: {
-      //     updateUserSettings: {
-      //       __typename: 'updateUserSettingsPayload',
-      //       userSettings: {
-      //         ...currentUser!.userSettings,
-      //         [target]: option!.value,
-      //       },
-      //       errors: [],
-      //     },
-      //   },
-      // });
+      mutateCurrency({
+        variables: {
+          input: {
+            [target]: option!.value,
+          },
+        },
+        optimisticResponse: {
+          updateUserSettings: {
+            __typename: 'updateUserSettingsPayload',
+            userSettings: {
+              ...currentUser!.userSettings,
+              [target]: option!.value,
+            },
+            errors: [],
+          },
+        },
+      });
     };
 
   return {

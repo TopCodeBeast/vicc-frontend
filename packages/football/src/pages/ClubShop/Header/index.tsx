@@ -7,7 +7,12 @@ import styled from 'styled-components';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import { Container } from '@sorare/core/src/atoms/container';
 import { Text14, Title2 } from '@sorare/core/src/atoms/typography';
-import { FOOTBALL_HOME } from '@sorare/core/src/constants/routes';
+import ClubShopButton from '@sorare/core/src/components/clubShop/ClubShopButton';
+import CoinAmount from '@sorare/core/src/components/clubShop/CoinAmount';
+import {
+  FOOTBALL_CLUB_SHOP,
+  FOOTBALL_HOME,
+} from '@sorare/core/src/constants/routes';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useSafePreviousNavigate from '@sorare/core/src/hooks/useSafePreviousNavigate';
 import {
@@ -15,8 +20,6 @@ import {
   tabletAndAbove,
 } from '@sorare/core/src/style/mediaQuery';
 
-import ClubShopButton from '@football/components/clubShop/ClubShopButton';
-import CoinAmount from '@football/components/user/CoinAmount';
 import OnboardingDialog from '@football/pages/ClubShop/OnboardingDialog';
 
 import bannerBg from './assets/banner.png';
@@ -54,22 +57,36 @@ const BackButtonWrapper = styled.div`
 const FlexContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 0 var(--unit);
+  gap: var(--double-unit);
+
   @media ${tabletAndAbove} {
     flex-direction: row;
     justify-content: space-between;
     padding: 0;
   }
 `;
+
 const Col = styled.div`
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
 `;
-const ClubShopButtonWrapper = styled.div`
-  align-self: flex-end;
-  margin-top: var(--unit);
+
+const CoinBalanceCol = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: var(--double-unit);
+  justify-content: flex-end;
+
+  @media ${tabletAndAbove} {
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--unit);
+    align-items: flex-end;
+  }
 `;
+
 const UnderlinedText = styled(Text14)`
   text-decoration: underline;
 `;
@@ -106,7 +123,7 @@ const Header = () => {
                 />
               </Text14>
             </Col>
-            <Col>
+            <CoinBalanceCol>
               <button type="button" onClick={() => setShowDialog(true)}>
                 <UnderlinedText color="var(--c-neutral-1000)">
                   <FormattedMessage
@@ -115,12 +132,10 @@ const Header = () => {
                   />
                 </UnderlinedText>
               </button>
-              <ClubShopButtonWrapper>
-                <ClubShopButton>
-                  <CoinAmount amount={currentUser?.coinBalance || 0} />
-                </ClubShopButton>
-              </ClubShopButtonWrapper>
-            </Col>
+              <ClubShopButton to={FOOTBALL_CLUB_SHOP}>
+                <CoinAmount amount={currentUser?.coinBalance || 0} />
+              </ClubShopButton>
+            </CoinBalanceCol>
           </FlexContainer>
         </MainContainer>
       </Root>

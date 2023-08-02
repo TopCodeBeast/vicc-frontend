@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classNames from 'classnames';
 import { parseISO } from 'date-fns';
 import { FC, Fragment } from 'react';
@@ -65,7 +65,9 @@ const StyledCaption = styled(Caption)`
   overflow: hidden;
 `;
 
-const DivElement: FC = ({ children }) => <div>{children}</div>;
+const DivElement: FC<React.PropsWithChildren<unknown>> = ({ children }) => (
+  <div>{children}</div>
+);
 
 const NotificationContainer = styled.div`
   display: flex;
@@ -224,14 +226,13 @@ LiveSaleDetails.fragments = {
     ${TokenOwner.fragments.token}
     ${BuyField.fragments.token}
     ${useGetTokenSingleSaleDetails.fragments.token}
-  `,
+  ` as TypedDocumentNode<LiveSaleDetails_token>,
   offer: gql`
     fragment LiveSaleDetails_offer on TokenOffer {
       id
-      priceWei: price
       endDate
       ...SalePrice_offer
     }
     ${SalePrice.fragments.offer}
-  `,
+  ` as TypedDocumentNode<LiveSaleDetails_offer>,
 };

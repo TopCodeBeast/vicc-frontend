@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { defineMessage } from 'react-intl';
 
 import { withFragments } from '@sorare/core/src/lib/gql';
@@ -35,7 +35,7 @@ const getSeasonsRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetSeasonsRule on Vicc5Leaderboard {
+      fragment GetSeasonsRule on So5Leaderboard {
         slug
         displayedRules {
           id
@@ -45,7 +45,7 @@ const getSeasonsRule = withFragments(
           }
         }
       }
-    `,
+    ` as TypedDocumentNode<GetSeasonsRule>,
   }
 );
 

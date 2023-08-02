@@ -8,19 +8,24 @@ import UninteractiveStarterBundlePreviewSkeleton from '@football/components/star
 const Line = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding: var(--double-unit);
+  padding: var(--intermediate-unit);
   border-top: 1px solid var(--c-neutral-300);
 `;
-export const LoadingPrimaryOfferPreview = () => {
+type Props = {
+  light?: boolean;
+};
+export const LoadingPrimaryOfferPreview = ({ light }: Props) => {
   return (
     <>
       <UninteractiveStarterBundlePreviewSkeleton />
       <Line>&nbsp;</Line>
-      <Line>
-        <Button color="blue" medium>
-          <DotsLoader />
-        </Button>
-      </Line>
+      {!light && (
+        <Line>
+          <Button color="blue" medium>
+            <DotsLoader />
+          </Button>
+        </Line>
+      )}
     </>
   );
 };

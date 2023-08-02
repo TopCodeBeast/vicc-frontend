@@ -1,24 +1,15 @@
-import { FunctionComponent, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
-import styled from 'styled-components';
 
+import { PasswordError } from '@sorare/wallet-shared';
 import Button from '@core/atoms/buttons/Button';
-import Dialog from '@core/atoms/layout/Dialog';
-import { Text16, Title5 } from '@core/atoms/typography';
-import {
-  GraphQLResult,
-  GraphqlForm,
-  SubmitButtonProps,
-  TextField,
-} from '@core/components/form/Form';
-import { OTP_ATTEMPT_LENGTH } from '@core/constants/verificationCode';
+import { GraphQLResult } from '@core/components/form/Form';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
-import { useIntlContext } from '@core/contexts/intl';
 import { useSnackNotificationContext } from '@core/contexts/snackNotification';
 import { useWalletContext } from '@core/contexts/wallet';
-import useScreenSize from '@core/hooks/device/useScreenSize';
 import useUpdate2FA from '@core/hooks/useUpdate2FA';
-import { glossary, userAttributes } from '@core/lib/glossary';
+
+import { Behind2FADialog, Centered, WithOtpAttempt } from '../Behind2FADialog';
 
 const messages = defineMessages({
   cta: {
@@ -40,36 +31,15 @@ const messages = defineMessages({
   },
 });
 
-const StyledGraphqlForm = styled(GraphqlForm)`
-  margin-bottom: 0;
-`;
-const DialogContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--double-unit);
-`;
-const Centered = styled(Text16)`
-  text-align: center;
-`;
-const DialogForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--double-unit);
-  padding: var(--double-unit);
-  border: 1px solid var(--c-neutral-300);
-  border-radius: var(--double-unit);
-  box-shadow: var(--shadow-200);
-  align-self: stretch;
-`;
+type PasswordPromptOptions = { error?: PasswordError };
+
+const INVALID_PASSWORD = 7_000;
 
 export const Disable2FA = () => {
-  const { formatMessage } = useIntlContext();
   const { getPassword } = useWalletContext();
-  const { up: isTablet } = useScreenSize('tablet');
 
   const [disable2FADialog, setDisable2FADialog] = useState(false);
+  const [latestPasswordHash, setLatestPasswordHash] = useState<string>();
   const { showNotification } = useSnackNotificationContext();
   const { currentUser } = useCurrentUserContext();
 
@@ -77,28 +47,76 @@ export const Disable2FA = () => {
 
   if (!currentUser) return null;
 
-  const submit = async (
-    attributes: any,
-    onResult: (result: GraphQLResult) => void,
-    onCancel: () => void
-  ) => {
-    const currentPasswordHash = await getPassword();
-    if (!currentPasswordHash) {
-      onCancel();
-      return;
-    }
-
-    const { data: mutationData } = await disable2FAMutation({
+  const doDisable2FAMutation = async (
+    attributes: WithOtpAttempt,
+    password: string
+  ): ReturnType<typeof disable2FAMutation> => {
+    return disable2FAMutation({
       variables: {
         input: {
           ...attributes,
-          password: currentPasswordHash,
+          password,
         },
       },
     });
-    if (mutationData?.disable2Fa) {
-      onResult(mutationData.disable2Fa);
+  };
+
+  const promptForPassword = async ({ error }: PasswordPromptOptions = {}) => {
+    const currentPasswordHash = await getPassword({
+      error,
+      unlockWallet: false,
+    });
+    if (!currentPasswordHash) {
+      setDisable2FADialog(false);
+      return undefined;
     }
+    setLatestPasswordHash(currentPasswordHash);
+    setDisable2FADialog(true);
+    return currentPasswordHash;
+  };
+
+  const promptForPasswordIfNecessaryAndDisable2Fa = async (
+    attributes: WithOtpAttempt,
+    password: string | undefined,
+    passwordPromptOptions?: PasswordPromptOptions
+  ) => {
+    const usedPassword =
+      password || (await promptForPassword(passwordPromptOptions));
+    if (!usedPassword) {
+      return undefined;
+    }
+    return doDisable2FAMutation(attributes, usedPassword);
+  };
+
+  const submit = async (
+    attributes: WithOtpAttempt,
+    onResult: (result: GraphQLResult) => void,
+    onCancel: () => void
+  ) => {
+    let result = await promptForPasswordIfNecessaryAndDisable2Fa(
+      attributes,
+      latestPasswordHash
+    );
+    while (result?.data?.disable2Fa) {
+      const { disable2Fa } = result.data;
+      if (disable2Fa.errors.length === 0) {
+        onResult(disable2Fa);
+        return;
+      }
+      if (disable2Fa.errors[0].code === INVALID_PASSWORD) {
+        // retry forcing a new password to be input
+        // eslint-disable-next-line no-await-in-loop
+        result = await promptForPasswordIfNecessaryAndDisable2Fa(
+          attributes,
+          undefined,
+          { error: PasswordError.INVALID_PASSWORD }
+        );
+      } else {
+        onResult(disable2Fa);
+        return;
+      }
+    }
+    onCancel();
   };
 
   const onSuccess = () => {
@@ -109,64 +127,31 @@ export const Disable2FA = () => {
     <div>
       <Button
         small
-        onClick={() => setDisable2FADialog(true)}
+        onClick={() => {
+          promptForPassword();
+        }}
         color="red"
         stroke
       >
         <FormattedMessage {...messages.cta} />
       </Button>
-      <Dialog
-        open={disable2FADialog}
-        onClose={() => setDisable2FADialog(false)}
-        headerCentered
-        title={
-          <Title5>
-            <FormattedMessage {...glossary.twofa} />
-          </Title5>
-        }
-        fullScreen={!isTablet}
+      <Behind2FADialog
+        opened={disable2FADialog}
+        setOpened={setDisable2FADialog}
+        submit={submit}
+        submitMessage={messages.submit}
+        onSuccess={onSuccess}
+        submitButtonProps={{
+          color: 'red',
+        }}
       >
-        <StyledGraphqlForm
-          onSubmit={(values, doOnResult, doOnCancel) => {
-            submit(values, doOnResult, doOnCancel);
-          }}
-          onChange={(values, doSubmit) => {
-            const { otpAttempt } = values;
-            if (otpAttempt?.length === OTP_ATTEMPT_LENGTH) doSubmit();
-          }}
-          onSuccess={onSuccess}
-          render={(
-            Error: React.ComponentType,
-            SubmitButton: FunctionComponent<SubmitButtonProps>
-          ) => (
-            <DialogContent>
-              <Centered>
-                <FormattedMessage {...messages.dialogDescription} />
-              </Centered>
-              <Centered>
-                <FormattedMessage {...messages.dialogDescriptionRecovery} />
-              </Centered>
-
-              <DialogForm>
-                <div>
-                  <Error />
-                </div>
-
-                <Centered
-                  bold
-                  required
-                  name="otpAttempt"
-                  label={formatMessage(userAttributes.otpDisableAttempts)}
-                  as={TextField}
-                />
-                <SubmitButton medium stroke color="red">
-                  <FormattedMessage {...messages.submit} />
-                </SubmitButton>
-              </DialogForm>
-            </DialogContent>
-          )}
-        />
-      </Dialog>
+        <Centered>
+          <FormattedMessage {...messages.dialogDescription} />
+        </Centered>
+        <Centered>
+          <FormattedMessage {...messages.dialogDescriptionRecovery} />
+        </Centered>
+      </Behind2FADialog>
     </div>
   );
 };

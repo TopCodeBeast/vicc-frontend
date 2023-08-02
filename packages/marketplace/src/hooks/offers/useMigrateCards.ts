@@ -1,4 +1,4 @@
-import { gql, useApolloClient } from '@apollo/client';
+import { TypedDocumentNode, gql, useApolloClient } from '@apollo/client';
 
 import {
   Blockchain,
@@ -9,15 +9,19 @@ import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { useWalletContext } from '@sorare/core/src/contexts/wallet';
 
 import {
-  // currentBlockHeightQuery,
+  currentBlockHeightQuery,
+  currentBlockHeightQueryVariables,
   useMigrateCards_token,
 } from './__generated__/useMigrateCards.graphql';
 
-// const CURRENT_BLOCK_HEIGHT_QUERY = gql`
-//   query currentBlockHeightQuery {
-//     currentBlockHeight
-//   }
-// `;
+const CURRENT_BLOCK_HEIGHT_QUERY = gql`
+  query currentBlockHeightQuery {
+    currentBlockHeight
+  }
+` as TypedDocumentNode<
+  currentBlockHeightQuery,
+  currentBlockHeightQueryVariables
+>;
 
 interface MigrationInput {
   migrateInternalCardsSignature?: string;
@@ -34,12 +38,11 @@ const useMigrateCards = () => {
   const client = useApolloClient();
 
   const getCurrentBlockNumber = async () => {
-    // const { data } = await client.query<currentBlockHeightQuery>({
-    //   query: CURRENT_BLOCK_HEIGHT_QUERY,
-    // });
+    const { data } = await client.query<currentBlockHeightQuery>({
+      query: CURRENT_BLOCK_HEIGHT_QUERY,
+    });
 
-    // return data.currentBlockHeight;
-    return 0; //TODO****
+    return data.currentBlockHeight;
   };
 
   return async (tokens: useMigrateCards_token[]) => {
@@ -102,7 +105,7 @@ useMigrateCards.fragments = {
         blockchain
       }
     }
-  `,
+  ` as TypedDocumentNode<useMigrateCards_token>,
 };
 
 export default useMigrateCards;

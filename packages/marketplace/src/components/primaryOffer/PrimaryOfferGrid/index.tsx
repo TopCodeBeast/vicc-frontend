@@ -16,10 +16,7 @@ import { Grid } from '@marketplace/components/market/Grid';
 import PrimaryOfferPreview, {
   LoadingPrimaryOfferPreview,
 } from '@marketplace/components/primaryOffer/PrimaryOfferPreview';
-import {
-  PrimaryOffersByIdsQuery,
-  PrimaryOffersByIdsQueryVariables,
-} from '@marketplace/lib/__generated__/fragments.graphql';
+import { PrimaryOffersByIdsQuery } from '@marketplace/lib/__generated__/fragments.graphql';
 import { PRIMARY_OFFERS_BY_IDS_QUERY } from '@marketplace/lib/fragments';
 
 type PrimaryOffersByIdsQuery_tokens_primaryOffers =
@@ -65,12 +62,16 @@ const Loader = ({ customLoadingPrimaryOfferPreview }: LoaderProps) => {
 
 type Props = {
   renderStarterBundleProjection?: (id: string) => ReactNode;
-  CustomPreview?: ComponentType<{
-    to: string;
-    assetIds: string[];
-  }> | null;
+  CustomPreview?: ComponentType<
+    React.PropsWithChildren<{
+      to: string;
+      assetIds: string[];
+    }>
+  > | null;
   customLoadingPrimaryOfferPreview?: ReactNode;
-  BatchSportSpecificQuery?: ComponentType<{ assetIds: string[] }> | null;
+  BatchSportSpecificQuery?: ComponentType<
+    React.PropsWithChildren<{ assetIds: string[] }>
+  > | null;
 };
 const PrimaryOfferGrid = ({
   renderStarterBundleProjection,
@@ -90,10 +91,7 @@ const PrimaryOfferGrid = ({
     [hits]
   );
 
-  const { data, loading } = useQuery<
-    PrimaryOffersByIdsQuery,
-    PrimaryOffersByIdsQueryVariables
-  >(PRIMARY_OFFERS_BY_IDS_QUERY, {
+  const { data, loading } = useQuery(PRIMARY_OFFERS_BY_IDS_QUERY, {
     variables: {
       ids: primaryOffersIds,
     },
@@ -110,7 +108,7 @@ const PrimaryOfferGrid = ({
       if (differenceInSeconds(Date.now(), endDate) > 10) {
         return false;
       }
-      if (primaryOffer.cancelledAt || primaryOffer.buyer) {
+      if (primaryOffer.cancelledAt) {
         return false;
       }
 

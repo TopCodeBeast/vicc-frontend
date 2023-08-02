@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { defineMessage } from 'react-intl';
 
 import { withFragments } from '@sorare/core/src/lib/gql';
@@ -38,7 +38,7 @@ const getCompetitionsRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetInternationalCompetitionsRule on Vicc5Leaderboard {
+      fragment GetInternationalCompetitionsRule on So5Leaderboard {
         slug
         displayedRules {
           id
@@ -48,7 +48,7 @@ const getCompetitionsRule = withFragments(
           }
         }
       }
-    `,
+    ` as TypedDocumentNode<GetInternationalCompetitionsRule>,
   }
 );
 

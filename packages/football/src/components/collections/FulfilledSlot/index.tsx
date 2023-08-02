@@ -1,12 +1,12 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useState } from 'react';
 import styled from 'styled-components';
 
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
-import { CardImg } from '@sorare/core/src/components/card/CardImg';
-import CardScore from '@sorare/core/src/components/collections/CardScore';
+import GlareEffect from '@sorare/core/src/atoms/animations/GlareEffect';
+import { CardScore } from '@sorare/core/src/components/collections/CardScore';
 import OpenItemDialogLink from '@sorare/core/src/components/link/OpenItemDialogLink';
-import { isListedOnMarket } from '@sorare/core/src/lib/cards';
+import { isMyCardListedOnMarket } from '@sorare/core/src/lib/cards';
 
 import CardPreview from '@football/components/collections/CardPreview';
 
@@ -42,14 +42,14 @@ export const FulfilledSlot = ({
 
   const { card, scoreBreakdown } = highlightedCardCollectionCard;
 
-  const cardListed = isListedOnMarket(card);
+  const cardListed = isMyCardListedOnMarket(card);
 
   return (
     <Wrapper>
       <StyledOpenItemDialogLink item={card} sport={Sport.FOOTBALL}>
-        <CardImg
+        <GlareEffect
           width={320}
-          src={card.pictureUrl || ''}
+          pictureUrl={card.pictureUrl || ''}
           alt={slot.player.displayName}
         />
       </StyledOpenItemDialogLink>
@@ -80,7 +80,7 @@ FulfilledSlot.fragments = {
           slug
           assetId
           pictureUrl
-          ...isListedOnMarket_card
+          ...isMyCardListedOnMarket_card
         }
         ...CardPreview_cardCollectionCard
       }
@@ -93,13 +93,13 @@ FulfilledSlot.fragments = {
       }
     }
     ${CardPreview.fragments.cardCollectionCard}
-    ${isListedOnMarket.fragments.card}
-  `,
+    ${isMyCardListedOnMarket.fragments.card}
+  ` as TypedDocumentNode<FulfilledSlot_userCardCollectionSlot>,
   cardCollection: gql`
     fragment FulfilledSlot_cardCollection on CardCollection {
       slug
       ...CardPreview_cardCollection
     }
     ${CardPreview.fragments.cardCollection}
-  `,
+  ` as TypedDocumentNode<FulfilledSlot_cardCollection>,
 };

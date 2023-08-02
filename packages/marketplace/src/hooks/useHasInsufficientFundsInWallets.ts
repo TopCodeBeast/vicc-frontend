@@ -6,6 +6,13 @@ import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { useFiatBalance } from '@sorare/core/src/hooks/wallets/useFiatBalance';
 import { getMonetaryAmountIndex } from '@sorare/core/src/lib/monetaryAmount';
 
+type Args =
+  | {
+      monetaryAmountToPayWithFiatWallet: MonetaryAmountOutput;
+      monetaryAmountToPayWithEthWallet: MonetaryAmountOutput;
+    }
+  | MonetaryAmountOutput;
+
 export const useHasInsufficientFundsInWallets = () => {
   const { currentUser } = useCurrentUserContext();
   const { availableBalanceInCents, fiatCurrency } = useFiatBalance();
@@ -24,22 +31,33 @@ export const useHasInsufficientFundsInWallets = () => {
   );
 
   return useCallback(
-    (monetaryAmountToPay: MonetaryAmountOutput) => {
+    (args: Args) => {
+      const monetaryAmountToPayWithEthWallet =
+        'monetaryAmountToPayWithEthWallet' in args
+          ? args.monetaryAmountToPayWithEthWallet
+          : args;
+      const monetaryAmountToPayWithFiatWallet =
+        'monetaryAmountToPayWithFiatWallet' in args
+          ? args.monetaryAmountToPayWithFiatWallet
+          : args;
+
       const insufficientFundsInEthWallet = availableBalance.lt(
-        monetaryAmountToPay.wei
+        monetaryAmountToPayWithEthWallet.wei
       );
       const diffInWeiForEthWallet =
         (insufficientFundsInEthWallet &&
-          diff(availableBalance, monetaryAmountToPay.wei)) ||
+          diff(availableBalance, monetaryAmountToPayWithEthWallet.wei)) ||
         undefined;
       const insufficientFundsInFiatWallet = bigAvailableFiatCentsBalance.lt(
-        monetaryAmountToPay[getMonetaryAmountIndex(fiatCurrency)]
+        monetaryAmountToPayWithFiatWallet[getMonetaryAmountIndex(fiatCurrency)]
       );
       const diffInFiatCentsForFiatWallet =
         (insufficientFundsInFiatWallet &&
           diff(
             bigAvailableFiatCentsBalance,
-            monetaryAmountToPay[getMonetaryAmountIndex(fiatCurrency)]
+            monetaryAmountToPayWithFiatWallet[
+              getMonetaryAmountIndex(fiatCurrency)
+            ]
           ).toNumber()) ||
         undefined;
       return {

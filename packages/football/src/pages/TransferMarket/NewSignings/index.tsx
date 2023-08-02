@@ -1,11 +1,9 @@
-import { gql } from '@apollo/client';
 import { faInfoCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Title2 } from '@sorare/core/src/atoms/typography';
-import Carousel from '@sorare/core/src/components/content/banners/Carousel';
 import { ConversionCreditBanner } from '@sorare/core/src/components/conversionCredit/ConversionCreditBanner';
 import { useTitleAndDescription } from '@sorare/core/src/hooks/useTitleAndDescription';
 import { createCardSorts } from '@sorare/core/src/lib/algolia';
@@ -42,8 +40,7 @@ const NewSignings = () => {
         onClick={() => setForceShowOnboardingDialog(false)}
       />
       <ConversionCreditBanner />
-      <PageTemplate>
-        <Carousel slotName="so5_primary_market" />
+      <PageTemplate showBack>
         <AdvancedCardSearch
           cardFilters={primaryMarketFilters}
           advancedCardFilters={advancedPrimaryMarketFilters}
@@ -73,17 +70,6 @@ const NewSignings = () => {
       </PageTemplate>
     </>
   );
-};
-
-NewSignings.fragments = {
-  card: gql`
-    fragment NewSignings_card on Card {
-      slug
-      assetId
-      ...AdvancedCardSearch_card
-    }
-    ${AdvancedCardSearch.fragments.card}
-  `,
 };
 
 export default NewSignings;

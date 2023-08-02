@@ -1,9 +1,9 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useState } from 'react';
 import styled from 'styled-components';
 
 import Dialog from '@core/components/dialog';
-// import UpdateProfile from '@core/components/settings/UpdateProfile';
+import UpdateProfile from '@core/components/settings/UpdateProfile';
 import ActivityIndicator from '@core/components/user/ActivityIndicator';
 import Avatar from '@core/components/user/Avatar';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
@@ -14,6 +14,8 @@ export interface Props {
   user: ActiveUserAvatar_user;
   variant: 'extraSmall' | 'small' | 'medium' | 'large';
   placeholderUrl?: string;
+  largePictureUrl?: string | null;
+  editable?: boolean;
 }
 
 const UpdateProfileWrapper = styled.div`
@@ -23,19 +25,26 @@ const UpdateProfileWrapper = styled.div`
 
 const extraSmallActivityIndicatorStyle = {
   '--radius': '3px',
-  '--offset-right': '2px',
-  '--offset-bottom': '4px',
+  // harcoded value to work both on mobile where font-size is 12 and desktop where it's 14
+  '--offset-right': 'calc(1em - 12px)',
+  '--offset-bottom': 'calc(1em - 9px)',
   '--gap': '1px',
 } as React.CSSProperties;
 
-const ActiveUserAvatar = ({ user, variant, placeholderUrl }: Props) => {
+const ActiveUserAvatar = ({
+  user,
+  variant,
+  placeholderUrl,
+  largePictureUrl,
+  editable = true,
+}: Props) => {
   const { currentUser } = useCurrentUserContext();
   const [openUpdatingPicture, setOpenUpdatingPicture] = useState(false);
 
   const otherUser = currentUser?.slug !== user.slug;
 
   // disable edit mode on those extraSmall avatars
-  const withoutEdit = variant === 'extraSmall';
+  const withoutEdit = !editable || variant === 'extraSmall';
 
   // only support touch delay when we're not opening the edit modal
   const enterTouchDelay = withoutEdit || otherUser ? 0 : undefined;
@@ -48,7 +57,12 @@ const ActiveUserAvatar = ({ user, variant, placeholderUrl }: Props) => {
         variant === 'extraSmall' ? extraSmallActivityIndicatorStyle : undefined
       }
     >
-      <Avatar user={user} variant={variant} placeholderUrl={placeholderUrl} />
+      <Avatar
+        user={user}
+        variant={variant}
+        placeholderUrl={placeholderUrl}
+        largePictureUrl={largePictureUrl}
+      />
     </ActivityIndicator>
   );
 
@@ -67,8 +81,7 @@ const ActiveUserAvatar = ({ user, variant, placeholderUrl }: Props) => {
         onClose={() => setOpenUpdatingPicture(false)}
         body={
           <UpdateProfileWrapper>
-            {/* <UpdateProfile onSubmit={() => setOpenUpdatingPicture(false)} /> */}
-            <>UpdateProfile</>
+            <UpdateProfile onSubmit={() => setOpenUpdatingPicture(false)} />
           </UpdateProfileWrapper>
         }
       />
@@ -85,7 +98,7 @@ ActiveUserAvatar.fragments = {
     }
     ${ActivityIndicator.fragments.user}
     ${Avatar.fragments.publicUserInfoInterface}
-  `,
+  ` as TypedDocumentNode<ActiveUserAvatar_user>,
 };
 
 export default ActiveUserAvatar;

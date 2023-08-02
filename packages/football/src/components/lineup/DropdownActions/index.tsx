@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import {
   faCheck,
   faEllipsis,
@@ -88,7 +88,6 @@ const DropdownActions = ({
       {so5Lineup?.socialPictureUrls &&
         (({ closeDropdown }) => (
           <SocialShare
-            key="social-share"
             image={so5Lineup.socialPictureUrls}
             trackingEventName={socialShareEventName.SHARE_LINEUP}
             trackingEventContext={socialShareEventContext.LEADERBOARD}
@@ -124,7 +123,6 @@ const DropdownActions = ({
       {availableActions.includes(LeaderboardAction.Confirm) &&
         (({ closeDropdown }) => (
           <Item
-            key="confirm"
             onClick={() => {
               onConfirm();
               closeDropdown?.();
@@ -142,7 +140,6 @@ const DropdownActions = ({
       {availableActions.includes(LeaderboardAction.Delete) &&
         (({ closeDropdown }) => (
           <DeleteItem
-            key="delete"
             onClick={() => {
               onDelete();
               closeDropdown?.();
@@ -162,7 +159,7 @@ const DropdownActions = ({
 
 DropdownActions.fragments = {
   so5Lineup: gql`
-    fragment DropdownActions_so5Lineup on Vicc5Lineup {
+    fragment DropdownActions_so5Lineup on So5Lineup {
       id
       socialPictureUrls {
         post
@@ -174,14 +171,14 @@ DropdownActions.fragments = {
     ${getLineupActions.fragments.so5Lineup}
     ${SocialShare.fragments.socialPictures}
     ${useLineupSharingAttributes.fragments.so5Lineup}
-  `,
+  ` as TypedDocumentNode<DropdownActions_so5Lineup>,
   so5Leaderboard: gql`
-    fragment DropdownActions_so5Leaderboard on Vicc5Leaderboard {
+    fragment DropdownActions_so5Leaderboard on So5Leaderboard {
       slug
       ...getLineupActions_so5Leaderboard
     }
     ${getLineupActions.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<DropdownActions_so5Leaderboard>,
 };
 
 export default DropdownActions;

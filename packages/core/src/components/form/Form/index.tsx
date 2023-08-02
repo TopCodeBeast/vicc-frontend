@@ -32,8 +32,8 @@ export type SubmitButtonProps = Omit<LoadingButtonProps, 'loading'>;
 interface Props<R> {
   className?: string;
   render: (
-    FormError: FunctionComponent<{ code?: boolean }>,
-    SubmitButton: FunctionComponent<SubmitButtonProps>,
+    FormError: FunctionComponent<React.PropsWithChildren<{ code?: boolean }>>,
+    SubmitButton: FunctionComponent<React.PropsWithChildren<SubmitButtonProps>>,
     submitting: boolean
   ) => ReactNode;
   onSubmit: (
@@ -244,8 +244,16 @@ export const Form = <R extends { error?: string }, E>({
       !submitting &&
       !isEqual(currentFormState, issuedFormState)
     ) {
-      onChange(currentFormState, handleConfirm);
-      setIssuedFormState(currentFormState);
+      // Since React 18, we have an unexpected behavior with the batched updates
+      // the onChange could be called multiple times, so we need to make sure
+      // we only call it once per form state change.
+      // This is done by comparing the current form state with the last issued once within the same batch
+      setIssuedFormState(v => {
+        if (!isEqual(currentFormState, v)) {
+          onChange(currentFormState, handleConfirm);
+        }
+        return currentFormState;
+      });
     }
   }, [onChange, formState, handleConfirm, submitting, issuedFormState]);
 
@@ -346,4 +354,3 @@ export const RestForm = (props: Props<RestResult>) => (
 export { default as Field } from './Field';
 export { default as TextField } from './TextField';
 export { default as SwitchField } from './SwitchField';
-export { default as TextFieldWithConversion } from './TextFieldWithConversion';

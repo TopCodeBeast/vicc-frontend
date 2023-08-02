@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faBars } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -14,6 +14,8 @@ import { ValidWidths } from '@core/atoms/ui/ResponsiveImg';
 import { CardImg, CardImgLoadingWrapper } from '@core/components/card/CardImg';
 import { laptopAndAbove } from '@core/style/mediaQuery';
 
+import { UninteractiveToken_token } from './__generated__/index.graphql';
+
 export type DraggableProps = HTMLAttributes<HTMLDivElement>;
 
 interface ClickHandlerProps {
@@ -23,7 +25,7 @@ interface ClickHandlerProps {
 interface IProps {
   token: {
     slug: string;
-    pictureUrl?: string | null; //Modified*****
+    pictureUrl: string | null;
   };
   draggableProps?: DraggableProps;
   width?: ValidWidths;
@@ -107,7 +109,7 @@ UninteractiveToken.fragments = {
       slug
       pictureUrl(derivative: "tinified")
     }
-  `,
+  ` as TypedDocumentNode<UninteractiveToken_token>,
 };
 
 export default UninteractiveToken;

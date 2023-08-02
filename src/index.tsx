@@ -1,26 +1,33 @@
-import 'regenerator-runtime';
-
 import '@sorare/core/src/polyfills';
 
-// If React is not in the dom before ReactDOM it can lead to errors like
-// ReadDOM.render is not a function.
-// eslint-disable-next-line sorare/no-unrendered-component-imports
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 
-
+import { withProfiler } from '@sorare/core/src/contexts/sentry/sentry';
+import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import { withFFProvider } from '@sorare/core/src/lib/featureFlags';
 import './remove-child-workaround';
 
 import '@sorare/core/src/style/style.css';
-import AppRoot from './AppProviders';
-import Router from './Router';
+import AppRouter from 'AppRouter';
 
-const Root = () => (
-  <AppRoot>
-    <Router />
-  </AppRoot>
-);
+const Root = () => {
+  const {
+    flags: { useReorgApp = false },
+  } = useFeatureFlags();
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+  return (
+    <BrowserRouter>
+      <AppRouter isReorgApp={useReorgApp} />
+    </BrowserRouter>
+  );
+};
+
+const RootWithLDProvider = withProfiler(withFFProvider(Root));
+
+const container = document.getElementById('root');
+const root = createRoot(container!);
+root.render(<RootWithLDProvider />);
 
 // unregister any service worker left-over (see https://gitlab.com/sorare/frontend/-/merge_requests/3852)
 if ('serviceWorker' in navigator) {

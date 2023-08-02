@@ -1,4 +1,4 @@
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
 import { Text16 } from '@core/atoms/typography';
@@ -15,15 +15,11 @@ interface Props {
 }
 const SubscribersCount = ({ subscribable, shorten }: Props) => {
   const subscribersCount = useSubscribersCount(subscribable);
-
+  const { formatNumber } = useIntl();
   return (
     <Count>
       {shorten ? (
-        <span>
-          {Intl.NumberFormat('en', { notation: 'compact' }).format(
-            subscribersCount
-          )}
-        </span>
+        <span>{formatNumber(subscribersCount, { notation: 'compact' })}</span>
       ) : (
         <FormattedMessage
           id="Follower.count"

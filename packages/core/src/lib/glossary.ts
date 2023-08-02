@@ -6,6 +6,10 @@ import { AlgoliaCardIndexesName } from '@core/contexts/config';
 export const CAPTAIN = 'C';
 
 export const glossary = defineMessages({
+  unlock: {
+    id: 'Glossary.unlock',
+    defaultMessage: 'Unlock',
+  },
   accept: {
     id: 'DirectOfferStatus.accept',
     defaultMessage: 'Accept',
@@ -111,6 +115,11 @@ export const glossary = defineMessages({
     id: 'Lobby.Upcoming.Delete',
     defaultMessage: 'Delete',
   },
+
+  discount: {
+    id: 'Glossary.discount',
+    defaultMessage: 'Discount',
+  },
   create: {
     id: 'DeckForm.create',
     defaultMessage: 'Create',
@@ -143,6 +152,10 @@ export const glossary = defineMessages({
     id: 'TransactionsHistoryDeposit.title',
     defaultMessage: 'Deposit',
   },
+  lineups: {
+    id: 'Glossary.lineups',
+    defaultMessage: 'Lineups',
+  },
   ordinalStyled: {
     id: 'Glossary.ordinalStyled',
     defaultMessage:
@@ -164,6 +177,7 @@ export const glossary = defineMessages({
   viewMore: { id: 'Glossary.ViewMore', defaultMessage: 'View More' },
   seeAll: { id: 'Glossary.SeeAll', defaultMessage: 'See all' },
   seeDetails: { id: 'Glossary.SeeDetails', defaultMessage: 'See details' },
+  matches: { id: 'Glossary.matches', defaultMessage: 'Matches' },
   more: { id: 'Glossary.More', defaultMessage: 'More' },
   less: { id: 'Glossary.Less', defaultMessage: 'Less' },
   register: { id: 'Glossary.Register', defaultMessage: 'Register' },
@@ -285,6 +299,18 @@ export const glossary = defineMessages({
     id: 'Glossary.countryOfResidence',
     defaultMessage: 'Country of residence',
   },
+  nationality: {
+    id: 'Glossary.nationality',
+    defaultMessage: 'Nationality',
+  },
+  dateOfBirth: {
+    id: 'Glossary.dateOfBirth',
+    defaultMessage: 'Date of birth',
+  },
+  notMajorError: {
+    id: 'Glossary.notMajorError',
+    defaultMessage: 'You must be over 18.',
+  },
   payWith: {
     id: 'Glossary.payWith',
     defaultMessage: 'Pay with',
@@ -292,6 +318,14 @@ export const glossary = defineMessages({
   showPlayerInfo: {
     id: 'Glossary.showPlayerInfo',
     defaultMessage: 'Show player info',
+  },
+  doItLater: {
+    id: 'Glossary.doItLater',
+    defaultMessage: 'I’ll do it later',
+  },
+  getStarted: {
+    id: 'Draft.Action.GetStarted',
+    defaultMessage: 'Get Started',
   },
 });
 
@@ -327,13 +361,25 @@ export const navLabels = defineMessages({
     id: 'navLabels.market',
     defaultMessage: 'Market',
   },
+  auctions: {
+    id: 'navLabels.auctions',
+    defaultMessage: 'Auctions',
+  },
   myClub: {
     id: 'Nav.myClub',
     defaultMessage: 'My Club',
   },
+  clubHistory: {
+    id: 'Nav.clubHistory',
+    defaultMessage: 'Club History',
+  },
   myCards: {
     id: 'Nav.myCards',
     defaultMessage: 'My Cards',
+  },
+  myMarketActivity: {
+    id: 'Nav.myMarketActivity',
+    defaultMessage: 'My Market Activity',
   },
   myGallery: {
     id: 'Nav.myGallery',
@@ -373,6 +419,10 @@ export const navLabels = defineMessages({
     id: 'Nav.settings',
     defaultMessage: 'Settings',
   },
+  managerAssistant: {
+    id: 'Nav.managerAssistant',
+    defaultMessage: 'Manager Assistant',
+  },
   mySorare: {
     id: 'Nav.mySorare',
     defaultMessage: 'My Sorare',
@@ -405,6 +455,10 @@ export const navLabels = defineMessages({
   terms: {
     id: 'Nav.terms',
     defaultMessage: 'Terms & Conditions',
+  },
+  play: {
+    id: 'Nav.play',
+    defaultMessage: 'Play',
   },
   privacyPolicy: {
     id: 'Nav.privacyPolicy',
@@ -492,7 +546,11 @@ export const navLabels = defineMessages({
   },
   dailyGames: {
     id: 'Nav.dailyGames',
-    defaultMessage: 'Daily Exhibitions',
+    defaultMessage: 'Daily Exhibitions (Beta)',
+  },
+  weekly: {
+    id: 'Nav.weekly',
+    defaultMessage: 'Weekly',
   },
 });
 
@@ -640,6 +698,10 @@ export const fantasy = defineMessages({
     id: 'so5.past',
     defaultMessage: 'Past',
   },
+  gameWeek: {
+    id: 'Fantasy.gameWeek',
+    defaultMessage: 'Game Week {gameWeek}',
+  },
   ended: {
     id: 'TimeLeft.ended',
     defaultMessage: 'Ended',
@@ -684,6 +746,10 @@ export const fantasy = defineMessages({
     defaultMessage: 'Score',
   },
   swap: { id: 'Fantasy.Swap', defaultMessage: 'Swap' },
+  total: {
+    id: 'Fantasy.total',
+    defaultMessage: 'Total',
+  },
   upcoming: {
     id: 'so5.upcoming',
     defaultMessage: 'Upcoming',
@@ -738,10 +804,6 @@ export const draftLabels = defineMessages({
   selectYourPlayers: {
     id: 'Draft.Title.SelectPlayer',
     defaultMessage: 'Select your players',
-  },
-  getStarted: {
-    id: 'Draft.Action.GetStarted',
-    defaultMessage: 'Get Started',
   },
   redraft: {
     id: 'Draft.Action.Redraft',
@@ -881,6 +943,10 @@ export const filters = defineMessages({
   onSaleFilterLabel: {
     id: 'RefineOnSale.label',
     defaultMessage: 'Cards on sale',
+  },
+  showDetailsLabel: {
+    id: 'ShowDetails.label',
+    defaultMessage: 'Show details',
   },
   leagueFilterTitle: {
     id: 'LeagueFilter.competitionEligibility',
@@ -1106,6 +1172,10 @@ export const payment = defineMessages({
     id: 'Glossary.sorareEthWallet',
     defaultMessage: 'ETH Wallet',
   },
+  sorareCashWallet: {
+    id: 'Glossary.sorareCashWallet',
+    defaultMessage: 'Cash Wallet',
+  },
   payment: {
     id: 'Glossary.payment',
     defaultMessage: 'Payment',
@@ -1180,5 +1250,21 @@ export const transferMarket = defineMessages({
   bundle: {
     id: 'Bundle.bundle',
     defaultMessage: 'Bundle',
+  },
+});
+
+export const fiatWallet = defineMessages({
+  addCash: { id: 'FiatWallet.addCash', defaultMessage: 'Add cash' },
+  addMyId: {
+    id: 'FiatWallet.addMyId',
+    defaultMessage: 'Add my ID',
+  },
+  activateCashWallet: {
+    id: 'FiatWallet.activateCashWallet',
+    defaultMessage: 'Activate my Cash Wallet',
+  },
+  activateCashWalletAndAddAnId: {
+    id: 'FiatWallet.activateCashWalletAndAddAnId',
+    defaultMessage: 'Activate Cash Wallet and add an ID',
   },
 });

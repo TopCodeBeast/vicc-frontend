@@ -2,17 +2,15 @@ import { PaymentMethod as StripePaymentMethod } from '@stripe/stripe-js';
 
 import { Currency } from '@sorare/core/src/__generated__/globalTypes';
 import CreditCard from '@sorare/core/src/components/buyActions/CreditCard';
+import NewCreditCard from '@sorare/core/src/components/creditCard/NewCreditCard';
 
 import EthWallet from '@marketplace/components/buyActions/PaymentBox/Methods/EthWallet';
 import FiatWallet from '@marketplace/components/buyActions/PaymentBox/Methods/FiatWallet';
-import NewCreditCard from '@marketplace/components/buyActions/PaymentBox/Methods/NewCreditCard';
 import {
   PaymentProvider_paymentMethod,
   WalletPaymentMethod,
 } from '@marketplace/components/buyActions/PaymentProvider/types';
-// import { DisposableCard } from '@marketplace/components/buyActions/PaymentProvider/useStripePayment';
-
-type DisposableCard = any;
+import { DisposableCard } from '@marketplace/components/buyActions/PaymentProvider/useStripePayment';
 
 export type Props = {
   paymentCurrency: Currency | null;

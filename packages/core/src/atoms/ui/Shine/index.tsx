@@ -22,6 +22,8 @@ const ShineAnimation = styled.div<{
   $borderRadius: string;
   $shine: boolean;
   $delayBetweenShines: number;
+  $infinite: boolean;
+  $fraction: number;
 }>`
   position: absolute;
   inset: 0;
@@ -36,7 +38,7 @@ const ShineAnimation = styled.div<{
     z-index: 0;
     display: block;
     position: absolute;
-    --fraction: 5;
+    --fraction: ${({ $fraction }) => $fraction};
     width: calc(100% / var(--fraction));
     height: 100%;
     right: 100%;
@@ -51,7 +53,8 @@ const ShineAnimation = styled.div<{
     animation: ${({ $delayBetweenShines }) =>
         shineAnimation($delayBetweenShines)}
       ${({ $delayBetweenShines }) => $delayBetweenShines + 1}s linear
-      var(--shine-delay, 0.25s) infinite;
+      var(--shine-delay, 0.25s)
+      ${({ $infinite }) => ($infinite ? 'infinite' : '1')};
     animation-play-state: ${({ $shine }) => ($shine ? 'running' : 'paused')};
     opacity: ${({ $shine }) => ($shine ? 1 : 0)};
   }
@@ -62,14 +65,18 @@ type Props = {
   disabled?: boolean;
   borderRadius?: string;
   delayBetweenShines?: number;
+  infinite?: boolean;
+  fraction?: number;
 } & HTMLAttributes<HTMLElement>;
 
-export const Shine: React.FC<Props> = ({
+export const Shine: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   className,
   disabled = false,
   borderRadius = '0px',
   delayBetweenShines = 4,
+  infinite = true,
+  fraction = 5,
   ...divAttributes
 }) => (
   <Wrapper className={className} {...divAttributes}>
@@ -78,6 +85,8 @@ export const Shine: React.FC<Props> = ({
       $shine={!disabled}
       $borderRadius={borderRadius}
       $delayBetweenShines={delayBetweenShines}
+      $infinite={infinite}
+      $fraction={fraction}
     />
   </Wrapper>
 );

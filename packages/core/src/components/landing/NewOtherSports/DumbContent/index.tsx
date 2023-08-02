@@ -8,6 +8,7 @@ import { SorareLogo } from '@core/atoms/icons/SorareLogo';
 import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
 import { Text16 } from '@core/atoms/typography';
 import ResponsiveImg from '@core/atoms/ui/ResponsiveImg';
+import { useSportCTAProps } from '@core/components/landing/FeaturedSport/useSportCTAProps';
 import { glossary } from '@core/lib/glossary';
 import { tabletAndAbove } from '@core/style/mediaQuery';
 
@@ -116,6 +117,7 @@ export const DumbContent = ({
   cardsUrls,
 }: Props) => {
   const { formatMessage } = useIntl();
+  const CTAProps = useSportCTAProps(sport);
 
   return (
     <SportWrapper style={{ backgroundImage: `url(${bgImage})` }}>
@@ -130,7 +132,7 @@ export const DumbContent = ({
         <SportName>{title}</SportName>
         <Text16>{text}</Text16>
         <div>
-          <Button color="white" medium>
+          <Button color="white" medium {...CTAProps}>
             {formatMessage(glossary.playNow)}
           </Button>
         </div>

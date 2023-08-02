@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -10,7 +10,11 @@ import {
   useCurrentSportGallery,
 } from '@sorare/core/src/components/user/GalleryLink';
 import UserName from '@sorare/core/src/components/user/UserName';
+import useMonetaryAmount, {
+  zeroMonetaryAmount,
+} from '@sorare/core/src/hooks/useMonetaryAmount';
 import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import BuyField from '@marketplace/components/buyActions/BuyField';
@@ -64,6 +68,7 @@ const Right = styled.div`
 
 export const SingleSaleOffer = ({ token }: Props) => {
   const currentSportGallery = useCurrentSportGallery();
+  const { toMonetaryAmount } = useMonetaryAmount();
   const belongsToUser = useTokenOfferBelongsToUser();
 
   const { myMintedSingleSaleOffer, liveSingleSaleOffer, owner } = token;
@@ -77,8 +82,16 @@ export const SingleSaleOffer = ({ token }: Props) => {
 
   if (!user || user.suspended || !offer) return null;
 
-  const { priceWei, endDate } = offer;
+  const {
+    receiverSide: { amounts },
+    endDate,
+  } = offer;
 
+  const priceMonetaryAmount = toMonetaryAmount(amounts);
+  const { marketFeeAmounts } = myMintedSingleSaleOffer || {};
+  const marketFeeMonetaryAmount =
+    (marketFeeAmounts && toMonetaryAmount(marketFeeAmounts)) ||
+    zeroMonetaryAmount;
   return (
     <div>
       <Title>
@@ -103,17 +116,21 @@ export const SingleSaleOffer = ({ token }: Props) => {
       <Root>
         <SaleDetailsContainer>
           <SingleSaleOfferDetails
-            price={priceWei}
+            priceMonetaryAmount={priceMonetaryAmount}
             endDate={endDate}
             cancelled={false}
           />
           {myMintedSingleSaleOffer &&
+            liveSingleSaleOffer &&
             belongsToUser(myMintedSingleSaleOffer) &&
-            Number(myMintedSingleSaleOffer.marketFeeAmountWei) > 0 && (
+            marketFeeMonetaryAmount.eur > 0 && (
               <FeesDetailsTooltip
-                priceWei={priceWei}
-                marketFeeAmountWei={
-                  myMintedSingleSaleOffer.marketFeeAmountWei || '0'
+                monetaryAmount={toMonetaryAmount(
+                  liveSingleSaleOffer.receiverSide.amounts
+                )}
+                marketFeeMonetaryAmount={marketFeeMonetaryAmount}
+                referenceCurrency={
+                  liveSingleSaleOffer.receiverSide.amounts.referenceCurrency
                 }
               />
             )}
@@ -142,28 +159,41 @@ SingleSaleOffer.fragments = {
       }
       liveSingleSaleOffer {
         id
-        priceWei: price
         endDate
+        receiverSide {
+          id
+          amounts {
+            ...MonetaryAmountFragment_monetaryAmount
+          }
+        }
       }
       myMintedSingleSaleOffer {
         id
-        priceWei: price
         endDate
-        marketFeeAmountWei: marketFeeAmount
+        marketFeeAmounts {
+          ...MonetaryAmountFragment_monetaryAmount
+        }
         sender {
           ... on User {
             slug
+          }
+        }
+        receiverSide {
+          id
+          amounts {
+            ...MonetaryAmountFragment_monetaryAmount
           }
         }
       }
       ...BuyField_token
       ...MakeOffer_token
     }
+    ${monetaryAmountFragment}
     ${BuyField.fragments.token}
     ${MakeOffer.fragments.token}
     ${ActiveUserAvatar.fragments.user}
     ${UserName.fragments.user}
-  `,
+  ` as TypedDocumentNode<SingleSaleOffer_token>,
 };
 
 export default SingleSaleOffer;

@@ -12,20 +12,20 @@ import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import styled, { css } from 'styled-components';
 
 import { Sport } from '__generated__/globalTypes';
-import ButtonBase from 'atoms/buttons/ButtonBase';
-import { IconButton } from 'atoms/buttons/IconButton';
-import Dropdown from 'atoms/dropdowns/Dropdown';
-import { ChevronDownBold } from 'atoms/icons/ChevronDownBold';
-import { Drawer } from 'atoms/layout/Drawer';
-import { Text16, Title4 } from 'atoms/typography';
-import { HREF_HELP } from 'constants/externalLinks';
-import { INVITE, SETTINGS_HOME, useDefaultSportPages } from 'constants/routes';
-import { useWalletContext } from 'contexts/wallet';
-import { glossary, navLabels } from 'lib/glossary';
-import { Link } from 'routing/Link';
-import { Baseball } from 'routing/MultiSportAppBar/Sport/Baseball';
-import { Football } from 'routing/MultiSportAppBar/Sport/Football';
-import { NBA } from 'routing/MultiSportAppBar/Sport/NBA';
+import ButtonBase from '@core/atoms/buttons/ButtonBase';
+import { IconButton } from '@core/atoms/buttons/IconButton';
+import Dropdown from '@core/atoms/dropdowns/Dropdown';
+import { ChevronDownBold } from '@core/atoms/icons/ChevronDownBold';
+import { Drawer } from '@core/atoms/layout/Drawer';
+import { Text16, Title4 } from '@core/atoms/typography';
+import { HREF_HELP } from '@core/constants/externalLinks';
+import { INVITE, SETTINGS_HOME, useDefaultSportPages } from '@core/constants/routes';
+import { useWalletContext } from '@core/contexts/wallet';
+import { glossary, navLabels } from '@core/lib/glossary';
+import { Link } from '@core/routing/Link';
+import { Baseball } from '@core/routing/MultiSportAppBar/Sport/Baseball';
+import { Football } from '@core/routing/MultiSportAppBar/Sport/Football';
+import { NBA } from '@core/routing/MultiSportAppBar/Sport/NBA';
 
 const switches = {
   [Sport.FOOTBALL]: <Football />,

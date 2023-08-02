@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback, useMemo } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
@@ -11,7 +11,7 @@ import Avatar from '@core/components/user/Avatar';
 import { Nickname } from '@core/components/user/Nickname';
 import { extractConnectionData } from '@core/gql/extractData';
 import useScreenSize from '@core/hooks/device/useScreenSize';
-import useCurrentUserPaginatedQuery from '@core/hooks/graphql/useCurrentUserPaginatedQuery';
+import usePaginatedQuery from '@core/hooks/graphql/usePaginatedQuery';
 
 import {
   BlockedUsersQuery,
@@ -56,7 +56,7 @@ const BLOCKED_USERS_QUERY = gql`
     }
   }
   ${Avatar.fragments.publicUserInfoInterface}
-`;
+` as TypedDocumentNode<BlockedUsersQuery, BlockedUsersQueryVariables>;
 
 const Line = styled.div`
   display: flex;
@@ -107,12 +107,7 @@ const LoadMore = styled.div`
 const BlockedUsersDialog = ({ onClose }: { onClose: () => void }) => {
   const { unblockUser } = useUnblockUser();
   const { up: isTablet } = useScreenSize('tablet');
-  const { loading, data, loadMore } = useCurrentUserPaginatedQuery<
-    'UserConnection',
-    'blockedUsers',
-    BlockedUsersQuery,
-    BlockedUsersQueryVariables
-  >(BLOCKED_USERS_QUERY, {
+  const { loading, data, loadMore } = usePaginatedQuery(BLOCKED_USERS_QUERY, {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-first',

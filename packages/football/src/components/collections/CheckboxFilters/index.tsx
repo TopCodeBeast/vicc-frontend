@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useIntl } from 'react-intl';
 
 import { Rarity } from '@sorare/core/src/__generated__/globalTypes';
@@ -117,5 +117,5 @@ CheckboxFilters.fragments = {
         rarity
       }
     }
-  `,
+  ` as TypedDocumentNode<CheckboxFilters_cardCollectionConnection>,
 };

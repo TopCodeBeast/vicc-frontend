@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ecusson from '@core/assets/user/ecusson.png';
 import Button from '@core/atoms/buttons/Button';
 
-import useUploadFile from './useUploadFile';
+import useUploadFile, { FileWithDataURL } from './useUploadFile';
 
 const Root = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const Container = styled.div`
 const Input = styled.input`
   position: absolute;
   opacity: 0;
-  z-index: -1;
+  inset: 0;
 `;
 const Image = styled.img`
   width: calc(12 * var(--unit));
@@ -37,12 +37,14 @@ const onUploadClick = (e: any) => {
 };
 
 type Props = {
-  onChange: (file: File) => void;
+  onChange: (file: FileWithDataURL) => void;
   currentFileUrl: string | null;
   name: string;
   validExtensions?: string[];
-  buttonLabel: ReactNode;
+  buttonLabel?: ReactNode;
+  children?: ReactNode;
   type: string;
+  maxFileSizeMb?: number;
 };
 export const UploadFile = ({
   onChange,
@@ -51,9 +53,11 @@ export const UploadFile = ({
   type,
   validExtensions,
   buttonLabel,
+  children,
+  maxFileSizeMb,
 }: Props) => {
   const { onDropFile, fileTypeError, fileSizeError, fileUrl, displayableFile } =
-    useUploadFile(onChange, validExtensions);
+    useUploadFile(onChange, validExtensions, maxFileSizeMb);
 
   const input = useRef<HTMLInputElement>(null);
 
@@ -67,7 +71,6 @@ export const UploadFile = ({
       {fileSizeError && <Error>{fileSizeError}</Error>}
       <Container>
         <Input
-          className="sr-only"
           type="file"
           ref={input}
           name={name}
@@ -77,12 +80,15 @@ export const UploadFile = ({
           onClick={onUploadClick}
           accept={type}
         />
-        {displayableFile && (
+        {!children && displayableFile && (
           <Image src={fileUrl || currentFileUrl || ecusson} alt={name} />
         )}
-        <Button color="darkGray" small onClick={triggerFileUpload}>
-          {buttonLabel}
-        </Button>
+        {children}
+        {buttonLabel && (
+          <Button color="darkGray" small onClick={triggerFileUpload}>
+            {buttonLabel}
+          </Button>
+        )}
       </Container>
     </Root>
   );

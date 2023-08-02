@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -363,7 +363,7 @@ Overview.fragments = {
           pictureUrl(derivative: "avatar")
         }
       }
-      so5Fixture: vicc5Fixture {
+      so5Fixture {
         slug
         shortDisplayName
       }
@@ -372,7 +372,7 @@ Overview.fragments = {
         displayName
       }
     }
-  `,
+  ` as TypedDocumentNode<Overview_game>,
 };
 
 export default Overview;

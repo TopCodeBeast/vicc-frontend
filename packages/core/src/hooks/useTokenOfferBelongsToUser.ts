@@ -1,8 +1,7 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
-import { User } from '__generated__/globalTypes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
-import { isA } from '@core/lib/gql';
+import { isType } from '@core/lib/gql';
 
 import { useTokenOfferBelongsToUser_offer } from './__generated__/useTokenOfferBelongsToUser.graphql';
 
@@ -12,7 +11,7 @@ const useTokenOfferBelongsToUser = () => {
   return (offer: useTokenOfferBelongsToUser_offer) => {
     return (
       currentUser &&
-      isA<User>('User', offer.sender) &&
+      isType(offer.sender, 'User') &&
       offer.sender?.slug === currentUser.slug
     );
   };
@@ -27,7 +26,7 @@ useTokenOfferBelongsToUser.fragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<useTokenOfferBelongsToUser_offer>,
 };
 
 export default useTokenOfferBelongsToUser;

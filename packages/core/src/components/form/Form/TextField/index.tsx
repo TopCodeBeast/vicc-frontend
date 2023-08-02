@@ -53,23 +53,25 @@ type Props = {
   rows?: number;
   label?: ReactNode;
   required?: boolean;
-  defaultValue?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   helperText?: string;
   endAdornment?: ReactNode;
+  withoutAsterisk?: boolean;
 } & Partial<InputHTMLAttributes<HTMLInputElement>>;
 
 const LabelText = ({
   label,
   error,
   required,
+  withoutAsterisk,
 }: {
   label: ReactNode;
   error: string | null;
   required?: boolean;
+  withoutAsterisk?: boolean;
 }) => (
   <>
-    {label} {required && '* '}
+    {label} {required && !withoutAsterisk && '* '}
     {error && <span className="error">{error || null}</span>}
   </>
 );
@@ -86,6 +88,7 @@ const TextField = ({
   className,
   helperText,
   endAdornment,
+  withoutAsterisk,
   ...rest
 }: Props) => (
   <Field
@@ -104,7 +107,9 @@ const TextField = ({
               id={id || name}
               placeholder={
                 placeholder
-                  ? `${placeholder}${required && !label ? ' *' : ''}`
+                  ? `${placeholder}${
+                      required && !label && !withoutAsterisk ? ' *' : ''
+                    }`
                   : undefined
               }
               type={type}

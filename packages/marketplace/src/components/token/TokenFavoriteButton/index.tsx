@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ButtonBaseProps } from '@material-ui/core';
 import styled from 'styled-components';
 
@@ -43,7 +43,7 @@ TokenFavoriteButton.fragments = {
       slug
       sport
     }
-  `,
+  ` as TypedDocumentNode<TokenFavoriteButton_token>,
 };
 
 export default TokenFavoriteButton;

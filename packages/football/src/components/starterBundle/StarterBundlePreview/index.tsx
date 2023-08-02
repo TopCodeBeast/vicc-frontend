@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { Link } from '@sorare/core/src/routing/Link';
 
@@ -27,6 +27,6 @@ StarterBundlePreview.fragments = {
       ...UninteractiveStarterBundlePreview_card
     }
     ${UninteractiveStarterBundlePreview.fragments.card}
-  `,
+  ` as TypedDocumentNode<StarterBundlePreview_card>,
 };
 export default StarterBundlePreview;

@@ -12,7 +12,7 @@ export type SecondaryTabsProps = {
     key?: string;
     to?: string;
     label?: ReactNode;
-    icon?: JSX.Element;
+    icon?: React.JSX.Element;
     badge?: string | number;
     separator?: string;
     active?: boolean;

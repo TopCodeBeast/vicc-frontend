@@ -55,7 +55,7 @@ export const Tabs = ({
   items: {
     to?: string;
     id?: string;
-    label: JSX.Element | string;
+    label: React.JSX.Element | string;
     basePath?: string;
     onClick?: (index: number) => void;
     active?: boolean;

@@ -2,25 +2,25 @@ import classNames from 'classnames';
 import { ReactNode, Suspense } from 'react';
 import styled from 'styled-components';
 
-import { FootballField } from 'atoms/icons/FootballField';
-import { Jersey } from 'atoms/icons/Jersey';
-import { Market } from 'atoms/icons/Market';
+import { FootballField } from '@core/atoms/icons/FootballField';
+import { Jersey } from '@core/atoms/icons/Jersey';
+import { Market } from '@core/atoms/icons/Market';
 import {
   APP_BAR_DESKTOP_WIDTH,
   AppNavigation,
-} from 'components/navigation//AppNavigation';
-import { AppHeader } from 'components/navigation/AppHeader';
-import Avatar from 'components/user/Avatar';
+} from '@core/components/navigation//AppNavigation';
+import { AppHeader } from '@core/components/navigation/AppHeader';
+import Avatar from '@core/components/user/Avatar';
 import {
   FOOTBALL_LIVE,
   FOOTBALL_MARKET,
   FOOTBALL_MY_CLUB,
   FOOTBALL_PLAY,
-} from 'constants/routes';
-import { useCurrentUserContext } from 'contexts/currentUser';
-import useIsLoggedIn from 'hooks/auth/useIsLoggedIn';
-import toLayoutRouteComponent from 'lib/navigation/toLayoutRouteComponent';
-import { tabletAndAbove } from 'style/mediaQuery';
+} from '@core/constants/routes';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
+import useIsLoggedIn from '@core/hooks/auth/useIsLoggedIn';
+import toLayoutRouteComponent from '@core/lib/navigation/toLayoutRouteComponent';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 const Wrapper = styled.div`
   display: flex;

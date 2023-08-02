@@ -1,10 +1,12 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faClock } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { parseISO } from 'date-fns';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
+import { MonetaryAmount } from '__generated__/globalTypes';
+import discountCardFront from '@core/assets/rewards/discount-card-front.png';
 import Button from '@core/atoms/buttons/Button';
 import { Text14, Text16 } from '@core/atoms/typography';
 import OpenItemDialogLink from '@core/components/link/OpenItemDialogLink';
@@ -13,6 +15,7 @@ import UninteractiveToken from '@core/components/token/UninteractiveToken';
 import { GalleryLink } from '@core/components/user/GalleryLink';
 import { Nickname } from '@core/components/user/Nickname';
 import { useIntlContext } from '@core/contexts/intl';
+import useAmountWithConversion from '@core/hooks/useAmountWithConversion';
 import { useReferralReward } from '@core/hooks/useReferralReward';
 import useToggle from '@core/hooks/useToggle';
 import { glossary } from '@core/lib/glossary';
@@ -56,6 +59,97 @@ const StyledText14 = styled(Text14)`
   align-items: center;
   gap: var(--half-unit);
 `;
+
+const Discount = styled.div`
+  position: relative;
+`;
+const DiscountInfos = styled.div`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+const DiscountPercent = styled.p`
+  font-family: Druk Wide;
+  font-size: 10px;
+  color: #fecd11;
+`;
+const DiscountAmount = styled.p`
+  text-align: center;
+  font-family: Druk Wide;
+  font-size: 7px;
+  color: var(--c-static-neutral-100);
+  text-transform: uppercase;
+`;
+
+const DiscountImg = styled.img`
+  width: 40px;
+`;
+
+const ConversionCreditRewardImage = ({
+  percentageDiscount,
+  maxDiscount,
+}: {
+  percentageDiscount: number;
+  maxDiscount: MonetaryAmount;
+}) => {
+  const { main } = useAmountWithConversion({
+    monetaryAmount: maxDiscount,
+  });
+
+  return (
+    <Discount>
+      <DiscountImg src={discountCardFront} alt="" />
+      <DiscountInfos>
+        <DiscountPercent>{`${percentageDiscount * 100}%`}</DiscountPercent>
+        <DiscountAmount>
+          <FormattedMessage
+            id="RefereeItem.RewardImage.ConversionCreditRewardImage.upToAmount"
+            defaultMessage="Up to {amount}"
+            values={{ amount: main }}
+          />
+        </DiscountAmount>
+      </DiscountInfos>
+    </Discount>
+  );
+};
+
+const RewardImage = ({
+  referrerReward,
+  claimed,
+}: {
+  referrerReward: RefereeItem_referral['referrerReward'];
+  claimed: boolean;
+}) => {
+  if (!referrerReward || !claimed) {
+    return null;
+  }
+  if (referrerReward.conversionCredit) {
+    const { percentageDiscount, maxDiscount } = referrerReward.conversionCredit;
+
+    return (
+      <ConversionCreditRewardImage
+        percentageDiscount={percentageDiscount}
+        maxDiscount={maxDiscount}
+      />
+    );
+  }
+  if (referrerReward.token) {
+    return (
+      <Card>
+        <OpenItemDialogLink
+          sport={referrerReward.token.sport}
+          item={referrerReward.token}
+        >
+          <UninteractiveToken token={referrerReward.token} />
+        </OpenItemDialogLink>
+      </Card>
+    );
+  }
+  return null;
+};
 
 type Props = {
   refereeItem: RefereeItem_referral;
@@ -116,16 +210,7 @@ const RefereeItemContent = ({ refereeItem, cardsRequirements }: Props) => {
     <Root>
       <Content>
         <CardWithInfos>
-          {referrerReward && claimed && (
-            <Card>
-              <OpenItemDialogLink
-                sport={referrerReward.token.sport}
-                item={referrerReward.token}
-              >
-                <UninteractiveToken token={referrerReward.token} />
-              </OpenItemDialogLink>
-            </Card>
-          )}
+          <RewardImage referrerReward={referrerReward} claimed={claimed} />
           <Infos>
             {renderTime(refereeItem)}
             {refereeItem.refereeInvitationSentAt &&
@@ -150,7 +235,7 @@ const RefereeItemContent = ({ refereeItem, cardsRequirements }: Props) => {
         )}
       </Content>
       {referrerReward && !claimed && (
-        <Button medium color="black" onClick={toggleOpenClaimDialog}>
+        <Button small color="blue" onClick={toggleOpenClaimDialog}>
           <FormattedMessage {...glossary.claim} />
         </Button>
       )}
@@ -172,39 +257,42 @@ export const RefereeItem = ({ refereeItem, cardsRequirements }: Props) => {
   );
 };
 
-// RefereeItem.fragments = {
-//   referral: gql`
-//     fragment RefereeItem_referral on Referral {
-//       id
-//       aasmState
-//       completedAt
-//       expirationDate
-//       referee {
-//         slug
-//         ...GalleryLink_publicUserInfoInterface
-//         ...Nickname_publicUserInfoInterface
-//       }
-//       refereeIdentification
-//       refereeConfirmedAt
-//       refereeInvitationSentAt
-//       ...ReferralStatus_referral
-//       referrerReward {
-//         id
-//         token {
-//           assetId
-//           slug
-//           sport
-//           ...UninteractiveToken_token
-//         }
-//         ...ClaimReferralRewardDialog_referralReward
-//         #...useReferralReward_referralReward
-//       }
-//     }
-//     ${GalleryLink.fragments.user}
-//     ${ReferralStatus.fragments.referral}
-//     ${Nickname.fragments.user}
-//     ${ClaimReferralRewardDialog.fragments.referralReward}
-//     #{useReferralReward.fragments.referralReward}
-//     ${UninteractiveToken.fragments.token}
-//   `,
-// };
+RefereeItem.fragments = {
+  referral: gql`
+    fragment RefereeItem_referral on Referral {
+      id
+      aasmState
+      completedAt
+      expirationDate
+      referee {
+        slug
+        ...GalleryLink_publicUserInfoInterface
+        ...Nickname_publicUserInfoInterface
+      }
+      refereeIdentification
+      refereeConfirmedAt
+      refereeInvitationSentAt
+      ...ReferralStatus_referral
+      referrerReward {
+        id
+        conversionCredit {
+          id
+        }
+        token {
+          assetId
+          slug
+          sport
+          ...UninteractiveToken_token
+        }
+        ...ClaimReferralRewardDialog_referralReward
+        ...useReferralReward_referralReward
+      }
+    }
+    ${GalleryLink.fragments.user}
+    ${ReferralStatus.fragments.referral}
+    ${Nickname.fragments.user}
+    ${ClaimReferralRewardDialog.fragments.referralReward}
+    ${useReferralReward.fragments.referralReward}
+    ${UninteractiveToken.fragments.token}
+  ` as TypedDocumentNode<RefereeItem_referral>,
+};

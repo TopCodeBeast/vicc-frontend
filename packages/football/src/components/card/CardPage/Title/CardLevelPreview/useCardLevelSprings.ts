@@ -6,7 +6,7 @@ import { percentageToNextLevel } from '@sorare/core/src/lib/cards';
 type Card = {
   grade: number;
   xpNeededForCurrentGrade: number;
-  xpNeededForNextGrade?: number | null;
+  xpNeededForNextGrade: number | null;
   xp: number;
 };
 const useCardLevelSprings = (card: Card) => {

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { formatLineupDisplayName_so5Lineup } from './__generated__/so5.graphql';
 import { withFragments } from './gql';
@@ -13,15 +13,15 @@ export const formatLineupDisplayName = withFragments(
   },
   {
     so5Lineup: gql`
-      fragment formatLineupDisplayName_so5Lineup on Vicc5Lineup {
+      fragment formatLineupDisplayName_so5Lineup on So5Lineup {
         id
         name
-        so5Leaderboard: vicc5Leaderboard {
+        so5Leaderboard {
           slug
           displayName
           trainingCenter
         }
       }
-    `,
+    ` as TypedDocumentNode<formatLineupDisplayName_so5Lineup>,
   }
 );

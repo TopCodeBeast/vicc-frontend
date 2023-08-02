@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { Fragment, ReactNode, useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import styled from 'styled-components';
@@ -17,7 +17,9 @@ import { Title3 } from '@sorare/core/src/atoms/typography';
 import CreateDeckDialog from '@sorare/core/src/components/deck/CreateDeckDialog';
 import { fragments as analyticsFragments } from '@sorare/core/src/contexts/events/types';
 import { useSeoContext } from '@sorare/core/src/contexts/seo';
+import useCustomDecks from '@sorare/core/src/hooks/decks/useCustomDecks';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
+import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { scarcityMessages } from '@sorare/core/src/lib/scarcity';
 import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
@@ -37,6 +39,7 @@ import AddCardToDeck from '@football/components/deck/AddCardToDeck';
 import LastScores from '@football/components/stats/LastScores';
 
 import CardAttributes from './CardAttributes';
+import { CollectionInfo } from './CollectionInfo';
 import CommonCardCurrentOwner from './CommonCardCurrentOwner';
 import Header from './Header';
 import ItemEligibility from './ItemEligibility';
@@ -53,6 +56,7 @@ type Props = {
   ) => Promise<any>;
   loading?: boolean;
   InfiniteScrollLoader?: ReactNode;
+  inDialog?: boolean;
 };
 const InnerContainer = styled.div`
   position: relative;
@@ -88,9 +92,11 @@ const PageBlock = styled.div`
 `;
 
 export const CardPage = (props: Props) => {
+  const { decks } = useCustomDecks();
   const [addToListDialogOpen, setAddToListDialogOpen] = useState(false);
   const [createListDialogOpen, setCreateListDialogOpen] = useState(false);
-  const { card, loadMoreBids, loading, slug, InfiniteScrollLoader } = props;
+  const { card, loadMoreBids, loading, slug, InfiniteScrollLoader, inDialog } =
+    props;
   const { setPageMetadata } = useSeoContext();
   const { formatMessage } = useIntl();
   const bgLocation = useBgLocation();
@@ -98,10 +104,14 @@ export const CardPage = (props: Props) => {
   const isModale = !!bgLocation;
   const OuterContainer = isModale ? Fragment : PageWrapper;
 
+  const {
+    flags: { useCollectionInsideCardPage = false },
+  } = useFeatureFlags();
+
   useEffect(() => {
-    // if (card) {
-    //   return setPageMetadata(card.name, { img: card?.pictureUrlForTwitter });
-    // }
+    if (card) {
+      return setPageMetadata(card.name, { img: card?.pictureUrlForTwitter });
+    }
     return () => {};
   }, [card, setPageMetadata]);
 
@@ -109,19 +119,25 @@ export const CardPage = (props: Props) => {
     return <LoadingIndicator fullHeight />;
   }
 
-  const { token, lastFifteenVicc5AverageScore, lastFiveSo5AverageScore, rarity } =
+  const { token, lastFifteenSo5AverageScore, lastFiveSo5AverageScore, rarity } =
     card;
 
   return (
     <RarityGradientBackground rarity={rarity}>
       <OuterContainer>
         <InnerContainer>
-          <Header card={card} />
+          <Header card={card} inDialog={inDialog} />
           <Content>
             <Title
               card={card}
               loading={loading}
-              onAddToListClick={() => setAddToListDialogOpen(true)}
+              onAddToListClick={() => {
+                if (!decks.length) {
+                  setCreateListDialogOpen(true);
+                } else {
+                  setAddToListDialogOpen(true);
+                }
+              }}
             />
             <div>
               {token ? (
@@ -155,7 +171,6 @@ export const CardPage = (props: Props) => {
                 )}
               </>
             )}
-
             {token && <SingleSaleOffer token={token} />}
             {token && <MyOffers token={token} />}
             <ItemEligibility card={card} />
@@ -183,11 +198,26 @@ export const CardPage = (props: Props) => {
                 <LastScores
                   player={card.player}
                   so5Scores={card.allSo5Scores.nodes}
-                  lastFifteenVicc5AverageScore={lastFifteenVicc5AverageScore}
+                  lastFifteenSo5AverageScore={lastFifteenSo5AverageScore}
                   lastFiveSo5AverageScore={lastFiveSo5AverageScore}
                   InfiniteScrollLoader={InfiniteScrollLoader}
                 />
               </PageBlock>
+            )}
+            {useCollectionInsideCardPage && (
+              <CollectionInfo
+                card={card}
+                header={
+                  <BlockHeader
+                    title={
+                      <FormattedMessage
+                        id="CardPage.collection"
+                        defaultMessage="Collection"
+                      />
+                    }
+                  />
+                }
+              />
             )}
             {token && !token.latestEnglishAuction?.open && (
               <TokensAvailableOnPrimaryWhenInsufficientFundsInWallet
@@ -269,6 +299,7 @@ export const CardPage = (props: Props) => {
             setAddToListDialogOpen(true);
             setCreateListDialogOpen(false);
           }}
+          skipRedirection
         />
       )}
     </RarityGradientBackground>
@@ -280,11 +311,11 @@ CardPage.fragments = {
     fragment CardPage_card on Card {
       slug
       assetId
-      lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
-      lastFifteenVicc5AverageScore: averageScore(
-        type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
+      lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_SO5_AVERAGE_SCORE)
+      lastFifteenSo5AverageScore: averageScore(
+        type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
       )
-      allSo5Scores: allVicc5Scores(first: $first, after: $scoreCursor) {
+      allSo5Scores(first: $first, after: $scoreCursor) {
         nodes {
           id
           ...LastScores_so5Score
@@ -303,10 +334,8 @@ CardPage.fragments = {
         slug
         collection
         metadata {
-          ... on TokenCricketMetadata {
-            id
-          }
           ... on TokenCardMetadataInterface {
+            id
             rarity
           }
         }
@@ -344,6 +373,7 @@ CardPage.fragments = {
       ...Analytics_cardInfo
       ...CardPage_ItemEligibility_card
       ...AddCardToDeck_card
+      ...CollectionInfo_card
     }
     ${LastScores.fragments.player}
     ${LastScores.fragments.so5Score}
@@ -364,7 +394,8 @@ CardPage.fragments = {
     ${ItemEligibility.fragments.card}
     ${TokensAvailableOnPrimaryWhenInsufficientFundsInWallet.fragments.token}
     ${AddCardToDeck.fragments.card}
-  `,
+    ${CollectionInfo.fragments.card}
+  ` as TypedDocumentNode<CardPage_card>,
 };
 
 export default CardPage;

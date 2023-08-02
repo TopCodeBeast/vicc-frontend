@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import Since from '@sorare/core/src/contexts/intl/Since';
 
@@ -23,7 +23,7 @@ ItemOwnerSince.fragments = {
         from
       }
     }
-  `,
+  ` as TypedDocumentNode<ItemOwnerSince_token>,
 };
 
 export default ItemOwnerSince;

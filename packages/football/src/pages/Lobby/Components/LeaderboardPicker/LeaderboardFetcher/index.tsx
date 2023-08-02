@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useEffect } from 'react';
 import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
@@ -9,8 +9,8 @@ import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { Link } from '@sorare/core/src/routing/Link';
 
-import { UserGroupLeaderboard } from '@football/components/so5/Leaderboard/UserGroupLeaderboard';
-import { LeaderboardWithLineupDetails as Leaderboard } from '@football/components/so5/Leaderboard/WithLineupDetails';
+import { LeaderboardWithLineupDetails } from '@football/components/so5/Leaderboard/WithLineupDetails';
+import Leaderboard from '@football/components/userGroup/UserGroupLeaderboard';
 import { ShowMoreButton } from '@football/pages/Lobby/Components/ShowMoreButton';
 
 import {
@@ -47,33 +47,38 @@ const LOBBY_LEADERBOARDS_FETCHER_QUERY = gql`
     $onlyFollowed: Boolean
     $page: Int!
   ) {
-    so5: vicc5Root {
-      so5Leaderboard: vicc5Leaderboard(slug: $slug) {
-        slug
-        so5League: vicc5League {
+    football {
+      so5 {
+        so5Leaderboard(slug: $slug) {
           slug
-        }
-        mySo5Rankings: myVicc5Rankings {
-          id
-          ...Leaderboard_so5Rankings
-        }
-        universalSo5UserGroups: universalVicc5UserGroups {
-          slug
-          ...UserGroupLeaderboard_so5Memberships
-        }
-        so5LineupsCount: vicc5LineupsCount
-        so5Rankings: vicc5Rankings(first: 5, onlyFollowed: $onlyFollowed) {
-          nodes {
+          so5League {
+            slug
+          }
+          mySo5Rankings {
             id
             ...Leaderboard_so5Rankings
+          }
+          universalSo5UserGroups {
+            slug
+            ...Leaderboard_so5Memberships
+          }
+          so5LineupsCount
+          so5Rankings(first: 5, onlyFollowed: $onlyFollowed) {
+            nodes {
+              id
+              ...Leaderboard_so5Rankings
+            }
           }
         }
       }
     }
   }
-  ${Leaderboard.fragments.so5Ranking}
-  ${UserGroupLeaderboard.fragments.so5Memberships}
-`;
+  ${LeaderboardWithLineupDetails.fragments.so5Ranking}
+  ${Leaderboard.fragments.so5Memberships}
+` as TypedDocumentNode<
+  LobbyLeaderboardsFetcherQuery,
+  LobbyLeaderboardsFetcherQueryVariables
+>;
 
 export const LeaderboardFetcher = ({
   leaderboardSlug = '',
@@ -81,10 +86,7 @@ export const LeaderboardFetcher = ({
   leaderboardMode,
 }: Props) => {
   const { formatMessage } = useIntlContext();
-  const { data, refetch } = useQuery<
-    LobbyLeaderboardsFetcherQuery,
-    LobbyLeaderboardsFetcherQueryVariables
-  >(LOBBY_LEADERBOARDS_FETCHER_QUERY, {
+  const { data, refetch } = useQuery(LOBBY_LEADERBOARDS_FETCHER_QUERY, {
     variables: { slug: leaderboardSlug, onlyFollowed, page: 0 },
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
@@ -124,12 +126,12 @@ export const LeaderboardFetcher = ({
         <Container>
           <LeaderboardWrapper>
             {leaderboardMode === 'overall' ? (
-              <UserGroupLeaderboard
+              <Leaderboard
                 memberships={globalRanking}
                 myMembership={myGlobalRanking}
               />
             ) : (
-              <Leaderboard
+              <LeaderboardWithLineupDetails
                 rankings={so5Rankings.nodes}
                 myRanking={mySo5Rankings[0]}
                 onlyFollowed={onlyFollowed}

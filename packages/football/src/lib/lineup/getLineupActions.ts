@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { isPast } from 'date-fns';
 
 import {
@@ -89,14 +89,14 @@ const getLineupActions = withFragments(
   },
   {
     so5Lineup: gql`
-      fragment getLineupActions_so5Lineup on Vicc5Lineup {
+      fragment getLineupActions_so5Lineup on So5Lineup {
         id
         draft
         confirmable
       }
-    `,
+    ` as TypedDocumentNode<getLineupActions_so5Lineup>,
     so5Leaderboard: gql`
-      fragment getLineupActions_so5Leaderboard on Vicc5Leaderboard {
+      fragment getLineupActions_so5Leaderboard on So5Leaderboard {
         slug
         teamsCap
         startDate
@@ -110,11 +110,11 @@ const getLineupActions = withFragments(
           status
           campaignType
         }
-        mySo5Lineups: myVicc5Lineups {
+        mySo5Lineups {
           id
         }
       }
-    `,
+    ` as TypedDocumentNode<getLineupActions_so5Leaderboard>,
   }
 );
 

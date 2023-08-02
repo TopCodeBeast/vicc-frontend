@@ -2,8 +2,8 @@ import {
   OperationVariables,
   QueryHookOptions,
   QueryResult,
+  TypedDocumentNode,
 } from '@apollo/client';
-import { DocumentNode } from 'graphql';
 import { useCallback } from 'react';
 
 import useQuery from '@core/hooks/graphql/useQuery';
@@ -100,9 +100,9 @@ export interface WithRelayPagination<V> {
 
 export default function usePaginatedQuery<
   TData = any,
-  TVariables extends OperationVariables = OperationVariables
+  TVariables = OperationVariables
 >(
-  query: DocumentNode,
+  query: TypedDocumentNode<TData, TVariables>,
   options: QueryHookOptions<TData, TVariables> & { connection: string }
 ): QueryResult<TData, TVariables> & WithRelayPagination<TVariables> {
   const { connection, ...rest } = options;

@@ -1,18 +1,18 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import {
   IconDefinition,
   faCalendar,
   faCalendarXmark,
 } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ReactNode, useMemo, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { GameStatus, Position } from '@sorare/core/src/__generated__/globalTypes';
+import { Position } from '@sorare/core/src/__generated__/globalTypes';
 import Select from '@sorare/core/src/atoms/inputs/Select';
-import { Tabs } from '@sorare/core/src/atoms/navigation/Tabs';
 import { Text16, Text20, Title6 } from '@sorare/core/src/atoms/typography';
+import { Tab, TabBar } from '@sorare/core/src/components/TabBar';
 import { FixtureChart } from '@sorare/core/src/components/player/FixtureChart';
 import { groupBy } from '@sorare/core/src/lib/arrays';
 import {
@@ -36,7 +36,7 @@ import {
 
 type Props = {
   lastFiveSo5AverageScore: number | null;
-  lastFifteenVicc5AverageScore: number | null;
+  lastFifteenSo5AverageScore: number | null;
   so5Scores: (LastScores_so5Score | null)[];
   player: LastScores_player;
   cardPositions?: Position[];
@@ -105,14 +105,9 @@ const Games = styled.div`
   flex-direction: row-reverse;
 `;
 
-const StyledTabs = styled(Tabs)`
-  padding-left: 0;
-  margin-bottom: var(--unit);
-  > button {
-    background: var(--c-neutral-300);
-    font-weight: var(--t-bold);
-    flex: 0;
-  }
+const StyledTabBar = styled(TabBar)`
+  align-self: flex-start;
+  margin-bottom: var(--half-unit);
 `;
 
 const GamesContainer = styled.div`
@@ -181,42 +176,36 @@ const StatusIcon: {
 const PerformancesSummary = ({
   player,
   lastFiveSo5AverageScore,
-  lastFifteenVicc5AverageScore,
+  lastFifteenSo5AverageScore,
 }: {
   lastFiveSo5AverageScore: number | null;
-  lastFifteenVicc5AverageScore: number | null;
+  lastFifteenSo5AverageScore: number | null;
   player: LastScores_player;
 }) => {
   const { formatNumber } = useIntl();
 
   const [tab, setTab] = useState<ScoreTabValue>(ScoreTabValue.l5);
 
-  const scoreTabs = useMemo(
-    () =>
-      [ScoreTabValue.l5, ScoreTabValue.l15].map(s => ({
-        id: s,
-        active: s === tab,
-        label: s,
-        onClick: () => setTab(s),
-        value: s,
-      })),
-    [tab]
-  );
-
   const summaryData = {
     [ScoreTabValue.l5]: {
       score: lastFiveSo5AverageScore,
-      appearanceRate: (player.lastFiveVicc5Appearances || 0) / 5,
+      appearanceRate: (player.lastFiveSo5Appearances || 0) / 5,
     },
     [ScoreTabValue.l15]: {
-      score: lastFifteenVicc5AverageScore,
-      appearanceRate: (player.lastFifteenVicc5Appearances || 0) / 15,
+      score: lastFifteenSo5AverageScore,
+      appearanceRate: (player.lastFifteenSo5Appearances || 0) / 15,
     },
   };
 
   return (
     <>
-      <StyledTabs items={scoreTabs} />
+      <StyledTabBar value={tab} compact>
+        {Object.values(ScoreTabValue).map(value => (
+          <Tab key={value} value={value} onClick={() => setTab(value)}>
+            {value}
+          </Tab>
+        ))}
+      </StyledTabBar>
       <StatusRow>
         <Status
           title={
@@ -259,7 +248,7 @@ const PerformancesSummary = ({
 };
 
 const LastScores = ({
-  lastFifteenVicc5AverageScore,
+  lastFifteenSo5AverageScore,
   lastFiveSo5AverageScore,
   cardPositions = [],
   setPosition,
@@ -274,18 +263,6 @@ const LastScores = ({
   const [homeAwayTab, setHomeAwayTab] = useState<TabValue>(TabValue.all);
 
   const getSuspensionsAndInjuries = useGetSuspensionsAndInjuries(player);
-
-  const tabs = useMemo(
-    () =>
-      Object.values(TabValue).map(s => ({
-        id: s,
-        active: s === homeAwayTab,
-        label: <FormattedMessage {...tabLabels[s]} />,
-        onClick: () => setHomeAwayTab(s),
-        value: s,
-      })),
-    [homeAwayTab]
-  );
 
   if (!so5Scores?.length) return null;
 
@@ -305,8 +282,8 @@ const LastScores = ({
     label: formatDate(key, { month: 'short', year: '2-digit' }),
     games: gamesByMonth[key].map(score => {
       const gamePlayed =
-        score.playerGameStats.game.status !== GameStatus.POSTPONED &&
-        score.playerGameStats.game.status !== GameStatus.CANCELLED;
+        score.playerGameStats.game.status !== GameEventStatus.POSTPONED &&
+        score.playerGameStats.game.status !== GameEventStatus.CANCELLED;
       const isDNP = !score.playerGameStats.minsPlayed;
       const playerScore =
         !isDNP && gamePlayed && typeof score.score === 'number'
@@ -335,7 +312,7 @@ const LastScores = ({
         dnpLabel: !gamePlayed ? (
           <FontAwesomeIcon
             icon={
-              StatusIcon[score.playerGameStats.game.status as GameStatus]!
+              StatusIcon[score.playerGameStats.game.status as GameEventStatus]!
             }
             title={formatMessage(
               gameStatusMessages[score.playerGameStats.game.status]
@@ -358,7 +335,7 @@ const LastScores = ({
     <Root>
       <Section>
         <Row>
-          <Title6 as="h2">
+          <Title6>
             <FormattedMessage id="LastScores.stats" defaultMessage="Stats" />
           </Title6>
           {cardPositions.length > 1 && setPosition && (
@@ -386,7 +363,7 @@ const LastScores = ({
         <PerformancesSummary
           player={player}
           lastFiveSo5AverageScore={lastFiveSo5AverageScore}
-          lastFifteenVicc5AverageScore={lastFifteenVicc5AverageScore}
+          lastFifteenSo5AverageScore={lastFifteenSo5AverageScore}
         />
       </Section>
       <Section>
@@ -396,7 +373,13 @@ const LastScores = ({
             defaultMessage="Performance"
           />
         </Title6>
-        <StyledTabs items={tabs} />
+        <StyledTabBar value={homeAwayTab} compact>
+          {Object.values(TabValue).map(val => (
+            <Tab key={val} value={val} onClick={() => setHomeAwayTab(val)}>
+              <FormattedMessage {...tabLabels[val]} />
+            </Tab>
+          ))}
+        </StyledTabBar>
         <GamesContainer>
           <Games>
             <FixtureChart
@@ -420,7 +403,7 @@ const LastScores = ({
 
 LastScores.fragments = {
   so5Score: gql`
-    fragment LastScores_so5Score on Vicc5Score {
+    fragment LastScores_so5Score on So5Score {
       id
       score
       playerGameStats {
@@ -434,7 +417,7 @@ LastScores.fragments = {
         game {
           id
           status
-          so5Fixture: vicc5Fixture {
+          so5Fixture {
             slug
             gameWeek
             shortDisplayName
@@ -457,13 +440,13 @@ LastScores.fragments = {
     }
     ${TeamAvatar.fragments.team}
     ${useGetSuspensionsAndInjuries.fragments.so5Score}
-  `,
+  ` as TypedDocumentNode<LastScores_so5Score>,
   player: gql`
     fragment LastScores_player on Player {
       id
       slug
-      lastFiveVicc5Appearances: lastFiveVicc5Appearances
-      lastFifteenVicc5Appearances: lastFifteenVicc5Appearances
+      lastFiveSo5Appearances
+      lastFifteenSo5Appearances
       injuries {
         id
         ...PlayerUnavailabilityBadge_injury
@@ -477,7 +460,7 @@ LastScores.fragments = {
     ${useGetSuspensionsAndInjuries.fragments.player}
     ${PlayerUnavailabilityBadge.fragments.injury}
     ${PlayerUnavailabilityBadge.fragments.suspension}
-  `,
+  ` as TypedDocumentNode<LastScores_player>,
 };
 
 export default LastScores;

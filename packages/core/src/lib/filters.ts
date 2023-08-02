@@ -231,6 +231,10 @@ export const VIRTUAL_TOGGLE_FILTERS = {
 };
 
 export const TOGGLE_FILTERS = {
+  showDetails: {
+    attribute: 'showDetails',
+    label: filters.showDetailsLabel,
+  },
   onSaleFilter: {
     attribute: 'on_sale',
     label: filters.onSaleFilterLabel,

@@ -16,9 +16,9 @@ const useLogout = () => {
         .then(async response => {
           if (response.status === 204) {
             track('[Client] Log Out');
-            /*if (window.analytics) {
+            if (window.analytics) {
               window.analytics.reset();
-            }*/
+            }
           }
           await client.clearStore();
           await window.location.reload();

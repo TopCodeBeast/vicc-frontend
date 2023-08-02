@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import styled, { css } from 'styled-components';
 
@@ -95,7 +95,7 @@ UninteractiveBundledAuctionPreview.fragments = {
       }
     }
     ${UninteractiveToken.fragments.token}
-  `,
+  ` as TypedDocumentNode<UninteractiveBundledAuctionPreview_auction>,
 };
 
 export default UninteractiveBundledAuctionPreview;

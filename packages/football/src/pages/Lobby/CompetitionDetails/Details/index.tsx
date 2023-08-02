@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { defineMessages } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -20,42 +20,58 @@ import {
 } from '@sorare/core/src/contexts/snackNotification';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
+import CompetitionRules from '@football/components/competition/CompetitionRules';
+import PrizePoolOverview from '@football/components/competition/PrizePoolOverview';
 import EngineConfiguration, {
   hasSpecialEngineConfiguration,
 } from '@football/components/so5/EngineConfiguration';
 import { MissingCardsMessage } from '@football/components/unlockCompetition/MissingCardsMessage';
+import { useDisplaySemiProIncentive } from '@football/hooks/leaderboard/useDisplaySemiProIncentive';
 
-import CompetitionRules from './CompetitionRules';
 import DetailsSection from './DetailsSection';
-import PrizePoolOverview from './PrizePoolOverview';
-import { CompetitionDetailsDefaultTabQuery } from './__generated__/index.graphql';
+import {
+  CompetitionDetailsDefaultTabQuery,
+  CompetitionDetailsDefaultTabQueryVariables,
+} from './__generated__/index.graphql';
 
 const COMPETITION_DETAILS_DEFAULT_TAB_QUERY = gql`
   query CompetitionDetailsDefaultTabQuery($slug: String!) {
-    so5: vicc5Root {
-      so5Leaderboard: vicc5Leaderboard(slug: $slug) {
-        slug
-        title
-        displayName
-        description
-        canCompose {
-          ...MissingCardsMessage_validity
-        }
-        so5League: vicc5League {
+    football {
+      so5 {
+        so5Leaderboard(slug: $slug) {
           slug
-          name
+          title
+          displayName
+          description
+          so5LeaderboardType
+          canCompose {
+            ...MissingCardsMessage_validity
+          }
+          so5League {
+            slug
+            name
+          }
+          totalRewards {
+            ...PrizePoolOverview_rewardsOverview
+          }
+          rewardsConfig {
+            ...PrizePoolOverview_leaderboardRewardsConfig
+          }
+          ...EngineConfiguration_so5Leaderboard
+          ...CompetitionRules_so5Leaderboard
         }
-        ...EngineConfiguration_so5Leaderboard
-        ...PrizePoolOverview_so5Leaderboard
-        ...CompetitionRules_so5Leaderboard
       }
     }
   }
   ${EngineConfiguration.fragments.so5Leaderboard}
-  ${PrizePoolOverview.fragments.so5Leaderboard}
+  ${PrizePoolOverview.fragments.leaderboardRewardsConfig}
+  ${PrizePoolOverview.fragments.rewardsOverview}
   ${CompetitionRules.fragments.so5Leaderboard}
   ${MissingCardsMessage.fragments.validity}
-`;
+` as TypedDocumentNode<
+  CompetitionDetailsDefaultTabQuery,
+  CompetitionDetailsDefaultTabQueryVariables
+>;
 
 const messages = defineMessages({
   description: {
@@ -97,16 +113,22 @@ const CompetitionDetailsDefaultTab = () => {
   const { step, setStep, setTask, onSuccessCallback } = useManagerTaskContext();
   const { showNotification } = useSnackNotificationContext();
   const { competition } = useParams();
-  const { loading, data } = useQuery<CompetitionDetailsDefaultTabQuery>(
-    COMPETITION_DETAILS_DEFAULT_TAB_QUERY,
-    {
-      variables: { slug: competition },
-      nextFetchPolicy: 'cache-first',
-      fetchPolicy: 'cache-and-network',
-    }
-  );
+
+  const { loading, data } = useQuery(COMPETITION_DETAILS_DEFAULT_TAB_QUERY, {
+    variables: {
+      slug:
+        // FIXME undefined case is improperly handled
+        competition ?? '',
+    },
+    nextFetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
+  });
   const so5Leaderboard = data?.football.so5.so5Leaderboard;
   const hasSpecialRules = hasSpecialEngineConfiguration(so5Leaderboard);
+
+  const displaySemiProIncentive = useDisplaySemiProIncentive(
+    so5Leaderboard?.so5LeaderboardType
+  );
 
   if (!so5Leaderboard && loading) return <LoadingIndicator grow />;
 
@@ -124,7 +146,12 @@ const CompetitionDetailsDefaultTab = () => {
           />
         }
       >
-        <PrizePoolOverview so5Leaderboard={so5Leaderboard} />
+        <PrizePoolOverview
+          rewardsConfig={so5Leaderboard?.rewardsConfig}
+          totalRewards={so5Leaderboard?.totalRewards}
+          displaySemiProIncentive={displaySemiProIncentive}
+          so5LeaderboardSlug={so5Leaderboard?.slug}
+        />
       </ManagerTaskTooltip>
 
       {so5Leaderboard && (

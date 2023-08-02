@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { Link, generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -115,8 +115,8 @@ const PlayerCardPlaceholder = ({ position, lineup, leaderboard }: Props) => {
       return generatePath(FOOTBALL_DRAFT, { slug: leaderboard.slug });
     }
     return getComposeTeamRoute({
-      vicc5LeaderboardSlug: leaderboard.slug,
-      vicc5LineupId: idFromObject(lineup?.id),
+      so5LeaderboardSlug: leaderboard.slug,
+      so5LineupId: idFromObject(lineup?.id),
     });
   };
 
@@ -142,12 +142,12 @@ const PlayerCardPlaceholder = ({ position, lineup, leaderboard }: Props) => {
 
 PlayerCardPlaceholder.fragments = {
   so5Lineup: gql`
-    fragment PlayerCardPlaceholder_so5Lineup on Vicc5Lineup {
+    fragment PlayerCardPlaceholder_so5Lineup on So5Lineup {
       id
     }
-  `,
+  ` as TypedDocumentNode<PlayerCardPlaceholder_so5Lineup>,
   so5Leaderboard: gql`
-    fragment PlayerCardPlaceholder_so5Leaderboard on Vicc5Leaderboard {
+    fragment PlayerCardPlaceholder_so5Leaderboard on So5Leaderboard {
       slug
       commonDraftCampaign {
         slug
@@ -182,7 +182,7 @@ PlayerCardPlaceholder.fragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<PlayerCardPlaceholder_so5Leaderboard>,
 };
 
 export default PlayerCardPlaceholder;

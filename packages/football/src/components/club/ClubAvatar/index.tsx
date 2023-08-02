@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ComponentProps } from 'react';
 
 import DumbClubAvatar from '@sorare/core/src/components/club/DumbClubAvatar';
@@ -24,7 +24,7 @@ ClubAvatar.fragments = {
       name
       avatarUrl: pictureUrl(derivative: "avatar")
     }
-  `,
+  ` as TypedDocumentNode<ClubAvatar_club>,
 };
 
 export default ClubAvatar;

@@ -30,9 +30,9 @@ export type Props = {
   onBackdropClick?: () => void;
 };
 
-const DrawerPortal: React.FC = ({ children }) => (
-  <Portal id="drawer">{children}</Portal>
-);
+const DrawerPortal: React.FC<React.PropsWithChildren<unknown>> = ({
+  children,
+}) => <Portal id="drawer">{children}</Portal>;
 
 export const Drawer = ({
   children,

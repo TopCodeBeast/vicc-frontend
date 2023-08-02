@@ -4,7 +4,7 @@ export const useToggleArray = (
   setArray: Dispatch<SetStateAction<boolean[]>>,
   trail = 100
 ) => {
-  const [newBooleanValue, setNewBooleanValue] = useState<null | boolean>(null);
+  const [newBooleanValue, setNewBooleanValue] = useState<boolean[]>([]);
   // manually implement a trail
   useEffect(() => {
     if (newBooleanValue === null) {
@@ -13,11 +13,23 @@ export const useToggleArray = (
     const interval = setInterval(() => {
       setArray(currentBooleanArray => {
         const newBooleanArray = [...currentBooleanArray];
-        const index = newBooleanArray.indexOf(!newBooleanValue);
+        if (
+          newBooleanValue.length &&
+          newBooleanValue.length !== currentBooleanArray.length
+        ) {
+          // eslint-disable-next-line no-console
+          console.warn(
+            `useToggleArray: Array should be same size as parameter. (expected: ${newBooleanValue.length}, got: ${currentBooleanArray.length})`
+          );
+          return [];
+        }
+        const index = newBooleanArray.findIndex(
+          (value, i) => value !== newBooleanValue[i]
+        );
         if (index < 0) {
           clearInterval(interval);
         } else {
-          newBooleanArray[index] = newBooleanValue;
+          newBooleanArray[index] = newBooleanValue[index];
         }
         return newBooleanArray;
       });

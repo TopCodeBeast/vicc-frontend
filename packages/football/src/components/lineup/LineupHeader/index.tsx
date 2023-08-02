@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { LinkOverlay } from '@sorare/core/src/atoms/navigation/Box';
@@ -50,6 +50,7 @@ type Props = {
   leaderboard: LineupHeader_so5Leaderboard;
   lineup?: LineupHeader_so5Lineup | null;
   hideGameWeekInfo?: boolean;
+  hideActions?: boolean;
   linkToCompetitionDetails: string;
 };
 
@@ -57,6 +58,7 @@ export const LineupHeader = ({
   leaderboard,
   lineup,
   hideGameWeekInfo,
+  hideActions,
   linkToCompetitionDetails,
 }: Props) => {
   const track = useFootballEvents();
@@ -74,26 +76,28 @@ export const LineupHeader = ({
       >
         {!!leaderboard && (
           <DivisionLogoWrapper>
-            {/* <DivisionLogo so5Leaderboard={leaderboard} /> */}
+            <DivisionLogo so5Leaderboard={leaderboard} />
           </DivisionLogoWrapper>
         )}
         <LineupInfo>
-          {/* {!hideGameWeekInfo && <LineupDate fixture={leaderboard.so5Fixture} />} */}
+          {!hideGameWeekInfo && <LineupDate fixture={leaderboard.so5Fixture} />}
           <Text16>{getLineupDisplayName(lineup, leaderboard)}</Text16>
         </LineupInfo>
       </StyledLinkOverlay>
-      {/* <DropdownActions so5Leaderboard={leaderboard} so5Lineup={lineup} /> */}
+      {!hideActions && (
+        <DropdownActions so5Leaderboard={leaderboard} so5Lineup={lineup} />
+      )}
     </Header>
   );
 };
 
 LineupHeader.fragments = {
   so5Leaderboard: gql`
-    fragment LineupHeader_so5Leaderboard on Vicc5Leaderboard {
+    fragment LineupHeader_so5Leaderboard on So5Leaderboard {
       slug
       gameWeek
       displayName
-      so5Fixture: vicc5Fixture {
+      so5Fixture {
         slug
         id
         ...LineupDate_fixture
@@ -106,9 +110,9 @@ LineupHeader.fragments = {
     ${LineupDate.fragments.fixture}
     ${DropdownActions.fragments.so5Leaderboard}
     ${getLineupDisplayName.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<LineupHeader_so5Leaderboard>,
   so5Lineup: gql`
-    fragment LineupHeader_so5Lineup on Vicc5Lineup {
+    fragment LineupHeader_so5Lineup on So5Lineup {
       id
       name
       ...DropdownActions_so5Lineup
@@ -116,5 +120,5 @@ LineupHeader.fragments = {
     }
     ${DropdownActions.fragments.so5Lineup}
     ${getLineupDisplayName.fragments.so5Lineup}
-  `,
+  ` as TypedDocumentNode<LineupHeader_so5Lineup>,
 };

@@ -1,17 +1,12 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
-// eslint-disable-next-line sorare/no-unrendered-component-imports
+import { useAuctionConversionCredit } from '@sorare/core/src/hooks/useAuctionConversionCredit';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
+
 import AuctionState from '../BidField/AuctionState';
+import { PaymentProvider_auction } from './__generated__/fragments.graphql';
 
 export const fragments = {
-  paymentIntent: gql`
-    fragment PaymentProvider_paymentIntent on PaymentIntent {
-      id
-      clientSecret
-      amount
-      paymentMethod
-    }
-  `,
   auction: gql`
     fragment PaymentProvider_auction on TokenAuction {
       id
@@ -20,17 +15,15 @@ export const fragments = {
       myBestBid {
         id
         fiatPayment
-        maximumAmount
         maximumAmounts {
-          eur
-          gbp
-          referenceCurrency
-          usd
-          wei
+          ...MonetaryAmountFragment_monetaryAmount
         }
       }
       ...AuctionState_tokenAuction
+      ...useAuctionConversionCredit_auction
     }
+    ${monetaryAmountFragment}
     ${AuctionState.fragments.tokenAuction}
-  `,
+    ${useAuctionConversionCredit.fragments.auction}
+  ` as TypedDocumentNode<PaymentProvider_auction>,
 };

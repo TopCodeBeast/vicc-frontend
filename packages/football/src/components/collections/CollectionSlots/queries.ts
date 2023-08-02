@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useMemo } from 'react';
 
 import { useConfigContext } from '@sorare/core/src/contexts/config';
@@ -44,7 +44,7 @@ const EMPTY_SLOTS_SALES_QUERY = gql`
     }
   }
   ${EmptySlot.fragments.token}
-`;
+` as TypedDocumentNode<EmptySlotsSalesQuery, EmptySlotsSalesQueryVariables>;
 
 const getPlayerSlugsFromEmptySlots = (
   slots:
@@ -53,11 +53,11 @@ const getPlayerSlugsFromEmptySlots = (
 ) => {
   const result: string[] = [];
   slots.forEach(slot => {
-    /*if (isType(slot, 'CardCollectionSlot')) {
+    if (isType(slot, 'CardCollectionSlot')) {
       result.push(slot.player.slug);
     } else if (slot.cardCollectionCardsCount === 0) {
       result.push(slot.slot.player.slug);
-    }*/ //TODO*******************
+    }
   });
   return result;
 };
@@ -97,10 +97,7 @@ export const useEmptySlotsSales = (
     return emptyCardsHits?.map(hit => hit.asset_id).filter(Boolean) as string[];
   }, [searchResponse]);
 
-  const { data } = useQuery<
-    EmptySlotsSalesQuery,
-    EmptySlotsSalesQueryVariables
-  >(EMPTY_SLOTS_SALES_QUERY, {
+  const { data } = useQuery(EMPTY_SLOTS_SALES_QUERY, {
     variables: { assetIds },
     skip: !assetIds?.length,
   });

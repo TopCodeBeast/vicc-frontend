@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 
 import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import { formatGqlErrors } from '@sorare/core/src/gql';
@@ -9,16 +9,16 @@ import {
 } from './__generated__/useDeleteLineup.graphql';
 
 const DELETE_SO5_LINEUP_MUTATION = gql`
-  mutation DeleteSo5LineupMutation($input: deleteVicc5LineupInput!) {
-    deleteVicc5Lineup(input: $input) {
-      # currentUser {
-      #   slug
-      #   blockchainCardsInLineups
-      # }
-      so5Leaderboard: vicc5Leaderboard {
+  mutation DeleteSo5LineupMutation($input: deleteSo5LineupInput!) {
+    deleteSo5Lineup(input: $input) {
+      currentUser {
         slug
-        so5LineupsCount: vicc5LineupsCount
-        mySo5Lineups: myVicc5Lineups {
+        blockchainCardsInLineups
+      }
+      so5Leaderboard {
+        slug
+        so5LineupsCount
+        mySo5Lineups {
           id
           name
           draft
@@ -31,18 +31,18 @@ const DELETE_SO5_LINEUP_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  DeleteSo5LineupMutation,
+  DeleteSo5LineupMutationVariables
+>;
 
 export default () => {
-  const [deleteSo5Lineup] = useMutation<
-    DeleteSo5LineupMutation,
-    DeleteSo5LineupMutationVariables
-  >(DELETE_SO5_LINEUP_MUTATION, {
+  const [deleteSo5Lineup] = useMutation(DELETE_SO5_LINEUP_MUTATION, {
     update(cache, context, { variables }) {
-      if (variables?.input.vicc5LineupId) {
+      if (variables?.input.so5LineupId) {
         const lineupCacheId = cache.identify({
           __typename: 'So5Lineup',
-          id: variables?.input.vicc5LineupId,
+          id: variables?.input.so5LineupId,
         });
 
         cache.evict({
@@ -53,16 +53,16 @@ export default () => {
   });
   const { showNotification } = useSnackNotificationContext();
 
-  return async (vicc5LineupId: string) => {
+  return async (so5LineupId: string) => {
     const result = await deleteSo5Lineup({
       variables: {
         input: {
-          vicc5LineupId,
+          so5LineupId,
         },
       },
     });
 
-    const errors = result.data?.deleteVicc5Lineup?.errors || [];
+    const errors = result.data?.deleteSo5Lineup?.errors || [];
 
     if (errors.length) {
       showNotification('errors', { errors: formatGqlErrors(errors) });

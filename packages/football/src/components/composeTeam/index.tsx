@@ -14,9 +14,9 @@ import Field, { Props as FieldProps } from './Field';
 type Props = {
   header?: ReactNode;
   lineupHeader?: ReactNode;
-  bench: (props: FC<BenchProps>) => ReactNode;
-  lineup: (props: FC<FieldProps>) => ReactNode;
-  drawer: (props: FC<DrawerProps>) => ReactNode;
+  bench: (props: FC<React.PropsWithChildren<BenchProps>>) => ReactNode;
+  lineup: (props: FC<React.PropsWithChildren<FieldProps>>) => ReactNode;
+  drawer: (props: FC<React.PropsWithChildren<DrawerProps>>) => ReactNode;
   onConfirm?: () => void;
   stall?: boolean;
   disableAnimation?: boolean;

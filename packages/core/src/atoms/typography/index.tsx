@@ -165,5 +165,4 @@ export type TypographyVariant =
   | typeof Text16
   | typeof Text14
   | typeof Overline
-  | typeof Caption
-  | any; //Modified*******************
+  | typeof Caption;

@@ -1,8 +1,9 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 // Eslint disable because: we cannot import fragments on token in baseball + Rules component not used
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
 import ActiveUserAvatar from '@sorare/core/src/components/user/ActiveUserAvatar';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import ItemSold from '@marketplace/components/ItemPreview/ItemSold';
 import { PromotedToken } from '@marketplace/components/PromotedToken';
@@ -44,6 +45,31 @@ import TokenWithdrawal from '@marketplace/components/token/TokenWithdrawal';
 /* eslint-disable-next-line sorare/no-unrendered-component-imports */
 import SmallUser from '@marketplace/components/user/SmallUser';
 
+import {
+  InterstitialPrimaryOfferQueryByIds,
+  InterstitialPrimaryOfferQueryByIdsVariables,
+  PrimaryOfferByIdQuery,
+  PrimaryOfferByIdQueryVariables,
+  PrimaryOfferUpdate,
+  PrimaryOfferUpdateVariables,
+  PrimaryOffersByIdsQuery,
+  PrimaryOffersByIdsQueryVariables,
+  PromotedTokensByIds,
+  PromotedTokensByIdsVariables,
+  TokenAuctionUpdate,
+  TokenAuctionUpdateVariables,
+  TokenBidSubscription_bidConnection,
+  TokenBidderSubscription_blockchainUser,
+  TokenByIdQuery,
+  TokenByIdQueryVariables,
+  TokenOfferUpdate,
+  TokenOfferUpdateVariables,
+  TokensByIdsQuery,
+  TokensByIdsQueryVariables,
+  UserBySlugQuery,
+  UserBySlugQueryVariables,
+} from './__generated__/fragments.graphql';
+
 // /!\
 // This is a temporary query for Baseball's marketplace
 // getting the bundleAuctions from Slugs IDs
@@ -59,13 +85,15 @@ const bidderFragment = gql`
       id
     }
   }
-`;
+` as TypedDocumentNode<TokenBidderSubscription_blockchainUser>;
 
 const bidsFragment = gql`
   fragment TokenBidSubscription_bidConnection on TokenBidConnection {
     nodes {
       id
-      amount
+      amounts {
+        ...MonetaryAmountFragment_monetaryAmount
+      }
       bidder {
         ...TokenBidderSubscription_blockchainUser
         ... on User {
@@ -85,7 +113,8 @@ const bidsFragment = gql`
     totalCount
   }
   ${bidderFragment}
-`;
+  ${monetaryAmountFragment}
+` as TypedDocumentNode<TokenBidSubscription_bidConnection>;
 
 export const TOKEN_BY_ID_QUERY = gql`
   query TokenByIdQuery($assetId: String!, $bidCursor: String) {
@@ -95,10 +124,8 @@ export const TOKEN_BY_ID_QUERY = gql`
         slug
         collection
         metadata {
-          ... on TokenCricketMetadata {
-            id
-          }
           ... on TokenCardMetadataInterface {
+            id
             rarity
           }
         }
@@ -131,7 +158,7 @@ export const TOKEN_BY_ID_QUERY = gql`
   ${MinimumPrice.fragments.token}
   ${TokenWithdrawal.fragments.token}
   ${TokensAvailableOnPrimaryWhenInsufficientFundsInWallet.fragments.token}
-`;
+` as TypedDocumentNode<TokenByIdQuery, TokenByIdQueryVariables>;
 
 export const TOKENS_BY_IDS_QUERY = gql`
   query TokensByIdsQuery($assetIds: [String!]!) {
@@ -147,7 +174,7 @@ export const TOKENS_BY_IDS_QUERY = gql`
   }
   ${Token.fragments.token}
   ${TokenFavoriteButton.fragments.token}
-`;
+` as TypedDocumentNode<TokensByIdsQuery, TokensByIdsQueryVariables>;
 
 export const PROMOTED_TOKENS_BY_IDS_QUERY = gql`
   query PromotedTokensByIds($assetIds: [String!]!) {
@@ -160,7 +187,7 @@ export const PROMOTED_TOKENS_BY_IDS_QUERY = gql`
     }
   }
   ${PromotedToken.fragments.token}
-`;
+` as TypedDocumentNode<PromotedTokensByIds, PromotedTokensByIdsVariables>;
 
 export const PRIMARY_OFFERS_BY_IDS_QUERY = gql`
   query PrimaryOffersByIdsQuery($ids: [String!]!) {
@@ -173,7 +200,10 @@ export const PRIMARY_OFFERS_BY_IDS_QUERY = gql`
     }
   }
   ${PrimaryOfferPreview.fragments.primaryOffer}
-`;
+` as TypedDocumentNode<
+  PrimaryOffersByIdsQuery,
+  PrimaryOffersByIdsQueryVariables
+>;
 
 export const PRIMARY_OFFER_BY_ID_QUERY = gql`
   query PrimaryOfferByIdQuery($id: String!) {
@@ -184,10 +214,8 @@ export const PRIMARY_OFFER_BY_ID_QUERY = gql`
           slug
           assetId
           metadata {
-            ... on TokenCricketMetadata {
-              id
-            }
             ... on TokenCardMetadataInterface {
+              id
               rarity
             }
           }
@@ -205,7 +233,7 @@ export const PRIMARY_OFFER_BY_ID_QUERY = gql`
   ${FlexToken.fragments.token}
   ${CardPreview.fragments.token}
   ${MobileCardPreview.fragments.token}
-`;
+` as TypedDocumentNode<PrimaryOfferByIdQuery, PrimaryOfferByIdQueryVariables>;
 
 export const INTERSTITIAL_PRIMARY_OFFERS_BY_IDS = gql`
   query InterstitialPrimaryOfferQueryByIds($primaryOfferIds: [String!]!) {
@@ -221,73 +249,74 @@ export const INTERSTITIAL_PRIMARY_OFFERS_BY_IDS = gql`
     }
   }
   ${PrimaryOfferTokensSummary.fragments.token}
-`;
+` as TypedDocumentNode<
+  InterstitialPrimaryOfferQueryByIds,
+  InterstitialPrimaryOfferQueryByIdsVariables
+>;
 
-// export const tokenAuctionSubscription = gql`
-//   subscription TokenAuctionUpdate($bidCursor: String, $sports: [Sport!]) {
-//     tokenAuctionWasUpdated(sports: $sports) {
-//       id
-//       open
-//       endDate
-//       currentPrice
-//       currency
-//       bidsCount
-//       blockchainId
-//       minNextBid
-//       creditCardFee
-//       nfts {
-//         assetId
-//         slug
-//         owner {
-//           id
-//           from
-//           priceFiat {
-//             eur
-//             usd
-//             gbp
-//           }
-//           priceWei
-//           transferType
-//           account {
-//             id
-//             owner {
-//               ... on User {
-//                 slug
-//                 nickname
-//               }
-//               ... on Contract {
-//                 id
-//               }
-//             }
-//           }
-//         }
-//         liveSingleSaleOffer {
-//           id
-//         }
-//         myMintedSingleSaleOffer {
-//           id
-//         }
-//         latestEnglishAuction {
-//           id
-//         }
-//         ...ItemSold_token
-//       }
-//       bestBid {
-//         id
-//         bidder {
-//           ... on User {
-//             slug
-//           }
-//         }
-//       }
-//       bids(first: 5, after: $bidCursor) {
-//         ...TokenBidSubscription_bidConnection
-//       }
-//     }
-//   }
-//   ${bidsFragment}
-//   ${ItemSold.fragments.token}
-// `;
+export const tokenAuctionSubscription = gql`
+  subscription TokenAuctionUpdate($bidCursor: String, $sports: [Sport!]) {
+    tokenAuctionWasUpdated(sports: $sports) {
+      id
+      open
+      endDate
+      currentPrice
+      currency
+      bidsCount
+      blockchainId
+      minNextBid
+      creditCardFee
+      nfts {
+        assetId
+        slug
+        owner {
+          id
+          from
+          price {
+            ...MonetaryAmountFragment_monetaryAmount
+          }
+          transferType
+          account {
+            id
+            owner {
+              ... on User {
+                slug
+                nickname
+              }
+              ... on Contract {
+                id
+              }
+            }
+          }
+        }
+        liveSingleSaleOffer {
+          id
+        }
+        myMintedSingleSaleOffer {
+          id
+        }
+        latestEnglishAuction {
+          id
+        }
+        ...ItemSold_token
+      }
+      bestBid {
+        id
+        bidder {
+          ... on User {
+            slug
+          }
+        }
+      }
+      bids(first: 5, after: $bidCursor) {
+        ...TokenBidSubscription_bidConnection
+      }
+    }
+  }
+  ${bidsFragment}
+  ${ItemSold.fragments.token}
+  ${monetaryAmountFragment}
+` as TypedDocumentNode<TokenAuctionUpdate, TokenAuctionUpdateVariables>;
 
 export const USER_BY_SLUG_QUERY = gql`
   query UserBySlugQuery($slug: String!) {
@@ -299,90 +328,85 @@ export const USER_BY_SLUG_QUERY = gql`
   }
   ${TradeButton.fragments.user}
   ${ActiveUserAvatar.fragments.user}
-`;
+` as TypedDocumentNode<UserBySlugQuery, UserBySlugQueryVariables>;
 
-// export const tokenOfferSubscription = gql`
-//   subscription TokenOfferUpdate($sports: [Sport!]) {
-//     tokenOfferWasUpdated(sports: $sports) {
-//       id
-//       endDate
-//       status
-//       senderSide {
-//         id
-//         wei
-//         nfts {
-//           assetId
-//           slug
-//           owner {
-//             id
-//             from
-//             priceFiat {
-//               eur
-//               usd
-//               gbp
-//             }
-//             priceWei
-//             transferType
-//           }
-//           ...ItemSold_token
-//           liveSingleSaleOffer {
-//             id
-//           }
-//           myMintedSingleSaleOffer {
-//             id
-//           }
-//         }
-//       }
-//       receiverSide {
-//         id
-//         wei
-//         nfts {
-//           assetId
-//           slug
-//           owner {
-//             id
-//             from
-//             priceFiat {
-//               eur
-//               usd
-//               gbp
-//             }
-//             priceWei
-//             transferType
-//             account {
-//               id
-//               owner {
-//                 ... on User {
-//                   slug
-//                   nickname
-//                 }
-//               }
-//             }
-//           }
-//           liveSingleSaleOffer {
-//             id
-//           }
-//           myMintedSingleSaleOffer {
-//             id
-//           }
-//         }
-//       }
-//     }
-//   }
-//   {ItemSold.fragments.token}
-// `;
+export const tokenOfferSubscription = gql`
+  subscription TokenOfferUpdate($sports: [Sport!]) {
+    tokenOfferWasUpdated(sports: $sports) {
+      id
+      endDate
+      status
+      senderSide {
+        id
+        wei
+        nfts {
+          assetId
+          slug
+          owner {
+            id
+            from
+            price {
+              ...MonetaryAmountFragment_monetaryAmount
+            }
+            transferType
+          }
+          ...ItemSold_token
+          liveSingleSaleOffer {
+            id
+          }
+          myMintedSingleSaleOffer {
+            id
+          }
+        }
+      }
+      receiverSide {
+        id
+        wei
+        nfts {
+          assetId
+          slug
+          owner {
+            id
+            from
+            price {
+              ...MonetaryAmountFragment_monetaryAmount
+            }
+            transferType
+            account {
+              id
+              owner {
+                ... on User {
+                  slug
+                  nickname
+                }
+              }
+            }
+          }
+          liveSingleSaleOffer {
+            id
+          }
+          myMintedSingleSaleOffer {
+            id
+          }
+        }
+      }
+    }
+  }
+  ${ItemSold.fragments.token}
+  ${monetaryAmountFragment}
+` as TypedDocumentNode<TokenOfferUpdate, TokenOfferUpdateVariables>;
 
-// export const primaryOfferSubscription = gql`
-//   subscription PrimaryOfferUpdate($sports: [Sport!]) {
-//     primaryOfferWasUpdated(sports: $sports) {
-//       id
-//       endDate
-//       status
-//       buyer {
-//         slug
-//         ...SmallUser_user
-//       }
-//     }
-//   }
-//   ${SmallUser.fragments.user}
-// `;
+export const primaryOfferSubscription = gql`
+  subscription PrimaryOfferUpdate($sports: [Sport!]) {
+    primaryOfferWasUpdated(sports: $sports) {
+      id
+      endDate
+      status
+      buyer {
+        slug
+        ...SmallUser_user
+      }
+    }
+  }
+  ${SmallUser.fragments.user}
+` as TypedDocumentNode<PrimaryOfferUpdate, PrimaryOfferUpdateVariables>;

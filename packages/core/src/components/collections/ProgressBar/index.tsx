@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client';
 import classnames from 'classnames';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -6,15 +5,12 @@ import { useDebounce } from 'react-use';
 import styled from 'styled-components';
 
 import Lightning from '@core/atoms/icons/Lightning';
-import { text14, text16 } from '@core/atoms/typography';
 import completed from '@core/components/collections/assets/completed.svg';
-import useFeatureFlags from '@core/hooks/useFeatureFlags';
-import { getShieldScoreRequirement } from '@core/lib/collections';
+import { CollectionsTeamShield } from '@core/lib/collections';
 import { fantasy } from '@core/lib/glossary';
 import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { ClubIcon } from './ClubIcon';
-import { ProgressBar_cardCollection } from './__generated__/index.graphql';
 
 const progressScores = [
   { value: 0, bonus: '-' },
@@ -70,7 +66,6 @@ const Root = styled.div`
   align-items: center;
   height: 5px;
   margin: var(--triple-unit) var(--double-unit) var(--triple-unit) 0;
-  color: var(--c-static-neutral-600);
   &:before {
     position: absolute;
     z-index: 0;
@@ -78,6 +73,7 @@ const Root = styled.div`
     right: ${DOT_SIZE / 2}px;
     bottom: 0;
     left: 0;
+    color: var(--c-static-neutral-600);
     background: currentcolor;
     border-radius: 2em;
     content: '';
@@ -129,7 +125,6 @@ const Top = styled.div`
   display: flex;
   gap: var(--half-unit);
   align-items: center;
-  color: var(--c-neutral-1000);
   &.left {
     transform: none;
     left: 0;
@@ -164,13 +159,16 @@ const Step = styled.div`
   }
 `;
 const Text = styled.div`
-  ${text14};
+  font: var(--t-bold) var(--t-14);
   @media ${tabletAndAbove} {
-    ${text16};
+    font: var(--t-bold) var(--t-16);
   }
 `;
-const BoldText = styled(Text)`
-  font-weight: var(--t-bold);
+const BonusText = styled(Text)`
+  color: var(--c-neutral-600);
+  &.isCompleted {
+    color: var(--c-green-600);
+  }
 `;
 const LightningWrapper = styled.span`
   width: var(--intermediate-unit);
@@ -194,26 +192,19 @@ type Props = {
   disableAnimation?: boolean;
   score?: number;
   showLabel?: boolean;
-  cardCollection?: ProgressBar_cardCollection;
+  teamShield?: CollectionsTeamShield;
 };
-const ProgressBar = ({
+
+export const ProgressBar = ({
   disableAnimation = false,
   score = progressScores[progressScores.length - 1].value,
   showLabel = false,
-  cardCollection,
+  teamShield,
 }: Props) => {
-  const {
-    flags: { useCollectionClubBadge = false },
-  } = useFeatureFlags();
-  const { team } = cardCollection || {};
-  const clubIconUrl = team?.pictureUrl;
-  const iconScore = 0;/*getShieldScoreRequirement(
-    cardCollection?.slug,
-    cardCollection?.relatedShield
-  );*/
+  const { score: teamShieldScore, name, pictureUrl } = teamShield || {};
   const scores =
-    iconScore && clubIconUrl && useCollectionClubBadge
-      ? insertIconScoreIntoProgressScores(iconScore)
+    teamShieldScore && pictureUrl
+      ? insertIconScoreIntoProgressScores(teamShieldScore)
       : progressScores;
 
   const progress = getProgress(score, scores);
@@ -241,14 +232,14 @@ const ProgressBar = ({
       {showLabel && (
         <>
           <ScoreLabel>
-            <BoldText>
+            <Text>
               <FormattedMessage {...fantasy.score} />
-            </BoldText>
+            </Text>
           </ScoreLabel>
           <BonusLabel>
-            <BoldText>
+            <Text>
               <FormattedMessage {...fantasy.bonus} />
-            </BoldText>
+            </Text>
           </BonusLabel>
         </>
       )}
@@ -259,10 +250,10 @@ const ProgressBar = ({
         return (
           <StepContainer key={value}>
             <Top className={classnames({ left: i === 0 })}>
-              <BoldText>
+              <Text>
                 {value}
                 {isLastScore && '+'}
-              </BoldText>
+              </Text>
               <LightningWrapper>
                 <Lightning />
               </LightningWrapper>
@@ -290,23 +281,15 @@ const ProgressBar = ({
               )}
             </Step>
             <Bottom className={classnames({ left: i === 0 })}>
-              <Text
-                as="div"
-                color={
-                  isCompleted
-                    ? 'var(--c-green-600)'
-                    : 'var(--c-static-neutral-100)'
-                }
-                bold
-              >
+              <BonusText className={classnames({ isCompleted })}>
                 {bonus || (
                   <ClubIcon
-                    clubIconUrl={clubIconUrl || ''}
+                    clubIconUrl={pictureUrl || ''}
                     isCompleted={isCompleted}
-                    alt={team?.name || ''}
+                    alt={name || ''}
                   />
                 )}
-              </Text>
+              </BonusText>
             </Bottom>
           </StepContainer>
         );
@@ -314,24 +297,3 @@ const ProgressBar = ({
     </Root>
   );
 };
-ProgressBar.fragments = {
-  cardCollection: gql`
-    fragment ProgressBar_cardCollection on CardCollection {
-      slug
-      # relatedShield {
-      #   id
-      #   ...getShieldScoreRequirement_skinShopItem
-      # }
-      team {
-        ... on TeamInterface {
-          slug
-          name
-          pictureUrl
-        }
-      }
-    }
-    ${getShieldScoreRequirement.fragments.skinShopItem}
-  `,
-};
-
-export default ProgressBar;

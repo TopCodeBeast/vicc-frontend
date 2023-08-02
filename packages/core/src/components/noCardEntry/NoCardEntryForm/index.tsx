@@ -1,5 +1,6 @@
-import { useRef, useState } from 'react';
+import { ReactNode, useRef, useState } from 'react';
 import { FormattedMessage, MessageDescriptor, useIntl } from 'react-intl';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Caption, Text14, Title6 } from '@core/atoms/typography';
@@ -7,6 +8,7 @@ import { GraphQLResult, GraphqlForm, TextField } from '@core/components/form/For
 import Select from '@core/components/form/Form/Select';
 import UploadFile from '@core/components/form/UploadFile';
 import { GoogleReCAPTCHA, ReCAPTCHA } from '@core/components/recaptcha';
+import { PRIVACY_POLICY } from '@core/constants/routes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 
 const Root = styled.div`
@@ -31,6 +33,10 @@ const PrivacyDisclaimer = styled.div`
   padding: var(--double-unit);
   background: var(--c-neutral-200);
   border-radius: var(--unit);
+`;
+
+const NoWrapLink = styled(Link)`
+  white-space: nowrap;
 `;
 
 const sportOptions = [
@@ -141,8 +147,19 @@ export const NoCardEntryForm = ({ onSubmit, onSuccess }: Props) => {
               <FormattedMessage
                 id="NoCardEntryForm.privacyDisclaimer"
                 defaultMessage="Sorare processes the data collected to enable your participation in the current Gameweek and to combat fraud and attempted violations of applicable Terms and Conditions and Rules.
-              To learn more about how we handle your personal data and to exercise your rights, see Sorare's Privacy Policy.
+              To learn more about how we handle your personal data and to exercise your rights, see <link>Sorare's Privacy Policy</link>.
               "
+                values={{
+                  link: (children: ReactNode[]) => (
+                    <NoWrapLink
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      to={PRIVACY_POLICY}
+                    >
+                      {children}
+                    </NoWrapLink>
+                  ),
+                }}
               />
             </Text14>
           </PrivacyDisclaimer>
@@ -200,7 +217,7 @@ export const NoCardEntryForm = ({ onSubmit, onSuccess }: Props) => {
               <UploadFile
                 name="proofOfResidency"
                 currentFileUrl={proofOfResidency?.name || null}
-                onChange={file => setProofOfResidency(file)}
+                onChange={fileData => setProofOfResidency(fileData.file)}
                 type="application/pdf"
                 validExtensions={['.pdf']}
                 buttonLabel={

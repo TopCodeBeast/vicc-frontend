@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 
 import { deckFragment } from '@football/pages/CustomDeck/fragments';
 
@@ -28,13 +28,13 @@ const ADD_CARDS_TO_CUSTOM_DECK_MUTATION = gql`
     }
   }
   ${deckFragment}
-`;
+` as TypedDocumentNode<
+  AddCardsToCustomDeckMutation,
+  AddCardsToCustomDeckMutationVariables
+>;
 
 export default () => {
-  const [addCards] = useMutation<
-    AddCardsToCustomDeckMutation,
-    AddCardsToCustomDeckMutationVariables
-  >(ADD_CARDS_TO_CUSTOM_DECK_MUTATION);
+  const [addCards] = useMutation(ADD_CARDS_TO_CUSTOM_DECK_MUTATION);
 
   return (deckSlug: string) => async (cardSlugs: string[]) =>
     addCards({

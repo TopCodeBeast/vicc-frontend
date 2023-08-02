@@ -1,16 +1,16 @@
 import { Divider } from '@material-ui/core';
 import { useMemo, useState } from 'react';
 import { FormattedMessage, defineMessage } from 'react-intl';
+import styled from 'styled-components';
 
 import { Sport } from '__generated__/globalTypes';
 import { Ball } from '@core/atoms/icons/Ball';
 import { MLBBall } from '@core/atoms/icons/MLBBall';
 import { NBABall } from '@core/atoms/icons/NBABall';
-import { SecondaryTabs } from '@core/atoms/navigation/SecondaryTabs';
 import { Title4 } from '@core/atoms/typography';
+import { Tab, TabBar } from '@core/components/TabBar';
 import FormSection from '@core/components/settings/SettingsSection';
 import DisabledEmailWarning from '@core/components/user/DisabledEmailWarning';
-import { SETTINGS_NOTIFICATIONS } from '@core/constants/routes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { Lifecycle } from '@core/hooks/useLifecycle';
 import { useNotificationPreferences } from '@core/hooks/useNotificationPreferences';
@@ -28,6 +28,13 @@ const title = defineMessage({
   id: 'Settings.Notifications.title',
   defaultMessage: 'Email notifications you will receive:',
 });
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--double-unit);
+`;
 
 const SportIcon = ({ sport }: { sport: Sport }) => {
   if (sport === Sport.FOOTBALL) return <Ball />;
@@ -58,26 +65,20 @@ export const NotificationPreferences = () => {
     }[];
   }, [sportNotificationPreferences]);
 
-  const tabs = useMemo(
-    () =>
-      [Sport.FOOTBALL, Sport.NBA, Sport.BASEBALL].map(s => ({
-        key: s,
-        to: SETTINGS_NOTIFICATIONS,
-        active: s === sport,
-        icon: <SportIcon sport={s} />,
-        label: <FormattedMessage {...sportsLabelsMessages[s]} />,
-        onClick: () => setSport(s),
-      })),
-    [sport]
-  );
-
   if (!currentUser) {
     return null;
   }
 
   return (
-    <div>
-      <SecondaryTabs items={tabs} noBorder />
+    <Wrapper>
+      <TabBar value={sport} compact>
+        {[Sport.FOOTBALL, Sport.NBA, Sport.BASEBALL].map(s => (
+          <Tab key={s} value={s} onClick={() => setSport(s)}>
+            <SportIcon sport={s} />
+            <FormattedMessage {...sportsLabelsMessages[s]} />
+          </Tab>
+        ))}
+      </TabBar>
       <FormSection title={title}>
         <DisabledEmailWarning />
         {filteredPreferences
@@ -104,7 +105,7 @@ export const NotificationPreferences = () => {
             <NotificationPreference key={p.name} preference={p} sport={sport} />
           ))}
       </FormSection>
-    </div>
+    </Wrapper>
   );
 };
 

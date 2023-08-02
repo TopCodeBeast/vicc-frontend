@@ -1,10 +1,16 @@
-import { FetchResult, gql, useMutation } from '@apollo/client';
+import {
+  FetchResult,
+  TypedDocumentNode,
+  gql,
+  useMutation,
+} from '@apollo/client';
+import type { ResultOf } from '@graphql-typed-document-node/core';
 import { useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import {
   SignupPlatform,
-  ViccPrivateKeyAttributes as SorarePrivateKeyAttributes,
+  SorarePrivateKeyAttributes,
 } from '__generated__/globalTypes';
 import { getValue } from '@core/components/PersistsQueryStringParameters/storage';
 import { useConfigContext } from '@core/contexts/config';
@@ -17,11 +23,11 @@ import usePrevious from '@core/hooks/usePrevious';
 import { useRedirectUrl } from '@core/hooks/useRedirectUrl';
 import { SESSION_STORAGE, useSessionStorage } from '@core/hooks/useSessionStorage';
 import useUtmParams from '@core/hooks/useUtmParams';
-// import { getInteractionContext } from '@core/lib/events';
+import { getInteractionContext } from '@core/lib/events';
 import useEvents from '@core/lib/events/useEvents';
 import { getClientId } from '@core/lib/ga';
 import { formatGqlErrors } from '@core/lib/gql';
-// import { SubmitSignUpForm } from '@core/protos/events/platform/web/events';
+import { SubmitSignUpForm } from '@core/protos/events/platform/web/events';
 
 import {
   SignUpMutation,
@@ -29,7 +35,6 @@ import {
   SignUpMutationWithUser,
   SignUpMutationWithUserVariables,
 } from './__generated__/useSignUp.graphql';
-import useRedirectAfterSignUp from './useRedirectAfterSignUp';
 
 const SIGN_UP_MUTATION = gql`
   mutation SignUpMutation($input: signUpInput!) {
@@ -45,7 +50,7 @@ const SIGN_UP_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<SignUpMutation, SignUpMutationVariables>;
 const SIGN_UP_MUTATION_WITH_USER = gql`
   mutation SignUpMutationWithUser($input: signUpInput!) {
     signUp(input: $input) {
@@ -62,7 +67,7 @@ const SIGN_UP_MUTATION_WITH_USER = gql`
     }
   }
   ${currentUser}
-`;
+` as TypedDocumentNode<SignUpMutationWithUser, SignUpMutationWithUserVariables>;
 
 function useSignUp() {
   const { updateQuery } = useConfigContext();
@@ -79,13 +84,11 @@ function useSignUp() {
     useSessionStorage(SESSION_STORAGE.signupPromo);
   const { showNotification } = useSnackNotificationContext();
   const track = useEvents();
-  const [mutate] = useMutation<
-    SignUpMutation & SignUpMutationWithUser,
-    SignUpMutationVariables & SignUpMutationWithUserVariables
-  >(allowUnconfirmedAccess ? SIGN_UP_MUTATION_WITH_USER : SIGN_UP_MUTATION);
+  const [mutate] = useMutation(
+    allowUnconfirmedAccess ? SIGN_UP_MUTATION_WITH_USER : SIGN_UP_MUTATION
+  );
   const afterLoggedInTarget = useAfterLoggedInTarget();
   const { recaptchaRef } = useConnectionContext();
-  const redirectUser = useRedirectAfterSignUp();
 
   const submit = useCallback(
     async (attributes: {
@@ -104,20 +107,14 @@ function useSignUp() {
       signupPlatform: SignupPlatform;
       wallet: SignUpMutationVariables['input']['wallet'];
     }): Promise<FetchResult<SignUpMutation>> => {
-      const {
-        passwordHash,
-        sorareAddress: viccAddress,
-        sorarePrivateKey: viccPrivateKey,
-        sorarePrivateKeyBackup: viccPrivateKeyBackup,
-        ...rest
-      } = attributes;
+      const { passwordHash, ...rest } = attributes;
 
-      // recaptchaRef.current?.reset();
-      // const recaptchaTokenV2 = await recaptchaRef.current?.executeAsync();
-      // if (!recaptchaTokenV2) {
-      //   track('Invalid Signup reCAPTCHA V2');
-      //   return {};
-      // }
+      recaptchaRef.current?.reset();
+      const recaptchaTokenV2 = await recaptchaRef.current?.executeAsync();
+      if (!recaptchaTokenV2) {
+        track('Invalid Signup reCAPTCHA V2');
+        return {};
+      }
 
       const result = await mutate({
         errorPolicy: 'all', // do not raise but rather forward errors through `result.errors`
@@ -125,15 +122,12 @@ function useSignUp() {
           input: {
             ...rest,
             password: passwordHash,
-            viccAddress, //TODO*****Change Name
-            viccPrivateKey,
-            viccPrivateKeyBackup,
             referrer: getValue('referrer'),
             impactClickId: getValue('irclickid'),
             utmParams: getParams,
             fromPath: redirectUrl || lastLocation || afterLoggedInTarget,
             gaClientId: getClientId(),
-            recaptchaTokenV2: null,
+            recaptchaTokenV2,
             promoCode: getSignupPromo()?.campaignCode,
           },
         },
@@ -150,20 +144,22 @@ function useSignUp() {
       }
 
       if (!result.errors && result.data?.signUp?.currentUser) {
-        // track(
-        //   'Submit Sign Up Form',
-        //   SubmitSignUpForm.toJSON({
-        //     interactionContext: getInteractionContext(),
-        //   }) as any
-        // );
+        track(
+          'Submit Sign Up Form',
+          SubmitSignUpForm.toJSON({
+            interactionContext: getInteractionContext(),
+          }) as any
+        );
         if (allowUnconfirmedAccess) {
-          updateQuery(result.data.signUp.currentUser);
+          updateQuery(
+            (result.data as ResultOf<typeof SIGN_UP_MUTATION_WITH_USER>).signUp!
+              .currentUser!
+          );
         }
         showNotification('signUp', {
           nickname: result.data!.signUp?.currentUser!.nickname,
         });
         setSignupPromo(null);
-        redirectUser();
       }
 
       return result;
@@ -180,7 +176,6 @@ function useSignUp() {
       showNotification,
       allowUnconfirmedAccess,
       setSignupPromo,
-      redirectUser,
       updateQuery,
     ]
   );

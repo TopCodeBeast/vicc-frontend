@@ -1,15 +1,9 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { isA } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
 
 import { UseBestBidBelongsToUser_bestBid } from './__generated__/useBestBidBelongsToUser.graphql';
-
-type UseBestBidBelongsToUser_bestBid_bidder =
-  UseBestBidBelongsToUser_bestBid['bidder'];
-
-type UseBestBidBelongsToUser_bestBid_bidder_User =
-  UseBestBidBelongsToUser_bestBid_bidder & { __typename: 'User' };
 
 export const useBestBidBelongsToUser = () => {
   const { currentUser } = useCurrentUserContext();
@@ -17,12 +11,8 @@ export const useBestBidBelongsToUser = () => {
   return (bestBid?: UseBestBidBelongsToUser_bestBid) => {
     return (
       currentUser &&
-      bestBid &&
-      bestBid.bidder &&
-      isA<UseBestBidBelongsToUser_bestBid_bidder_User>(
-        'User',
-        bestBid.bidder
-      ) &&
+      bestBid?.bidder &&
+      isType(bestBid.bidder, 'User') &&
       currentUser.slug === bestBid.bidder.slug
     );
   };
@@ -38,7 +28,7 @@ useBestBidBelongsToUser.fragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<UseBestBidBelongsToUser_bestBid>,
 };
 
 export default useBestBidBelongsToUser;

@@ -1,25 +1,21 @@
-import { gql } from '@apollo/client';
-import { parseISO } from 'date-fns';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useState } from 'react';
 import styled from 'styled-components';
 
 import GlareEffect from '@sorare/core/src/atoms/animations/GlareEffect';
-import Gauge from '@sorare/core/src/atoms/ui/GaugeV2';
-import CardScore from '@sorare/core/src/components/collections/CardScore';
-import DetailedScoreLine, {
-  DetailedScoreKey,
-  detailedScores,
-} from '@sorare/core/src/components/collections/DetailedScoreLine';
+import { CardScore } from '@sorare/core/src/components/collections/CardScore';
+import { DetailsDialogBanner } from '@sorare/core/src/components/collections/DetailsDialogBanner';
 import Warning from '@sorare/core/src/components/collections/Warning';
 import Dialog from '@sorare/core/src/components/dialog';
 import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
-import { isListedOnMarket } from '@sorare/core/src/lib/cards';
+import { isMyCardListedOnMarket } from '@sorare/core/src/lib/cards';
+import { getCollectionsTeamShield } from '@sorare/core/src/lib/collections';
 import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import useCancelOffer from '@sorare/marketplace/src/hooks/offers/useCancelOffer';
 
 import CollectionBackground from '@football/components/collections/CollectionBackground';
-import DetailsDialogBanner from '@football/components/collections/DetailsDialogBanner';
+import { CollectionBonuses } from '@football/components/collections/CollectionBonuses';
 
 import {
   CardPreview_cardCollection,
@@ -51,24 +47,6 @@ const CardImageWrapper = styled.div`
   padding: var(--quadruple-unit);
   max-width: 250px;
 `;
-const Bonuses = styled.div`
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-`;
-
-const DaysLeft = styled.span`
-  display: block;
-  text-align: right;
-  font-size: 10px;
-  line-height: 12px;
-  margin-left: auto;
-  margin-bottom: var(--half-unit);
-`;
-
-const Progression = styled.span`
-  display: block;
-`;
 
 type Props = {
   cardCollectionCard: CardPreview_cardCollectionCard;
@@ -86,7 +64,7 @@ const CardPreview = ({
 }: Props) => {
   const [unlisting, setUnlisting] = useState(false);
   const [unlisted, setUnlisted] = useState(false);
-  const { card, scoreBreakdown, heldSince } = cardCollectionCard;
+  const { card, scoreBreakdown } = cardCollectionCard;
   const { __typename, total, ...scores } = scoreBreakdown;
   const theoricalScore = Object.values(scores).reduce(
     (sum, value) => sum + value
@@ -94,7 +72,7 @@ const CardPreview = ({
   const cancelOffer = useCancelOffer();
   const belongsToUser = useTokenOfferBelongsToUser();
 
-  const cardListed = isListedOnMarket(card);
+  const cardListed = isMyCardListedOnMarket(card);
 
   const onUnlist = async () => {
     const offer = card.token?.myMintedSingleSaleOffer;
@@ -111,11 +89,6 @@ const CardPreview = ({
   };
 
   const displayWarning = cardListed && !unlisted;
-
-  const date1 = new Date(parseISO(heldSince));
-  const date2 = new Date();
-  const remainingDays =
-    (date2.valueOf() - date1.valueOf()) / (1000 * 60 * 60 * 24);
 
   return (
     <Dialog
@@ -136,47 +109,14 @@ const CardPreview = ({
             score={unlisted ? theoricalScore : total}
             listed={displayWarning}
           />
-          <Bonuses>
-            {Object.entries(scores).map(([key, value]) => {
-              if (!value && key === 'holding' && remainingDays > 0) {
-                return (
-                  <DetailedScoreLine
-                    key={key}
-                    listed={displayWarning}
-                    {...detailedScores[key as DetailedScoreKey]}
-                    explanation={
-                      <>
-                        {detailedScores[key as DetailedScoreKey].explanation}
-                        {remainingDays > 0 && (
-                          <Progression>
-                            <DaysLeft>{Math.ceil(remainingDays)}/90</DaysLeft>
-                            <Gauge
-                              percentage={`${(remainingDays * 100) / 90}%`}
-                            />
-                          </Progression>
-                        )}
-                      </>
-                    }
-                    value={0}
-                  />
-                );
-              }
-              if (!value) {
-                return null;
-              }
-              return (
-                key in detailedScores && (
-                  <DetailedScoreLine
-                    key={key}
-                    listed={displayWarning}
-                    {...detailedScores[key as DetailedScoreKey]}
-                  />
-                )
-              );
-            })}
-          </Bonuses>
+          <CollectionBonuses
+            cardCollectionCard={cardCollectionCard}
+            displayWarning={displayWarning}
+          />
           {displayWarning && <Warning onClick={onUnlist} loading={unlisting} />}
-          <DetailsDialogBanner cardCollection={cardCollection} />
+          <DetailsDialogBanner
+            teamShield={getCollectionsTeamShield(cardCollection)}
+          />
         </DialogContainer>
       )}
     />
@@ -187,7 +127,6 @@ CardPreview.fragments = {
   cardCollectionCard: gql`
     fragment CardPreview_cardCollectionCard on CardCollectionCard {
       id
-      heldSince
       card {
         assetId
         slug
@@ -201,7 +140,7 @@ CardPreview.fragments = {
             ...useTokenOfferBelongsToUser_offer
           }
         }
-        ...isListedOnMarket_card
+        ...isMyCardListedOnMarket_card
       }
       scoreBreakdown {
         firstOwner
@@ -212,17 +151,19 @@ CardPreview.fragments = {
         specialEdition
         total
       }
+      ...CollectionBonuses_cardCollectionCard
     }
-    ${isListedOnMarket.fragments.card}
+    ${isMyCardListedOnMarket.fragments.card}
     ${useTokenOfferBelongsToUser.fragments.offer}
-  `,
+    ${CollectionBonuses.fragments.cardCollectionCard}
+  ` as TypedDocumentNode<CardPreview_cardCollectionCard>,
   cardCollection: gql`
     fragment CardPreview_cardCollection on CardCollection {
       slug
-      ...DetailsDialogBanner_cardCollection
+      ...getCollectionsShield_cardCollection
     }
-    ${DetailsDialogBanner.fragments.cardCollection}
-  `,
+    ${getCollectionsTeamShield.fragments.cardCollection}
+  ` as TypedDocumentNode<CardPreview_cardCollection>,
 };
 
 export default CardPreview;

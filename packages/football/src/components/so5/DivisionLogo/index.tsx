@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import styled from 'styled-components';
 
@@ -44,12 +44,12 @@ export const DivisionLogo = ({ so5Leaderboard, tag }: Props) => {
 
 DivisionLogo.fragments = {
   so5Leaderboard: gql`
-    fragment DivisionLogo_so5Leaderboard on Vicc5Leaderboard {
+    fragment DivisionLogo_so5Leaderboard on So5Leaderboard {
       slug
       iconUrl
       svgLogoUrl
     }
-  `,
+  ` as TypedDocumentNode<DivisionLogo_so5Leaderboard>,
 };
 
 export default DivisionLogo;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { Link, generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -89,7 +89,7 @@ Info.fragments = {
     ${ClubName.fragments.user}
     ${Banner.fragments.user}
     ${ActiveUserAvatar.fragments.user}
-  `,
+  ` as TypedDocumentNode<Info_user>,
 };
 
 export default Info;

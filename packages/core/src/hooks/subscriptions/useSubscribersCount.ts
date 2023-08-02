@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { GetCurrentUserSubscriptionProps } from '@core/contexts/follow';
 import useQuery from '@core/hooks/graphql/useQuery';
@@ -14,18 +14,15 @@ export const SUBSCRIPTION_STATS_QUERY = gql`
       subscribersCount
     }
   }
-`;
+` as TypedDocumentNode<SubscriptionStatsQuery, SubscriptionStatsQueryVariables>;
 
 export default function useSubscribersCount(
   subscribable: GetCurrentUserSubscriptionProps
 ) {
-  const { data } = useQuery<
-    SubscriptionStatsQuery,
-    SubscriptionStatsQueryVariables
-  >(SUBSCRIPTION_STATS_QUERY, {
+  const { data } = useQuery(SUBSCRIPTION_STATS_QUERY, {
     variables: {
       subscribable: {
-        type: subscribable.__typename as any, //TODO**************
+        type: subscribable.__typename,
         slug: subscribable.slug,
       },
     },

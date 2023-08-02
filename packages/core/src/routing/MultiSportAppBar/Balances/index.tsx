@@ -15,7 +15,6 @@ import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useIntlContext } from '@core/contexts/intl';
 import { useWalletDrawerContext } from '@core/contexts/walletDrawer';
 import useWalletNeedsRecover from '@core/hooks/recovery/useWalletNeedsRecover';
-import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import { useFiatBalance } from '@core/hooks/wallets/useFiatBalance';
 import { RoundingMode, fromWei } from '@core/lib/wei';
 
@@ -62,7 +61,7 @@ const WalletButton = ({
   } = useCurrentUserContext();
 
   const {
-    hasActiveFiatBalance,
+    canListAndTrade,
     availableBalance: availableFiatBalance,
     fiatCurrency,
   } = useFiatBalance();
@@ -73,7 +72,7 @@ const WalletButton = ({
     [availableBalance]
   );
 
-  const emptyFiatWallet = !hasActiveFiatBalance || availableFiatBalance === 0;
+  const emptyFiatWallet = !canListAndTrade || availableFiatBalance === 0;
 
   const emptyWallet =
     (showEthWallet && emptyEthWallet) || (showFiatWallet && emptyFiatWallet);
@@ -142,7 +141,6 @@ const WalletButton = ({
       className="light-theme"
     >
       {compact ? <FontAwesomeIcon icon={faWallet} /> : renderBalances()}
-      {/* {compact ? <FontAwesomeIcon icon={faWallet} /> : <>renderBalances</>} */}
     </Button>
   );
 };
@@ -157,31 +155,24 @@ const StyledBadge = styled(Badge)`
 export const Balances = ({ medium, small, compact }: EthereumBalanceProps) => {
   const { currentUser } = useCurrentUserContext();
   const walletNeedsRecover = useWalletNeedsRecover();
-  const {
-    flags: { onlyAllowPrivateKeyAccessFromConfirmedDevice = false },
-  } = useFeatureFlags();
 
   if (!currentUser) {
     return null;
   }
 
-  // if (
-  //   walletNeedsRecover ||
-  //   (!currentUser.confirmedDevice &&
-  //     onlyAllowPrivateKeyAccessFromConfirmedDevice)
-  // )
-  //   return (
-  //     <StyledBadge
-  //       badgeContent={<FontAwesomeIcon icon={faExclamationCircle} />}
-  //     >
-  //       <WalletButton
-  //         currentUser={currentUser}
-  //         compact={compact}
-  //         medium={medium}
-  //         small={small}
-  //       />
-  //     </StyledBadge>
-  //   );
+  if (walletNeedsRecover || !currentUser.confirmedDevice)
+    return (
+      <StyledBadge
+        badgeContent={<FontAwesomeIcon icon={faExclamationCircle} />}
+      >
+        <WalletButton
+          currentUser={currentUser}
+          compact={compact}
+          medium={medium}
+          small={small}
+        />
+      </StyledBadge>
+    );
 
   return (
     <WalletButton

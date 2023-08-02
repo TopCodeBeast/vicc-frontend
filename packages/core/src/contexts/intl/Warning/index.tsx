@@ -44,7 +44,7 @@ const Message = styled(Text16)<{ variant: Variant }>`
 type Props = {
   title?: MessageDescriptor;
   message?: MessageDescriptor;
-  values?: Record<string, React.ReactNode>;
+  values?: object;
   children?: React.ReactNode;
   variant?: Variant;
 };

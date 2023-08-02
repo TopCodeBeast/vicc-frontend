@@ -4,8 +4,8 @@ import { ReactNode, useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { useIsDesktop } from 'hooks/device/useIsDesktop';
-import { tabletAndAbove } from 'style/mediaQuery';
+import { useIsDesktop } from '@core/hooks/device/useIsDesktop';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { ProfileDrawer } from '../ProfileDrawer';
 

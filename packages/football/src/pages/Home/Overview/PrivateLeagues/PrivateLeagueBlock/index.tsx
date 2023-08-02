@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { Link, generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -66,15 +66,15 @@ export const PrivateLeagueBlock = ({ userGroupsList }: Props) => {
 
 PrivateLeagueBlock.fragments = {
   userGroup: gql`
-    fragment PrivateLeagueBlock_userGroup on Vicc5UserGroup {
+    fragment PrivateLeagueBlock_userGroup on So5UserGroup {
       slug
       displayName
-      upcomingSo5Leaderboard: upcomingVicc5Leaderboard {
+      upcomingSo5Leaderboard {
         slug
         displayName
         ...DivisionLogo_so5Leaderboard
       }
-      so5TournamentType: vicc5TournamentType {
+      so5TournamentType {
         id
         displayName
       }
@@ -82,5 +82,5 @@ PrivateLeagueBlock.fragments = {
     }
     ${DivisionLogo.fragments.so5Leaderboard}
     ${PrivateLeagueItem.fragments.userGroup}
-  `,
+  ` as TypedDocumentNode<PrivateLeagueBlock_userGroup>,
 };

@@ -1,23 +1,99 @@
-import { Vicc5UserGroupStatus as So5UserGroupStatus } from '@sorare/core/src/__generated__/globalTypes';
-import { Chip } from '@sorare/core/src/atoms/ui/Chip';
+import { TypedDocumentNode, gql } from '@apollo/client';
+import { faLock } from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classnames from 'classnames';
+import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
+
+import { Caption } from '@sorare/core/src/atoms/typography';
+
+import { UserGroupStatus_so5UserGroup } from './__generated__/index.graphql';
+
+const Root = styled.div`
+  width: auto;
+  padding: var(--half-unit) var(--unit);
+  border-radius: 100px;
+  background-color: var(--c-neutral-400);
+  color: var(--c-neutral-700);
+  &.joined {
+    background-color: var(--c-green-600);
+  }
+`;
+const FlexContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--half-unit);
+`;
+
+enum Statuses {
+  LOCKED,
+  JOIN,
+  JOINED,
+}
+
+type StatusProps = { status: Statuses };
+const Status = ({ status }: StatusProps) => {
+  if (status === Statuses.JOINED) {
+    return (
+      <FormattedMessage
+        id="UserGroupStatus.Joined.title"
+        defaultMessage="Joined"
+      />
+    );
+  }
+  if (status === Statuses.LOCKED) {
+    return (
+      <FlexContainer>
+        <FontAwesomeIcon icon={faLock} size="xs" />
+        <FormattedMessage
+          id="UserGroupStatus.Locked.title"
+          defaultMessage="Locked"
+        />
+      </FlexContainer>
+    );
+  }
+  return (
+    <FormattedMessage id="UserGroupStatus.Join.title" defaultMessage="Join" />
+  );
+};
 
 type Props = {
-  status: So5UserGroupStatus;
-  label: string;
+  so5UserGroup: UserGroupStatus_so5UserGroup;
 };
+export const UserGroupStatus = ({ so5UserGroup }: Props) => {
+  let status = Statuses.LOCKED;
 
-const CHIP_COLORS = {
-  [So5UserGroupStatus.ENDED]: 'gray',
-  [So5UserGroupStatus.STARTED]: 'green',
-  [So5UserGroupStatus.TO_START]: 'yellow',
-} as const;
-
-export const UserGroupsStatus = ({ status, label }: Props) => {
-  const chipColor = CHIP_COLORS[status];
-  if (!chipColor) {
-    return null;
+  if (so5UserGroup.myMembership) {
+    status = Statuses.JOINED;
+  } else if (so5UserGroup.upcomingSo5Leaderboard?.canCompose.value) {
+    status = Statuses.JOIN;
   }
-  return <Chip label={label} size="smaller" color={chipColor} />;
+
+  return (
+    <Root className={classnames({ joined: status === Statuses.JOINED })}>
+      <Caption as="div" color="var(--c-neutral-1000)" uppercase bold>
+        <Status status={status} />
+      </Caption>
+    </Root>
+  );
 };
 
-export default UserGroupsStatus;
+UserGroupStatus.fragments = {
+  so5UserGroup: gql`
+    fragment UserGroupStatus_so5UserGroup on So5UserGroup {
+      id
+      status
+      upcomingSo5Leaderboard {
+        slug
+        canCompose {
+          value
+        }
+      }
+      myMembership {
+        id
+      }
+    }
+  ` as TypedDocumentNode<UserGroupStatus_so5UserGroup>,
+};
+
+export default UserGroupStatus;

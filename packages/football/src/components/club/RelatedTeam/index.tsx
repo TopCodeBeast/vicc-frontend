@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
-import { isA } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
 
 import RelatedClub from '@football/components/club/RelatedClub';
 import RelatedNationalTeam from '@football/components/club/RelatedNationalTeam';
@@ -19,7 +19,7 @@ interface Props {
 }
 
 export const RelatedTeam = ({ team, fullWidth }: Props) => {
-  if (isA('Club', team)) {
+  if (isType(team, 'Club')) {
     return (
       <RelatedClub club={team as RelatedTeam_team_Club} fullWidth={fullWidth} />
     );
@@ -47,7 +47,7 @@ RelatedTeam.fragments = {
     }
     ${RelatedNationalTeam.fragments.nationalTeam}
     ${RelatedClub.fragments.club}
-  `,
+  ` as TypedDocumentNode<RelatedTeam_team>,
 };
 
 export default RelatedTeam;

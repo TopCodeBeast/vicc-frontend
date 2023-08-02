@@ -1,4 +1,4 @@
-// import VerifyPhoneNumber from '@core/components/user/VerifyPhoneNumber';
+import VerifyPhoneNumber from '@core/components/user/VerifyPhoneNumber';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useRestrictedAccessContext } from '@core/contexts/restrictedAccess';
 import EmailVerificationDialog from '@core/contexts/restrictedAccess/EmailVerificationDialog';
@@ -25,8 +25,7 @@ export const RestrictedAccessModals = () => {
     );
   if (showRestrictedAccess === 'phone')
     return (
-      <>VerifyPhoneNumber123</>
-      // <VerifyPhoneNumber onCancel={() => setShowRestrictedAccess(undefined)} />
+      <VerifyPhoneNumber onCancel={() => setShowRestrictedAccess(undefined)} />
     );
 
   return null;

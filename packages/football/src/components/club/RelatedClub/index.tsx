@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -44,7 +44,7 @@ RelatedClub.fragments = {
       ...TeamPicture_team
     }
     ${TeamPicture.fragments.team}
-  `,
+  ` as TypedDocumentNode<RelatedClub_club>,
 };
 
 export default RelatedClub;

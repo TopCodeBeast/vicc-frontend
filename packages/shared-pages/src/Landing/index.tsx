@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-// import LandingMultiSport from '@sorare/core/src/components/landing/LandingMultiSport';
+import LandingMultiSport from '@sorare/core/src/components/landing/LandingMultiSport';
 import { NewLandingMultiSport } from '@sorare/core/src/components/landing/NewLandingMultiSport';
 import { useConnectionContext } from '@sorare/core/src/contexts/connection';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
@@ -28,8 +28,7 @@ const Landing = () => {
     }
   }, [currentUser, afterLoggedInTarget, signIn]);
 
-  // return useLanding20 ? <NewLandingMultiSport /> : <LandingMultiSport />;
-  return <NewLandingMultiSport />;
+  return useLanding20 ? <NewLandingMultiSport /> : <LandingMultiSport />;
 };
 
 export default Landing;

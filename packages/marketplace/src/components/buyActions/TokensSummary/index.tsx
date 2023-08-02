@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { Collapse } from '@material-ui/core';
 import { ReactNode, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -186,10 +186,8 @@ TokensSummary.fragments = {
       assetId
       slug
       metadata {
-        ... on TokenCricketMetadata {
-          id
-        }
         ... on TokenCardMetadataInterface {
+          id
           rarity
         }
       }
@@ -200,7 +198,7 @@ TokensSummary.fragments = {
     ${TokenDescription.fragments.token}
     ${PrimaryOfferTokensPreview.fragments.token}
     ${FlexToken.fragments.token}
-  `,
+  ` as TypedDocumentNode<TokensSummary_token>,
 };
 
 export default TokensSummary;

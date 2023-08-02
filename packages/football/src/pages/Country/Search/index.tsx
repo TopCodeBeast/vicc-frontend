@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 
 import { Title3 } from '@sorare/core/src/atoms/typography';
@@ -75,7 +75,7 @@ Search.fragments = {
     fragment CountrySearch_country on Country {
       slug
     }
-  `,
+  ` as TypedDocumentNode<CountrySearch_country>,
 };
 
 export default Search;

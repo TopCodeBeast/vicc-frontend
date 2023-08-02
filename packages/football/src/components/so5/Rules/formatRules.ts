@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { IntlShape } from 'react-intl';
 
 import { withFragments } from '@sorare/core/src/lib/gql';
@@ -6,6 +6,7 @@ import { withFragments } from '@sorare/core/src/lib/gql';
 import { Errors } from '@football/components/so5/ComposeTeam/Context';
 import { HANDLED_RULES } from '@football/lib/so5';
 
+import { formatRules_so5Leaderboard } from './__generated__/formatRules.graphql';
 import { Rules_so5Leaderboard } from './__generated__/index.graphql';
 import {
   getActiveClubsRule,
@@ -126,7 +127,7 @@ export const formatRules = withFragments(
   },
   {
     so5Leaderboard: gql`
-      fragment formatRules_so5Leaderboard on Vicc5Leaderboard {
+      fragment formatRules_so5Leaderboard on So5Leaderboard {
         slug
         ...GetSeasonsRule
         ...GetLeaguesRule
@@ -173,6 +174,6 @@ export const formatRules = withFragments(
       ${getAllowLegend.fragments.rule}
       ${getSumOfAverageScoresRule.fragments.rule}
       ${getCardBonusRule.fragments.so5Leaderboard}
-    `,
+    ` as TypedDocumentNode<formatRules_so5Leaderboard>,
   }
 );

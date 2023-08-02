@@ -59,15 +59,17 @@ const Card = styled.div`
   }
 `;
 
-export type Props = FC<{
-  selected?: boolean;
-  showCaptainToggle?: boolean;
-  isCaptain?: boolean;
-  disableCaptainAnimation?: boolean;
-  onCaptainToggle?: () => void;
-  onRemove?: () => void;
-  noPointerEvents?: boolean;
-}>;
+export type Props = FC<
+  React.PropsWithChildren<{
+    selected?: boolean;
+    showCaptainToggle?: boolean;
+    isCaptain?: boolean;
+    disableCaptainAnimation?: boolean;
+    onCaptainToggle?: () => void;
+    onRemove?: () => void;
+    noPointerEvents?: boolean;
+  }>
+>;
 const CardWrapper: Props = ({
   selected,
   children,

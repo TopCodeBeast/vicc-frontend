@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -31,7 +31,7 @@ export const UNBLOCK_EMAIL_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<UnblockEmailMutation, UnblockEmailMutationVariables>;
 
 const Content = styled.div`
   display: flex;
@@ -49,10 +49,7 @@ export const DisabledEmailWarning = () => {
   const [pending, setPending] = useState(false);
   const { currentUser } = useCurrentUserContext();
 
-  const [unblockEmail] = useMutation<
-    UnblockEmailMutation,
-    UnblockEmailMutationVariables
-  >(UNBLOCK_EMAIL_MUTATION);
+  const [unblockEmail] = useMutation(UNBLOCK_EMAIL_MUTATION);
 
   const requestUnblockEmail = () => {
     setPending(true);

@@ -4,6 +4,7 @@ import {
   ApproveMigrator,
   Deal,
   MessagingContext,
+  Password,
   PrivateKeyRecoveryPayload,
   Prompt,
   RequestOAuth2,
@@ -16,10 +17,8 @@ import {
   AuthorizationRequest,
 } from '@sorare/wallet-shared/src/contexts/messaging/authorizations';
 import { UpdateUserAttributes, UpdateUserEmailAttributes } from '@core/contexts/auth';
-// import { RecoveryOption } from '@core/hooks/recovery/useRecoveryOptions';
+import { RecoveryOption } from '@core/hooks/recovery/useRecoveryOptions';
 import { Side } from '@core/lib/deal';
-
-type RecoveryOption = any;//TODO
 
 export type LimitOrder =
   SignLimitOrders['request']['args']['limitOrders'][number];
@@ -56,7 +55,9 @@ interface WalletContext {
   ) => Promise<void>;
   selectedRecoveryOption: RecoveryOption | null;
   handleWalletSuccessullyRecovered: () => Promise<void>;
-  getPassword: (error?: boolean) => Promise<string | undefined>;
+  getPassword: (
+    args?: Password['request']['args']
+  ) => Promise<string | undefined>;
   checkUserPhoneNumberVerificationCodeWithRecovery: (
     code: string
   ) => Promise<{ message: string }[] | null>;

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { theme } from '@sorare/core/src/style/theme';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import GameWeekLabel, { Props as GameWeekLabelProps } from './GameWeekLabel';
 
@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   grid-template-columns: auto 1fr;
   grid-template-rows: min-content min-content;
   column-gap: var(--double-unit);
-  @media (min-width: ${theme.breakpoints.values.md}px) {
+  @media ${laptopAndAbove} {
     grid-template-areas:
       'gameweek title'
       'line content';
@@ -58,7 +58,7 @@ const Delayable = styled.div`
 const LineWrapper = styled.div`
   grid-area: line;
   display: none;
-  @media (min-width: ${theme.breakpoints.values.md}px) {
+  @media ${laptopAndAbove} {
     display: block;
     position: relative;
   }
@@ -93,6 +93,7 @@ type Props = {
   children: ReactNode;
   loading?: boolean;
   gameWeek: Nullable<number>;
+  fixtureShortDisplayName?: string;
   type: GameWeekLabelProps['type'];
   isLast?: boolean;
 };
@@ -105,6 +106,7 @@ const HomeBlockWithTimeline = ({
   gameWeek,
   type,
   isLast,
+  fixtureShortDisplayName,
 }: Props) => {
   return (
     <Wrapper>
@@ -112,7 +114,11 @@ const HomeBlockWithTimeline = ({
         <>
           {gameWeek && (
             <GameWeek>
-              <GameWeekLabel type={type} gameWeek={gameWeek} />
+              <GameWeekLabel
+                type={type}
+                gameWeek={gameWeek}
+                fixtureShortDisplayName={fixtureShortDisplayName}
+              />
             </GameWeek>
           )}
           <LineWrapper>

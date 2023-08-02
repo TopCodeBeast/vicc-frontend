@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import styled from 'styled-components';
 
@@ -123,11 +123,11 @@ ClubHonorsSummaryByLeaderboard.fragments = {
     fragment ClubHonorsSummaryByLeaderboard_user on PublicUserInfoInterface {
       slug
       trophies {
-        so5TournamentType: vicc5TournamentType {
+        so5TournamentType {
           id
           displayName
           svgLogoUrl
-          so5LeaderboardType: vicc5LeaderboardType
+          so5LeaderboardType
         }
         limited: cardRewards(rarity: limited)
         rare: cardRewards(rarity: rare)
@@ -139,7 +139,7 @@ ClubHonorsSummaryByLeaderboard.fragments = {
         top3: podiumRankings(ranking: 3)
       }
     }
-  `,
+  ` as TypedDocumentNode<ClubHonorsSummaryByLeaderboard_user>,
 };
 
 export default ClubHonorsSummaryByLeaderboard;

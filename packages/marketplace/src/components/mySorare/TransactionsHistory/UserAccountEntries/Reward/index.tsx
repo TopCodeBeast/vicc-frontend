@@ -63,15 +63,15 @@ Reward.fragments = {
         ... on TokenMonetaryReward {
           id
         }
-        ... on Vicc5Reward {
+        ... on So5Reward {
           slug
-          so5Ranking: vicc5Ranking {
+          so5Ranking {
             id
             ranking
-            so5Leaderboard: vicc5Leaderboard {
+            so5Leaderboard {
               slug
               displayName
-              so5Fixture: vicc5Fixture {
+              so5Fixture {
                 slug
                 gameWeek
               }

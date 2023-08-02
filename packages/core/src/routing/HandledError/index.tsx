@@ -14,8 +14,8 @@ export enum ErrorLevel {
 }
 
 export const levelOfErrorCode = (code: number | string) => {
-  if (Number(code) >= 500) return ErrorLevel.ERROR;
-  if (Number(code) >= 400) return ErrorLevel.WARNING;
+  if (code >= 500) return ErrorLevel.ERROR;
+  if (code >= 400) return ErrorLevel.WARNING;
   return ErrorLevel.INFO;
 };
 

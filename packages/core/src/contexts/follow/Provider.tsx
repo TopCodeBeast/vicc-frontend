@@ -1,10 +1,11 @@
-import { gql, useLazyQuery } from '@apollo/client';
+import { TypedDocumentNode, gql, useLazyQuery } from '@apollo/client';
 import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Sport } from '__generated__/globalTypes';
 
 import FollowContextProvider from '.';
 import {
+  FollowProvider_currentUser,
   FollowQuery,
   FollowQueryVariables,
 } from './__generated__/Provider.graphql';
@@ -67,7 +68,7 @@ export const currentUser = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<FollowProvider_currentUser>;
 
 export const FOLLOW_QUERY = gql`
   query FollowQuery($cursor: String) {
@@ -77,7 +78,7 @@ export const FOLLOW_QUERY = gql`
     }
   }
   ${currentUser}
-`;
+` as TypedDocumentNode<FollowQuery, FollowQueryVariables>;
 
 // This provider was introduced, to get all subscriptions for a user. It is used for :
 // - Favorites Filter on the marketplace
@@ -93,48 +94,45 @@ export const FollowProvider = ({ children }: Props) => {
   const [page, setPage] = useState(0);
   const [cursor, setCursor] = useState<string | null | undefined>(undefined);
 
-  // const [loadMore, { data, loading }] = useLazyQuery<
-  //   FollowQuery,
-  //   FollowQueryVariables
-  // >(FOLLOW_QUERY);
+  const [loadMore, { data, loading }] = useLazyQuery(FOLLOW_QUERY);
 
-  // // load first page, once
-  // useEffect(() => {
-  //   loadMore();
-  // }, [loadMore]);
+  // load first page, once
+  useEffect(() => {
+    loadMore();
+  }, [loadMore]);
 
-  // // load next pages
-  // useEffect(() => {
-  //   if (loading || !data) {
-  //     return;
-  //   }
+  // load next pages
+  useEffect(() => {
+    if (loading || !data) {
+      return;
+    }
 
-  //   const hasMore = data.currentUser?.mySubscriptions.pageInfo.hasNextPage;
-  //   if (hasMore) {
-  //     const endCursor = data.currentUser?.mySubscriptions.pageInfo.endCursor;
-  //     if (endCursor !== cursor && loadMore) {
-  //       setPage(page + 1);
-  //       setCursor(endCursor);
-  //       loadMore({
-  //         variables: {
-  //           cursor: endCursor,
-  //         },
-  //       });
-  //     }
-  //   } else {
-  //     setMySubscriptionsLoaded(true);
-  //   }
-  // }, [data, loading, page, cursor, setPage, setCursor, loadMore]);
+    const hasMore = data.currentUser?.mySubscriptions.pageInfo.hasNextPage;
+    if (hasMore) {
+      const endCursor = data.currentUser?.mySubscriptions.pageInfo.endCursor;
+      if (endCursor !== cursor && loadMore) {
+        setPage(page + 1);
+        setCursor(endCursor);
+        loadMore({
+          variables: {
+            cursor: endCursor,
+          },
+        });
+      }
+    } else {
+      setMySubscriptionsLoaded(true);
+    }
+  }, [data, loading, page, cursor, setPage, setCursor, loadMore]);
 
-  // // append to `mySubscriptions`
-  // useEffect(() => {
-  //   if (data?.currentUser?.mySubscriptions.nodes) {
-  //     setMySubscriptions(m => [
-  //       ...m,
-  //       ...(data?.currentUser?.mySubscriptions.nodes || []),
-  //     ]);
-  //   }
-  // }, [data]);
+  // append to `mySubscriptions`
+  useEffect(() => {
+    if (data?.currentUser?.mySubscriptions.nodes) {
+      setMySubscriptions(m => [
+        ...m,
+        ...(data?.currentUser?.mySubscriptions.nodes || []),
+      ]);
+    }
+  }, [data]);
 
   const getCurrentUserSubscription = useCallback(
     ({ __typename, slug }: { __typename: string; slug: string }) => {
@@ -160,12 +158,14 @@ export const FollowProvider = ({ children }: Props) => {
     [mySubscriptions]
   );
 
-  const addToMySubscriptions = useCallback(
-    (subscription: FollowQuery_currentUser_mySubscriptions_nodes) => {
-      setMySubscriptions([...mySubscriptions, subscription]);
-    },
-    [mySubscriptions]
-  );
+  const addToMySubscriptions = (
+    subscription: FollowQuery_currentUser_mySubscriptions_nodes
+  ) => {
+    setMySubscriptions(previousSubscriptions => [
+      ...previousSubscriptions,
+      subscription,
+    ]);
+  };
 
   const updateMySubscriptions = (
     subscription: FollowQuery_currentUser_mySubscriptions_nodes

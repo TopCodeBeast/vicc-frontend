@@ -35,6 +35,7 @@ const Root = styled.button`
   z-index: 9999;
   padding: 5px 10px;
   background: rgb(237, 238, 241);
+  color: var(--c-static-neutral-1000);
   border-top: 1px solid rgb(142, 142, 142);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   font-size: 10px;
@@ -102,6 +103,15 @@ const complexityClass = (complexity: number) => {
   return 'error';
 };
 
+const locationEmoji = (subgraphs: string[]) => {
+  const backend = subgraphs.includes('BACKEND');
+  const go = subgraphs.includes('GO');
+  if (backend && go) return '🌎';
+  if (backend) return '🇫🇷';
+  if (go) return '🇺🇸';
+  return '❓';
+};
+
 const DebugInfos = (props: DebugProps) => {
   const { graphQLCalls } = props;
   const [open, setOpen] = useLocalStorage<boolean>(
@@ -147,7 +157,7 @@ const DebugInfos = (props: DebugProps) => {
           return (
             <li key={call.id}>
               <Badge>{i + 1}</Badge>
-              {operation.operationName}(C=
+              {locationEmoji(call.subgraphs)} {operation.operationName}(C=
               <Status $state={complexityClass(complexity)}>{complexity}</Status>
               , D=<Status $state={depthClass(depth)}>{depth}</Status>)
             </li>

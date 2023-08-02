@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import CardRewards from '@football/pages/Home/ClubHonors/CardRewards';
@@ -50,7 +50,7 @@ ClubHonorsSummary.fragments = {
         top3: podiumRankings(ranking: 3)
       }
     }
-  `,
+  ` as TypedDocumentNode<ClubHonorsSummary_user>,
 };
 
 export default ClubHonorsSummary;

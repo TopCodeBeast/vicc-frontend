@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormControlLabel } from '@material-ui/core';
 import { ChangeEvent } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -8,7 +8,7 @@ import { Sport } from '__generated__/globalTypes';
 import Switch from '@core/atoms/inputs/Switch';
 import { Text16 } from '@core/atoms/typography';
 import useMutation from '@core/hooks/graphql/useMutation';
-import { useNotificationPreferences_userSettings } from '@core/hooks/useNotificationPreferences';
+import { USE_NOTIFICATION_PREFERENCES_USER_SETTINGS } from '@core/hooks/useNotificationPreferences';
 
 import { notificationSubtitles, notificationTitles } from '../messages';
 import {
@@ -44,8 +44,11 @@ const UPDATE_USER_SETTINGS_MUTATION = gql`
       }
     }
   }
-  ${useNotificationPreferences_userSettings}
-`;
+  ${USE_NOTIFICATION_PREFERENCES_USER_SETTINGS}
+` as TypedDocumentNode<
+  UpdateUserSettingsMutation,
+  UpdateUserSettingsMutationVariables
+>;
 
 const StyledFormControlLabel = styled(FormControlLabel)`
   display: flex;
@@ -63,10 +66,7 @@ const Label = styled.div`
 `;
 
 export const NotificationPreference = ({ preference, sport }: Props) => {
-  const [mutate] = useMutation<
-    UpdateUserSettingsMutation,
-    UpdateUserSettingsMutationVariables
-  >(UPDATE_USER_SETTINGS_MUTATION);
+  const [mutate] = useMutation(UPDATE_USER_SETTINGS_MUTATION);
   const { name, value, defaultValue } = preference;
 
   const currentValue = value ?? defaultValue;

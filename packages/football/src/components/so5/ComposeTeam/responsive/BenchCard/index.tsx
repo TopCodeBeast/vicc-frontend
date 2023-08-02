@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ReactNode, useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -82,17 +82,17 @@ export const BenchCard = (props: Props) => {
           <Properties>
             <>
               {displayedAverageScore ===
-                AveragePlayerScore.LAST_FIFTEEN_VICC5_AVERAGE_SCORE && (
+                AveragePlayerScore.LAST_FIFTEEN_SO5_AVERAGE_SCORE && (
                 <AverageScore
                   capped={isCappedMode}
                   size="smaller"
-                  score={card.lastFifteenVicc5AverageScore}
+                  score={card.lastFifteenSo5AverageScore}
                   withTooltip
                   scoreMode="AVERAGE_LAST_15_GAMES"
                 />
               )}
               {displayedAverageScore ===
-                AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE && (
+                AveragePlayerScore.LAST_FIVE_SO5_AVERAGE_SCORE && (
                 <AverageScore
                   capped={isCappedMode}
                   size="smaller"
@@ -131,9 +131,9 @@ BenchCard.fragments = {
       rarity
       pictureUrl: pictureUrl(derivative: "tinified")
       position: positionTyped
-      lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
-      lastFifteenVicc5AverageScore: averageScore(
-        type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
+      lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_SO5_AVERAGE_SCORE)
+      lastFifteenSo5AverageScore: averageScore(
+        type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
       )
       player {
         slug
@@ -149,7 +149,7 @@ BenchCard.fragments = {
     ${cardFragment}
     ${PlayerCurrentUnavailabilityBadge.fragments.player}
     ${CompactNextGames.fragments.card}
-  `,
+  ` as TypedDocumentNode<BenchCard_card>,
 };
 
 export default BenchCard;

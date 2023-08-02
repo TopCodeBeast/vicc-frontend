@@ -25,7 +25,7 @@ export type Errors = { path: string[] | null; message: string }[] | null;
 export type BenchFilters = {
   includeNoGameCards: boolean;
   includeUsedCards: boolean;
-  lastFifteenVicc5AverageScore?: RangeInput;
+  lastFifteenSo5AverageScore?: RangeInput;
 };
 
 const composeTeamContext = createContext<{
@@ -85,6 +85,7 @@ const composeTeamContext = createContext<{
     } | null>
   >;
   isDrawerOpen: boolean;
+  isCreateMode: boolean;
   setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
   showAffordableOnly: boolean;
   setShowAffordableOnly: Dispatch<SetStateAction<boolean>>;

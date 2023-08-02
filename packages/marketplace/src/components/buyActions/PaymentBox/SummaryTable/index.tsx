@@ -86,10 +86,7 @@ export const SummaryTable = ({
             </Text16>
             {customAmountDisplay || (
               <PaymentBoxAmountWithConversion
-                monetaryAmount={{
-                  referenceCurrency: SupportedCurrency.WEI,
-                  ...subtotalMonetaryAmount,
-                }}
+                monetaryAmount={subtotalMonetaryAmount}
                 hideExponent={canChangeRefCurrency}
               />
             )}
@@ -135,10 +132,7 @@ export const SummaryTable = ({
               </Tooltip>
             </Text16WithTooltip>
             <PaymentBoxAmountWithConversion
-              monetaryAmount={{
-                referenceCurrency: SupportedCurrency.WEI,
-                ...feesMonetaryAmount,
-              }}
+              monetaryAmount={feesMonetaryAmount}
               hideExponent={canChangeRefCurrency}
               {...(canChangeRefCurrency && {
                 primaryCurrency: isFiat ? Currency.FIAT : Currency.ETH,
@@ -161,23 +155,8 @@ export const SummaryTable = ({
                 title={
                   <Caption>
                     <FormattedMessage
-                      id="PaymentBox.fiatWalletFeeInfo"
-                      defaultMessage="A {fees}% transaction fee is charged at the time of the purchase. {more}"
-                      values={{
-                        fees: fees * 100,
-                        more: (
-                          <FeesDetails
-                            href="https://help.sorare.com/hc/en-us/articles/4402889674897"
-                            target="_blank"
-                            rel="noreferrer noopener"
-                          >
-                            <FormattedMessage
-                              id="PaymentBox.moreDetails"
-                              defaultMessage="More details"
-                            />
-                          </FeesDetails>
-                        ),
-                      }}
+                      id="PaymentBox.cashWalletFeeInfo"
+                      defaultMessage="No fees are required for this payment."
                     />
                   </Caption>
                 }
@@ -186,10 +165,7 @@ export const SummaryTable = ({
               </Tooltip>
             </Text16WithTooltip>
             <PaymentBoxAmountWithConversion
-              monetaryAmount={{
-                referenceCurrency: SupportedCurrency.WEI,
-                ...feesMonetaryAmount,
-              }}
+              monetaryAmount={feesMonetaryAmount}
               hideExponent={canChangeRefCurrency}
               {...(canChangeRefCurrency && {
                 primaryCurrency: isFiat ? Currency.FIAT : Currency.ETH,
@@ -224,7 +200,7 @@ export const SummaryTable = ({
             <PaymentBoxAmountWithConversion
               monetaryAmount={{
                 referenceCurrency: SupportedCurrency.WEI,
-                [SupportedCurrency.WEI.toLowerCase()]: '0',
+                wei: '0',
               }}
               hideExponent={canChangeRefCurrency}
               {...(canChangeRefCurrency && {

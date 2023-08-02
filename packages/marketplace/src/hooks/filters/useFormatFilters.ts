@@ -18,7 +18,6 @@ type ReturnedProps = {
 
 const useFormatFilters = (): ReturnedProps => {
   const { currency, fiatCurrency } = useCurrentUserContext();
-
   const { convertFromWei, convertToWei } = useCurrencyConverters();
   const { formatEth, formatNumber } = useIntlContext();
 

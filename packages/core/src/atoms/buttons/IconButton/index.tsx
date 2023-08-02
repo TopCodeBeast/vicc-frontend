@@ -16,6 +16,8 @@ export interface Props
 const Root = styled(Button)<{ medium: boolean }>`
   padding: 0;
   min-width: unset;
+  display: flex;
+  align-items: center;
 
   ${({ medium }) =>
     medium &&

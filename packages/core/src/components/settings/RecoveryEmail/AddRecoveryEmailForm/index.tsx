@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
 import { CreateWalletRecovery } from '@sorare/wallet-shared';
-// import { PrivateKeyRecoveryOptionStatusEnum } from '__generated__/globalTypes';
+import { PrivateKeyRecoveryOptionStatusEnum } from '__generated__/globalTypes';
 import { Text14, Text16, Title3 } from '@core/atoms/typography';
 import TwoFADialog from '@core/components/TwoFA/TwoFADialog';
 import { GraphQLResult, GraphqlForm, TextField } from '@core/components/form/Form';
@@ -12,13 +12,11 @@ import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useMessagingContext } from '@core/contexts/wallet';
 import { useWalletDrawerContext } from '@core/contexts/walletDrawer';
 import useAddWalletRecoveryEmail from '@core/hooks/recovery/useAddWalletRecoveryEmail';
-// import useRecoveryOptions, {
-//   RecoveryOption,
-// } from '@core/hooks/recovery/useRecoveryOptions';
-// import useResendVerificationCodeForRecoveryEmail from '@core/hooks/recovery/useResendVerificationCodeForRecoveryEmail';
+import useRecoveryOptions, {
+  RecoveryOption,
+} from '@core/hooks/recovery/useRecoveryOptions';
+import useResendVerificationCodeForRecoveryEmail from '@core/hooks/recovery/useResendVerificationCodeForRecoveryEmail';
 import { glossary } from '@core/lib/glossary';
-
-type RecoveryOption = any;
 
 const Wrapper = styled.div`
   display: flex;
@@ -61,10 +59,10 @@ export const AddRecoveryEmailForm = ({
   const { formatMessage } = useIntl();
   const recaptchaRef = useRef<GoogleReCAPTCHA>(null);
   const { currentUser } = useCurrentUserContext();
-  // const { accountEmail, recoveryEmails } = useRecoveryOptions();
+  const { accountEmail, recoveryEmails } = useRecoveryOptions();
   const { addWalletRecoveryEmail } = useAddWalletRecoveryEmail();
-  // const { resendVerificationCodeForRecoveryEmail } =
-  //   useResendVerificationCodeForRecoveryEmail();
+  const { resendVerificationCodeForRecoveryEmail } =
+    useResendVerificationCodeForRecoveryEmail();
   const { sendRequest } = useMessagingContext();
   const { closeWalletAndDrawer } = useWalletDrawerContext();
   const [newRecoveryEmail, setNewRecoveryEmail] = useState<string | null>(
@@ -84,106 +82,106 @@ export const AddRecoveryEmailForm = ({
     values: any,
     onResult: (res: GraphQLResult) => void
   ) => {
-    // const recoveryDestination =
-    //   values?.email?.toLowerCase() || newRecoveryEmail;
+    const recoveryDestination =
+      values?.email?.toLowerCase() || newRecoveryEmail;
 
-    // const alreadyRegisteredOption = getRecoveryOptionFromEmail(
-    //   recoveryDestination,
-    //   recoveryEmails
-    // );
+    const alreadyRegisteredOption = getRecoveryOptionFromEmail(
+      recoveryDestination,
+      recoveryEmails
+    );
 
-    // if (
-    //   alreadyRegisteredOption ||
-    //   recoveryDestination === accountEmail?.destination
-    // ) {
-    //   if (
-    //     alreadyRegisteredOption &&
-    //     alreadyRegisteredOption.status ===
-    //       PrivateKeyRecoveryOptionStatusEnum.PENDING_VALIDATION
-    //   ) {
-    //     const { errors } = await resendVerificationCodeForRecoveryEmail(
-    //       alreadyRegisteredOption.id
-    //     );
-    //     onResult({ errors });
-    //     return;
-    //   }
-    //   onResult({
-    //     error: formatMessage({
-    //       id: 'Settings.addRecoveryEmailForm.alreadyRegisteredEmailError',
-    //       defaultMessage: 'This email is already registered.',
-    //     }),
-    //   });
-    //   return;
-    // }
+    if (
+      alreadyRegisteredOption ||
+      recoveryDestination === accountEmail?.destination
+    ) {
+      if (
+        alreadyRegisteredOption &&
+        alreadyRegisteredOption.status ===
+          PrivateKeyRecoveryOptionStatusEnum.PENDING_VALIDATION
+      ) {
+        const { errors } = await resendVerificationCodeForRecoveryEmail(
+          alreadyRegisteredOption.id
+        );
+        onResult({ errors });
+        return;
+      }
+      onResult({
+        error: formatMessage({
+          id: 'Settings.addRecoveryEmailForm.alreadyRegisteredEmailError',
+          defaultMessage: 'This email is already registered.',
+        }),
+      });
+      return;
+    }
 
-    // let abort = false;
-    // const otpAttempt = await new Promise<string | undefined>(
-    //   (resolve, reject) => {
-    //     if (!currentUser?.otpRequiredForLogin) return resolve(undefined);
-    //     setTwoFACallback({ resolve, reject });
-    //     setOpen2FA(true);
-    //     return undefined;
-    //   }
-    // ).catch(() => {
-    //   abort = true;
-    //   return undefined;
-    // });
-    // if (abort) return;
+    let abort = false;
+    const otpAttempt = await new Promise<string | undefined>(
+      (resolve, reject) => {
+        if (!currentUser?.otpRequiredForLogin) return resolve(undefined);
+        setTwoFACallback({ resolve, reject });
+        setOpen2FA(true);
+        return undefined;
+      }
+    ).catch(() => {
+      abort = true;
+      return undefined;
+    });
+    if (abort) return;
 
-    // const { result, error } = await sendRequest<CreateWalletRecovery>(
-    //   'createWalletRecovery',
-    //   {
-    //     recoveryMethod: 'email',
-    //     recoveryDestination,
-    //   }
-    // );
+    const { result, error } = await sendRequest<CreateWalletRecovery>(
+      'createWalletRecovery',
+      {
+        recoveryMethod: 'email',
+        recoveryDestination,
+      }
+    );
 
-    // if (error) {
-    //   onResult({ error });
-    //   return;
-    // }
+    if (error) {
+      onResult({ error });
+      return;
+    }
 
-    // if (!result) {
-    //   onResult({
-    //     error: formatMessage({
-    //       id: 'updateUserEmailWithPassword.privateKeyGenerationError',
-    //       defaultMessage: 'Unable to generate recovery key.',
-    //     }),
-    //   });
-    //   return;
-    // }
-    // closeWalletAndDrawer();
-    // const { privateKeyRecovery } = result;
+    if (!result) {
+      onResult({
+        error: formatMessage({
+          id: 'updateUserEmailWithPassword.privateKeyGenerationError',
+          defaultMessage: 'Unable to generate recovery key.',
+        }),
+      });
+      return;
+    }
+    closeWalletAndDrawer();
+    const { privateKeyRecovery } = result;
 
-    // const gqlResults = await addWalletRecoveryEmail({
-    //   privateKeyRecovery,
-    //   otpAttempt,
-    // });
+    const gqlResults = await addWalletRecoveryEmail({
+      privateKeyRecovery,
+      otpAttempt,
+    });
 
-    // const recoveryOptions =
-    //   gqlResults?.data?.addWalletRecovery?.currentUser?.wallet?.recoveryOptions;
+    const recoveryOptions =
+      gqlResults?.data?.addWalletRecovery?.currentUser?.wallet?.recoveryOptions;
 
-    // const hasNotRegistered = !getRecoveryOptionFromEmail(
-    //   recoveryDestination,
-    //   recoveryOptions
-    // );
+    const hasNotRegistered = !getRecoveryOptionFromEmail(
+      recoveryDestination,
+      recoveryOptions
+    );
 
-    // onResult({
-    //   ...gqlResults,
-    //   errors: [
-    //     ...gqlResults.errors,
-    //     ...(hasNotRegistered && gqlResults.errors.length === 0
-    //       ? [
-    //           {
-    //             message: formatMessage({
-    //               id: 'Settings.addWalletRecoveryEmail.notRegistered',
-    //               defaultMessage: 'Email is not valid',
-    //             }),
-    //           },
-    //         ]
-    //       : []),
-    //   ],
-    // });
+    onResult({
+      ...gqlResults,
+      errors: [
+        ...gqlResults.errors,
+        ...(hasNotRegistered && gqlResults.errors.length === 0
+          ? [
+              {
+                message: formatMessage({
+                  id: 'Settings.addWalletRecoveryEmail.notRegistered',
+                  defaultMessage: 'Email is not valid',
+                }),
+              },
+            ]
+          : []),
+      ],
+    });
   };
 
   const onSuccess = () => {

@@ -5,14 +5,19 @@ import {
   Sport,
   SupportedCurrency,
 } from '@sorare/core/src/__generated__/globalTypes';
-import { useConversionCredit } from '@sorare/core/src/hooks/useConversionCredit';
+import {
+  ConversionCreditWithAmounts,
+  useConversionCredit,
+} from '@sorare/core/src/hooks/useConversionCredit';
 import useMonetaryAmount, {
   MonetaryAmountOutput,
+  zeroMonetaryAmount,
 } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { getMonetaryAmountIndex } from '@sorare/core/src/lib/monetaryAmount';
 
 type Props = {
   canUseConversionCredit: boolean;
+  currentlyUsedConversionCredit?: ConversionCreditWithAmounts;
   isFiat: boolean;
   sport: Sport;
   monetaryAmount: MonetaryAmountOutput;
@@ -28,33 +33,30 @@ export const useCalculateAmounts = ({
   activeFee,
   canUseConversionCredit,
   referenceCurrency,
+  currentlyUsedConversionCredit,
 }: Props) => {
   const { toMonetaryAmount } = useMonetaryAmount();
   const indexableReferenceCurrency = getMonetaryAmountIndex(referenceCurrency);
 
-  const conversionCredit = useConversionCredit(sport);
+  const currentUserConversionCredit = useConversionCredit(sport);
+  const conversionCreditToUse =
+    currentlyUsedConversionCredit || currentUserConversionCredit;
 
   const [usingConversionCredit, setUsingConversionCredit] = useState<boolean>(
-    canUseConversionCredit && !!conversionCredit
+    canUseConversionCredit && !!conversionCreditToUse
   );
 
   const conversionCreditId = usingConversionCredit
-    ? conversionCredit?.id
+    ? conversionCreditToUse?.id
     : undefined;
 
   const percentageDiscount =
-    (usingConversionCredit && conversionCredit?.percentageDiscount) || 0;
+    (usingConversionCredit && conversionCreditToUse?.percentageDiscount) || 0;
 
   const readablePercentageDiscount = `${percentageDiscount * 100}%`;
   const maxDiscountMonetary = useMemo(
-    () =>
-      conversionCredit?.maxDiscount || {
-        eur: 0,
-        usd: 0,
-        gbp: 0,
-        wei: '0',
-      },
-    [conversionCredit?.maxDiscount]
+    () => conversionCreditToUse?.maxDiscount || zeroMonetaryAmount,
+    [conversionCreditToUse?.maxDiscount]
   );
 
   const conversionCreditMonetaryAmount = useMemo(
@@ -121,7 +123,7 @@ export const useCalculateAmounts = ({
   ]);
 
   return {
-    conversionCredit,
+    conversionCredit: conversionCreditToUse,
     conversionCreditId,
     usingConversionCredit,
     setUsingConversionCredit,
@@ -130,7 +132,7 @@ export const useCalculateAmounts = ({
     fees,
     feesMonetaryAmount,
     conversionCreditMonetaryAmount,
-    maxDiscountMonetary: conversionCredit?.maxDiscount,
+    maxDiscountMonetary: conversionCreditToUse?.maxDiscount,
     totalMonetaryAmount,
   };
 };

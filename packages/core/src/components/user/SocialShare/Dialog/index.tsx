@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import {
   faArrowLeft,
@@ -15,11 +15,12 @@ import styled from 'styled-components';
 import IconButton from '@core/atoms/buttons/IconButton';
 import RoundedButton from '@core/atoms/buttons/RoundedButton';
 import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
+import Dots from '@core/atoms/navigation/Dots';
 import { Text14, Title3 } from '@core/atoms/typography';
 import Scrollable from '@core/components/Scrollable';
 import Dialog from '@core/components/dialog';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
-// import { useEventsContext } from '@core/contexts/events';
+import { useEventsContext } from '@core/contexts/events';
 import { useIntlContext } from '@core/contexts/intl';
 import { useSportContext } from '@core/contexts/sport';
 import idFromObject from '@core/gql/idFromObject';
@@ -83,6 +84,10 @@ const Buttons = styled.div`
   margin-bottom: auto;
 `;
 const ScrollableWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--unit);
+  align-items: center;
   padding: var(--unit);
   margin-bottom: var(--quadruple-unit);
 `;
@@ -165,13 +170,12 @@ const SocialShareDialog = ({
   const { sport } = useSportContext();
   const { formatMessage } = useIntlContext();
   const [copied, setCopied] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const timeoutRef = useRef(setTimeout(() => {}, 0));
-  // const { track } = useEventsContext();
+  const { track } = useEventsContext();
   const { setParams } = useUtmParams();
   const [step, setStep] = useState(defaultStep);
-  const [selectedImage, setSelectedImage] = useState(
-    images[0] ? images[0][1] : null
-  );
+  const selectedImage = images[selectedImageIndex]?.[1];
   const shareSheetProps = {
     image: selectedImage,
     title: message,
@@ -204,7 +208,7 @@ const SocialShareDialog = ({
     const clipboardUrl = setParams({ ...sharedParams });
     if (!clipboardUrl) return;
     const { name, properties } = shareByCopyLinkEvent(...trackingProps);
-    //track(name, properties);
+    track(name, properties);
     navigator.clipboard.writeText(clipboardUrl);
     clearTimeout(timeoutRef.current);
     setCopied(true);
@@ -212,19 +216,19 @@ const SocialShareDialog = ({
   };
   const onShareImageClick = () => {
     const { name, properties } = shareByImageEvent(...trackingProps);
-    //track(name, properties);
+    track(name, properties);
   };
   const onTwitterClick = () => {
     const { name, properties } = shareOnTwitterEvent(...trackingProps);
-    //track(name, properties);
+    track(name, properties);
   };
   const onFacebookClick = () => {
     const { name, properties } = shareOnFacebookEvent(...trackingProps);
-    //track(name, properties);
+    track(name, properties);
   };
   const onShareSheetClick = () => {
     const { name, properties } = shareWithShareSheetEvent(...trackingProps);
-    //track(name, properties);
+    track(name, properties);
     shareWithShareSheet();
   };
 
@@ -315,9 +319,10 @@ const SocialShareDialog = ({
             <ScrollableWrapper>
               <Scrollable
                 itemToDisplay={1}
-                onVisibleItemsChanged={items =>
-                  setSelectedImage(images[items[0]][1])
-                }
+                onVisibleItemsChanged={items => {
+                  setSelectedImageIndex(items[0]);
+                }}
+                indexToScroll={selectedImageIndex}
               >
                 {images.map(([, src]) => (
                   <ImgWrapper key={src}>
@@ -328,6 +333,11 @@ const SocialShareDialog = ({
                   </ImgWrapper>
                 ))}
               </Scrollable>
+              <Dots
+                selectedIndex={selectedImageIndex}
+                setSelectedIndex={setSelectedImageIndex}
+                titles={images.map(([type]) => type)}
+              />
             </ScrollableWrapper>
             <Buttons>
               {!!selectedImage && (
@@ -366,7 +376,7 @@ SocialShareDialog.fragments = {
         story
       }
     }
-  `,
+  ` as TypedDocumentNode<SocialShare_SocialPictures_Dialog>,
 };
 
 export default SocialShareDialog;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import qs from 'qs';
 import { useCallback, useEffect } from 'react';
 import { Location, useLocation, useNavigate } from 'react-router-dom';
@@ -17,7 +17,7 @@ const OWN_YOUR_GAME_QUERY = gql`
   query OwnYourGameQuery($name: String!) {
     referrer(name: $name)
   }
-`;
+` as TypedDocumentNode<OwnYourGameQuery, OwnYourGameQueryVariables>;
 
 const loadReferrerFromLocation = (location: Location) => {
   const pathname = location.pathname.split('/r/');
@@ -56,10 +56,7 @@ export default () => {
     localStorage.getItem(keys.referrer) ||
     landingTheme?.userSource?.name;
 
-  const { data, loading } = useQuery<
-    OwnYourGameQuery,
-    OwnYourGameQueryVariables
-  >(OWN_YOUR_GAME_QUERY, {
+  const { data, loading } = useQuery(OWN_YOUR_GAME_QUERY, {
     variables: { name: referrer! },
     skip: !referrer,
   });

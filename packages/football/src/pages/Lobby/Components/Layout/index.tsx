@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -90,7 +90,7 @@ export const Layout = ({
     displayName: UNBREAKABLE_SPACE,
     shortDisplayName: UNBREAKABLE_SPACE,
     transient: true,
-  } as any,
+  },
   hidePlayers,
 }: Props) => {
   const { formatMessage } = useIntlContext();
@@ -174,10 +174,10 @@ export const Layout = ({
 
 Layout.fragments = {
   so5Fixture: gql`
-    fragment Lobby_Layout_so5Fixture on Vicc5Fixture {
+    fragment Lobby_Layout_so5Fixture on So5Fixture {
       slug
       ...Lobby_GameWeekDropdownHeader_so5Fixture
     }
     ${GameWeekDropdown.fragments.so5Fixture}
-  `,
+  ` as TypedDocumentNode<Lobby_Layout_so5Fixture>,
 };

@@ -1,24 +1,15 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { differenceInWeeks, parseISO } from 'date-fns';
-import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import {
-  ExtraSwapShopItem,
-  LevelUpShopItem,
-  XPRestoreShopItem,
-} from '@sorare/core/src/__generated__/globalTypes';
-import { Caption } from '@sorare/core/src/atoms/typography';
-import { isA, isType } from '@sorare/core/src/lib/gql';
-
-import {
-  FewLeft,
-  InventoryCounter,
-  LimitReached,
-  New,
-  ResetIn,
-  SoldOut,
-} from '@football/components/shopItems/ShopItemPicker/Item/Label';
+import { FewLeft } from '@sorare/core/src/components/clubShop/ClubShopItem/Labels/FewLeft';
+import { InventoryCounter } from '@sorare/core/src/components/clubShop/ClubShopItem/Labels/InventoryCounter';
+import { ItemCounter } from '@sorare/core/src/components/clubShop/ClubShopItem/Labels/ItemCounter';
+import { LimitReached } from '@sorare/core/src/components/clubShop/ClubShopItem/Labels/LimitReached';
+import { New } from '@sorare/core/src/components/clubShop/ClubShopItem/Labels/New';
+import { ResetIn } from '@sorare/core/src/components/clubShop/ClubShopItem/Labels/ResetIn';
+import { SoldOut } from '@sorare/core/src/components/clubShop/ClubShopItem/Labels/SoldOut';
+import { isType } from '@sorare/core/src/lib/gql';
 
 import { Header_shopItem } from './__generated__/index.graphql';
 
@@ -34,29 +25,6 @@ const Labels = styled.div`
   flex-direction: column;
   align-items: flex-start;
 `;
-const Counter = styled(Caption)`
-  display: flex;
-  gap: var(--half-unit);
-`;
-
-type ItemCounterProps = {
-  item: {
-    myPurchasesCount: number;
-    limitPerUser: number;
-  };
-};
-const ItemCounter = ({ item }: ItemCounterProps) => (
-  <Counter color="var(--c-neutral-1000)">
-    <FormattedMessage
-      id="ShopItemPicker.Item.Counter"
-      defaultMessage="{myPurchasesCount} / {limitPerUser}"
-      values={{
-        myPurchasesCount: item.myPurchasesCount,
-        limitPerUser: item.limitPerUser,
-      }}
-    />
-  </Counter>
-);
 
 type Props = { item: Header_shopItem; inventory?: boolean };
 const Header = ({ item, inventory }: Props) => {
@@ -74,17 +42,35 @@ const Header = ({ item, inventory }: Props) => {
         {noCooldown ? (
           <>{item.currentStockCount === 0 ? <SoldOut /> : <FewLeft />}</>
         ) : (
-          <ResetIn time={parseISO(item.myLimitResetAt!)} />
+          <ResetIn myLimitResetAt={item.myLimitResetAt!} />
         )}
       </Root>
     );
   }
 
-  if (
-    isA<LevelUpShopItem>('LevelUpShopItem', item) ||
-    isA<ExtraSwapShopItem>('ExtraSwapShopItem', item) ||
-    isA<XPRestoreShopItem>('XPRestoreShopItem', item)
-  ) {
+  if (isType(item, 'DeliverableWithNoVariantShopItem')) {
+    if (inventory) {
+      return null;
+    }
+    return (
+      <Root>
+        <Labels>{isNew && <New />}</Labels>
+        {noCooldown ? (
+          <>
+            {item.deliverableCurrentStockCount === 0 ? (
+              <SoldOut />
+            ) : (
+              <FewLeft />
+            )}
+          </>
+        ) : (
+          <ResetIn myLimitResetAt={item.myLimitResetAt!} />
+        )}
+      </Root>
+    );
+  }
+
+  if (isType(item, 'LevelUpShopItem') || isType(item, 'ExtraSwapShopItem')) {
     return (
       <Root>
         {inventory ? (
@@ -96,9 +82,12 @@ const Header = ({ item, inventory }: Props) => {
               {limitReached && noCooldown && <LimitReached />}
             </Labels>
             {noCooldown ? (
-              <ItemCounter item={item} />
+              <ItemCounter
+                count={item.myPurchasesCount}
+                limit={item.limitPerUser}
+              />
             ) : (
-              <ResetIn time={parseISO(item.myLimitResetAt!)} />
+              <ResetIn myLimitResetAt={item.myLimitResetAt!} />
             )}
           </>
         )}
@@ -128,8 +117,12 @@ Header.fragments = {
         id
         currentStockCount
       }
+      ... on DeliverableWithNoVariantShopItem {
+        id
+        deliverableCurrentStockCount: currentStockCount
+      }
     }
-  `,
+  ` as TypedDocumentNode<Header_shopItem>,
 };
 
 export default Header;

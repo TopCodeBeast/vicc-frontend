@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -189,13 +189,13 @@ export const LineupRewards = ({
 
 LineupRewards.fragments = {
   so5Ranking: gql`
-    fragment LineupRewards_so5Ranking on Vicc5Ranking {
+    fragment LineupRewards_so5Ranking on So5Ranking {
       id
       eligibleRewards {
         ...EligibleRewards_rewardConfig
         ...hasEligibleRewards_so5RewardConfig
       }
-      so5Rewards: vicc5Rewards {
+      so5Rewards {
         slug
         ...ActualRewards_so5Reward
       }
@@ -203,7 +203,7 @@ LineupRewards.fragments = {
     ${EligibleRewards.fragments.rewardConfig}
     ${hasEligibleRewards.fragments.rewardConfig}
     ${ActualRewards.fragments.so5Reward}
-  `,
+  ` as TypedDocumentNode<LineupRewards_so5Ranking>,
   rewardsOverview: gql`
     fragment LineupRewards_rewardsOverview on RewardsOverview {
       ...Rewards_rewardsOverview
@@ -211,5 +211,5 @@ LineupRewards.fragments = {
     }
     ${Rewards.fragments.reward}
     ${hasRewards.fragments.rewards}
-  `,
+  ` as TypedDocumentNode<LineupRewards_rewardsOverview>,
 };

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import FlexFill from '@sorare/core/src/atoms/layout/FlexFill';
 import ResponsiveRow from '@sorare/core/src/atoms/layout/ResponsiveRow';
@@ -56,7 +56,7 @@ CardRow.fragments = {
     ${CardPropertiesByAssetId.fragments.card}
     ${BundledAuctionEligibilityByAssetIds.fragments.card}
     ${CardTeamsByAssetId.fragments.card}
-  `,
+  ` as TypedDocumentNode<CardRow_card>,
 };
 
 export default CardRow;

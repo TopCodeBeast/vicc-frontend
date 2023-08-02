@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -8,6 +8,7 @@ import { Caption, Text14 } from '@sorare/core/src/atoms/typography';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import { TokenDetailsInfos, TokenDetailsRoot } from '@marketplace/components/ItemPreview/ui';
 import NewSaleDialog from '@marketplace/components/offer/NewSaleDialog';
@@ -79,7 +80,7 @@ export const EndedSaleDetails = ({ sale, token, allowColumnLayout }: Props) => {
                   open
                   onClose={() => setOpen(false)}
                   token={token}
-                  initialWeiAmount={sale.priceWei}
+                  initialAmount={sale.receiverSide.amounts}
                 />
               )}
             </>
@@ -109,47 +110,25 @@ EndedSaleDetails.fragments = {
     }
     ${useTokenOfferBelongsToUser.fragments.offer}
     ${NewSaleDialog.fragments.token}
-  `,
+  ` as TypedDocumentNode<EndedSaleDetails_token>,
   offer: gql`
     fragment EndedSaleDetails_offer on TokenOffer {
       id
-      endDate
       status
-      cancelledAt
-      priceWei: price
-      priceFiat: priceInFiat {
-        eur
-        usd
-        gbp
-      }
-      owners {
-        id
-        priceWei: price
-        priceFiat: priceInFiat {
-          eur
-          usd
-          gbp
-        }
-      }
-      marketFeeAmountWei: marketFeeAmount
-      marketFeeAmountFiat: marketFeeAmountInFiat {
-        eur
-        usd
-        gbp
-      }
       acceptedAt
-      sender {
-        ... on User {
-          slug
+      receiverSide {
+        id
+        amounts {
+          ...MonetaryAmountFragment_monetaryAmount
         }
       }
       ...SaleWinner_offer
       ...SalePrice_offer
-      ...LiveSaleDetails_offer
       ...useTokenOfferBelongsToUser_offer
     }
+    ${monetaryAmountFragment}
     ${useTokenOfferBelongsToUser.fragments.offer}
     ${SaleWinner.fragments.offer}
     ${SalePrice.fragments.offer}
-  `,
+  ` as TypedDocumentNode<EndedSaleDetails_offer>,
 };

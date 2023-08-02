@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 
@@ -28,7 +28,7 @@ useTokenBelongsToUser.fragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<useTokenBelongsToUser_token>,
 };
 
 export default useTokenBelongsToUser;

@@ -12,15 +12,17 @@ const Content = styled.div`
   gap: var(--unit);
 `;
 
-const ManagerTaskContainer: FC<{
-  labels: {
-    title: MessageDescriptor;
-    button?: MessageDescriptor;
-  };
-  current: number;
-  total: number;
-  onClick: () => void;
-}> = ({ labels, children, current, total, onClick }) => {
+const ManagerTaskContainer: FC<
+  React.PropsWithChildren<{
+    labels: {
+      title: MessageDescriptor;
+      button?: MessageDescriptor;
+    };
+    current: number;
+    total: number;
+    onClick: () => void;
+  }>
+> = ({ labels, children, current, total, onClick }) => {
   return (
     <Content>
       <Title4>

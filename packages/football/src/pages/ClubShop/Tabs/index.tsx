@@ -44,7 +44,9 @@ const Tabs = () => {
       type === ShopItemType.LEVEL_UP
   );
   const merchTypes = possibleTypes.filter(
-    (type: ShopItemType) => type === ShopItemType.JERSEY
+    (type: ShopItemType) =>
+      type === ShopItemType.JERSEY ||
+      type === ShopItemType.DELIVERABLE_WITH_NO_VARIANT
   );
 
   const tabItems = [

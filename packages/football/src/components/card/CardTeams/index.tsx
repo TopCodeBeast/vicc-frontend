@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 
 import { Text14 } from '@sorare/core/src/atoms/typography';
@@ -59,7 +59,7 @@ CardTeams.fragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<CardTeams_card>,
 };
 
 export default CardTeams;

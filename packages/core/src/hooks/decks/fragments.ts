@@ -1,6 +1,8 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
-export const first50DecksOnCurrentUserFragment = gql`
+import { first50DecksOnCurrentUserFragment } from './__generated__/fragments.graphql';
+
+export const FIRST50_DECKS_ON_CURRENT_USER_FRAGMENT = gql`
   fragment first50DecksOnCurrentUserFragment on CurrentUser {
     slug
     customDecks(first: 50) {
@@ -13,4 +15,4 @@ export const first50DecksOnCurrentUserFragment = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<first50DecksOnCurrentUserFragment>;

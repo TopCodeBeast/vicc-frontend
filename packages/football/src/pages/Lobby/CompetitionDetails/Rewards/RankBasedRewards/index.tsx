@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -80,7 +80,9 @@ type Props = {
   so5League: RankBasedRewards_so5League;
 };
 
-const TROPHY_ICONS: { [key: number]: FunctionComponent } = {
+const TROPHY_ICONS: {
+  [key: number]: FunctionComponent<React.PropsWithChildren<unknown>>;
+} = {
   1: Gold,
   2: Silver,
   3: Bronze,
@@ -200,13 +202,13 @@ const RankBasedRewards = ({
 
 RankBasedRewards.fragments = {
   so5League: gql`
-    fragment RankBasedRewards_so5League on Vicc5League {
+    fragment RankBasedRewards_so5League on So5League {
       slug
       name
     }
-  `,
+  ` as TypedDocumentNode<RankBasedRewards_so5League>,
   so5RewardConfig: gql`
-    fragment RankBasedRewards_so5RewardConfig on Vicc5RewardConfig {
+    fragment RankBasedRewards_so5RewardConfig on So5RewardConfig {
       ranks
       rankPct
       score
@@ -222,7 +224,7 @@ RankBasedRewards.fragments = {
     ${CardReward.fragments.So5RewardCardConfig}
     ${ExperienceReward.fragments.So5RewardExperience}
     ${MoneyReward.fragments.so5RewardConfig}
-  `,
+  ` as TypedDocumentNode<RankBasedRewards_so5RewardConfig>,
 };
 
 export default RankBasedRewards;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faWarning } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useMemo, useState } from 'react';
@@ -138,7 +138,7 @@ Sell.fragments = {
     ${useCannotSell.fragments.token}
     ${useTokenBelongsToUser.fragments.token}
     ${NewSaleDialog.fragments.token}
-  `,
+  ` as TypedDocumentNode<SellCard_token>,
 };
 
 export default Sell;

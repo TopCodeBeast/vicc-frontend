@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -37,12 +37,12 @@ const TeamActions = ({ so5Leaderboard, lineupId }: Props) => {
 
 TeamActions.fragments = {
   lineup: gql`
-    fragment TeamActions_lineup on Vicc5Leaderboard {
+    fragment TeamActions_lineup on So5Leaderboard {
       slug
       ...Lobby_LineupActions_so5Leaderboard
     }
     ${LineupActions.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<TeamActions_lineup>,
 };
 
 export default TeamActions;

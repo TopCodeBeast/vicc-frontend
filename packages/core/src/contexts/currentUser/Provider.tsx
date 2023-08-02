@@ -4,12 +4,12 @@ import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
 import {
   Currency,
-//   DeviceWasUpdatedEvent,
+  DeviceWasUpdatedEvent,
   EnabledWallet,
 } from '__generated__/globalTypes';
 import createLink from '@core/atoms/typography/Link';
 import { SETTINGS_SECURITY } from '@core/constants/routes';
-// import { isType } from '@core/gql';
+import { isType } from 'gql';
 import idFromObject from '@core/gql/idFromObject';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import { currencies } from '@core/lib/fiat';
@@ -18,16 +18,16 @@ import { asObject } from '@core/lib/json';
 import { VERSION } from '../../config';
 import { useConfigContext } from '../config';
 import { useDeviceFingerprintContext } from '../deviceFingerprint';
-// import { useEventsContext } from '../events';
+import { useEventsContext } from '../events';
 import { useSentryContext } from '../sentry';
 import { useSessionContext } from '../session';
 import { useSnackNotificationContext } from '../snackNotification';
-// import {
-//   onDeviceWasUpdated,
-//   onDeviceWasUpdatedVariables,
-// } from './__generated__/queries.graphql';
+import {
+  onDeviceWasUpdated,
+  onDeviceWasUpdatedVariables,
+} from './__generated__/queries.graphql';
 import CurrentUserContextProvider, { SignInArgs } from './index';
-// import { onDeviceSubscription, subscription } from './queries';
+import { onDeviceSubscription, subscription } from './queries';
 import useRedirectAfterSignIn from './useRedirectAfterSignIn';
 import useSignIn from './useSignIn';
 
@@ -40,66 +40,67 @@ interface Props {
  */
 export const CurrentUserProvider = ({ children }: Props) => {
   const {
-    flags: { useNewWallet = false },
+    flags: { useCashWallet = false },
   } = useFeatureFlags();
   const { setSessionId, setApiKey } = useSessionContext();
-  // const { identify: identifyAnalytics } = useEventsContext();
-  // const { identifyUser: identifySentryUser } = useSentryContext();
+  const { identify: identifyAnalytics } = useEventsContext();
+  const { identifyUser: identifySentryUser } = useSentryContext();
   const { currentUser, refetch, updateQuery, defaultFiatCurrency } =
     useConfigContext();
-  // const { showNotification } = useSnackNotificationContext();
-  // const [currentDeviceFingerPrint, setCurrentDeviceFingerPrint] =
-  //   useState<string>();
-  // const [shouldResubscribe, setShouldResubscribe] = useState(false);
-  // const { flags, identify: identifyFeatureFlagsUser } = useFeatureFlags();
-  // const { deviceFingerprint } = useDeviceFingerprintContext();
+  const { showNotification } = useSnackNotificationContext();
+  const [currentDeviceFingerPrint, setCurrentDeviceFingerPrint] =
+    useState<string>();
+  const [shouldResubscribe, setShouldResubscribe] = useState(false);
+  const { flags, identify: identifyFeatureFlagsUser } = useFeatureFlags();
+  const { deviceFingerprint } = useDeviceFingerprintContext();
   const [signInMutation] = useSignIn();
   const redirectUser = useRedirectAfterSignIn();
 
-  // useEffect(() => {
-  //   deviceFingerprint()
-  //     .then(v => setCurrentDeviceFingerPrint(v))
-  //     .then(() => setShouldResubscribe(true));
-  // }, [deviceFingerprint]);
+  useEffect(() => {
+    deviceFingerprint()
+      .then(v => setCurrentDeviceFingerPrint(v))
+      .then(() => setShouldResubscribe(true));
+  }, [deviceFingerprint]);
 
-  // useSubscription(subscription, {
-  //   skip: !currentUser,
-  //   shouldResubscribe,
-  //   onComplete: () => {
-  //     setShouldResubscribe(false);
-  //   },
-  //   context: {
-  //     headers: {
-  //       DEVICE_FINGERPRINT: currentDeviceFingerPrint,
-  //     },
-  //   },
-  // });
+  useSubscription(subscription, {
+    skip: !currentUser,
+    shouldResubscribe,
+    onComplete: () => {
+      setShouldResubscribe(false);
+    },
+    context: {
+      headers: {
+        DEVICE_FINGERPRINT: currentDeviceFingerPrint,
+      },
+    },
+  });
 
-  // const currentDeviceConfirmed = currentUser?.confirmedDevice;
-  // const currentDeviceId = currentUser?.currentDevice?.id;
-  // useSubscription<onDeviceWasUpdated, onDeviceWasUpdatedVariables>(
-  //   onDeviceSubscription,
-  //   {
-  //     skip: !currentDeviceId || !!currentDeviceConfirmed,
-  //     onData: ({ data: { data } }) => {
-  //       if (data) {
-  //         const { deviceWasUpdated } = data;
-  //         if (
-  //           deviceWasUpdated &&
-  //           deviceWasUpdated.eventType === DeviceWasUpdatedEvent.confirmed &&
-  //           deviceWasUpdated.id === currentDeviceId
-  //         ) {
-  //           showNotification('deviceSuccessfullyConfirmed');
-  //           refetch();
-  //         }
-  //       }
-  //     },
-  //   }
-  // );
+  const currentDeviceConfirmed = currentUser?.confirmedDevice;
+  const currentDeviceId = currentUser?.currentDevice?.id;
+  useSubscription<onDeviceWasUpdated, onDeviceWasUpdatedVariables>(
+    onDeviceSubscription,
+    {
+      skip: !currentDeviceId || !!currentDeviceConfirmed,
+      onData: ({ data: { data } }) => {
+        if (data) {
+          const { deviceWasUpdated } = data;
+          if (
+            deviceWasUpdated &&
+            deviceWasUpdated.eventType === DeviceWasUpdatedEvent.confirmed &&
+            deviceWasUpdated.id === currentDeviceId
+          ) {
+            showNotification('deviceSuccessfullyConfirmed');
+            refetch();
+          }
+        }
+      },
+    }
+  );
 
   const signIn = useCallback(
     async (args: SignInArgs) => {
       const result = await signInMutation(args);
+
       if (result?.currentUser) {
         // update the currentConfigQuery with the signed in user
         updateQuery(result.currentUser);
@@ -110,100 +111,100 @@ export const CurrentUserProvider = ({ children }: Props) => {
     [signInMutation, updateQuery, redirectUser]
   );
 
-  // const blockchainCardsCount = currentUser
-  //   ? currentUser.cardCounts.limited +
-  //     currentUser.cardCounts.rare +
-  //     currentUser.cardCounts.superRare +
-  //     currentUser.cardCounts.unique
-  //   : 0;
+  const blockchainCardsCount = currentUser
+    ? currentUser.cardCounts.limited +
+      currentUser.cardCounts.rare +
+      currentUser.cardCounts.superRare +
+      currentUser.cardCounts.unique
+    : 0;
 
-  // useEffect(() => {
-  //   if (currentUser?.id && identifyFeatureFlagsUser) {
-  //     identifyFeatureFlagsUser({
-  //       key: currentUser.id,
-  //       custom: {
-  //         ...asObject(currentUser.featureFlagCustomAttributes),
-  //         webVersion: +VERSION,
-  //       },
-  //     });
-  //   }
-  // }, [
-  //   identifyFeatureFlagsUser,
-  //   currentUser?.id,
-  //   currentUser?.featureFlagCustomAttributes,
-  // ]);
+  useEffect(() => {
+    if (currentUser?.id && identifyFeatureFlagsUser) {
+      identifyFeatureFlagsUser({
+        key: currentUser.id,
+        custom: {
+          ...asObject(currentUser.featureFlagCustomAttributes),
+          webVersion: +VERSION,
+        },
+      });
+    }
+  }, [
+    identifyFeatureFlagsUser,
+    currentUser?.id,
+    currentUser?.featureFlagCustomAttributes,
+  ]);
 
-  // useEffect(() => {
-  //   if (identifySentryUser) {
-  //     identifySentryUser(
-  //       currentUser
-  //         ? {
-  //             id: idFromObject(currentUser?.id),
-  //             username: currentUser?.slug,
-  //           }
-  //         : null
-  //     );
-  //   }
-  // }, [currentUser, identifySentryUser]);
+  useEffect(() => {
+    if (identifySentryUser) {
+      identifySentryUser(
+        currentUser
+          ? {
+              id: idFromObject(currentUser?.id),
+              username: currentUser?.slug,
+            }
+          : null
+      );
+    }
+  }, [currentUser, identifySentryUser]);
 
   useEffect(() => {
     setSessionId(currentUser?.id);
   }, [currentUser?.id, setSessionId]);
 
   useEffect(() => {
-    currentUser?.apiKey && setApiKey(currentUser?.apiKey);
+    setApiKey(currentUser?.apiKey);
   }, [currentUser?.apiKey, setApiKey]);
 
-  // useEffect(() => {
-  //   if (currentUser?.id) {
-  //     identifyAnalytics(idFromObject(currentUser.id)!, {
-  //       created: currentUser?.createdAt,
-  //       mlbOnboarded: currentUser?.baseballProfile?.onboarded,
-  //       feature_flags: flags,
-  //     });
-  //   }
-  // }, [
-  //   currentUser?.id,
-  //   currentUser?.createdAt,
-  //   identifyAnalytics,
-  //   flags,
-  //   currentUser?.baseballProfile?.onboarded,
-  // ]);
+  useEffect(() => {
+    if (currentUser?.id) {
+      identifyAnalytics(idFromObject(currentUser.id)!, {
+        created: currentUser?.createdAt,
+        mlbOnboarded: currentUser?.baseballProfile?.onboarded,
+        feature_flags: flags,
+      });
+    }
+  }, [
+    currentUser?.id,
+    currentUser?.createdAt,
+    identifyAnalytics,
+    flags,
+    currentUser?.baseballProfile?.onboarded,
+  ]);
 
-  // const availableBalanceForWithdrawalPositive = currentUser
-  //   ? new Big(currentUser.availableBalanceForWithdrawal).gt(0)
-  //   : false;
+  const availableBalanceForWithdrawalPositive = currentUser
+    ? new Big(currentUser.availableBalanceForWithdrawal).gt(0)
+    : false;
 
-  // useEffect(() => {
-  //   if (
-  //     !currentUser?.otpRequiredForLogin &&
-  //     currentUser?.confirmed &&
-  //     (blockchainCardsCount > 0 || availableBalanceForWithdrawalPositive)
-  //   ) {
-  //     showNotification('secondFactorRecommendation', {
-  //       link: createLink(SETTINGS_SECURITY),
-  //     });
-  //   }
-  // }, [
-  //   currentUser?.id,
-  //   currentUser?.otpRequiredForLogin,
-  //   currentUser?.confirmed,
-  //   availableBalanceForWithdrawalPositive,
-  //   blockchainCardsCount,
-  //   showNotification,
-  // ]);
+  useEffect(() => {
+    if (
+      !currentUser?.otpRequiredForLogin &&
+      currentUser?.confirmed &&
+      (blockchainCardsCount > 0 || availableBalanceForWithdrawalPositive)
+    ) {
+      showNotification('secondFactorRecommendation', {
+        link: createLink(SETTINGS_SECURITY),
+      });
+    }
+  }, [
+    currentUser?.id,
+    currentUser?.otpRequiredForLogin,
+    currentUser?.confirmed,
+    availableBalanceForWithdrawalPositive,
+    blockchainCardsCount,
+    showNotification,
+  ]);
 
   const fiatWalletAccountable = useMemo(() => {
     if (!currentUser) return null;
-    // return currentUser.accounts
-    //   .map(a =>
-    //     isType(a.accountable, 'FiatWalletAccount') ? a.accountable : null
-    //   )
-    //   .filter(Boolean)?.[0];
+    return currentUser.accounts
+      .map(a =>
+        isType(a.accountable, 'FiatWalletAccount') ? a.accountable : null
+      )
+      .filter(Boolean)?.[0];
   }, [currentUser]);
 
   const fiatCurrency = useMemo(() => {
-    if (fiatWalletAccountable) {
+    if (fiatWalletAccountable?.currency) {
       return currencies[fiatWalletAccountable.currency.toLowerCase()];
     }
     return (
@@ -217,24 +218,23 @@ export const CurrentUserProvider = ({ children }: Props) => {
     fiatWalletAccountable,
   ]);
 
-  // const enabledWallets = currentUser?.profile.enabledWallets || undefined;
+  const enabledWallets = currentUser?.profile.enabledWallets || undefined;
 
-  // const hasMigratedAndSetupWallets = useNewWallet && !!enabledWallets;
+  const hasMigratedAndSetupWallets = useCashWallet && !!enabledWallets;
 
-  // const showEthWallet = hasMigratedAndSetupWallets
-  //   ? enabledWallets.includes(EnabledWallet.ETH)
-  //   : true;
+  const showEthWallet = hasMigratedAndSetupWallets
+    ? enabledWallets.includes(EnabledWallet.ETH)
+    : true;
 
-  // const showFiatWallet = !!(
-  //   useNewWallet && enabledWallets?.includes(EnabledWallet.FIAT)
-  // );
+  const showFiatWallet = !!(
+    useCashWallet && enabledWallets?.includes(EnabledWallet.FIAT)
+  );
 
-  const onlyShowFiatCurrency = false;
-  // const onlyShowFiatCurrency = !!(
-  //   useNewWallet &&
-  //   showFiatWallet &&
-  //   !showEthWallet
-  // );
+  const onlyShowFiatCurrency = !!(
+    useCashWallet &&
+    showFiatWallet &&
+    !showEthWallet
+  );
 
   const currency = useMemo(() => {
     if (onlyShowFiatCurrency) return Currency.FIAT;
@@ -254,19 +254,19 @@ export const CurrentUserProvider = ({ children }: Props) => {
   return (
     <CurrentUserContextProvider
       value={{
-        currentUser: currentUser as any,
+        currentUser,
         currency,
         fiatCurrency,
-        // fiatWalletAccountable,
-        // displayEth,
+        fiatWalletAccountable,
+        displayEth,
         refetch,
         signIn,
-        // blockchainCardsCount,
+        blockchainCardsCount,
         walletPreferences: {
-          // enabledWallets,
-          showEthWallet: false,
-          showFiatWallet: true,
-          hasMigratedAndSetupWallets: false,
+          enabledWallets,
+          showEthWallet,
+          showFiatWallet,
+          hasMigratedAndSetupWallets,
           onlyShowFiatCurrency,
         },
       }}

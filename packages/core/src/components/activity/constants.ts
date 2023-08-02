@@ -65,6 +65,10 @@ export const messages = defineMessages({
     id: 'Notifications.so5LineupCancelled',
     defaultMessage: 'Lineup canceled',
   },
+  kycRequests: {
+    id: 'Notifications.kycRequests',
+    defaultMessage: 'KYC requests',
+  },
 });
 
 const notificationCategories = [
@@ -88,6 +92,8 @@ const notificationCategories = [
   'referrer_reward_ready_to_claim',
   'so5_lineup_cancelled',
   'appearance_destroyed',
+  'kyc_request_validated',
+  'kyc_request_refused',
 ] as const;
 
 type NotificationCategory = (typeof notificationCategories)[number];
@@ -115,6 +121,8 @@ export const notificationCategoryTypes: {
   referrer_reward_ready_to_claim: 'ReferralRewardNotification',
   so5_lineup_cancelled: 'So5LineupNotification',
   appearance_destroyed: 'So5LineupNotification',
+  kyc_request_validated: 'KycRequestNotification',
+  kyc_request_refused: 'KycRequestNotification',
 };
 
 export const notificationGroups: {
@@ -139,6 +147,7 @@ export const notificationGroups: {
     'referrer_reward_ready_to_claim',
   ],
   so5LineupCancelled: ['so5_lineup_cancelled', 'appearance_destroyed'],
+  kycRequests: ['kyc_request_refused', 'kyc_request_validated'],
 };
 
 export type NotificationGroup = keyof typeof notificationGroups;

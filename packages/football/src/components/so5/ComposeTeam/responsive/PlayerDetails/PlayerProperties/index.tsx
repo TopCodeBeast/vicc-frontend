@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -55,7 +55,7 @@ const PlayerProperties = ({
   showCardBonusIndicator = true,
   budgetValue,
 }: Props) => {
-  const { displayName, age, position, lastFifteenVicc5AverageScore } = player;
+  const { displayName, age, position, lastFifteenSo5AverageScore } = player;
 
   const { name: clubName, pictureUrl: clubPictureUrl } =
     player?.activeClub || {};
@@ -73,7 +73,7 @@ const PlayerProperties = ({
         ) : (
           <>
             <AverageScore
-              score={lastFifteenVicc5AverageScore}
+              score={lastFifteenSo5AverageScore}
               withTooltip
               scoreMode="AVERAGE_LAST_15_GAMES"
               size="small"
@@ -128,8 +128,8 @@ PlayerProperties.fragments = {
       displayName
       age
       position: positionTyped
-      lastFifteenVicc5AverageScore: averageScore(
-        type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
+      lastFifteenSo5AverageScore: averageScore(
+        type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
       )
       activeClub {
         slug
@@ -142,7 +142,7 @@ PlayerProperties.fragments = {
         pictureUrl
       }
     }
-  `,
+  ` as TypedDocumentNode<PlayerProperties_player>,
   card: gql`
     fragment PlayerProperties_card on Card {
       assetId
@@ -150,7 +150,7 @@ PlayerProperties.fragments = {
       ...CardBonus_WithEngine_card
     }
     ${CardBonus.fragments.cardWithEngine}
-  `,
+  ` as TypedDocumentNode<PlayerProperties_card>,
 };
 
 export default PlayerProperties;

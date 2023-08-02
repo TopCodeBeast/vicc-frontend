@@ -49,6 +49,7 @@ export const RadioButtons = <T extends string>({
     <Root style={{ backgroundColor, color }}>
       {options.map(option => (
         <Option
+          as="div"
           key={option.value}
           onClick={() => handleChange(option.value)}
           className={classNames({ active: option.value === value })}

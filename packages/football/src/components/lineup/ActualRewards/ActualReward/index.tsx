@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedNumber } from 'react-intl';
 import { generatePath, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
@@ -14,6 +14,7 @@ import ScarcityIcon from '@sorare/core/src/atoms/icons/ScarcityIcon';
 import { FOOTBALL_CARD_SHOW } from '@sorare/core/src/constants/routes';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 import { qualityNames } from '@sorare/core/src/lib/players';
 import { ScarcityType } from '@sorare/core/src/lib/scarcity';
 
@@ -48,20 +49,20 @@ type Props = {
 };
 
 export const ActualReward = ({ reward }: Props) => {
-  const { rewardCards, aasmState, weiAmount, coinAmount } = reward;
+  const { rewardCards, aasmState, amount, coinAmount } = reward;
   const isClaimed = aasmState === 'claimed';
   const navigate = useNavigate();
   const location = useBgLocation(true);
   const { main } = useAmountWithConversion({
-    monetaryAmount: {
+    monetaryAmount: amount || {
+      wei: '0',
       referenceCurrency: SupportedCurrency.WEI,
-      [SupportedCurrency.WEI.toLowerCase()]: weiAmount,
     },
     primaryCurrency: Currency.ETH,
   });
   return (
     <Wrapper>
-      {weiAmount && weiAmount !== '0' && (
+      {amount && (
         <RewardWrapper as="div">
           <Eth />
           {main}
@@ -100,9 +101,11 @@ export const ActualReward = ({ reward }: Props) => {
 
 ActualReward.fragments = {
   so5Reward: gql`
-    fragment ActualReward_so5Reward on Vicc5Reward {
+    fragment ActualReward_so5Reward on So5Reward {
       slug
-      weiAmount: amount
+      amount {
+        ...MonetaryAmountFragment_monetaryAmount
+      }
       coinAmount
       aasmState
       rewardCards {
@@ -119,5 +122,6 @@ ActualReward.fragments = {
         }
       }
     }
-  `,
+    ${monetaryAmountFragment}
+  ` as TypedDocumentNode<ActualReward_so5Reward>,
 };

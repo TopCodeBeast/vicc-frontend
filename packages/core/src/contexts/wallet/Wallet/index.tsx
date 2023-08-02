@@ -26,7 +26,7 @@ import {
   SignWalletChallenge,
 } from '@sorare/wallet-shared';
 import { AuthorizationRequest } from '@sorare/wallet-shared/src/contexts/messaging/authorizations';
-// import useCheckPhoneNumberVerificationCode from '@core/components/user/VerifyPhoneNumber/useCheckPhoneNumberVerificationCode';
+import useCheckPhoneNumberVerificationCode from '@core/components/user/VerifyPhoneNumber/useCheckPhoneNumberVerificationCode';
 import { SIGNUP_WORKFLOW_VERSION_QUERY_PARAMETER } from '@core/constants/mobile';
 import {
   UpdateUserAttributes,
@@ -38,7 +38,7 @@ import { useSentryContext } from '@core/contexts/sentry';
 import { useSnackNotificationContext } from '@core/contexts/snackNotification';
 import { WalletTab, useWalletDrawerContext } from '@core/contexts/walletDrawer';
 import useLogOut from '@core/hooks/auth/useLogOut';
-// import { RecoveryOption } from '@core/hooks/recovery/useRecoveryOptions';
+import { RecoveryOption } from '@core/hooks/recovery/useRecoveryOptions';
 import useWalletNeedsRecover from '@core/hooks/recovery/useWalletNeedsRecover';
 import useQueryString from '@core/hooks/useQueryString';
 import { Side } from '@core/lib/deal';
@@ -52,11 +52,9 @@ import WalletContextProvider, {
   WalletPlaceHolderResizeHandler,
   useMessagingContext,
 } from '..';
-// import WalletAccessError from '../../../errors/walletAccess';
+import WalletAccessError from '../../../errors/walletAccess';
 import usePromptResetPassword from './usePromptResetPassword';
-// import useUpdateUserEmail from './useUpdateUserEmail';
-
-type RecoveryOption = any;
+import useUpdateUserEmail from './useUpdateUserEmail';
 
 interface Props {
   children: ReactNode;
@@ -89,11 +87,11 @@ const Wallet = ({ children, setWindow }: Props) => {
   const { currentUser, refetch } = useCurrentUserContext();
   const { showNotification } = useSnackNotificationContext();
   const { sendSafeError } = useSentryContext();
-  // const updateUserEmail = useUpdateUserEmail();
-  // const checkPhoneNumberVerificationCode =
-  //   useCheckPhoneNumberVerificationCode();
+  const updateUserEmail = useUpdateUserEmail();
+  const checkPhoneNumberVerificationCode =
+    useCheckPhoneNumberVerificationCode();
 
-  const allow = currentUser && !walletNeedsRecover;
+  const allow = currentUser?.confirmedDevice && !walletNeedsRecover;
 
   const prompt = useCallback(
     async (
@@ -115,7 +113,7 @@ const Wallet = ({ children, setWindow }: Props) => {
   );
 
   const promptDeposit = useCallback(
-    async id => {
+    async (id: any) => {
       if (allow) {
         await sendRequest<PromptDeposit>('promptDeposit', { id });
         showWallet();
@@ -144,14 +142,16 @@ const Wallet = ({ children, setWindow }: Props) => {
     logOutApp();
   }, [logOutApp, sendRequest]);
 
-  const getPassword = useCallback(
-    async (error?: boolean) => {
+  const getPassword = useCallback<
+    (requestArgs?: Password['request']['args']) => Promise<string | undefined>
+  >(
+    async (requestArgs = {}) => {
       showWallet();
       setCurrentTab(WalletTab.GET_PASSWORD);
 
       const {
         result: { passwordHash },
-      } = await sendRequest<Password>('password', { error });
+      } = await sendRequest<Password>('password', requestArgs);
 
       closeWalletAndDrawer();
       return passwordHash;
@@ -211,12 +211,12 @@ const Wallet = ({ children, setWindow }: Props) => {
 
       closeWalletAndDrawer();
 
-      // return checkPhoneNumberVerificationCode(code, result.privateKeyRecovery); ///TODO****
+      return checkPhoneNumberVerificationCode(code, result.privateKeyRecovery);
     },
     [
       formatMessage,
       sendRequest,
-      // checkPhoneNumberVerificationCode,
+      checkPhoneNumberVerificationCode,
       currentUser,
       closeWalletAndDrawer,
     ]
@@ -249,11 +249,11 @@ const Wallet = ({ children, setWindow }: Props) => {
       closeWalletAndDrawer();
 
       attributes.privateKeyRecovery = result.privateKeyRecovery;
-      // return updateUserEmail({ ...attributes });
+      return updateUserEmail({ ...attributes });
     },
     [
       formatMessage,
-      // updateUserEmail,
+      updateUserEmail,
       sendRequest,
       currentUser,
       closeWalletAndDrawer,
@@ -294,7 +294,7 @@ const Wallet = ({ children, setWindow }: Props) => {
 
       closeWalletAndDrawer();
       if (!result) {
-        throw new Error(); // throw new WalletAccessError(); //TODO************
+        throw new WalletAccessError();
       }
       return result.signature;
     },
@@ -521,7 +521,7 @@ const Wallet = ({ children, setWindow }: Props) => {
     [registerHandler]
   );
 
-  const registerOnWalletResizeRequestHandler = useCallback(callback => {
+  const registerOnWalletResizeRequestHandler = useCallback((callback: any) => {
     updateDimensionsListener(listeners => {
       return [...listeners, callback];
     });
@@ -536,7 +536,7 @@ const Wallet = ({ children, setWindow }: Props) => {
     };
   }, []);
 
-  const registerOAuthHandler = useCallback(callback => {
+  const registerOAuthHandler = useCallback((callback: any) => {
     oauthHandlers.current.push(callback);
     return () => {
       const index = oauthHandlers.current.indexOf(callback);

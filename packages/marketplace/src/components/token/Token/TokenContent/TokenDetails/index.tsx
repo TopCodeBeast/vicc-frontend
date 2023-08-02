@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import ItemSold from '@marketplace/components/ItemPreview/ItemSold';
 import useGetAuctionDetails from '@marketplace/hooks/offers/useGetAuctionDetails';
@@ -84,5 +84,5 @@ TokenDetails.fragments = {
     ${TokenOfferDetails.fragments.token}
     ${TokenAuctionDetails.fragments.token}
     ${ItemSold.fragments.token}
-  `,
+  ` as TypedDocumentNode<TokenDetails_token>,
 };

@@ -6,6 +6,8 @@ import {
   Sport,
   SupportedCurrency,
 } from '@sorare/core/src/__generated__/globalTypes';
+import { CreditCardFormResult } from '@sorare/core/src/components/creditCard/AddCreditCardForm';
+import { ConversionCreditWithAmounts } from '@sorare/core/src/hooks/useConversionCredit';
 import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { Currency } from '@sorare/core/src/lib/currency';
 
@@ -14,11 +16,8 @@ import {
   PaymentProvider_paymentMethod,
   WalletPaymentMethod,
 } from '../PaymentProvider/types';
-// import { CanMakePaymentResult } from '../PaymentProvider/usePaymentRequest';
-// import { DisposableCard } from '../PaymentProvider/useStripePayment';
-
-type CanMakePaymentResult = any;
-type DisposableCard = any;
+import { CanMakePaymentResult } from '../PaymentProvider/usePaymentRequest';
+import { DisposableCard } from '../PaymentProvider/useStripePayment';
 
 type PaymentContext = {
   auction?: PaymentProvider_auction;
@@ -45,6 +44,7 @@ type PaymentContext = {
   ) => void;
   submitWithFiat: (pm?: PaymentMethod | DisposableCard) => Promise<void>;
   submitWithWallet: () => Promise<void>;
+  registerCardAndSubmit: (card: CreditCardFormResult) => Promise<void>;
   processingFiat: boolean;
   loadingFiat: boolean;
   loadingWallet: boolean;
@@ -52,6 +52,7 @@ type PaymentContext = {
   setActiveFee: (activeFee: boolean) => void;
   errors: MessageDescriptor[];
   stripeErrors: string[];
+  cardRegistrationErrors: string[];
   paymentMethods: PaymentProvider_paymentMethod[] | null;
   paymentRequest: PaymentRequest | null;
   canMakePaymentWithPaymentRequest: CanMakePaymentResult | null;
@@ -71,6 +72,7 @@ type PaymentContext = {
   setUsingConversionCredit: (bool: boolean) => void;
   readablePercentageDiscount: string;
   conversionCreditMonetaryAmount: MonetaryAmountOutput;
+  conversionCredit?: ConversionCreditWithAmounts;
   maxDiscountMonetary?: MonetaryAmountOutput;
   paymentCurrency: Currency | null;
   setPaymentCurrency: (c: Currency) => void;

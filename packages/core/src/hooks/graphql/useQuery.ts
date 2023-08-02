@@ -1,25 +1,24 @@
 import {
-  OperationVariables,
   QueryHookOptions,
   QueryResult,
+  TypedDocumentNode,
   // eslint-disable-next-line no-restricted-imports
   useQuery as apolloUseQuery,
 } from '@apollo/client';
-import { DocumentNode } from 'graphql';
 
-// import { useWalletContext } from '@core/contexts/wallet';
+import { useWalletContext } from '@core/contexts/wallet';
 import useLogOut from '@core/hooks/auth/useLogOut';
 
 let logoutTimeout: ReturnType<typeof setTimeout> | undefined;
 
-export default function useQuery<TData = any, TVariables extends OperationVariables = OperationVariables>(
-  query: DocumentNode,
+const useQuery = <TData, TVariables>(
+  query: TypedDocumentNode<TData, TVariables>,
   options?: QueryHookOptions<TData, TVariables>,
   logOutOnErrorCode = 422
-): QueryResult<TData, TVariables> {
+): QueryResult<TData, TVariables> => {
   const applogOut = useLogOut();
   const { error, ...rest } = apolloUseQuery(query, options);
-  const walletCtx = undefined;// const walletCtx = useWalletContext(); //TODO*****
+  const walletCtx = useWalletContext();
 
   const logOut = () => {
     (async () => {
@@ -54,4 +53,6 @@ export default function useQuery<TData = any, TVariables extends OperationVariab
   }
 
   return rest;
-}
+};
+
+export default useQuery;

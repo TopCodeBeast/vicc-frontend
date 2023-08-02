@@ -1,7 +1,27 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
+import PostalAddressForm from '@core/components/settings/PostalAddressForm';
 import ActiveUserAvatar from '@core/components/user/ActiveUserAvatar';
 import { useConversionCredit } from '@core/hooks/useConversionCredit';
+import { monetaryAmountFragment } from '@core/lib/monetaryAmount';
+
+import {
+  CurrentUseProvider_ethereumAccounts,
+  CurrentUseProvider_fiatAccounts,
+  CurrentUseProvider_sportProfile,
+  CurrentUserProvider_conversionCredit,
+  CurrentUserProvider_currentUser,
+  CurrentUserProvider_onboardingStatus,
+  CurrentUserProvider_walletRecovery,
+  CurrentUserQuery,
+  CurrentUserQueryVariables,
+  SignInMutation,
+  SignInMutationVariables,
+  onCurrentUserWasUpdated,
+  onCurrentUserWasUpdatedVariables,
+  onDeviceWasUpdated,
+  onDeviceWasUpdatedVariables,
+} from './__generated__/queries.graphql';
 
 export const onboardingStatus = gql`
   fragment CurrentUserProvider_onboardingStatus on CurrentUser {
@@ -12,82 +32,95 @@ export const onboardingStatus = gql`
       completed
     }
   }
-`;
+` as TypedDocumentNode<CurrentUserProvider_onboardingStatus>;
 
-// const sportProfile = gql`
-//   fragment CurrentUseProvider_sportProfile on CurrentUser {
-//     slug
-//     footballProfile {
-//       id
-//       onboarded
-//     }
-//     baseballProfile {
-//       id
-//       onboarded
-//     }
-//     nbaProfile {
-//       id
-//       onboarded
-//     }
-//   }
-// `;
+const sportProfile = gql`
+  fragment CurrentUseProvider_sportProfile on CurrentUser {
+    slug
+    footballProfile {
+      id
+      onboarded
+    }
+    baseballProfile {
+      id
+      onboarded
+    }
+    nbaProfile {
+      id
+      onboarded
+    }
+  }
+` as TypedDocumentNode<CurrentUseProvider_sportProfile>;
 
-// export const conversionCredit = gql`
-//   fragment CurrentUserProvider_conversionCredit on CurrentUser {
-//     slug
-//     ...useConversionCredit_currentUser
-//   }
-//   ${useConversionCredit.fragments.currentUser}
-// `;
+export const conversionCredit = gql`
+  fragment CurrentUserProvider_conversionCredit on CurrentUser {
+    slug
+    ...useConversionCredit_currentUser
+  }
+  ${useConversionCredit.fragments.currentUser}
+` as TypedDocumentNode<CurrentUserProvider_conversionCredit>;
 
 export const walletRecovery = gql`
   fragment CurrentUserProvider_walletRecovery on CurrentUser {
     slug
     wallet {
       ethereumAddress
-      # status
-      # holdsValue
-      # recoveryOptions {
-      #   id
-      #   destination
-      #   method
-      #   status
-      # }
+      status
+      holdsValue
+      recoveryOptions {
+        id
+        destination
+        method
+        status
+      }
     }
   }
-`;
+` as TypedDocumentNode<CurrentUserProvider_walletRecovery>;
 
-// export const ethereumAccounts = gql`
-//   fragment CurrentUseProvider_ethereumAccounts on CurrentUser {
-//     slug
-//     accounts {
-//       id
-//       sorareManaged
-//       accountable {
-//         ... on EthereumAccount {
-//           address
-//         }
-//       }
-//     }
-//   }
-// `;
-// export const fiatAccounts = gql`
-//   fragment CurrentUseProvider_fiatAccounts on CurrentUser {
-//     slug
-//     accounts {
-//       id
-//       accountable {
-//         ... on FiatWalletAccount {
-//           id
-//           status
-//           availableBalance
-//           currency
-//           totalBalance
-//         }
-//       }
-//     }
-//   }
-// `;
+export const ethereumAccounts = gql`
+  fragment CurrentUseProvider_ethereumAccounts on CurrentUser {
+    slug
+    accounts {
+      id
+      sorareManaged
+      accountable {
+        ... on EthereumAccount {
+          address
+        }
+      }
+    }
+  }
+` as TypedDocumentNode<CurrentUseProvider_ethereumAccounts>;
+export const fiatAccounts = gql`
+  fragment CurrentUseProvider_fiatAccounts on CurrentUser {
+    slug
+    accounts {
+      id
+      accountable {
+        ... on FiatWalletAccount {
+          id
+          state
+          firstName
+          lastName
+          nationalityCode
+          dob
+          countryOfResidenceCode
+          availableBalance
+          currency
+          totalBalance
+          kycStatus
+          kycRefusedReason
+          depositBankAccount {
+            ... on IbanBankAccount {
+              bic
+              iban
+            }
+          }
+        }
+      }
+    }
+  }
+` as TypedDocumentNode<CurrentUseProvider_fiatAccounts>;
 
 export const currentUser = gql`
   fragment CurrentUserProvider_currentUser on CurrentUser {
@@ -97,10 +130,10 @@ export const currentUser = gql`
     createdAt
     email
     nickname
-    # active
+    active
     fromPath
     blockedUntil
-    # confirmedDevice
+    confirmedDevice
     referrer {
       slug
       suspended
@@ -120,45 +153,38 @@ export const currentUser = gql`
     referrals {
       totalCount
     }
-    footballReferralsCompleted: referrals(sport: CRICKET, state: COMPLETED) {
+    footballReferralsCompleted: referrals(sport: FOOTBALL, state: COMPLETED) {
       totalCount
     }
-    #nbaReferralsCompleted: referrals(sport: NBA, state: COMPLETED) {
-    #  totalCount
-    #}
-    #baseballReferralsCompleted: referrals(sport: BASEBALL, state: COMPLETED) {
-    #  totalCount
-    #}
+    nbaReferralsCompleted: referrals(sport: NBA, state: COMPLETED) {
+      totalCount
+    }
+    baseballReferralsCompleted: referrals(sport: BASEBALL, state: COMPLETED) {
+      totalCount
+    }
     referralUrl
-    sorarePrivateKey: viccPrivateKey {
+    sorarePrivateKey {
       iv
       salt
       encryptedPrivateKey
     }
-    sorarePrivateKeyRecovery: viccPrivateKeyRecovery
-    sorareAddress: viccAddress
+    sorarePrivateKeyRecovery
+    sorareAddress
     starkKey
     bankMappedEthereumAddress
     depositedEth
-    # currentDevice {
-    #   id
-    # }
-    # devices {
-    #   deviceType
-    #   id
-    #   os
-    #   userAgent
-    #   lastUsedAt
-    # }
+    currentDevice {
+      id
+    }
     coinBalance
     availableBalance
     availableBalanceForWithdrawal
     totalBalance
     bankBalance
-    # ethMigration {
-    #   id
-    #   aasmState
-    # }
+    ethMigration {
+      id
+      aasmState
+    }
     otpRequiredForLogin
     cardCounts {
       total
@@ -167,7 +193,7 @@ export const currentUser = gql`
       superRare
       unique
     }
-    # featureFlagCustomAttributes
+    featureFlagCustomAttributes
     phoneNumber
     phoneNumberVerificationRequested
     phoneNumberVerified
@@ -183,7 +209,7 @@ export const currentUser = gql`
       status
       discordUsername
       twitterUsername
-      # enabledWallets
+      enabledWallets
     }
     unverifiedPhoneNumber
     userSettings {
@@ -196,14 +222,16 @@ export const currentUser = gql`
       hideBalance
       hideCommonCards
       tcuStatus
+      rewardCurrency
+      ...PostalAddressForm_userSettings
     }
     unclaimedActionRewards {
       id
     }
-    unclaimedSo5Rewards: unclaimedVicc5Rewards {
+    unclaimedSo5Rewards {
       slug
       coinAmount
-      so5Fixture: vicc5Fixture {
+      so5Fixture {
         slug
         endDate
       }
@@ -211,47 +239,36 @@ export const currentUser = gql`
     unclaimedReferralRewardsCount
     unreadNotificationsCount
     pendingDirectWithdrawalCount
-    # rampSupported
+    rampSupported
     apiKey
     mustAcceptTcus
     followingCount
     followersCount
-    # pendingDeposits {
-    #   id
-    #   date
-    #   providerType
-    #   amount
-    #   transactionHash
-    #   amountInFiat {
-    #     eur
-    #     gbp
-    #     usd
-    #   }
-    # }
-    connectedOauths: connectedOAuths {
+    connectedOauths {
       id
       email
       provider
     }
-    # noCardRouteEnabled
-    # so5NoCardRouteOpened
-    # blockchainCardsInLineups
-    #...CurrentUserProvider_conversionCredit
+    noCardRouteEnabled
+    so5NoCardRouteOpened
+    blockchainCardsInLineups
+    ...CurrentUserProvider_conversionCredit
     ...CurrentUserProvider_onboardingStatus
-    #...CurrentUseProvider_sportProfile
-    #...CurrentUserProvider_walletRecovery
-    #...CurrentUseProvider_ethereumAccounts
-    #...CurrentUseProvider_fiatAccounts
+    ...CurrentUseProvider_sportProfile
+    ...CurrentUserProvider_walletRecovery
+    ...CurrentUseProvider_ethereumAccounts
+    ...CurrentUseProvider_fiatAccounts
     ...ActiveUserAvatar_user
   }
-  #{walletRecovery}
-  #{conversionCredit}
+  ${walletRecovery}
+  ${conversionCredit}
   ${onboardingStatus}
-  #{sportProfile}
-  #{ethereumAccounts}
-  #{fiatAccounts}
+  ${sportProfile}
+  ${ethereumAccounts}
+  ${fiatAccounts}
   ${ActiveUserAvatar.fragments.user}
-`;
+  ${PostalAddressForm.fragments.userSettings}
+` as TypedDocumentNode<CurrentUserProvider_currentUser>;
 
 export const CURRENT_USER_QUERY = gql`
   query CurrentUserQuery {
@@ -261,62 +278,78 @@ export const CURRENT_USER_QUERY = gql`
     }
   }
   ${currentUser}
-`;
+` as TypedDocumentNode<CurrentUserQuery, CurrentUserQueryVariables>;
 
-// export const onDeviceSubscription = gql`
-//   subscription onDeviceWasUpdated {
-//     deviceWasUpdated {
-//       id
-//       eventType
-//     }
-//   }
-// `;
+export const onDeviceSubscription = gql`
+  subscription onDeviceWasUpdated {
+    deviceWasUpdated {
+      id
+      eventType
+    }
+  }
+` as TypedDocumentNode<onDeviceWasUpdated, onDeviceWasUpdatedVariables>;
 
-// export const subscription = gql`
-//   subscription onCurrentUserWasUpdated {
-//     currentUserWasUpdated {
-//       slug
-//       bankMappedEthereumAddress
-//       availableBalance
-//       availableBalanceForWithdrawal
-//       bankBalance
-//       coinBalance
-//       unreadNotificationsCount
-//       ethMigration {
-//         id
-//         aasmState
-//       }
-//       pendingDeposits {
-//         id
-//         date
-//         amount
-//         providerType
-//         transactionHash
-//         amountInFiat {
-//           eur
-//           usd
-//           gbp
-//         }
-//       }
-//       myRecentActiveBids {
-//         id
-//         maximumAmount
-//         auction {
-//           id
-//           privateCurrentPrice
-//           privateMinNextBid
-//           currency
-//         }
-//       }
-//       ...CurrentUserProvider_onboardingStatus
-//       ...CurrentUserProvider_conversionCredit
-//       ...CurrentUseProvider_fiatAccounts
-//     }
-//   }
-//   ${onboardingStatus}
-//   ${conversionCredit}
-//   ${fiatAccounts}
-// `;
+export const subscription = gql`
+  subscription onCurrentUserWasUpdated {
+    currentUserWasUpdated {
+      slug
+      bankMappedEthereumAddress
+      availableBalance
+      availableBalanceForWithdrawal
+      bankBalance
+      coinBalance
+      unreadNotificationsCount
+      ethMigration {
+        id
+        aasmState
+      }
+      pendingDeposits {
+        id
+        date
+        providerType
+        transactionHash
+        amounts {
+          ...MonetaryAmountFragment_monetaryAmount
+        }
+      }
+      myRecentActiveBids {
+        id
+        maximumAmounts {
+          ...MonetaryAmountFragment_monetaryAmount
+        }
+        auction {
+          id
+          privateCurrentPrice
+          privateMinNextBid
+          currency
+        }
+      }
+      referralAsReferee {
+        id
+        aasmState
+        footballCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
+          sport: FOOTBALL
+        )
+        nbaCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
+          sport: NBA
+        )
+        baseballCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
+          sport: BASEBALL
+        )
+      }
+      ...CurrentUserProvider_onboardingStatus
+      ...CurrentUserProvider_conversionCredit
+      ...CurrentUseProvider_fiatAccounts
+    }
+  }
+  ${monetaryAmountFragment}
+  ${onboardingStatus}
+  ${conversionCredit}
+  ${fiatAccounts}
+` as TypedDocumentNode<
+  onCurrentUserWasUpdated,
+  onCurrentUserWasUpdatedVariables
+>;
 
 export const SIGN_IN_MUTATION = gql`
   mutation SignInMutation($input: signInInput!) {
@@ -336,4 +369,4 @@ export const SIGN_IN_MUTATION = gql`
     }
   }
   ${currentUser}
-`;
+` as TypedDocumentNode<SignInMutation, SignInMutationVariables>;

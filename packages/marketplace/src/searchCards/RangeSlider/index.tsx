@@ -31,7 +31,7 @@ const Title = ({ name, attribute }: TitleProps) => {
 };
 
 export const makeRangeFilter = (
-  Component: () => JSX.Element,
+  Component: () => React.JSX.Element,
   filter: Filter,
   {
     startsOpen = false,

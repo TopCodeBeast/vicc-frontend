@@ -1,16 +1,21 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import DumbPlayerAvatar from '@sorare/core/src/components/player/DumbPlayerAvatar';
 
+import {
+  RepresentedPlayerAvatar_player,
+  RepresentedPlayerAvatar_representativePlayer,
+} from './__generated__/index.graphql';
+
 type Props = {
   player: {
     displayName: string;
-    squaredPictureUrl?: string | null; //Modified
+    squaredPictureUrl: string | null;
   };
   representativePlayer: {
     displayName: string;
-    avatarPictureUrl?: string | null; //Modified
+    avatarPictureUrl: string | null;
   };
 };
 
@@ -58,14 +63,14 @@ RepresentedPlayerAvatar.fragments = {
       displayName
       squaredPictureUrl: pictureUrl(derivative: "squared")
     }
-  `,
+  ` as TypedDocumentNode<RepresentedPlayerAvatar_player>,
   representativePlayer: gql`
     fragment RepresentedPlayerAvatar_representativePlayer on Player {
       slug
       displayName
       avatarPictureUrl: pictureUrl(derivative: "avatar")
     }
-  `,
+  ` as TypedDocumentNode<RepresentedPlayerAvatar_representativePlayer>,
 };
 
 export default RepresentedPlayerAvatar;

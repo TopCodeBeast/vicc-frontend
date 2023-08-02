@@ -86,18 +86,23 @@ const Card = styled.div`
     outline: 2px solid var(--c-brand-600);
   }
 `;
-const CardWrapper: FC<{ selected: boolean }> = ({ selected, children }) => {
+const CardWrapper: FC<React.PropsWithChildren<{ selected: boolean }>> = ({
+  selected,
+  children,
+}) => {
   return <Card className={classnames({ selected })}>{children}</Card>;
 };
 
 export type Props = {
   render: (props: {
-    Card: FC<{ selected: boolean }>;
-    CardPlaceholder: FC<{
-      onClick: () => void;
-      selected: boolean;
-      position: LineupPosition;
-    }>;
+    Card: FC<React.PropsWithChildren<{ selected: boolean }>>;
+    CardPlaceholder: FC<
+      React.PropsWithChildren<{
+        onClick: () => void;
+        selected: boolean;
+        position: LineupPosition;
+      }>
+    >;
   }) => ReactNode;
   capBar?: ReactNode;
   confirm: (props: { ConfirmButton: typeof ConfirmButton }) => ReactNode;

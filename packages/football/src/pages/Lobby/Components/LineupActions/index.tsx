@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback, useState } from 'react';
 import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
@@ -23,9 +23,9 @@ import {
   tabletAndAbove,
 } from '@sorare/core/src/style/mediaQuery';
 
+import { LockedCompetitionAction } from '@football/components/competition/LockedCompetitionAction';
 import useConfirmLineups from '@football/hooks/so5/useConfirmLineups';
 import useDeleteLineup from '@football/hooks/so5/useDeleteLineup';
-import { LockedCompetitionAction } from '@football/pages/Lobby/CompetitionDetails/Details/LockedCompetitionAction';
 
 import { Lobby_LineupActions_so5Leaderboard } from './__generated__/index.graphql';
 
@@ -195,7 +195,7 @@ const LineupActions = ({
 
 LineupActions.fragments = {
   so5Leaderboard: gql`
-    fragment Lobby_LineupActions_so5Leaderboard on Vicc5Leaderboard {
+    fragment Lobby_LineupActions_so5Leaderboard on So5Leaderboard {
       id
       slug
       rarityType
@@ -210,7 +210,7 @@ LineupActions.fragments = {
       canCompose {
         value
       }
-      mySo5Lineups: myVicc5Lineups {
+      mySo5Lineups {
         id
         draft
         confirmable
@@ -219,7 +219,7 @@ LineupActions.fragments = {
     }
     ${SwapCta.fragments.so5Leaderboard}
     ${LockedCompetitionAction.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<Lobby_LineupActions_so5Leaderboard>,
 };
 
 export default LineupActions;

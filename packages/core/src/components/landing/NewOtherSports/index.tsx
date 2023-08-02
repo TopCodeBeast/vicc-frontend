@@ -7,7 +7,6 @@ import {
   laptopAndAbove,
   tabletAndAbove,
 } from '@core/style/mediaQuery';
-import { hideScrollbar } from '@core/style/utils';
 
 import { BaseballContent } from './BaseballContent';
 import { FootballContent } from './FootballContent';
@@ -24,7 +23,7 @@ const messages = defineMessages({
   },
   football: {
     id: 'Landing.NewOtherSports.football',
-    defaultMessage: 'Featuring over 300 officially licensed soccer clubs',
+    defaultMessage: 'Featuring over 300 officially licensed football clubs',
   },
   nba: {
     id: 'Landing.NewOtherSports.nba',
@@ -54,7 +53,6 @@ const Grid = styled.div`
   gap: var(--double-unit);
   grid-auto-flow: column;
   overflow: auto;
-  ${hideScrollbar}
   grid-template-columns: repeat(3, minmax(320px, 1fr));
 
   @media ${tabletAndAbove} {

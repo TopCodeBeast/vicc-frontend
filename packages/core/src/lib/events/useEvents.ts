@@ -1,9 +1,66 @@
 import { useCallback } from 'react';
 
+import { useEventsContext } from '@core/contexts/events';
+import { getInteractionContext, getSport } from '@core/lib/events';
+import { mapKeys } from '@core/lib/object';
+import toStartCase from '@core/lib/string/toStartCase';
+import toSnakeCase from '@core/lib/toSnakeCase';
+import * as platformEvents from '@core/protos/events/platform/web/events';
+import { sportToJSON } from '@core/protos/events/shared/events';
+import * as so5Events from '@core/protos/events/so5/web/events';
+import { StartCase, StringKeysOf } from 'types';
+
+import { EventsType, WithOptionalCommonProperties } from './EventsType';
+
+type ObjectWithToJSON = { toJSON: (args: any) => any };
+
+type PropertiesWithToJSON<T extends Record<string, any>> = {
+  [P in StringKeysOf<T> as T[P] extends ObjectWithToJSON
+    ? StartCase<P>
+    : never]: T[P];
+};
+
+const getTypedProtosEvents = <T extends Record<string, any>>(
+  protosEvents: T
+): PropertiesWithToJSON<T> => {
+  const protoEventKeys = Object.keys(protosEvents) as StringKeysOf<
+    typeof protosEvents
+  >[];
+  return protoEventKeys.reduce<PropertiesWithToJSON<T>>((acc, cur) => {
+    const currentValue = protosEvents[cur];
+    if (Object.prototype.hasOwnProperty.call(currentValue, 'toJSON')) {
+      // @ts-expect-error hasOwnProperty is not helpful to narrow the type of cur down
+      acc[toStartCase(cur)] = currentValue.toJSON;
+    }
+    return acc;
+  }, {} as PropertiesWithToJSON<T>);
+};
+
+export const protosEvents = {
+  ...getTypedProtosEvents(so5Events),
+  ...getTypedProtosEvents(platformEvents),
+};
+
+type ProtoEventTypes = typeof protosEvents;
+type ProtoTrackEventTypes = {
+  [key in keyof ProtoEventTypes]: WithOptionalCommonProperties<
+    Parameters<ProtoEventTypes[key]['toJSON']>[0]
+  >;
+};
+
+export type AggregatedTrackEvents = EventsType & ProtoTrackEventTypes;
+
 const useEvents = () => {
-  const track = useCallback((msg: any, ...params: any): void => {
-    console.log('track', msg, params)
-      /*if (Object.prototype.hasOwnProperty.call(protosEvents, event)) {
+  const { track: baseTrack } = useEventsContext();
+
+  const track = useCallback(
+    <K extends keyof AggregatedTrackEvents>(
+      event: K,
+      ...rest: AggregatedTrackEvents[K] extends undefined
+        ? []
+        : [AggregatedTrackEvents[K]]
+    ): void => {
+      if (Object.prototype.hasOwnProperty.call(protosEvents, event)) {
         baseTrack(event, {
           interaction_context: getInteractionContext(),
           ...(rest[0] &&
@@ -11,6 +68,7 @@ const useEvents = () => {
             // which transform keys to snake case & rounds numbers
             // @ts-expect-error unresolved key issue
             protosEvents[event](rest[0])),
+          // @ts-expect-error unresolved key issue
           sport: rest[0]?.sport || sportToJSON(getSport()),
         });
         return;
@@ -26,9 +84,9 @@ const useEvents = () => {
         interaction_context: getInteractionContext(),
         sport: sportToJSON(getSport()),
         ...snakeCaseProperties,
-      });*/
+      });
     },
-    []
+    [baseTrack]
   );
 
   return track;

@@ -1,17 +1,21 @@
-import { gql } from '@apollo/client';
-import { ReactNode, useCallback, useState } from 'react';
+import { TypedDocumentNode, gql } from '@apollo/client';
+import { ReactNode, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
+import {
+  FiatWalletAccountState,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import Dialog from '@sorare/core/src/components/dialog';
+import CreateFiatWallet from '@sorare/core/src/components/fiatWallet/CreateFiatWallet';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
+import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import { useFiatBalance } from '@sorare/core/src/hooks/wallets/useFiatBalance';
 import { glossary } from '@sorare/core/src/lib/glossary';
-import { toWei } from '@sorare/core/src/lib/wei';
-import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
-import { theme } from '@sorare/core/src/style/theme';
 
 import OfferDealSummary from '@marketplace/components/offer/OfferDealSummary';
 import { TokenTransferValidator } from '@marketplace/components/token/TokenTransferValidator';
@@ -36,11 +40,6 @@ const CenteredText16 = styled(Text16)`
 const Content = styled.div`
   width: 100%;
   padding: 0 var(--triple-unit) var(--triple-unit) var(--triple-unit);
-  @media ${tabletAndAbove} {
-    min-width: calc(
-      ${theme.breakpoints.values.tablet}px - var(--double-and-a-half-unit)
-    );
-  }
 `;
 const ButtonsBar = styled.div`
   width: 100%;
@@ -72,19 +71,20 @@ export const Summary = <D extends BaseType>({
   sender,
   receiver,
 }: Props<D>) => {
+  const [needsCreateFiatWallet, setNeedsCreateFiatWallet] = useState(false);
+  const { canListAndTrade } = useFiatBalance();
+  const {
+    flags: { useCashWallet },
+  } = useFeatureFlags();
   const { up: isTablet } = useScreenSize('tablet');
   const track = useMarketplaceEvents();
-  const onConfirm = useCallback(() => {
-    (state as any).submit(dispatch, state); //**************TODO */
-    track('Click Submit Trade');
-  }, [dispatch, state, track]);
-
-  const setBuilding = useCallback(() => dispatch(switchToBuilding), [dispatch]);
 
   const {
-    sendEth,
-    receiveEth,
-    receiveMarketFeesEth,
+    sendAmount,
+    receiveAmount,
+    receiveMarketFeesAmount,
+    sendAmountCurrency,
+    receiveAmountCurrency,
     sendCards,
     cardsData,
     receiveCards,
@@ -93,6 +93,22 @@ export const Summary = <D extends BaseType>({
     paymentMethod,
   } = state;
 
+  const setBuilding = () => dispatch(switchToBuilding);
+
+  const onConfirm = () => {
+    setNeedsCreateFiatWallet(false);
+    if (
+      !canListAndTrade &&
+      useCashWallet &&
+      receiveAmountCurrency !== SupportedCurrency.WEI &&
+      receiveAmount.eur > 0
+    ) {
+      setNeedsCreateFiatWallet(true);
+      return;
+    }
+    state.submit(dispatch, state);
+    track('Click Submit Trade');
+  };
   const [consentAgreed, setConsentAgreed] = useState(false);
 
   const receiveTokens = receiveCards.map(c => cardsData[c.objectID]);
@@ -101,6 +117,16 @@ export const Summary = <D extends BaseType>({
 
   const isSubmitting = stage === 'submitting';
 
+  if (needsCreateFiatWallet) {
+    return (
+      <CreateFiatWallet
+        statusTarget={FiatWalletAccountState.OWNER}
+        onClose={() => setNeedsCreateFiatWallet(false)}
+        onDismissActivationSuccess={onConfirm}
+        canDismissAfterActivation
+      />
+    );
+  }
   return (
     <TokenTransferValidator tokens={sendTokens} transferContext="send_trade">
       {({ validationMessages, ConsentMessage }) => (
@@ -113,9 +139,11 @@ export const Summary = <D extends BaseType>({
           body={
             <Content>
               <OfferDealSummary
-                sendWeiAmount={toWei(sendEth)}
-                receiveWeiAmount={toWei(receiveEth)}
-                marketFeeAmountWei={toWei(receiveMarketFeesEth)}
+                sendAmount={sendAmount}
+                receiveAmount={receiveAmount}
+                sendAmountCurrency={sendAmountCurrency}
+                receiveAmountCurrency={receiveAmountCurrency}
+                marketFeeAmount={receiveMarketFeesAmount}
                 receiveTokens={receiveTokens}
                 sendTokens={sendTokens}
                 duration={duration}
@@ -130,11 +158,10 @@ export const Summary = <D extends BaseType>({
           footer={
             <FooterWrapper>
               {ConsentMessage && (
-                <>ConsentMessage666</>
-                // <ConsentMessage
-                //   value={consentAgreed}
-                //   onChange={setConsentAgreed}
-                // />
+                <ConsentMessage
+                  value={consentAgreed}
+                  onChange={setConsentAgreed}
+                />
               )}
               <ButtonsBar>
                 <CancelCta
@@ -171,7 +198,7 @@ Summary.fragments = {
       ...OfferDealSummary_token
     }
     ${OfferDealSummary.fragments.token}
-  `,
+  ` as TypedDocumentNode<OfferBuilderSummary_token>,
 };
 
 export default Summary;

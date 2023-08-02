@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { theme } from '@core/style/theme';
+import { breakpoints } from '@core/style/mediaQuery';
 
 type Props = {
   children: ReactNode;
@@ -14,7 +14,7 @@ const Root = styled.div`
 `;
 const StyledContainer = styled.div`
   width: 100%;
-  max-width: ${theme.breakpoints.values.desktop - 20}px;
+  max-width: ${breakpoints.desktop - 20}px;
   margin: 0 auto;
 `;
 

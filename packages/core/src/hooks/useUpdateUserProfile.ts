@@ -1,4 +1,9 @@
-import { FetchResult, gql, useMutation } from '@apollo/client';
+import {
+  FetchResult,
+  TypedDocumentNode,
+  gql,
+  useMutation,
+} from '@apollo/client';
 
 // eslint-disable-next-line import/named
 import { updateUserProfileInput } from '__generated__/globalTypes';
@@ -29,7 +34,7 @@ const UPDATE_USER_PROFILE_MUTATION = gql`
           slug
           nickname
         }
-        marketplacePreferences(sports: [CRICKET]) {
+        marketplacePreferences(sports: [FOOTBALL, NBA, BASEBALL]) {
           sport
           preferences {
             name
@@ -44,13 +49,13 @@ const UPDATE_USER_PROFILE_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  UpdateUserProfileMutation,
+  UpdateUserProfileMutationVariables
+>;
 
 export default () => {
-  const [mutate] = useMutation<
-    UpdateUserProfileMutation,
-    UpdateUserProfileMutationVariables
-  >(UPDATE_USER_PROFILE_MUTATION);
+  const [mutate] = useMutation(UPDATE_USER_PROFILE_MUTATION);
   const { showNotification } = useSnackNotificationContext();
 
   return async (input: updateUserProfileInput) => {

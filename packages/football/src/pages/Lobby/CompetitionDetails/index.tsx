@@ -1,5 +1,4 @@
-import { gql } from '@apollo/client';
-import { faTimes } from '@fortawesome/pro-solid-svg-icons';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import { Suspense } from 'react';
 import { defineMessages } from 'react-intl';
@@ -11,7 +10,6 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { IconButton } from '@sorare/core/src/atoms/buttons/IconButton';
 import { Container } from '@sorare/core/src/atoms/container';
 import { Portal } from '@sorare/core/src/atoms/layout/Portal';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
@@ -24,15 +22,12 @@ import {
   FOOTBALL_COMPETITION_DETAILS_MATCHES,
   FOOTBALL_COMPETITION_DETAILS_REWARDS,
   FOOTBALL_COMPETITION_DETAILS_TEAM,
-  LOBBY_TABS,
-  goToLobby,
 } from '@sorare/core/src/constants/routes';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
-import useSafePreviousNavigate from '@sorare/core/src/hooks/useSafePreviousNavigate';
 import {
   socialShareEventContext,
   socialShareEventName,
@@ -60,10 +55,6 @@ import {
 
 type CompetitionDetailsQuery_so5Leaderboard =
   CompetitionDetailsQuery['football']['so5']['so5Leaderboard'];
-
-type Props = {
-  onClose?: () => void;
-};
 
 const Team = lazy(async () => import('@football/pages/Lobby/CompetitionDetails/Team'));
 const Rewards = lazy(
@@ -199,31 +190,33 @@ const ShareLabel = styled.span`
 
 const COMPETITION_DETAILS_QUERY = gql`
   query CompetitionDetailsQuery($slug: String!) {
-    so5: vicc5Root {
-      so5Leaderboard: vicc5Leaderboard(slug: $slug) {
-        slug
-        rarityType
-        teamsCap
-        iconUrl
-        so5Fixture: vicc5Fixture {
+    football {
+      so5 {
+        so5Leaderboard(slug: $slug) {
           slug
-          startDate
-          endDate
-          aasmState
-          ...CompetitionDetailsTimeLeft_so5Fixture
+          rarityType
+          teamsCap
+          iconUrl
+          so5Fixture {
+            slug
+            startDate
+            endDate
+            aasmState
+            ...CompetitionDetailsTimeLeft_so5Fixture
+          }
+          mySo5Lineups {
+            id
+            draft
+            cancelledAt
+            ...SocialShare_SocialPictures
+            ...getLineupDisplayName_so5Lineup
+            ...useLineupSharingAttributes_so5Lineup
+          }
+          ...getLeaderboardInfo_so5Leaderboard
+          ...TeamActions_lineup
+          ...DivisionLogo_so5Leaderboard
+          ...getLineupDisplayName_so5Leaderboard
         }
-        mySo5Lineups: myVicc5Lineups {
-          id
-          draft
-          cancelledAt
-          ...SocialShare_SocialPictures
-          ...getLineupDisplayName_so5Lineup
-          ...useLineupSharingAttributes_so5Lineup
-        }
-        ...getLeaderboardInfo_so5Leaderboard
-        ...TeamActions_lineup
-        ...DivisionLogo_so5Leaderboard
-        ...getLineupDisplayName_so5Leaderboard
       }
     }
   }
@@ -235,7 +228,10 @@ const COMPETITION_DETAILS_QUERY = gql`
   ${getLineupDisplayName.fragments.so5Lineup}
   ${getLineupDisplayName.fragments.so5Leaderboard}
   ${useLineupSharingAttributes.fragments.so5Lineup}
-`;
+` as TypedDocumentNode<
+  CompetitionDetailsQuery,
+  CompetitionDetailsQueryVariables
+>;
 
 const ScarcityAndDate = ({
   leaderboard,
@@ -289,21 +285,18 @@ const messages = defineMessages({
   },
 });
 
-export const CompetitionDetails = ({ onClose }: Props) => {
+type Props = {
+  closeButton?: React.JSX.Element;
+};
+export const CompetitionDetails = ({ closeButton }: Props) => {
   const { formatMessage } = useIntlContext();
   const { competition } = useParams();
   const [searchParams] = useSearchParams();
   const idFromQS = searchParams.get('id');
   const { up: isTablet } = useScreenSize('tablet');
-  const safePreviousNavigate = useSafePreviousNavigate(
-    goToLobby('upcoming', LOBBY_TABS.MY_TEAMS)
-  );
   const bgLocation = useBgLocation();
   const bottomNavBarItems = useBottomBarNavItems();
-  const { data } = useQuery<
-    CompetitionDetailsQuery,
-    CompetitionDetailsQueryVariables
-  >(COMPETITION_DETAILS_QUERY, {
+  const { data } = useQuery(COMPETITION_DETAILS_QUERY, {
     variables: { slug: competition || '' },
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
@@ -428,18 +421,7 @@ export const CompetitionDetails = ({ onClose }: Props) => {
                 {...lineupSharingAttributes}
               />
             )}
-            <IconButton
-              onClick={() => {
-                if (typeof onClose === 'function') {
-                  onClose();
-                } else {
-                  safePreviousNavigate();
-                }
-              }}
-              color="white"
-              icon={faTimes}
-              aria-label={formatMessage(glossary.close)}
-            />
+            {closeButton}
           </Extras>
         </HeaderWrapper>
         <TabsContainer>

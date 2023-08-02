@@ -74,7 +74,7 @@ export const Carousel = <T,>({
   });
 
   return (
-    <Wrapper ref={target} style={style}>
+    <Wrapper ref={target} style={style} {...bind()}>
       {elements.map((element, index) => (
         <ElementWrapper
           // eslint-disable-next-line react/no-array-index-key

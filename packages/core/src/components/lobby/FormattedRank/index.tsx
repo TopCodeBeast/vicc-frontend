@@ -16,7 +16,7 @@ const Root = styled.div`
   align-items: baseline;
 `;
 
-const Span: FC = props => <span {...props} />;
+const Span: FC<React.PropsWithChildren<unknown>> = props => <span {...props} />;
 
 export const FormattedRank = ({ rank, total }: Props) => {
   if (typeof rank !== 'number') return null;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -65,7 +65,7 @@ CardDescription.fragments = {
       serialNumber
       rarity
     }
-  `,
+  ` as TypedDocumentNode<CardDescription_card>,
 };
 
 export default CardDescription;

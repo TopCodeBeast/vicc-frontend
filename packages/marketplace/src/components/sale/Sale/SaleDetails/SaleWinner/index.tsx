@@ -1,11 +1,10 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
-import { User } from '@sorare/core/src/__generated__/globalTypes';
 import { Caption } from '@sorare/core/src/atoms/typography';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import Since from '@sorare/core/src/contexts/intl/Since';
-import { isA, isType } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
 
 import { ItemOwner } from '@marketplace/components/ItemPreview/ItemOwner';
 
@@ -27,7 +26,7 @@ export const SaleWinner = ({ sale }: Props) => {
   const { currentUser } = useCurrentUserContext();
 
   const isCurrentUserSender =
-    isA<User>('User', sender) && currentUser?.slug === sender.slug;
+    isType(sender, 'User') && currentUser?.slug === sender.slug;
   const user = isCurrentUserSender ? actualReceiver : sender;
   if (!user || !isType(user, 'User')) return null;
 
@@ -72,5 +71,5 @@ SaleWinner.fragments = {
       }
     }
     ${ItemOwner.fragments.user}
-  `,
+  ` as TypedDocumentNode<SaleWinner_offer>,
 };

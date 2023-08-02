@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faTimes } from '@fortawesome/pro-regular-svg-icons';
 import { faCircleInfo } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -199,7 +199,7 @@ BenchCardRow.fragments = {
     ${BenchCard.fragments.card}
     ${PlayerGameScores.fragments.player}
     ${PlayerStatusWarning.fragments.card}
-  `,
+  ` as TypedDocumentNode<BenchCardRow_card>,
 };
 
 export default BenchCardRow;

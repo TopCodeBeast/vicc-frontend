@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import {
   AmountInput,
@@ -9,17 +9,16 @@ import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNoti
 import { useWalletContext } from '@sorare/core/src/contexts/wallet';
 import useMutation, { Error } from '@sorare/core/src/hooks/graphql/useMutation';
 
-// import { useGetAuthorizationApprovals } from '@marketplace/hooks/useGetAuthorizationApprovals';
+import { useGetAuthorizationApprovals } from '@marketplace/hooks/useGetAuthorizationApprovals';
 
 import {
   PrepareOfferMutation,
   PrepareOfferMutationVariables,
 } from './__generated__/usePrepareOffer.graphql';
 
-type AuthorizationRequest = any;
-// type AuthorizationRequest = NonNullable<
-//   NonNullable<PrepareOfferMutation['prepareOffer']>['authorizations']
-// >[number];
+type AuthorizationRequest = NonNullable<
+  NonNullable<PrepareOfferMutation['prepareOffer']>['authorizations']
+>[number];
 
 const PREPARE_OFFER_MUTATION = gql`
   mutation PrepareOfferMutation($input: prepareOfferInput!) {
@@ -39,17 +38,17 @@ const PREPARE_OFFER_MUTATION = gql`
           feeLimit
         }
       }
-      #authorizations {
-      #  ...useGetAuthorizationApprovals_authorizationRequest
-      #}
+      authorizations {
+        ...useGetAuthorizationApprovals_authorizationRequest
+      }
       errors {
         message
         code
       }
     }
   }
-  #{useGetAuthorizationApprovals.fragments.authorizationRequest}
-`;
+  ${useGetAuthorizationApprovals.fragments.authorizationRequest}
+` as TypedDocumentNode<PrepareOfferMutation, PrepareOfferMutationVariables>;
 
 const NO_SIGNATURE = Symbol('No signature returned');
 
@@ -74,12 +73,11 @@ type PrepareOfferOutput = {
 };
 
 export default () => {
-  // const getAuthorizationApprovals = useGetAuthorizationApprovals();
+  const getAuthorizationApprovals = useGetAuthorizationApprovals();
   const { signLimitOrders } = useWalletContext();
-  const [prepareOffer] = useMutation<
-    PrepareOfferMutation,
-    PrepareOfferMutationVariables
-  >(PREPARE_OFFER_MUTATION, { showErrorsWithSnackNotification: true });
+  const [prepareOffer] = useMutation(PREPARE_OFFER_MUTATION, {
+    showErrorsWithSnackNotification: true,
+  });
   const { showNotification } = useSnackNotificationContext();
 
   const errorOutput = {
@@ -112,7 +110,7 @@ export default () => {
           sendAmount,
           receiveAmount,
           settlementCurrencies,
-        } as any,
+        },
       },
     });
     if (!success)
@@ -121,17 +119,16 @@ export default () => {
         ...errorOutput,
       };
 
-    const authorizations = []; //data?.prepareOffer?.authorizations || [];
+    const authorizations = data?.prepareOffer?.authorizations || [];
 
     const useAuthorizations = authorizations?.length > 0;
 
     const legacyLimitOrders = data?.prepareOffer?.limitOrders;
 
-    const signedAuthorizations = undefined;
-    // const signedAuthorizations =
-    //   (useAuthorizations &&
-    //     (await getAuthorizationApprovals(authorizations))) ||
-    //   undefined;
+    const signedAuthorizations =
+      (useAuthorizations &&
+        (await getAuthorizationApprovals(authorizations))) ||
+      undefined;
 
     const { signatures: legacyStarkSignatures, starkKey: legacyStarkKey } =
       await signLimitOrders(legacyLimitOrders!);

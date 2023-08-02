@@ -1,11 +1,14 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { parse } from 'qs';
-import { defineMessages, useIntl } from 'react-intl';
+import { FormattedMessage, defineMessages } from 'react-intl';
+import styled from 'styled-components';
 
-import StyledSecondaryTabs from '@sorare/core/src/atoms/navigation/StyledSecondaryTabs';
+import {
+  Badge,
+  ScrollableTabBar,
+  Tab,
+} from '@sorare/core/src/components/TabBar';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-
-import useNetworkTabPath from '@football/hooks/useNetworkTabPath';
 
 import Followers from './Followers';
 import Following from './Following';
@@ -22,13 +25,17 @@ const messages = defineMessages<Tab>({
   },
   following: {
     id: 'Network.following',
-    defaultMessage: 'Following {following}',
+    defaultMessage: '<span>Following</span> <b>{following}</b>',
   },
   followers: {
     id: 'Network.followers',
-    defaultMessage: 'Followers {followers}',
+    defaultMessage: '<span>Followers</span> <b>{followers}</b>',
   },
 });
+
+const TabBarWrapper = styled.div`
+  margin: 0 calc(-1 * var(--double-unit));
+`;
 
 type Props = {
   user: Network_user;
@@ -39,29 +46,34 @@ export const Network = ({ user }: Props) => {
   const qsParams = parse(window.location.search, {
     ignoreQueryPrefix: true,
   });
-  const { formatMessage } = useIntl();
-  const path = useNetworkTabPath(user);
 
   if (!user) return null;
   const actualTabs = tabs.filter(
     t => user.slug === currentUser?.slug || t !== 'recommended'
   );
-  const tab = tabs.includes((qsParams.tab as Tab)) //*************Modifed */
+  const tab = tabs.includes((qsParams.tab as Tab) || '')
     ? `${qsParams.tab}`
     : tabs[0];
 
   return (
     <div>
-      <StyledSecondaryTabs
-        items={actualTabs.map(t => ({
-          to: path(t),
-          label: formatMessage(messages[t], {
-            following: user.followingCount,
-            followers: user.followersCount,
-          }),
-          active: tab === t,
-        }))}
-      />
+      <TabBarWrapper>
+        <ScrollableTabBar value={tab} variant="secondary">
+          {actualTabs.map(t => (
+            <Tab key={t} value={t} to={`?tab=${t}`}>
+              <FormattedMessage
+                {...messages[t]}
+                values={{
+                  following: user.followingCount,
+                  followers: user.followersCount,
+                  b: (...chunks: string[]) => <Badge>{chunks}</Badge>,
+                  span: (...chunks: string[]) => <span>{chunks}</span>,
+                }}
+              />
+            </Tab>
+          ))}
+        </ScrollableTabBar>
+      </TabBarWrapper>
       {tab === 'recommended' && <Recommended />}
       {tab === 'following' && <Following user={user} />}
       {tab === 'followers' && <Followers user={user} />}
@@ -76,7 +88,7 @@ Network.fragments = {
       followingCount
       followersCount
     }
-  `,
+  ` as TypedDocumentNode<Network_user>,
 };
 
 export default Network;

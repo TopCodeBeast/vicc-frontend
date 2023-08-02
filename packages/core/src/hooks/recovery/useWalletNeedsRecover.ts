@@ -1,4 +1,4 @@
-// import { UserWalletStatusEnum } from '__generated__/globalTypes';
+import { UserWalletStatusEnum } from '__generated__/globalTypes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 
 export const useWalletNeedsRecover = () => {
@@ -7,10 +7,10 @@ export const useWalletNeedsRecover = () => {
   if (!currentUser) {
     return false;
   }
-  // const { wallet } = currentUser;
-  // if (wallet) {
-  //   return wallet.status !== UserWalletStatusEnum.READY; //TODO******
-  // }
+  const { wallet } = currentUser;
+  if (wallet) {
+    return wallet.status !== UserWalletStatusEnum.READY;
+  }
   // here it means that there is no wallet initialized and this needs to go through another chain
   return false;
 };

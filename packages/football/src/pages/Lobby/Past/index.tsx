@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import { useMemo } from 'react';
 import { defineMessages } from 'react-intl';
@@ -11,7 +11,7 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Vicc5State as So5State } from '@sorare/core/src/__generated__/globalTypes';
+import { So5State } from '@sorare/core/src/__generated__/globalTypes';
 import { Container } from '@sorare/core/src/atoms/container';
 import { Flag } from '@sorare/core/src/atoms/icons/Flag';
 import { Jersey } from '@sorare/core/src/atoms/icons/Jersey';
@@ -59,25 +59,27 @@ const tabs = defineMessages({
 });
 
 const LOBBY_PAST_QUERY = gql`
-  query LobbyPastQuery($slug: String, $type: Vicc5State) {
-    so5: vicc5Root {
-      so5Fixture: vicc5Fixture(slug: $slug, type: $type) {
-        slug
-        aasmState
-        totalLineups: myVicc5LineupsCount(draft: false)
-        mySo5Rewards: myVicc5Rewards {
+  query LobbyPastQuery($slug: String, $type: So5State) {
+    football {
+      so5 {
+        so5Fixture(slug: $slug, type: $type) {
           slug
-          ...RewardsBanner_so5Reward
+          aasmState
+          totalLineups: mySo5LineupsCount(draft: false)
+          mySo5Rewards {
+            slug
+            ...RewardsBanner_so5Reward
+          }
+          ...Lobby_Layout_so5Fixture
+          ...Teams_so5Fixture
         }
-        ...Lobby_Layout_so5Fixture
-        ...Teams_so5Fixture
       }
     }
   }
   ${Layout.fragments.so5Fixture}
   ${RewardsBanner.fragments.so5Reward}
   ${Teams.fragments.so5Fixture}
-`;
+` as TypedDocumentNode<LobbyPastQuery, LobbyPastQueryVariables>;
 
 const StyledRewardsBanner = styled.div`
   &.active {
@@ -102,15 +104,12 @@ export const LobbyPast = () => {
     }),
     [slug]
   );
-  const { data } = useQuery<LobbyPastQuery, LobbyPastQueryVariables>(
-    LOBBY_PAST_QUERY,
-    {
-      variables: slugAndType,
-      nextFetchPolicy: 'cache-first',
-      fetchPolicy: 'cache-and-network',
-    }
-  );
-  const so5Fixture = data?.so5.so5Fixture || undefined;
+  const { data } = useQuery(LOBBY_PAST_QUERY, {
+    variables: slugAndType,
+    nextFetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
+  });
+  const so5Fixture = data?.football.so5.so5Fixture || undefined;
   const rewardsLeftToBeClaimed = so5Fixture?.mySo5Rewards.some(
     ({ aasmState }) => aasmState !== 'claimed'
   );

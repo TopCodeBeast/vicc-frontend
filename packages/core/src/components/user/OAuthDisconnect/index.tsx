@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 
 import Button from '@core/atoms/buttons/Button';
@@ -21,11 +21,11 @@ const DISCONNECT_OMNIAUTH_PROVIDER_MUTATION = gql`
       }
       currentUser {
         slug
-        # connectedOauths {
-        #   id
-        #   email
-        #   provider
-        # }
+        connectedOauths {
+          id
+          email
+          provider
+        }
       }
       errors {
         message
@@ -33,7 +33,10 @@ const DISCONNECT_OMNIAUTH_PROVIDER_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  DisconnectOmniauthProviderMutation,
+  DisconnectOmniauthProviderMutationVariables
+>;
 
 type Props = {
   email: string | null;
@@ -41,10 +44,7 @@ type Props = {
 };
 
 export const Disconnect = ({ email, provider }: Props) => {
-  const [disconnect] = useMutation<
-    DisconnectOmniauthProviderMutation,
-    DisconnectOmniauthProviderMutationVariables
-  >(DISCONNECT_OMNIAUTH_PROVIDER_MUTATION, {
+  const [disconnect] = useMutation(DISCONNECT_OMNIAUTH_PROVIDER_MUTATION, {
     showErrorsWithSnackNotification: true,
   });
   return (

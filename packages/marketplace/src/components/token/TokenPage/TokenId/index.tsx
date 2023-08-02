@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 
 import ExternalLink from '@sorare/core/src/atoms/navigation/ExternalLink';
@@ -38,7 +38,7 @@ TokenId.fragments = {
       ethereumId
       contractAddress
     }
-  `,
+  ` as TypedDocumentNode<TokenId_token>,
 };
 
 export default TokenId;

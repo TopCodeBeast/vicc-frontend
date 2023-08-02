@@ -17,7 +17,7 @@ export const hideScrollbar = css`
 `;
 
 export function OverrideClasses<
-  C extends React.ComponentType<any>,
+  C extends React.ComponentType<React.PropsWithChildren<any>>,
   P extends object,
   T extends { [name: string]: SimpleInterpolation }
 >(

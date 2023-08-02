@@ -1,7 +1,9 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { defineMessage } from 'react-intl';
 
 import { withFragments } from '@sorare/core/src/lib/gql';
+
+import { GetSameNationalityRule } from './__generated__/getSameNationalityRule.graphql';
 
 const defaultMessage = defineMessage({
   id: 'Rules.sameNationality',
@@ -24,14 +26,14 @@ const getSameNationalityRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetSameNationalityRule on Vicc5Leaderboard {
+      fragment GetSameNationalityRule on So5Leaderboard {
         slug
         displayedRules {
           id
           sameNationality
         }
       }
-    `,
+    ` as TypedDocumentNode<GetSameNationalityRule>,
   }
 );
 

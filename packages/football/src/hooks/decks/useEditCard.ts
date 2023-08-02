@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 
 import { deckFragment } from '@football/pages/CustomDeck/fragments';
 
@@ -20,13 +20,10 @@ const EDIT_CARD_IN_DECK_MUTATION = gql`
     }
   }
   ${deckFragment}
-`;
+` as TypedDocumentNode<EditCardInDeckMutation, EditCardInDeckMutationVariables>;
 
 export default () => {
-  const [editCard] = useMutation<
-    EditCardInDeckMutation,
-    EditCardInDeckMutationVariables
-  >(EDIT_CARD_IN_DECK_MUTATION);
+  const [editCard] = useMutation(EDIT_CARD_IN_DECK_MUTATION);
 
   return (deckSlug: string) => async (cardSlug: string, newIndex: number) =>
     editCard({

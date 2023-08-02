@@ -1,10 +1,10 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import { Text14, Text20 } from '@sorare/core/src/atoms/typography';
 
-// import Boost from './Boost';
+import Boost from './Boost';
 import { Boosts_card } from './__generated__/index.graphql';
 
 const Root = styled.div`
@@ -46,17 +46,16 @@ const Boosts = ({
       </Text14>
       <FlexContainer>
         {card.availableCardBoosts.map(cardBoost => (
-          <>Boost555</>
-          // <Boost
-          //   key={cardBoost.shopItem.id}
-          //   cardId={card.id}
-          //   cardBoost={cardBoost}
-          //   maxLevelUpAppliedCountReached={
-          //     card.levelUpAppliedCount === card.maxLevelUpAppliedCount
-          //   }
-          //   onMaxLevelUpAppliedCountReached={onMaxLevelUpAppliedCountReached}
-          //   closeDropdown={closeDropdown}
-          // />
+          <Boost
+            key={cardBoost.shopItem.id}
+            cardId={card.id}
+            cardBoost={cardBoost}
+            maxLevelUpAppliedCountReached={
+              card.levelUpAppliedCount === card.maxLevelUpAppliedCount
+            }
+            onMaxLevelUpAppliedCountReached={onMaxLevelUpAppliedCountReached}
+            closeDropdown={closeDropdown}
+          />
         ))}
       </FlexContainer>
     </Root>
@@ -71,13 +70,15 @@ Boosts.fragments = {
       assetId
       levelUpAppliedCount
       maxLevelUpAppliedCount
+      # shopItem does not expose an ID because it's a union type
+      # eslint-disable-next-line sorare/enforce-apollo-typepolicies
       availableCardBoosts {
         id
-        #...Boost_cardBoost
+        ...Boost_cardBoost
       }
     }
-    #{Boost.fragments.cardBoost}
-  `,
+    ${Boost.fragments.cardBoost}
+  ` as TypedDocumentNode<Boosts_card>,
 };
 
 export default Boosts;

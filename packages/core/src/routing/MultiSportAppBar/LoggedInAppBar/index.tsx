@@ -15,6 +15,8 @@ import styled, { css } from 'styled-components';
 
 import { Sport } from '__generated__/globalTypes';
 import { Container, FullWidth } from '@core/atoms/container';
+import Dropdown from '@core/atoms/dropdowns/Dropdown';
+import { ChevronDownBold } from '@core/atoms/icons/ChevronDownBold';
 import { SorareLogo } from '@core/atoms/icons/SorareLogo';
 import { Text16, text16 } from '@core/atoms/typography';
 import Notifications from '@core/components/notification/Notifications';
@@ -29,9 +31,9 @@ import {
   FOOTBALL_LOBBY_PRIZE_POOL,
   FOOTBALL_LOBBY_ROOT,
   FOOTBALL_MARKET,
+  FOOTBALL_MARKET_STARTER_PACKS,
   FOOTBALL_NEW_SIGNINGS,
   FOOTBALL_PRIVATE_LEAGUES,
-  FOOTBALL_STARTER_BUNDLES,
   FOOTBALL_TRANSFER_MARKET,
   FOOTBALL_USER_GALLERY_CARDS,
   FOOTBALL_USER_GALLERY_CARD_COLLECTIONS,
@@ -96,6 +98,7 @@ import { useInlineNotificationsContext } from '@core/contexts/snackNotification/
 import { useSportContext } from '@core/contexts/sport';
 import { useWalletContext } from '@core/contexts/wallet';
 import { useWalletDrawerContext } from '@core/contexts/walletDrawer';
+import useScreenSize from '@core/hooks/device/useScreenSize';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import { useLocationChanged } from '@core/hooks/useLocationChanged';
 import useMyPath from '@core/hooks/useMyPath';
@@ -114,10 +117,10 @@ import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import { Balances } from '../Balances';
 import Item, { Config } from '../Item';
-// import MLBLogos from '../MLBLogos';
+import MLBLogos from '../MLBLogos';
 import NavDrawer from '../NavDrawer';
-// import { switches } from '../Sport/Switch';
-// import SportsButtons from '../SportsButtons';
+import { switches } from '../Sport/Switch';
+import SportsButtons from '../SportsButtons';
 import { useAppBarContext } from '../context';
 
 const messages = defineMessages({
@@ -132,15 +135,71 @@ const StyledGameSwitch = styled.div`
   gap: 20px;
 `;
 
-// const GameSwitch = () => {
-//   return (
-//     <StyledGameSwitch>
-//       {switches[Sport.FOOTBALL]}
-//       {switches[Sport.NBA]}
-//       {switches[Sport.BASEBALL]}
-//     </StyledGameSwitch>
-//   );
-// };
+const Frame = styled(ButtonBase)`
+  display: flex;
+  max-height: calc(5 * var(--unit));
+  gap: var(--double-unit);
+  padding: var(--intermediate-unit) var(--double-unit);
+  border-radius: var(--quadruple-unit);
+  background-color: var(--c-static-neutral-900);
+`;
+const Option = styled.div`
+  display: flex;
+  padding: var(--intermediate-unit) var(--double-unit);
+`;
+const Relative = styled.div`
+  position: relative;
+`;
+
+const StyledChevronDownBold = styled(ChevronDownBold)<{ $expanded: boolean }>`
+  transition: transform 0.2s ease-in-out;
+  ${({ $expanded }) =>
+    $expanded &&
+    css`
+      transform: rotate(180deg);
+    `}
+`;
+
+const GameSwitch = () => {
+  const { up: upLaptop } = useScreenSize('laptop');
+  const { sport } = useSportContext();
+  const [expanded, setExpanded] = useState<boolean>(false);
+
+  if (upLaptop)
+    return (
+      <StyledGameSwitch>
+        {switches[Sport.FOOTBALL]}
+        {switches[Sport.NBA]}
+        {switches[Sport.BASEBALL]}
+      </StyledGameSwitch>
+    );
+
+  const options = Object.entries(switches).filter(
+    ([switchSport]) => switchSport !== sport
+  );
+  return (
+    <Relative>
+      <Dropdown
+        darkTheme
+        align="left"
+        breakpoint="tablet"
+        gap={4}
+        label={
+          <Frame>
+            {switches[sport!] || null}
+            <StyledChevronDownBold $expanded={expanded} />
+          </Frame>
+        }
+        onOpen={() => setExpanded(true)}
+        onClose={() => setExpanded(false)}
+      >
+        {options.map(([sportSwitch, label]) => (
+          <Option key={sportSwitch}>{label}</Option>
+        ))}
+      </Dropdown>
+    </Relative>
+  );
+};
 
 const Items = ({ items }: { items: Config[] }) => (
   <>
@@ -318,8 +377,6 @@ export const LoggedInAppBar = ({
 }) => {
   const {
     flags: {
-      useMlbTeamCollections = false,
-      useNbaTeamCollections = false,
       enablePrizePoolPage = false,
       useMlbStarterPacks = false,
       useMlbHowToPlayPage = false,
@@ -435,6 +492,24 @@ export const LoggedInAppBar = ({
         to: NBA_HOME,
         label: navLabels.home,
         exactMatch: true,
+        subMenu: [
+          {
+            key: 'nba-homepage',
+            to: NBA_HOME,
+            label: galleryTabs.overview,
+            exactMatch: true,
+          },
+          {
+            key: 'user-gallery',
+            to: generateMyPath(NBA_USER_GALLERY),
+            label: navLabels.myCards,
+          },
+          {
+            key: 'collections',
+            to: generateMyPath(NBA_USER_GALLERY_COLLECTIONS),
+            label: navLabels.collections,
+          },
+        ],
       },
       {
         key: 'market',
@@ -501,37 +576,6 @@ export const LoggedInAppBar = ({
         to: NBA_LEAGUES,
         label: messages.playWithFriends,
       },
-      ...(useNbaTeamCollections
-        ? [
-            {
-              key: 'my-card',
-              label: navLabels.myCards,
-              to: generateMyPath(NBA_USER_GALLERY),
-              subMenu: [
-                {
-                  key: 'market-home',
-                  to: generateMyPath(NBA_USER_GALLERY),
-                  label: navLabels.myCards,
-                },
-                ...(useNbaTeamCollections
-                  ? [
-                      {
-                        key: 'collections',
-                        to: generateMyPath(NBA_USER_GALLERY_COLLECTIONS),
-                        label: navLabels.collections,
-                      },
-                    ]
-                  : []),
-              ],
-            },
-          ]
-        : [
-            {
-              key: 'my-cards',
-              label: navLabels.myCards,
-              to: generateMyPath(NBA_USER_GALLERY),
-            },
-          ]),
       {
         key: 'how-to-play',
         label: glossary.howToPlay,
@@ -545,6 +589,24 @@ export const LoggedInAppBar = ({
         to: MLB_HOME,
         label: navLabels.home,
         exactMatch: true,
+        subMenu: [
+          {
+            key: 'mlb-homepage',
+            to: MLB_HOME,
+            label: galleryTabs.overview,
+            exactMatch: true,
+          },
+          {
+            key: 'user-gallery',
+            to: generateMyPath(MLB_USER_GALLERY),
+            label: navLabels.myCards,
+          },
+          {
+            key: 'collections',
+            to: generateMyPath(MLB_USER_GALLERY_COLLECTIONS),
+            label: navLabels.collections,
+          },
+        ],
       },
       {
         key: 'market',
@@ -636,37 +698,6 @@ export const LoggedInAppBar = ({
             },
           ]
         : []),
-      ...(useMlbTeamCollections
-        ? [
-            {
-              key: 'my-card',
-              label: navLabels.myCards,
-              to: generateMyPath(MLB_USER_GALLERY),
-              subMenu: [
-                {
-                  key: 'market-home',
-                  to: generateMyPath(MLB_USER_GALLERY),
-                  label: navLabels.myCards,
-                },
-                ...(useMlbTeamCollections
-                  ? [
-                      {
-                        key: 'collections',
-                        to: generateMyPath(MLB_USER_GALLERY_COLLECTIONS),
-                        label: navLabels.collections,
-                      },
-                    ]
-                  : []),
-              ],
-            },
-          ]
-        : [
-            {
-              key: 'my-cards',
-              label: navLabels.myCards,
-              to: generateMyPath(MLB_USER_GALLERY),
-            },
-          ]),
       ...(useMlbHowToPlayPage
         ? [
             {
@@ -695,6 +726,7 @@ export const LoggedInAppBar = ({
             key: 'my-club-overview',
             to: FOOTBALL_HOME,
             label: galleryTabs.overview,
+            exactMatch: true,
           },
           {
             key: 'my-club-my-cards',
@@ -747,7 +779,7 @@ export const LoggedInAppBar = ({
           },
           {
             key: 'starter-packs',
-            to: FOOTBALL_STARTER_BUNDLES,
+            to: FOOTBALL_MARKET_STARTER_PACKS,
             label: transferMarket.starterPacks,
           },
           {
@@ -810,7 +842,11 @@ export const LoggedInAppBar = ({
         }),
         content: (
           <Title>
-            <ActiveUserAvatar user={currentUser!} variant="medium" />
+            <ActiveUserAvatar
+              user={currentUser!}
+              variant="medium"
+              editable={false}
+            />
             <MenuItemContent>
               <Username bold>{nickname}</Username>
             </MenuItemContent>
@@ -880,7 +916,11 @@ export const LoggedInAppBar = ({
       content: (
         <MenuItemContent mobileProfile>
           <UserMetas>
-            <ActiveUserAvatar user={currentUser!} variant="medium" />
+            <ActiveUserAvatar
+              user={currentUser!}
+              variant="medium"
+              editable={false}
+            />
             <div>
               <FullWidthUsername bold>{nickname}</FullWidthUsername>
               <Text16 color="var(--c-neutral-600)">
@@ -911,7 +951,7 @@ export const LoggedInAppBar = ({
               defaultMessage="Wallet balance"
             />
           </Shrinkable>
-          {/* <Balances medium /> */}
+          <Balances medium />
         </MenuItemContent>
       ),
       overflowVisible: true,
@@ -1025,11 +1065,10 @@ export const LoggedInAppBar = ({
             onClose={onClose}
           >
             <AnimatedMenuColumn style={Opacity}>
-              <>SportsButtons55</>
-              {/* <SportsButtons
+              <SportsButtons
                 onClick={selectSport}
                 currentNavSport={currentNavSport}
-              /> */}
+              />
             </AnimatedMenuColumn>
             <AnimatedMenuColumn style={SlideFromBottom}>
               <Items items={submenuItems} />
@@ -1075,7 +1114,7 @@ export const LoggedInAppBar = ({
                     <SorareLogo />
                   </Link>
                   <LogoAndSwitchesSeparator />
-                  {/* <GameSwitch /> */}
+                  <GameSwitch />
                 </>
               )}
               <Right>
@@ -1115,7 +1154,7 @@ export const LoggedInAppBar = ({
           <AppBarItems>
             <Items items={appBarItems} />
           </AppBarItems>
-          {/* {sport === Sport.BASEBALL && <MLBLogos />} */}
+          {sport === Sport.BASEBALL && <MLBLogos />}
         </SportSpecific>
       )}
       {inlineNotifications}

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { DndContext, DragOverlay } from '@dnd-kit/core';
 import { SortableContext } from '@dnd-kit/sortable';
 import { faPlus } from '@fortawesome/pro-regular-svg-icons';
@@ -50,13 +50,15 @@ type CustomDeck_customDeck_deckCards_nodes =
 
 const CUSTOM_DECK_QUERY = gql`
   query CustomDeckQuery($deckSlug: String!, $after: String) {
-    customDeck(slug: $deckSlug) {
-      slug
-      ...CustomDeck_customDeck
+    football {
+      customDeck(slug: $deckSlug) {
+        slug
+        ...CustomDeck_customDeck
+      }
     }
   }
   ${deckFragment}
-`;
+` as TypedDocumentNode<CustomDeckQuery, CustomDeckQueryVariables>;
 
 const messages = defineMessages({
   shareTitle: {
@@ -130,10 +132,7 @@ export const CustomDeck = () => {
   const { editDeck } = useDeckContext();
 
   const [cardPickerOpened, setCardPickerOpened] = useState(false);
-  const { data, loadMore, loading } = usePaginatedQuery<
-    CustomDeckQuery,
-    CustomDeckQueryVariables
-  >(CUSTOM_DECK_QUERY, {
+  const { data, loadMore, loading } = usePaginatedQuery(CUSTOM_DECK_QUERY, {
     connection: 'DeckCardConnection',
     variables: {
       deckSlug,
@@ -161,18 +160,18 @@ export const CustomDeck = () => {
 
   const loadNextPage = useCallback(() => {
     loadMore(false, {
-      after: data?.customDeck?.deckCards?.pageInfo.endCursor,
+      after: data?.football?.customDeck?.deckCards?.pageInfo.endCursor,
       deckSlug,
     });
   }, [
     loadMore,
     deckSlug,
-    data?.customDeck?.deckCards?.pageInfo.endCursor,
+    data?.football?.customDeck?.deckCards?.pageInfo.endCursor,
   ]);
 
   const { ref } = useInfiniteScroll(
     loadNextPage,
-    Boolean(data?.customDeck?.deckCards?.pageInfo.hasNextPage),
+    Boolean(data?.football?.customDeck?.deckCards?.pageInfo.hasNextPage),
     loading
   );
 
@@ -187,20 +186,20 @@ export const CustomDeck = () => {
   useEffect(
     () =>
       setItems(
-        data?.customDeck
+        data?.football?.customDeck
           ? sortBy(
               dc => dc.cardIndex!,
-              [...data?.customDeck.deckCards.nodes]
+              [...data?.football?.customDeck.deckCards.nodes]
             )
           : []
       ),
-    [data?.customDeck, setItems]
+    [data?.football?.customDeck, setItems]
   );
 
   if (!data || !items) return null;
 
   const {
-    customDeck,
+    football: { customDeck },
   } = data;
   const { slug, name, deckCards, deckCardsCount, user, visible } = customDeck;
   const readOnly = user?.slug !== currentUser?.slug;

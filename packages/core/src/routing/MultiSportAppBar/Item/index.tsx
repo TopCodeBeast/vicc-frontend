@@ -36,7 +36,7 @@ export interface Config {
   exactMatch?: boolean;
   overflowVisible?: boolean;
   forceActive?: boolean;
-  Wrapper?: ComponentType<{ children: ReactElement }>;
+  Wrapper?: ComponentType<React.PropsWithChildren<{ children: ReactElement }>>;
 }
 
 interface Props {
@@ -103,6 +103,7 @@ const DesktopItem = ({
     to?: string;
     href?: string;
     exactMatch?: boolean;
+    subMenuMatches?: { to?: string; exactMatch?: boolean }[];
     externalLink?: boolean;
     onClick?: () => void;
   } = {
@@ -114,7 +115,13 @@ const DesktopItem = ({
     onMouseLeave?: () => void;
   } = {};
 
-  if (to) buttonProps = { ...buttonProps, to, exactMatch };
+  if (to)
+    buttonProps = {
+      ...buttonProps,
+      to,
+      exactMatch,
+      subMenuMatches: subMenu?.filter(subMenuItem => subMenuItem.to),
+    };
   if (href) buttonProps = { ...buttonProps, href, externalLink };
 
   if (isTouchScreen) {

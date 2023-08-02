@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { cloneElement } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { generatePath } from 'react-router-dom';
@@ -160,10 +160,10 @@ const CompetitionListActions = ({
 
 CompetitionListActions.fragments = {
   so5Leaderboard: gql`
-    fragment CompetitionListActions_so5Leaderboard on Vicc5Leaderboard {
+    fragment CompetitionListActions_so5Leaderboard on So5Leaderboard {
       slug
       displayName
-      mySo5Lineups: myVicc5Lineups {
+      mySo5Lineups {
         id
         ...DropdownActions_so5Lineup
         ...getLineupActions_so5Lineup
@@ -178,6 +178,6 @@ CompetitionListActions.fragments = {
     ${getLineupActions.fragments.so5Lineup}
     ${DropdownActions.fragments.so5Lineup}
     ${DropdownActions.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<CompetitionListActions_so5Leaderboard>,
 };
 export default CompetitionListActions;

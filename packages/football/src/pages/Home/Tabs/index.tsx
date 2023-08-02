@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { Suspense } from 'react';
 import { useIntl } from 'react-intl';
 import { Navigate, Route, generatePath } from 'react-router-dom';
@@ -25,7 +25,7 @@ import { lazy } from '@sorare/core/src/lib/retry';
 import { RootRoutes } from '@sorare/core/src/routing/RootRoutes';
 
 import Header from '@football/components/user/Header';
-// import Overview from '@football/pages/Gallery/Overview';
+import Overview from '@football/pages/Gallery/Overview';
 
 import {
   HomeTabs_currentUser,
@@ -47,7 +47,7 @@ const Content = styled.div`
 const HomeOverview = lazy(async () => import('@football/pages/Home/Overview'));
 const Cards = lazy(async () => import('@football/pages/Gallery/Cards'));
 const Collections = lazy(async () => import('@football/pages/Collections/Collections'));
-// const CustomDecks = lazy(async () => import('@football/pages/Gallery/CustomDecks'));
+const CustomDecks = lazy(async () => import('@football/pages/Gallery/CustomDecks'));
 const ClubHonors = lazy(async () => import('@football/pages/Home/ClubHonors'));
 const Network = lazy(async () => import('@football/pages/Home/Network'));
 
@@ -68,17 +68,22 @@ export const Tabs = ({ user, isOwnPage }: Props) => {
           path: FOOTBALL_USER_GALLERY_OVERVIEW,
           label: formatMessage(galleryTabs.overview),
           tabContent: (
-            <>Overview555</>
-            // <Overview
-            //   user={user as HomeTabs_publicUserInfoInterface}
-            //   readOnly
-            // />
+            <Overview
+              user={user as HomeTabs_publicUserInfoInterface}
+              readOnly
+            />
           ),
         },
     {
       path: FOOTBALL_USER_GALLERY_CARDS,
       label: formatMessage(galleryTabs.cards),
-      tabContent: <Cards user={user} readOnly={!isOwnPage} />,
+      tabContent: (
+        <Cards
+          user={user}
+          readOnly={!isOwnPage}
+          nbCustomDecks={user.customDecks?.nodes.length}
+        />
+      ),
     },
     {
       path: FOOTBALL_USER_GALLERY_CARD_COLLECTIONS,
@@ -93,7 +98,7 @@ export const Tabs = ({ user, isOwnPage }: Props) => {
     !useCustomLists && {
       path: FOOTBALL_USER_GALLERY_SQUADS,
       label: formatMessage(galleryTabs.customDecks),
-      tabContent: <>CustomDecks555</>,//<CustomDecks userSlug={user.slug} readOnly={!isOwnPage} />,
+      tabContent: <CustomDecks userSlug={user.slug} readOnly={!isOwnPage} />,
     },
     {
       path: FOOTBALL_USER_GALLERY_NETWORK,
@@ -158,20 +163,30 @@ Tabs.fragments = {
       id
       slug
       ...UserHeader_currentUser
-      #...Overview_publicUserInfoInterface
+      ...Overview_publicUserInfoInterface
+      customDecks {
+        nodes {
+          slug
+        }
+      }
     }
     ${Header.fragments.currentUser}
-    #{Overview.fragments.user}
-  `,
+    ${Overview.fragments.user}
+  ` as TypedDocumentNode<HomeTabs_currentUser>,
   publicUserInfoInterface: gql`
     fragment HomeTabs_publicUserInfoInterface on PublicUserInfoInterface {
       slug
       ...UserHeader_publicUserInfoInterface
-      #...Overview_publicUserInfoInterface
+      ...Overview_publicUserInfoInterface
+      customDecks {
+        nodes {
+          slug
+        }
+      }
     }
     ${Header.fragments.user}
-    #{Overview.fragments.user}
-  `,
+    ${Overview.fragments.user}
+  ` as TypedDocumentNode<HomeTabs_publicUserInfoInterface>,
 };
 
 export default Tabs;

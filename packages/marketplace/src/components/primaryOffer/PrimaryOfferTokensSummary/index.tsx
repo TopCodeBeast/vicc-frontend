@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -45,7 +45,7 @@ PrimaryOfferTokensSummary.fragments = {
       ...TokensSummary_token
     }
     ${TokensSummary.fragments.token}
-  `,
+  ` as TypedDocumentNode<PrimaryOfferTokensSummary_token>,
 };
 
 export default PrimaryOfferTokensSummary;

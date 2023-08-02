@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faBaseball, faBasketball } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ReactNode } from 'react';
@@ -9,11 +9,11 @@ import { Sport } from '__generated__/globalTypes';
 import Button from '@core/atoms/buttons/Button';
 import { Ball } from '@core/atoms/icons/Ball';
 import { Text14 } from '@core/atoms/typography';
-// import useDestroyReferral from '@core/hooks/referral/useDestroyReferral';
+import useDestroyReferral from '@core/hooks/referral/useDestroyReferral';
 import { glossary } from '@core/lib/glossary';
 import { CARDS_REQUIREMENTS_BY_SPORT } from '@core/lib/referral';
 
-// import { ReferralStatus_referral } from './__generated__/index.graphql';
+import { ReferralStatus_referral } from './__generated__/index.graphql';
 
 const Progress = styled.div`
   display: flex;
@@ -54,7 +54,6 @@ const Progression = ({ count, icon, max, sport }: ProgressionProps) => {
   );
 };
 
-type ReferralStatus_referral = any;
 type Props = {
   referral: ReferralStatus_referral;
   cardsRequirements?: number | null;
@@ -77,7 +76,7 @@ const StyledText14 = styled(Text14)`
 `;
 
 export const ReferralStatus = ({ referral, cardsRequirements }: Props) => {
-  // const destroyReferral = useDestroyReferral();
+  const destroyReferral = useDestroyReferral();
   const { referrerReward } = referral;
   if (referrerReward) {
     return (
@@ -94,7 +93,7 @@ export const ReferralStatus = ({ referral, cardsRequirements }: Props) => {
         color="red"
         small
         onClick={() => {
-          // destroyReferral(referral.id);
+          destroyReferral(referral.id);
         }}
       >
         <FormattedMessage {...glossary.delete} />
@@ -150,26 +149,26 @@ export const ReferralStatus = ({ referral, cardsRequirements }: Props) => {
   );
 };
 
-// ReferralStatus.fragments = {
-//   referral: gql`
-//     fragment ReferralStatus_referral on Referral {
-//       id
-//       aasmState
-//       sport
-//       footballCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
-//         sport: FOOTBALL
-//       )
-//       nbaCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
-//         sport: NBA
-//       )
-//       baseballCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
-//         sport: BASEBALL
-//       )
-//       refereeInvitationSentAt
-//       refereeConfirmedAt
-//       referrerReward {
-//         id
-//       }
-//     }
-//   `,
-// };
+ReferralStatus.fragments = {
+  referral: gql`
+    fragment ReferralStatus_referral on Referral {
+      id
+      aasmState
+      sport
+      footballCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
+        sport: FOOTBALL
+      )
+      nbaCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
+        sport: NBA
+      )
+      baseballCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
+        sport: BASEBALL
+      )
+      refereeInvitationSentAt
+      refereeConfirmedAt
+      referrerReward {
+        id
+      }
+    }
+  ` as TypedDocumentNode<ReferralStatus_referral>,
+};

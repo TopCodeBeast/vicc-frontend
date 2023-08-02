@@ -33,10 +33,10 @@ export const splitName = (name: string) => {
 };
 
 export const lineupPositions = [
-  // Position.Goalkeeper, //TODO******
-  // Position.Defender,
-  // Position.Midfielder,
-  // Position.Forward,
+  Position.Goalkeeper,
+  Position.Defender,
+  Position.Midfielder,
+  Position.Forward,
   'Extra Player',
 ] as const;
 
@@ -44,10 +44,10 @@ export type LineupPosition = (typeof lineupPositions)[number];
 
 // Changing how this array is sorted will change how the compose team go to the next available slot
 export const playablePositions = [
-  Position.Batsman, //TODO******
-  Position.Bowler,
-  Position.Coach,
-  Position.Wicketkeeper,
+  Position.Forward,
+  Position.Midfielder,
+  Position.Defender,
+  Position.Goalkeeper,
 ] as const;
 export type PlayablePosition = (typeof playablePositions)[number];
 
@@ -128,7 +128,7 @@ export const qualityNames: { [key in CardQuality]: string } = {
   TIER_2: 'Tier 2',
   TIER_3: 'Tier 3',
   TIER_4: 'Tier 4',
-  // TIER_5: 'Tier 5',
+  TIER_5: 'Tier 5',
 };
 
 export const positionNames = defineMessages<Position>({
@@ -156,7 +156,7 @@ export const positionNames = defineMessages<Position>({
     id: 'Player.coach',
     defaultMessage: 'Coach',
   },
-} as any);
+});
 
 export const attributes = defineMessages({
   position: {
@@ -214,7 +214,7 @@ export const getAverageScore = (
   mode: PlayerScoreMode,
   so5Scores: { score: number | null }[],
   lastFiveSo5AverageScore: number | null,
-  lastFifteenVicc5AverageScore: number | null
+  lastFifteenSo5AverageScore: number | null
 ) => {
   switch (mode) {
     case 'LATEST_SCORE':
@@ -222,7 +222,7 @@ export const getAverageScore = (
     case 'AVERAGE_LAST_5_GAMES':
       return lastFiveSo5AverageScore;
     case 'AVERAGE_LAST_15_GAMES':
-      return lastFifteenVicc5AverageScore;
+      return lastFifteenSo5AverageScore;
     default:
       return 0;
   }
@@ -232,14 +232,14 @@ export const getSafeAverageScore = (
   mode: PlayerScoreMode,
   so5Scores: { score: number | null }[],
   lastFiveSo5AverageScore: number | null,
-  lastFifteenVicc5AverageScore: number | null
+  lastFifteenSo5AverageScore: number | null
 ) => {
   return (
     getAverageScore(
       mode,
       so5Scores,
       lastFiveSo5AverageScore,
-      lastFifteenVicc5AverageScore
+      lastFifteenSo5AverageScore
     ) || 0
   );
 };
@@ -247,21 +247,21 @@ export const getSafeAverageScore = (
 export const getAppearancePercentage = (
   mode: PlayerScoreMode,
   player: {
-    lastFiveVicc5Appearances: number | null;
-    lastFifteenVicc5Appearances: number | null;
+    lastFiveSo5Appearances: number | null;
+    lastFifteenSo5Appearances: number | null;
   }
 ) => {
   switch (mode) {
     case 'AVERAGE_LAST_5_GAMES':
-      if (!player.lastFiveVicc5Appearances) {
+      if (!player.lastFiveSo5Appearances) {
         return 0;
       }
-      return ((player.lastFiveVicc5Appearances * 100) / 5.0).toFixed(0);
+      return ((player.lastFiveSo5Appearances * 100) / 5.0).toFixed(0);
     case 'AVERAGE_LAST_15_GAMES':
-      if (!player.lastFifteenVicc5Appearances) {
+      if (!player.lastFifteenSo5Appearances) {
         return 0;
       }
-      return ((player.lastFifteenVicc5Appearances * 100) / 15.0).toFixed(0);
+      return ((player.lastFifteenSo5Appearances * 100) / 15.0).toFixed(0);
     default:
       return 0;
   }

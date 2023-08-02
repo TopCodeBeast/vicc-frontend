@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useMemo } from 'react';
 
 import { Rarity } from '@sorare/core/src/__generated__/globalTypes';
@@ -6,12 +6,12 @@ import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { blockchainRarities } from '@sorare/core/src/lib/cards';
 
 import {
-  RecentCurrentUserCardsQuery,
-  RecentCurrentUserCardsQueryVariables,
+  FootballRecentCurrentUserCardsQuery,
+  FootballRecentCurrentUserCardsQueryVariables,
 } from './__generated__/useRecentCurrentUserCardsQuery.graphql';
 
 const RECENT_CURRENT_USER_CARDS_QUERY = gql`
-  query RecentCurrentUserCardsQuery(
+  query FootballRecentCurrentUserCardsQuery(
     $ownedSinceAfter: ISO8601DateTime!
     $first: Int!
     $rarities: [Rarity!]
@@ -30,7 +30,10 @@ const RECENT_CURRENT_USER_CARDS_QUERY = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  FootballRecentCurrentUserCardsQuery,
+  FootballRecentCurrentUserCardsQueryVariables
+>;
 
 function useRecentCurrentUserCardsQuery({
   skip = false,
@@ -42,10 +45,7 @@ function useRecentCurrentUserCardsQuery({
     return date.toISOString();
   }, []);
 
-  const { data, refetch } = useQuery<
-    RecentCurrentUserCardsQuery,
-    RecentCurrentUserCardsQueryVariables
-  >(RECENT_CURRENT_USER_CARDS_QUERY, {
+  const { data, refetch } = useQuery(RECENT_CURRENT_USER_CARDS_QUERY, {
     variables: {
       ownedSinceAfter: twoHoursAgo,
       first: 8,

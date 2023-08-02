@@ -1,15 +1,12 @@
-import { gql, useApolloClient } from '@apollo/client';
+import { TypedDocumentNode, gql, useApolloClient } from '@apollo/client';
 import { faCircleInfo } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { TypedDocumentNode } from '@graphql-typed-document-node/core';
+import Big from 'bignumber.js';
 import { ReactNode, useCallback, useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import {
-  Sport,
-  SupportedCurrency,
-} from '@sorare/core/src/__generated__/globalTypes';
+import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import LoadingButton from '@sorare/core/src/atoms/buttons/LoadingButton';
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Text14, Title6 } from '@sorare/core/src/atoms/typography';
@@ -22,13 +19,16 @@ import { useSportContext } from '@sorare/core/src/contexts/sport';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 import { CardHit, tokenHitFragment } from '@sorare/core/src/lib/algolia';
 import { tradeLabels } from '@sorare/core/src/lib/glossary';
-import { toWei } from '@sorare/core/src/lib/wei';
+import {
+  getMonetaryAmountIndex,
+  monetaryAmountFragment,
+} from '@sorare/core/src/lib/monetaryAmount';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { WalletPaymentMethod } from '@marketplace/components/buyActions/PaymentProvider/types';
+import { useStateOffer } from '@marketplace/hooks/offers/useStateOffer';
 import useHasInsufficientFundsInWallets from '@marketplace/hooks/useHasInsufficientFundsInWallets';
 import useMarketFeesHelperStatus from '@marketplace/hooks/useMarketFeesHelperStatus';
 
@@ -48,6 +48,7 @@ import { TradePaymentMethods } from './TradePaymentMethods';
 import {
   FootballCardsQuery,
   FootballCardsQueryVariables,
+  OfferBuilderBuildingPage_baseToken,
   OfferBuilderBuildingPage_publicUserInfoInterface,
   OfferBuilderBuildingPage_token,
 } from './__generated__/index.graphql';
@@ -62,6 +63,7 @@ const Container = styled.div`
   height: 100%;
   padding: 0 0 calc(var(--marginBottom) * 1px);
   margin: 0;
+  min-width: 100%;
 `;
 const CenteredTitle6 = styled(Title6)`
   text-align: center;
@@ -121,16 +123,20 @@ const FOOTBALL_CARDS_QUERY = gql`
       slug
     }
   }
-`;
+` as TypedDocumentNode<FootballCardsQuery, FootballCardsQueryVariables>;
 
 const tokenFragment = gql`
   fragment OfferBuilderBuildingPage_baseToken on Token {
     slug
     assetId
+    publicMinPrices {
+      ...MonetaryAmountFragment_monetaryAmount
+    }
     ...OfferSide_token
   }
+  ${monetaryAmountFragment}
   ${OfferSide.fragments.token}
-`;
+` as TypedDocumentNode<OfferBuilderBuildingPage_baseToken>;
 
 const messages = defineMessages({
   sendTrade: {
@@ -166,36 +172,41 @@ const BuildingPage = <
   lockReceiveEthInput,
 }: Props<DATA, QUERY_RESULT>) => {
   const {
-    flags: { useNewWallet = false },
+    flags: { useCashWallet = false },
   } = useFeatureFlags();
 
-  const { toMonetaryAmount } = useMonetaryAmount();
   const setConfirming = useCallback(
     () => dispatch(switchToConfirming),
     [dispatch]
   );
   const {
-    sendEth,
-    receiveEth,
+    sendAmount,
+    receiveAmount,
+    sendAmountCurrency,
+    receiveAmountCurrency,
     sendCards,
     cardsData,
     receiveCards,
     stage,
-    valid,
-    isTradeForNothing,
     paymentMethod,
   } = state;
+
+  const { isValid: valid, isTradeForNothing } = useStateOffer(state);
+
+  const sendAmountGtZero = new Big(
+    sendAmount[getMonetaryAmountIndex(sendAmountCurrency!)]
+  ).gt(0);
+  const receiveAmountGtZero = new Big(
+    receiveAmount[getMonetaryAmountIndex(receiveAmountCurrency!)]
+  ).gt(0);
+
   const hasInsufficientFundsInWallets = useHasInsufficientFundsInWallets();
   const { insufficientFundsInEthWallet, insufficientFundsInFiatWallet } =
-    hasInsufficientFundsInWallets(
-      toMonetaryAmount({
-        wei: toWei(sendEth),
-        referenceCurrency: SupportedCurrency.WEI,
-      })
-    );
+    hasInsufficientFundsInWallets(sendAmount);
+
   const invalid =
     !valid ||
-    (useNewWallet &&
+    (useCashWallet &&
       insufficientFundsInEthWallet &&
       paymentMethod === WalletPaymentMethod.ETH_WALLET) ||
     (insufficientFundsInFiatWallet &&
@@ -286,7 +297,8 @@ const BuildingPage = <
         });
 
         dispatch(actionFactory(newState));
-        // dispatch(refreshCardData(newCardData));
+        dispatch(refreshCardData(newCardData));
+
         return Promise.resolve(true);
       } catch (e: any) {
         sendSafeError(e);
@@ -308,12 +320,13 @@ const BuildingPage = <
   );
 
   const setSendCards = useCallback(
-    async cards => setCards(state.sendCards, cards, updateSendCards),
+    async (cards: any) => setCards(state.sendCards, cards, updateSendCards),
     [setCards, state]
   );
 
   const setReceiveCards = useCallback(
-    async cards => setCards(state.receiveCards, cards, updateReceiveCards),
+    async (cards: any) =>
+      setCards(state.receiveCards, cards, updateReceiveCards),
     [setCards, state]
   );
 
@@ -334,7 +347,7 @@ const BuildingPage = <
   );
 
   const closeCardPickerOnSuccess = useCallback(
-    success => {
+    (success: any) => {
       if (success) {
         closeCardPicker();
       }
@@ -397,13 +410,13 @@ const BuildingPage = <
           leaveTouchDelay={3000}
           title={
             <Text14>
-              {sendEth > 0 && receiveCards.length === 0 && (
+              {sendAmountGtZero && receiveCards.length === 0 && (
                 <FormattedMessage
                   id="OfferBuilder.BuildingPage.tradeForNothingWarning"
                   defaultMessage="You cannot send this trade without receiving at least one Card"
                 />
               )}
-              {receiveEth > 0 && sendCards.length === 0 && (
+              {receiveAmountGtZero && sendCards.length === 0 && (
                 <FormattedMessage
                   id="OfferBuilder.BuildingPage.tradeForNothingWarningSending"
                   defaultMessage="You cannot send this trade without sending at least one Card"
@@ -469,8 +482,8 @@ const BuildingPage = <
                       <FontAwesomeIcon icon={faCircleInfo} size="1x" />
                       <Text14>
                         <FormattedMessage
-                          id="NewOfferBuilder.OfferSide.managerOnlyAcceptingETH"
-                          defaultMessage="{manager} is only accepting ETH on this trade."
+                          id="NewOfferBuilder.OfferSide.managerOnlyAcceptingMoney"
+                          defaultMessage="{manager} is only accepting money on this trade."
                           values={{
                             manager: to.nickname,
                           }}
@@ -482,11 +495,12 @@ const BuildingPage = <
               }
             >
               <AmountInput state={state} dispatch={dispatch} />
-              {useNewWallet && sendEth > 0 && (
+              {useCashWallet && (
                 <TradePaymentMethods
                   state={state}
                   dispatch={dispatch}
                   onClose={onClose}
+                  to={to}
                 />
               )}
             </OfferSide>
@@ -526,7 +540,8 @@ BuildingPage.fragments = {
       slug
       nickname
       profile {
-        marketplacePreferences(sports: [CRICKET]) {
+        id
+        marketplacePreferences(sports: [FOOTBALL, NBA, BASEBALL]) {
           sport
           preferences {
             name
@@ -534,9 +549,11 @@ BuildingPage.fragments = {
           }
         }
       }
-      # hoursToAnswerTrades
+      hoursToAnswerTrades
+      ...TradePaymentMethods_publicUserInfoInterface
     }
-  `,
+    ${TradePaymentMethods.fragments.publicUserInfoInterface}
+  ` as TypedDocumentNode<OfferBuilderBuildingPage_publicUserInfoInterface>,
   token: gql`
     fragment OfferBuilderBuildingPage_token on Token {
       assetId
@@ -549,7 +566,7 @@ BuildingPage.fragments = {
     ${tokenFragment}
     ${tokenHitFragment}
     ${useMarketFeesHelperStatus.fragments.token}
-  `,
+  ` as TypedDocumentNode<OfferBuilderBuildingPage_token>,
 };
 
 export default BuildingPage;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -43,7 +43,7 @@ PlayerUpcomingGames.fragments = {
       ...So5Game_game
     }
     ${Game.fragments.game}
-  `,
+  ` as TypedDocumentNode<PlayerUpcomingGames_game>,
 };
 
 export default PlayerUpcomingGames;

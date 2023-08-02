@@ -1,208 +1,189 @@
-import { FormControlLabel } from '@material-ui/core';
-import { ReactNode, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { ReactNode, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
-import { FiatCurrency } from '__generated__/globalTypes';
-import RadioGroup from '@core/atoms/inputs/RadioGroup';
-import { Text14, Text16, Title3 } from '@core/atoms/typography';
-import FilterInDropdown from '@core/components/FilterInDropdown';
-import { GraphQLResult, GraphqlForm, TextField } from '@core/components/form/Form';
-import { PRIVACY_POLICY } from '@core/constants/routes';
-import { useIntlContext } from '@core/contexts/intl';
-import { glossary } from '@core/lib/glossary';
+import {
+  FiatWalletAccountState,
+  FiatWalletKycState,
+} from '__generated__/globalTypes';
+import Dialog from '@core/components/dialog';
+import useScreenSize from '@core/hooks/device/useScreenSize';
+import { useFiatBalance } from '@core/hooks/wallets/useFiatBalance';
 
-// import useCreateFiatWallet from './useCreateFiatWallet';
+import { ActivationSuccess } from './ActivationSuccess';
+import { DeclarativeForm } from './DeclarativeForm';
+import DocumentCheck from './DocumentCheck';
+import { HandleIdReviewError } from './HandleIdReviewError';
+import { Intro } from './Intro';
+import { ReviewInfoBeforeAddingId } from './ReviewInfoBeforeAddingId';
+import { WhatsNew } from './WhatsNew';
+import { CreateFiatWalletSteps } from './type';
+import { useBackButtonTargets } from './useBackButtonTargets';
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  gap: var(--double-unit);
+  gap: var(--triple-unit);
   justify-content: flex-start;
 `;
-
-const StyledGraphqlForm = styled(GraphqlForm)`
-  margin-bottom: 0;
+const Body = styled(Content)`
+  padding: var(--double-unit);
+  height: 100%;
 `;
 
-const LinkInFormattedMessage = styled.a`
-  text-decoration: underline;
-`;
-
-const OptionLabel = styled(Text16)`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--unit) 0;
-  gap: var(--double-unit);
-`;
-
-const StyledTextField = styled(TextField)`
-  border-radius: var(--quadruple-unit);
-`;
-
-const Field = styled(FormControlLabel)`
-  gap: var(--unit);
-  align-items: flex-start;
-  margin: 0;
-`;
-
-type Props = {
-  onSuccess: () => void;
-  cta?: ReactNode;
-  title?: ReactNode;
-  description?: ReactNode;
+export type Props = {
+  onClose: () => void;
+  statusTarget: FiatWalletAccountState;
+  canDismissAfterActivation: boolean;
+  activationSuccessCta?: ReactNode;
+  unsupportedCountryCta?: ReactNode;
+  onDismissActivationSuccess?: () => void;
+  onDeclarativeFormSuccess?: () => void;
+  initialStep?: CreateFiatWalletSteps;
+  onDismissBeforeActivation?: () => void;
 };
 
 export const CreateFiatWallet = ({
-  onSuccess,
-  title,
-  description,
-  cta,
+  initialStep: initialStepProp,
+  onDismissActivationSuccess,
+  onDeclarativeFormSuccess,
+  onClose,
+  activationSuccessCta,
+  unsupportedCountryCta,
+  statusTarget,
+  canDismissAfterActivation,
+  onDismissBeforeActivation,
 }: Props) => {
-  const { formatMessage } = useIntlContext();
-  // const { create, loading } = useCreateFiatWallet();
-  const [firstName, setFirstName] = useState<string | undefined>(undefined);
-  const [lastName, setLastName] = useState<string | undefined>(undefined);
-  const [currency, setCurrency] = useState<FiatCurrency | undefined>(undefined);
+  const { canListAndTrade, kycStatus } = useFiatBalance();
 
-  const formIsIncomplete = !currency || !firstName || !lastName;
+  const initialStep = useMemo(() => {
+    if (initialStepProp) return initialStepProp;
+    if (
+      kycStatus &&
+      [FiatWalletKycState.OUT_OF_DATE, FiatWalletKycState.REFUSED].includes(
+        kycStatus
+      )
+    )
+      return CreateFiatWalletSteps.HANDLE_ID_REVIEW_ERROR;
+    if (
+      kycStatus &&
+      [
+        FiatWalletKycState.VALIDATION_ASKED,
+        FiatWalletKycState.CREATED,
+      ].includes(kycStatus)
+    )
+      return CreateFiatWalletSteps.DOCUMENT_UNDER_REVIEW;
 
-  const disabled = true;//loading || formIsIncomplete;
+    return CreateFiatWalletSteps.INTRO;
+  }, [initialStepProp, kycStatus]);
 
-  const onSubmit = async (
-    variables: any,
-    onResult: (result: GraphQLResult) => void
-  ) => {
-    // const data = await create({
-    //   currency: currency!,
-    //   firstName: firstName!,
-    //   lastName: lastName!,
-    // });
-    // if (!data) return;
-    // onResult(data);
+  const backTargets = useBackButtonTargets({ initialStep });
+  const { up: isTablet } = useScreenSize('tablet');
+
+  const [step, setStep] = useState<CreateFiatWalletSteps>(initialStep);
+
+  const onModalClose = () => {
+    if (
+      initialStep === CreateFiatWalletSteps.INTRO &&
+      step === CreateFiatWalletSteps.INTRO
+    )
+      return onClose;
+    if (
+      [
+        CreateFiatWalletSteps.WHATS_NEW,
+        CreateFiatWalletSteps.HANDLE_ID_REVIEW_ERROR,
+        CreateFiatWalletSteps.DOCUMENT_UNDER_REVIEW,
+      ].includes(step)
+    )
+      return onClose;
+    if (
+      CreateFiatWalletSteps.ACTIVATION_SUCCESS === step &&
+      canDismissAfterActivation
+    ) {
+      return onClose;
+    }
+    return undefined;
   };
 
-  const currencies = Object.values(FiatCurrency).map(c => ({
-    label: (
-      <OptionLabel color="var(--c-neutral-1000)">
-        <span>{c}</span>
-      </OptionLabel>
-    ),
-    value: c,
-  }));
-
+  const onBack = () => {
+    if (step && backTargets[step])
+      return () => {
+        if (step && backTargets[step]) {
+          setStep(backTargets[step]!);
+        } else onClose();
+      };
+    return undefined;
+  };
   return (
-    <Content>
-      <StyledGraphqlForm
-        onSubmit={(variables, onResult) => {
-          onSubmit(variables, onResult);
-        }}
-        onSuccess={onSuccess}
-        render={(Error, SubmitButton) => (
-          <Content>
-            <Title3>
-              {title || (
-                <FormattedMessage
-                  id="createFiatWallet.title"
-                  defaultMessage="Confirm additional details"
-                />
-              )}
-            </Title3>
-            <Text16>
-              {description || (
-                <FormattedMessage
-                  id="createFiatWallet.description"
-                  defaultMessage="To receive cash on Sorare we need to confirm some additional details. This information remains private and is solely used according to our <link>Privacy Policy</link>."
-                  values={{
-                    link: (text: string) => (
-                      <LinkInFormattedMessage
-                        target="_blank"
-                        href={PRIVACY_POLICY}
-                      >
-                        {text}
-                      </LinkInFormattedMessage>
-                    ),
-                  }}
-                />
-              )}
-            </Text16>
-            <Field
-              control={
-                <FilterInDropdown
-                  fullWidth
-                  buttonSize="medium"
-                  buttonLabel={
-                    currency || (
-                      <Text16 color="var(--c-neutral-600)">
-                        <FormattedMessage
-                          id="createFiatWallet.selectCurrency"
-                          defaultMessage="Select a currency"
-                        />
-                      </Text16>
-                    )
-                  }
-                >
-                  {({ closeDropdown }) => (
-                    <RadioGroup
-                      modal
-                      options={currencies}
-                      value={(currency as string) || ''}
-                      name="currency"
-                      onChange={(value: string) => {
-                        setCurrency(value as FiatCurrency);
-                        closeDropdown();
-                      }}
-                    />
-                  )}
-                </FilterInDropdown>
-              }
-              label={
-                <Text16 bold color="var(--c-neutral-1000)">
-                  <FormattedMessage
-                    id="createFiatWallet.currency"
-                    defaultMessage="Cash wallet currency"
-                  />{' '}
-                  *
-                </Text16>
-              }
-              labelPlacement="top"
+    <Dialog
+      maxWidth="xs"
+      fullWidth
+      onBack={onBack()}
+      open
+      onClose={onModalClose()}
+      fullScreen={!isTablet}
+      body={
+        <Body>
+          {step === CreateFiatWalletSteps.WHATS_NEW && (
+            <WhatsNew setStep={setStep} onDismiss={onDismissBeforeActivation} />
+          )}
+          {step === CreateFiatWalletSteps.HANDLE_ID_REVIEW_ERROR && (
+            <HandleIdReviewError setStep={setStep} />
+          )}
+          {step === CreateFiatWalletSteps.INTRO && (
+            <Intro
+              canDismissAfterActivation={canDismissAfterActivation}
+              statusTarget={statusTarget}
+              onGetStarted={() => {
+                if (!canListAndTrade) {
+                  setStep(CreateFiatWalletSteps.TELL_US_ABOUT_YOU);
+                  return;
+                }
+                setStep(CreateFiatWalletSteps.REVIEW_INFO_BEFORE_ADDING_ID);
+              }}
             />
-            <div>
-              <Text16 bold color="var(--c-neutral-1000)">
-                <FormattedMessage
-                  id="createFiatWallet.additionalFields.title"
-                  defaultMessage="First name and last name"
-                />
-              </Text16>
-              <Text14 color="var(--c-neutral-600)">
-                <FormattedMessage
-                  id="createFiatWallet.additionalFields.helper"
-                  defaultMessage="Make sure it matches the name in your government ID."
-                />
-              </Text14>
-            </div>
-            <StyledTextField
-              name="firstName"
-              placeholder={formatMessage(glossary.firstName)}
-              required
-              onChange={e => setFirstName(e.target.value)}
+          )}
+          {[
+            CreateFiatWalletSteps.TELL_US_ABOUT_YOU,
+            CreateFiatWalletSteps.CHOOSE_CURRENCY,
+          ].includes(step) && (
+            <DeclarativeForm
+              step={step}
+              unsupportedCountryCta={unsupportedCountryCta}
+              setStep={setStep}
+              onClose={onClose}
+              onSuccess={onDeclarativeFormSuccess}
             />
-            <StyledTextField
-              name="lastName"
-              placeholder={formatMessage(glossary.lastName)}
-              required
-              onChange={e => setLastName(e.target.value)}
+          )}
+
+          {step === CreateFiatWalletSteps.ACTIVATION_SUCCESS && (
+            <ActivationSuccess
+              statusTarget={statusTarget}
+              setStep={setStep}
+              canDismissAfterActivation={canDismissAfterActivation}
+              onAddIdDocument={() => {
+                setStep(CreateFiatWalletSteps.CHOOSE_DOCUMENT);
+              }}
+              cta={activationSuccessCta}
+              onDismiss={onDismissActivationSuccess}
             />
-            <Error />
-            <SubmitButton fullWidth color="blue" medium disabled={disabled}>
-              {cta || <FormattedMessage {...glossary.submit} />}
-            </SubmitButton>
-          </Content>
-        )}
-      />
-    </Content>
+          )}
+          {step === CreateFiatWalletSteps.REVIEW_INFO_BEFORE_ADDING_ID && (
+            <ReviewInfoBeforeAddingId setStep={setStep} />
+          )}
+          {[
+            CreateFiatWalletSteps.CHOOSE_DOCUMENT,
+            CreateFiatWalletSteps.UPLOAD,
+            CreateFiatWalletSteps.DOCUMENT_UNDER_REVIEW,
+          ].includes(step as CreateFiatWalletSteps) && (
+            <DocumentCheck
+              setStep={setStep}
+              currentStep={step as CreateFiatWalletSteps}
+              onDone={onClose}
+            />
+          )}
+        </Body>
+      }
+    />
   );
 };
 

@@ -6,6 +6,7 @@ export interface GraphQLCall {
   operation: Operation;
   complexity: number;
   depth: number;
+  subgraphs: string[];
 }
 
 export interface DebugContext {

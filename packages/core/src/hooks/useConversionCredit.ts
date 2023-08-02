@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { isPast, parseISO } from 'date-fns';
 import { useMemo } from 'react';
 
@@ -10,9 +10,14 @@ import {
 } from '__generated__/globalTypes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useMonetaryAmount from '@core/hooks/useMonetaryAmount';
+import { monetaryAmountFragment } from '@core/lib/monetaryAmount';
 
-type SportConversionCredit = ConversionCredit & {
-  sport: Sport;
+import {
+  useConversionCredit_conversionCredit,
+  useConversionCredit_currentUser,
+} from './__generated__/useConversionCredit.graphql';
+
+export type ConversionCreditWithAmounts = ConversionCredit & {
   maxDiscount: MonetaryAmount & {
     eur: number;
     usd: number;
@@ -23,8 +28,8 @@ type SportConversionCredit = ConversionCredit & {
 
 export const useConversionCredit = (
   sport?: Sport
-): SportConversionCredit | undefined => {
-  const currentUser: any = undefined;// const { currentUser } = useCurrentUserContext();
+): ConversionCreditWithAmounts | undefined => {
+  const { currentUser } = useCurrentUserContext();
   const { toMonetaryAmount } = useMonetaryAmount();
 
   const conversionCredit = useMemo(() => {
@@ -37,10 +42,10 @@ export const useConversionCredit = (
     }[sport];
 
     if (
-      !sportConversionCredit?.sport ||
+      !sportConversionCredit ||
       ![
         ConversionCreditStatus.CLAIMED,
-        // ConversionCreditStatus.RECLAIMED,
+        ConversionCreditStatus.RECLAIMED,
         ConversionCreditStatus.CREATED,
       ].includes(sportConversionCredit.status) ||
       isPast(parseISO(sportConversionCredit.endDate))
@@ -66,40 +71,37 @@ export const useConversionCredit = (
     toMonetaryAmount,
   ]);
 
-  return conversionCredit as SportConversionCredit;
+  return conversionCredit as ConversionCreditWithAmounts;
 };
 
-// const conversionCreditFragment = gql`
-//   fragment useConversionCredit_conversionCredit on ConversionCredit {
-//     id
-//     endDate
-//     maxDiscount {
-//       referenceCurrency
-//       eur
-//       gbp
-//       usd
-//       wei
-//     }
-//     percentageDiscount
-//     status
-//     sport
-//   }
-// `;
+export const conversionCreditFragment = gql`
+  fragment useConversionCredit_conversionCredit on ConversionCredit {
+    id
+    endDate
+    maxDiscount {
+      ...MonetaryAmountFragment_monetaryAmount
+    }
+    percentageDiscount
+    status
+    sport
+  }
+  ${monetaryAmountFragment}
+` as TypedDocumentNode<useConversionCredit_conversionCredit>;
 
-// useConversionCredit.fragments = {
-//   currentUser: gql`
-//     fragment useConversionCredit_currentUser on CurrentUser {
-//       slug
-//       footballConversionCredit: sportConversionCredit(sport: FOOTBALL) {
-//         ...useConversionCredit_conversionCredit
-//       }
-//       nbaConversionCredit: sportConversionCredit(sport: NBA) {
-//         ...useConversionCredit_conversionCredit
-//       }
-//       baseballConversionCredit: sportConversionCredit(sport: BASEBALL) {
-//         ...useConversionCredit_conversionCredit
-//       }
-//     }
-//     ${conversionCreditFragment}
-//   `,
-// };
+useConversionCredit.fragments = {
+  currentUser: gql`
+    fragment useConversionCredit_currentUser on CurrentUser {
+      slug
+      footballConversionCredit: sportConversionCredit(sport: FOOTBALL) {
+        ...useConversionCredit_conversionCredit
+      }
+      nbaConversionCredit: sportConversionCredit(sport: NBA) {
+        ...useConversionCredit_conversionCredit
+      }
+      baseballConversionCredit: sportConversionCredit(sport: BASEBALL) {
+        ...useConversionCredit_conversionCredit
+      }
+    }
+    ${conversionCreditFragment}
+  ` as TypedDocumentNode<useConversionCredit_currentUser>,
+};

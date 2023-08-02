@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import styled from 'styled-components';
 
@@ -36,7 +36,7 @@ CompetitionLogo.fragments = {
       slug
       pictureUrl
     }
-  `,
+  ` as TypedDocumentNode<CompetitionLogo_competition>,
 };
 
 export default CompetitionLogo;

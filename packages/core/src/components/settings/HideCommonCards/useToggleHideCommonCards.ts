@@ -1,4 +1,9 @@
-import { FetchResult, gql, useMutation } from '@apollo/client';
+import {
+  FetchResult,
+  TypedDocumentNode,
+  gql,
+  useMutation,
+} from '@apollo/client';
 
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useSnackNotificationContext } from '@core/contexts/snackNotification';
@@ -22,15 +27,15 @@ const UPDATE_USER_SETTINGS_HIDE_COMMONS_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  UpdateUserSettingsHideCommonCards,
+  UpdateUserSettingsHideCommonCardsVariables
+>;
 
 const useToggleHideCommonCards = () => {
   const { showNotification } = useSnackNotificationContext();
   const { currentUser } = useCurrentUserContext();
-  const [mutate] = useMutation<
-    UpdateUserSettingsHideCommonCards,
-    UpdateUserSettingsHideCommonCardsVariables
-  >(UPDATE_USER_SETTINGS_HIDE_COMMONS_MUTATION);
+  const [mutate] = useMutation(UPDATE_USER_SETTINGS_HIDE_COMMONS_MUTATION);
 
   return async () => {
     const { data, errors } = (await mutate({
@@ -49,7 +54,7 @@ const useToggleHideCommonCards = () => {
           },
           errors: [],
         },
-      } as any,
+      },
     })) as FetchResult<UpdateUserSettingsHideCommonCards>;
 
     if (data) {

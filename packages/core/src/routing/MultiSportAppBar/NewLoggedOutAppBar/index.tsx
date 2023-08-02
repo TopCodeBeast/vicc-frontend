@@ -12,13 +12,13 @@ import { SorareLogo } from '@core/atoms/icons/SorareLogo';
 import { LinkOther } from '@core/atoms/navigation/Box';
 import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
 import { useHeroAnimationTimings } from '@core/components/landing/NewLandingMultiSport/utils';
-// import ResponsiveSearchBar from '@core/components/search/ResponsiveSearchBar';
+import ResponsiveSearchBar from '@core/components/search/ResponsiveSearchBar';
 import { FOOTBALL_PATH, LANDING, MLB_PATH, NBA_PATH } from '@core/constants/routes';
 import { useConnectionContext } from '@core/contexts/connection';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useIntlContext } from '@core/contexts/intl';
 import useScreenSize from '@core/hooks/device/useScreenSize';
-// import useEvents from '@core/lib/events/useEvents';
+import useEvents from '@core/lib/events/useEvents';
 import { glossary, sportsLabelsMessages } from '@core/lib/glossary';
 import { laptopAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
 
@@ -158,7 +158,7 @@ const MobileSportsBanner = styled.div`
 `;
 
 const LoggedOutAppBar = () => {
-  const track = null;// const track = useEvents();
+  const track = useEvents();
   const { currentUser } = useCurrentUserContext();
   const { signIn, signUp } = useConnectionContext();
   const { formatMessage } = useIntlContext();
@@ -168,12 +168,12 @@ const LoggedOutAppBar = () => {
   const prevScrollPos = useRef(0); // use useRef instead of useState
 
   const onSignUpClick = useCallback(() => {
-    // track('Click Sign Up', {});
+    track('Click Sign Up', {});
     signUp();
   }, [signUp, track]);
 
   const onSignInClick = useCallback(() => {
-    // track('Click Sign In');
+    track('Click Sign In');
     signIn();
   }, [signIn, track]);
 
@@ -211,14 +211,13 @@ const LoggedOutAppBar = () => {
           href={FOOTBALL_PATH}
           style={{ '--logo-width': '20px' }}
         >
-          {formatMessage(sportsLabelsMessages.CRICKET)}
+          {formatMessage(sportsLabelsMessages.FOOTBALL)}
           <img
             src={footballLogo}
-            alt={formatMessage(sportsLabelsMessages.CRICKET)}
+            alt={formatMessage(sportsLabelsMessages.FOOTBALL)}
           />
         </LinkOther>
-        {/*Remove Other Sports*/}
-        {/* <LinkOther
+        <LinkOther
           as={SportButton}
           href={NBA_PATH}
           style={{ '--logo-width': '10px' }}
@@ -236,7 +235,7 @@ const LoggedOutAppBar = () => {
             src={mlbLogo}
             alt={formatMessage(sportsLabelsMessages.BASEBALL)}
           />
-        </LinkOther> */}
+        </LinkOther>
       </>
     );
   };
@@ -259,7 +258,7 @@ const LoggedOutAppBar = () => {
             )}
           </SportsLinks>
           <Actions>
-            {/* <ResponsiveSearchBar /> */}
+            <ResponsiveSearchBar />
             <AnimatedButton
               small
               color={secondBatch ? 'blue' : 'transparent'}

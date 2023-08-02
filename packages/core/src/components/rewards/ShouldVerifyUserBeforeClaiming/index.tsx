@@ -1,7 +1,7 @@
 import { MouseEvent, useState } from 'react';
 import styled from 'styled-components';
 
-// import VerifyPhoneNumber from '@core/components/user/VerifyPhoneNumber';
+import VerifyPhoneNumber from '@core/components/user/VerifyPhoneNumber';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useEvents from '@core/lib/events/useEvents';
 
@@ -15,13 +15,23 @@ const Wrapper = styled.div`
   }
 `;
 
-export const ShouldVerifyUserBeforeClaiming: React.FC<{
+type Props = {
   hasBlockchainRewards: boolean;
   trackProperties?: {
     gameweek?: number;
   };
-  children: ({ disabledClaim }: { disabledClaim: boolean }) => JSX.Element;
-}> = ({ hasBlockchainRewards, trackProperties, children }) => {
+  children: ({
+    disabledClaim,
+  }: {
+    disabledClaim: boolean;
+  }) => React.JSX.Element;
+};
+
+export const ShouldVerifyUserBeforeClaiming = ({
+  hasBlockchainRewards,
+  trackProperties,
+  children,
+}: Props) => {
   const track = useEvents();
   const { currentUser } = useCurrentUserContext();
   const [verifyPhoneNumber, setVerifyPhoneNumber] = useState(false);
@@ -40,9 +50,9 @@ export const ShouldVerifyUserBeforeClaiming: React.FC<{
 
   return (
     <>
-      {/* {verifyPhoneNumber && (
+      {verifyPhoneNumber && (
         <VerifyPhoneNumber onCancel={() => setVerifyPhoneNumber(false)} />
-      )} */}
+      )}
       <Wrapper onClickCapture={onClick}>
         {children({ disabledClaim: shouldVerifyPhone })}
       </Wrapper>

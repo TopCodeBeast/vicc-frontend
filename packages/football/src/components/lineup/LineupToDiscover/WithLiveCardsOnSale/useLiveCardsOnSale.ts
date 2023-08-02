@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { isFuture, parseISO } from 'date-fns';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 
@@ -7,7 +7,10 @@ import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import WithLineupSuggestions from '@football/components/lineup/LineupToDiscover/WithLineupSuggestions';
 
 import { WithLiveCardsOnSaleLeaderboardQuery } from './__generated__/index.graphql';
-import { WithLiveCardsOnSaleCardQuery } from './__generated__/useLiveCardsOnSale.graphql';
+import {
+  WithLiveCardsOnSaleCardQuery,
+  WithLiveCardsOnSaleCardQueryVariables,
+} from './__generated__/useLiveCardsOnSale.graphql';
 
 const useDeduplicatePlayerCards = () => {
   const displayedPlayerSlugs = useRef<string[]>([]);
@@ -56,10 +59,13 @@ const WITH_LIVE_CARDS_ON_SALE_CARD_QUERY = gql`
     }
   }
   ${WithLineupSuggestions.fragments.card}
-`;
+` as TypedDocumentNode<
+  WithLiveCardsOnSaleCardQuery,
+  WithLiveCardsOnSaleCardQueryVariables
+>;
 
 type CommonDraftCampaign = NonNullable<
-  WithLiveCardsOnSaleLeaderboardQuery['so5']['so5Leaderboard']['commonDraftCampaign']
+  WithLiveCardsOnSaleLeaderboardQuery['football']['so5']['so5Leaderboard']['commonDraftCampaign']
 >;
 const useLiveCardsOnSale = ({
   bestDraftedPlayers,
@@ -72,7 +78,7 @@ const useLiveCardsOnSale = ({
   isLastPage: boolean;
   fetchNextPage: () => void;
 }) => {
-  const { data: cardData, loading } = useQuery<WithLiveCardsOnSaleCardQuery>(
+  const { data: cardData, loading } = useQuery(
     WITH_LIVE_CARDS_ON_SALE_CARD_QUERY,
     {
       fetchPolicy: 'cache-and-network',

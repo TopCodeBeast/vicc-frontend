@@ -1,10 +1,12 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { Grid } from '@material-ui/core';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
 import Block from '@core/atoms/layout/Block';
 import { Text16 } from '@core/atoms/typography';
+
+import { RelatedPage_card } from './__generated__/index.graphql';
 
 interface Props {
   title: string;
@@ -55,7 +57,7 @@ RelatedPage.fragments = {
       slug
       assetId
     }
-  `,
+  ` as TypedDocumentNode<RelatedPage_card>,
 };
 
 export default RelatedPage;

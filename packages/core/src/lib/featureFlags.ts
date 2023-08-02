@@ -5,7 +5,9 @@ import useFeatureFlags from '@core/hooks/useFeatureFlags';
 
 import { LAUNCH_DARKLY_CLIENT_SIDE_ID } from '../config';
 
-export const withFFProvider = (component: ComponentType) =>
+export const withFFProvider = (
+  component: ComponentType<React.PropsWithChildren<unknown>>
+) =>
   withLDProvider({
     clientSideID: LAUNCH_DARKLY_CLIENT_SIDE_ID,
     user: {

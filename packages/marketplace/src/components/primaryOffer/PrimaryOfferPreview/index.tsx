@@ -1,20 +1,17 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { isPast, parseISO } from 'date-fns';
 import { ComponentType, ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-import {
-  Currency,
-  SupportedCurrency,
-} from '@sorare/core/src/__generated__/globalTypes';
+import { Currency } from '@sorare/core/src/__generated__/globalTypes';
 import { Skeleton } from '@sorare/core/src/atoms/animations/Skeleton';
 import { Props as ButtonProps } from '@sorare/core/src/atoms/buttons/Button';
 import DotsLoader from '@sorare/core/src/atoms/loader/DotsLoader';
 import { Text16, Text20 } from '@sorare/core/src/atoms/typography';
 import { cardsPreviewContainerStyle } from '@sorare/core/src/components/bundled/CardsPreviewContainer';
 import { LEGACY_BUNDLE_PAGE } from '@sorare/core/src/constants/routes';
-// import { fragments as analyticsFragments } from '@sorare/core/src/contexts/events/types';
+import { fragments as analyticsFragments } from '@sorare/core/src/contexts/events/types';
 import ErrorBoundary from '@sorare/core/src/contexts/sentry/ErrorBoundary';
 import { useSportContext } from '@sorare/core/src/contexts/sport';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
@@ -22,6 +19,7 @@ import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConvers
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { range } from '@sorare/core/src/lib/arrays';
 import { cardRatio } from '@sorare/core/src/lib/cardPicture';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 import { Link } from '@sorare/core/src/routing/Link';
 
 import AuctionTimeLeft from '@marketplace/components/auction/AuctionTimeLeft';
@@ -35,10 +33,12 @@ interface Props {
   primaryOffer: PrimaryOfferPreview_primaryOffer;
   bundlePrediction?: ReactNode;
   buyButtonProps?: ButtonProps;
-  CustomPreview?: ComponentType<{
-    to: string;
-    assetIds: string[];
-  }> | null;
+  CustomPreview?: ComponentType<
+    React.PropsWithChildren<{
+      to: string;
+      assetIds: string[];
+    }>
+  > | null;
 }
 
 const CardsPreview = styled(Link)`
@@ -113,7 +113,7 @@ export const PrimaryOfferPreview = ({
   CustomPreview,
   buyButtonProps = {},
 }: Props) => {
-  const { nfts, priceWei, priceFiat, endDate, buyer, id } = primaryOffer;
+  const { nfts, price: primaryOfferPrice, endDate, buyer, id } = primaryOffer;
   const {
     flags: { useSportWithUncoloredCta = [] },
   } = useFeatureFlags();
@@ -123,11 +123,7 @@ export const PrimaryOfferPreview = ({
   const { generateSportPath } = useSportContext();
   const sport = nfts?.[0].sport;
   const { main: price } = useAmountWithConversion({
-    monetaryAmount: {
-      referenceCurrency: SupportedCurrency.WEI,
-      wei: priceWei,
-      ...priceFiat,
-    },
+    monetaryAmount: primaryOfferPrice,
     primaryCurrency: Currency.FIAT,
   });
 
@@ -163,15 +159,13 @@ export const PrimaryOfferPreview = ({
             <PriceAndTime endDate={endDate} price={price} />
           )}
         </div>
-        {!bought && (
-          <PrimaryOfferBuyField
-            disabled={ended}
-            color={buttonColor()}
-            primaryOffer={primaryOffer}
-            medium
-            {...buyButtonProps}
-          />
-        )}
+        <PrimaryOfferBuyField
+          disabled={ended || bought}
+          color={buttonColor()}
+          primaryOffer={primaryOffer}
+          medium
+          {...buyButtonProps}
+        />
       </Footer>
     </ErrorBoundary>
   );
@@ -186,26 +180,24 @@ PrimaryOfferPreview.fragments = {
         slug
         ...SmallUser_user
       }
-      priceWei: price
-      priceFiat: priceInFiat {
-        eur
-        usd
-        gbp
+      price {
+        ...MonetaryAmountFragment_monetaryAmount
       }
       nfts {
         assetId
         slug
         sport
-        #...Analytics_tokenInfo
+        ...Analytics_tokenInfo
         ...PrimaryOfferTokensPreview_token
       }
       ...PrimaryOfferBuyField_primaryOffer
     }
+    ${monetaryAmountFragment}
     ${SmallUser.fragments.user}
     ${PrimaryOfferBuyField.fragments.primaryOffer}
-    #{analyticsFragments.tokenInfo}
+    ${analyticsFragments.tokenInfo}
     ${PrimaryOfferTokensPreview.fragments.token}
-  `,
+  ` as TypedDocumentNode<PrimaryOfferPreview_primaryOffer>,
 };
 
 export default PrimaryOfferPreview;

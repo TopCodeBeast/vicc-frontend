@@ -307,6 +307,10 @@ export const notifications = defineMessages({
     defaultMessage:
       '<notification><success>Task successfully completed!</success>Learn about Sorare Competitions</notification>',
   },
+  playerAddedToFavorites: {
+    id: 'Favorites.playerAdded',
+    defaultMessage: 'Success! Player added to favorites.',
+  },
 });
 
 export enum Level {

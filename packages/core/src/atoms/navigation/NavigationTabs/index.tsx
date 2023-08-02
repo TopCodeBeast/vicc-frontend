@@ -29,14 +29,13 @@ const Tab = styled(NavLink)`
 `;
 
 type Props = {
-  items: { to: string; label: ReactNode; end?: false }[];
+  items: { to: string; label: ReactNode; end?: false; replace?: boolean }[];
 };
-
 const NavigationTabs = ({ items }: Props) => {
   return (
     <Root>
-      {items.map(({ to, label, end = true }) => (
-        <Tab key={to} to={to} end={end}>
+      {items.map(({ to, label, end = true, replace }) => (
+        <Tab key={to} to={to} end={end} replace={replace}>
           {label}
         </Tab>
       ))}

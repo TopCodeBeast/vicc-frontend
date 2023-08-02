@@ -1,9 +1,9 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { Maybe } from 'graphql/jsutils/Maybe';
 import { useIntl } from 'react-intl';
 
 import FlagAvatar from '@sorare/core/src/components/country/FlagAvatar';
-import { isA } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
 
 import ClubAvatar from '@football/components/club/ClubAvatar';
 
@@ -24,7 +24,7 @@ type Props = {
 export const TeamAvatar = ({ team, withTooltip, className, size }: Props) => {
   const { formatMessage } = useIntl();
 
-  if (!team || isA('Club', team)) {
+  if (!team || isType(team, 'Club')) {
     return (
       <ClubAvatar
         className={className}
@@ -72,7 +72,7 @@ TeamAvatar.fragments = {
       }
     }
     ${ClubAvatar.fragments.club}
-  `,
+  ` as TypedDocumentNode<TeamAvatar_team>,
 };
 
 export default TeamAvatar;

@@ -3,11 +3,7 @@ import {
   ApolloLink,
   ApolloProvider,
   InMemoryCache,
-  Reference,
   ServerError,
-  TypePolicies,
-  TypePolicy,
-  createHttpLink,
   fallbackHttpConfig,
   selectHttpOptionsAndBody,
 } from '@apollo/client';
@@ -28,13 +24,12 @@ import { useIntlContext } from '@core/contexts/intl';
 import { useSentryContext } from '@core/contexts/sentry';
 import { useSessionContext } from '@core/contexts/session';
 import { Level, useSnackNotificationContext } from '@core/contexts/snackNotification';
-// import OperationStoreClient from '@core/gql/OperationStoreClient';
+import OperationStoreClient from '@core/gql/OperationStoreClient';
 import { dataIdFromObject } from '@core/gql/idFromObject';
 import introspectionResult from '@core/gql/introspectionResult.json';
 import { useDebugLink } from '@core/hooks/graphql/useDebugLink';
 import { useTMLink } from '@core/hooks/graphql/useTMLink';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
-import { mergeArrayOfUnnormalizedObjects, replaceByIncoming } from '@core/lib/gql';
 import {
   cloudflareAccessHeaders,
   xsrfCookieName,
@@ -47,209 +42,23 @@ import {
   API_PATH,
   API_ROOT,
   CLIENT_TYPE,
-  ENV,
-  IS_TEST_RUNNER,
   REVISION,
   SOFE_API_PATH,
   SOFE_API_ROOT,
   TAB_VERSION,
   VERSION,
   WS_ROOT,
-  isForcedEnv,
   isMockprod,
+  isProduction,
   isStaging,
 } from '../../config';
 import ActionCableLink from './ActionCableLink';
-import mySo5LineupsPaginated from './mySo5LineupsPaginated';
+import { typePolicies } from './typePolicies';
 
 const cable = () => createConsumer(WS_ROOT);
 
 const MAX_RETRIES = 8;
-const INITIAL_RETRY_DELAY = 3000;
-
-const cardFields: Exclude<TypePolicy['fields'], undefined> = {
-  cardByAssetId: {
-    read(_, { args, toReference }) {
-      if (args?.assetId) {
-        return toReference({
-          __typename: 'Card',
-          assetId: args.assetId,
-        });
-      }
-      return undefined;
-    },
-  },
-  cards: {
-    read(existing, { args, toReference, canRead }) {
-      if (args?.assetIds) {
-        const refs: Reference[] = args.assetIds.map((assetId: string) =>
-          toReference({ __typename: 'Card', assetId })
-        );
-
-        if (refs.find(ref => !canRead(ref))) {
-          return existing;
-        }
-
-        return refs;
-      }
-      if (args?.slugs) {
-        const refs: Reference[] = args.slugs.map((s: string) =>
-          toReference({ __typename: 'Card', slug: s })
-        );
-
-        if (refs.find(ref => !canRead(ref))) {
-          return existing;
-        }
-
-        return refs;
-      }
-      return undefined;
-    },
-  },
-};
-
-export const typePolicies: TypePolicies = {
-  Age: {
-    merge: true,
-  },
-  Card: {
-    fields: {
-      availableCardBoosts: {
-        merge: false,
-      },
-    },
-  },
-  CardBoost: {
-    keyFields: ['shopItem', ['id']],
-  },
-  CardCount: {
-    merge: true,
-  },
-  CurrentUser: {
-    fields: {
-      unclaimedActionRewards: {
-        merge: replaceByIncoming,
-      },
-      referrals: {
-        merge: replaceByIncoming,
-      },
-      unclaimedSo5Rewards: {
-        merge: replaceByIncoming,
-      },
-      paginatedCards: {
-        keyArgs: args =>
-          Object.keys(args || {}).filter(
-            arg => arg !== 'ownedSinceAfter' && arg !== 'first'
-          ),
-      },
-      connectedOauths: {
-        merge: replaceByIncoming,
-      },
-    },
-  },
-  LeaderboardRewardsConfig: {
-    keyFields: false,
-    fields: {
-      conditional: {
-        merge: mergeArrayOfUnnormalizedObjects,
-      },
-      ranking: {
-        merge: mergeArrayOfUnnormalizedObjects,
-      },
-    },
-  },
-  RewardsOverview: {
-    keyFields: false,
-    fields: {
-      experiencesDetails: {
-        read(value) {
-          return value || [];
-        },
-      },
-    },
-  },
-  So5Ranking: {
-    fields: {
-      eligibleRewards: {
-        merge: mergeArrayOfUnnormalizedObjects,
-      },
-    },
-  },
-  Season: {
-    keyFields: ['startYear'],
-  },
-  So5Fixture: {
-    fields: { mySo5LineupsPaginated },
-  },
-  So5Leaderboard: {
-    fields: {
-      canCompose: {
-        merge(existing, incoming, { mergeObjects }) {
-          return mergeObjects(existing, incoming);
-        },
-      },
-      totalRewards: {
-        merge(existing, incoming, { mergeObjects }) {
-          return mergeObjects(existing, incoming);
-        },
-      },
-    },
-  },
-
-  So5Root: {
-    merge: true,
-  },
-  FootballRoot: {
-    merge: true,
-    fields: cardFields,
-  },
-  TokenRoot: {
-    merge: true,
-    fields: {
-      primaryOffer: {
-        read(_, { args, toReference }) {
-          if (args?.id) {
-            return toReference({
-              __typename: 'TokenPrimaryOffer',
-              id: args.id,
-            });
-          }
-          return undefined;
-        },
-      },
-      nft: {
-        read(_, { args, toReference }) {
-          if (args?.assetId) {
-            return toReference({
-              __typename: 'Token',
-              assetId: args.assetId,
-            });
-          }
-          return undefined;
-        },
-      },
-      nfts: {
-        read(existing, { args, toReference, canRead }) {
-          if (args?.assetIds) {
-            const refs: Reference[] = args.assetIds.map((assetId: string) =>
-              toReference({ __typename: 'Token', assetId })
-            );
-
-            if (refs.find(ref => !canRead(ref))) {
-              return existing;
-            }
-
-            return refs;
-          }
-          return undefined;
-        },
-      },
-    },
-  },
-  Query: {
-    fields: cardFields,
-  },
-};
+const INITIAL_RETRY_DELAY = 1000;
 
 export const createCache = () =>
   new InMemoryCache({
@@ -271,6 +80,7 @@ const hasSubscriptionOperation = ({
   );
 
 const SILENT_STATUS_CODES = [404];
+const SILENT_GRAPHQL_CODES = ['NOT_FOUND', 'UNAUTHORIZED'];
 
 interface Props {
   children: ReactNode;
@@ -280,7 +90,7 @@ interface Props {
 
 export const GraphqlProvider = ({
   children,
-  uri = `${API_ROOT}${API_PATH}`,
+  uri = `${SOFE_API_ROOT}${SOFE_API_PATH}`,
   disableGraphQLErrorsReport = false,
 }: Props) => {
   const { showNotification } = useSnackNotificationContext();
@@ -291,17 +101,14 @@ export const GraphqlProvider = ({
   const { sessionId, apiKey } = useSessionContext();
   const { deviceFingerprint } = useDeviceFingerprintContext();
   const {
-    flags: { usePlatformGraphqlFederation = false, useOfflineSupport = false },
+    flags: { useOfflineSupport = false },
   } = useFeatureFlags();
-  const maybeFederationUri = usePlatformGraphqlFederation
-    ? `${SOFE_API_ROOT}${SOFE_API_PATH}`
-    : uri;
 
   useEffect(() => {
     const seonStatus = {
       available: true,
     };
-    /*if (window.seon && sessionId) {
+    if (window.seon && sessionId) {
       window.seon.config({
         session_id: sessionId,
         audio_fingerprint: true,
@@ -334,7 +141,7 @@ export const GraphqlProvider = ({
           )
         );
       }
-    }*/
+    }
     return () => {
       seonStatus.available = false;
     };
@@ -347,20 +154,20 @@ export const GraphqlProvider = ({
           headers: {
             ...headers,
             ...cloudflareAccessHeaders,
-            'vicc-client': CLIENT_TYPE,
-            'vicc-version': VERSION,
-            'vicc-build': REVISION,
-            'vicc-tab-version': TAB_VERSION,
+            'sorare-client': CLIENT_TYPE,
+            'sorare-version': VERSION,
+            'sorare-build': REVISION,
+            'sorare-tab-version': TAB_VERSION,
             'Accept-Language': locale,
             DEVICE_FINGERPRINT: await deviceFingerprint(),
             [xsrfHeaderName]: cookie.load(xsrfCookieName),
             'Seon-Session': seonSession,
             ...(apiKey && { APIKEY: apiKey }),
-            // ...(import.meta.env.MODE === 'development' &&
-            //   ENV === 'production' &&
-            //   process.env.SORARE_COM_API_KEY && {
-            //     APIKEY: process.env.SORARE_COM_API_KEY,
-            //   }),
+            ...(import.meta.env.MODE === 'development' &&
+              isProduction &&
+              process.env.SORARE_COM_API_KEY && {
+                APIKEY: process.env.SORARE_COM_API_KEY,
+              }),
           },
         };
       }),
@@ -368,7 +175,7 @@ export const GraphqlProvider = ({
   );
 
   const debugLink = useDebugLink();
-  const tmLink = useTMLink({ path: new URL(maybeFederationUri).pathname });
+  const tmLink = useTMLink({ path: new URL(uri).pathname });
 
   const link = useMemo(() => {
     /* eslint-enable consistent-return */
@@ -397,7 +204,7 @@ export const GraphqlProvider = ({
             addBreadcrumb({ level: 'debug', data: { networkError } });
             showNotification('errors', { errors: [networkError.message] });
           }
-          /*if ('statusCode' in networkError && networkError.statusCode === 503) {
+          if ('statusCode' in networkError && networkError.statusCode === 503) {
             const { start, end, msg } = (networkError as ServerError).result
               .maintenance;
 
@@ -408,14 +215,14 @@ export const GraphqlProvider = ({
                 msg,
               });
             }
-          }*/
+          }
         }
         if (graphQLErrors) {
           const messages = graphQLErrors.map(e => e.message);
           showNotification('errors', { errors: messages });
         }
 
-        /*if (
+        if (
           !disableGraphQLErrorsReport &&
           (graphQLErrors || (networkError as ServerError)?.result?.message) &&
           // HTTP 500 errors are already logged in the backend
@@ -425,6 +232,9 @@ export const GraphqlProvider = ({
             scope.setTag('kind', operation.operationName);
             scope.setExtra('variables', operation.variables);
             graphQLErrors?.forEach(err => {
+              if (SILENT_GRAPHQL_CODES.includes(err.extensions?.code)) {
+                return;
+              }
               sendSafeError(
                 new Error(
                   `GraphqlError: "${err.message}" in ${
@@ -448,7 +258,7 @@ export const GraphqlProvider = ({
               );
             }
           });
-        }*/
+        }
 
         return undefined;
       }
@@ -470,14 +280,14 @@ export const GraphqlProvider = ({
     });
     /* eslint-disable consistent-return */
 
-    const httpLink = createHttpLink({
-      uri: import.meta.env.VITE_SERVER_URL,
-    });
-    /*const httpLink = ApolloLink.split(
+    const httpLink = ApolloLink.split(
       hasSubscriptionOperation,
       new ActionCableLink({ cable: wsCable }) as any,
       createUploadLink({
         uri: operation => {
+          // FIXME: (https://gitlab.com/sorare/frontend/-/merge_requests/9705/diffs#note_1443894551)
+          // multipart is not working with sofe.
+          // We need to keep this code until https://linear.app/sorare/issue/PLT-3014/dont-use-multipart-in-graphql-requests is addressed
           const { body } = selectHttpOptionsAndBody(
             operation,
             fallbackHttpConfig
@@ -485,7 +295,7 @@ export const GraphqlProvider = ({
           // Inspired by https://github.com/jaydenseric/apollo-upload-client/blob/master/public/createUploadLink.js#L123
           const { files } = extractFiles(body, isExtractableFile);
           const isMultipart = files.size > 0;
-          return isMultipart ? uri : maybeFederationUri;
+          return isMultipart ? `${API_ROOT}${API_PATH}` : uri;
         },
         fetchOptions: {
           referrerPolicy: 'unsafe-url',
@@ -495,7 +305,7 @@ export const GraphqlProvider = ({
             // Hack to redirect to Cloudflare Access login page in dev
             if (
               (isStaging || isMockprod) &&
-              response.url.startsWith('https://vicc.cloudflareaccess.com')
+              response.url.startsWith('https://sorare.cloudflareaccess.com')
             ) {
               window.location.replace(API_ROOT);
             }
@@ -518,7 +328,7 @@ export const GraphqlProvider = ({
           accept: 'application/json',
         },
       })
-    );*/
+    );
 
     const afterwareLink = new ApolloLink((operation, forward) => {
       return forward
@@ -567,15 +377,13 @@ export const GraphqlProvider = ({
         : null;
     });
 
-    const noOperationStore =
-      import.meta.env.PLAYGROUND === 'true' || IS_TEST_RUNNER;
-
     return ApolloLink.from(
       [
         debugLink,
         tmLink,
         afterwareLink,
         authLink,
+        OperationStoreClient()?.apolloLink,
         useOfflineSupport && retryLink,
         onErrorLink,
         httpLink,
@@ -583,15 +391,14 @@ export const GraphqlProvider = ({
     );
   }, [
     wsCable,
-    uri,
-    maybeFederationUri,
     debugLink,
     tmLink,
     authLink,
+    useOfflineSupport,
+    disableGraphQLErrorsReport,
     showNotification,
     sendSafeError,
-    disableGraphQLErrorsReport,
-    useOfflineSupport,
+    uri,
   ]);
 
   const client = useMemo(() => {

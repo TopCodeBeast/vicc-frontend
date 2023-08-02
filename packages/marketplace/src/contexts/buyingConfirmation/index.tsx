@@ -1,7 +1,6 @@
 import { ReactNode, createContext, useContext } from 'react';
 
-// import { Props as SelectedPaymentMethodForConfirmationProps } from '@marketplace/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
-type SelectedPaymentMethodForConfirmationProps = any;
+import { Props as SelectedPaymentMethodForConfirmationProps } from '@marketplace/components/buyActions/PaymentBox/Methods/SelectedPaymentMethodForConfirmation';
 
 export type BuyConfirmationProviderStateProps = {
   tokenOfferId?: string;

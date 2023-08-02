@@ -1,14 +1,17 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
-import { CurrentUserPurchasesQuery } from './__generated__/useGetCurrentUserPurchases.graphql';
+import {
+  CurrentUserPurchasesQuery,
+  CurrentUserPurchasesQueryVariables,
+} from './__generated__/useGetCurrentUserPurchases.graphql';
 
 export const CURRENT_USER_PURCHASES = gql`
   query CurrentUserPurchasesQuery {
     currentUser {
       slug
-      wonTokenAuctions(first: 1) {
+      wonTokenAuctions(first: 1, sport: FOOTBALL) {
         totalCount
       }
       boughtSingleSaleTokenOffers(first: 1) {
@@ -16,10 +19,13 @@ export const CURRENT_USER_PURCHASES = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  CurrentUserPurchasesQuery,
+  CurrentUserPurchasesQueryVariables
+>;
 
 const useGetCurrentUserPurchases = () => {
-  return useQuery<CurrentUserPurchasesQuery>(CURRENT_USER_PURCHASES);
+  return useQuery(CURRENT_USER_PURCHASES);
 };
 
 export default useGetCurrentUserPurchases;

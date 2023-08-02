@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faArrowUpFromBracket } from '@fortawesome/pro-solid-svg-icons';
 import { ReactElement, useState } from 'react';
@@ -98,7 +98,7 @@ SocialShare.fragments = {
       ...SocialShare_SocialPictures_Dialog
     }
     ${Dialog.fragments.socialPictures}
-  `,
+  ` as TypedDocumentNode<SocialShare_SocialPictures>,
 };
 
 export default SocialShare;

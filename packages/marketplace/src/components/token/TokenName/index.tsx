@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faArrowUpRightFromSquare } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, generatePath } from 'react-router-dom';
@@ -80,10 +80,8 @@ TokenName.fragments = {
       slug
       sport
       metadata {
-        ... on TokenCricketMetadata {
-          id
-        }
         ... on TokenCardMetadataInterface {
+          id
           playerSlug
           playerDisplayName
           rarity
@@ -93,5 +91,5 @@ TokenName.fragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<TokenName_token>,
 };

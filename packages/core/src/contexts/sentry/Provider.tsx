@@ -9,10 +9,9 @@ import { ACTUAL_ENV, REVISION } from '../../config';
 import ErrorBoundary from './ErrorBoundary';
 import { startSentry } from './sentry';
 
-export const SentryProvider: React.FC<{ dsn: string }> = ({
-  dsn,
-  children,
-}) => {
+export const SentryProvider: React.FC<
+  React.PropsWithChildren<{ dsn: string }>
+> = ({ dsn, children }) => {
   useMemo(
     () =>
       startSentry({

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
@@ -10,6 +10,7 @@ import { ActiveUserAvatar_user } from '@sorare/core/src/components/user/ActiveUs
 import Avatar from '@sorare/core/src/components/user/Avatar';
 import {
   Avatar_ethereumAccount,
+  Avatar_starkwareAccount,
 } from '@sorare/core/src/components/user/Avatar/__generated__/index.graphql';
 import {
   GalleryLink,
@@ -18,19 +19,9 @@ import {
 import UserName from '@sorare/core/src/components/user/UserName';
 import { useConfigContext } from '@sorare/core/src/contexts/config';
 import { tokenHolderLink } from '@sorare/core/src/lib/etherscan';
-import { isA } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
 
 import { OwnerAccount_account } from './__generated__/index.graphql';
-
-type OwnerAccount_account_accountable_EthereumAccount =
-  OwnerAccount_account['accountable'] & { __typename: 'EthereumAccount' };
-
-type OwnerAccount_account_accountable_StarkwareAccount =
-  OwnerAccount_account['accountable'] & { __typename: 'StarkwareAccount' };
-
-type OwnerAccount_account_owner_User = OwnerAccount_account['owner'] & {
-  __typename: 'User';
-};
 
 type Props = {
   account: OwnerAccount_account | null;
@@ -59,12 +50,13 @@ export const OwnerAccount = ({ children, account }: Props) => {
   const renderOwnerAccount = (
     user:
       | ActiveUserAvatar_user
-      | Avatar_ethereumAccount,
+      | Avatar_ethereumAccount
+      | Avatar_starkwareAccount,
     owner: ReactNode
   ) => {
     return (
       <Root>
-        {isA<ActiveUserAvatar_user>('User', user) ? (
+        {isType(user, 'User') ? (
           <ActiveUserAvatar
             user={user}
             variant="medium"
@@ -81,12 +73,9 @@ export const OwnerAccount = ({ children, account }: Props) => {
     );
   };
 
-  if (
-    account.owner &&
-    isA<OwnerAccount_account_owner_User>('User', account.owner)
-  ) {
+  if (account.owner && isType(account.owner, 'User')) {
     return renderOwnerAccount(
-      account.owner as OwnerAccount_account_owner_User,
+      account.owner,
       <GalleryLink user={account.owner} galleryPathFactory={galleryLinkPath}>
         <Text16>
           <UserName user={account.owner} />
@@ -95,14 +84,9 @@ export const OwnerAccount = ({ children, account }: Props) => {
     );
   }
 
-  if (
-    isA<OwnerAccount_account_accountable_EthereumAccount>(
-      'EthereumAccount',
-      account.accountable
-    )
-  ) {
+  if (isType(account.accountable, 'EthereumAccount')) {
     return renderOwnerAccount(
-      account.accountable as OwnerAccount_account_accountable_EthereumAccount,
+      account.accountable,
       <a
         href={tokenHolderLink(sorareTokensAddress, account.accountable.address)}
         title={account.accountable.address}
@@ -114,15 +98,11 @@ export const OwnerAccount = ({ children, account }: Props) => {
     );
   }
 
-  if (
-    isA<OwnerAccount_account_accountable_StarkwareAccount>(
-      'StarkwareAccount',
-      account.accountable
-    )
-  ) {
-    const accountable =
-      account.accountable as OwnerAccount_account_accountable_StarkwareAccount;
-    return renderOwnerAccount(accountable, 'accountable.starkKey55');
+  if (isType(account.accountable, 'StarkwareAccount')) {
+    return renderOwnerAccount(
+      account.accountable,
+      account.accountable.starkKey
+    );
   }
 
   return null;
@@ -146,13 +126,19 @@ OwnerAccount.fragments = {
           address
           ...Avatar_ethereumAccount
         }
+        ... on StarkwareAccount {
+          id
+          starkKey
+          ...Avatar_starkwareAccount
+        }
       }
     }
     ${UserName.fragments.user}
     ${ActiveUserAvatar.fragments.user}
     ${Avatar.fragments.ethereumAccount}
+    ${Avatar.fragments.starkwareAccount}
     ${GalleryLink.fragments.user}
-  `,
+  ` as TypedDocumentNode<OwnerAccount_account>,
 };
 
 export default OwnerAccount;

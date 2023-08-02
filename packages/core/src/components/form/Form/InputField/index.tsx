@@ -36,6 +36,7 @@ type BaseProps = {
   onToggleEthDisplay?: (ethDisplay: boolean) => void;
   variant?: 'base' | 'withdraw';
   placeholder?: string;
+  hideConversion?: boolean;
 };
 
 type PropsWithMins = BaseProps & {
@@ -152,12 +153,13 @@ export const InputField = ({
   onToggleEthDisplay,
   disabled,
   currency,
+  hideConversion,
 }: Props) => {
   const {
-    flags: { useNewWallet },
+    flags: { useCashWallet },
   } = useFeatureFlags();
   const [ethDisplay, toggleEthDisplay] = useToggle(
-    currency ? false : defaultCurrency === Currency.ETH
+    defaultCurrency === Currency.ETH
   );
   const [input, setInput] = useState<string>(
     ethDisplay ? ethAmount.toString() : fiatAmount.toString()
@@ -183,9 +185,9 @@ export const InputField = ({
   }, [ethAmount, ethDisplay, fiatAmount, toggleEthDisplay]);
 
   useEffect(() => {
-    if (useNewWallet && ethDisplay && currency === Currency.FIAT)
+    if (useCashWallet && ethDisplay && currency === Currency.FIAT)
       toggleDisplayedCurrency();
-    if (useNewWallet && !ethDisplay && currency === Currency.ETH)
+    if (useCashWallet && !ethDisplay && currency === Currency.ETH)
       toggleDisplayedCurrency();
     if (onToggleEthDisplay) onToggleEthDisplay(ethDisplay);
   }, [
@@ -193,7 +195,7 @@ export const InputField = ({
     ethDisplay,
     onToggleEthDisplay,
     toggleDisplayedCurrency,
-    useNewWallet,
+    useCashWallet,
   ]);
 
   const handle = (amount: string) => {
@@ -255,21 +257,23 @@ export const InputField = ({
             },
           }}
         />
-        <Text16 color="var(--c-neutral-600)">
-          ≈&nbsp;
-          <FormattedNumber
-            value={ethDisplay ? fiatAmount : ethAmount}
-            // eslint-disable-next-line react/style-prop-object
-            style="currency"
-            currency={ethDisplay ? fiatCurrency : 'ETH'}
-            maximumFractionDigits={allowedDecimalsOtherCurrency}
-            minimumFractionDigits={allowedDecimalsOtherCurrency}
-          />
-        </Text16>
+        {!hideConversion && (
+          <Text16 color="var(--c-neutral-600)">
+            ≈&nbsp;
+            <FormattedNumber
+              value={ethDisplay ? fiatAmount : ethAmount}
+              // eslint-disable-next-line react/style-prop-object
+              style="currency"
+              currency={ethDisplay ? fiatCurrency : 'ETH'}
+              maximumFractionDigits={allowedDecimalsOtherCurrency}
+              minimumFractionDigits={allowedDecimalsOtherCurrency}
+            />
+          </Text16>
+        )}
       </AmountsDiv>
       {!disabled && (
         <ActionsDiv>
-          {!useNewWallet && (
+          {!useCashWallet && (
             <SwitchButton onClick={toggleDisplayedCurrency} className={variant}>
               <FontAwesomeIcon icon={faRepeat} size="xs" />
             </SwitchButton>

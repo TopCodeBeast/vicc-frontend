@@ -1,4 +1,4 @@
-import { Vicc5LeaderboardType as So5LeaderboardType } from '@sorare/core/src/__generated__/globalTypes';
+import { So5LeaderboardType } from '@sorare/core/src/__generated__/globalTypes';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 
 import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
@@ -42,17 +42,17 @@ export const ViewAllDetailedScore = ({ so5Score, player }: Props) => {
 
 ViewAllDetailedScore.fragments = {
   so5Score: gql`
-    fragment ViewAllDetailedScore_so5Score on Vicc5Score {
+    fragment ViewAllDetailedScore_so5Score on So5Score {
       id
     }
-  `,
+  ` as TypedDocumentNode<ViewAllDetailedScore_so5Score>,
   player: gql`
     fragment ViewAllDetailedScore_player on Player {
       slug
       ...PlayerGameScoreDialogQuery_player
     }
     ${PlayerGameScoreDialog.fragments.player}
-  `,
+  ` as TypedDocumentNode<ViewAllDetailedScore_player>,
 };
 
 export default ViewAllDetailedScore;

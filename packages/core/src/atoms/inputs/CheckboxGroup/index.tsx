@@ -19,7 +19,7 @@ const Label = styled.label<{ rounded: boolean }>`
 `;
 
 type Props<T> = {
-  options: { value: T; label: JSX.Element }[];
+  options: { value: T; label: React.JSX.Element }[];
   selectedValues: T[];
   rounded?: boolean;
   onChange: (values: T[]) => void;

@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 
 import {
   StartOnboardingMutation,
@@ -20,13 +20,13 @@ const START_ONBOARDING_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  StartOnboardingMutation,
+  StartOnboardingMutationVariables
+>;
 
 export default function useStartOnboarding() {
-  const [start] = useMutation<
-    StartOnboardingMutation,
-    StartOnboardingMutationVariables
-  >(START_ONBOARDING_MUTATION);
+  const [start] = useMutation(START_ONBOARDING_MUTATION);
 
   return async () => {
     await start({ variables: { input: {} } });

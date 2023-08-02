@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faCheck, faTimes } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
@@ -44,7 +44,7 @@ type Props = {
   displayStatus?: boolean;
   errors?: Errors;
   Line?: ElementType<{
-    content: JSX.Element;
+    content: React.JSX.Element;
     rule: FormatRule;
   }>;
 };
@@ -125,12 +125,12 @@ export const Rules = ({
 
 Rules.fragments = {
   so5Leaderboard: gql`
-    fragment Rules_so5Leaderboard on Vicc5Leaderboard {
+    fragment Rules_so5Leaderboard on So5Leaderboard {
       slug
       ...formatRules_so5Leaderboard
     }
     ${formatRules.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<Rules_so5Leaderboard>,
 };
 
 export default Rules;

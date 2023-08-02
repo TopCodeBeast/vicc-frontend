@@ -5,6 +5,7 @@ import { css } from 'styled-components';
 
 import CloseButton from '@core/atoms/buttons/CloseButton';
 import useScreenSize from '@core/hooks/device/useScreenSize';
+import { laptopAndAbove } from '@core/style/mediaQuery';
 import { OverrideClasses } from '@core/style/utils';
 
 type Props = {
@@ -21,6 +22,15 @@ const [StyledDialog, classes] = OverrideClasses(MuiDialog, null, {
   paper: css`
     width: 1300px;
     background: var(--c-neutral-100);
+
+    @media ${laptopAndAbove} {
+      max-width: min(1920px, 100vw - calc(6 * var(--unit)));
+      border-radius: var(--double-unit);
+      /* clip does not create a new formatting context and this allows descendant to be sticky to the top of the dialog.
+        clip is not well supported on older browsers (older Safari for example), but it should be ok on desktop.
+      */
+      overflow: clip;
+    }
   `,
 });
 

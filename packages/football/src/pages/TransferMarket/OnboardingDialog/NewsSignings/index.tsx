@@ -4,8 +4,8 @@ import { LIFECYCLE } from '@sorare/core/src/hooks/useLifecycle';
 
 import OnboardingDialog from '@football/pages/TransferMarket/OnboardingDialog';
 import useGetCurrentUserPurchases from '@football/pages/TransferMarket/OnboardingDialog/useGetCurrentUserPurchases';
-import coverDesktop from '@football/pages/TransferMarket/assets/auctions_desktop.png';
-import cover from '@football/pages/TransferMarket/assets/auctions_mobile.png';
+import coverDesktop from '@football/pages/TransferMarket/assets/auctions_desktop.jpg';
+import cover from '@football/pages/TransferMarket/assets/auctions_mobile.jpg';
 
 const messages = defineMessages({
   title: {

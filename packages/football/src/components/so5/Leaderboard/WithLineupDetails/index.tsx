@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useState } from 'react';
 
 import Row from '@football/components/so5/Leaderboard/Row';
@@ -39,10 +39,10 @@ export const LeaderboardWithLineupDetails = ({
 
 LeaderboardWithLineupDetails.fragments = {
   so5Ranking: gql`
-    fragment Leaderboard_so5Rankings on Vicc5Ranking {
+    fragment Leaderboard_so5Rankings on So5Ranking {
       id
       ...Row_so5Ranking
     }
     ${Row.fragments.so5Ranking}
-  `,
+  ` as TypedDocumentNode<Leaderboard_so5Rankings>,
 };

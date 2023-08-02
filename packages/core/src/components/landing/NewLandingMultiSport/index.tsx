@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import useFontFaceObserver from '@sorare/use-font-face-observer';
 import { Container } from '@core/atoms/container';
 import Bold from '@core/atoms/typography/Bold';
+import { LeaguesBlock } from '@core/components/landing/LeaguesBlock';
 import { useDefaultSportPages } from '@core/constants/routes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import useReferrer from '@core/contexts/queryString/useReferrer';
@@ -16,14 +17,13 @@ import NewLoggedOutAppBar from '@core/routing/MultiSportAppBar/NewLoggedOutAppBa
 import AppBarProvider from '@core/routing/MultiSportAppBar/context/Provider';
 import MultiSportFooter from '@core/routing/MultiSportFooter';
 
-import '@core/style/drukFontFaces.css';
+import 'style/drukFontFaces.css';
 
 import { NewOtherSports } from '../NewOtherSports';
-// import { CommunityBlock } from './CommunityBlock';
-import { ExperienceBlock } from './ExperienceBlock';
+import { Community } from './Community';
+import { Experience } from './Experience';
 import { Hero } from './Hero';
-import { LeaguesBlock } from './LeaguesBlock';
-import { PrizesBlock } from './PrizesBlock';
+import { Prizes } from './Prizes';
 import { ContentContainer } from './ui';
 
 const DarkBackground = styled.div`
@@ -83,7 +83,6 @@ export const NewLandingMultiSport = () => {
   }
 
   if (fontStatus === 'initial') return null; // allow rendering without the right font after the timeout
-
   return (
     <DarkBackground>
       <AppBarProvider>
@@ -97,9 +96,9 @@ export const NewLandingMultiSport = () => {
       </AppBarProvider>
       <Hero />
       <LeaguesBlock />
-      <ExperienceBlock />
-      <PrizesBlock />
-      {/* <CommunityBlock /> */}
+      <Experience />
+      <Prizes />
+      <Community />
       <OtherSportsWrapper>
         <NewOtherSports />
       </OtherSportsWrapper>

@@ -1,7 +1,9 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { defineMessage } from 'react-intl';
 
 import { withFragments } from '@sorare/core/src/lib/gql';
+
+import { GetSerialNumberRule } from './__generated__/getSerialNumberRule.graphql';
 
 const defaultMessage = defineMessage({
   id: 'Rules.serialNumber',
@@ -24,14 +26,14 @@ const getSerialNumberRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetSerialNumberRule on Vicc5Leaderboard {
+      fragment GetSerialNumberRule on So5Leaderboard {
         slug
         displayedRules {
           id
           serialNumber
         }
       }
-    `,
+    ` as TypedDocumentNode<GetSerialNumberRule>,
   }
 );
 

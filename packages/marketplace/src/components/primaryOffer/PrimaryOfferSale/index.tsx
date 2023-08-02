@@ -1,12 +1,12 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { isPast, parseISO } from 'date-fns';
 import styled from 'styled-components';
 
-import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import { Text20 } from '@sorare/core/src/atoms/typography';
 import { ConversionCreditTinyBanner } from '@sorare/core/src/components/conversionCredit/ConversionCreditTinyBanner';
 import { useSportContext } from '@sorare/core/src/contexts/sport';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import AuctionTimeLeft from '@marketplace/components/auction/AuctionTimeLeft';
@@ -58,14 +58,10 @@ const Column = styled.div`
 `;
 
 export const PrimaryOfferSale = ({ primaryOffer }: Props) => {
-  const { priceWei, priceFiat, endDate, buyer } = primaryOffer;
+  const { price, endDate, buyer } = primaryOffer;
   const { sport } = useSportContext();
-  const { main: price } = useAmountWithConversion({
-    monetaryAmount: {
-      referenceCurrency: SupportedCurrency.WEI,
-      wei: priceWei,
-      ...priceFiat,
-    },
+  const { main: displayPrice } = useAmountWithConversion({
+    monetaryAmount: price,
   });
   const ended = isPast(parseISO(endDate));
   const bought = !!buyer;
@@ -77,7 +73,7 @@ export const PrimaryOfferSale = ({ primaryOffer }: Props) => {
         </Flex>
       ) : (
         <Column>
-          <Price>{price}</Price>
+          <Price>{displayPrice}</Price>
           <AuctionTimeLeft endDate={endDate} />
           <ConversionCreditTinyBanner sport={sport} />
         </Column>
@@ -99,22 +95,20 @@ PrimaryOfferSale.fragments = {
   primaryOffer: gql`
     fragment PrimaryOfferSale_primaryOffer on TokenPrimaryOffer {
       id
-      priceWei: price
       endDate
       buyer {
         slug
         ...SmallUser_user
       }
-      priceFiat: priceInFiat {
-        eur
-        usd
-        gbp
+      price {
+        ...MonetaryAmountFragment_monetaryAmount
       }
       ...PrimaryOfferBuyField_primaryOffer
     }
+    ${monetaryAmountFragment}
     ${SmallUser.fragments.user}
     ${PrimaryOfferBuyField.fragments.primaryOffer}
-  `,
+  ` as TypedDocumentNode<PrimaryOfferSale_primaryOffer>,
 };
 
 export default PrimaryOfferSale;

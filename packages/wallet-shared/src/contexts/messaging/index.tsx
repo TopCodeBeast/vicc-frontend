@@ -209,12 +209,21 @@ export interface PromptRestoreWallet extends WalletRPC {
   };
 }
 
+export enum PasswordError {
+  INVALID_PASSWORD = 'InvalidPassword',
+}
+
+type PasswordArgs =
+  | {
+      error?: PasswordError;
+      unlockWallet: false;
+    }
+  | { error?: never; unlockWallet?: never };
+
 export interface Password extends WalletRPC {
   request: {
     handler: 'password';
-    args: {
-      error?: boolean;
-    };
+    args: PasswordArgs;
   };
   response: {
     result: {

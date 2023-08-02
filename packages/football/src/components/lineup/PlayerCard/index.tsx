@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { isToday } from 'date-fns';
 import { FormattedDate, FormattedTime } from 'react-intl';
 import styled from 'styled-components';
@@ -93,7 +93,7 @@ export const PlayerCard = ({ onClick, appearance, isLive }: Props) => {
   const { pictureUrl } = card || {};
   const { status, date } = so5Score?.game || {};
   const { score: playerScore, status: scoreStatus } = getPlayerScore(
-    so5Score as any, //TODO
+    so5Score,
     bonus
   );
   const gameIsScheduled = !!status && isGameScheduled(status);
@@ -154,7 +154,7 @@ export const PlayerCard = ({ onClick, appearance, isLive }: Props) => {
 
 PlayerCard.fragments = {
   so5Appearance: gql`
-    fragment PlayerCard_so5Appearance on Vicc5Appearance {
+    fragment PlayerCard_so5Appearance on So5Appearance {
       id
       bonus
       captain
@@ -163,7 +163,7 @@ PlayerCard.fragments = {
         slug
         pictureUrl: pictureUrl(derivative: "tinified")
       }
-      so5Score: vicc5Score {
+      so5Score {
         id
         playerGameStats {
           id
@@ -179,5 +179,5 @@ PlayerCard.fragments = {
       }
     }
     ${getPlayerScore.fragments.so5Score}
-  `,
+  ` as TypedDocumentNode<PlayerCard_so5Appearance>,
 };

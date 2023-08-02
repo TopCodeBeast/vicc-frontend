@@ -1,41 +1,40 @@
-import { Currency, Fiat } from '@sorare/core/src/__generated__/globalTypes';
+import Big from 'bignumber.js';
 
-import useFormatWithCurrency from '@marketplace/hooks/useFormatWithCurrency';
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
+import useMonetaryAmount, {
+  MonetaryAmountOutput,
+} from '@sorare/core/src/hooks/useMonetaryAmount';
+import { getMonetaryAmountIndex } from '@sorare/core/src/lib/monetaryAmount';
 
 import FeesTooltipFromProps from '../FeesTooltipFromProps';
 
 interface Props {
-  priceWei: string;
-  priceFiat?: Fiat;
+  monetaryAmount: MonetaryAmountOutput;
+  referenceCurrency: SupportedCurrency;
   feesRate: number;
-  forceEthDisplay?: boolean;
 }
 
 const CalculatedFeesTooltip = ({
-  priceWei,
+  monetaryAmount,
+  referenceCurrency,
   feesRate,
-  priceFiat,
-  forceEthDisplay,
 }: Props) => {
-  const {
-    amountToDisplay,
-    currencySymbol,
-    minimumFractionDigits,
-    maximumFractionDigits,
-  } = useFormatWithCurrency(
-    priceWei,
-    priceFiat,
-    forceEthDisplay ? Currency.ETH : undefined
-  );
-  const feesToDisplay = amountToDisplay * feesRate;
+  const { toMonetaryAmount } = useMonetaryAmount();
+  const indexRefCurrency = getMonetaryAmountIndex(referenceCurrency);
 
+  const marketFeeAmount = new Big(
+    monetaryAmount[indexRefCurrency]
+  ).multipliedBy(feesRate);
+
+  const marketFeeMonetaryAmount = toMonetaryAmount({
+    [indexRefCurrency]: marketFeeAmount.toString(),
+    referenceCurrency,
+  });
   return (
     <FeesTooltipFromProps
-      amount={amountToDisplay}
-      fees={feesToDisplay}
-      currencySymbol={currencySymbol}
-      minimumFractionDigits={minimumFractionDigits}
-      maximumFractionDigits={maximumFractionDigits}
+      monetaryAmount={monetaryAmount}
+      marketFeeMonetaryAmount={marketFeeMonetaryAmount}
+      referenceCurrency={referenceCurrency}
     />
   );
 };

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { MessageDescriptor, useIntl } from 'react-intl';
 import { generatePath } from 'react-router-dom';
 
@@ -30,11 +30,11 @@ const generateLineupSharingTitle = withFragments(
   },
   {
     so5Fixture: gql`
-      fragment generateLineupSharingTitle_so5Fixture on Vicc5Fixture {
+      fragment generateLineupSharingTitle_so5Fixture on So5Fixture {
         slug
         aasmState
       }
-    `,
+    ` as TypedDocumentNode<generateLineupSharingTitle_so5Fixture>,
   }
 );
 
@@ -67,18 +67,18 @@ export const useLineupSharingAttributes = (
 
 useLineupSharingAttributes.fragments = {
   so5Lineup: gql`
-    fragment useLineupSharingAttributes_so5Lineup on Vicc5Lineup {
+    fragment useLineupSharingAttributes_so5Lineup on So5Lineup {
       id
-      so5Fixture: vicc5Fixture {
+      so5Fixture {
         slug
         aasmState
         ...generateLineupSharingTitle_so5Fixture
       }
-      so5Leaderboard: vicc5Leaderboard {
+      so5Leaderboard {
         slug
         displayName
       }
     }
     ${generateLineupSharingTitle.fragments.so5Fixture}
-  `,
+  ` as TypedDocumentNode<useLineupSharingAttributes_so5Lineup>,
 };

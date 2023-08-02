@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import { FormattedMessage, MessageDescriptor } from 'react-intl';
 import { Link } from 'react-router-dom';
@@ -10,7 +10,7 @@ import UserName from '@core/components/user/UserName';
 import { LEGACY_USER_GALLERY } from '@core/constants/routes';
 import { useSportContext } from '@core/contexts/sport';
 import { formatEthereumAddress } from '@core/lib/ethereum';
-import { isA } from '@core/lib/gql';
+import { isType } from '@core/lib/gql';
 
 import {
   User_anonymousUser,
@@ -136,7 +136,7 @@ const AnonymousUser = ({
 export const User = ({ user, ...rest }: Props) => {
   if (!user) return null;
 
-  if (isA<User_user | User_blockchainUser_User>('User', user)) {
+  if (isType(user, 'User')) {
     return <SorareUser user={user} {...rest} />;
   }
 
@@ -152,7 +152,7 @@ User.fragments = {
     }
     ${Avatar.fragments.publicUserInfoInterface}
     ${UserName.fragments.user}
-  `,
+  ` as TypedDocumentNode<User_user>,
   anonymousUser: gql`
     fragment User_anonymousUser on AnonymousUser {
       id
@@ -160,7 +160,7 @@ User.fragments = {
       ...Avatar_anonymousUser
     }
     ${Avatar.fragments.anonymousUser}
-  `,
+  ` as TypedDocumentNode<User_anonymousUser>,
   blockchainUser: gql`
     fragment User_blockchainUser on BlockchainUser {
       ... on User {
@@ -178,7 +178,7 @@ User.fragments = {
     ${Avatar.fragments.publicUserInfoInterface}
     ${Avatar.fragments.anonymousUser}
     ${UserName.fragments.user}
-  `,
+  ` as TypedDocumentNode<User_blockchainUser>,
 };
 
 export default User;

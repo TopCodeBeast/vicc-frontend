@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 
 import { EngineConfiguration_so5Leaderboard } from './__generated__/index.graphql';
@@ -35,13 +35,13 @@ const EngineConfiguration = ({ so5Leaderboard }: Props) => {
 
 EngineConfiguration.fragments = {
   so5Leaderboard: gql`
-    fragment EngineConfiguration_so5Leaderboard on Vicc5Leaderboard {
+    fragment EngineConfiguration_so5Leaderboard on So5Leaderboard {
       slug
       engineConfiguration {
         xpMultiplier
       }
     }
-  `,
+  ` as TypedDocumentNode<EngineConfiguration_so5Leaderboard>,
 };
 
 export default EngineConfiguration;

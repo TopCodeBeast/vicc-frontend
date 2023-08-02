@@ -9,16 +9,16 @@ import {
 import { Skeleton } from '@sorare/core/src/atoms/animations/Skeleton';
 import Block from '@sorare/core/src/atoms/layout/Block';
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 import OpenItemDialogLink from '@sorare/core/src/components/link/OpenItemDialogLink';
 import { range } from '@sorare/core/src/lib/arrays';
-import { isA } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
 
 import FlexToken from '@marketplace/components/token/FlexToken';
 import { PriceHistoryQuery } from '@marketplace/hooks/__generated__/useGetPriceHistory.graphql';
 import useGetPriceHistory from '@marketplace/hooks/useGetPriceHistory';
 
 import PriceHistoryDate from '../PriceHistoryDate';
-import PriceHistoryValue from '../PriceHistoryValue';
 
 type PriceHistoryQuery_tokens_tokenPrices =
   PriceHistoryQuery['tokens']['tokenPrices'][number];
@@ -76,8 +76,8 @@ export const EmptyResult = styled(Block)`
 const ItemLink = styled(OpenItemDialogLink)`
   display: grid;
   grid-template-areas:
-    'card deal fiat'
-    'card date eth';
+    'card deal amount'
+    'card date amount';
   grid-template-columns: 40px 1fr 1fr;
   column-gap: var(--intermediate-unit);
   padding: var(--intermediate-unit);
@@ -94,14 +94,9 @@ const Date = styled(Text14)`
   grid-area: date;
   align-self: flex-start;
 `;
-const Fiat = styled(Text16)`
-  grid-area: fiat;
-  align-self: flex-end;
-  text-align: right;
-`;
-const Eth = styled(Text14)`
-  grid-area: eth;
-  align-self: flex-start;
+const Amount = styled(Text16)`
+  grid-area: amount;
+  align-self: center;
   text-align: right;
 `;
 
@@ -120,22 +115,13 @@ const TransactionLabel = ({
 }: {
   deal: PriceHistoryQuery_tokens_tokenPrices_deal;
 }) => {
-  if (
-    isA<PriceHistoryQuery_tokens_tokenPrices_deal_TokenAuction>(
-      'TokenAuction',
-      deal
-    )
-  )
+  if (isType(deal, 'TokenAuction'))
     return <FormattedMessage {...messages.auction} />;
   return <FormattedMessage {...messages.publicOffer} />;
 };
 
 const getTokenFromDeal = (deal: PriceHistoryQuery_tokens_tokenPrices_deal) => {
-  const dealIsTokenOffer =
-    isA<PriceHistoryQuery_tokens_tokenPrices_deal_TokenOffer>(
-      'TokenOffer',
-      deal
-    );
+  const dealIsTokenOffer = isType(deal, 'TokenOffer');
 
   const items = dealIsTokenOffer ? deal.senderSide.nfts : deal.nfts;
   if (items.length === 1) return items[0];
@@ -165,20 +151,13 @@ const Item = ({ priceHistorySample, onClick }: ItemProps) => {
         <Date color="var(--c-neutral-600)">
           <PriceHistoryDate date={priceHistorySample.date} />
         </Date>
-        <Fiat bold color="var(--c-neutral-1000)">
-          <PriceHistoryValue
-            amount={priceHistorySample.amount}
-            amountInFiat={priceHistorySample.amountInFiat}
-            currency={Currency.FIAT}
+        <Amount>
+          <AmountWithConversion
+            monetaryAmount={priceHistorySample.amounts}
+            column
+            primaryCurrency={Currency.FIAT}
           />
-        </Fiat>
-        <Eth color="var(--c-neutral-600)">
-          <PriceHistoryValue
-            amount={priceHistorySample.amount}
-            amountInFiat={priceHistorySample.amountInFiat}
-            currency={Currency.ETH}
-          />
-        </Eth>
+        </Amount>
       </ItemLink>
     </Block>
   );

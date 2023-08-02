@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -33,7 +33,7 @@ export const COUNTRY_QUERY = gql`
   ${pageContextFragments.subscribable}
 
   ${Search.fragments.country}
-`;
+` as TypedDocumentNode<CountryQuery, CountryQueryVariables>;
 
 const Wrapper = styled(Container)`
   color: var(--c-neutral-1000);
@@ -59,15 +59,12 @@ const Logo = styled.div`
 
 export const Country = () => {
   const { slug } = useParams();
-  const { data, loading } = useQuery<CountryQuery, CountryQueryVariables>(
-    COUNTRY_QUERY,
-    {
-      variables: {
-        slug: slug!,
-      },
-      skip: !slug,
-    }
-  );
+  const { data, loading } = useQuery(COUNTRY_QUERY, {
+    variables: {
+      slug: slug!,
+    },
+    skip: !slug,
+  });
 
   useTitleAndDescription(
     metadatas.country.title,

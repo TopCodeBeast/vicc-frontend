@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ReactNode } from 'react';
 
 import { Position } from '@sorare/core/src/__generated__/globalTypes';
@@ -20,14 +20,14 @@ const PlayerLastScores = ({
   selectedPosition,
   InfiniteScrollLoader,
 }: Props) => {
-  const { cardPositions, lastFiveSo5AverageScore, lastFifteenVicc5AverageScore } =
+  const { cardPositions, lastFiveSo5AverageScore, lastFifteenSo5AverageScore } =
     player;
 
   if (!player.allSo5Scores.nodes?.length) return null;
 
   return (
     <LastScores
-      lastFifteenVicc5AverageScore={lastFifteenVicc5AverageScore}
+      lastFifteenSo5AverageScore={lastFifteenSo5AverageScore}
       lastFiveSo5AverageScore={lastFiveSo5AverageScore}
       so5Scores={player.allSo5Scores.nodes}
       cardPositions={cardPositions}
@@ -48,14 +48,14 @@ PlayerLastScores.fragments = {
         slug
       }
       lastFiveSo5AverageScore: averageScore(
-        type: LAST_FIVE_VICC5_AVERAGE_SCORE
+        type: LAST_FIVE_SO5_AVERAGE_SCORE
         position: $position
       )
-      lastFifteenVicc5AverageScore: averageScore(
-        type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
+      lastFifteenSo5AverageScore: averageScore(
+        type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
         position: $position
       )
-      allSo5Scores: allVicc5Scores(first: $first, after: $after, position: $position) {
+      allSo5Scores(first: $first, after: $after, position: $position) {
         nodes {
           id
           ...LastScores_so5Score
@@ -69,7 +69,7 @@ PlayerLastScores.fragments = {
     }
     ${LastScores.fragments.player}
     ${LastScores.fragments.so5Score}
-  `,
+  ` as TypedDocumentNode<PlayerLastScores_player>,
 };
 
 export default PlayerLastScores;

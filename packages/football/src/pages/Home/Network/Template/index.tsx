@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
@@ -71,7 +71,7 @@ Template.fragments = {
       ...UserNetworkBlock_user
     }
     ${UserNetworkBlock.fragments.user}
-  `,
+  ` as TypedDocumentNode<NetworkTemplate_user>,
 };
 
 export default Template;

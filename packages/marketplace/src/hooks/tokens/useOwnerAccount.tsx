@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ReactNode } from 'react';
 
 import Avatar from '@sorare/core/src/components/user/Avatar';
@@ -9,7 +9,7 @@ import {
 import UserName from '@sorare/core/src/components/user/UserName';
 import { useConfigContext } from '@sorare/core/src/contexts/config';
 import { tokenHolderLink } from '@sorare/core/src/lib/etherscan';
-import { isA } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
 
 import { useOwnerAccount_account } from './__generated__/useOwnerAccount.graphql';
 
@@ -40,10 +40,7 @@ export const useOwnerAccount = ({ account }: Props): ReturnedProps => {
 
   if (!account) return null;
 
-  if (
-    account.owner &&
-    isA<useOwnerAccount_account_owner_User>('User', account.owner)
-  ) {
+  if (account.owner && isType(account.owner, 'User')) {
     return {
       avatar: (
         <Avatar user={account.owner as useOwnerAccount_account_owner_User} />
@@ -58,12 +55,7 @@ export const useOwnerAccount = ({ account }: Props): ReturnedProps => {
     };
   }
 
-  if (
-    isA<useOwnerAccount_account_accountable_EthereumAccount>(
-      'EthereumAccount',
-      account.accountable
-    )
-  ) {
+  if (isType(account.accountable, 'EthereumAccount')) {
     return {
       avatar: (
         <Avatar
@@ -88,17 +80,12 @@ export const useOwnerAccount = ({ account }: Props): ReturnedProps => {
     };
   }
 
-  if (
-    isA<useOwnerAccount_account_accountable_StarkwareAccount>(
-      'StarkwareAccount',
-      account.accountable
-    )
-  ) {
+  if (isType(account.accountable, 'StarkwareAccount')) {
     const accountable =
       account.accountable as useOwnerAccount_account_accountable_StarkwareAccount;
     return {
       avatar: <Avatar user={accountable} />,
-      owner: 'starkKey', //accountable.starkKey,
+      owner: accountable.starkKey,
     };
   }
 
@@ -123,17 +110,17 @@ useOwnerAccount.fragments = {
           address
           ...Avatar_ethereumAccount
         }
-        # ... on StarkwareAccount {
-        #   id
-        #   starkKey
-        #   ...Avatar_starkwareAccount
-        # }
+        ... on StarkwareAccount {
+          id
+          starkKey
+          ...Avatar_starkwareAccount
+        }
       }
     }
     ${UserName.fragments.user}
     ${Avatar.fragments.publicUserInfoInterface}
     ${Avatar.fragments.ethereumAccount}
-    #{Avatar.fragments.starkwareAccount}
+    ${Avatar.fragments.starkwareAccount}
     ${GalleryLink.fragments.user}
-  `,
+  ` as TypedDocumentNode<useOwnerAccount_account>,
 };

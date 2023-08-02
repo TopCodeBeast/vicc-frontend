@@ -1,7 +1,9 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { defineMessage } from 'react-intl';
 
 import { withFragments } from '@sorare/core/src/lib/gql';
+
+import { GetAllowLegendRule } from './__generated__/getAllowLegend.graphql';
 
 const defaultMessage = defineMessage({
   id: 'Rules.allowLegend',
@@ -20,14 +22,14 @@ const getAllowLegendRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetAllowLegendRule on Vicc5Leaderboard {
+      fragment GetAllowLegendRule on So5Leaderboard {
         slug
         displayedRules {
           id
           allowLegend
         }
       }
-    `,
+    ` as TypedDocumentNode<GetAllowLegendRule>,
   }
 );
 

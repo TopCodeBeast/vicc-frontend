@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { ActualReward } from './ActualReward';
@@ -31,12 +31,12 @@ const ActualRewards = ({ rewards }: Props) => {
 
 ActualRewards.fragments = {
   so5Reward: gql`
-    fragment ActualRewards_so5Reward on Vicc5Reward {
+    fragment ActualRewards_so5Reward on So5Reward {
       slug
       ...ActualReward_so5Reward
     }
     ${ActualReward.fragments.so5Reward}
-  `,
+  ` as TypedDocumentNode<ActualRewards_so5Reward>,
 };
 
 export default ActualRewards;

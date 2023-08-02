@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Button from '@core/atoms/buttons/Button';
 import { Text16, Title3 } from '@core/atoms/typography';
 import Dialog from '@core/components/dialog';
-// import VerifyPhoneNumber from '@core/components/user/VerifyPhoneNumber';
+import VerifyPhoneNumber from '@core/components/user/VerifyPhoneNumber';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { laptopAndAbove } from '@core/style/mediaQuery';
 
@@ -40,8 +40,7 @@ export const NoCardEntryInfoDialog = ({ open, onClose, poolDetail }: Props) => {
   return (
     <>
       {showVerify && (
-        // <VerifyPhoneNumber onCancel={() => setShowVerify(false)} />
-        <>VerifyPhoneNumber555</>
+        <VerifyPhoneNumber onCancel={() => setShowVerify(false)} />
       )}
       <Dialog
         maxWidth={false}

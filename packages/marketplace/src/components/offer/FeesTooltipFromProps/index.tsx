@@ -1,6 +1,14 @@
-import { FormattedMessage, FormattedNumber, defineMessages } from 'react-intl';
+import Big from 'bignumber.js';
+import { FormattedMessage, defineMessages } from 'react-intl';
 
+import {
+  Currency,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import { Caption, Text16, Title6 } from '@sorare/core/src/atoms/typography';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
+import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
+import { getMonetaryAmountIndex } from '@sorare/core/src/lib/monetaryAmount';
 
 import Row from '@marketplace/components/offer/Row';
 import { MarketFeeStatus } from '@marketplace/hooks/useMarketFeesHelperStatus';
@@ -52,25 +60,25 @@ const completedOfferMessages = {
 };
 
 interface Props {
-  amount: number;
-  fees: number;
-  currencySymbol: string;
-  maximumFractionDigits?: number;
-  minimumFractionDigits?: number;
+  monetaryAmount: MonetaryAmountOutput;
+  marketFeeMonetaryAmount: MonetaryAmountOutput;
+  referenceCurrency: SupportedCurrency;
   completed?: boolean;
   marketFeeStatus?: MarketFeeStatus.ENABLED | MarketFeeStatus.PARTIALLY_ENABLED;
 }
 
 const FeesTooltipFromProps = ({
-  amount,
-  fees,
-  currencySymbol,
-  maximumFractionDigits,
-  minimumFractionDigits,
+  monetaryAmount,
+  marketFeeMonetaryAmount,
+  referenceCurrency,
   completed,
   marketFeeStatus,
 }: Props) => {
-  const total = amount - fees;
+  const isFiat = referenceCurrency !== SupportedCurrency.WEI;
+  const monetaryAmountIndex = getMonetaryAmountIndex(referenceCurrency);
+  const total = new Big(monetaryAmount[monetaryAmountIndex]).minus(
+    marketFeeMonetaryAmount[monetaryAmountIndex]
+  );
 
   const messages = completed ? completedOfferMessages : offerMessages;
 
@@ -85,12 +93,10 @@ const FeesTooltipFromProps = ({
         }
       >
         <Text16>
-          <FormattedNumber
-            value={amount}
-            style="currency"
-            currency={currencySymbol}
-            maximumFractionDigits={maximumFractionDigits}
-            minimumFractionDigits={minimumFractionDigits}
+          <AmountWithConversion
+            monetaryAmount={{ ...monetaryAmount, referenceCurrency }}
+            primaryCurrency={isFiat ? Currency.FIAT : Currency.ETH}
+            hideExponent
           />
         </Text16>
       </Row>
@@ -107,13 +113,10 @@ const FeesTooltipFromProps = ({
         }
       >
         <Text16>
-          <FormattedNumber
-            value={fees}
-            // eslint-disable-next-line react/style-prop-object
-            style="currency"
-            currency={currencySymbol}
-            maximumFractionDigits={maximumFractionDigits}
-            minimumFractionDigits={minimumFractionDigits}
+          <AmountWithConversion
+            monetaryAmount={{ ...marketFeeMonetaryAmount, referenceCurrency }}
+            primaryCurrency={isFiat ? Currency.FIAT : Currency.ETH}
+            hideExponent
           />
         </Text16>
       </Row>
@@ -138,13 +141,10 @@ const FeesTooltipFromProps = ({
         }
       >
         <Title6 as="p">
-          <FormattedNumber
-            value={total}
-            // eslint-disable-next-line react/style-prop-object
-            style="currency"
-            currency={currencySymbol}
-            maximumFractionDigits={maximumFractionDigits}
-            minimumFractionDigits={minimumFractionDigits}
+          <AmountWithConversion
+            monetaryAmount={{ [monetaryAmountIndex]: total, referenceCurrency }}
+            primaryCurrency={isFiat ? Currency.FIAT : Currency.ETH}
+            hideExponent
           />
         </Title6>
       </Row>

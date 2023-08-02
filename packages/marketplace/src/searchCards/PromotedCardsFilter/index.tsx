@@ -5,8 +5,8 @@ import { FilterSection } from '@sorare/core/src/components/search/FilterSection'
 import FilterTitle from '@sorare/core/src/components/search/FilterTitle';
 import { ExtendedUIState } from '@sorare/core/src/components/search/InstantSearch/types';
 import Option from '@sorare/core/src/components/search/Option';
-import { useConfigContext } from '@sorare/core/src/contexts/config';
 import { useSportContext } from '@sorare/core/src/contexts/sport';
+import useMarketplacePromotionalEvents from '@sorare/core/src/hooks/search/useMarketplacePromotionalEvents';
 import useVirtualToggle from '@sorare/core/src/hooks/useVirtualToggle';
 import { useVirtualToggleManager } from '@sorare/core/src/hooks/useVirtualToggleManager';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
@@ -17,12 +17,12 @@ import {
 
 const FILTER = VIRTUAL_TOGGLE_FILTERS.promotedCardsFilter;
 
-export const usePromotionalEventsEntries = () => {
+const usePromotionalEventsEntries = () => {
   const { sport } = useSportContext();
-  const { marketplacePromotionalEvents } = useConfigContext();
+  const { marketplacePromotionalEvents } = useMarketplacePromotionalEvents();
   return useMemo(
     () =>
-      (marketplacePromotionalEvents || []).find(e => e.sport === sport)?.events || [],
+      marketplacePromotionalEvents.find(e => e.sport === sport)?.events || [],
     [marketplacePromotionalEvents, sport]
   );
 };

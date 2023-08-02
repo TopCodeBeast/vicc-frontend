@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { defineMessages } from 'react-intl';
 
 import useTokenBelongsToUser from '@sorare/core/src/hooks/useTokenBelongsToUser';
@@ -37,7 +37,7 @@ useCannotSell.fragments = {
       ...useTokenBelongsToUser_token
     }
     ${useTokenBelongsToUser.fragments.token}
-  `,
+  ` as TypedDocumentNode<useCannotSell_token>,
 };
 
 export default useCannotSell;

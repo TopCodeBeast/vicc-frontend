@@ -1,23 +1,22 @@
 import { useEffect, useState } from 'react';
 
-// import { AccountData, useBlockchainContext } from '@core/contexts/blockchain';
-type AccountData = any;
+import { AccountData, useBlockchainContext } from '@core/contexts/blockchain';
 
 export default () => {
   const [accountData, setAccountData] = useState<AccountData | null>(null);
-  // const { getAccountData } = useBlockchainContext();
+  const { getAccountData } = useBlockchainContext();
 
   useEffect(() => {
     const fetchAccountData = async () => {
-      // const data = await getAccountData();
+      const data = await getAccountData();
 
-      // setAccountData(data);
+      setAccountData(data);
     };
 
     fetchAccountData().catch(() => {
       setAccountData(null);
     });
-  }, [/*getAccountData*/]);
+  }, [getAccountData]);
 
   return accountData;
 };

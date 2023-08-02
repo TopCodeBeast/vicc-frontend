@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faCheck } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -15,6 +15,8 @@ import { ClaimReferralRewardDialog } from '@core/components/referral/ClaimReferr
 import UninteractiveToken from '@core/components/token/UninteractiveToken';
 import Avatar from '@core/components/user/Avatar';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useIntlContext } from '@core/contexts/intl';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import { useReferralReward } from '@core/hooks/useReferralReward';
 import useToggle from '@core/hooks/useToggle';
 import { scarcityNames } from '@core/lib/cards';
@@ -172,7 +174,7 @@ const Milestone = ({
       <Content>
         <Details>
           <Card>
-            {reward && claimed ? (
+            {reward?.token && claimed ? (
               <OpenItemDialogLink
                 sport={reward.token.sport}
                 item={reward.token}
@@ -250,6 +252,11 @@ export const Milestones = ({
   milestones,
   currentProgression,
 }: Props) => {
+  const { fiatCurrency } = useCurrentUserContext();
+  const { formatNumber } = useIntlContext();
+  const {
+    flags: { abTestUseConversionCreditForReferrerReward = false },
+  } = useFeatureFlags();
   const sortedMilestones = useMemo(
     () =>
       milestones.slice().sort((a, b) => a.referralNumber - b.referralNumber) ||
@@ -313,10 +320,24 @@ export const Milestones = ({
               />
             </Title3>
             <Text18 color="var(--c-neutral-600)">
-              <FormattedMessage
-                id="FootballNotice.insteadOfLimitedTier3"
-                defaultMessage="instead of a Limited Card Tier 3, you win:"
-              />
+              {abTestUseConversionCreditForReferrerReward ? (
+                <FormattedMessage
+                  id="FootballNotice.insteadOf20Credits"
+                  defaultMessage="instead of a {amount} credits, you win:"
+                  values={{
+                    amount: formatNumber(20, {
+                      style: 'currency',
+                      currency: fiatCurrency.code,
+                      maximumFractionDigits: 0,
+                    }),
+                  }}
+                />
+              ) : (
+                <FormattedMessage
+                  id="FootballNotice.insteadOfLimitedTier3"
+                  defaultMessage="instead of a Limited Card Tier 3, you win:"
+                />
+              )}
             </Text18>
           </>
         )}
@@ -333,26 +354,26 @@ export const Milestones = ({
   );
 };
 
-// Milestones.fragments = {
-//   ReferralMilestoneReward: gql`
-//     fragment Milestones_referralMilestoneReward on ReferralMilestoneReward {
-//       referralNumber
-//       rewardRarity
-//       rewardTier
-//       reward {
-//         id
-//         token {
-//           assetId
-//           slug
-//           sport
-//           ...UninteractiveToken_token
-//         }
-//         ...ClaimReferralRewardDialog_referralReward
-//         #...useReferralReward_referralReward
-//       }
-//     }
-//     ${ClaimReferralRewardDialog.fragments.referralReward}
-//     #{useReferralReward.fragments.referralReward}
-//     ${UninteractiveToken.fragments.token}
-//   `,
-// };
+Milestones.fragments = {
+  ReferralMilestoneReward: gql`
+    fragment Milestones_referralMilestoneReward on ReferralMilestoneReward {
+      referralNumber
+      rewardRarity
+      rewardTier
+      reward {
+        id
+        token {
+          assetId
+          slug
+          sport
+          ...UninteractiveToken_token
+        }
+        ...ClaimReferralRewardDialog_referralReward
+        ...useReferralReward_referralReward
+      }
+    }
+    ${ClaimReferralRewardDialog.fragments.referralReward}
+    ${useReferralReward.fragments.referralReward}
+    ${UninteractiveToken.fragments.token}
+  ` as TypedDocumentNode<Milestones_referralMilestoneReward>,
+};

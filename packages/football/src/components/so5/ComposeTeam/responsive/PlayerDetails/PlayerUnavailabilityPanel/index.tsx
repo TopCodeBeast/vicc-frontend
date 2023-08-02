@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
@@ -198,7 +198,7 @@ PlayerUnavailabilityPanel.fragments = {
         endDate
       }
     }
-  `,
+  ` as TypedDocumentNode<PlayerUnavailabilityPanel_player>,
 };
 
 export default PlayerUnavailabilityPanel;

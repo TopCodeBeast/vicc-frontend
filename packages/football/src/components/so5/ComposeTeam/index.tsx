@@ -1,3 +1,4 @@
+import { TypedDocumentNode } from '@apollo/client';
 import { gql } from '@apollo/client/core';
 
 import ComposeLineup from './ComposeLineup';
@@ -20,7 +21,7 @@ const ComposeTeam = (props: Props) => (
 
 ComposeTeam.fragments = {
   so5Leaderboard: gql`
-    fragment ComposeTeamComponent_so5Leaderboard on Vicc5Leaderboard {
+    fragment ComposeTeamComponent_so5Leaderboard on So5Leaderboard {
       slug
       id
       ...ContextProvider_so5Leaderboard
@@ -28,16 +29,16 @@ ComposeTeam.fragments = {
     }
     ${ContextProvider.fragments.so5Leaderboard}
     ${ComposeLineup.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<ComposeTeamComponent_so5Leaderboard>,
   so5Lineup: gql`
-    fragment ComposeTeamComponent_so5Lineup on Vicc5Lineup {
+    fragment ComposeTeamComponent_so5Lineup on So5Lineup {
       id
       ...ContextProvider_so5Lineup
       ...ComposeLineup_so5Lineup
     }
     ${ContextProvider.fragments.so5Lineup}
     ${ComposeLineup.fragments.so5Lineup}
-  `,
+  ` as TypedDocumentNode<ComposeTeamComponent_so5Lineup>,
 };
 
 export default ComposeTeam;

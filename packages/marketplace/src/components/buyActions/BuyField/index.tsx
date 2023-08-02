@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { isPast, parseISO } from 'date-fns';
 import { ReactElement, ReactNode, useCallback, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -11,22 +11,26 @@ import LoadingButton, {
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Title5 } from '@sorare/core/src/atoms/typography';
 import { useEventContext } from '@sorare/core/src/contexts/event';
-// import { fragments as analyticsFragments } from '@sorare/core/src/contexts/events/types';
-import useCurrencyConverters from '@sorare/core/src/hooks/useCurrencyConverters';
+import { fragments as analyticsFragments } from '@sorare/core/src/contexts/events/types';
+import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import useLoggedCallback from '@sorare/core/src/hooks/useLoggedCallback';
+import useMangopayCreditCardsEnabled from '@sorare/core/src/hooks/useMangopayCreditCardsEnabled';
+import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
 import { Currency } from '@sorare/core/src/lib/currency';
 import { glossary, payment } from '@sorare/core/src/lib/glossary';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
+import { getCurrenciesFromSettlementCurrencies } from '@sorare/core/src/lib/settlementCurrencies';
 
-// import BuyOnAuctionPoweredByAlgolia from '@marketplace/components/buyActions/BuyOnAuction';
-// // eslint-disable-next-line sorare/no-unrendered-component-imports
-// import BuyTokenConfirmation from '@marketplace/components/buyActions/BuyTokenConfirmation';
-// import BuyTokenSummary from '@marketplace/components/buyActions/BuyTokenSummary';
-// import CancelOffer from '@marketplace/components/buyActions/CancelOffer';
-// import LazyPaymentProvider from '@marketplace/components/buyActions/LazyPaymentProvider';
+import BuyOnAuctionPoweredByAlgolia from '@marketplace/components/buyActions/BuyOnAuction';
+// eslint-disable-next-line sorare/no-unrendered-component-imports
+import BuyTokenConfirmation from '@marketplace/components/buyActions/BuyTokenConfirmation';
+import BuyTokenSummary from '@marketplace/components/buyActions/BuyTokenSummary';
+import CancelOffer from '@marketplace/components/buyActions/CancelOffer';
+import LazyPaymentProvider from '@marketplace/components/buyActions/LazyPaymentProvider';
 import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
 import { useBuyConfirmationContext } from '@marketplace/contexts/buyingConfirmation';
-// import useAcceptOffer from '@marketplace/hooks/offers/useAcceptOffer';
+import useAcceptOffer from '@marketplace/hooks/offers/useAcceptOffer';
 import useCannotBuy from '@marketplace/hooks/offers/useCannotBuy';
 
 import { BuyField_token } from './__generated__/index.graphql';
@@ -70,23 +74,27 @@ const BuyField = ({
   buttonLabel = <FormattedMessage {...glossary.buy} />,
   renderButton,
 }: Props) => {
+  const useMangopayCreditCards = useMangopayCreditCardsEnabled();
+
   const { liveSingleSaleOffer, myMintedSingleSaleOffer } = token;
-  const { convertFromWei } = useCurrencyConverters();
+
   const { setShowBuyingConfirmation } = useBuyConfirmationContext();
   const belongsToUser = useTokenOfferBelongsToUser();
-  // const acceptOffer = useAcceptOffer();
+  const acceptOffer = useAcceptOffer();
   const cannotBuy = useCannotBuy();
   const cannotBuyToken = cannotBuy(token);
   const { formatMessage } = useIntl();
-
+  const { toMonetaryAmount } = useMonetaryAmount();
   const [paymentStarted, setPaymentStarted] = useState<boolean>(false);
   const loggedTogglePaymentStarted = useLoggedCallback<boolean>(b =>
     setPaymentStarted(b)
   );
+  const {
+    flags: { useCashWallet = false },
+  } = useFeatureFlags();
 
   const OrderSummaryComponent = useCallback(() => {
-    return <>BuyTokenSummary789</>
-    // return <BuyTokenSummary token={token} />;
+    return <BuyTokenSummary token={token} />;
   }, [token]);
 
   const { trackClickBuy } = useMarketplaceContext();
@@ -103,20 +111,22 @@ const BuyField = ({
   if (myMintedSingleSaleOffer && belongsToUser(myMintedSingleSaleOffer))
     return (
       <Root>
-        {/* <CancelOffer
+        <CancelOffer
           color="red"
           medium={medium}
           small={small}
           token={token}
           stroke={cancelStroke}
-        /> */}
+        />
       </Root>
     );
 
   // Don't show the offer to users if it is not live yet
   if (!liveSingleSaleOffer?.blockchainId) return null;
 
-  const { id, priceWei, creditCardFee, endDate } = liveSingleSaleOffer;
+  const { id, creditCardFee, endDate, receiverSide, settlementCurrencies } =
+    liveSingleSaleOffer;
+  const { amounts } = receiverSide;
 
   // Don't show the button if the offer expired
   if (isPast(parseISO(endDate))) return null;
@@ -126,22 +136,24 @@ const BuyField = ({
   }: {
     supportedCurrency: SupportedCurrency;
   }) => {
-    // const errors = await acceptOffer({
-    //   offerId: id,
-    //   supportedCurrency,
-    //   receiveTokens: [],
-    // });
-    // if (!errors || errors.length === 0) {
-    //   return onPaymentSuccess();
-    // }
-    // return { err: errors };
+    const errors = await acceptOffer({
+      offerId: id,
+      supportedCurrency,
+      receiveTokens: [],
+    });
+    if (!errors || errors.length === 0) {
+      return onPaymentSuccess();
+    }
+    return { err: errors };
   };
+
+  const monetaryAmount = toMonetaryAmount(amounts);
 
   const onClick = () => {
     trackClickBuy(
       id,
-      priceWei,
-      convertFromWei(priceWei, 'EUR'),
+      monetaryAmount.wei,
+      monetaryAmount.eur / 100,
       [token.assetId],
       token.sport,
       trackingContext?.subPath
@@ -174,19 +186,18 @@ const BuyField = ({
           )}
         </BuyTooltip>
       </Root>
-      {/* {paymentStarted && (
+      {paymentStarted && (
         <LazyPaymentProvider
           paymentProps={{
             objectId: id,
             onSuccess: onPaymentSuccess,
             onSubmit: buyWithEth,
-            price: {
-              wei: priceWei,
-              referenceCurrency: SupportedCurrency.WEI,
-            },
+            price: amounts,
             cta: payment.confirmAndPay,
             creditCardFee,
-            currencies: [Currency.ETH],
+            currencies: !useCashWallet
+              ? [Currency.ETH]
+              : getCurrenciesFromSettlementCurrencies(settlementCurrencies),
             buyOnAuctionPoweredByAlgolia: (
               <BuyOnAuctionPoweredByAlgolia
                 sport={token.sport}
@@ -207,9 +218,10 @@ const BuyField = ({
             confirmationProviderStateProps: {
               tokenOfferId: token?.liveSingleSaleOffer?.id,
             },
+            creditCardMethodsDisabled: !useMangopayCreditCards,
           }}
         />
-      )} */}
+      )}
     </>
   );
 };
@@ -221,12 +233,10 @@ BuyField.fragments = {
       slug
       name
       sport
-      #...Analytics_tokenInfo
+      ...Analytics_tokenInfo
       metadata {
-        ... on TokenCricketMetadata {
-          id
-        }
         ... on TokenCardMetadataInterface {
+          id
           rarity
           playerSlug
         }
@@ -234,7 +244,7 @@ BuyField.fragments = {
       liveSingleSaleOffer {
         id
         blockchainId
-        priceWei: price
+        settlementCurrencies
         creditCardFee
         endDate
         sender {
@@ -243,23 +253,30 @@ BuyField.fragments = {
             nickname
           }
         }
-        #...BuyTokenConfirmation_tokenOffer
+        receiverSide {
+          id
+          amounts {
+            ...MonetaryAmountFragment_monetaryAmount
+          }
+        }
+        ...BuyTokenConfirmation_tokenOffer
       }
       myMintedSingleSaleOffer {
         id
         ...useTokenOfferBelongsToUser_offer
       }
-      #...CancelOffer_token
-      #...BuyTokenSummary_token
+      ...CancelOffer_token
+      ...BuyTokenSummary_token
       ...useCannotBuy_token
     }
+    ${monetaryAmountFragment}
     ${useTokenOfferBelongsToUser.fragments.offer}
-    #{CancelOffer.fragments.token}
-    #{analyticsFragments.tokenInfo}
-    #{BuyTokenSummary.fragments.token}
-    #{BuyTokenConfirmation.fragments.tokenOffer}
+    ${CancelOffer.fragments.token}
+    ${analyticsFragments.tokenInfo}
+    ${BuyTokenSummary.fragments.token}
+    ${BuyTokenConfirmation.fragments.tokenOffer}
     ${useCannotBuy.fragments.token}
-  `,
+  ` as TypedDocumentNode<BuyField_token>,
 };
 
 export default BuyField;

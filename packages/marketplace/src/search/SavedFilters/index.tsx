@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import {
   faBookmark,
   faPlusLarge,
@@ -62,7 +62,7 @@ const SAVED_FILTERS_QUERY = gql`
       cardFilters(sport: $sport)
     }
   }
-`;
+` as TypedDocumentNode<SavedFiltersQuery, SavedFiltersQueryVariables>;
 const UPDATE_SAVED_FILTERS_MUTATION = gql`
   mutation UpdateSavedFiltersMutation(
     $input: updateCardFiltersInput!
@@ -79,7 +79,10 @@ const UPDATE_SAVED_FILTERS_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  UpdateSavedFiltersMutation,
+  UpdateSavedFiltersMutationVariables
+>;
 
 const DropdownContent = styled.div`
   width: 240px;
@@ -213,19 +216,13 @@ export const SavedFilters = () => {
     };
   }, [indexUiState]);
 
-  const { data } = useQuery<SavedFiltersQuery, SavedFiltersQueryVariables>(
-    SAVED_FILTERS_QUERY,
-    {
-      variables: {
-        sport: sport!,
-      },
-      skip: !sport || !currentUser,
-    }
-  );
-  const [updateFilters] = useMutation<
-    UpdateSavedFiltersMutation,
-    UpdateSavedFiltersMutationVariables
-  >(UPDATE_SAVED_FILTERS_MUTATION);
+  const { data } = useQuery(SAVED_FILTERS_QUERY, {
+    variables: {
+      sport: sport!,
+    },
+    skip: !sport || !currentUser,
+  });
+  const [updateFilters] = useMutation(UPDATE_SAVED_FILTERS_MUTATION);
 
   const cardFilters = useMemo(
     () => data?.currentUser?.cardFilters || {},
@@ -299,7 +296,7 @@ export const SavedFilters = () => {
   );
 
   const applyFilters = useCallback(
-    filters => {
+    (filters: any) => {
       setVirtualToggleFilters(
         {
           ...Object.fromEntries(

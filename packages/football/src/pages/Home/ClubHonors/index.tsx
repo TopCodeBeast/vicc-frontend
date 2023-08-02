@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -27,7 +27,9 @@ import EmptyState from './EmptyState';
 import ClubHonorsSummary from './Summary';
 import {
   ClubHonorsLineupsQuery,
+  ClubHonorsLineupsQueryVariables,
   ClubHonorsSummariesQuery,
+  ClubHonorsSummariesQueryVariables,
 } from './__generated__/index.graphql';
 
 interface Props {
@@ -112,12 +114,15 @@ const CLUB_HONORS_SUMMARIES_QUERY = gql`
   ${ClubHonorsSummary.fragments.user}
   ${ClubHonorsSummaryByLeaderboard.fragments.user}
   ${HighlightedCards.fragments.user}
-`;
+` as TypedDocumentNode<
+  ClubHonorsSummariesQuery,
+  ClubHonorsSummariesQueryVariables
+>;
 
 const CLUB_HONORS_LINEUPS_QUERY = gql`
   query ClubHonorsLineupsQuery(
     $slug: String!
-    $vicc5LeaderboardType: Vicc5LeaderboardType
+    $so5LeaderboardType: So5LeaderboardType
     $cursor: String
   ) {
     user(slug: $slug) {
@@ -125,15 +130,15 @@ const CLUB_HONORS_LINEUPS_QUERY = gql`
       rewardedRankings(
         after: $cursor
         first: 12
-        vicc5LeaderboardType: $vicc5LeaderboardType
+        so5LeaderboardType: $so5LeaderboardType
       ) {
         nodes {
           id
-          so5Lineup: vicc5Lineup {
+          so5Lineup {
             id
             ...Lineup_so5Lineup
           }
-          so5Leaderboard: vicc5Leaderboard {
+          so5Leaderboard {
             slug
             ...Lineup_so5Leaderboard
           }
@@ -147,13 +152,13 @@ const CLUB_HONORS_LINEUPS_QUERY = gql`
   }
   ${Lineup.fragments.so5Leaderboard}
   ${Lineup.fragments.so5Lineup}
-`;
+` as TypedDocumentNode<ClubHonorsLineupsQuery, ClubHonorsLineupsQueryVariables>;
 
 const ClubHonors = ({ user: { slug }, readOnly }: Props) => {
   const useCustomLists = useUseCustomLists();
   const [selectedLeaderboard, setSelectedLeaderboard] =
     useState<So5Tournament | null>(null);
-  const { data: summariesData, loading } = useQuery<ClubHonorsSummariesQuery>(
+  const { data: summariesData, loading } = useQuery(
     CLUB_HONORS_SUMMARIES_QUERY,
     {
       variables: {
@@ -161,15 +166,17 @@ const ClubHonors = ({ user: { slug }, readOnly }: Props) => {
       },
     }
   );
-  const { data: lineupsData, loadMore } =
-    usePaginatedQuery<ClubHonorsLineupsQuery>(CLUB_HONORS_LINEUPS_QUERY, {
+  const { data: lineupsData, loadMore } = usePaginatedQuery(
+    CLUB_HONORS_LINEUPS_QUERY,
+    {
       variables: {
         slug,
         so5LeaderboardType: selectedLeaderboard?.so5LeaderboardType,
       },
       skip: readOnly,
       connection: 'So5RankingConnection',
-    });
+    }
+  );
 
   const { endCursor, hasNextPage } =
     lineupsData?.user.rewardedRankings.pageInfo || {};

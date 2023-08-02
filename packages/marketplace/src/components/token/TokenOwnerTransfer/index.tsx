@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { TokenOwnerPrice } from '../TokenOwnerPrice';
@@ -35,7 +35,7 @@ TokenOwnerTransfer.fragments = {
       ...TokenOwnerPrice_tokenOwner
     }
     ${TokenOwnerPrice.fragments.tokenOwner}
-  `,
+  ` as TypedDocumentNode<TokenOwnerTransfer_owner>,
 };
 
 export default TokenOwnerTransfer;

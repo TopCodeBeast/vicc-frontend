@@ -16,7 +16,7 @@ interface RenderProps {
 interface Props {
   defaultValue?: any;
   name: string;
-  render: FunctionComponent<RenderProps>;
+  render: FunctionComponent<React.PropsWithChildren<RenderProps>>;
 }
 
 export const Field = ({ defaultValue, name, render }: Props) => {

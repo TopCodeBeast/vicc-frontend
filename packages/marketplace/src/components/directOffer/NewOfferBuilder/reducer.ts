@@ -1,8 +1,9 @@
-import Big from 'bignumber.js';
-
-import { Currency } from '@sorare/core/src/__generated__/globalTypes';
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
+import {
+  MonetaryAmountOutput,
+  zeroMonetaryAmount,
+} from '@sorare/core/src/hooks/useMonetaryAmount';
 import { CardHit, buildAlgoliaObjectId } from '@sorare/core/src/lib/algolia';
-import { fromWei } from '@sorare/core/src/lib/wei';
 
 import { WalletPaymentMethod } from '@marketplace/components/buyActions/PaymentProvider/types';
 
@@ -13,133 +14,64 @@ import {
   RefreshCardData,
   SetCurrencyAndPaymentMethod,
   SetDuration,
-  SetReceiveEth,
-  SetSendEth,
+  SetReceiveAmount,
+  SetSendAmount,
   SetStage,
   State,
   UpdateReceiveCards,
   UpdateSendCards,
 } from './types';
 
-const zero = new Big(0);
-
-const computeSendMinimumPrice: <T extends CardDataType>(
-  state: State<T>
-) => Big = <T extends CardDataType>({
-  sendCards,
-  receiveCards,
-  cardsData,
-}: State<T>) => {
-  if (sendCards.length > 0) {
-    return zero;
-  }
-  return receiveCards.reduce((prev: Big, curr) => {
-    // const cardMinPrice = cardsData[curr.objectID]?.publicMinPrice;
-    // if (!cardMinPrice) return prev;
-    // const cardMinPriceBig = new Big(cardMinPrice || 0);
-    // return cardMinPriceBig.gt(prev) ? cardMinPriceBig : prev;
-    return prev; //TODO****
-  }, zero);
-};
-
-const computeReceiveMinimumPrice: <T extends CardDataType>(
-  state: State<T>
-) => Big = <T extends CardDataType>({
-  receiveCards,
-  sendCards,
-  cardsData,
-}: State<T>) => {
-  if (receiveCards.length > 0) {
-    return zero;
-  }
-  return sendCards.reduce((prev: Big, curr) => {
-    // const cardMinPrice = cardsData[curr.objectID]?.publicMinPrice;
-    // if (!cardMinPrice) return prev;
-    // const cardMinPriceBig = new Big(cardMinPrice || 0);
-    // return cardMinPriceBig.gt(prev) ? cardMinPriceBig : prev;
-    return prev; //TODO****
-  }, zero);
-};
-
-interface InitProps<T extends CardDataType> {
+export type InitProps<T extends CardDataType> = {
   initialReceiveCards: T[];
-  initialReceiveEth: number;
-  initialReceiveMarketFeesEth: number;
+  initialReceiveAmount: MonetaryAmountOutput;
+  initialReceiveMarketFeesAmount: MonetaryAmountOutput;
   initialSendCards: T[];
-  initialSendEth: number;
+  initialSendAmount: MonetaryAmountOutput;
   initialPaymentMethod?: WalletPaymentMethod;
-  initialCurrency?: Currency;
+  initialSendCurrency?: SupportedCurrency;
+  initialReceiveCurrency?: SupportedCurrency;
   readonly submit: (
     dispatch: React.Dispatch<Actions<T>>,
     state: State<T>
   ) => Promise<void>;
   readonly convertToAlgoliaCardHit: (card: T) => CardHit;
-}
-
-const refreshMinimumPriceAndValid = <T extends CardDataType>(
-  state: State<T>
-) => {
-  const result = state;
-  result.minSendEth = fromWei(computeSendMinimumPrice(result).toString());
-  result.minReceiveEth = fromWei(computeReceiveMinimumPrice(result).toString());
-  const isTradeForNothing =
-    (result.sendEth > 0 && result.receiveCards.length === 0) ||
-    (result.receiveEth > 0 && result.sendCards.length === 0);
-
-  const valid = () => {
-    if (result.minSendEth > result.sendEth) return false;
-    if (isTradeForNothing) return false;
-    if (
-      result.sendEth === 0 &&
-      result.sendCards.length === 0 &&
-      result.receiveCards.length === 0
-    )
-      return false;
-    return true;
-  };
-
-  result.valid = valid();
-  result.isTradeForNothing = isTradeForNothing;
-  return result;
 };
 
 export const init = <T extends CardDataType>({
   initialReceiveCards = [],
-  initialReceiveEth = 0,
-  initialReceiveMarketFeesEth = 0,
+  initialReceiveAmount = zeroMonetaryAmount,
+  initialReceiveMarketFeesAmount = zeroMonetaryAmount,
   initialSendCards = [],
-  initialSendEth = 0,
+  initialSendAmount = zeroMonetaryAmount,
   submit,
   convertToAlgoliaCardHit,
   initialPaymentMethod,
-  initialCurrency,
+  initialSendCurrency = SupportedCurrency.WEI,
+  initialReceiveCurrency = SupportedCurrency.WEI,
 }: InitProps<T>): State<T> => {
   const result: State<T> = {
-    sendEth: initialSendEth || 0,
-    receiveEth: initialReceiveEth || 0,
+    sendAmount: initialSendAmount,
+    receiveAmount: initialReceiveAmount,
     stage: 'building',
     sendCards: initialSendCards.map(convertToAlgoliaCardHit),
     receiveCards: initialReceiveCards.map(convertToAlgoliaCardHit),
-    receiveMarketFeesEth: initialReceiveMarketFeesEth || 0,
-    // cardsData: [...initialSendCards, ...initialReceiveCards].reduce(
-    //   (prev: Record<string, T>, curr) => {
-    //     const algoliaObjectId = buildAlgoliaObjectId(curr);
-    //     prev[algoliaObjectId] = curr;
-    //     return prev;
-    //   },
-    //   {}
-    // ),
-    cardsData: [] as any,
+    receiveMarketFeesAmount: initialReceiveMarketFeesAmount,
+    cardsData: [...initialSendCards, ...initialReceiveCards].reduce(
+      (prev: Record<string, T>, curr) => {
+        const algoliaObjectId = buildAlgoliaObjectId(curr);
+        prev[algoliaObjectId] = curr;
+        return prev;
+      },
+      {}
+    ),
     duration: 7,
-    minSendEth: 0,
-    minReceiveEth: 0,
     submit,
-    valid: true,
-    isTradeForNothing: false,
     paymentMethod: initialPaymentMethod || null,
-    currency: initialCurrency || null,
-  } as any;
-  return refreshMinimumPriceAndValid(result);
+    sendAmountCurrency: initialSendCurrency,
+    receiveAmountCurrency: initialReceiveCurrency,
+  };
+  return result;
 };
 
 type ActionHandler<T extends CardDataType> = (
@@ -157,28 +89,28 @@ const actionHandlers: {
   ) => State<D>;
 } = {
   updateSendCards: (state, action: UpdateSendCards) => {
-    return refreshMinimumPriceAndValid({
+    return {
       ...state,
       sendCards: [...action.cards],
-    });
+    };
   },
-  setSendEth: (state, action: SetSendEth) => {
-    const { sendEth } = action;
-    return refreshMinimumPriceAndValid({
+  setSendAmount: (state, action: SetSendAmount) => {
+    const { sendAmount } = action;
+    return {
       ...state,
-      receiveEth: 0,
-      receiveMarketFeesEth: 0,
-      sendEth,
-    });
+      receiveAmount: zeroMonetaryAmount,
+      receiveMarketFeesAmount: zeroMonetaryAmount,
+      sendAmount,
+    };
   },
-  setReceiveEth: (state, action: SetReceiveEth) => {
-    const { receiveEth, receiveMarketFeesEth } = action;
-    return refreshMinimumPriceAndValid({
+  setReceiveAmount: (state, action: SetReceiveAmount) => {
+    const { receiveAmount, receiveMarketFeesAmount } = action;
+    return {
       ...state,
-      sendEth: 0,
-      receiveEth,
-      ...(receiveMarketFeesEth && { receiveMarketFeesEth }),
-    });
+      sendAmount: zeroMonetaryAmount,
+      receiveAmount,
+      ...(receiveMarketFeesAmount && { receiveMarketFeesAmount }),
+    };
   },
   setStage: (state, action: SetStage) => {
     return {
@@ -187,19 +119,19 @@ const actionHandlers: {
     };
   },
   updateReceiveCards: (state, action: UpdateReceiveCards) => {
-    return refreshMinimumPriceAndValid({
+    return {
       ...state,
       receiveCards: [...action.cards],
-    });
+    };
   },
-  /*refreshCardData: <D extends CardDataType>(
+  refreshCardData: <D extends CardDataType>(
     state: State<D>,
     action: RefreshCardData<D>
   ) => {
-    return refreshMinimumPriceAndValid({
+    return {
       ...state,
       cardsData: action.cardData,
-    });
+    };
   },
   setDuration: (state, action: SetDuration) => {
     const { duration } = action;
@@ -212,16 +144,18 @@ const actionHandlers: {
     };
   },
   setCurrencyAndPaymentMethod: (state, action: SetCurrencyAndPaymentMethod) => {
-    const { paymentMethod, currency } = action;
+    const { paymentMethod, referenceCurrency } = action;
     if (state.paymentMethod === paymentMethod) {
       return state;
     }
     return {
       ...state,
       ...(state.paymentMethod !== paymentMethod && { paymentMethod }),
-      ...(state.currency !== currency && { currency }),
+      ...(state.sendAmountCurrency !== referenceCurrency && {
+        sendAmountCurrency: referenceCurrency,
+      }),
     };
-  },*/
+  },
 };
 
 export default <D extends CardDataType>() =>

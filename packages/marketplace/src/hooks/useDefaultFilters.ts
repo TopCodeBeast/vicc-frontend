@@ -33,28 +33,27 @@ const useDefaultFilters = ({
 }: Props): string[] => {
   const { currentUser } = useCurrentUserContext();
   const {
-    flags: { useNewWallet = false },
+    flags: { useCashWallet = false },
   } = useFeatureFlags();
 
   const settlableWalletsFilter = useMemo(() => {
-    const enabledWallets = null;//currentUser?.profile?.enabledWallets;
+    const enabledWallets = currentUser?.profile?.enabledWallets;
     if (enabledWallets) {
       if (enabledWallets.length === 1) {
-        // if (enabledWallets[0] === EnabledWallet.FIAT) {
-        //   // if the user only configured their FIAT wallet, only display them cards they can settle in FIAT
-        //   return 'sale.settlement_wallets:fiat';
-        // }
-        // if (enabledWallets[0] === EnabledWallet.ETH) {
-        //   // if the user only configured their ETH wallet, still show them FIAT-only cards,
-        //   // they might want to pay with by CC
-        // }
+        if (enabledWallets[0] === EnabledWallet.FIAT) {
+          // if the user only configured their FIAT wallet, only display them cards they can settle in FIAT
+          return 'sale.settlement_wallets:fiat';
+        }
+        if (enabledWallets[0] === EnabledWallet.ETH) {
+          // if the user only configured their ETH wallet, still show them FIAT-only cards,
+          // they might want to pay with by CC
+        }
       }
     }
 
     // no filter means all cards
     return null;
-  // }, [currentUser?.profile?.enabledWallets]);
-  }, [currentUser?.profile]);
+  }, [currentUser?.profile?.enabledWallets]);
 
   const filters = useMemo(
     () =>
@@ -64,7 +63,7 @@ const useDefaultFilters = ({
         primary && ['sale.primary:true', 'sale.type:EnglishAuction'],
         starterPacks && ['sale.primary:true', 'sale.type:PrimaryOffer'],
         secondary && 'sale.primary:false',
-        onlySettlableCards && useNewWallet && settlableWalletsFilter,
+        onlySettlableCards && useCashWallet && settlableWalletsFilter,
         rarity && `rarity:${rarity}`,
         countrySlug && `country.code:${countrySlug}`,
         userId && `user.id:${userId}`,
@@ -80,7 +79,7 @@ const useDefaultFilters = ({
       starterPacks,
       secondary,
       onlySettlableCards,
-      useNewWallet,
+      useCashWallet,
       settlableWalletsFilter,
       rarity,
       countrySlug,

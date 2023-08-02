@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { CLUB_PLACEHOLDER } from '@sorare/core/src/constants/assets';
 
@@ -29,7 +29,7 @@ TeamPicture.fragments = {
         pictureUrl
       }
     }
-  `,
+  ` as TypedDocumentNode<TeamPicture_team>,
 };
 
 export default TeamPicture;

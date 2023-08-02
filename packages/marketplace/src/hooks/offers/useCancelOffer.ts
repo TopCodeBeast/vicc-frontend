@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 
 import {
   Level,
@@ -45,13 +45,10 @@ const CANCEL_OFFER_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<CancelOfferMutation, CancelOfferMutationVariables>;
 
 export default () => {
-  const [cancelOffer] = useMutation<
-    CancelOfferMutation,
-    CancelOfferMutationVariables
-  >(CANCEL_OFFER_MUTATION);
+  const [cancelOffer] = useMutation(CANCEL_OFFER_MUTATION);
   const { showNotification } = useSnackNotificationContext();
 
   return async (blockchainId: string) => {

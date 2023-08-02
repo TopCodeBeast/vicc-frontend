@@ -1,20 +1,23 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useContext, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import { AveragePlayerScore } from '@sorare/core/src/__generated__/globalTypes';
+import Button from '@sorare/core/src/atoms/buttons/Button';
 import { CardImg } from '@sorare/core/src/components/card/CardImg';
 import { useOneTimeDialogContext } from '@sorare/core/src/contexts/oneTimeDialog';
 import { OneTimeDialog } from '@sorare/core/src/contexts/oneTimeDialog/Provider';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { LIFECYCLE } from '@sorare/core/src/hooks/useLifecycle';
+import { glossary } from '@sorare/core/src/lib/glossary';
 import { LineupPosition, lineupPositions } from '@sorare/core/src/lib/players';
 
 import DumbComposeTeam from '@football/components/composeTeam';
 import CapBar from '@football/components/composeTeam/Bench/Field/CapBar';
 import Header from '@football/components/composeTeam/Header';
 import LineupHeader from '@football/components/composeTeam/LineupHeader';
+import { SubmitSuccessDialog } from '@football/components/composeTeam/SubmitSuccessDialog';
 import { ComposeOnboarding } from '@football/components/onboarding/ComposeOnboarding';
 import AverageScore from '@football/components/so5/AverageScore';
 import Context from '@football/components/so5/ComposeTeam/Context';
@@ -27,6 +30,11 @@ import PlayerDetails from '@football/components/so5/ComposeTeam/responsive/Playe
 import Requirements from '@football/components/so5/ComposeTeam/responsive/Requirements';
 import useShortcut from '@football/hooks/useShortcut';
 import { getTitleMessage } from '@football/lib/composeLineup';
+
+import {
+  ComposeLineup_so5Leaderboard,
+  ComposeLineup_so5Lineup,
+} from './__generated__/index.graphql';
 
 const PlayerScoreWrapper = styled.div`
   position: absolute;
@@ -57,9 +65,11 @@ const ComposeLineup = () => {
     toggleCaptain,
     playerDetails,
     setPlayerDetails,
+    addCard,
     removeCard,
     isDrawerOpen,
     setIsDrawerOpen,
+    isCreateMode,
   } = useContext(Context)!;
   const { up: isLaptop } = useScreenSize('laptop');
   const { sawDialog } = useOneTimeDialogContext();
@@ -67,7 +77,7 @@ const ComposeLineup = () => {
   const totalFifteenAverageScore = useMemo(
     () =>
       Object.values(lineup).reduce((acc, cur) => {
-        return (cur.card?.lastFifteenVicc5AverageScore || 0) + acc;
+        return (cur.card?.lastFifteenSo5AverageScore || 0) + acc;
       }, 0),
     [lineup]
   );
@@ -82,6 +92,9 @@ const ComposeLineup = () => {
   const isCaptainStep = lineupComplete && needCaptain && !captain;
   const isConfirmStep = lineupComplete && !isCaptainStep;
   const titleMessage = getTitleMessage(isCaptainStep, isConfirmStep, isEdit);
+  const playerDetailsSelected = Object.values(lineup)?.find(
+    ({ card }) => card?.slug === playerDetails?.card?.slug
+  );
   const stall =
     !!so5Leaderboard.commonDraftCampaign?.slug &&
     !sawDialog(LIFECYCLE.sawComposeOnboarding);
@@ -93,6 +106,7 @@ const ComposeLineup = () => {
       setBenchOpen(true);
     }
   };
+
   const renderBenchField = ({ Card, CardPlaceholder }: any) => {
     return Object.entries(lineup).map(([position, { card }]) => {
       return (
@@ -111,23 +125,23 @@ const ComposeLineup = () => {
               position={position as LineupPosition}
             />
           )}
-          {typeof card?.lastFifteenVicc5AverageScore === 'number' && (
+          {typeof card?.lastFifteenSo5AverageScore === 'number' && (
             <PlayerScoreWrapper>
               <AverageScore
                 capped={isCappedMode}
                 score={
                   card?.[
                     displayedAverageScore ===
-                    AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE
+                    AveragePlayerScore.LAST_FIVE_SO5_AVERAGE_SCORE
                       ? 'lastFiveSo5AverageScore'
-                      : 'lastFifteenVicc5AverageScore'
+                      : 'lastFifteenSo5AverageScore'
                   ]
                 }
                 withTooltip
                 size="smaller"
                 scoreMode={
                   displayedAverageScore ===
-                  AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE
+                  AveragePlayerScore.LAST_FIVE_SO5_AVERAGE_SCORE
                     ? 'AVERAGE_LAST_5_GAMES'
                     : 'AVERAGE_LAST_15_GAMES'
                 }
@@ -142,7 +156,7 @@ const ComposeLineup = () => {
   return (
     <>
       <DumbComposeTeam
-        disableAnimation={so5Leaderboard.trainingCenter}
+        disableAnimation={so5Leaderboard.trainingCenter || !isCreateMode}
         stall={stall}
         header={
           <Header
@@ -256,7 +270,6 @@ const ComposeLineup = () => {
                         onClick={() => {
                           setActivePosition(position);
                           setBenchOpen(true);
-                          setIsDrawerOpen(false);
                         }}
                         position={position}
                         selected={position === activePosition}
@@ -276,14 +289,33 @@ const ComposeLineup = () => {
         drawer={Drawer => (
           <Drawer open={isDrawerOpen}>
             {playerDetails ? (
-              <div className="dark-theme">
-                <PlayerDetails
-                  slug={playerDetails.slug}
-                  pictureUrl={playerDetails.pictureUrl || ''}
-                  card={playerDetails.card}
-                  onClose={() => setIsDrawerOpen(false)}
-                />
-              </div>
+              <PlayerDetails
+                slug={playerDetails.slug}
+                pictureUrl={playerDetails.pictureUrl || ''}
+                card={playerDetails.card}
+                onClose={() => setIsDrawerOpen(false)}
+                extraActions={
+                  playerDetails.card && (
+                    <Button
+                      color={playerDetailsSelected ? 'red' : 'blue'}
+                      small
+                      onClick={() => {
+                        if (playerDetailsSelected) {
+                          removeCard(activePosition);
+                        } else {
+                          addCard(playerDetails.card!);
+                        }
+                      }}
+                    >
+                      {playerDetailsSelected ? (
+                        <FormattedMessage {...glossary.remove} />
+                      ) : (
+                        <FormattedMessage {...glossary.select} />
+                      )}
+                    </Button>
+                  )
+                }
+              />
             ) : null}
           </Drawer>
         )}
@@ -301,20 +333,21 @@ const ComposeLineup = () => {
         )}
       </OneTimeDialog>
       <CaptainDialog />
+      <SubmitSuccessDialog />
     </>
   );
 };
 
 ComposeLineup.fragments = {
   so5Leaderboard: gql`
-    fragment ComposeLineup_so5Leaderboard on Vicc5Leaderboard {
+    fragment ComposeLineup_so5Leaderboard on So5Leaderboard {
       slug
       rules {
         id
         sumOfAverageScores
       }
       trainingCenter
-      so5League: vicc5League {
+      so5League {
         slug
         name
       }
@@ -330,11 +363,11 @@ ComposeLineup.fragments = {
     }
     ${Header.fragments.so5Leaderboard}
     ${ComposeOnboarding.fragments.competition}
-  `,
+  ` as TypedDocumentNode<ComposeLineup_so5Leaderboard>,
   so5Lineup: gql`
-    fragment ComposeLineup_so5Lineup on Vicc5Lineup {
+    fragment ComposeLineup_so5Lineup on So5Lineup {
       id
-      so5Appearances: vicc5Appearances {
+      so5Appearances {
         id
         ...Appearance_so5Appearance
         card {
@@ -346,7 +379,7 @@ ComposeLineup.fragments = {
     }
     ${Appearance.fragments.so5_appearance}
     ${BenchCards.fragments.card}
-  `,
+  ` as TypedDocumentNode<ComposeLineup_so5Lineup>,
 };
 
 export default ComposeLineup;

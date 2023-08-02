@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faList } from '@fortawesome/pro-solid-svg-icons';
 import { Badge } from '@material-ui/core';
 import { useContext } from 'react';
@@ -8,7 +8,7 @@ import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import Dropdown, {
   DropdownOptionLabel,
 } from '@sorare/core/src/atoms/dropdowns/Dropdown';
-import { first50DecksOnCurrentUserFragment } from '@sorare/core/src/hooks/decks/fragments';
+import { FIRST50_DECKS_ON_CURRENT_USER_FRAGMENT } from '@sorare/core/src/hooks/decks/fragments';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
 import Context from '@football/components/so5/ComposeTeam/Context';
@@ -25,8 +25,8 @@ const GET_CUSTOM_DECKS_QUERY = gql`
       ...first50DecksOnCurrentUserFragment
     }
   }
-  ${first50DecksOnCurrentUserFragment}
-`;
+  ${FIRST50_DECKS_ON_CURRENT_USER_FRAGMENT}
+` as TypedDocumentNode<GetCustomDecksQuery, GetCustomDecksQueryVariables>;
 
 const StyledDropdownOptionLabel = styled(DropdownOptionLabel)`
   padding-right: var(--double-unit);
@@ -42,9 +42,7 @@ const Label = styled.span`
 `;
 
 export const CustomListFilter = () => {
-  const { data } = useQuery<GetCustomDecksQuery, GetCustomDecksQueryVariables>(
-    GET_CUSTOM_DECKS_QUERY
-  );
+  const { data } = useQuery(GET_CUSTOM_DECKS_QUERY);
   const { customListFilter, setCustomListFilter } = useContext(Context)!;
 
   if (!data) return null;
@@ -72,23 +70,25 @@ export const CustomListFilter = () => {
         </Badge>
       }
     >
-      {({ closeDropdown }) =>
-        selectOptions?.map(({ label, value }) => (
-          <StyledDropdownOptionLabel key={value} onClick={closeDropdown}>
-            {label}
-            <input
-              className="sr-only"
-              type="checkbox"
-              value={value}
-              checked={customListFilter === value}
-              onChange={({ target }) => {
-                const { checked } = target;
-                setCustomListFilter(checked ? value : undefined);
-              }}
-            />
-          </StyledDropdownOptionLabel>
-        ))
-      }
+      {({ closeDropdown }) => (
+        <>
+          {selectOptions?.map(({ label, value }) => (
+            <StyledDropdownOptionLabel key={value} onClick={closeDropdown}>
+              {label}
+              <input
+                className="sr-only"
+                type="checkbox"
+                value={value}
+                checked={customListFilter === value}
+                onChange={({ target }) => {
+                  const { checked } = target;
+                  setCustomListFilter(checked ? value : undefined);
+                }}
+              />
+            </StyledDropdownOptionLabel>
+          ))}
+        </>
+      )}
     </Dropdown>
   );
 };

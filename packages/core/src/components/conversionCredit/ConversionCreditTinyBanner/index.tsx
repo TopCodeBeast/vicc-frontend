@@ -10,7 +10,10 @@ import { ChevronRightBold } from '@core/atoms/icons/ChevronRightBold';
 import { Text14, Text16 } from '@core/atoms/typography';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useIntlContext } from '@core/contexts/intl';
-import { useConversionCredit } from '@core/hooks/useConversionCredit';
+import {
+  ConversionCreditWithAmounts,
+  useConversionCredit,
+} from '@core/hooks/useConversionCredit';
 import { MonetaryAmountCurrency } from '@core/lib/monetaryAmount';
 import { tabletAndAbove } from '@core/style/mediaQuery';
 
@@ -64,19 +67,22 @@ const RemoveButton = styled.button`
 
 type Props = {
   sport?: Sport;
+  conversionCredit?: ConversionCreditWithAmounts;
   wrapTerms?: boolean;
   onRemove?: () => void;
 };
 
 export const ConversionCreditTinyBanner = ({
   sport,
+  conversionCredit: conversionCreditProp,
   wrapTerms = true,
   onRemove,
 }: Props) => {
   const { fiatCurrency } = useCurrentUserContext();
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const { formatNumber, formatDistanceToNowStrict } = useIntlContext();
-  const conversionCredit = useConversionCredit(sport);
+  const currentUserConversionCredit = useConversionCredit(sport);
+  const conversionCredit = conversionCreditProp || currentUserConversionCredit;
   if (!conversionCredit) return null;
 
   const { endDate, maxDiscount, percentageDiscount } = conversionCredit;

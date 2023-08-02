@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { Text16 } from '@sorare/core/src/atoms/typography';
@@ -9,7 +9,7 @@ import {
 } from '@sorare/core/src/components/user/GalleryLink';
 import UserName from '@sorare/core/src/components/user/UserName';
 import { formatEthereumAddress } from '@sorare/core/src/lib/ethereum';
-import { isA } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
 
 import {
   SmallUser_anonymousUser,
@@ -75,7 +75,7 @@ const SmallRegularUser = ({ user }: { user: SmallUser_user }) => {
 };
 const SmallUser = (props: Props) => {
   const { user } = props;
-  if (isA<SmallUser_user>('User', user)) {
+  if (isType(user, 'User')) {
     if (user.suspended) {
       return <SuspendedRegularUser user={user} />;
     }
@@ -93,7 +93,7 @@ SmallUser.fragments = {
     }
     ${Avatar.fragments.publicUserInfoInterface}
     ${UserName.fragments.user}
-  `,
+  ` as TypedDocumentNode<SmallUser_user>,
   anonymousUser: gql`
     fragment SmallUser_anonymousUser on AnonymousUser {
       ethereumAddress
@@ -101,7 +101,7 @@ SmallUser.fragments = {
       ...Avatar_anonymousUser
     }
     ${Avatar.fragments.anonymousUser}
-  `,
+  ` as TypedDocumentNode<SmallUser_anonymousUser>,
 };
 
 export default SmallUser;

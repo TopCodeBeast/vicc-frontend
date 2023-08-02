@@ -1,10 +1,12 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { Sport } from '__generated__/globalTypes';
 
 import {
   NotificationPreferencesQuery,
   NotificationPreferencesQueryVariables,
+  useNotificationPreferences_notificationPreference,
+  useNotificationPreferences_userSettings,
 } from './__generated__/useNotificationPreferences.graphql';
 import useQuery from './graphql/useQuery';
 
@@ -15,23 +17,23 @@ const notificationPreferencesFragment = gql`
     defaultValue
     values
   }
-`;
+` as TypedDocumentNode<useNotificationPreferences_notificationPreference>;
 
-export const useNotificationPreferences_userSettings = gql`
+export const USE_NOTIFICATION_PREFERENCES_USER_SETTINGS = gql`
   fragment useNotificationPreferences_userSettings on UserSettings {
     id
-    footballNotificationPreferences: notificationPreferences {
+    footballNotificationPreferences: notificationPreferences(sport: FOOTBALL) {
       ...useNotificationPreferences_notificationPreference
     }
-    nbaNotificationPreferences: notificationPreferences {
+    nbaNotificationPreferences: notificationPreferences(sport: NBA) {
       ...useNotificationPreferences_notificationPreference
     }
-    baseballNotificationPreferences: notificationPreferences {
+    baseballNotificationPreferences: notificationPreferences(sport: BASEBALL) {
       ...useNotificationPreferences_notificationPreference
     }
   }
   ${notificationPreferencesFragment}
-`;
+` as TypedDocumentNode<useNotificationPreferences_userSettings>;
 
 const NOTIFICATION_PREFERENCES_QUERY = gql`
   query NotificationPreferencesQuery {
@@ -43,14 +45,14 @@ const NOTIFICATION_PREFERENCES_QUERY = gql`
       }
     }
   }
-  ${useNotificationPreferences_userSettings}
-`;
+  ${USE_NOTIFICATION_PREFERENCES_USER_SETTINGS}
+` as TypedDocumentNode<
+  NotificationPreferencesQuery,
+  NotificationPreferencesQueryVariables
+>;
 
 export const useNotificationPreferences = (sport: Sport) => {
-  const { data, loading } = useQuery<
-    NotificationPreferencesQuery,
-    NotificationPreferencesQueryVariables
-  >(NOTIFICATION_PREFERENCES_QUERY);
+  const { data, loading } = useQuery(NOTIFICATION_PREFERENCES_QUERY);
 
   if (loading || !data?.currentUser) return [];
 

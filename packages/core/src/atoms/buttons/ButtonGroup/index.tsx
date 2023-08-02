@@ -50,7 +50,11 @@ type Props = {
   onChange: (index: number) => void;
 };
 
-const ButtonGroup: FC<Props> = ({ children, defaultValue, onChange }) => {
+const ButtonGroup: FC<React.PropsWithChildren<Props>> = ({
+  children,
+  defaultValue,
+  onChange,
+}) => {
   const [state, setState] = useState(defaultValue);
   const change = (i: number) => {
     setState(i);

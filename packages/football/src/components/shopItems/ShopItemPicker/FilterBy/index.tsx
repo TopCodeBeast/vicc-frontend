@@ -1,10 +1,14 @@
-import { FormattedMessage, defineMessages } from 'react-intl';
+import {
+  FormattedMessage,
+  MessageDescriptor,
+  defineMessages,
+} from 'react-intl';
 
 import { ShopItemType } from '@sorare/core/src/__generated__/globalTypes';
 import CheckboxGroup from '@sorare/core/src/atoms/inputs/CheckboxGroup';
 import FilterInDropdown from '@sorare/core/src/components/FilterInDropdown';
 
-const messages = defineMessages({
+const messages: { [key in ShopItemType]?: MessageDescriptor } = defineMessages({
   [ShopItemType.BANNER]: {
     id: 'ShopitemPicker.FilterBy.Banner',
     defaultMessage: 'Banner',
@@ -28,10 +32,6 @@ const messages = defineMessages({
   [ShopItemType.SHIELD]: {
     id: 'ShopitemPicker.FilterBy.Shield',
     defaultMessage: 'Badges',
-  },
-  [ShopItemType.XP_RESTORE]: {
-    id: 'ShopitemPicker.FilterBy.XpRestore',
-    defaultMessage: 'XP restore',
   },
   [ShopItemType.JERSEY]: {
     id: 'ShopitemPicker.FilterBy.Jersey',
@@ -60,10 +60,17 @@ const FilterBy = ({
       }
     >
       <CheckboxGroup
-        options={types.map(type => ({
-          label: <FormattedMessage {...messages[type]} />,
-          value: type,
-        }))}
+        options={types
+          .map(type => {
+            if (messages[type]) {
+              return {
+                label: <FormattedMessage {...messages[type]} />,
+                value: type,
+              };
+            }
+            return null;
+          })
+          .filter(Boolean)}
         selectedValues={values}
         onChange={onChange}
       />

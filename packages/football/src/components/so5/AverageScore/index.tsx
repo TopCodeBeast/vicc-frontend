@@ -15,7 +15,7 @@ const messages = defineMessages<PlayerScoreMode>({
     defaultMessage: 'Average score over the last 5 games',
   },
   AVERAGE_LAST_15_GAMES: {
-    id: 'AverageScore.lastFifteenVicc5AverageScore',
+    id: 'AverageScore.lastFifteenSo5AverageScore',
     defaultMessage: 'Average score over the last 15 games',
   },
   LATEST_SCORE: {

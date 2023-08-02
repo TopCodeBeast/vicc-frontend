@@ -1,12 +1,16 @@
-import { FiatCurrency } from '__generated__/globalTypes';
+import {
+  FiatCurrency,
+  FiatWalletAccountState,
+} from '__generated__/globalTypes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useIntlContext } from '@core/contexts/intl';
 
 export const useFiatBalance = () => {
   const {
+    fiatWalletAccountable: accountable,
     fiatCurrency: { code: fiatCurrencyFromUserSettings },
   } = useCurrentUserContext();
-  const accountable = null;// const { fiatWalletAccountable: accountable } = useCurrentUserContext(); //TODO*************
+
   const { formatNumber } = useIntlContext();
 
   const availableBalance = (accountable?.availableBalance || 0) / 100;
@@ -24,8 +28,25 @@ export const useFiatBalance = () => {
     currency: fiatCurrency,
   });
 
+  const canListAndTrade =
+    !!accountable &&
+    [
+      FiatWalletAccountState.OWNER,
+      FiatWalletAccountState.VALIDATED_OWNER,
+    ].includes(accountable.state);
+
+  const canDepositAndWithdraw =
+    !!accountable &&
+    accountable.state === FiatWalletAccountState.VALIDATED_OWNER;
+
   return {
-    hasActiveFiatBalance: !!accountable,
+    kycStatus: accountable?.kycStatus || undefined,
+    refusedReason: accountable?.kycRefusedReason || undefined,
+    fiatWalletState: accountable?.state,
+    canPay: !!accountable,
+    canListAndTrade,
+    canDepositAndWithdraw,
+    fiatBalanceStatus: accountable?.state,
     availableBalance,
     availableBalanceInCents,
     fiatCurrency,

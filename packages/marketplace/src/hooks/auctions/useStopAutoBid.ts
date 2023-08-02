@@ -1,7 +1,8 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 
 import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import {
   StopAutoBidMutation,
@@ -34,13 +35,8 @@ const STOP_AUTO_BID_MUTATION = gql`
           }
           myBestBid {
             id
-            maximumAmount
             maximumAmounts {
-              referenceCurrency
-              eur
-              wei
-              usd
-              gbp
+              ...MonetaryAmountFragment_monetaryAmount
             }
           }
         }
@@ -52,13 +48,11 @@ const STOP_AUTO_BID_MUTATION = gql`
       }
     }
   }
-`;
+  ${monetaryAmountFragment}
+` as TypedDocumentNode<StopAutoBidMutation, StopAutoBidMutationVariables>;
 
 const useStopAutoBid = (bid: useStopAutoBid_bid) => {
-  const [stopAutoBid] = useMutation<
-    StopAutoBidMutation,
-    StopAutoBidMutationVariables
-  >(STOP_AUTO_BID_MUTATION);
+  const [stopAutoBid] = useMutation(STOP_AUTO_BID_MUTATION);
   const { showNotification } = useSnackNotificationContext();
 
   return async () => {
@@ -82,7 +76,7 @@ useStopAutoBid.fragments = {
     fragment useStopAutoBid_bid on TokenBid {
       id
     }
-  `,
+  ` as TypedDocumentNode<useStopAutoBid_bid>,
 };
 
 export default useStopAutoBid;

@@ -1,13 +1,12 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import { Rarity } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import DialogContentWithNavigation from '@sorare/core/src/atoms/layout/DialogContentWithNavigation';
 import { Text16 } from '@sorare/core/src/atoms/typography';
+import Dialog from '@sorare/core/src/components/dialog';
 import { filters, glossary } from '@sorare/core/src/lib/glossary';
 
 import { CheckboxFilters } from '@football/components/collections/CheckboxFilters';
@@ -16,8 +15,17 @@ import { CollectionsFiltersState } from '@football/components/collections/types'
 
 import { MobileCollectionsFilters_cardCollectionConnection } from './__generated__/index.graphql';
 
-const Wrapper = styled.div`
-  padding: 0 var(--double-unit);
+const CenteredText16 = styled(Text16)`
+  text-align: center;
+`;
+const Footer = styled.div`
+  padding: var(--triple-unit);
+  display: flex;
+  align-items: center;
+  gap: var(--unit);
+`;
+const Body = styled.div`
+  padding: 0 var(--triple-unit);
 `;
 
 type Props = {
@@ -35,7 +43,7 @@ export const MobileCollectionsFilters = ({
   onFiltersChange,
   filtersState,
 }: Props) => {
-  /* On mobile the filters are not immediately applied until the user confirms. 
+  /* On mobile the filters are not immediately applied until the user confirms.
   This is the state for the filters that have been selected but not necessarily applied */
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     Omit<CollectionsFiltersState, 'query'>
@@ -70,38 +78,36 @@ export const MobileCollectionsFilters = ({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} fullScreen hideCloseButton noMargin>
-      <DialogContentWithNavigation
-        title={
-          <Text16 bold>
-            <FormattedMessage {...filters.filters} />
-          </Text16>
-        }
-        onBackButton={onClose}
-        stickyHeader
-        noPadding
-        right={
+    <Dialog
+      open={open}
+      onBack={onClose}
+      title={
+        <CenteredText16 bold>
+          <FormattedMessage {...filters.filters} />
+        </CenteredText16>
+      }
+      footer={
+        <Footer>
           <Button
-            color="transparent"
-            compact
+            color="red"
             onClick={onClearAll}
+            fullWidth
+            medium
             disabled={
               !selectedFiltersState.rarities &&
               !selectedFiltersState.seasonStartYears
             }
           >
-            <Text16>
-              <FormattedMessage {...filters.clearAll} />
-            </Text16>
+            <FormattedMessage {...filters.clearAll} />
           </Button>
-        }
-        footer={
-          <Button onClick={onSubmitFilters} fullWidth medium color="blue">
+
+          <Button color="blue" onClick={onSubmitFilters} fullWidth medium>
             <FormattedMessage {...glossary.save} />
           </Button>
-        }
-      >
-        <Wrapper>
+        </Footer>
+      }
+      body={
+        <Body>
           <CheckboxFilters
             collectionConnection={collectionConnection}
             rarities={selectedFiltersState.rarities}
@@ -113,9 +119,9 @@ export const MobileCollectionsFilters = ({
             startedOnly={selectedFiltersState.startedOnly}
             onChange={onStartedOnlyChange}
           />
-        </Wrapper>
-      </DialogContentWithNavigation>
-    </Dialog>
+        </Body>
+      }
+    />
   );
 };
 
@@ -125,5 +131,5 @@ MobileCollectionsFilters.fragments = {
       ...CheckboxFilters_cardCollectionConnection
     }
     ${CheckboxFilters.fragments.cardCollectionConnection}
-  `,
+  ` as TypedDocumentNode<MobileCollectionsFilters_cardCollectionConnection>,
 };

@@ -1,9 +1,13 @@
-import { gql, useLazyQuery, useMutation } from '@apollo/client';
+import {
+  TypedDocumentNode,
+  gql,
+  useLazyQuery,
+  useMutation,
+} from '@apollo/client';
 import { ReactNode, useEffect, useMemo } from 'react';
 import { useInterval } from 'react-use';
 
 import useFontFaceObserver from '@sorare/use-font-face-observer';
-import { Sport } from '__generated__/globalTypes';
 import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
 import { useGraphqlContext } from '@core/contexts/graphql';
 import { useTMContext } from '@core/contexts/tm';
@@ -11,88 +15,18 @@ import useQuery from '@core/hooks/graphql/useQuery';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import { currency } from '@core/lib/fiat';
 import { asObject } from '@core/lib/json';
-import { fromWei } from '@core/lib/wei';
 
 import ConfigContextProvider, { AlgoliaCardIndexes, AlgoliaIndexes } from '.';
 import { currentUser } from '../currentUser/queries';
-// import {
-//   ReportTelemetry,
-//   ReportTelemetryVariables,
-// } from './__generated__/Provider.graphql';
-import { ConfigQuery, ConfigQuery_currentUser } from './types';
-
-// const contentfulData = gql`
-//   fragment ConfigQueryProvider_contentfulData on Config {
-//     responsiveBannerSet: responsiveBanners {
-//       id
-//       title
-//       responsiveBanners {
-//         id
-//         title
-//         description
-//         backgroundImageUrl
-//         mobileBackgroundImageUrl
-//         primaryButtonLabel
-//         primaryButton
-//         secondaryButtonLabel
-//         secondaryButton
-//         dark
-//         auctionDrop {
-//           id
-//           startDate
-//           endDate
-//           modalText
-//           livePrimaryButtonLabel
-//           livePrimaryButtonHref
-//           so5TournamentTypes {
-//             id
-//             so5LeaderboardType
-//           }
-//         }
-//       }
-//     }
-//     heroBannerSet: heroBanners {
-//       id
-//       title
-//       heroBanners {
-//         id
-//         title
-//         subtitle
-//         href
-//         hrefLabel
-//         pictureDesktopUrl
-//         videoDesktopUrl
-//         colorLeft
-//         colorRight
-//         background
-//         hrefColor
-//         secondaryHrefColor
-//         secondaryHref
-//         secondaryHrefLabel
-//       }
-//     }
-//     bannerSet: banners {
-//       id
-//       title
-//       banners {
-//         id
-//         title
-//         description
-//         url
-//         desktopPictureUrl
-//         mobilePictureUrl
-//       }
-//     }
-//     marketplacePromotionalEvents {
-//       sport
-//       events {
-//         name
-//         objectIds
-//         rewardDetailsHref
-//       }
-//     }
-//   }
-// `;
+import {
+  ConfigQuery,
+  ConfigQueryVariables,
+  PingConfigQuery,
+  PingConfigQueryVariables,
+  ReportTelemetry,
+  ReportTelemetryVariables,
+} from './__generated__/Provider.graphql';
+import { ConfigQuery_currentUser } from './types';
 
 const CONFIG_QUERY = gql`
   query ConfigQuery {
@@ -103,12 +37,12 @@ const CONFIG_QUERY = gql`
       algoliaSearchApiKey
       bankAddress
       relayAddress
-      # starkExchangeAddress
+      starkExchangeAddress
       ethereumNetworkId
       ethereumEndpoint
       landingTheme {
         slug
-        # cards
+        cards
         subtitle
         userSource {
           id
@@ -116,18 +50,16 @@ const CONFIG_QUERY = gql`
         }
         sport
       }
-      sorareTokensAddress: viccTokensAddress
-      baseballTokensAddress: viccTokensAddress
-      nbaTokensAddress: viccTokensAddress
-      sorareCardsAddress: viccCardsAddress
-      # footballNationalSeriesTokensAddress
-      sorareEncryptionKey: viccEncryptionKey
+      sorareTokensAddress
+      baseballTokensAddress
+      nbaTokensAddress
+      sorareCardsAddress
+      footballNationalSeriesTokensAddress
+      sorareEncryptionKey
       sponsorAccountAddress
-      # migratorAddress
-      minimumReceiveWeiAmount: minimumReceiveAmount
-      cricketMarketFeesBasisPoints: marketFeeRateBasisPoints
-      # nbaMarketFeesBasisPoints: marketFeeRateBasisPoints(sport: NBA)
-      # mlbMarketFeesBasisPoints: marketFeeRateBasisPoints(sport: BASEBALL)
+      migratorAddress
+      minimumReceiveWeiAmount
+      marketFeeRateBasisPoints
       exchangeRate {
         id
         rates
@@ -135,36 +67,14 @@ const CONFIG_QUERY = gql`
       defaultFiatCurrency
       ethAssetType
       ethQuantum
-      vicc5Config {
+      so5 {
         id
-        # so5LeaguesAlgoliaFilters
-        nextSo5FixtureTeams: nextVicc5FixtureTeams {
-          ... on TeamInterface {
-            slug
-          }
-        }
-        #noCardRoute {
-        #  id
-        #  nextOpenDate
-        #  nextCloseDate
-        #}
+        so5LeaguesAlgoliaFilters
       }
       currentLocation {
         countryCode
         regionCode
       }
-      #counts {
-      #  usersCount
-      #  football {
-      #    starterPacksCount
-      #    managerSalesCount
-      #    auctionsCount
-      #  }
-      #}
-    }
-    transferMarket {
-      id
-      cardWeiMinPrice: cardMinPrice
     }
     currentUser {
       slug
@@ -172,7 +82,7 @@ const CONFIG_QUERY = gql`
     }
   }
   ${currentUser}
-`;
+` as TypedDocumentNode<ConfigQuery, ConfigQueryVariables>;
 
 const PING_QUERY = gql`
   query PingConfigQuery {
@@ -182,23 +92,23 @@ const PING_QUERY = gql`
         id
         rates
       }
-      minimumReceiveWeiAmount: minimumReceiveAmount
+      minimumReceiveWeiAmount
     }
     currentUser {
       slug
     }
   }
-`;
+` as TypedDocumentNode<PingConfigQuery, PingConfigQueryVariables>;
 
-// const TM_MUTATION = gql`
-//   mutation ReportTelemetry($input: reportTelemetryInput!) {
-//     reportTelemetry(input: $input) {
-//       errors {
-//         message
-//       }
-//     }
-//   }
-// `;
+const TM_MUTATION = gql`
+  mutation ReportTelemetry($input: reportTelemetryInput!) {
+    reportTelemetry(input: $input) {
+      errors {
+        message
+      }
+    }
+  }
+` as TypedDocumentNode<ReportTelemetry, ReportTelemetryVariables>;
 
 interface Props {
   children: ReactNode;
@@ -216,11 +126,7 @@ const tmInterval = 30_000 + getRandomInt(5_000);
  * Aggregates all startup loading states so that initialization can be done in parallel
  */
 export const ConfigProvider = ({ children }: Props) => {
-  // const data: any = samples.data;
-  // const loading = false;
-  const { data, loading, refetch, updateQuery } =
-    useQuery<ConfigQuery>(CONFIG_QUERY);
-
+  const { data, loading, refetch, updateQuery } = useQuery(CONFIG_QUERY);
   const [ping] = useLazyQuery(PING_QUERY, {
     fetchPolicy: 'network-only',
     errorPolicy: 'ignore',
@@ -235,13 +141,10 @@ export const ConfigProvider = ({ children }: Props) => {
   });
   const { refreshWsCable } = useGraphqlContext();
 
-  // const [tm] = useMutation<ReportTelemetry, ReportTelemetryVariables>(
-  //   TM_MUTATION,
-  //   {
-  //     fetchPolicy: 'network-only',
-  //     errorPolicy: 'ignore',
-  //   }
-  // );
+  const [tm] = useMutation(TM_MUTATION, {
+    fetchPolicy: 'network-only',
+    errorPolicy: 'ignore',
+  });
   const flushOperations = useTMContext()?.flushOperations;
 
   useEffect(() => {
@@ -260,7 +163,7 @@ export const ConfigProvider = ({ children }: Props) => {
         if (!operations.length) {
           return;
         }
-        // tm({ variables: { input: { operations } } });
+        tm({ variables: { input: { operations } } });
       }
     },
     useReportTelemetry ? tmInterval : null
@@ -276,7 +179,6 @@ export const ConfigProvider = ({ children }: Props) => {
   }
 
   if (!data?.config) {
-    console.error("Failed to load config!");
     return null;
   }
 
@@ -314,32 +216,19 @@ export const ConfigProvider = ({ children }: Props) => {
     Competition: `Competition${algoliaIndexSuffix}`,
   };
 
-  const { config, transferMarket } = data;
-
-  const marketFeesBasisPoints = {
-    [Sport.FOOTBALL]: 10,//config.footballMarketFeesBasisPoints,
-    [Sport.NBA]: 10,//config.nbaMarketFeesBasisPoints,
-    [Sport.BASEBALL]: 10,//config.mlbMarketFeesBasisPoints,
-  };
+  const { config } = data;
 
   return (
     <ConfigContextProvider
       value={{
         ...config,
-        marketFeesBasisPoints,
-        getMarketFeesRateBySport: (sport: Sport) =>
-          marketFeesBasisPoints[sport] / 10000,
         so5: {
-          ...config.vicc5Config,
-          so5LeaguesAlgoliaFilters: {},
-          /*so5LeaguesAlgoliaFilters: asObject(
+          ...config.so5,
+          so5LeaguesAlgoliaFilters: asObject(
             config.so5.so5LeaguesAlgoliaFilters
-          ),*/
+          ),
         },
-        transferMarket: {
-          cardWeiMinPrice: transferMarket.cardWeiMinPrice,
-          cardEthMinPrice: fromWei(transferMarket.cardWeiMinPrice),
-        },
+        marketFeeRateBasisPoints: config.marketFeeRateBasisPoints / 10000,
         minimumReceiveWeiAmount,
         algoliaIndexes,
         algoliaCardIndexes,
@@ -351,7 +240,7 @@ export const ConfigProvider = ({ children }: Props) => {
           refreshWsCable();
         },
         defaultFiatCurrency,
-      } as any} //TODO*****
+      }}
     >
       {children}
     </ConfigContextProvider>

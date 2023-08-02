@@ -1,10 +1,15 @@
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 import styled from 'styled-components';
 
 import Dropdown, { Props as DropdownProps } from '../Dropdown';
 
 type Props = Omit<DropdownProps, 'children'> & {
-  children: (FC<{ closeDropdown?: () => void }> | undefined | null | false)[];
+  children: (
+    | FC<React.PropsWithChildren<{ closeDropdown?: () => void }>>
+    | undefined
+    | null
+    | false
+  )[];
 };
 
 export const Item = styled.button`
@@ -44,13 +49,24 @@ export const SmartDropdown = ({ children, ...rest }: Props) => {
     return null;
   }
   if (truthyChildren.length === 1) {
-    return <div>{truthyChildren.map(c => c({}))}</div>;
+    return (
+      <div>
+        {truthyChildren.map(c => (
+          <Fragment key="0">{c({})}</Fragment>
+        ))}
+      </div>
+    );
   }
 
   return (
     <Dropdown {...rest}>
       {({ closeDropdown }: { closeDropdown: () => void }) => (
-        <Wrapper>{truthyChildren.map(c => c({ closeDropdown }))}</Wrapper>
+        <Wrapper>
+          {truthyChildren.map((c, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={index}>{c({ closeDropdown })}</Fragment>
+          ))}
+        </Wrapper>
       )}
     </Dropdown>
   );

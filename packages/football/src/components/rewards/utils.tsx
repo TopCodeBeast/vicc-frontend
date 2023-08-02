@@ -1,23 +1,37 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
+import Big from 'bignumber.js';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import {
+  Currency,
+  SupportedCurrency,
+} from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import { Text14, Title2, Title3 } from '@sorare/core/src/atoms/typography';
 import CardBack from '@sorare/core/src/components/card/Back/Football';
 import CardFront from '@sorare/core/src/components/card/Front';
-import Coins from '@sorare/core/src/components/rewards/Coins';
-import { Eth } from '@sorare/core/src/components/rewards/Eth';
+import { BackCoinReward } from '@sorare/core/src/components/rewards/CoinReward/Back';
+import { FrontCoinReward } from '@sorare/core/src/components/rewards/CoinReward/Front';
+import { BackMonetaryReward } from '@sorare/core/src/components/rewards/MonetaryReward/BackMonetaryReward';
+import { FrontMonetaryReward } from '@sorare/core/src/components/rewards/MonetaryReward/FrontMonetaryReward';
 import { Reward } from '@sorare/core/src/components/rewards/types';
-import { FRONTEND_ASSET_HOST } from '@sorare/core/src/constants/assets';
 import { FOOTBALL_CLUB_SHOP } from '@sorare/core/src/constants/routes';
-import { scarcityNames } from '@sorare/core/src/lib/cards';
 import { withFragments } from '@sorare/core/src/lib/gql';
+import {
+  MonetaryAmountCurrency,
+  monetaryAmountFragment,
+} from '@sorare/core/src/lib/monetaryAmount';
 
 import { RewardHeader } from '@football/components/rewards/Header';
 
-import { formatReward_so5Reward } from './__generated__/utils.graphql';
+import {
+  formatCardRewards_so5Reward,
+  formatCoinRewards_so5Reward,
+  formatMonetaryRewards_so5Reward,
+  formatReward_so5Reward,
+} from './__generated__/utils.graphql';
 
 const CoinRewardHeader = styled.div`
   display: flex;
@@ -33,58 +47,24 @@ const ClickableButtonLink = styled(Button)`
   pointer-events: all;
 `;
 
-type UniqueReward = {
-  ids: string[];
-  so5Ranking: formatReward_so5Reward['so5Ranking'] | null;
-  so5UserGroupMembership:
-    | formatReward_so5Reward['so5UserGroupMembership']
-    | null;
-  rewardCard?: formatReward_so5Reward['rewardCards'][number];
-  weiAmount?: string;
-  coinAmount?: number;
-  claimed: boolean;
-  so5Fixture: formatReward_so5Reward['so5Fixture'] | null;
-};
+const formatCoinRewards = withFragments(
+  (coinRewards: formatCoinRewards_so5Reward[]): Reward | null => {
+    if (!coinRewards.length) return null;
 
-const format = ({
-  ids,
-  rewardCard,
-  weiAmount,
-  coinAmount,
-  so5Ranking,
-  claimed,
-  so5UserGroupMembership,
-  so5Fixture,
-}: UniqueReward) => {
-  const { gameWeek } = so5Fixture || {};
-  const { score, ranking } = so5Ranking || so5UserGroupMembership || {};
-  const { card, backPictureUrl } = rewardCard || {};
-  const { rarity, player } = card || {};
-  const title =
-    so5Ranking?.so5Lineup?.so5Leaderboard?.displayName ||
-    so5UserGroupMembership?.so5UserGroup?.displayName ||
-    '';
+    const totalCoinAmount = coinRewards.reduce(
+      (acc, reward) => acc + reward.coinAmount,
+      0
+    );
 
-  const isCoinReward = (coinAmount || 0) > 0;
-  const isEthReward = (Number(weiAmount) || 0) > 0;
-
-  let rewardProperties = {
-    backgroundText: (rarity && scarcityNames[rarity]) || '',
-    backPath: backPictureUrl!,
-    header: (
-      <RewardHeader
-        title={title}
-        rank={ranking || 0}
-        points={score || 0}
-        gameWeek={gameWeek!}
-      />
-    ),
-  };
-  if (isCoinReward) {
-    rewardProperties = {
-      ...rewardProperties,
+    return {
+      ids: coinRewards.map(reward => reward.id),
+      key: totalCoinAmount.toString(),
       backgroundText: 'Coins',
-      backPath: `${FRONTEND_ASSET_HOST}/cards/back/coin.png`,
+      back: <BackCoinReward />,
+      front: (isClaimed?: boolean) => (
+        <FrontCoinReward video={isClaimed} amount={totalCoinAmount} />
+      ),
+      teasers: [],
       header: (
         <CoinRewardHeader>
           <Title2 color="var(--c-static-neutral-100)">
@@ -112,122 +92,98 @@ const format = ({
           </ClickableButtonLink>
         </CoinRewardHeader>
       ),
+      claimed: coinRewards.every(reward => reward.aasmState === 'claimed'),
     };
-  }
-  if (isEthReward) {
-    rewardProperties = {
-      ...rewardProperties,
-      backgroundText: 'Ether',
-      backPath: `${FRONTEND_ASSET_HOST}/cards/back/ethereum.svg`,
-    };
-  }
-
-  return {
-    ids,
-    key:
-      rewardCard?.id || (coinAmount ? coinAmount.toString() : null) || ids[0],
-    backgroundText: rewardProperties.backgroundText,
-    header: rewardProperties.header,
-    back: (
-      <CardBack
-        path={rewardProperties.backPath}
-        radius={rarity === 'custom_series' ? '30px' : '10px'}
-      />
-    ),
-    front: (isClaimed?: boolean) => (
-      <>
-        {card?.pictureUrl && <CardFront src={card.pictureUrl} />}
-        {weiAmount && <Eth amount={weiAmount} />}
-        {coinAmount && <Coins video={isClaimed} amount={coinAmount} />}
-      </>
-    ),
-    teasers:
-      weiAmount || !rewardCard
-        ? []
-        : [
-            player?.country.flagUrl && (
-              <img key={0} src={player?.country.flagUrl} alt="" />
-            ),
-            <Title3 key={1}>{player?.position.slice(0, 3)}</Title3>,
-            player?.activeClub?.pictureUrl && (
-              <img key={2} src={player?.activeClub?.pictureUrl} alt="" />
-            ),
-          ].filter(Boolean),
-    claimed,
-  };
-};
-
-export const formatReward = withFragments(
-  (array: formatReward_so5Reward[]): Reward[] => {
-    const coinReward: UniqueReward = {
-      ids: [],
-      so5Ranking: null,
-      so5UserGroupMembership: null,
-      coinAmount: 0,
-      claimed: true,
-      so5Fixture: null,
-    };
-    const rewards: UniqueReward[] = [];
-
-    array.forEach(
-      ({
-        id,
-        so5Ranking,
-        so5UserGroupMembership,
-        rewardCards,
-        weiAmount,
-        coinAmount,
-        aasmState,
-        so5Fixture,
-      }: formatReward_so5Reward) => {
-        const currentReward = {
-          ids: [id],
-          so5Ranking,
-          so5UserGroupMembership,
-          so5Fixture,
-          claimed: aasmState === 'claimed',
-        };
-        if (coinAmount > 0 && coinReward.coinAmount !== undefined) {
-          coinReward.coinAmount += coinAmount;
-          if (aasmState !== 'claimed') {
-            coinReward.claimed = false;
-            coinReward.ids.push(id);
-          }
-        }
-        if (+weiAmount > 0) {
-          rewards.push({
-            ...currentReward,
-            weiAmount,
-          });
-        }
-        rewardCards.forEach(card => {
-          rewards.push({
-            ...currentReward,
-            rewardCard: card,
-          });
-        });
-        return rewards;
-      }
-    );
-    if (coinReward.coinAmount) {
-      rewards.push(coinReward);
-    }
-
-    return rewards.map(format).sort((a, b) => a.key.localeCompare(b.key)) as any; //TODO***
   },
   {
     so5Reward: gql`
-      fragment formatReward_so5Reward on Vicc5Reward {
-        slug
+      fragment formatCoinRewards_so5Reward on So5Reward {
         id
-        coinAmount
-        weiAmount: amount
+        slug
         aasmState
-        so5Ranking: vicc5Ranking {
+        coinAmount
+      }
+    ` as TypedDocumentNode<formatCoinRewards_so5Reward>,
+  }
+);
+
+const formatMonetaryRewards = withFragments(
+  (
+    monetaryRewards: formatMonetaryRewards_so5Reward[],
+    { onClaimFiatRewards }: { onClaimFiatRewards?: () => void } = {}
+  ): Reward[] => {
+    if (!monetaryRewards.length) return [];
+
+    return monetaryRewards
+      .map(reward => {
+        const {
+          id,
+          aasmState,
+          amount,
+          so5Fixture,
+          so5Ranking,
+          so5UserGroupMembership,
+        } = reward;
+
+        if (
+          !amount ||
+          new Big(
+            amount[
+              amount.referenceCurrency.toLowerCase() as MonetaryAmountCurrency
+            ] || 0
+          ).eq(0)
+        )
+          return null;
+
+        const { gameWeek } = so5Fixture || {};
+        const { score, ranking } = so5Ranking || so5UserGroupMembership || {};
+        const title =
+          so5Ranking?.so5Lineup?.so5Leaderboard?.displayName ||
+          so5UserGroupMembership?.so5UserGroup?.displayName ||
+          '';
+
+        const currency =
+          amount?.referenceCurrency === SupportedCurrency.WEI
+            ? Currency.ETH
+            : Currency.FIAT;
+
+        return {
+          ids: [id],
+          key: id,
+          backgroundText: 'Cash',
+          back: <BackMonetaryReward currency={currency} />,
+          front: <FrontMonetaryReward monetaryAmount={amount} />,
+          teasers: [],
+          header: (
+            <RewardHeader
+              title={title}
+              rank={ranking || 0}
+              points={score || 0}
+              gameWeek={gameWeek!}
+            />
+          ),
+          claimed: aasmState === 'claimed',
+          ...(currency === Currency.FIAT && onClaimFiatRewards
+            ? { onClick: () => onClaimFiatRewards() }
+            : {}),
+        };
+      })
+      .filter(Boolean);
+  },
+  {
+    so5Reward: gql`
+      fragment formatMonetaryRewards_so5Reward on So5Reward {
+        id
+        slug
+        aasmState
+        amount {
+          ...MonetaryAmountFragment_monetaryAmount
+        }
+        so5Ranking {
           id
-          so5Lineup: vicc5Lineup {
+          so5Lineup {
             id
-            so5Leaderboard: vicc5Leaderboard {
+            so5Leaderboard {
               slug
               displayName
             }
@@ -235,15 +191,121 @@ export const formatReward = withFragments(
           ranking
           score
         }
-        so5UserGroupMembership: vicc5UserGroupMembership {
+        so5UserGroupMembership {
           id
           ranking
           score
-          so5UserGroup: vicc5UserGroup {
+          so5UserGroup {
             slug
             id
             displayName
           }
+        }
+        so5Fixture {
+          slug
+          gameWeek
+        }
+      }
+      ${monetaryAmountFragment}
+    ` as TypedDocumentNode<formatMonetaryRewards_so5Reward>,
+  }
+);
+
+const formatCardRewards = withFragments(
+  (cardRewards: formatCardRewards_so5Reward[]): Reward[] => {
+    if (!cardRewards.length) return [];
+
+    return cardRewards
+      .map(reward => {
+        const {
+          id,
+          aasmState,
+          so5Fixture,
+          so5Ranking,
+          so5UserGroupMembership,
+          rewardCards,
+        } = reward;
+
+        const { gameWeek } = so5Fixture || {};
+        const { score, ranking } = so5Ranking || so5UserGroupMembership || {};
+        const title =
+          so5Ranking?.so5Lineup?.so5Leaderboard?.displayName ||
+          so5UserGroupMembership?.so5UserGroup?.displayName ||
+          '';
+
+        return rewardCards
+          .map(({ id: rewardCardId, card, backPictureUrl }) => {
+            if (!card) return null;
+
+            const { pictureUrl, player } = card;
+
+            return {
+              ids: [id],
+              key: rewardCardId,
+              backgroundText: 'Ether',
+              back: (
+                <>
+                  {backPictureUrl && (
+                    <CardBack path={backPictureUrl} radius="10px" />
+                  )}
+                </>
+              ),
+              front: <>{pictureUrl && <CardFront src={pictureUrl} />}</>,
+              teasers: [
+                player?.country.flagUrl && (
+                  <img key={0} src={player?.country.flagUrl} alt="" />
+                ),
+                <Title3 key={1}>{player?.position.slice(0, 3)}</Title3>,
+                player?.activeClub?.pictureUrl && (
+                  <img key={2} src={player?.activeClub?.pictureUrl} alt="" />
+                ),
+              ].filter(Boolean),
+              header: (
+                <RewardHeader
+                  title={title}
+                  rank={ranking || 0}
+                  points={score || 0}
+                  gameWeek={gameWeek!}
+                />
+              ),
+              claimed: aasmState === 'claimed',
+            };
+          })
+          .filter(Boolean);
+      })
+      .flat();
+  },
+  {
+    so5Reward: gql`
+      fragment formatCardRewards_so5Reward on So5Reward {
+        id
+        slug
+        aasmState
+        so5Ranking {
+          id
+          so5Lineup {
+            id
+            so5Leaderboard {
+              slug
+              displayName
+            }
+          }
+          ranking
+          score
+        }
+        so5UserGroupMembership {
+          id
+          ranking
+          score
+          so5UserGroup {
+            slug
+            id
+            displayName
+          }
+        }
+        so5Fixture {
+          slug
+          gameWeek
         }
         rewardCards {
           id
@@ -269,11 +331,52 @@ export const formatReward = withFragments(
           }
           backPictureUrl
         }
-        so5Fixture: vicc5Fixture {
-          slug
-          gameWeek
-        }
       }
-    `,
+    ` as TypedDocumentNode<formatCardRewards_so5Reward>,
+  }
+);
+
+export const formatReward = withFragments(
+  (
+    rewards: formatReward_so5Reward[],
+    { onClaimFiatRewards }: { onClaimFiatRewards?: () => void } = {}
+  ): Reward[] => {
+    const coinReward = formatCoinRewards(
+      rewards.filter(reward => reward.coinAmount > 0)
+    );
+    const monetaryRewards = formatMonetaryRewards(
+      rewards.filter(reward => reward.amount),
+      { onClaimFiatRewards }
+    );
+    const cardRewards = formatCardRewards(
+      rewards.filter(reward => !!reward.rewardCards.length)
+    );
+
+    return [
+      ...(coinReward ? [coinReward] : []),
+      ...monetaryRewards,
+      ...cardRewards,
+    ];
+  },
+  {
+    so5Reward: gql`
+      fragment formatReward_so5Reward on So5Reward {
+        slug
+        id
+        coinAmount
+        amount {
+          referenceCurrency
+        }
+        rewardCards {
+          id
+        }
+        ...formatCoinRewards_so5Reward
+        ...formatMonetaryRewards_so5Reward
+        ...formatCardRewards_so5Reward
+      }
+      ${formatCoinRewards.fragments.so5Reward}
+      ${formatMonetaryRewards.fragments.so5Reward}
+      ${formatCardRewards.fragments.so5Reward}
+    ` as TypedDocumentNode<formatReward_so5Reward>,
   }
 );

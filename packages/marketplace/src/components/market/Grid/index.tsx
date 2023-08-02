@@ -3,18 +3,32 @@ import { Flipped, Flipper } from 'react-flip-toolkit';
 import styled, { css } from 'styled-components';
 
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
+import { Content as AppLayoutContent } from '@sorare/core/src/components/navigation/AppLayout';
+import {
+  desktopAndAbove,
+  tabletAndAbove,
+} from '@sorare/core/src/style/mediaQuery';
 
-const gridCss = css`
+const gridCss = css<{ columns?: number }>`
   display: grid;
-  grid-template-columns: 1fr;
   gap: var(--double-unit);
-
+  grid-template-columns: 1fr;
+  &.hideDetails {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   @media ${tabletAndAbove} {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    row-gap: calc(5 * var(--unit));
-    &.showDesktopFilter {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+    &,
+    &.hideDetails {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      &.showDesktopFilter {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+  }
+  @media ${desktopAndAbove} {
+    ${AppLayoutContent} &.showDesktopFilter {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
     }
   }
 `;

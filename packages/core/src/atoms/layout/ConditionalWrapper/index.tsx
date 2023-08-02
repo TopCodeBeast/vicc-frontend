@@ -1,7 +1,7 @@
 type Props = {
   wrap: boolean;
-  Wrapper: React.FC<{ children: React.ReactNode }>;
-  children: JSX.Element;
+  Wrapper: React.FC<React.PropsWithChildren<{ children: React.ReactNode }>>;
+  children: React.JSX.Element;
 };
 
 export const ConditionalWrapper = ({ wrap, Wrapper, children }: Props) =>

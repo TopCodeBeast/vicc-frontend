@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage, IntlShape, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
@@ -79,7 +79,7 @@ const getAgeRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetAgeRule on Vicc5Leaderboard {
+      fragment GetAgeRule on So5Leaderboard {
         slug
         displayedRules {
           id
@@ -90,7 +90,7 @@ const getAgeRule = withFragments(
           }
         }
       }
-    `,
+    ` as TypedDocumentNode<GetAgeRule>,
   }
 );
 

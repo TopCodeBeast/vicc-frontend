@@ -4,7 +4,7 @@ const useIsVisibleInViewport = ({
   element,
   options,
 }: {
-  element: React.MutableRefObject<HTMLDivElement | null>;
+  element?: React.MutableRefObject<HTMLElement | null>;
   options?: IntersectionObserverInit;
 }) => {
   const [isVisible, setState] = useState(false);

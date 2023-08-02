@@ -1,8 +1,8 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-// import { ConversionCreditBanner } from '@sorare/core/src/components/conversionCredit/ConversionCreditBanner';
+import { ConversionCreditBanner } from '@sorare/core/src/components/conversionCredit/ConversionCreditBanner';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { useTitleAndDescription } from '@sorare/core/src/hooks/useTitleAndDescription';
@@ -12,7 +12,9 @@ import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 import Tabs from './Tabs';
 import {
   CurrentUserHomeQuery,
+  CurrentUserHomeQueryVariables,
   UserHomeQuery,
+  UserHomeQueryVariables,
 } from './__generated__/index.graphql';
 
 const CURRENT_USER_HOME_QUERY = gql`
@@ -23,7 +25,7 @@ const CURRENT_USER_HOME_QUERY = gql`
     }
   }
   ${Tabs.fragments.currentUser}
-`;
+` as TypedDocumentNode<CurrentUserHomeQuery, CurrentUserHomeQueryVariables>;
 
 const USER_HOME_QUERY = gql`
   query UserHomeQuery($slug: String!) {
@@ -33,7 +35,7 @@ const USER_HOME_QUERY = gql`
     }
   }
   ${Tabs.fragments.publicUserInfoInterface}
-`;
+` as TypedDocumentNode<UserHomeQuery, UserHomeQueryVariables>;
 
 const Root = styled.div`
   display: flex;
@@ -55,19 +57,19 @@ const Home = () => {
     currentUser && (!paramsUserSlug || paramsUserSlug === currentUser.slug)
   );
 
-  const { data: currentUserData } = useQuery<CurrentUserHomeQuery>(
-    CURRENT_USER_HOME_QUERY,
-    {
-      nextFetchPolicy: 'cache-first',
-      fetchPolicy: 'cache-and-network',
-      skip: !isOwnPage,
-    }
-  );
-
-  const { data: userData } = useQuery<UserHomeQuery>(USER_HOME_QUERY, {
+  const { data: currentUserData } = useQuery(CURRENT_USER_HOME_QUERY, {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
-    variables: { slug: paramsUserSlug },
+    skip: !isOwnPage,
+  });
+
+  const { data: userData } = useQuery(USER_HOME_QUERY, {
+    nextFetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
+    variables: {
+      // FIXME undefined case is improperly handled
+      slug: paramsUserSlug ?? '',
+    },
     skip: isOwnPage,
   });
 
@@ -82,14 +84,14 @@ const Home = () => {
   useTitleAndDescription(
     pageTitle,
     pageDescription,
-    !!user && { username: `user.nickname` }
+    !!user && { username: user.nickname }
   );
 
   if (!user) return null;
 
   return (
     <Root>
-      {/* <ConversionCreditBanner /> */}
+      <ConversionCreditBanner />
       <Tabs user={user} isOwnPage={isOwnPage} />
     </Root>
   );

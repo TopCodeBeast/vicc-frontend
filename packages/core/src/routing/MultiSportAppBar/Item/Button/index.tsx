@@ -8,6 +8,7 @@ export interface Props extends Omit<ButtonProps, 'classes'> {
   to?: string;
   externalLink?: boolean;
   exactMatch?: boolean;
+  subMenuMatches?: { to?: string; exactMatch?: boolean }[];
   active?: boolean;
 }
 
@@ -41,18 +42,28 @@ export const Button = (props: Props) => {
     to,
     externalLink,
     exactMatch,
+    subMenuMatches,
     active: activeProp,
     ...rest
   } = props;
 
-  const active = useMemo(
-    () =>
-      activeProp ||
-      (to &&
-        location.pathname.match(to) &&
-        (exactMatch ? to === location.pathname : true)),
-    [exactMatch, location.pathname, to, activeProp]
-  );
+  const active = useMemo(() => {
+    if (activeProp) return true;
+
+    const mainItemMatch =
+      to &&
+      location.pathname.match(to) &&
+      (exactMatch ? to === location.pathname : true);
+
+    const subItemMatch = subMenuMatches?.some(subMenuRoute => {
+      return (
+        subMenuRoute.to &&
+        location.pathname.match(subMenuRoute.to) &&
+        (subMenuRoute.exactMatch ? subMenuRoute.to === location.pathname : true)
+      );
+    });
+    return mainItemMatch || subItemMatch;
+  }, [activeProp, to, location.pathname, exactMatch, subMenuMatches]);
 
   return (
     <Root

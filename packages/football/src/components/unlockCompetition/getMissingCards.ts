@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { Rarity } from '@sorare/core/src/__generated__/globalTypes';
 import { withFragments } from '@sorare/core/src/lib/gql';
@@ -66,6 +66,6 @@ export const getMissingCards = withFragments(
         super_rare: missingRarity(rarity: super_rare)
         unique: missingRarity(rarity: unique)
       }
-    `,
+    ` as TypedDocumentNode<getMissingCards_validity>,
   }
 );

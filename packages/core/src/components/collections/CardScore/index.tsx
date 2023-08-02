@@ -5,14 +5,16 @@ import styled from 'styled-components';
 
 import { Score } from '@core/components/collections/Score';
 
-const Root = styled.div`
+const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--double-unit);
-  background-color: var(--c-neutral-400);
   gap: var(--half-unit);
   padding: var(--half-unit) var(--intermediate-unit);
+  color: var(--c-static-neutral-100);
+  background-color: var(--c-static-neutral-700);
+  border-radius: var(--double-unit);
+  transition: background-color 0.1s ease-in-out;
   &.listed {
     background: linear-gradient(
         0deg,
@@ -23,13 +25,25 @@ const Root = styled.div`
   }
 `;
 
+const ScoreButton = styled.button`
+  &:hover,
+  &:focus {
+    ${Wrapper} {
+      background-color: var(--c-static-neutral-600);
+      box-shadow: var(--shadow-300);
+    }
+  }
+`;
+
 type Props = {
   score: number;
   listed?: boolean;
+  onClick?: (() => void) | false;
 };
-const CardScore = ({ score, listed }: Props) => {
+
+const Content = ({ score, listed }: Props) => {
   return (
-    <Root className={classnames({ listed })}>
+    <Wrapper className={classnames({ listed })}>
       {listed && (
         <FontAwesomeIcon
           color="var(--c-yellow-600)"
@@ -37,8 +51,17 @@ const CardScore = ({ score, listed }: Props) => {
         />
       )}
       <Score score={score} />
-    </Root>
+    </Wrapper>
   );
 };
 
-export default CardScore;
+export const CardScore = (props: Props) => {
+  const { onClick } = props;
+  if (onClick)
+    return (
+      <ScoreButton onClick={onClick}>
+        <Content {...props} />
+      </ScoreButton>
+    );
+  return <Content {...props} />;
+};

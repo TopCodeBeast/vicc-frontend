@@ -1,11 +1,13 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { createContext, useContext } from 'react';
+
+import { PageContext_subscribable } from './__generated__/index.graphql';
 
 export interface PageContext {
   object: {
     __typename: string;
     slug: string;
-    currentUserSubscription?: {
+    currentUserSubscription: {
       __typename: 'EmailSubscription';
       slug: string;
       preferences: {
@@ -36,5 +38,5 @@ export const pageContextFragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<PageContext_subscribable>,
 };

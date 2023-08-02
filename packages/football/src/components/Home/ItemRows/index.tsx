@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { range } from '@sorare/core/src/lib/arrays';
 import {
+  breakpoints,
   laptopAndAbove,
   tabletAndAbove,
 } from '@sorare/core/src/style/mediaQuery';
-import { theme } from '@sorare/core/src/style/theme';
 import { hideScrollbar } from '@sorare/core/src/style/utils';
 
 export const HOME_ROWS = 3;
@@ -33,7 +33,7 @@ const Wrapper = styled.div`
   @media ${laptopAndAbove} {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  @media (max-width: ${theme.breakpoints.values.laptop}px) {
+  @media (max-width: ${breakpoints.laptop}px) {
     &.singleChild {
       grid-template-columns: max(280px, 100%);
     }

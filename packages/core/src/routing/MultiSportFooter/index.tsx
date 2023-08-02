@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { Container } from '@core/atoms/container';
 import { Text16 } from '@core/atoms/typography';
 import { SocialLinks } from '@core/atoms/ui/SocialMedias';
-// import LanguageSwitcher from '@core/components/user/LanguageSwitcher';
-import { theme } from '@core/style/theme';
+import LanguageSwitcher from '@core/components/user/LanguageSwitcher';
+import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import FooterLinks from './FooterLinks';
 import socialLinks from './socialLinks';
@@ -21,14 +21,14 @@ const CopyAndLanguage = styled.div`
   flex-direction: column;
   gap: var(--double-unit);
   padding: var(--double-unit) 0;
-  @media (min-width: ${theme.breakpoints.values.sm}px) {
+  @media ${tabletAndAbove} {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
   }
 `;
 const CopyContainer = styled(Text16)`
-  @media (min-width: ${theme.breakpoints.values.sm}px) {
+  @media ${tabletAndAbove} {
     text-align: right;
   }
 `;
@@ -43,7 +43,7 @@ const MultiSportFooter = ({ className }: Props) => {
       <SocialLinks socialLinks={socialLinks} />
       <FooterLinks />
       <CopyAndLanguage>
-        {/* <LanguageSwitcher /> */}
+        <LanguageSwitcher />
         <CopyContainer>
           © {new Date().getFullYear()} Sorare, SAS. All Rights Reserved.
         </CopyContainer>

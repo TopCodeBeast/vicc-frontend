@@ -1,11 +1,9 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
-import {
-  Sport,
-  SupportedCurrency,
-} from '@sorare/core/src/__generated__/globalTypes';
+import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import useMonetaryAmount from '@sorare/core/src/hooks/useMonetaryAmount';
 import useTokenOfferBelongsToUser from '@sorare/core/src/hooks/useTokenOfferBelongsToUser';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import useHasInsufficientFundsInWallets from '@marketplace/hooks/useHasInsufficientFundsInWallets';
 
@@ -41,13 +39,12 @@ export const TokensAvailableOnPrimaryWhenInsufficientFundsInWallet = ({
   )
     return null;
 
-  const { priceWei } = liveSingleSaleOffer;
+  const {
+    receiverSide: { amounts },
+  } = liveSingleSaleOffer;
 
   const { insufficientFundsInEthWallet } = hasInsufficientFundsInWallets(
-    toMonetaryAmount({
-      wei: priceWei,
-      referenceCurrency: SupportedCurrency.WEI,
-    })
+    toMonetaryAmount(amounts)
   );
   if (insufficientFundsInEthWallet) return null;
 
@@ -75,7 +72,12 @@ TokensAvailableOnPrimaryWhenInsufficientFundsInWallet.fragments = {
       }
       liveSingleSaleOffer {
         id
-        priceWei: price
+        receiverSide {
+          id
+          amounts {
+            ...MonetaryAmountFragment_monetaryAmount
+          }
+        }
       }
       myMintedSingleSaleOffer {
         id
@@ -83,6 +85,7 @@ TokensAvailableOnPrimaryWhenInsufficientFundsInWallet.fragments = {
       }
     }
     ${useTokenOfferBelongsToUser.fragments.offer}
-  `,
+    ${monetaryAmountFragment}
+  ` as TypedDocumentNode<TokensAvailableOnPrimaryWhenInsufficientFundsInWallet_token>,
 };
 export default TokensAvailableOnPrimaryWhenInsufficientFundsInWallet;

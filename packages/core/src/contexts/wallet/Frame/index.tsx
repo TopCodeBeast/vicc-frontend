@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Keys, Salt } from '@sorare/wallet-shared';
 import { useConfigContext } from '@core/contexts/config';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
-// import { useFetchEncryptedPrivateKeyMutation } from '@core/hooks/auth/useFetchEncryptedPrivateKeyMutation';
+import { useFetchEncryptedPrivateKeyMutation } from '@core/hooks/auth/useFetchEncryptedPrivateKeyMutation';
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 import { getSalt } from '@core/lib/password';
 import { theme } from '@core/style/theme';
@@ -14,19 +14,19 @@ import { theme } from '@core/style/theme';
 import { useMessagingContext, useWalletContext } from '..';
 import { WALLET_URL } from '../../../config';
 import {
-  // useChangePassword,
-  // useForgotPassword,
+  useChangePassword,
+  useForgotPassword,
   useInit,
-  // useOAuthSignIn,
-  // usePrepareEthDeposit,
-  // usePromptAddFundsEth,
-  // usePromptRecoverKey,
-  // usePromptRestoreWallet,
-  // useRecoverKey,
-  // useResetPrivateKey,
+  useOAuthSignIn,
+  usePrepareEthDeposit,
+  usePromptAddFundsEth,
+  usePromptRecoverKey,
+  usePromptRestoreWallet,
+  useRecoverKey,
+  useResetPrivateKey,
   useSignIn,
   useSignUp,
-  // useTransaction,
+  useTransaction,
 } from './handlers';
 import { useErrorEvent } from './handlers/useErrorEvent';
 
@@ -129,26 +129,26 @@ export const Frame = () => {
   const { currentUser } = useCurrentUserContext();
   const iFrame = useRef<HTMLIFrameElement | null>(null);
   const [frameStyle, setFrameStyle] = useState<FrameStyle>(defaultStyle);
-  // const [fetchEncryptedPrivateKey] = useFetchEncryptedPrivateKeyMutation();
+  const [fetchEncryptedPrivateKey] = useFetchEncryptedPrivateKeyMutation();
 
   const { setWindow, walletNode } = useWalletContext();
   const { flags } = useFeatureFlags();
-  const use2FA = flags['2FaWallet'];
+  const use2FA = flags['2FaWallet'] ?? true;
 
   useInit();
   useErrorEvent();
   useSignIn();
   useSignUp();
-  // useChangePassword();
-  // useForgotPassword();
-  // useResetPrivateKey();
-  // usePrepareEthDeposit();
-  // usePromptRecoverKey();
-  // usePromptRestoreWallet();
-  // useRecoverKey();
-  // usePromptAddFundsEth();
-  // useTransaction();
-  // useOAuthSignIn();
+  useChangePassword();
+  useForgotPassword();
+  useResetPrivateKey();
+  usePrepareEthDeposit();
+  usePromptRecoverKey();
+  usePromptRestoreWallet();
+  useRecoverKey();
+  usePromptAddFundsEth();
+  useTransaction();
+  useOAuthSignIn();
 
   useEffect(() => {
     const window = iFrame.current
@@ -173,29 +173,29 @@ export const Frame = () => {
         if (!currentUser) return { result: { sorareEncryptionKey } };
         const { sorarePrivateKey, otpRequiredForLogin } = currentUser;
         if (use2FA && otpRequiredForLogin) {
-          // const result = await fetchEncryptedPrivateKey({
-          //   variables: { input: {} },
-          // });
-          // if (
-          //   result?.data?.fetchEncryptedPrivateKey?.errors.some(
-          //     error => error.code === MISSING_OTP_CODE
-          //   )
-          // )
-          //   return {
-          //     result: {
-          //       userPrivateKey: undefined,
-          //       sorareEncryptionKey,
-          //     },
-          //     error: 'invalid-otp',
-          //   };
-          // return {
-          //   result: {
-          //     userPrivateKey:
-          //       result.data?.fetchEncryptedPrivateKey?.sorarePrivateKey ||
-          //       undefined,
-          //     sorareEncryptionKey,
-          //   },
-          // };
+          const result = await fetchEncryptedPrivateKey({
+            variables: { input: {} },
+          });
+          if (
+            result?.data?.fetchEncryptedPrivateKey?.errors.some(
+              error => error.code === MISSING_OTP_CODE
+            )
+          )
+            return {
+              result: {
+                userPrivateKey: undefined,
+                sorareEncryptionKey,
+              },
+              error: 'invalid-otp',
+            };
+          return {
+            result: {
+              userPrivateKey:
+                result.data?.fetchEncryptedPrivateKey?.sorarePrivateKey ||
+                undefined,
+              sorareEncryptionKey,
+            },
+          };
         }
         return {
           result: {
@@ -208,7 +208,7 @@ export const Frame = () => {
       currentUser,
       use2FA,
       registerHandler,
-      // fetchEncryptedPrivateKey,
+      fetchEncryptedPrivateKey,
       sorareEncryptionKey,
     ]
   );

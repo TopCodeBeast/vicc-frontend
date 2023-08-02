@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-import { desktopAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
-import { theme } from '@core/style/theme';
+import { breakpoints, desktopAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
 
 const Wrapper = styled.div`
   perspective: 1000px;
@@ -19,7 +18,7 @@ const Columns = styled.div`
   justify-content: space-around;
   gap: min(calc(15 * var(--unit)), 6vw);
 
-  @media (max-width: ${theme.breakpoints.values.desktop}px) {
+  @media (max-width: ${breakpoints.desktop}px) {
     height: 100%;
   }
 

@@ -1,10 +1,10 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Vicc5State as So5State } from '@sorare/core/src/__generated__/globalTypes';
+import { So5State } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import StyledSecondaryTabs from '@sorare/core/src/atoms/navigation/StyledSecondaryTabs';
@@ -15,11 +15,14 @@ import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 
-// import useConfirmLineups from '@football/hooks/so5/useConfirmLineups';
-// import useDeleteLineups from '@football/hooks/so5/useDeleteLineups';
+import useConfirmLineups from '@football/hooks/so5/useConfirmLineups';
+import useDeleteLineups from '@football/hooks/so5/useDeleteLineups';
 import Teams from '@football/pages/Lobby/Components/Teams';
 
-import { UpcomingTeamsSetupQuery } from './__generated__/index.graphql';
+import {
+  UpcomingTeamsSetupQuery,
+  UpcomingTeamsSetupQueryVariables,
+} from './__generated__/index.graphql';
 
 const Header = styled.div`
   display: flex;
@@ -81,28 +84,33 @@ const messages = defineMessages({
 
 export const UPCOMING_TEAMS_SETUP_QUERY = gql`
   query UpcomingTeamsSetupQuery {
-    so5: vicc5Root {
-      lineups: myUpcomingLineupsPaginated {
-        totalCount
-      }
-      drafts: myUpcomingLineupsPaginated(draft: true) {
-        totalCount
-      }
-      upcomingLeaderboards {
-        slug
-        teamsCap
-        trainingCenter
-        mySo5Lineups: myVicc5Lineups {
-          id
+    football {
+      so5 {
+        lineups: myUpcomingLineupsPaginated {
+          totalCount
         }
-        so5League: vicc5League {
-          id
+        drafts: myUpcomingLineupsPaginated(draft: true) {
+          totalCount
+        }
+        upcomingLeaderboards {
           slug
+          teamsCap
+          trainingCenter
+          mySo5Lineups {
+            id
+          }
+          so5League {
+            id
+            slug
+          }
         }
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  UpcomingTeamsSetupQuery,
+  UpcomingTeamsSetupQueryVariables
+>;
 
 export const LobbyUpcomingTeams = () => {
   const navigate = useNavigate();
@@ -111,18 +119,15 @@ export const LobbyUpcomingTeams = () => {
   const { formatMessage } = useIntlContext();
   const [loadingState, setLoadingState] = useState('');
   const [promptConfirmDelete, setPromptConfirmDelete] = useState(false);
-  // const confirmLineup = useConfirmLineups();
-  // const deleteLineups = useDeleteLineups();
+  const confirmLineup = useConfirmLineups();
+  const deleteLineups = useDeleteLineups();
 
-  const { data, refetch, loading } = useQuery<UpcomingTeamsSetupQuery>(
-    UPCOMING_TEAMS_SETUP_QUERY,
-    {
-      nextFetchPolicy: 'cache-first',
-      fetchPolicy: 'cache-and-network',
-    }
-  );
+  const { data, refetch, loading } = useQuery(UPCOMING_TEAMS_SETUP_QUERY, {
+    nextFetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
+  });
 
-  const { lineups, drafts, upcomingLeaderboards } = data?.so5 || {};
+  const { lineups, drafts, upcomingLeaderboards } = data?.football.so5 || {};
   const totalLineups = lineups?.totalCount || 0;
   const totalDrafts = drafts?.totalCount || 0;
 
@@ -138,19 +143,19 @@ export const LobbyUpcomingTeams = () => {
           upcomingLeaderboards.flatMap(({ mySo5Lineups }) =>
             mySo5Lineups.map(({ id }) => id)
           ) || [];
-        // if (actionType === 'delete') {
-        //   await deleteLineups(
-        //     upcomingLeaderboards.map(({ so5League }) => so5League.id),
-        //     lineupIds
-        //   );
-        // } else {
-        //   await confirmLineup(lineupIds);
-        // }
+        if (actionType === 'delete') {
+          await deleteLineups(
+            upcomingLeaderboards.map(({ so5League }) => so5League.id),
+            lineupIds
+          );
+        } else {
+          await confirmLineup(lineupIds);
+        }
         refetch();
       }
       setLoadingState('done');
     },
-    [upcomingLeaderboards, refetch, /*deleteLineups, confirmLineup*/]
+    [upcomingLeaderboards, refetch, deleteLineups, confirmLineup]
   );
 
   useEffect(() => {

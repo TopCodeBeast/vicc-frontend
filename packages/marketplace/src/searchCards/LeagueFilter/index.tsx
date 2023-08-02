@@ -28,7 +28,7 @@ const LeagueFilter = () => {
   });
   const track = useEvents();
   const onChange = useCallback(
-    league => {
+    (league: any) => {
       const isActive = currentRefinement === league;
       const newValue = isActive ? undefined : league;
       setVirtualToggle({

@@ -6,7 +6,7 @@ import Dialog from '@sorare/core/src/components/dialog';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
-// import MatchView from '@football/components/MatchView';
+import MatchView from '@football/components/MatchView';
 
 const DialogContainer = styled.div`
   display: flex;
@@ -45,8 +45,7 @@ const MatchViewDialog = ({ gameId, onClose, open }: Props) => {
       }
       body={
         <DialogContainer>
-          {/* {open && gameId && <MatchView desktop={isLaptop} id={gameId} />} */}
-          {open && gameId && <>MatchView5555</>}
+          {open && gameId && <MatchView desktop={isLaptop} id={gameId} />}
         </DialogContainer>
       }
     />

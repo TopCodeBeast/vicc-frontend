@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import useMutation from '@core/hooks/graphql/useMutation';
 
@@ -18,13 +18,13 @@ const RESEND_CONFIRMATION_INSTRUCTIONS = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  ResendConfirmationInstructionsMutation,
+  ResendConfirmationInstructionsMutationVariables
+>;
 
 const useResendConfirmationInstructions = () => {
-  const [mutate] = useMutation<
-    ResendConfirmationInstructionsMutation,
-    ResendConfirmationInstructionsMutationVariables
-  >(RESEND_CONFIRMATION_INSTRUCTIONS, {
+  const [mutate] = useMutation(RESEND_CONFIRMATION_INSTRUCTIONS, {
     showErrorsWithSnackNotification: true,
   });
   return mutate;

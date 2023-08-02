@@ -1,6 +1,8 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
+
+import { Nickname_publicUserInfoInterface } from './__generated__/index.graphql';
 
 type Props = {
   user: {
@@ -29,7 +31,7 @@ const SuspendedNickname = () => {
   );
 };
 
-export const Nickname = ({ user }: Props): JSX.Element => {
+export const Nickname = ({ user }: Props): React.JSX.Element => {
   if (user.suspended) {
     return <SuspendedNickname />;
   }
@@ -43,5 +45,5 @@ Nickname.fragments = {
       suspended
       nickname
     }
-  `,
+  ` as TypedDocumentNode<Nickname_publicUserInfoInterface>,
 };

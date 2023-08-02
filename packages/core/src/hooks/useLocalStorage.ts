@@ -12,6 +12,7 @@ export const STORAGE = {
   selectedPlayers: 'selectedPlayers',
   leaderboardMode: 'leaderboardMode',
   inviteCode: 'invite-code',
+  useReorgApp: 'useReorgApp',
 } as const;
 
 const getInitialState = <T>(

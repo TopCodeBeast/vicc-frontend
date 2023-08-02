@@ -5,8 +5,8 @@ import { useSportContext } from '@core/contexts/sport';
 import { useIsDesktop } from '@core/hooks/device/useIsDesktop';
 import useTouchScreen from '@core/hooks/device/useTouchScreen';
 import useIsLanding from '@core/hooks/useIsLandingPage';
-// import useIsMlbPage from '@core/hooks/useIsMlbPage';
-// import useIsNBAPage from '@core/hooks/useIsNBAPage';
+import useIsMlbPage from '@core/hooks/useIsMlbPage';
+import useIsNBAPage from '@core/hooks/useIsNBAPage';
 import { useLocationChanged } from '@core/hooks/useLocationChanged';
 import { SESSION_STORAGE, useSessionStorage } from '@core/hooks/useSessionStorage';
 import useSharedAccrossSportsPage from '@core/hooks/useSharedAccrossSportsPage';
@@ -22,6 +22,8 @@ const AppBarProvider = ({ children }: Props) => {
   const isMouseFriendlyDevice = !useTouchScreen();
 
   const locationChanged = useLocationChanged();
+  const isMlbPage = useIsMlbPage();
+  const isNBAPage = useIsNBAPage();
   const isLandingPage = useIsLanding();
   const sharedPage = useSharedAccrossSportsPage();
   const { sport: sportConfig } = useSportContext();
@@ -34,7 +36,11 @@ const AppBarProvider = ({ children }: Props) => {
       setSportContext(sportConfig);
     }
 
-    if (!sharedPage) {
+    if (isMlbPage) {
+      setSportContext(Sport.BASEBALL);
+    } else if (isNBAPage) {
+      setSportContext(Sport.NBA);
+    } else if (!sharedPage) {
       setSportContext(Sport.FOOTBALL);
     } else if (isLandingPage) {
       setSportContext(null);
@@ -44,6 +50,8 @@ const AppBarProvider = ({ children }: Props) => {
     sportContext,
     sportConfig,
     setSportContext,
+    isMlbPage,
+    isNBAPage,
     isLandingPage,
   ]);
 

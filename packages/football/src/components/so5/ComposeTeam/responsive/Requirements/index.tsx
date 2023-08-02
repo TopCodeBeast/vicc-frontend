@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faInfoCircle, faTimesCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ClickAwayListener } from '@material-ui/core';
@@ -13,6 +13,8 @@ import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 
 import Context from '@football/components/so5/ComposeTeam/Context';
 import Rules, { hasRules } from '@football/components/so5/Rules';
+
+import { ComposeLineupTitle_so5Leaderboard } from './__generated__/index.graphql';
 
 const StyledTooltip = styled.div`
   padding: 0;
@@ -102,12 +104,12 @@ export const Title = () => {
 
 Title.fragments = {
   so5Leaderboard: gql`
-    fragment ComposeLineupTitle_so5Leaderboard on Vicc5Leaderboard {
+    fragment ComposeLineupTitle_so5Leaderboard on So5Leaderboard {
       slug
       ...Rules_so5Leaderboard
     }
     ${Rules.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<ComposeLineupTitle_so5Leaderboard>,
 };
 
 export default Title;

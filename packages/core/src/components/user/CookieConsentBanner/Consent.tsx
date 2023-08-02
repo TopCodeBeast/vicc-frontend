@@ -1,7 +1,7 @@
 import { faCaretRight } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Switch } from '@material-ui/core';
-// import { Destination } from '@segment/consent-manager/types/types';
+import { Destination } from '@segment/consent-manager/types/types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -59,8 +59,6 @@ const Continue = styled.button`
   font: inherit;
   color: var(--c-neutral-600);
 `;
-
-type Destination = any;
 
 type Props = {
   saveConsent: (agree?: boolean) => void;

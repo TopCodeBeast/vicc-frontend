@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Container } from '@sorare/core/src/atoms/container';
 import MyReferees from '@sorare/core/src/components/referral/MyReferees';
 import Notice from '@sorare/core/src/components/referral/Notice';
-import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
+import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import ReferralBar from '@football/components/user/ReferralBar';
 
@@ -19,7 +19,7 @@ const Main = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--double-unit);
-  @media ${tabletAndAbove} {
+  @media ${laptopAndAbove} {
     flex-direction: row;
     gap: calc(5 * var(--unit));
   }
@@ -35,7 +35,7 @@ const Aside = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--double-unit);
-  @media ${tabletAndAbove} {
+  @media ${laptopAndAbove} {
     width: 360px;
   }
 `;

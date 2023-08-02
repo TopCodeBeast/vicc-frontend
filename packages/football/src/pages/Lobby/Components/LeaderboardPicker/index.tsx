@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faAngleDown } from '@fortawesome/pro-solid-svg-icons';
 import classnames from 'classnames';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { Vicc5State as So5State } from '@sorare/core/src/__generated__/globalTypes';
+import { So5State } from '@sorare/core/src/__generated__/globalTypes';
 import Checkbox from '@sorare/core/src/atoms/inputs/Checkbox';
 import Select from '@sorare/core/src/atoms/inputs/Select';
 import ScarcityBallPro from '@sorare/core/src/components/card/ScarcityBallPro';
@@ -47,33 +47,38 @@ const Filters = styled.div`
 `;
 
 const LOBBY_LEADERBOARD_PICKER_QUERY = gql`
-  query LobbyLeaderboardPickerQuery($type: Vicc5State, $slug: String) {
-    so5: vicc5Root {
-      so5Fixture: vicc5Fixture(type: $type, slug: $slug) {
-        slug
-        so5Leaderboards: vicc5Leaderboards {
+  query LobbyLeaderboardPickerQuery($type: So5State, $slug: String) {
+    football {
+      so5 {
+        so5Fixture(type: $type, slug: $slug) {
           slug
-          rarityType
-          displayName
-          universalSo5UserGroups: universalVicc5UserGroups {
-            slug
-          }
-        }
-        mySo5Lineups: myVicc5Lineups {
-          id
-          so5Leaderboard: vicc5Leaderboard {
+          so5Leaderboards {
             slug
             rarityType
+            displayName
+            universalSo5UserGroups {
+              slug
+            }
           }
-          so5Rankings: vicc5Rankings {
+          mySo5Lineups {
             id
-            score
+            so5Leaderboard {
+              slug
+              rarityType
+            }
+            so5Rankings {
+              id
+              score
+            }
           }
         }
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  LobbyLeaderboardPickerQuery,
+  LobbyLeaderboardPickerQueryVariables
+>;
 
 interface Props {
   leaderboardSlug?: string;
@@ -88,15 +93,12 @@ export const LeaderboardPicker = ({ type }: Props) => {
   const [leaderboardMode, setLeaderboardMode] = useLocalStorage<
     'matchday' | 'overall'
   >(STORAGE.leaderboardMode, 'matchday');
-  const { data } = useQuery<
-    LobbyLeaderboardPickerQuery,
-    LobbyLeaderboardPickerQueryVariables
-  >(LOBBY_LEADERBOARD_PICKER_QUERY, {
+  const { data } = useQuery(LOBBY_LEADERBOARD_PICKER_QUERY, {
     variables: { type, slug: slug === 'past' ? undefined : slug },
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const so5Fixture = data?.so5.so5Fixture;
+  const so5Fixture = data?.football.so5.so5Fixture;
   const redirectTo = useCallback(
     ({ rarity, leaderboard }: { rarity?: string; leaderboard?: string }) => {
       if (!so5Fixture) return null;

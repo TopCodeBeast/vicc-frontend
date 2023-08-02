@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { TooltipProps } from '@material-ui/core';
 import { defineMessage, useIntl } from 'react-intl';
 import styled, { css } from 'styled-components';
@@ -51,20 +51,20 @@ const ActivityIcon = styled.div<{ $active: boolean }>`
   border-radius: var(--radius);
 `;
 
-// const messages = defineMessage({
-//   online: {
-//     id: 'User.Header.online',
-//     defaultMessage: 'Online',
-//   },
-//   offline: {
-//     id: 'User.Header.offline',
-//     defaultMessage: 'Offline',
-//   },
-// });
+const messages = defineMessage({
+  online: {
+    id: 'User.Header.online',
+    defaultMessage: 'Online',
+  },
+  offline: {
+    id: 'User.Header.offline',
+    defaultMessage: 'Offline',
+  },
+});
 
 type Props = {
   user: ActivityIndicator_user;
-  children: JSX.Element;
+  children: React.JSX.Element;
   enterTouchDelay?: TooltipProps['enterTouchDelay'];
   style?: React.CSSProperties;
 };
@@ -90,7 +90,7 @@ export const ActivityIndicator = ({
           <>
             {user.profile.status}
             {user.profile.status && ' ('}
-            {/* {formatMessage(active ? messages.online : messages.offline)} */}
+            {formatMessage(active ? messages.online : messages.offline)}
             {user.profile.status && ')'}
           </>
         }
@@ -115,7 +115,7 @@ ActivityIndicator.fragments = {
       ...useActivityIndicator_user
     }
     ${useActivityIndicator.fragments.user}
-  `,
+  ` as TypedDocumentNode<ActivityIndicator_user>,
 };
 
 export default ActivityIndicator;

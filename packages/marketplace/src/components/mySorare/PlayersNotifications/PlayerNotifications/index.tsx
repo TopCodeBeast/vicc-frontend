@@ -2,7 +2,7 @@ import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import TagButton from '@sorare/core/src/atoms/buttons/TagButton';
-// import useUpdateSubscription from '@sorare/core/src/hooks/subscriptions/useUpdateSubscription';
+import useUpdateSubscription from '@sorare/core/src/hooks/subscriptions/useUpdateSubscription';
 import {
   blockchainRarities,
   formatScarcity,
@@ -41,7 +41,7 @@ const Scarcities = styled.div`
 `;
 
 export const PlayerNotifications = ({ subscription, item }: Props) => {
-  // const updateSubscription = useUpdateSubscription(subscription);
+  const updateSubscription = useUpdateSubscription(subscription);
 
   return (
     <Root>
@@ -64,7 +64,7 @@ export const PlayerNotifications = ({ subscription, item }: Props) => {
               selected={selected}
               disabled={disabled}
               onClick={() => {
-                // updateSubscription([scarcity], !selected);
+                updateSubscription([scarcity], !selected);
               }}
             >
               {formatScarcity(scarcity)}

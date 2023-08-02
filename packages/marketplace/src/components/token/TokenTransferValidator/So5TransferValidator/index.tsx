@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faWarning } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback } from 'react';
@@ -28,11 +28,11 @@ const SO5_TOKEN_TRANSFER_VALIDATOR_CARDS_QUERY = gql`
         nodes {
           assetId
           slug
-          openedSo5Lineups: openedVicc5Lineups {
+          openedSo5Lineups {
             id
             ...formatLineupDisplayName_so5Lineup
           }
-          liveSo5Lineup: liveVicc5Lineup {
+          liveSo5Lineup {
             id
             ...formatLineupDisplayName_so5Lineup
           }
@@ -41,7 +41,10 @@ const SO5_TOKEN_TRANSFER_VALIDATOR_CARDS_QUERY = gql`
     }
   }
   ${formatLineupDisplayName.fragments.so5Lineup}
-`;
+` as TypedDocumentNode<
+  So5TokenTransferValidatorCardQuery,
+  So5TokenTransferValidatorCardQueryVariables
+>;
 
 const WarningWrapper = styled.div`
   border-radius: var(--unit);
@@ -101,10 +104,7 @@ const TITLE_MAPS = {
 };
 
 const So5TransferValidator = ({ slugs, children, transferContext }: Props) => {
-  const { data, loading } = useQuery<
-    So5TokenTransferValidatorCardQuery,
-    So5TokenTransferValidatorCardQueryVariables
-  >(SO5_TOKEN_TRANSFER_VALIDATOR_CARDS_QUERY, {
+  const { data, loading } = useQuery(SO5_TOKEN_TRANSFER_VALIDATOR_CARDS_QUERY, {
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-first',
     variables: { slugs, first: slugs.length },
@@ -113,7 +113,7 @@ const So5TransferValidator = ({ slugs, children, transferContext }: Props) => {
   const cards = data?.currentUser?.paginatedCards.nodes;
 
   const validationMessages =
-    cards?.reduce<{ [key: string]: JSX.Element }>((acc, card) => {
+    cards?.reduce<{ [key: string]: React.JSX.Element }>((acc, card) => {
       if (!card.openedSo5Lineups?.length && !card.liveSo5Lineup) {
         return acc;
       }
@@ -172,7 +172,9 @@ const So5TransferValidator = ({ slugs, children, transferContext }: Props) => {
       };
     }, {}) || {};
 
-  const ConsentMessage = useCallback(//Modified*****
+  const ConsentMessage = useCallback<
+    NonNullable<TokenTransferChildrenProps['ConsentMessage']>
+  >(
     props => {
       const liveLineupsCount =
         cards?.filter(card => card.liveSo5Lineup).length || 0;

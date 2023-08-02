@@ -30,8 +30,8 @@ const Extra = styled.div`
 `;
 
 type Props = {
-  Back: FC;
-  renderExtra?: (props: FC) => ReactNode;
+  Back: FC<React.PropsWithChildren<unknown>>;
+  renderExtra?: (props: FC<React.PropsWithChildren<unknown>>) => ReactNode;
 };
 const LineupHeader = ({ Back, renderExtra }: Props) => {
   const { formatMessage } = useIntl();

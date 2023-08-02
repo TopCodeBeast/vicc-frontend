@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { withFragments } from '@sorare/core/src/gql';
 
@@ -25,6 +25,6 @@ export const isFreeUser = withFragments(
           unique
         }
       }
-    `,
+    ` as TypedDocumentNode<isFreeUser_user>,
   }
 );

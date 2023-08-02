@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
@@ -44,7 +44,7 @@ const messages = defineMessages({
 });
 
 const BlockchainInfo = ({ token }: Props) => {
-  const { ipfsUrl, ipfsPictureUrl } = {} as any;// const { ipfsUrl, ipfsPictureUrl } = token; //TODO***
+  const { ipfsUrl, ipfsPictureUrl } = token;
   const { formatMessage } = useIntl();
 
   return (
@@ -117,12 +117,12 @@ BlockchainInfo.fragments = {
     fragment BlockchainInfo_token on Token {
       assetId
       slug
-      #ipfsUrl
-      #ipfsPictureUrl
+      ipfsUrl
+      ipfsPictureUrl
       ...TokenId_token
     }
     ${TokenId.fragments.token}
-  `,
+  ` as TypedDocumentNode<BlockchainInfo_token>,
 };
 
 export default BlockchainInfo;

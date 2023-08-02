@@ -16,9 +16,9 @@ import SnackNotificationContextProvider, {
 import { InlineNotification } from './InlineNotification';
 import Notification from './SnackNotification';
 
-interface Props {
+type Props = {
   children: ReactNode;
-}
+};
 
 const formatValues = (values: any): { [key: string]: string } => {
   if (typeof values !== 'object') return {};

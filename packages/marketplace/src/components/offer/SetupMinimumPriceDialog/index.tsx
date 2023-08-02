@@ -1,19 +1,34 @@
-import { gql, useMutation } from '@apollo/client';
-import { useState } from 'react';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
+import { useMemo, useState } from 'react';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import Checkbox from '@sorare/core/src/atoms/inputs/Checkbox';
 import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
 import Dialog from '@sorare/core/src/components/dialog';
-import {
-  GraphqlForm,
-  TextFieldWithConversion,
-} from '@sorare/core/src/components/form/Form';
+import { Field, GraphqlForm } from '@sorare/core/src/components/form/Form';
+import MonetaryInputField from '@sorare/core/src/components/form/Form/MonetaryInputField';
 import { useConfigContext } from '@sorare/core/src/contexts/config';
-import { fromWei, toWei } from '@sorare/core/src/lib/wei';
-
-import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
+import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
+import {
+  AcceptedCurrenciesValue,
+  useAcceptedCurrencies,
+} from '@sorare/core/src/hooks/useAcceptedCurrencies';
+import useMonetaryAmount, {
+  MonetaryAmountOutput,
+} from '@sorare/core/src/hooks/useMonetaryAmount';
+import { Currency } from '@sorare/core/src/lib/currency';
+import {
+  MonetaryAmountCurrency,
+  monetaryAmountFragment,
+} from '@sorare/core/src/lib/monetaryAmount';
+import {
+  ETH_DECIMAL_PLACES,
+  RoundingMode,
+  fromWei,
+  toWei,
+} from '@sorare/core/src/lib/wei';
 
 import {
   CreateOrUpdateSingleBuyOfferMinPriceMutation,
@@ -52,10 +67,15 @@ const SetupMinimumPriceDialogFragments = {
     fragment SetupMinimumPriceDialog_token on Token {
       assetId
       slug
-      privateMinPrice
-      publicMinPrice
+      privateMinPrices {
+        ...MonetaryAmountFragment_monetaryAmount
+      }
+      publicMinPrices {
+        ...MonetaryAmountFragment_monetaryAmount
+      }
     }
-  `,
+    ${monetaryAmountFragment}
+  ` as TypedDocumentNode<SetupMinimumPriceDialog_token>,
 };
 
 const CREATE_OR_UPDATE_SINGLE_BUY_OFFER_MIN_PRICE_MUTATION = gql`
@@ -71,7 +91,10 @@ const CREATE_OR_UPDATE_SINGLE_BUY_OFFER_MIN_PRICE_MUTATION = gql`
     }
   }
   ${SetupMinimumPriceDialogFragments.token}
-`;
+` as TypedDocumentNode<
+  CreateOrUpdateSingleBuyOfferMinPriceMutation,
+  CreateOrUpdateSingleBuyOfferMinPriceMutationVariables
+>;
 
 const CenteredText16 = styled(Text16)`
   text-align: center;
@@ -92,26 +115,58 @@ const SubmitButtonWrapper = styled.div`
 
 const SetupMinimumPriceDialog = ({ onClose, open, token, title }: Props) => {
   const { formatMessage } = useIntl();
-  const { privateMinPrice, publicMinPrice } = token;
-  const {
-    transferMarket: { cardEthMinPrice },
-  } = useConfigContext();
-  const [updateMinPrice] = useMutation<
-    CreateOrUpdateSingleBuyOfferMinPriceMutation,
-    CreateOrUpdateSingleBuyOfferMinPriceMutationVariables
-  >(CREATE_OR_UPDATE_SINGLE_BUY_OFFER_MIN_PRICE_MUTATION);
+  const { privateMinPrices, publicMinPrices } = token;
+  const { marketFeeRateBasisPoints } = useConfigContext();
+  const { acceptedCurrencies } = useAcceptedCurrencies();
+  const { toMonetaryAmount, getUserFiatAmount } = useMonetaryAmount();
+  const [updateMinPrice] = useMutation(
+    CREATE_OR_UPDATE_SINGLE_BUY_OFFER_MIN_PRICE_MUTATION
+  );
+  const { fiatCurrency } = useCurrentUserContext();
 
-  const { secondaryMarketFeesRate } = useMarketplaceContext();
+  const minPriceMonetaryAmount = privateMinPrices || publicMinPrices || null;
 
-  const minPrice = privateMinPrice || publicMinPrice;
-
-  const initialEthPrice = minPrice
-    ? fromWei(minPrice)
-    : cardEthMinPrice.toString();
-
-  const [keepPrivate, setKeepPrivate] = useState(!!privateMinPrice);
+  const [keepPrivate, setKeepPrivate] = useState(!!privateMinPrices);
 
   const handleChecked = (event: any) => setKeepPrivate(event.target.checked);
+
+  const currency =
+    privateMinPrices?.referenceCurrency ||
+    publicMinPrices?.referenceCurrency ||
+    acceptedCurrencies === AcceptedCurrenciesValue.ETH
+      ? SupportedCurrency.WEI
+      : SupportedCurrency[fiatCurrency.code];
+
+  const [monetaryAmount, setMonetaryAmount] = useState<MonetaryAmountOutput>(
+    minPriceMonetaryAmount
+      ? toMonetaryAmount(minPriceMonetaryAmount)
+      : toMonetaryAmount({
+          [currency.toLowerCase()]: '0',
+          referenceCurrency: currency,
+        })
+  );
+
+  const ethAmount = useMemo(
+    () =>
+      fromWei(monetaryAmount.wei, ETH_DECIMAL_PLACES, RoundingMode.ROUND_DOWN),
+    [monetaryAmount.wei]
+  );
+
+  const onChange = (inputCurrency: Currency, inputAmount: number) => {
+    const referenceCurrency =
+      inputCurrency === Currency.ETH
+        ? SupportedCurrency.WEI
+        : SupportedCurrency[fiatCurrency.code];
+    const amount =
+      inputCurrency === Currency.ETH
+        ? toWei(inputAmount)
+        : Math.round(inputAmount * 100);
+    const inputMonetaryParams = {
+      referenceCurrency,
+      [referenceCurrency.toLowerCase()]: amount,
+    };
+    setMonetaryAmount(toMonetaryAmount(inputMonetaryParams));
+  };
 
   const submit = async (
     attributes: {
@@ -123,7 +178,13 @@ const SetupMinimumPriceDialog = ({ onClose, open, token, title }: Props) => {
     await updateMinPrice({
       variables: {
         input: {
-          amount: toWei(attributes.price),
+          minPrice: {
+            amount:
+              monetaryAmount[
+                currency.toLowerCase() as MonetaryAmountCurrency
+              ].toString(),
+            currency,
+          },
           isPrivate: keepPrivate,
           assetId: token.assetId,
         },
@@ -150,7 +211,7 @@ const SetupMinimumPriceDialog = ({ onClose, open, token, title }: Props) => {
         <Body>
           <Text16>
             <FormattedMessage {...messages.disclaimer} />{' '}
-            {secondaryMarketFeesRate > 0 && <>*</>}
+            {marketFeeRateBasisPoints > 0 && <>*</>}
           </Text16>
           <StyledGraphqlForm
             onSubmit={(attributes, onResult, onCancel) => {
@@ -160,11 +221,26 @@ const SetupMinimumPriceDialog = ({ onClose, open, token, title }: Props) => {
             render={(Error, SubmitButton) => (
               <Content>
                 <Error />
-                <TextFieldWithConversion
+                <Field
                   name="price"
-                  defaultEthValue={initialEthPrice.toString()}
+                  defaultValue={ethAmount}
+                  render={() => (
+                    <MonetaryInputField
+                      ethAmount={ethAmount}
+                      fiatAmount={getUserFiatAmount(monetaryAmount) / 100}
+                      defaultCurrency={
+                        currency === SupportedCurrency.WEI
+                          ? Currency.ETH
+                          : Currency.FIAT
+                      }
+                      fiatCurrency={fiatCurrency.code}
+                      onChange={(inputCurrency: Currency, amount: number) => {
+                        onChange(inputCurrency, amount);
+                      }}
+                    />
+                  )}
                 />
-                {secondaryMarketFeesRate > 0 && (
+                {marketFeeRateBasisPoints > 0 && (
                   <Caption color="var(--c-neutral-600)">
                     <FormattedMessage {...messages.disclaimerLegend} />
                   </Caption>

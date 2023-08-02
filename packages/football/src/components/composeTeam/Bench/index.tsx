@@ -78,10 +78,10 @@ const HeaderWrapper = ({ onClose }: HeaderProps) => {
 export type Props = {
   onScroll?: UIEventHandler<HTMLElement>;
   render: (props: {
-    Container: FC;
-    Header: FC<HeaderProps>;
-    Cards: FC;
-    Field?: FC<FieldProps>;
+    Container: FC<React.PropsWithChildren<unknown>>;
+    Header: FC<React.PropsWithChildren<HeaderProps>>;
+    Cards: FC<React.PropsWithChildren<unknown>>;
+    Field?: FC<React.PropsWithChildren<FieldProps>>;
   }) => ReactNode;
   open: boolean;
 };

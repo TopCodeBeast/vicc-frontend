@@ -1,18 +1,14 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faChevronLeft } from '@fortawesome/pro-solid-svg-icons';
-import classNames from 'classnames';
 import { CSSProperties } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Rarity } from '@sorare/core/src/__generated__/globalTypes';
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import Container from '@sorare/core/src/atoms/layout/Container';
-import { Caption, Text16, Title2 } from '@sorare/core/src/atoms/typography';
-import { Bonus } from '@sorare/core/src/components/collections/Bonus';
-import ProgressBar from '@sorare/core/src/components/collections/ProgressBar';
-import { Score } from '@sorare/core/src/components/collections/Score';
+import { Text16, Title2 } from '@sorare/core/src/atoms/typography';
+import { CollectionHeaderStats } from '@sorare/core/src/components/collections/CollectionHeaderStats';
 import SocialShare from '@sorare/core/src/components/user/SocialShare';
 import User from '@sorare/core/src/components/user/User';
 import {
@@ -20,15 +16,13 @@ import {
   FOOTBALL_USER_GALLERY_CARD_COLLECTIONS,
 } from '@sorare/core/src/constants/routes';
 import useSafePreviousNavigate from '@sorare/core/src/hooks/useSafePreviousNavigate';
+import { getCollectionsTeamShield } from '@sorare/core/src/lib/collections';
 import { socialShareEventContext } from '@sorare/core/src/lib/events';
-import { fantasy, glossary } from '@sorare/core/src/lib/glossary';
 import {
   laptopAndAbove,
   tabletAndAbove,
 } from '@sorare/core/src/style/mediaQuery';
 
-import { CardsNumber } from '@football/components/collections/CardsNumber';
-import { Ranking } from '@football/components/collections/Ranking';
 import { ScarcityLabel } from '@football/components/collections/ScarcityLabel';
 
 import {
@@ -102,33 +96,6 @@ const StyledTitle2 = styled(Title2)`
     align-self: flex-start;
   }
 `;
-const Stats = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--triple-unit);
-  justify-content: space-around;
-  align-items: center;
-  max-width: 100%;
-  @media ${tabletAndAbove} {
-    gap: calc(8 * var(--unit));
-    &.noBonus {
-      justify-content: flex-start;
-    }
-  }
-`;
-const StatBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: max-content;
-`;
-const ProgressBarWrapper = styled.div`
-  min-width: 100%;
-  @media ${laptopAndAbove} {
-    flex-grow: 1;
-    min-width: 0;
-  }
-`;
 const UsernameWrapper = styled.div`
   grid-area: username;
   justify-self: start;
@@ -142,64 +109,6 @@ const IconWrapper = styled.span`
     height: var(--intermediate-unit);
   }
 `;
-
-type HeaderStatsProps = {
-  cardCollection: Header_cardCollection;
-  userCardCollection?: Header_userCardCollection | null;
-  slotsCount: number;
-  showBonus: boolean;
-};
-const HeaderStats = ({
-  cardCollection,
-  userCardCollection,
-  slotsCount,
-  showBonus,
-}: HeaderStatsProps) => {
-  const defaults = {
-    fulfilledSlotsCount: 0,
-    bonus: 0,
-    score: 0,
-    liveRanking: 0,
-  };
-
-  const { fulfilledSlotsCount, bonus, score, liveRanking } =
-    userCardCollection || defaults;
-  return (
-    <Stats className={classNames({ noBonus: !showBonus })}>
-      <StatBox>
-        <Caption bold color="var(--c-static-neutral-600)">
-          <FormattedMessage {...glossary.cards} />
-        </Caption>
-        <CardsNumber ownedCards={fulfilledSlotsCount} totalCards={slotsCount} />
-      </StatBox>
-      <StatBox>
-        <Caption bold color="var(--c-static-neutral-600)">
-          <FormattedMessage {...fantasy.rank} />
-        </Caption>
-        <Ranking liveRanking={liveRanking} />
-      </StatBox>
-      <StatBox>
-        <Caption bold color="var(--c-static-neutral-600)">
-          <FormattedMessage {...fantasy.score} />
-        </Caption>
-        <Score score={score} />
-      </StatBox>
-      {showBonus && (
-        <>
-          <StatBox>
-            <Caption bold color="var(--c-static-neutral-600)">
-              <FormattedMessage {...fantasy.bonus} />
-            </Caption>
-            <Bonus bonus={bonus} />
-          </StatBox>
-          <ProgressBarWrapper>
-            <ProgressBar score={score} cardCollection={cardCollection} />
-          </ProgressBarWrapper>
-        </>
-      )}
-    </Stats>
-  );
-};
 
 type Props = {
   cardCollection: Header_cardCollection;
@@ -230,7 +139,8 @@ export const Header = ({
   }
 
   const { pictureUrl, name } = team;
-  const { user } = userCardCollection || {};
+  const { user, fulfilledSlotsCount, score, bonus, liveRanking } =
+    userCardCollection || {};
 
   return (
     <Root
@@ -287,11 +197,15 @@ export const Header = ({
               </UsernameWrapper>
             )}
           </TeamInfos>
-          <HeaderStats
-            cardCollection={cardCollection}
-            userCardCollection={userCardCollection}
+          <CollectionHeaderStats
+            teamShield={getCollectionsTeamShield(cardCollection)}
             slotsCount={slotsCount}
+            fulfilledSlotsCount={fulfilledSlotsCount}
+            score={score}
+            bonus={bonus}
+            liveRanking={liveRanking}
             showBonus={bonusThresholds.length > 0}
+            showRanking
           />
         </InnerWrapper>
       </StyledContainer>
@@ -325,10 +239,10 @@ Header.fragments = {
         startYear
         name
       }
-      ...ProgressBar_cardCollection
+      ...getCollectionsShield_cardCollection
     }
-    ${ProgressBar.fragments.cardCollection}
-  `,
+    ${getCollectionsTeamShield.fragments.cardCollection}
+  ` as TypedDocumentNode<Header_cardCollection>,
   userCardCollection: gql`
     fragment Header_userCardCollection on UserCardCollection {
       id
@@ -342,5 +256,5 @@ Header.fragments = {
       }
     }
     ${User.fragments.user}
-  `,
+  ` as TypedDocumentNode<Header_userCardCollection>,
 };

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
@@ -133,7 +133,7 @@ const getCaptainRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetCaptainRule on Vicc5Leaderboard {
+      fragment GetCaptainRule on So5Leaderboard {
         slug
         displayedRules {
           id
@@ -143,7 +143,7 @@ const getCaptainRule = withFragments(
           captain
         }
       }
-    `,
+    ` as TypedDocumentNode<GetCaptainRule>,
   }
 );
 

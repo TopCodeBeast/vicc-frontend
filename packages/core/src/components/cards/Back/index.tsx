@@ -2,15 +2,12 @@ import { HTMLAttributes } from 'react';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { Sport } from '@core/__generated__/globalTypes';
-// import { CardRarity } from '@core/__generated__/usSportsGlobalTypes';
+import { CardRarity, Sport } from '__generated__/globalTypes';
 import { proxyUrl } from '@core/atoms/ui/ResponsiveImg';
 import Shine from '@core/atoms/ui/Shine';
 import { FRONTEND_ASSET_HOST } from '@core/constants/assets';
-// import { getScarcityName } from '@core/lib/baseball';
+import { getScarcityName } from '@core/lib/baseball';
 import { CARD_BORDER_RADIUS, CARD_SIZE } from '@core/lib/cards';
-
-type CardRarity = any;
 
 const CardShine = styled(Shine)`
   aspect-ratio: var(--card-aspect-ratio);
@@ -68,7 +65,7 @@ export const USSportCardBack = ({
                 id: 'CardBack.titleWithTier',
                 defaultMessage: '{scarcity} Card, tier {tier}',
               },
-              { scarcity: `getScarcityName(scarcity)`, tier }
+              { scarcity: getScarcityName(scarcity), tier }
             )
           : formatMessage(
               {

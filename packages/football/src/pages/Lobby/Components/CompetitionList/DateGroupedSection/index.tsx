@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { parseISO } from 'date-fns';
 import { Dispatch, SetStateAction, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -185,13 +185,13 @@ const DateGroupedSection = ({
 
 DateGroupedSection.fragments = {
   so5Leaderboard: gql`
-    fragment DateGroupedSection_so5Leaderboard on Vicc5Leaderboard {
+    fragment DateGroupedSection_so5Leaderboard on So5Leaderboard {
       slug
       displayName
       rarityType
-      so5LineupsCount: vicc5LineupsCount
+      so5LineupsCount
       startDate
-      mySo5Lineups: myVicc5Lineups {
+      mySo5Lineups {
         id
       }
       ...getLeaderboardInfo_so5Leaderboard
@@ -199,20 +199,20 @@ DateGroupedSection.fragments = {
     }
     ${CompetitionListTable.fragments.so5Leaderboard}
     ${getLeaderboardInfo.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<DateGroupedSection_so5Leaderboard>,
   so5Fixture: gql`
-    fragment DateGroupedSection_so5Fixture on Vicc5Fixture {
+    fragment DateGroupedSection_so5Fixture on So5Fixture {
       slug
       cutOffDate
       shortDisplayName
     }
-  `,
+  ` as TypedDocumentNode<DateGroupedSection_so5Fixture>,
   clubShopItem: gql`
     fragment DateGroupedSection_clubShopItem on ClubShopItem {
       ...CompetitionListTable_clubShopItem
     }
     ${CompetitionListTable.fragments.clubShopItem}
-  `,
+  ` as TypedDocumentNode<DateGroupedSection_clubShopItem>,
 };
 
 export default DateGroupedSection;

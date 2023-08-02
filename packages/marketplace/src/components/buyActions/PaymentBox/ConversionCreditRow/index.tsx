@@ -1,11 +1,7 @@
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
-import {
-  Currency,
-  Sport,
-  SupportedCurrency,
-} from '@sorare/core/src/__generated__/globalTypes';
+import { Currency, Sport } from '@sorare/core/src/__generated__/globalTypes';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 import { ConversionCreditTinyBanner } from '@sorare/core/src/components/conversionCredit/ConversionCreditTinyBanner';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
@@ -60,14 +56,14 @@ type Props = {
 };
 
 export const ConversionCreditRow = ({
-  sport,
   canChangeRefCurrency,
   currency,
   isFiat,
   usingConversionCredit,
   conversionCreditMonetaryAmount,
 }: Props) => {
-  const { setUsingConversionCredit } = usePaymentContext() || {};
+  const { setUsingConversionCredit, conversionCredit } =
+    usePaymentContext() || {};
   const {
     walletPreferences: { onlyShowFiatCurrency },
   } = useCurrentUserContext();
@@ -84,7 +80,7 @@ export const ConversionCreditRow = ({
         </Title>
         <Banner>
           <ConversionCreditTinyBanner
-            sport={sport}
+            conversionCredit={conversionCredit}
             wrapTerms={false}
             onRemove={() => setUsingConversionCredit?.(false)}
           />
@@ -92,10 +88,7 @@ export const ConversionCreditRow = ({
         <Amount>
           <Text16 as="span" color="var(--c-green-600)">
             <PaymentBoxAmountWithConversion
-              monetaryAmount={{
-                referenceCurrency: SupportedCurrency.WEI,
-                ...conversionCreditMonetaryAmount,
-              }}
+              monetaryAmount={conversionCreditMonetaryAmount}
               bold
               color="currentColor"
               hideExponent={canChangeRefCurrency || onlyShowFiatCurrency}

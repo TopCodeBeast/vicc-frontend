@@ -1,16 +1,16 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { FOOTBALL_LOBBY_LIVE } from '@sorare/core/src/constants/routes';
 
-import { GameWeekTitle } from '@football/components/Home/GameWeekTitle';
-import HomeBlockWithTimeline from '@football/components/Home/HomeBlockWithTimeline';
-import { ItemRows } from '@football/components/Home/ItemRows';
-import { SeeAllButton } from '@football/components/Home/SeeAllButton';
+import { GameWeekTitle } from '@football/components/home/GameWeekTitle';
+import HomeBlockWithTimeline from '@football/components/home/HomeBlockWithTimeline';
+import { ItemRows } from '@football/components/home/ItemRows';
+import { SeeAllButton } from '@football/components/home/SeeAllButton';
 import { Lineup } from '@football/components/lineup/Lineup';
-// import { EligibleRewardsBanner } from '@football/components/rewards/EligibleRewardsBanner';
-// // eslint-disable-next-line sorare/no-unrendered-component-imports
+import { EligibleRewardsBanner } from '@football/components/rewards/EligibleRewardsBanner';
+// eslint-disable-next-line sorare/no-unrendered-component-imports
 import { RewardType } from '@football/lib/lineupRewards';
 
 import { LiveFixture_so5 } from './__generated__/index.graphql';
@@ -33,13 +33,14 @@ export const LiveFixture = ({ so5, loading }: Props) => {
     [];
   const lineupsCount = so5?.so5Fixture?.mySo5LineupsCount;
 
-  // if (!lineups.length && !loading) {
-  //   return null;
-  // }
+  if (!lineups.length && !loading) {
+    return null;
+  }
 
   return (
     <HomeBlockWithTimeline
       gameWeek={so5?.so5Fixture?.gameWeek}
+      fixtureShortDisplayName={so5?.so5Fixture?.shortDisplayName}
       title={<GameWeekTitle so5Fixture={so5?.so5Fixture} type="live" />}
       type="live"
       loading={loading}
@@ -54,32 +55,30 @@ export const LiveFixture = ({ so5, loading }: Props) => {
         ) : null
       }
     >
-      
-     <ContentWrapper>
-         <ItemRows itemsCount={lineups.length} loading={loading}>
+      <ContentWrapper>
+        <ItemRows itemsCount={lineups.length} loading={loading}>
           {lineups.map(
             lineup =>
               lineup?.so5Leaderboard && (
-                <>Lineup76767</>
-                // <Lineup
-                //   key={lineup.id}
-                //   leaderboard={lineup.so5Leaderboard}
-                //   lineup={lineup}
-                //   rewardType={RewardType.Eligible}
-                //   displayScore
-                //   hideGameWeekInfo
-                // />
+                <Lineup
+                  key={lineup.id}
+                  leaderboard={lineup.so5Leaderboard}
+                  lineup={lineup}
+                  rewardType={RewardType.Eligible}
+                  displayScore
+                  hideGameWeekInfo
+                />
               )
           )}
         </ItemRows>
-        {/* {!loading && (
+        {!loading && (
           <EligibleRewardsBanner
             rewardConfigs={lineups.flatMap(lineup =>
               lineup.so5Rankings.flatMap(ranking => ranking.eligibleRewards)
             )}
             rewardsDeliveryDate={so5?.so5Fixture?.rewardsDeliveryDate}
           />
-        )}*/}
+        )}
       </ContentWrapper>
     </HomeBlockWithTimeline>
   );
@@ -87,37 +86,38 @@ export const LiveFixture = ({ so5, loading }: Props) => {
 
 LiveFixture.fragments = {
   so5: gql`
-    fragment LiveFixture_so5 on Vicc5Root {
-      so5Fixture: vicc5Fixture(type: LIVE) {
+    fragment LiveFixture_so5 on So5Root {
+      so5Fixture(type: LIVE) {
         slug
         gameWeek
-        # rewardsDeliveryDate
+        shortDisplayName
+        rewardsDeliveryDate
         ...GameWeekTitle_so5Fixture
-        mySo5LineupsCount: myVicc5LineupsCount(training: false, draft: false)
-        mySo5LineupsPaginated: myVicc5LineupsPaginated(first: 3, withTraining: false) {
+        mySo5LineupsCount(training: false, draft: false)
+        mySo5LineupsPaginated(first: 3, withTraining: false) {
           edges {
             node {
               id
-              #...Lineup_so5Lineup
-              so5Leaderboard: vicc5Leaderboard {
+              ...Lineup_so5Lineup
+              so5Leaderboard {
                 slug
-                #...Lineup_so5Leaderboard
+                ...Lineup_so5Leaderboard
               }
-        #       # so5Rankings: vicc5Rankings {
-        #       #   id
-        #       #   eligibleRewards {
-        #       #     #...EligibleRewards_rewardConfig
-        #       #     #...EligibleRewardsBanner_rewardConfig
-        #       #   }
-        #       # }
+              so5Rankings {
+                id
+                eligibleRewards {
+                  ...EligibleRewards_rewardConfig
+                  ...EligibleRewardsBanner_rewardConfig
+                }
+              }
             }
           }
         }
       }
     }
     ${GameWeekTitle.fragments.so5Fixture}
-    #{Lineup.fragments.so5Leaderboard}
-    #{Lineup.fragments.so5Lineup}
-    #{EligibleRewardsBanner.fragments.rewardConfig}
-  `,
+    ${Lineup.fragments.so5Leaderboard}
+    ${Lineup.fragments.so5Lineup}
+    ${EligibleRewardsBanner.fragments.rewardConfig}
+  ` as TypedDocumentNode<LiveFixture_so5>,
 };

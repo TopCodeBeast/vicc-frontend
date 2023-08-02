@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
-// import { useEventsContext } from '@core/contexts/events';
-// import { getInteractionContext, getSport } from '@core/lib/events';
+import { useEventsContext } from '@core/contexts/events';
+import { getInteractionContext, getSport } from '@core/lib/events';
 import { mapKeys } from '@core/lib/object';
 import toSnakeCase from '@core/lib/toSnakeCase';
 import { sportToJSON } from '@core/protos/events/shared/events';
@@ -19,7 +19,7 @@ const generateUseEvents = <
     }
   | undefined = {}) => {
   return () => {
-    // const { track: baseTrack } = useEventsContext();
+    const { track: baseTrack } = useEventsContext();
 
     const track = useCallback(
       <K extends keyof EventTypes & string>(
@@ -33,14 +33,14 @@ const generateUseEvents = <
               return toSnakeCase(v as string);
             })
           : {};
-        // baseTrack(event, {
-        //   interaction_context: getInteractionContext(),
-        //   sport: sportToJSON(getSport()),
-        //   ...defaultProperties,
-        //   ...snakeCasedProperties,
-        // });
+        baseTrack(event, {
+          interaction_context: getInteractionContext(),
+          sport: sportToJSON(getSport()),
+          ...defaultProperties,
+          ...snakeCasedProperties,
+        });
       },
-      [/*baseTrack*/]
+      [baseTrack]
     );
     return track;
   };

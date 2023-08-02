@@ -48,6 +48,9 @@ const Root = styled.div`
   }
 `;
 
-export const Popup: React.FC<Props> = ({ children, className }) => {
+export const Popup: React.FC<React.PropsWithChildren<Props>> = ({
+  children,
+  className,
+}) => {
   return <Root className={className}>{children}</Root>;
 };

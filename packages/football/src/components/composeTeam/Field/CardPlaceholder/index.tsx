@@ -28,11 +28,13 @@ const CardPlaceholder = styled.button`
   }
 `;
 
-export type Props = FC<{
-  onClick: () => void;
-  selected: boolean;
-  position: LineupPosition;
-}>;
+export type Props = FC<
+  React.PropsWithChildren<{
+    onClick: () => void;
+    selected: boolean;
+    position: LineupPosition;
+  }>
+>;
 const CardPlaceholderWrapper: Props = ({ onClick, selected, position }) => {
   return (
     <CardPlaceholder className={classnames({ selected })} onClick={onClick}>

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -14,7 +14,10 @@ import useAmountWithConversion, {
   Props as UseAmountWithConversionProps,
 } from '@sorare/core/src/hooks/useAmountWithConversion';
 import { glossary } from '@sorare/core/src/lib/glossary';
-import { MonetaryAmountCurrency } from '@sorare/core/src/lib/monetaryAmount';
+import {
+  MonetaryAmountCurrency,
+  monetaryAmountFragment,
+} from '@sorare/core/src/lib/monetaryAmount';
 
 import { ItemSpecialRewardBadge } from '@marketplace/components/ItemPreview/ItemSpecialRewardBadge';
 import useBestBidBelongsToUser from '@marketplace/hooks/auctions/useBestBidBelongsToUser';
@@ -200,7 +203,6 @@ BidInfos.fragments = {
       open
       endDate
       cancelled
-      bidsCount
       autoBid
       currentPrice
       currency
@@ -213,30 +215,23 @@ BidInfos.fragments = {
       bestBid {
         id
         amounts {
-          eur
-          usd
-          gbp
-          wei
-          referenceCurrency
+          ...MonetaryAmountFragment_monetaryAmount
         }
         ...UseBestBidBelongsToUser_bestBid
       }
       myBestBid {
         id
         maximumAmounts {
-          eur
-          usd
-          gbp
-          wei
-          referenceCurrency
+          ...MonetaryAmountFragment_monetaryAmount
         }
       }
       myLastBid {
         id
       }
     }
+    ${monetaryAmountFragment}
     ${useBestBidBelongsToUser.fragments.bestBid}
-  `,
+  ` as TypedDocumentNode<BidInfos_auction>,
 };
 
 export default BidInfos;

@@ -144,7 +144,6 @@ export const ItemInfosContainer = styled.div`
 export const ItemPropertiesContainer = styled.div`
   height: 32px;
   display: flex;
-  gap: var(--unit);
   align-items: center;
   color: var(--c-neutral-600);
 `;

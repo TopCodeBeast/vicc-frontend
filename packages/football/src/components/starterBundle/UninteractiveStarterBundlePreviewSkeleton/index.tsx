@@ -107,7 +107,7 @@ export const UninteractiveStarterBundlePreviewSkeleton = ({
           <Card>
             {forwardCard || <ImgSkeleton />}
             <Caption bold color="var(--c-neutral-500)">
-              <FormattedMessage {...positionShortNames[Position.Batsman]} />
+              <FormattedMessage {...positionShortNames[Position.Forward]} />
             </Caption>
           </Card>
           <Card>
@@ -121,19 +121,19 @@ export const UninteractiveStarterBundlePreviewSkeleton = ({
           <Card>
             {defenderCard || <ImgSkeleton />}
             <Caption bold color="var(--c-neutral-500)">
-              <FormattedMessage {...positionShortNames[Position.Bowler]} />
+              <FormattedMessage {...positionShortNames[Position.Defender]} />
             </Caption>
           </Card>
           <Goalkeeper>
             {goalkeeperCard || <ImgSkeleton />}
             <Caption bold color="var(--c-neutral-500)">
-              <FormattedMessage {...positionShortNames[Position.Wicketkeeper]} />
+              <FormattedMessage {...positionShortNames[Position.Goalkeeper]} />
             </Caption>
           </Goalkeeper>
           <Card>
             {midfielderCard || <ImgSkeleton />}
             <Caption bold color="var(--c-neutral-500)">
-              <FormattedMessage {...positionShortNames[Position.Fielder]} />
+              <FormattedMessage {...positionShortNames[Position.Midfielder]} />
             </Caption>
           </Card>
         </Line>

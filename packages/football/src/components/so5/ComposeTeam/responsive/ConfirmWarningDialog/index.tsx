@@ -5,12 +5,12 @@ import { FormattedList, FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
 import Button from '@sorare/core/src/atoms/buttons/Button';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
 import { Text14, Text16, Title3 } from '@sorare/core/src/atoms/typography';
 import Bold from '@sorare/core/src/atoms/typography/Bold';
+import Dialog from '@sorare/core/src/components/dialog';
 import { groupBy } from '@sorare/core/src/lib/arrays';
 import {
-  isListedOnMarket,
+  isMyCardListedOnMarket,
   isSentInDirectOffer,
 } from '@sorare/core/src/lib/cards';
 import { glossary } from '@sorare/core/src/lib/glossary';
@@ -28,33 +28,27 @@ import { EditableLineup } from '@football/lib/so5';
 
 import { WarningRow } from './WarningRow';
 
-type Props = {
-  open: boolean;
-  onCancel: () => void;
-  onContinue: () => void;
-};
-
-const Content = styled.div`
+const CenteredText16 = styled(Text16)`
+  text-align: center;
+`;
+const Body = styled.div`
+  padding: var(--triple-unit);
   display: flex;
   flex-direction: column;
   gap: var(--double-unit);
 `;
-
 const Buttons = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: var(--unit);
 `;
-
 const WarningRowList = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--double-unit);
 `;
-
 const DivisionLogoWrapper = styled.div`
   width: var(--triple-unit);
 `;
-
 const Row = styled.div`
   display: flex;
   align-items: center;
@@ -63,15 +57,16 @@ const Row = styled.div`
 
 type Lineup = EditableLineup<ContextProvider_so5Lineup_so5Appearances_card>;
 
+type getUsedCardsParams = {
+  lineup: Lineup;
+  so5Lineup: ContextProvider_so5Lineup;
+  so5Leaderboard: ContextProvider_so5Leaderboard;
+};
 const getUsedCards = ({
   lineup,
   so5Lineup,
   so5Leaderboard,
-}: {
-  lineup: Lineup;
-  so5Lineup: ContextProvider_so5Lineup;
-  so5Leaderboard: ContextProvider_so5Leaderboard;
-}) => {
+}: getUsedCardsParams) => {
   return Object.values(lineup)
     .map(appearance => {
       if (!appearance.card) {
@@ -106,7 +101,8 @@ const getSentInDirectOfferCards = (lineup: Lineup) => {
 const getListedCards = (lineup: Lineup) => {
   return Object.values(lineup)
     .filter(
-      appearance => !!appearance?.card && isListedOnMarket(appearance.card)
+      appearance =>
+        !!appearance?.card && isMyCardListedOnMarket(appearance.card)
     )
     .map(appearance => appearance.card!);
 };
@@ -168,6 +164,11 @@ const messages = defineMessages({
   },
 });
 
+type Props = {
+  open: boolean;
+  onCancel: () => void;
+  onContinue: () => void;
+};
 export const ConfirmWarningDialog = ({ open, onCancel, onContinue }: Props) => {
   const { lineup, so5Lineup, so5Leaderboard } = useContext(Context)!;
   const usedCards = getUsedCards({ lineup, so5Lineup, so5Leaderboard });
@@ -178,150 +179,152 @@ export const ConfirmWarningDialog = ({ open, onCancel, onContinue }: Props) => {
     usedCards.length + sentInLiveOfferCards.length + listedCards.length;
   return (
     <Dialog
+      maxWidth="sm"
       open={open}
       title={
-        <Text16 bold>
+        <CenteredText16 bold>
           <FormattedMessage {...messages.dialogTitle} />
-        </Text16>
+        </CenteredText16>
       }
       onClose={onCancel}
-    >
-      <Content>
-        {warningCardsCount > 0 && (
-          <>
-            <Title3>
-              <FormattedMessage
-                {...messages.warningTitle}
-                values={{
-                  cards: warningCardsCount,
-                  warnings: (
-                    <FormattedList
-                      type="disjunction"
-                      value={[
-                        usedCards.length > 0 && (
-                          <FormattedMessage
-                            key="used"
-                            {...messages.usedCards}
-                            values={{
-                              cards: warningCardsCount,
-                            }}
-                          />
-                        ),
+      body={
+        <Body>
+          {warningCardsCount > 0 && (
+            <>
+              <Title3>
+                <FormattedMessage
+                  {...messages.warningTitle}
+                  values={{
+                    cards: warningCardsCount,
+                    warnings: (
+                      <FormattedList
+                        type="disjunction"
+                        value={[
+                          usedCards.length > 0 && (
+                            <FormattedMessage
+                              key="used"
+                              {...messages.usedCards}
+                              values={{
+                                cards: warningCardsCount,
+                              }}
+                            />
+                          ),
 
-                        sentInLiveOfferCards.length > 0 && (
-                          <FormattedMessage
-                            key="sentInLiveOffer"
-                            {...messages.sentInLiveOfferCards}
-                            values={{
-                              cards: warningCardsCount,
-                            }}
-                          />
-                        ),
-                        listedCards.length > 0 && (
-                          <FormattedMessage
-                            key="list"
-                            {...messages.listedCards}
-                            values={{
-                              cards: warningCardsCount,
-                            }}
-                          />
-                        ),
-                      ].filter(Boolean)}
-                    />
-                  ),
-                }}
-              />
-            </Title3>
-            <WarningRowList>
-              {usedCards.map(({ card, lineupUsingThisPlayer }) => (
-                <WarningRow
-                  key={card.slug}
-                  card={card}
-                  warning={
-                    lineupUsingThisPlayer && (
-                      <>
-                        <DivisionLogoWrapper>
-                          <DivisionLogo
-                            so5Leaderboard={
-                              lineupUsingThisPlayer!.so5Leaderboard!
-                            }
-                          />
-                        </DivisionLogoWrapper>
-                        <Text14>
-                          <FormattedMessage
-                            {...messages.usedInAnotherLineupWarning}
-                            values={{
-                              lineupDisplayName: formatLineupDisplayName(
-                                lineupUsingThisPlayer
-                              ),
-                              b: Bold,
-                            }}
-                          />
-                        </Text14>
-                      </>
-                    )
-                  }
+                          sentInLiveOfferCards.length > 0 && (
+                            <FormattedMessage
+                              key="sentInLiveOffer"
+                              {...messages.sentInLiveOfferCards}
+                              values={{
+                                cards: warningCardsCount,
+                              }}
+                            />
+                          ),
+                          listedCards.length > 0 && (
+                            <FormattedMessage
+                              key="list"
+                              {...messages.listedCards}
+                              values={{
+                                cards: warningCardsCount,
+                              }}
+                            />
+                          ),
+                        ].filter(Boolean)}
+                      />
+                    ),
+                  }}
                 />
-              ))}
-              <>
-                {Object.values(
-                  groupBy(
-                    card => card.slug,
-                    [...listedCards, ...sentInLiveOfferCards]
-                  )
-                ).map(([card]) => (
+              </Title3>
+              <WarningRowList>
+                {usedCards.map(({ card, lineupUsingThisPlayer }) => (
                   <WarningRow
                     key={card.slug}
                     card={card}
-                    warningLevel="error"
                     warning={
-                      <div>
-                        {listedCards.some(c => c.slug === card.slug) && (
-                          <Row>
-                            <FontAwesomeIcon icon={faStore} size="sm" />
-                            <Text14>
-                              <FormattedMessage
-                                {...messages.listedWarning}
-                                values={{
-                                  b: Bold,
-                                }}
-                              />
-                            </Text14>
-                          </Row>
-                        )}
-                        {sentInLiveOfferCards.some(
-                          c => c.slug === card.slug
-                        ) && (
-                          <Row>
-                            <FontAwesomeIcon icon={faRepeat} size="sm" />
-                            <Text14>
-                              <FormattedMessage
-                                {...messages.sentInLiveOfferWarning}
-                                values={{
-                                  b: Bold,
-                                }}
-                              />
-                            </Text14>
-                          </Row>
-                        )}
-                      </div>
+                      lineupUsingThisPlayer && (
+                        <>
+                          <DivisionLogoWrapper>
+                            <DivisionLogo
+                              so5Leaderboard={
+                                lineupUsingThisPlayer!.so5Leaderboard!
+                              }
+                            />
+                          </DivisionLogoWrapper>
+                          <Text14>
+                            <FormattedMessage
+                              {...messages.usedInAnotherLineupWarning}
+                              values={{
+                                lineupDisplayName: formatLineupDisplayName(
+                                  lineupUsingThisPlayer
+                                ),
+                                b: Bold,
+                              }}
+                            />
+                          </Text14>
+                        </>
+                      )
                     }
                   />
                 ))}
-              </>
-            </WarningRowList>
-          </>
-        )}
-        <Buttons>
-          <Button medium color="white" onClick={onCancel}>
-            <FormattedMessage {...glossary.cancel} />
-          </Button>
-          <Button medium color="blue" onClick={onContinue}>
-            <FormattedMessage {...glossary.continue} />
-          </Button>
-        </Buttons>
-      </Content>
-    </Dialog>
+                <>
+                  {Object.values(
+                    groupBy(
+                      card => card.slug,
+                      [...listedCards, ...sentInLiveOfferCards]
+                    )
+                  ).map(([card]) => (
+                    <WarningRow
+                      key={card.slug}
+                      card={card}
+                      warningLevel="error"
+                      warning={
+                        <div>
+                          {listedCards.some(c => c.slug === card.slug) && (
+                            <Row>
+                              <FontAwesomeIcon icon={faStore} size="sm" />
+                              <Text14>
+                                <FormattedMessage
+                                  {...messages.listedWarning}
+                                  values={{
+                                    b: Bold,
+                                  }}
+                                />
+                              </Text14>
+                            </Row>
+                          )}
+                          {sentInLiveOfferCards.some(
+                            c => c.slug === card.slug
+                          ) && (
+                            <Row>
+                              <FontAwesomeIcon icon={faRepeat} size="sm" />
+                              <Text14>
+                                <FormattedMessage
+                                  {...messages.sentInLiveOfferWarning}
+                                  values={{
+                                    b: Bold,
+                                  }}
+                                />
+                              </Text14>
+                            </Row>
+                          )}
+                        </div>
+                      }
+                    />
+                  ))}
+                </>
+              </WarningRowList>
+            </>
+          )}
+          <Buttons>
+            <Button color="red" medium fullWidth onClick={onCancel}>
+              <FormattedMessage {...glossary.cancel} />
+            </Button>
+            <Button color="blue" medium fullWidth onClick={onContinue}>
+              <FormattedMessage {...glossary.continue} />
+            </Button>
+          </Buttons>
+        </Body>
+      }
+    />
   );
 };
 

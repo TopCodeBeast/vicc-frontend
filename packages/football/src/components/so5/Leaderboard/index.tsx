@@ -4,11 +4,13 @@ import styled from 'styled-components';
 import { EmptyLeaderboard } from '@football/components/so5/Leaderboard/EmptyLeaderboard';
 
 interface Props<T> {
-  Row: ComponentType<{
-    manager: T;
-    onClick: () => void;
-    highlight: boolean;
-  }>;
+  Row: ComponentType<
+    React.PropsWithChildren<{
+      manager: T;
+      onClick: () => void;
+      highlight: boolean;
+    }>
+  >;
   onRowClick?: (item: T) => void;
   isMe: (item: T) => boolean;
   rankings: T[];

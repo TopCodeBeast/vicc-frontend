@@ -1,10 +1,11 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback, useEffect, useState } from 'react';
 import { Link, generatePath, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Portal } from '@sorare/core/src/atoms/layout/Portal';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
+import { DetailsDialogBanner } from '@sorare/core/src/components/collections/DetailsDialogBanner';
 import { FilterButton } from '@sorare/core/src/components/search/FilterButton';
 import { FilterIconButton } from '@sorare/core/src/components/search/FilterIconButton';
 import {
@@ -24,7 +25,6 @@ import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { CollectionPreview } from '@football/components/collections/CollectionPreview';
 import { DesktopCollectionsFilters } from '@football/components/collections/DesktopCollectionsFilters';
-import DetailsDialogBanner from '@football/components/collections/DetailsDialogBanner';
 import { MobileCollectionsFilters } from '@football/components/collections/MobileCollectionsFilters';
 import { NoResults } from '@football/components/collections/NoResults';
 import { SearchFilter } from '@football/components/collections/SearchFilter';
@@ -98,7 +98,7 @@ const COLLECTIONS_QUERY = gql`
         total
         common
       }
-      cricketCardCollections(
+      footballCardCollections(
         startedOnly: $startedOnly
         after: $after
         first: 10
@@ -125,7 +125,7 @@ const COLLECTIONS_QUERY = gql`
   ${CollectionPreview.fragments.cardCollection}
   ${DesktopCollectionsFilters.fragments.cardCollectionConnection}
   ${MobileCollectionsFilters.fragments.cardCollectionConnection}
-`;
+` as TypedDocumentNode<UserCollectionsQuery, UserCollectionsQueryVariables>;
 
 type Props = {
   readOnly?: boolean;
@@ -158,15 +158,15 @@ export const Collections = ({ readOnly }: Props) => {
     [setUrlFiltersState]
   );
 
-  const { loading, data, previousData, loadMore } = usePaginatedQuery<
-    UserCollectionsQuery,
-    UserCollectionsQueryVariables
-  >(COLLECTIONS_QUERY, {
-    variables: { user: userSlug || '', ...filtersState },
-    connection: 'CardCollectionConnection',
-    fetchPolicy: 'cache-and-network',
-    nextFetchPolicy: 'cache-and-network',
-  });
+  const { loading, data, previousData, loadMore } = usePaginatedQuery(
+    COLLECTIONS_QUERY,
+    {
+      variables: { user: userSlug || '', ...filtersState },
+      connection: 'CardCollectionConnection',
+      fetchPolicy: 'cache-and-network',
+      nextFetchPolicy: 'cache-and-network',
+    }
+  );
 
   const collectionConnection = data?.user?.footballCardCollections;
   const previousCollectionConnection =

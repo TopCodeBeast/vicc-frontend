@@ -1,14 +1,11 @@
 import { DialogProps, Dialog as MUIDialog } from '@material-ui/core';
 import classNames from 'classnames';
 import { FC, cloneElement } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import useScreenSize from '@core/hooks/device/useScreenSize';
-import { useBgLocation } from '@core/hooks/useBgLocation';
 import HandledErrorBoundary from '@core/routing/HandledErrorBoundary';
-import { laptopAndAbove } from '@core/style/mediaQuery';
-import { theme } from '@core/style/theme';
+import { breakpoints, laptopAndAbove } from '@core/style/mediaQuery';
 import { OverrideClasses } from '@core/style/utils';
 
 import CloseButton from './CloseButton';
@@ -20,10 +17,15 @@ const Root = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: 0;
+  flex: 1;
 `;
 const BodyWrapper = styled.div`
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
+`;
+const Footer = styled.footer`
+  margin-top: auto;
 `;
 
 const [StyledDialog, classes] = OverrideClasses(MUIDialog, null, {
@@ -39,7 +41,7 @@ const [StyledDialog, classes] = OverrideClasses(MUIDialog, null, {
     }
   `,
   paperWidthXl: css`
-    width: ${theme.breakpoints.values.desktop}px;
+    width: ${breakpoints.desktop}px;
     @media ${laptopAndAbove} {
       display: inline-flex;
       flex-direction: column;
@@ -52,26 +54,33 @@ const [StyledDialog, classes] = OverrideClasses(MUIDialog, null, {
 type BodyProps = {
   CloseButton: typeof CloseButton;
 };
-type Props = {
-  children?: JSX.Element;
-  title?: JSX.Element;
+type Props = Pick<
+  DialogProps,
+  | 'maxWidth'
+  | 'keepMounted'
+  | 'disablePortal'
+  | 'disableEnforceFocus'
+  | 'disableEscapeKeyDown'
+> & {
+  children?: React.JSX.Element;
+  title?: React.JSX.Element;
   hideHeader?: boolean;
-  body?: FC<BodyProps> | JSX.Element;
-  footer?: JSX.Element;
+  body?: FC<React.PropsWithChildren<BodyProps>> | React.JSX.Element;
+  footer?: React.JSX.Element;
   open?: boolean;
   onBack?: () => void;
   onClose?: () => void;
   errors?: { [key: string | number]: string };
-  defaultBackUrl?: string;
   scroll?: 'body' | 'paper';
   fullWidth?: boolean;
   fullHeight?: boolean;
-  maxWidth?: DialogProps['maxWidth'];
   fullScreen?: boolean;
   darkTheme?: boolean;
-  keepMounted?: DialogProps['keepMounted'];
-  disablePortal?: DialogProps['disablePortal'];
+  disableBackdropClick?: boolean;
 };
+
+type CloseParams = Parameters<NonNullable<DialogProps['onClose']>>;
+
 export const Dialog = ({
   children,
   title,
@@ -82,30 +91,24 @@ export const Dialog = ({
   onBack,
   onClose,
   errors,
-  defaultBackUrl = '',
   scroll = 'body',
   fullWidth,
   fullHeight,
   maxWidth = 'xl',
   fullScreen,
   darkTheme,
+  disableBackdropClick,
   ...rest
 }: Props) => {
-  const navigate = useNavigate();
-  const location = useBgLocation();
   const { isScrolling, clickDown, clickUp } = useIsScrolling();
   const { up: isLaptop } = useScreenSize('laptop');
 
-  const closeDialog = () => {
+  const closeDialog = (_?: CloseParams[0], reason?: CloseParams[1]) => {
+    if (disableBackdropClick && reason === 'backdropClick') {
+      return;
+    }
     if (!isScrolling) {
-      if (onClose) {
-        onClose();
-      } else {
-        const destinationUrl = location?.pathname
-          ? location.pathname + (location?.search || '')
-          : defaultBackUrl;
-        navigate(destinationUrl);
-      }
+      onClose?.();
     } else {
       clickUp();
     }
@@ -116,13 +119,17 @@ export const Dialog = ({
     <Root>
       <div>
         {showHeader && (
-          <Header onBack={onBack} title={title} onClose={closeDialog} />
+          <Header
+            onBack={onBack}
+            title={title}
+            onClose={onClose ? closeDialog : undefined}
+          />
         )}
       </div>
       <BodyWrapper>
         {typeof body === 'function' ? body({ CloseButton }) : body}
       </BodyWrapper>
-      <div>{footer}</div>
+      <Footer>{footer}</Footer>
     </Root>
   );
 
@@ -145,8 +152,8 @@ export const Dialog = ({
         container: classNames({ 'dark-theme': darkTheme }),
       }}
       scroll={scroll}
-      fullScreen={!isLaptop || fullScreen}
-      maxWidth={!fullScreen ? maxWidth : false} //Modifed****
+      fullScreen={fullScreen ?? !isLaptop}
+      maxWidth={!fullScreen && maxWidth}
       fullWidth={fullWidth}
       open={!!open}
       onMouseDown={clickDown}

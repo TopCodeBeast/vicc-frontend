@@ -12,15 +12,16 @@ import {
   useState,
 } from 'react';
 import { useKey } from 'react-use';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Portal } from '@core/atoms/layout/Portal';
 import { Text16 } from '@core/atoms/typography';
 import useFocusTrap from '@core/hooks/useFocusTrap';
 import { clamp } from '@core/lib/math';
+import { Breakpoint, breakpoints } from '@core/style/mediaQuery';
 import { theme } from '@core/style/theme';
 
-const drawerThreshold = theme.breakpoints.values.laptop;
+const drawerThresholdDefault = breakpoints.laptop;
 
 const SelectWrapper = styled.div`
   display: inline-flex;
@@ -29,18 +30,19 @@ const SelectWrapper = styled.div`
     width: 100%;
   }
 `;
-const Overlay = styled.button`
+const Overlay = styled.button<{ drawerThreshold: number }>`
   position: fixed;
   z-index: ${theme.zIndex.tooltip};
   inset: 0;
   background: rgba(var(--c-static-rgb-neutral-1000), 0.7);
   content: '';
-
-  @media (min-width: ${drawerThreshold}px) {
-    display: none;
-  }
+  ${({ drawerThreshold }) => css`
+    @media (min-width: ${drawerThreshold}px) {
+      display: none;
+    }
+  `}
 `;
-const DropdownContent = styled.form`
+const DropdownContent = styled.form<{ drawerThreshold: number }>`
   position: fixed;
   z-index: ${theme.zIndex.tooltip};
   bottom: 0;
@@ -65,19 +67,22 @@ const DropdownContent = styled.form`
     transform: translateY(0);
     visibility: visible;
   }
-  @media (min-width: ${drawerThreshold}px) {
-    overscroll-behavior: contain;
-    border-radius: var(--intermediate-unit);
-    transform: translateY(-5%);
-    min-width: max-content;
-    &.open {
-      transform: translateY(0);
+  ${({ drawerThreshold }) =>
+    `
+    @media (min-width: ${drawerThreshold}px) {
+      overscroll-behavior: contain;
+      border-radius: var(--intermediate-unit);
+      transform: translateY(-5%);
+      min-width: max-content;
+      &.open {
+        transform: translateY(0);
+      }
+      &.fullWidth {
+        width: 100%;
+        min-width: 0;
+      }
     }
-    &.fullWidth {
-      width: 100%;
-      min-width: 0;
-    }
-  }
+  `}
 `;
 
 export const DropdownOptionLabel = styled(Text16).attrs({ as: 'label' })`
@@ -110,7 +115,7 @@ const ButtonWrapper = styled(({ component, ...props }) =>
   }
   &.open {
     &.triggerOnHover::before {
-      @media (min-width: ${drawerThreshold}px) {
+      @media (min-width: ${drawerThresholdDefault}px) {
         display: none;
       }
     }
@@ -118,7 +123,9 @@ const ButtonWrapper = styled(({ component, ...props }) =>
 `;
 
 export type Props = {
-  children: ReactNode | FC<{ closeDropdown: () => void }>;
+  children:
+    | ReactNode
+    | FC<React.PropsWithChildren<{ closeDropdown: () => void }>>;
   label: ReactElement;
   gap?: 0 | 4 | 8 | 16;
   onChange?: FormEventHandler<HTMLFormElement>;
@@ -132,6 +139,7 @@ export type Props = {
   darkTheme?: boolean;
   lightTheme?: boolean;
   disabled?: boolean;
+  breakpoint?: Breakpoint;
 };
 
 export const THRESHOLD = 10;
@@ -151,7 +159,10 @@ const Dropdown = ({
   darkTheme,
   lightTheme,
   disabled,
+  breakpoint = 'laptop',
 }: Props) => {
+  const drawerThreshold = breakpoints[breakpoint] || drawerThresholdDefault;
+
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const dropdownContentRef = useFocusTrap(open);
@@ -300,7 +311,15 @@ const Dropdown = ({
         observer.unobserve(buttonCurrentRef);
       }
     };
-  }, [open, dropdownContentRef, wrapperRef, gap, align, fullWidth]);
+  }, [
+    open,
+    dropdownContentRef,
+    wrapperRef,
+    gap,
+    align,
+    fullWidth,
+    drawerThreshold,
+  ]);
 
   useEffect(() => {
     if (!open) {
@@ -346,6 +365,7 @@ const Dropdown = ({
         <Portal id="dropdown">
           {open && (
             <Overlay
+              drawerThreshold={drawerThreshold}
               type="button"
               onClick={() => {
                 closeDropdown();
@@ -353,6 +373,7 @@ const Dropdown = ({
             />
           )}
           <DropdownContent
+            drawerThreshold={drawerThreshold}
             style={{ ...coordinates, maxHeight, maxWidth }}
             onMouseEnter={mouseEnter}
             onMouseLeave={mouseLeave}

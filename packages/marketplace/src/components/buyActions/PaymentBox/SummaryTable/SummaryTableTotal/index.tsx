@@ -1,11 +1,7 @@
 import { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import {
-  Currency,
-  Sport,
-  SupportedCurrency,
-} from '@sorare/core/src/__generated__/globalTypes';
+import { Currency, Sport } from '@sorare/core/src/__generated__/globalTypes';
 import { Text14, Text16 } from '@sorare/core/src/atoms/typography';
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
@@ -64,10 +60,7 @@ export const SummaryTableTotal = ({
           </Text16>
           {customAmountDisplay || (
             <PaymentBoxAmountWithConversion
-              monetaryAmount={{
-                referenceCurrency: SupportedCurrency.WEI,
-                ...totalMonetaryAmount,
-              }}
+              monetaryAmount={totalMonetaryAmount}
               bold
               hideExponent={canChangeRefCurrency || onlyShowFiatCurrency}
               {...(currency ? { primaryCurrency: currency } : {})}

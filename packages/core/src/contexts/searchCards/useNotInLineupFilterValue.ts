@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
-// import { useCurrentUserContext } from '@core/contexts/currentUser';
+import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { joinFiltersWithAnd } from '@core/lib/algolia';
 
 export const useNotInLineupFilterValue = () => {
-  const currentUser = undefined;//const { currentUser } = useCurrentUserContext();
+  const { currentUser } = useCurrentUserContext();
 
   const notInLineupFilterValue = useMemo(
     () =>

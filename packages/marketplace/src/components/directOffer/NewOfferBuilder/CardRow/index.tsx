@@ -1,11 +1,12 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import { Caption, Text14, Text16 } from '@sorare/core/src/atoms/typography';
-import FormattedWei from '@sorare/core/src/contexts/intl/FormattedWei';
+import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 import { CardHit, convertCardHitToToken } from '@sorare/core/src/lib/algolia';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import FlexToken from '@marketplace/components/token/FlexToken';
 import TokenDescription from '@marketplace/components/token/TokenDescription';
@@ -19,6 +20,7 @@ interface BaseProps {
 
 interface NoMinPriceProps extends BaseProps {
   displayMinPrice?: never;
+  minPriceCurrency?: never;
   cardData?: never;
 }
 
@@ -30,15 +32,15 @@ interface WithMinPriceProps extends BaseProps {
 type Props = NoMinPriceProps | WithMinPriceProps;
 
 const MinimumPriceDisplay = ({
-  card,
+  publicMinPrices,
 }: {
-  card?: DirectOffer_CardRow_token;
+  publicMinPrices: NonNullable<DirectOffer_CardRow_token['publicMinPrices']>;
 }) => {
-  const amount = card?.publicMinPrice;
-
-  if (!amount) {
-    return null;
-  }
+  const { main } = useAmountWithConversion({
+    monetaryAmount: {
+      ...publicMinPrices,
+    },
+  });
 
   return (
     <Caption color="var(--c-neutral-600)">
@@ -46,7 +48,7 @@ const MinimumPriceDisplay = ({
         id="OfferSide.minPrice"
         defaultMessage="The seller set a minimum price of {amount}"
         values={{
-          amount: <FormattedWei value={amount} context="CardRow" />,
+          amount: main,
         }}
       />
     </Caption>
@@ -97,7 +99,9 @@ export const CardRow = ({
             detailsColor="var(--c-neutral-600)"
           />
         </Description>
-        {displayMinPrice && <MinimumPriceDisplay card={cardData} />}
+        {cardData?.publicMinPrices && displayMinPrice && (
+          <MinimumPriceDisplay publicMinPrices={cardData.publicMinPrices} />
+        )}
       </Container>
       {children}
     </Root>
@@ -109,13 +113,16 @@ CardRow.fragments = {
     fragment DirectOffer_CardRow_token on Token {
       assetId
       slug
-      publicMinPrice
+      publicMinPrices {
+        ...MonetaryAmountFragment_monetaryAmount
+      }
       ...FlexToken_token
       ...TokenDescription_token
     }
+    ${monetaryAmountFragment}
     ${FlexToken.fragments.token}
     ${TokenDescription.fragments.token}
-  `,
+  ` as TypedDocumentNode<DirectOffer_CardRow_token>,
 };
 
 export default CardRow;

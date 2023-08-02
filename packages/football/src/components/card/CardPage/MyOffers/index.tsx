@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 
 import { Text16 } from '@sorare/core/src/atoms/typography';
@@ -38,7 +38,7 @@ MyOffers.fragments = {
       }
     }
     ${LiveOffer.fragments.tokenOffer}
-  `,
+  ` as TypedDocumentNode<MyOffers_token>,
 };
 
 export default MyOffers;

@@ -1,9 +1,9 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useMemo } from 'react';
 import styled from 'styled-components';
 
 import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
-import { isA } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
 
 import ItemEligibility from '@football/components/card/ItemEligibility';
 import AverageScore from '@football/components/so5/AverageScore';
@@ -11,12 +11,6 @@ import AverageScore from '@football/components/so5/AverageScore';
 import CardBonus from './CardBonus';
 import U23Eligible from './U23Eligible';
 import { CardProperties_card } from './__generated__/index.graphql';
-
-type CardProperties_card_token = NonNullable<CardProperties_card['token']>;
-
-type CardProperties_card_token_liveSingleSaleOffer_sender_User = NonNullable<
-  CardProperties_card_token['liveSingleSaleOffer']
->['sender'] & { __typename: 'User' };
 
 type Props = {
   card: CardProperties_card;
@@ -32,8 +26,7 @@ const Elements = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 3px;
+  gap: calc(var(--half-unit) * 1.5);
 `;
 
 const CardProperties = ({ card }: Props) => {
@@ -42,10 +35,7 @@ const CardProperties = ({ card }: Props) => {
     return (
       currentUser &&
       card.token?.liveSingleSaleOffer &&
-      isA<CardProperties_card_token_liveSingleSaleOffer_sender_User>(
-        'User',
-        card.token.liveSingleSaleOffer.sender
-      ) &&
+      isType(card.token.liveSingleSaleOffer.sender, 'User') &&
       card.token.liveSingleSaleOffer.sender.slug !== currentUser.slug
     );
   }, [card.token?.liveSingleSaleOffer, currentUser]);
@@ -78,7 +68,7 @@ CardProperties.fragments = {
       currentUserSubscription {
         slug
       }
-      averageScore(type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE)
+      averageScore(type: LAST_FIFTEEN_SO5_AVERAGE_SCORE)
       token {
         slug
         assetId
@@ -95,7 +85,7 @@ CardProperties.fragments = {
     }
     ${CardBonus.fragments.card}
     ${ItemEligibility.fragments.card}
-  `,
+  ` as TypedDocumentNode<CardProperties_card>,
 };
 
 export default CardProperties;

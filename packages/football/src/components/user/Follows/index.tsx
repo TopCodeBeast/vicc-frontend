@@ -1,13 +1,16 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
 import ButtonBase from '@sorare/core/src/atoms/buttons/ButtonBase';
 import { Text14 } from '@sorare/core/src/atoms/typography';
-
-import useNetworkTabPath from '@football/hooks/useNetworkTabPath';
+import {
+  FOOTBALL_MY_CLUB_NETWORK,
+  FOOTBALL_USER_GALLERY_NETWORK,
+} from '@sorare/core/src/constants/routes';
+import useIsReorgApp from '@sorare/core/src/hooks/ui/useIsReorgApp';
 
 import { Follows_user } from './__generated__/index.graphql';
 
@@ -23,6 +26,16 @@ const FollowMessage = styled(Text14)`
   color: var(--c-neutral-600);
   margin-left: var(--unit);
 `;
+
+const useNetworkTabPath = (user: { slug: string }) => {
+  const isReorgApp = useIsReorgApp();
+  const base = isReorgApp
+    ? FOOTBALL_MY_CLUB_NETWORK
+    : FOOTBALL_USER_GALLERY_NETWORK;
+
+  return (tab: 'followers' | 'following' | 'recommended') =>
+    generatePath(`${base}?tab=${tab}`, { slug: user.slug });
+};
 
 const Button = ({
   to,
@@ -76,7 +89,7 @@ Follows.fragments = {
       followersCount
       followingCount
     }
-  `,
+  ` as TypedDocumentNode<Follows_user>,
 };
 
 export default Follows;

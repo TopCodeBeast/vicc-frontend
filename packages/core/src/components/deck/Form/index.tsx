@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faLock } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Checkbox } from '@material-ui/core';
@@ -13,30 +13,11 @@ import { useIntlContext } from '@core/contexts/intl';
 import useToggle from '@core/hooks/useToggle';
 import { glossary } from '@core/lib/glossary';
 
-type Props = {
-  onSubmit: ({
-    name,
-    visible,
-  }: {
-    name: string;
-    visible: boolean;
-  }) => Promise<any>;
-  onSuccess: () => void;
-  children?: ReactNode;
-  deck?: { name: string; visible: boolean };
-};
+import { Form_card } from './__generated__/index.graphql';
 
-const messages = defineMessages({
-  name: {
-    id: 'deck.Form.name',
-    defaultMessage: 'Name',
-  },
-  placeholder: {
-    id: 'deck.Form.placeholder',
-    defaultMessage: 'Enter a deck name',
-  },
-});
-
+const StyledGraphqlForm = styled(GraphqlForm)`
+  margin-bottom: 0;
+`;
 const Name = styled(TextField)`
   width: 100%;
   & .MuiOutlinedInput-root {
@@ -58,6 +39,29 @@ const Lock = styled(FontAwesomeIcon)`
   margin-right: 10px;
 `;
 
+const messages = defineMessages({
+  name: {
+    id: 'deck.Form.name',
+    defaultMessage: 'Name',
+  },
+  placeholder: {
+    id: 'deck.Form.placeholder',
+    defaultMessage: 'Enter a deck name',
+  },
+});
+
+type Props = {
+  onSubmit: ({
+    name,
+    visible,
+  }: {
+    name: string;
+    visible: boolean;
+  }) => Promise<any>;
+  onSuccess: () => void;
+  children?: ReactNode;
+  deck?: { name: string; visible: boolean };
+};
 export const Form = ({ onSubmit, onSuccess, children, deck }: Props) => {
   const { formatMessage } = useIntlContext();
   const [keepSecret, toggleKeepSecret] = useToggle(
@@ -73,7 +77,7 @@ export const Form = ({ onSubmit, onSuccess, children, deck }: Props) => {
     onResult({ errors });
   };
   return (
-    <GraphqlForm
+    <StyledGraphqlForm
       onSubmit={(attributes, onResult) => {
         doOnSubmit(attributes, onResult);
       }}
@@ -110,7 +114,7 @@ export const Form = ({ onSubmit, onSuccess, children, deck }: Props) => {
           </KeepSecret>
           <Actions>
             {children && children}
-            <SubmitButton>
+            <SubmitButton fullWidth>
               <FormattedMessage
                 {...(deck ? glossary.update : glossary.create)}
               />
@@ -128,7 +132,7 @@ Form.fragments = {
       slug
       assetId
     }
-  `,
+  ` as TypedDocumentNode<Form_card>,
 };
 
 export default Form;

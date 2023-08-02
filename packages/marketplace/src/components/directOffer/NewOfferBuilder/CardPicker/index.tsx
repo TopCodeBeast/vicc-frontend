@@ -27,6 +27,7 @@ import {
   mergeResults,
 } from '@sorare/core/src/lib/algolia';
 import { glossary } from '@sorare/core/src/lib/glossary';
+import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import SearchBox from '@marketplace/search/SearchBox';
 
@@ -206,8 +207,13 @@ const DialogContent = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 var(--triple-unit);
+  @media ${tabletAndAbove} {
+    max-height: 70vh;
+  }
 `;
 const CtaWrapper = styled.div`
+  position: sticky;
+  bottom: 0;
   box-shadow: 0px 14px 50px rgba(0, 0, 0, 0.2);
   padding: var(--triple-unit);
 `;
@@ -236,9 +242,11 @@ export const CardPickerDialog = ({
   return (
     <Dialog
       open
-      maxWidth="xs"
+      maxWidth="sm"
       fullWidth
+      scroll="paper"
       onBack={onClose}
+      onClose={onClose}
       title={
         <CenteredText16>
           <FormattedMessage {...title} />

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import { Link, generatePath } from 'react-router-dom';
 import styled from 'styled-components';
@@ -162,30 +162,30 @@ const PlayerGameScorePage = ({
 
 PlayerGameScorePage.fragments = {
   so5Score: gql`
-    fragment PlayerGameScorePage_so5Score on Vicc5Score {
+    fragment PlayerGameScorePage_so5Score on So5Score {
       id
       ...AppearanceDetails_so5Score
       ...getPlayerScore_so5Score
     }
     ${AppearanceDetails.fragments.so5Score}
     ${getPlayerScore.fragments.so5Score}
-  `,
+  ` as TypedDocumentNode<PlayerGameScorePage_so5Score>,
   player: gql`
     fragment PlayerGameScorePage_player on Player {
       slug
-      ...PlayerAvatar_player
+      ...FootballPlayerAvatar_player
       ...RepresentedPlayerAvatar_player
     }
     ${PlayerAvatar.fragments.player}
     ${RepresentedPlayerAvatar.fragments.player}
-  `,
+  ` as TypedDocumentNode<PlayerGameScorePage_player>,
   representativePlayer: gql`
     fragment PlayerGameScorePage_representativePlayer on Player {
       slug
       ...RepresentedPlayerAvatar_representativePlayer
     }
     ${RepresentedPlayerAvatar.fragments.representativePlayer}
-  `,
+  ` as TypedDocumentNode<PlayerGameScorePage_representativePlayer>,
 };
 
 export default PlayerGameScorePage;

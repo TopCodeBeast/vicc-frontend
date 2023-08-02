@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import LoadingMoreButton from '@sorare/core/src/atoms/buttons/LoadMoreButton';
@@ -80,7 +80,7 @@ BidHistory.fragments = {
       totalCount
     }
     ${Bid.fragments.tokenBid}
-  `,
+  ` as TypedDocumentNode<BidHistory_tokenBidConnection>,
 };
 
 export default BidHistory;

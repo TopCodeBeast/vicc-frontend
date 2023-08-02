@@ -34,7 +34,7 @@ export const StarterBundles = () => {
   return (
     <>
       <ConversionCreditBanner />
-      <PageTemplate>
+      <PageTemplate showBack>
         <AdvancedBlockchainCardSearch
           sport={Sport.FOOTBALL}
           CardResultsComponent={PrimaryOfferResultsFromGraphQL}

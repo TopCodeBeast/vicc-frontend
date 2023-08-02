@@ -1,8 +1,8 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import StackedToken from '@sorare/core/src/components/token/StackedToken';
 
-// import { BundledAuctionPreview } from '@marketplace/components/auction/BundledAuctionPreview';
+import { BundledAuctionPreview } from '@marketplace/components/auction/BundledAuctionPreview';
 import FlexToken from '@marketplace/components/token/FlexToken';
 
 import { TokenImg_token } from './__generated__/index.graphql';
@@ -34,12 +34,11 @@ export const TokenImg = ({
 
   if (token.latestEnglishAuction && isBundledAuction) {
     return (
-      // <BundledAuctionPreview
-      //   bundledAuction={token.latestEnglishAuction}
-      //   displayOneCard={!isDesktopLayout}
-      //   noMargin
-      // />
-      <>BundledAuctionPreview555</>
+      <BundledAuctionPreview
+        bundledAuction={token.latestEnglishAuction}
+        displayOneCard={!isDesktopLayout}
+        noMargin
+      />
     );
   }
 
@@ -57,13 +56,13 @@ TokenImg.fragments = {
           assetId
           slug
         }
-        #...BundledAuctionPreview_auction
+        ...BundledAuctionPreview_auction
       }
       ...FlexToken_token
       ...StackedToken_token
     }
     ${FlexToken.fragments.token}
     ${StackedToken.fragments.token}
-    #{BundledAuctionPreview.fragments.auction}
-  `,
+    ${BundledAuctionPreview.fragments.auction}
+  ` as TypedDocumentNode<TokenImg_token>,
 };

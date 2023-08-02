@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import { forwardRef } from 'react';
 import styled from 'styled-components';
@@ -110,7 +110,7 @@ Formation.fragments = {
       }
     }
     ${Player.fragments.player}
-  `,
+  ` as TypedDocumentNode<Formation_game>,
 };
 
 export default Formation;

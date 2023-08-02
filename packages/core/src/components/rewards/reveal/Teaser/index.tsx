@@ -33,10 +33,13 @@ const Badge = styled.div`
 
 type Props = {
   onFinish: () => void;
-  children: JSX.Element;
+  children: React.JSX.Element;
 };
 
-export const Teaser: React.FC<Props> = ({ children, onFinish }) => {
+export const Teaser: React.FC<React.PropsWithChildren<Props>> = ({
+  children,
+  onFinish,
+}) => {
   const [show, setShow] = useState<boolean | undefined>(true);
 
   const transitions = useTransition(show, {

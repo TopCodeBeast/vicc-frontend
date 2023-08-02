@@ -20,7 +20,7 @@ const Body = styled.div`
   background-color: var(--c-neutral-100);
 `;
 
-export const Layout: FC = ({ children }) => {
+export const Layout: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   return (
     <Root>
       <MultiSportAppBar unclaimedRewards={<UnclaimedRewards />} />

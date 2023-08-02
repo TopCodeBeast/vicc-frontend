@@ -16,7 +16,7 @@ const RarityFilter = ({ values, onChange }: Props) => {
   const options = Object.keys(So5LeaderboardRarity).reduce<
     {
       value: So5LeaderboardRarity;
-      label: JSX.Element;
+      label: React.JSX.Element;
     }[]
   >((array, rarity) => {
     const lowerCaseRarity = rarity.toLowerCase() as ScarcityType;

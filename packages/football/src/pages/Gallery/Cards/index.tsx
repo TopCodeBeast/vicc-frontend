@@ -4,12 +4,14 @@ import { useCurrentUserContext } from '@sorare/core/src/contexts/currentUser';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import { useUseCustomLists } from '@sorare/core/src/lib/featureFlags';
 
+// eslint-disable-next-line sorare/no-unrendered-component-imports
+import ShowDetails from '@sorare/marketplace/src/components/TokenPreview/ShowDetails';
 import useDefaultFilters from '@sorare/marketplace/src/hooks/useDefaultFilters';
 import {
-  // CustomDecksFilter,
+  CustomDecksFilter,
   FavoriteFilter,
   LeagueFilter,
-  // NotInLineupFilter,
+  NotInLineupFilter,
   PlayingNextGameweekFilter,
   RefineActiveClub,
   RefineActiveNationalTeam,
@@ -21,7 +23,7 @@ import {
   RefineCustomDeck,
   RefineLeague,
   RefineNationality,
-  // RefineOnSale,
+  RefineOnSale,
   RefinePlayer,
   RefineRarity,
   RefineSeason,
@@ -29,10 +31,10 @@ import {
   RefineTeam,
 } from '@sorare/marketplace/src/searchCards';
 
-// import LongLiveTheSquads from '@football/components/dialogs/LongLiveTheSquads';
+import LongLiveTheSquads from '@football/components/dialogs/LongLiveTheSquads';
 import AdvancedCardSearch from '@football/components/searchCards/AdvancedCardSearch';
 import { RefineFootballPosition } from '@football/components/searchCards/RefinePosition';
-// import ReferralBar from '@football/components/user/ReferralBar';
+import ReferralBar from '@football/components/user/ReferralBar';
 
 interface Props {
   user: {
@@ -40,9 +42,10 @@ interface Props {
     slug: string;
   };
   readOnly?: boolean;
+  nbCustomDecks?: number;
 }
 
-export const Cards = ({ user, readOnly }: Props) => {
+export const Cards = ({ user, readOnly, nbCustomDecks }: Props) => {
   const { currentUser } = useCurrentUserContext();
   const useCustomLists = useUseCustomLists();
   const isCurrentUser = currentUser?.id === user.id;
@@ -50,14 +53,18 @@ export const Cards = ({ user, readOnly }: Props) => {
     ? !currentUser?.userSettings?.hideCommonCards
     : false;
 
+  const showFilter = !readOnly || nbCustomDecks;
+
   const cardFilters = useMemo(() => {
     return [
+      ShowDetails,
+      useCustomLists && showFilter ? CustomDecksFilter : undefined,
+      !useCustomLists && showFilter ? RefineCustomDeck : undefined,
       RefineRarity(),
-      // RefineOnSale(),
-      // NotInLineupFilter,
+      RefineOnSale(),
+      NotInLineupFilter,
       PlayingNextGameweekFilter,
       FavoriteFilter,
-      // useCustomLists ? CustomDecksFilter : RefineCustomDeck,
       RefineFootballPosition,
       LeagueFilter,
       RefineLeague,
@@ -74,7 +81,7 @@ export const Cards = ({ user, readOnly }: Props) => {
       RefineAverageScore(),
       RefineAppearances(),
     ].filter(Boolean);
-  }, [useCustomLists]);
+  }, [useCustomLists, showFilter]);
 
   const filters = useDefaultFilters({ userId: idFromObject(user.id) });
 
@@ -96,10 +103,9 @@ export const Cards = ({ user, readOnly }: Props) => {
         galleryOwnerSlug={user.slug}
         editableLists={!readOnly}
       >
-        <>ReferralBar6666666</>
-        {/* {!readOnly && <ReferralBar context="gallery" smallBorder />} */}
+        {!readOnly && <ReferralBar context="gallery" smallBorder />}
       </AdvancedCardSearch>
-      {/* <LongLiveTheSquads /> */}
+      <LongLiveTheSquads />
     </>
   );
 };

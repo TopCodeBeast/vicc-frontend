@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faArrowRight, faRefresh } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -50,7 +50,7 @@ const StyledButton = styled(Button)`
 
 type Props = {
   liveCardsOnSale: WithLineupSuggestions_card[] | undefined;
-  children: (props: Partial<LineupProps>) => JSX.Element;
+  children: (props: Partial<LineupProps>) => React.JSX.Element;
   draftedPlayers: WithLineupSuggestions_draftablePlayer[];
   fetchMoreCardsOnSale: () => void;
   isLastCardsOnSalePage: boolean;
@@ -208,26 +208,26 @@ WithLineupSuggestions.fragments = {
     }
     ${BuyButton.fragments.token}
     ${SuggestionCard.fragments.card}
-  `,
+  ` as TypedDocumentNode<WithLineupSuggestions_card>,
   draftablePlayer: gql`
     fragment WithLineupSuggestions_draftablePlayer on DraftablePlayer {
       id
-      position: positionTyped
+      position
       player {
         slug
-        averageScore(type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE)
+        averageScore(type: LAST_FIFTEEN_SO5_AVERAGE_SCORE)
       }
       ...CommonPlayerCard_draftablePlayer
     }
     ${CommonPlayerCard.fragments.draftablePlayer}
-  `,
+  ` as TypedDocumentNode<WithLineupSuggestions_draftablePlayer>,
   so5Leaderboard: gql`
-    fragment WithLineupSuggestions_so5Leaderboard on Vicc5Leaderboard {
+    fragment WithLineupSuggestions_so5Leaderboard on So5Leaderboard {
       slug
       displayName
       rarityType
     }
-  `,
+  ` as TypedDocumentNode<WithLineupSuggestions_so5Leaderboard>,
 };
 
 export default WithLineupSuggestions;

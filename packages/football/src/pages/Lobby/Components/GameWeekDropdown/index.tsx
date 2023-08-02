@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faAngleDown } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -20,6 +20,7 @@ import { isFixtureLive, isFixtureOpened } from '@football/lib/so5';
 import {
   Lobby_GameWeekDropdownHeader_so5Fixture,
   So5FixturesDropdownQuery,
+  So5FixturesDropdownQueryVariables,
 } from './__generated__/index.graphql';
 
 const styles = {
@@ -96,10 +97,10 @@ const styles = {
 };
 
 type So5FixturesDropdownQuery_so5_so5Fixtures_nodes =
-  So5FixturesDropdownQuery['so5']['so5Fixtures']['nodes'][number];
+  So5FixturesDropdownQuery['football']['so5']['so5Fixtures']['nodes'][number];
 
 const so5FixtureFragment = gql`
-  fragment Lobby_GameWeekDropdownHeader_so5Fixture on Vicc5Fixture {
+  fragment Lobby_GameWeekDropdownHeader_so5Fixture on So5Fixture {
     slug
     gameWeek
     startDate
@@ -108,25 +109,30 @@ const so5FixtureFragment = gql`
     displayName
     shortDisplayName
   }
-`;
+` as TypedDocumentNode<Lobby_GameWeekDropdownHeader_so5Fixture>;
 
 const SO5_FIXTURES_DROPDOWN_QUERY = gql`
   query So5FixturesDropdownQuery($cursor: String) {
-    so5: vicc5Root {
-      so5Fixtures: vicc5Fixtures(first: 50, after: $cursor) {
-        nodes {
-          slug
-          ...Lobby_GameWeekDropdownHeader_so5Fixture
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
+    football {
+      so5 {
+        so5Fixtures(first: 50, after: $cursor) {
+          nodes {
+            slug
+            ...Lobby_GameWeekDropdownHeader_so5Fixture
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
         }
       }
     }
   }
   ${so5FixtureFragment}
-`;
+` as TypedDocumentNode<
+  So5FixturesDropdownQuery,
+  So5FixturesDropdownQueryVariables
+>;
 
 export type GameWeekOptionType = {
   slug: string;
@@ -266,16 +272,13 @@ const GameWeekDropdown = ({
   const defaultValue = formatOption(defaultFixture);
   const optionsBySlug = useRef<Record<string, GameWeekOptionType>>({});
   const [defaultOptions, setDefaultOptions] = useState<GroupBase[]>([]);
-  const { data, loadMore } = usePaginatedQuery<So5FixturesDropdownQuery>(
-    SO5_FIXTURES_DROPDOWN_QUERY,
-    {
-      connection: 'So5FixtureConnection',
-      nextFetchPolicy: 'cache-first',
-      fetchPolicy: 'cache-and-network',
-      skip: !enabled,
-    }
-  );
-  const so5Fixtures = data?.so5.so5Fixtures;
+  const { data, loadMore } = usePaginatedQuery(SO5_FIXTURES_DROPDOWN_QUERY, {
+    connection: 'So5FixtureConnection',
+    nextFetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
+    skip: !enabled,
+  });
+  const so5Fixtures = data?.football.so5.so5Fixtures;
   const endCursor = so5Fixtures?.pageInfo?.endCursor;
   const hasMore = Boolean(so5Fixtures?.pageInfo.hasNextPage);
   const latestGameWeek = so5Fixtures?.nodes[0]?.gameWeek;
@@ -286,11 +289,11 @@ const GameWeekDropdown = ({
   }, [endCursor, loadMore]);
 
   const parseOptions = useCallback<() => GroupBase[]>(() => {
-    if (!data?.so5.so5Fixtures?.nodes) {
+    if (!data?.football.so5.so5Fixtures?.nodes) {
       return [];
     }
     optionsBySlug.current = groupNodesBySlug(
-      data.so5.so5Fixtures.nodes
+      data.football.so5.so5Fixtures.nodes
     );
     return groupOptionsByYear(optionsBySlug.current);
   }, [data, optionsBySlug]);

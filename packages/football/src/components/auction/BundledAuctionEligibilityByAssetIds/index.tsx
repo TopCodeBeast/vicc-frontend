@@ -1,10 +1,14 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 
 import ItemEligibility from '@football/components/card/ItemEligibility';
 
-import { BundledAuctionEligibilityByAssetIdsQuery } from './__generated__/index.graphql';
+import {
+  BundledAuctionEligibilityByAssetIdsQuery,
+  BundledAuctionEligibilityByAssetIdsQueryVariables,
+  BundledAuctionEligibilityByAssetIds_card,
+} from './__generated__/index.graphql';
 
 interface Props {
   tokens: { assetId: string }[];
@@ -17,22 +21,26 @@ const cardFragment = gql`
     ...ItemEligibility_card
   }
   ${ItemEligibility.fragments.card}
-`;
+` as TypedDocumentNode<BundledAuctionEligibilityByAssetIds_card>;
 
-//TODO***********Remove-Football
 const BUNDLED_AUCTION_ELIGIBILITY_BY_ASSET_IDS_QUERY = gql`
   query BundledAuctionEligibilityByAssetIdsQuery($assetIds: [String!]!) {
-    cards(assetIds: $assetIds) {
-      slug
-      assetId
-      ...BundledAuctionEligibilityByAssetIds_card
+    football {
+      cards(assetIds: $assetIds) {
+        slug
+        assetId
+        ...BundledAuctionEligibilityByAssetIds_card
+      }
     }
   }
   ${cardFragment}
-`;
+` as TypedDocumentNode<
+  BundledAuctionEligibilityByAssetIdsQuery,
+  BundledAuctionEligibilityByAssetIdsQueryVariables
+>;
 
 const BundledAuctionEligibilityByAssetIds = ({ tokens }: Props) => {
-  const { loading, data } = useQuery<BundledAuctionEligibilityByAssetIdsQuery>(
+  const { loading, data } = useQuery(
     BUNDLED_AUCTION_ELIGIBILITY_BY_ASSET_IDS_QUERY,
     {
       variables: {
@@ -45,7 +53,7 @@ const BundledAuctionEligibilityByAssetIds = ({ tokens }: Props) => {
   if (loading || !data) return null;
 
   const {
-    cards, // football: { cards },
+    football: { cards },
   } = data;
   return <ItemEligibility cards={cards} />;
 };

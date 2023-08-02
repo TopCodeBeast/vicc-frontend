@@ -17,7 +17,7 @@ export interface LayoutProps {
 
 interface Props {
   time: Date;
-  Layout?: FunctionComponent<LayoutProps>;
+  Layout?: FunctionComponent<React.PropsWithChildren<LayoutProps>>;
   endLabel?: string;
   onEnded?: () => void;
   withExplicitTime?: boolean;

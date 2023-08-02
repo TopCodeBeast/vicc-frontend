@@ -27,10 +27,14 @@ export const EmptyLeaderboard = ({
 }) => {
   return (
     <Root>
-      <FontAwesomeIcon icon={faUserFriends} size="2x" />
+      <FontAwesomeIcon
+        icon={faUserFriends}
+        size="2x"
+        color="var(--c-neutral-1000)"
+      />
       {onlyFollowed ? (
         <div>
-          <Title2>
+          <Title2 color="var(--c-neutral-1000)">
             <FormattedMessage
               id="Lobby.EmptyLeaderboard.noManagersFound"
               defaultMessage="Follow a manager"
@@ -45,7 +49,7 @@ export const EmptyLeaderboard = ({
         </div>
       ) : (
         <div>
-          <Title2>
+          <Title2 color="var(--c-neutral-1000)">
             <FormattedMessage
               id="Lobby.EmptyLeaderboard.noManagers"
               defaultMessage="Empty leaderboard"

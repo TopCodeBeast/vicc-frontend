@@ -1,12 +1,12 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classNames from 'classnames';
 import { isPast, parseISO } from 'date-fns';
 
 import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 import SorareUser from '@sorare/core/src/components/user/SorareUser';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
-import ItemPrice from '@marketplace/components/ItemPreview/ItemPrice';
 import { ItemSpecialRewardBadge } from '@marketplace/components/ItemPreview/ItemSpecialRewardBadge';
 import {
   ButtonContainer,
@@ -47,10 +47,10 @@ export const AuctionDetails = ({
   } = useFeatureFlags();
   const takesPartInEvent = useTokenTakesPartPromotionalEvent();
 
-  const currentPrice = auctionCurrentPrice(auction);
-  // const { currency } = auction;
+  const currentPriceMonetary = auctionCurrentPrice(auction);
+  const { open } = auction;
   const endDate = auction.endDate && parseISO(auction.endDate);
-  const hasEnded = endDate && isPast(endDate);
+  const hasEnded = endDate && isPast(endDate) && !open;
   const tokens = auction.nfts;
   const promotionalEvent = takesPartInEvent(tokens);
   const buttonColor = useSportWithUncoloredCta.includes(tokens[0].sport)
@@ -62,11 +62,13 @@ export const AuctionDetails = ({
       <TokenDetailsInfos>
         <div>
           <TokenDetailsRow>
-            {!useConversionRate && hasEnded && auction.bestBid ? (
-              <AmountWithConversion monetaryAmount={/*auction.bestBid.amounts*/ 'usd' as any} />
-            ) : (
-              <ItemPrice amount={currentPrice} referenceCurrency={'USD' as any /*currency*/} />
-            )}
+            <AmountWithConversion
+              monetaryAmount={
+                !useConversionRate && hasEnded && auction.bestBid
+                  ? auction.bestBid.amounts
+                  : currentPriceMonetary
+              }
+            />
           </TokenDetailsRow>
           {promotionalEvent &&
             !promotionalEventsExcludeSpecialRewardBadge.includes(
@@ -105,17 +107,12 @@ AuctionDetails.fragments = {
   auction: gql`
     fragment AuctionDetails_auction on TokenAuction {
       id
-      # currency
+      open
       bestBid {
         id
-        amount
-        #amounts {
-        #  eur
-        #  gbp
-        #  usd
-        #  wei
-        #  referenceCurrency
-        #}
+        amounts {
+          ...MonetaryAmountFragment_monetaryAmount
+        }
       }
       nfts {
         assetId
@@ -127,11 +124,14 @@ AuctionDetails.fragments = {
       ...AuctionStatus_auction
       ...auctionCurrentPrice_auction
       ...AuctionWinner_auction
+      ...auctionCurrentPrice_auction
     }
+    ${monetaryAmountFragment}
+    ${auctionCurrentPrice.fragments.auction}
     ${BidField.fragments.token}
     ${BidField.fragments.auction}
     ${AuctionStatus.fragments.auction}
     ${auctionCurrentPrice.fragments.auction}
     ${AuctionWinner.fragments.auction}
-  `,
+  ` as TypedDocumentNode<AuctionDetails_auction>,
 };

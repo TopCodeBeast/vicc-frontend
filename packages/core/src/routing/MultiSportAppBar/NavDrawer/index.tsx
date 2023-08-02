@@ -8,7 +8,7 @@ import { ChevronDownBold } from '@core/atoms/icons/ChevronDownBold';
 import { CloseBold } from '@core/atoms/icons/CloseBold';
 import { OverrideClasses } from '@core/style/utils';
 
-// import { sportLogos } from '../Sport/Switch';
+import { sportLogos } from '../Sport/Switch';
 
 type NavLevelType = Sport | undefined;
 interface Props extends DrawerProps {
@@ -77,9 +77,8 @@ const NavDrawerHeaderLogo = ({
   currentNavSport: NavLevelType;
 }) => {
   if (!currentNavSport) return null;
-  // const Component = sportLogos[currentNavSport];
-  // return <Component active />;
-  return <>HeaderLogo55</>;
+  const Component = sportLogos[currentNavSport];
+  return <Component active />;
 };
 
 export const NavDrawerHeader = ({

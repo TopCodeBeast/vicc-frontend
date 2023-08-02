@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faClock } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isFuture } from 'date-fns';
@@ -53,7 +53,7 @@ const getCardBacks = (
         );
       });
       return [...acc, ...rewards];
-    }, [] as JSX.Element[]) || []
+    }, [] as React.JSX.Element[]) || []
   );
 };
 
@@ -106,7 +106,7 @@ export const EligibleRewardsBanner = ({
 
 EligibleRewardsBanner.fragments = {
   rewardConfig: gql`
-    fragment EligibleRewardsBanner_rewardConfig on Vicc5RewardConfig {
+    fragment EligibleRewardsBanner_rewardConfig on So5RewardConfig {
       cards {
         quality
         rarity
@@ -120,5 +120,5 @@ EligibleRewardsBanner.fragments = {
       ...hasEligibleRewards_so5RewardConfig
     }
     ${hasEligibleRewards.fragments.rewardConfig}
-  `,
+  ` as TypedDocumentNode<EligibleRewardsBanner_rewardConfig>,
 };

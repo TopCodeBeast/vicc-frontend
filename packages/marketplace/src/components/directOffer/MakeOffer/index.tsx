@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faExchangeAlt } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
@@ -141,7 +141,7 @@ MakeOffer.fragments = {
         user {
           slug
           id
-          sorareAddress: viccAddress
+          sorareAddress
           nickname
           ...NewOfferBuilder_publicUserInfoInterface
         }
@@ -152,14 +152,13 @@ MakeOffer.fragments = {
       liveSingleBuyOffers {
         id
       }
-      publicMinPrice
       ...NewOfferBuilder_token
       ...useTokenBelongsToUser_token
     }
     ${NewOfferBuilder.fragments.token}
     ${NewOfferBuilder.fragments.user}
     ${useTokenBelongsToUser.fragments.token}
-  `,
+  ` as TypedDocumentNode<MakeOffer_token>,
 };
 
 export default MakeOffer;

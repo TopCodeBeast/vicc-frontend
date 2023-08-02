@@ -6,10 +6,10 @@ import Button from '@core/atoms/buttons/Button';
 import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
 import { Text16 } from '@core/atoms/typography';
 import RecommendedWalletApp from '@core/components/wallet/RecommendedWalletApp';
-// import { useBlockchainContext } from '@core/contexts/blockchain';
-// import { useWeb3Context } from '@core/contexts/web3';
-// import useBlockchainAccountData from '@core/hooks/useBlockchainAccountData';
-// import { EthereumSetupStatus } from '@core/lib/web3';
+import { useBlockchainContext } from '@core/contexts/blockchain';
+import { useWeb3Context } from '@core/contexts/web3';
+import useBlockchainAccountData from '@core/hooks/useBlockchainAccountData';
+import { EthereumSetupStatus } from '@core/lib/web3';
 
 const messages = defineMessages({
   wrongNetwork: {
@@ -33,105 +33,104 @@ const AlreadyOpen = styled(Text16)`
 `;
 
 export const ConnectPrivateWallet = () => {
-  // const blockchains = useBlockchainContext();
-  // const accountData = useBlockchainAccountData();
-  // const {
-  //   ethereumSetupStatus,
-  //   walletConnectRequestPending,
-  //   walletConnectAlreadyRequestedError,
-  // } = useWeb3Context();
-  // const {
-  //   expectedEthereumNetwork,
-  //   loading,
-  //   ethereumInitialized,
-  //   connectToEthereum,
-  // } = blockchains!;
+  const blockchains = useBlockchainContext();
+  const accountData = useBlockchainAccountData();
+  const {
+    ethereumSetupStatus,
+    walletConnectRequestPending,
+    walletConnectAlreadyRequestedError,
+  } = useWeb3Context();
+  const {
+    expectedEthereumNetwork,
+    loading,
+    ethereumInitialized,
+    connectToEthereum,
+  } = blockchains!;
 
-  // useEffect(() => {
-  //   if (!ethereumInitialized && !loading) {
-  //     connectToEthereum('InBackground');
-  //   }
-  // }, [connectToEthereum, ethereumInitialized, loading]);
+  useEffect(() => {
+    if (!ethereumInitialized && !loading) {
+      connectToEthereum('InBackground');
+    }
+  }, [connectToEthereum, ethereumInitialized, loading]);
 
-  // const connectButtonMessage = useMemo(() => {
-  //   if (walletConnectRequestPending) {
-  //     return (
-  //       <FormattedMessage
-  //         id="ConnectPrivateWallet.connecting"
-  //         defaultMessage="Connecting..."
-  //       />
-  //     );
-  //   }
-  //   return (
-  //     <FormattedMessage
-  //       id="ConnectPrivateWallet.connect"
-  //       defaultMessage="Connect my wallet"
-  //     />
-  //   );
-  // }, [walletConnectRequestPending]);
+  const connectButtonMessage = useMemo(() => {
+    if (walletConnectRequestPending) {
+      return (
+        <FormattedMessage
+          id="ConnectPrivateWallet.connecting"
+          defaultMessage="Connecting..."
+        />
+      );
+    }
+    return (
+      <FormattedMessage
+        id="ConnectPrivateWallet.connect"
+        defaultMessage="Connect my wallet"
+      />
+    );
+  }, [walletConnectRequestPending]);
 
-  // if (loading) {
-  //   return <LoadingIndicator />;
-  // }
+  if (loading) {
+    return <LoadingIndicator />;
+  }
 
-  // const renderContent = () => {
-  //   if (!ethereumInitialized) {
-  //     if (ethereumSetupStatus === EthereumSetupStatus.NO_NATIVE_WALLET) {
-  //       return <RecommendedWalletApp />;
-  //     }
+  const renderContent = () => {
+    if (!ethereumInitialized) {
+      if (ethereumSetupStatus === EthereumSetupStatus.NO_NATIVE_WALLET) {
+        return <RecommendedWalletApp />;
+      }
 
-  //     if (ethereumSetupStatus === EthereumSetupStatus.NOK) {
-  //       return (
-  //         <Message bold>
-  //           <FormattedMessage
-  //             id="ConnectPrivateWallet.nok"
-  //             defaultMessage="You need to install an Ethereum wallet to access this part of Sorare."
-  //           />
-  //         </Message>
-  //       );
-  //     }
-  //     if (ethereumSetupStatus === EthereumSetupStatus.WRONG_NETWORK) {
-  //       return (
-  //         <Warning>
-  //           <FormattedMessage
-  //             {...messages.wrongNetwork}
-  //             values={{ expectedEthereumNetwork }}
-  //           />
-  //         </Warning>
-  //       );
-  //     }
-  //     if (
-  //       ethereumSetupStatus === EthereumSetupStatus.MUST_ENABLE ||
-  //       !accountData
-  //     ) {
-  //       return (
-  //         <>
-  //           <Button
-  //             fullWidth
-  //             medium
-  //             color="blue"
-  //             disabled={walletConnectRequestPending}
-  //             onClick={() => connectToEthereum('OnUserRequest')}
-  //           >
-  //             {connectButtonMessage}
-  //           </Button>
-  //           {walletConnectAlreadyRequestedError && (
-  //             <AlreadyOpen color="var(--c-red-600)">
-  //               <FormattedMessage
-  //                 id="ConnectPrivateWallet.alreadyOpen"
-  //                 defaultMessage="Ethereum wallet popup already open"
-  //               />
-  //             </AlreadyOpen>
-  //           )}
-  //         </>
-  //       );
-  //     }
-  //   }
-  //   return null;
-  // };
+      if (ethereumSetupStatus === EthereumSetupStatus.NOK) {
+        return (
+          <Message bold>
+            <FormattedMessage
+              id="ConnectPrivateWallet.nok"
+              defaultMessage="You need to install an Ethereum wallet to access this part of Sorare."
+            />
+          </Message>
+        );
+      }
+      if (ethereumSetupStatus === EthereumSetupStatus.WRONG_NETWORK) {
+        return (
+          <Warning>
+            <FormattedMessage
+              {...messages.wrongNetwork}
+              values={{ expectedEthereumNetwork }}
+            />
+          </Warning>
+        );
+      }
+      if (
+        ethereumSetupStatus === EthereumSetupStatus.MUST_ENABLE ||
+        !accountData
+      ) {
+        return (
+          <>
+            <Button
+              fullWidth
+              medium
+              color="blue"
+              disabled={walletConnectRequestPending}
+              onClick={() => connectToEthereum('OnUserRequest')}
+            >
+              {connectButtonMessage}
+            </Button>
+            {walletConnectAlreadyRequestedError && (
+              <AlreadyOpen color="var(--c-red-600)">
+                <FormattedMessage
+                  id="ConnectPrivateWallet.alreadyOpen"
+                  defaultMessage="Ethereum wallet popup already open"
+                />
+              </AlreadyOpen>
+            )}
+          </>
+        );
+      }
+    }
+    return null;
+  };
 
-  // return renderContent();
-  return <>ConnectePrivateWallet555</>
+  return renderContent();
 };
 
 export default ConnectPrivateWallet;

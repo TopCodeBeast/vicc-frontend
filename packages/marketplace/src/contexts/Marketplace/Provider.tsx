@@ -1,44 +1,28 @@
 import { useApolloClient } from '@apollo/client';
-import { ReactNode, useCallback } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
-// import {
-//   Analytics_cardInfo,
-//   Analytics_tokenInfo,
-// } from '@sorare/core/src/contexts/events/__generated__/types.graphql';
-// import {
-//   getCardFromAssetId,
-//   getCardsFromAssetIds,
-//   getTokenFromAssetId,
-//   getTokensFromAssetIds,
-// } from '@sorare/core/src/contexts/events/types';
+import {
+  Analytics_cardInfo,
+  Analytics_tokenInfo,
+} from '@sorare/core/src/contexts/events/__generated__/types.graphql';
+import {
+  getCardFromAssetId,
+  getCardsFromAssetIds,
+  getTokenFromAssetId,
+  getTokensFromAssetIds,
+} from '@sorare/core/src/contexts/events/types';
 import idFromObject from '@sorare/core/src/gql/idFromObject';
 import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
-// import { getInteractionContext } from '@sorare/core/src/lib/events';
+import { getInteractionContext } from '@sorare/core/src/lib/events';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
-import { isA } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
 import { fromWei } from '@sorare/core/src/lib/wei';
 
-// import { BidField_auction } from '@marketplace/components/buyActions/BidField/__generated__/index.graphql';
-// import BuyingConfirmationProvider from '@marketplace/contexts/buyingConfirmation/Provider';
+import { BidField_auction } from '@marketplace/components/buyActions/BidField/__generated__/index.graphql';
+import BuyingConfirmationProvider from '@marketplace/contexts/buyingConfirmation/Provider';
 
 import MarketplaceContextProvider, { MarketplaceContextType } from '.';
-
-type Analytics_tokenInfo_metadata_TokenBaseballMetadata = any;
-// type Analytics_tokenInfo_metadata_TokenBaseballMetadata =
-//   Analytics_tokenInfo['metadata'] & {
-//     __typename: 'TokenBaseballMetadata';
-//   };
-
-type Analytics_tokenInfo_metadata_TokenFootballMetadata = any;
-// type Analytics_tokenInfo_metadata_TokenFootballMetadata =
-//   Analytics_tokenInfo['metadata'] & {
-//     __typename: 'TokenFootballMetadata';
-//   };
-
-type Analytics_tokenInfo = any;
-type Analytics_cardInfo = any;
-type BidField_auction = any;
 
 interface Props
   extends Omit<
@@ -49,19 +33,17 @@ interface Props
     | 'trackClickBid'
     | 'trackClickTrade'
     | 'trackRemoveMarketFilterChip'
-    | 'secondaryMarketFeesRate'
   > {
   children: ReactNode;
-  secondaryMarketFeesBasisPoints: number;
 }
 
 const cardInfoProperties = (card: Analytics_cardInfo) => ({
   cardSlug: card.slug,
   domesticLeagueSlug: card.player.activeClub?.domesticLeague?.slug || '',
-  lastFiveVicc5Appearances: card.player.lastFiveVicc5Appearances || 0,
+  lastFiveSo5Appearances: card.player.lastFiveSo5Appearances || 0,
   lastFiveSo5AverageScore: card.lastFiveSo5AverageScore || 0.0,
-  lastFifteenVicc5Appearances: card.player.lastFifteenVicc5Appearances || 0,
-  lastFifteenVicc5AverageScore: card.lastFifteenVicc5AverageScore || 0.0,
+  lastFifteenSo5Appearances: card.player.lastFifteenSo5Appearances || 0,
+  lastFifteenSo5AverageScore: card.lastFifteenSo5AverageScore || 0.0,
   playerSlug: card.player.slug,
   position: card.positionTyped,
   positions: [],
@@ -91,21 +73,18 @@ const cardsInfoProperties = (cards: Analytics_cardInfo[]) => ({
   value: 0,
 });
 
-type TokenBaseballMetadata = Analytics_tokenInfo_metadata_TokenBaseballMetadata;
-type TokenFootballMetadata = Analytics_tokenInfo_metadata_TokenFootballMetadata;
-
 const tokenInfoProperties = (token: Analytics_tokenInfo) => ({
   cardSlug: token.slug,
   domesticLeagueSlug: '',
-  lastFiveVicc5Appearances: 0,
+  lastFiveSo5Appearances: 0,
   lastFiveSo5AverageScore: 0.0,
-  lastFifteenVicc5Appearances: 0,
-  lastFifteenVicc5AverageScore: 0.0,
+  lastFifteenSo5Appearances: 0,
+  lastFifteenSo5AverageScore: 0.0,
   playerSlug: token.metadata.playerSlug,
-  position: isA<TokenFootballMetadata>('TokenFootballMetadata', token.metadata)
+  position: isType(token.metadata, 'TokenFootballMetadata')
     ? token.metadata.playerPosition
     : '',
-  positions: isA<TokenBaseballMetadata>('TokenBaseballMetadata', token.metadata)
+  positions: isType(token.metadata, 'TokenBaseballMetadata')
     ? token.metadata.playerPositions
     : [],
   scarcity: token.metadata.rarity,
@@ -124,10 +103,10 @@ const tokensInfoProperties = (tokens: Analytics_tokenInfo[]) => ({
   domesticLeagueSlug: '',
   playerSlugs: tokens.map(token => token.metadata.playerSlug),
   positions: tokens.flatMap(token => {
-    if (isA<TokenBaseballMetadata>('TokenBaseballMetadata', token.metadata)) {
+    if (isType(token.metadata, 'TokenBaseballMetadata')) {
       return token.metadata.playerPositions;
     }
-    if (isA<TokenFootballMetadata>('TokenFootballMetadata', token.metadata)) {
+    if (isType(token.metadata, 'TokenFootballMetadata')) {
       return [token.metadata.playerPosition];
     }
     return [];
@@ -145,7 +124,6 @@ const tokensInfoProperties = (tokens: Analytics_tokenInfo[]) => ({
 
 const MarketplaceProvider = ({
   children,
-  secondaryMarketFeesBasisPoints,
   TokenPropertiesComponent,
   TokenTeamsComponent,
   TokenAuctionEligibility,
@@ -153,59 +131,60 @@ const MarketplaceProvider = ({
 }: Props) => {
   const client = useApolloClient();
   const track = useEvents();
+  const [hideDetails, setHideDetails] = useState(false);
   const trackClickCard = useCallback(
     (assetId: string, sport: Sport) => {
-      // if (sport === Sport.FOOTBALL) {
-      //   getCardFromAssetId(client, assetId).then(card => {
-      //     const params = {
-      //       sport,
-      //       ...cardInfoProperties(card),
-      //       secondary: Boolean(card.user),
-      //     };
-      //     track('Click Card', params);
-      //   });
-      // } else if ([Sport.BASEBALL, Sport.NBA].includes(sport)) {
-      //   getTokenFromAssetId(client, assetId).then(token => {
-      //     const params = {
-      //       sport,
-      //       ...tokenInfoProperties(token),
-      //       secondary: Boolean(token.owner?.user),
-      //     };
-      //     track('Click Card', params);
-      //   });
-      // }
+      if (sport === Sport.FOOTBALL) {
+        getCardFromAssetId(client, assetId).then(card => {
+          const params = {
+            sport,
+            ...cardInfoProperties(card),
+            secondary: Boolean(card.user),
+          };
+          track('Click Card', params);
+        });
+      } else if ([Sport.BASEBALL, Sport.NBA].includes(sport)) {
+        getTokenFromAssetId(client, assetId).then(token => {
+          const params = {
+            sport,
+            ...tokenInfoProperties(token),
+            secondary: Boolean(token.owner?.user),
+          };
+          track('Click Card', params);
+        });
+      }
     },
     [client, track]
   );
 
   const trackClickBundle = useCallback(
     (auctionId: string, assetIds: string[], sport: Sport, subPath?: string) => {
-      // const sharedProperties = {
-      //   auctionId,
-      //   secondary: false,
-      //   interactionContext: getInteractionContext(subPath),
-      //   sport,
-      // };
+      const sharedProperties = {
+        auctionId,
+        secondary: false,
+        interactionContext: getInteractionContext(subPath),
+        sport,
+      };
 
-      // if (sport === Sport.FOOTBALL) {
-      //   getCardsFromAssetIds(client, assetIds).then(cards => {
-      //     const params = {
-      //       ...sharedProperties,
-      //       ...cardsInfoProperties(cards),
-      //     };
+      if (sport === Sport.FOOTBALL) {
+        getCardsFromAssetIds(client, assetIds).then(cards => {
+          const params = {
+            ...sharedProperties,
+            ...cardsInfoProperties(cards),
+          };
 
-      //     track('Click Bundle', params);
-      //   });
-      // } else if ([Sport.BASEBALL, Sport.NBA].includes(sport)) {
-      //   getTokensFromAssetIds(client, assetIds).then(tokens => {
-      //     const params = {
-      //       ...sharedProperties,
-      //       ...tokensInfoProperties(tokens),
-      //     };
+          track('Click Bundle', params);
+        });
+      } else if ([Sport.BASEBALL, Sport.NBA].includes(sport)) {
+        getTokensFromAssetIds(client, assetIds).then(tokens => {
+          const params = {
+            ...sharedProperties,
+            ...tokensInfoProperties(tokens),
+          };
 
-      //     track('Click Bundle', params);
-      //   });
-      // }
+          track('Click Bundle', params);
+        });
+      }
     },
     [client, track]
   );
@@ -219,52 +198,52 @@ const MarketplaceProvider = ({
       sport: Sport,
       subPath?: string
     ) => {
-      // const sharedProperties = {
-      //   offerId,
-      //   ethAmount: fromWei(priceInWei),
-      //   eurAmount,
-      //   secondary: true,
-      //   interactionContext: getInteractionContext(subPath),
-      //   sport,
-      // };
+      const sharedProperties = {
+        offerId,
+        ethAmount: fromWei(priceInWei),
+        eurAmount,
+        secondary: true,
+        interactionContext: getInteractionContext(subPath),
+        sport,
+      };
 
-      // if (sport === Sport.FOOTBALL) {
-      //   getCardsFromAssetIds(client, assetIds).then(cards => {
-      //     if (cards.length === 1) {
-      //       const params = {
-      //         ...sharedProperties,
-      //         ...cardInfoProperties(cards[0]),
-      //       };
+      if (sport === Sport.FOOTBALL) {
+        getCardsFromAssetIds(client, assetIds).then(cards => {
+          if (cards.length === 1) {
+            const params = {
+              ...sharedProperties,
+              ...cardInfoProperties(cards[0]),
+            };
 
-      //       track('Click Buy', params);
-      //     } else {
-      //       const params = {
-      //         ...sharedProperties,
-      //         ...cardsInfoProperties(cards),
-      //       };
+            track('Click Buy', params);
+          } else {
+            const params = {
+              ...sharedProperties,
+              ...cardsInfoProperties(cards),
+            };
 
-      //       track('Click Bundled Buy', params);
-      //     }
-      //   });
-      // } else if ([Sport.BASEBALL, Sport.NBA].includes(sport)) {
-      //   getTokensFromAssetIds(client, assetIds).then(tokens => {
-      //     if (tokens.length === 1) {
-      //       const params = {
-      //         ...sharedProperties,
-      //         ...tokenInfoProperties(tokens[0]),
-      //       };
+            track('Click Bundled Buy', params);
+          }
+        });
+      } else if ([Sport.BASEBALL, Sport.NBA].includes(sport)) {
+        getTokensFromAssetIds(client, assetIds).then(tokens => {
+          if (tokens.length === 1) {
+            const params = {
+              ...sharedProperties,
+              ...tokenInfoProperties(tokens[0]),
+            };
 
-      //       track('Click Buy', params);
-      //     } else {
-      //       const params = {
-      //         ...sharedProperties,
-      //         ...tokensInfoProperties(tokens),
-      //       };
+            track('Click Buy', params);
+          } else {
+            const params = {
+              ...sharedProperties,
+              ...tokensInfoProperties(tokens),
+            };
 
-      //       track('Click Bundled Buy', params);
-      //     }
-      //   });
-      // }
+            track('Click Bundled Buy', params);
+          }
+        });
+      }
     },
     [client, track]
   );
@@ -277,53 +256,53 @@ const MarketplaceProvider = ({
       sport: Sport,
       subPath?: string
     ) => {
-      // const sharedProperties = {
-      //   auctionId: auction.id,
-      //   count: auction.bidsCount,
-      //   ethAmount: fromWei(monetaryAmount.wei),
-      //   eurAmount: monetaryAmount.eur,
-      //   secondary: false,
-      //   interactionContext: getInteractionContext(subPath),
-      //   sport,
-      // };
+      const sharedProperties = {
+        auctionId: auction.id,
+        count: auction.bidsCount,
+        ethAmount: fromWei(monetaryAmount.wei),
+        eurAmount: monetaryAmount.eur,
+        secondary: false,
+        interactionContext: getInteractionContext(subPath),
+        sport,
+      };
 
-      // if (sport === Sport.FOOTBALL) {
-      //   getCardsFromAssetIds(client, assetIds).then(cards => {
-      //     if (cards.length === 1) {
-      //       const params = {
-      //         ...sharedProperties,
-      //         ...cardInfoProperties(cards[0]),
-      //       };
+      if (sport === Sport.FOOTBALL) {
+        getCardsFromAssetIds(client, assetIds).then(cards => {
+          if (cards.length === 1) {
+            const params = {
+              ...sharedProperties,
+              ...cardInfoProperties(cards[0]),
+            };
 
-      //       track('Click Bid', params);
-      //     } else {
-      //       const params = {
-      //         ...sharedProperties,
-      //         ...cardsInfoProperties(cards),
-      //       };
+            track('Click Bid', params);
+          } else {
+            const params = {
+              ...sharedProperties,
+              ...cardsInfoProperties(cards),
+            };
 
-      //       track('Click Bundled Bid', params);
-      //     }
-      //   });
-      // } else if ([Sport.BASEBALL, Sport.NBA].includes(sport)) {
-      //   getTokensFromAssetIds(client, assetIds).then(tokens => {
-      //     if (tokens.length === 1) {
-      //       const params = {
-      //         ...sharedProperties,
-      //         ...tokenInfoProperties(tokens[0]),
-      //       };
+            track('Click Bundled Bid', params);
+          }
+        });
+      } else if ([Sport.BASEBALL, Sport.NBA].includes(sport)) {
+        getTokensFromAssetIds(client, assetIds).then(tokens => {
+          if (tokens.length === 1) {
+            const params = {
+              ...sharedProperties,
+              ...tokenInfoProperties(tokens[0]),
+            };
 
-      //       track('Click Bid', params);
-      //     } else {
-      //       const params = {
-      //         ...sharedProperties,
-      //         ...tokensInfoProperties(tokens),
-      //       };
+            track('Click Bid', params);
+          } else {
+            const params = {
+              ...sharedProperties,
+              ...tokensInfoProperties(tokens),
+            };
 
-      //       track('Click Bundled Bid', params);
-      //     }
-      //   });
-      // }
+            track('Click Bundled Bid', params);
+          }
+        });
+      }
     },
     [client, track]
   );
@@ -353,7 +332,6 @@ const MarketplaceProvider = ({
   return (
     <MarketplaceContextProvider
       value={{
-        secondaryMarketFeesRate: secondaryMarketFeesBasisPoints / 10000,
         TokenPropertiesComponent,
         TokenTeamsComponent,
         TokenAuctionEligibility,
@@ -364,10 +342,11 @@ const MarketplaceProvider = ({
         trackClickCard,
         trackClickTrade,
         trackRemoveMarketFilterChip,
+        hideDetails,
+        setHideDetails,
       }}
     >
-      {/* <BuyingConfirmationProvider>{children}</BuyingConfirmationProvider> */}
-      {children}
+      <BuyingConfirmationProvider>{children}</BuyingConfirmationProvider>
     </MarketplaceContextProvider>
   );
 };

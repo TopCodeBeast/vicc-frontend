@@ -1,11 +1,9 @@
-import { gql } from '@apollo/client';
 import { faInfoCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Title2 } from '@sorare/core/src/atoms/typography';
-import Carousel from '@sorare/core/src/components/content/banners/Carousel';
 import { SEARCH_PARAMS } from '@sorare/core/src/components/search/InstantSearch/types';
 import { useConfigContext } from '@sorare/core/src/contexts/config';
 import { useManagerTaskContext } from '@sorare/core/src/contexts/managerTask';
@@ -67,14 +65,13 @@ const TransferMarket = () => {
   });
 
   return (
-    <PageTemplate>
+    <PageTemplate showBack>
       {showOnboardingDialog && (
         <ManagersSales
           open={forceShowOnboardingDialog}
           onClick={() => setForceShowOnboardingDialog(false)}
         />
       )}
-      <Carousel slotName="so5_secondary_market" />
       <AdvancedCardSearch
         cardFilters={
           displayStackedView
@@ -120,17 +117,6 @@ const TransferMarket = () => {
       />
     </PageTemplate>
   );
-};
-
-TransferMarket.fragments = {
-  card: gql`
-    fragment TransferMarket_card on Card {
-      slug
-      assetId
-      ...AdvancedCardSearch_card
-    }
-    ${AdvancedCardSearch.fragments.card}
-  `,
 };
 
 export default TransferMarket;

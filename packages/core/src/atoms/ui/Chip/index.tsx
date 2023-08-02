@@ -171,7 +171,7 @@ const Label = <T extends ElementType = 'div'>({
   className,
   children,
   ...props
-}: LabelProps<T>): JSX.Element => {
+}: LabelProps<T>): React.JSX.Element => {
   return (
     <LinkOverlay as={as as any} {...props}>
       {children}
@@ -206,7 +206,7 @@ const Action = <T extends ElementType = 'button'>({
   transparent,
   children,
   ...props
-}: ActionProps<T>): JSX.Element => {
+}: ActionProps<T>): React.JSX.Element => {
   return (
     <ActionWrapper
       as={getAsProp(props, as)}
@@ -220,7 +220,7 @@ const Action = <T extends ElementType = 'button'>({
 };
 
 type Props = {
-  label: ((props: typeof Label) => JSX.Element | null) | ReactNode;
+  label: ((props: typeof Label) => React.JSX.Element | null) | ReactNode;
   action?: (props: typeof Action) => ReactNode | null;
   iconLeft?: (props: typeof FontAwesomeIcon) => ReactNode | null;
   color?: 'red' | 'middleGrey' | 'gray' | 'black' | 'green' | 'yellow';
@@ -237,7 +237,8 @@ export const Chip = ({
   outlined,
   custom,
 }: Props) => {
-  const computedLabel = typeof label === 'function' && label(Label);
+  const isRenderProp = typeof label === 'function';
+  const computedLabel = isRenderProp && label(Label);
   const { onClick, href, to } =
     (typeof computedLabel !== 'boolean' && computedLabel?.props) || {};
 
@@ -254,7 +255,7 @@ export const Chip = ({
       }}
     >
       {iconLeft?.(FontAwesomeIcon)}
-      {computedLabel || (label && <Label as="div">{label}</Label>)}
+      {computedLabel || (!isRenderProp && <Label as="div">{label}</Label>)}
       {action?.(Action)}
     </Root>
   );

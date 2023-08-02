@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import {
   faBell,
   faBellOn,
@@ -8,26 +8,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Menu, MenuItem } from '@material-ui/core';
 import classnames from 'classnames';
 import { useState } from 'react';
-import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
+import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
 
 import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import Checkbox from '@sorare/core/src/atoms/inputs/Checkbox';
-import Dialog from '@sorare/core/src/atoms/layout/Dialog';
-import { Text16, Title6 } from '@sorare/core/src/atoms/typography';
+import { Text16 } from '@sorare/core/src/atoms/typography';
 import ScarcityBall from '@sorare/core/src/components/card/ScarcityBall';
+import { Dialog } from '@sorare/core/src/components/dialog';
 import { useFollowContext } from '@sorare/core/src/contexts/follow';
-// import useUpdateSubscription from '@sorare/core/src/hooks/subscriptions/useUpdateSubscription';
+import useUpdateSubscription from '@sorare/core/src/hooks/subscriptions/useUpdateSubscription';
 import {
   BlockchainScarcity,
   subscribableRarities,
 } from '@sorare/core/src/lib/cards';
 
 import { NotificationPreference_subscription } from './__generated__/index.graphql';
-
-interface Props {
-  subscription: NotificationPreference_subscription;
-}
 
 const bell = (notifyForRarities: string[]) => {
   if (notifyForRarities.length === 0) {
@@ -46,17 +42,16 @@ const messages = defineMessages({
   },
 });
 
-interface CustomScarcityPreferenceProps {
-  scarcity: BlockchainScarcity;
-  enabled: boolean;
-  toggle: () => void;
-}
-
 const CustomRoot = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
+type CustomScarcityPreferenceProps = {
+  scarcity: BlockchainScarcity;
+  enabled: boolean;
+  toggle: () => void;
+};
 const CustomScarcityPreference = ({
   scarcity,
   enabled,
@@ -70,6 +65,12 @@ const CustomScarcityPreference = ({
   );
 };
 
+const CenteredText16 = styled(Text16)`
+  text-align: center;
+`;
+const Body = styled.div`
+  padding: var(--triple-unit);
+`;
 const DialogContent = styled.div`
   margin-top: 10px;
   & > * + * {
@@ -89,8 +90,10 @@ const Row = styled(MenuItem)`
   }
 `;
 
+type Props = {
+  subscription: NotificationPreference_subscription;
+};
 export const NotificationPreference = ({ subscription }: Props) => {
-  const { formatMessage } = useIntl();
   const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
   const { updateMySubscriptions } = useFollowContext();
 
@@ -101,7 +104,7 @@ export const NotificationPreference = ({ subscription }: Props) => {
     setMenuAnchor(null);
   };
   const [customOpened, setCustomOpened] = useState(false);
-  // const updateSubscription = useUpdateSubscription(subscription);
+  const updateSubscription = useUpdateSubscription(subscription);
 
   const { notifyForRarities } = subscription.preferences;
 
@@ -109,42 +112,51 @@ export const NotificationPreference = ({ subscription }: Props) => {
     scarcities: BlockchainScarcity[],
     updatedValue: boolean
   ) => {
-    // const res = await updateSubscription(scarcities, updatedValue);
-    // const updatedSubscription = res.data?.updateSubscription?.subscription;
-    // if (updatedSubscription) updateMySubscriptions(updatedSubscription);
+    const res = await updateSubscription(scarcities, updatedValue);
+    const updatedSubscription = res.data?.updateSubscription?.subscription;
+    if (updatedSubscription) updateMySubscriptions(updatedSubscription);
   };
   return (
     <>
       <Dialog
-        title={<Title6>{formatMessage(messages.dialogTitle)}</Title6>}
+        maxWidth="sm"
+        fullWidth
         open={customOpened}
         onClose={() => {
           setCustomOpened(false);
           closeMenu();
         }}
-      >
-        <Text16>
-          <FormattedMessage
-            id="NotificationPreference.help"
-            defaultMessage="Each time a new Card is listed you’ll receive a notification"
-          />
-        </Text16>
-        <DialogContent>
-          {subscribableRarities.map(scarcity => {
-            const enabled = notifyForRarities.includes(scarcity);
-            return (
-              <CustomScarcityPreference
-                key={scarcity}
-                scarcity={scarcity}
-                enabled={enabled}
-                toggle={() => {
-                  updateSubscriptionRarities([scarcity], !enabled);
-                }}
+        title={
+          <CenteredText16 bold>
+            <FormattedMessage {...messages.dialogTitle} />
+          </CenteredText16>
+        }
+        body={
+          <Body>
+            <Text16>
+              <FormattedMessage
+                id="NotificationPreference.help"
+                defaultMessage="Each time a new Card is listed you’ll receive a notification"
               />
-            );
-          })}
-        </DialogContent>
-      </Dialog>
+            </Text16>
+            <DialogContent>
+              {subscribableRarities.map(scarcity => {
+                const enabled = notifyForRarities.includes(scarcity);
+                return (
+                  <CustomScarcityPreference
+                    key={scarcity}
+                    scarcity={scarcity}
+                    enabled={enabled}
+                    toggle={() => {
+                      updateSubscriptionRarities([scarcity], !enabled);
+                    }}
+                  />
+                );
+              })}
+            </DialogContent>
+          </Body>
+        }
+      />
       <IconButton
         icon={bell(notifyForRarities)}
         onClick={openMenu}
@@ -226,7 +238,7 @@ NotificationPreference.fragments = {
         notifyForRarities
       }
     }
-  `,
+  ` as TypedDocumentNode<NotificationPreference_subscription>,
 };
 
 export default NotificationPreference;

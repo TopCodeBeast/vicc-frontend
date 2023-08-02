@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback, useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components';
@@ -108,12 +108,12 @@ export const ScoringPeriodInput = ({ upcomingFixture }: Props) => {
 
 ScoringPeriodInput.fragments = {
   upcomingFixture: gql`
-    fragment ScoringPeriodInput_upcomingFixture on Vicc5Fixture {
+    fragment ScoringPeriodInput_upcomingFixture on So5Fixture {
       slug
       gameWeek
       displayName
     }
-  `,
+  ` as TypedDocumentNode<ScoringPeriodInput_upcomingFixture>,
 };
 
 export default ScoringPeriodInput;

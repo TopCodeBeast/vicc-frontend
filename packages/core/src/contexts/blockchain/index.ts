@@ -2,7 +2,7 @@
 
 import { createContext, useContext } from 'react';
 
-import { Deal, EthereumManagers } from '@sorare/blockchain';
+import { EthereumManagers } from '@sorare/blockchain';
 
 import { DepositAction } from './types';
 
@@ -57,11 +57,6 @@ export interface BlockchainContext {
     signature: string
   ) => Promise<any>;
   depositCardOnAccount: (cardId: string) => Promise<any>;
-  unmapWallet: () => Promise<any>;
-  signMappedTokensForDeal: (
-    deal: Deal,
-    side: 'sender' | 'receiver'
-  ) => Promise<string>;
   ethereumInitialized: boolean;
   connectToEthereum: (source: InitEthereumSource) => void;
   promptEthereumAccount: boolean;

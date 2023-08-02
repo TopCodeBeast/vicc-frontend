@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components';
@@ -81,7 +81,7 @@ const Score = ({
 }) => {
   const { formatMessage } = useIntl();
 
-  if (so5Score == null || so5Score.score === null) {
+  if (so5Score?.score == null) {
     return (
       <span>{formatMessage(playerGameStatusLabels.did_not_play_short)}</span>
     );
@@ -143,12 +143,12 @@ ProLayer.fragments = {
       assetId
       player {
         slug
-        so5Scores: vicc5Scores(last: 5) {
+        so5Scores(last: 5) {
           id
           score
         }
       }
-      gameForLeague(vicc5LeaderboardSlug: $vicc5LeaderboardSlug) {
+      gameForLeague(so5LeaderboardSlug: $so5LeaderboardSlug) {
         id
         status
         homeTeam {
@@ -166,7 +166,7 @@ ProLayer.fragments = {
       }
     }
     ${TeamAvatar.fragments.team}
-  `,
+  ` as TypedDocumentNode<ProLayer_card>,
 };
 
 export default ProLayer;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components';
 
@@ -53,19 +53,19 @@ export const Rewards = ({
   hideExperienceDescription = false,
 }: Props) => {
   const { formatNumber } = useIntl();
-  const { /*experiencesDetails,*/ cards } = rewards;
+  const { experiencesDetails, cards } = rewards;
   const cardRewards = getCardRewards(cards as CardsInRewards);
 
   return (
     <Root>
-      {/* {!!experiencesDetails.length &&
+      {!!experiencesDetails.length &&
         experiencesDetails.map((exp, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <RewardsContainer key={index}>
             <ExperienceIcon type={exp.type} sm />
             {!hideExperienceDescription && exp.description}
           </RewardsContainer>
-        ))} */}
+        ))}
       {!!rewards?.prizePool && (
         <RewardsContainer>
           {rewards?.prizePoolCurrency === PaymentCurrency.ETH ? (
@@ -128,10 +128,10 @@ Rewards.fragments = {
       cards
       prizePool
       prizePoolCurrency
-      # experiencesDetails {
-      #   type
-      #   description
-      # }
+      experiencesDetails {
+        type
+        description
+      }
     }
-  `,
+  ` as TypedDocumentNode<Rewards_rewardsOverview>,
 };

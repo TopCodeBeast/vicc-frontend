@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faBaseball, faBasketball } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -20,17 +20,18 @@ import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { useReferralReward } from '@sorare/core/src/hooks/useReferralReward';
 import useToggle from '@sorare/core/src/hooks/useToggle';
 import { glossary } from '@sorare/core/src/lib/glossary';
-import { isA } from '@sorare/core/src/lib/gql';
+import { isType } from '@sorare/core/src/lib/gql';
 import { CARDS_REQUIREMENTS_BY_SPORT } from '@sorare/core/src/lib/referral';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import ReferralCampaignTitle from '@football/components/user/ReferralCampaignTitle';
 
 import Progression from './Progression';
-// import { ReferralBarQuery } from './__generated__/index.graphql';
+import {
+  ReferralBarQuery,
+  ReferralBarQueryVariables,
+} from './__generated__/index.graphql';
 import referralCampaignAnnouncementIcon from './referral-campaign.png';
-
-type ReferralBarQuery = any;
 
 type ReferralBarQuery_currentUser = NonNullable<
   ReferralBarQuery['currentUser']
@@ -48,63 +49,55 @@ type ReferralBarQuery_currentUser_referralAsReferee = NonNullable<
   ReferralBarQuery_currentUser['referralAsReferee']
 >;
 
-type ReferralBarQuery_currentUser_referralAsReferee_referrer =
-  ReferralBarQuery_currentUser_referralAsReferee['referrer'];
-
-type ReferralBarQuery_currentUser_referralAsReferee_referrer_User =
-  ReferralBarQuery_currentUser_referralAsReferee_referrer & {
-    __typename: 'User';
-  };
-
-// const REFERRAL_BAR_QUERY = gql`
-//   query ReferralBarQuery {
-//     currentUser {
-//       slug
-//       referee
-//       refereeReward {
-//         id
-//         shippingState
-//         ...ClaimReferralRewardDialog_referralReward
-//         ...useReferralReward_referralReward
-//       }
-//       referralAsReferee {
-//         id
-//         aasmState
-//         expirationDate
-//         # footballCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
-//         #   sport: FOOTBALL
-//         # )
-//         # nbaCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
-//         #   sport: NBA
-//         # )
-//         # baseballCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
-//         #   sport: BASEBALL
-//         # )
-//         referrer {
-//           ... on User {
-//             slug
-//             ...Nickname_publicUserInfoInterface
-//           }
-//           ... on UserSource {
-//             id
-//             name
-//           }
-//         }
-//       }
-//     }
-//     config {
-//       id
-//       referralCampaign {
-//         id
-//         #...ReferralCampaignTitle_referralCampaign
-//       }
-//     }
-//   }
-//   ${ClaimReferralRewardDialog.fragments.referralReward}
-//   #{useReferralReward.fragments.referralReward}
-//   ${ReferralCampaignTitle.fragments.referralCampaign}
-//   ${Nickname.fragments.user}
-// `;
+const REFERRAL_BAR_QUERY = gql`
+  query ReferralBarQuery {
+    currentUser {
+      slug
+      referee
+      refereeReward {
+        id
+        shippingState
+        ...ClaimReferralRewardDialog_referralReward
+        ...useReferralReward_referralReward
+      }
+      referralAsReferee {
+        id
+        aasmState
+        expirationDate
+        footballCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
+          sport: FOOTBALL
+        )
+        nbaCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
+          sport: NBA
+        )
+        baseballCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
+          sport: BASEBALL
+        )
+        referrer {
+          ... on User {
+            slug
+            ...Nickname_publicUserInfoInterface
+          }
+          ... on UserSource {
+            id
+            name
+          }
+        }
+      }
+    }
+    config {
+      id
+      referralCampaign {
+        id
+        ...ReferralCampaignTitle_referralCampaign
+      }
+    }
+  }
+  ${ClaimReferralRewardDialog.fragments.referralReward}
+  ${useReferralReward.fragments.referralReward}
+  ${ReferralCampaignTitle.fragments.referralCampaign}
+  ${Nickname.fragments.user}
+` as TypedDocumentNode<ReferralBarQuery, ReferralBarQueryVariables>;
 
 type OuterProps = {
   smallBorder?: boolean;
@@ -237,10 +230,7 @@ const InProgressReferralRewardHeader = ({
             )}
           </Row>
           <Text16 color="var(--c-neutral-600)">
-            {isA<ReferralBarQuery_currentUser_referralAsReferee_referrer_User>(
-              'User',
-              referrer
-            ) ? (
+            {isType(referrer, 'User') ? (
               <FormattedMessage
                 id="ReferralBar.referrer"
                 defaultMessage="My referrer {nickname}"
@@ -371,20 +361,19 @@ export const ReferralBar = (props: Props) => {
 };
 
 export const ReferralBarExposed = ({ ...restProps }: OuterProps) => {
-  // const { data, loading } = useQuery<ReferralBarQuery>(REFERRAL_BAR_QUERY);
+  const { data, loading } = useQuery(REFERRAL_BAR_QUERY);
 
-  // if (!data?.currentUser || loading) return null;
+  if (!data?.currentUser || loading) return null;
 
-  // const { currentUser } = data;
+  const { currentUser } = data;
 
-  // return (
-  //   <ReferralBar
-  //     currentUser={currentUser}
-  //     referralCampaign={data.config.referralCampaign}
-  //     {...restProps}
-  //   />
-  // );
-  return <>ReferralBarExposed555</>
+  return (
+    <ReferralBar
+      currentUser={currentUser}
+      referralCampaign={data.config.referralCampaign}
+      {...restProps}
+    />
+  );
 };
 
 export default ReferralBarExposed;

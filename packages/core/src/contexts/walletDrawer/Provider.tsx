@@ -3,16 +3,15 @@ import { ReactNode, useCallback, useRef, useState } from 'react';
 import { GoogleReCAPTCHA, ReCAPTCHA } from '@core/components/recaptcha';
 import useEvents from '@core/lib/events/useEvents';
 
-import WalletDrawerContextProvider, {
-  WalletTab,
-  backButtonDestinations,
-} from '.';
+import WalletDrawerContextProvider, { WalletTab } from '.';
+import { useBackButtonDestinations } from './useBackButtonDestinations';
 
 interface Props {
   children: ReactNode;
 }
 
 const WalletDrawerProvider = ({ children }: Props) => {
+  const backButtonDestinations = useBackButtonDestinations();
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [walletOpened, setWalletOpened] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -66,7 +65,13 @@ const WalletDrawerProvider = ({ children }: Props) => {
       setCurrentTab(backButtonDestinations[currentTab] || WalletTab.HOME);
       if (!backButtonDestinations[currentTab]) hideDrawer();
     }
-  }, [beforeBackButton, hideWallet, currentTab, hideDrawer]);
+  }, [
+    beforeBackButton,
+    hideWallet,
+    backButtonDestinations,
+    currentTab,
+    hideDrawer,
+  ]);
 
   return (
     <WalletDrawerContextProvider

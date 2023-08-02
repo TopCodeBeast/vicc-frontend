@@ -67,7 +67,11 @@ type Props = {
     src: string;
   }[];
 };
-const Slider: FC<Props> = ({ speed = 4000, slides, children }) => {
+const Slider: FC<React.PropsWithChildren<Props>> = ({
+  speed = 4000,
+  slides,
+  children,
+}) => {
   const [index, setIndex] = useState(0);
   const to = useRef<ReturnType<typeof setTimeout>>();
   const backgroundTransition = useTransition(index, {

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FC } from 'react';
 import { Link, generatePath } from 'react-router-dom';
 import styled from 'styled-components';
@@ -11,7 +11,7 @@ import { ClubName_user } from './__generated__/index.graphql';
 
 interface Props {
   user: ClubName_user;
-  Wrapper: FC;
+  Wrapper: FC<React.PropsWithChildren<unknown>>;
 }
 
 const Root = styled.div`
@@ -65,7 +65,7 @@ ClubName.fragments = {
       }
     }
     ${ClubShield.fragments.userProfile}
-  `,
+  ` as TypedDocumentNode<ClubName_user>,
 };
 
 export default ClubName;

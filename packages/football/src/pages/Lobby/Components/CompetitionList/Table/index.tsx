@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FC, ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { generatePath, useLocation, useNavigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ import {
   tabletAndAbove,
 } from '@sorare/core/src/style/mediaQuery';
 
-// import ListItemAction from '@football/pages/Lobby/Components/CompetitionListActions/ListItemAction';
+import ListItemAction from '@football/pages/Lobby/Components/CompetitionListActions/ListItemAction';
 
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import TableRow, { Areas } from './TableRow';
@@ -95,12 +95,14 @@ const RowCtaWrapper = styled.div`
   }
 `;
 
-const HighLightRow: FC<{
-  step: LearnCompetitionsOnboardingStep;
-  show: boolean;
-  onClick: () => void;
-  messageValues?: Partial<Record<'competitionName', ReactNode>>;
-}> = ({ children, step, show, messageValues, onClick }) => {
+const HighLightRow: FC<
+  React.PropsWithChildren<{
+    step: LearnCompetitionsOnboardingStep;
+    show: boolean;
+    onClick: () => void;
+    messageValues?: Partial<Record<'competitionName', ReactNode>>;
+  }>
+> = ({ children, step, show, messageValues, onClick }) => {
   return show ? (
     <ManagerTaskTooltip
       name={step}
@@ -156,10 +158,9 @@ export const CompetitionListTable = ({
           leaderboard,
           lineupId: i,
         }));
-      const canBuyExtraTeams = false;
-      // const canBuyExtraTeams = extraTeamsCapItems?.some(
-      //   ({ myPurchasesCount }) => !myPurchasesCount
-      // );
+      const canBuyExtraTeams = extraTeamsCapItems?.some(
+        ({ myPurchasesCount }) => !myPurchasesCount
+      );
       if (
         canBuyExtraTeams &&
         leaderboard.trainingCenter &&
@@ -170,8 +171,7 @@ export const CompetitionListTable = ({
           lineupId: (teamsCap || 0) + 1,
           rowCta: (
             <RowCtaWrapper>
-              <>ListItemAction1231</>
-              {/* <ListItemAction
+              <ListItemAction
                 color="blue"
                 fullWidth
                 component={Link}
@@ -181,7 +181,7 @@ export const CompetitionListTable = ({
                   id="Lobby.Upcoming.Teams.GetExtraTeam"
                   defaultMessage="Get an extra team"
                 />
-              </ListItemAction> */}
+              </ListItemAction>
             </RowCtaWrapper>
           ),
         });
@@ -190,11 +190,10 @@ export const CompetitionListTable = ({
     },
     []
   );
-  const draftedLeaderboard = null;//TODO
-  // const draftedLeaderboard = leaderboardTeams.find(
-  //   ({ leaderboard: { commonDraftCampaign } }) =>
-  //     commonDraftCampaign?.campaignType === 'ONBOARDING'
-  // );
+  const draftedLeaderboard = leaderboardTeams.find(
+    ({ leaderboard: { commonDraftCampaign } }) =>
+      commonDraftCampaign?.campaignType === 'ONBOARDING'
+  );
   const leaderboardsSemiPro = leaderboardTeams.filter(
     ({ leaderboard: { so5LeaderboardType } }) =>
       /_SEMI_PRO$/.test(so5LeaderboardType)
@@ -267,13 +266,13 @@ export const CompetitionListTable = ({
 
 CompetitionListTable.fragments = {
   so5Leaderboard: gql`
-    fragment CompetitionListTable_so5Leaderboard on Vicc5Leaderboard {
+    fragment CompetitionListTable_so5Leaderboard on So5Leaderboard {
       slug
-      so5LeaderboardType: vicc5LeaderboardType
+      so5LeaderboardType
       ...TableRow_so5Leaderboard
     }
     ${TableRow.fragments.so5Leaderboard}
-  `,
+  ` as TypedDocumentNode<CompetitionListTable_so5Leaderboard>,
   clubShopItem: gql`
     fragment CompetitionListTable_clubShopItem on ClubShopItem {
       ... on ShopItemInterface {
@@ -281,5 +280,5 @@ CompetitionListTable.fragments = {
         myPurchasesCount
       }
     }
-  `,
+  ` as TypedDocumentNode<CompetitionListTable_clubShopItem>,
 };

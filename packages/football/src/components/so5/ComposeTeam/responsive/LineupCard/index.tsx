@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { memo, useCallback, useContext } from 'react';
 import styled from 'styled-components';
 
@@ -10,7 +10,10 @@ import CaptainToggle from '@football/components/so5/ComposeTeam/responsive/Capta
 import ProLayer from '@football/components/so5/ComposeTeam/responsive/ProLayer';
 import { EditableAppearance, Position } from '@football/lib/so5';
 
-import { LineupCard_so5Appearance } from './__generated__/index.graphql';
+import {
+  LineupCard_card,
+  LineupCard_so5Appearance,
+} from './__generated__/index.graphql';
 
 type LineupCard_so5Appearance_card = LineupCard_so5Appearance['card'];
 
@@ -92,12 +95,12 @@ const cardFragment = gql`
     ...ProLayer_card
   }
   ${ProLayer.fragments.card}
-`;
+` as TypedDocumentNode<LineupCard_card>;
 
 Memoized.fragments = {
   card: cardFragment,
   so5_appearance: gql`
-    fragment LineupCard_so5Appearance on Vicc5Appearance {
+    fragment LineupCard_so5Appearance on So5Appearance {
       card {
         slug
         assetId
@@ -105,7 +108,7 @@ Memoized.fragments = {
       }
     }
     ${cardFragment}
-  `,
+  ` as TypedDocumentNode<LineupCard_so5Appearance>,
 };
 
 export default Memoized;

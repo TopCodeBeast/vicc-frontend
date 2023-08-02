@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faXmark } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ReactNode, useCallback } from 'react';
@@ -187,7 +187,7 @@ OfferSide.fragments = {
     ${CardRow.fragments.token}
     ${PriceHistoryTooltip.fragments.token}
     ${TokenTransferValidator.fragments.token}
-  `,
+  ` as TypedDocumentNode<OfferSide_token>,
 };
 
 export default OfferSide;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import {
   Dispatch,
@@ -228,7 +228,7 @@ FootballField.fragments = {
       ...Formation_game
     }
     ${Formation.fragments.game}
-  `,
+  ` as TypedDocumentNode<FootballField_game>,
 };
 
 export default FootballField;

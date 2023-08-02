@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { useConfigContext } from '@core/contexts/config';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
@@ -58,13 +58,13 @@ useGenerateDeal.fragments = {
       assetId
       blockchainId
     }
-  `,
+  ` as TypedDocumentNode<useGenerateDeal_card>,
   user: gql`
     fragment useGenerateDeal_user on PublicUserInfoInterface {
       slug
-      sorareAddress: viccAddress
+      sorareAddress
     }
-  `,
+  ` as TypedDocumentNode<useGenerateDeal_user>,
 };
 
 export default useGenerateDeal;

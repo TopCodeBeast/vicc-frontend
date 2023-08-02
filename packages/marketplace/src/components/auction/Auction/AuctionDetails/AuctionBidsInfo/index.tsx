@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -60,5 +60,5 @@ AuctionBidsInfo.fragments = {
     }
     ${useBestBidBelongsToUser.fragments.bestBid}
     ${BidsCount.fragments.auction}
-  `,
+  ` as TypedDocumentNode<AuctionBidsInfo_auction>,
 };

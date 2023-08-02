@@ -1,9 +1,11 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faClock, faTrophy } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FormattedMessage } from 'react-intl';
 import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { So5UserGroupStatus } from '@sorare/core/src/__generated__/globalTypes';
 import { LinkOther } from '@sorare/core/src/atoms/navigation/Box';
 import { Text14 } from '@sorare/core/src/atoms/typography';
 import {
@@ -12,11 +14,8 @@ import {
 } from '@sorare/core/src/constants/routes';
 import { Link } from '@sorare/core/src/routing/Link';
 
-import { useFootballEvents } from '@football/lib/events';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
-// import GroupStatus, {
-//   useGroupStatusLabel,
-// } from '@football/pages/Lobby/Components/UserGroup/GroupStatus';
+import { useFootballEvents } from '@football/lib/events';
 
 import { PrivateLeagueItem_userGroup } from './__generated__/index.graphql';
 
@@ -60,9 +59,7 @@ const GroupName = styled(Text14)`
 type Props = {
   userGroup: PrivateLeagueItem_userGroup;
 };
-
 export const PrivateLeagueItem = ({ userGroup }: Props) => {
-  const label = 'Label555';//useGroupStatusLabel(userGroup);
   const track = useFootballEvents();
   return (
     <Wrapper
@@ -101,7 +98,21 @@ export const PrivateLeagueItem = ({ userGroup }: Props) => {
               color="var(--c-neutral-500)"
               size="xs"
             />
-            <Text14 color="var(--c-neutral-600)">{label}</Text14>
+            <Text14 color="var(--c-neutral-600)">
+              {userGroup.status === So5UserGroupStatus.ENDED && (
+                <FormattedMessage
+                  id="useUserGroupStatusLabel.GroupStatusEnded"
+                  defaultMessage="League ended"
+                />
+              )}
+              {userGroup.status === So5UserGroupStatus.TO_START && (
+                <FormattedMessage
+                  id="useUserGroupStatusLabel.GroupStatusToStart"
+                  defaultMessage="Starts on GW {gw}"
+                  values={{ gw: userGroup.startGameWeek }}
+                />
+              )}
+            </Text14>
           </>
         )}
       </InfoBlock>
@@ -111,18 +122,17 @@ export const PrivateLeagueItem = ({ userGroup }: Props) => {
 
 PrivateLeagueItem.fragments = {
   userGroup: gql`
-    fragment PrivateLeagueItem_userGroup on Vicc5UserGroup {
+    fragment PrivateLeagueItem_userGroup on So5UserGroup {
       slug
       displayName
+      status
+      membershipsCount
+      startGameWeek
       myMembership {
         id
         ranking
         score
       }
-      membershipsCount
-      #...GroupStatus_userGroup
     }
-
-    #{GroupStatus.fragments.userGroup}
-  `,
+  ` as TypedDocumentNode<PrivateLeagueItem_userGroup>,
 };

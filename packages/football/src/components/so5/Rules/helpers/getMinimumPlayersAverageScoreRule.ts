@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { defineMessage } from 'react-intl';
 
 import { AveragePlayerScore } from '@sorare/core/src/__generated__/globalTypes';
@@ -38,7 +38,7 @@ const getAverageScoreRule = withFragments(
         min,
         max,
         games:
-          averageType === AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE
+          averageType === AveragePlayerScore.LAST_FIVE_SO5_AVERAGE_SCORE
             ? 5
             : 15,
         condition,
@@ -47,7 +47,7 @@ const getAverageScoreRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetMinimumPlayersAverageScoreRule on Vicc5Leaderboard {
+      fragment GetMinimumPlayersAverageScoreRule on So5Leaderboard {
         slug
         displayedRules {
           id
@@ -59,7 +59,7 @@ const getAverageScoreRule = withFragments(
           }
         }
       }
-    `,
+    ` as TypedDocumentNode<GetMinimumPlayersAverageScoreRule>,
   }
 );
 

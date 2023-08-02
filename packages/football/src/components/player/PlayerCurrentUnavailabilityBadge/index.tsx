@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import PlayerUnavailabilityBadge from '@football/components/player/PlayerUnavailabilityBadge';
 
@@ -33,7 +33,7 @@ PlayerCurrentUnavailabilityBadge.fragments = {
     }
     ${PlayerUnavailabilityBadge.fragments.suspension}
     ${PlayerUnavailabilityBadge.fragments.injury}
-  `,
+  ` as TypedDocumentNode<PlayerCurrentUnavailabilityBadge_player>,
 };
 
 export default PlayerCurrentUnavailabilityBadge;

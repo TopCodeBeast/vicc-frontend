@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faCheckSquare } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
@@ -48,7 +48,7 @@ CardHit.fragments = {
       ...FlexToken_token
     }
     ${FlexToken.fragments.token}
-  `,
+  ` as TypedDocumentNode<CardHit_token>,
 };
 
 export default CardHit;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faExchangeAlt } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormattedMessage } from 'react-intl';
@@ -62,5 +62,5 @@ TradeButton.fragments = {
       ...NewOfferBuilder_publicUserInfoInterface
     }
     ${NewOfferBuilder.fragments.user}
-  `,
+  ` as TypedDocumentNode<TradeButton_publicUserInfoInterface>,
 };

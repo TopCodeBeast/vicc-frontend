@@ -1,15 +1,15 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import { Link, generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Caption, Text14 } from '@sorare/core/src/atoms/typography';
+import { CardsNumber } from '@sorare/core/src/components/collections/CardsNumber';
 import { Score } from '@sorare/core/src/components/collections/Score';
 import Avatar from '@sorare/core/src/components/user/Avatar';
 import { Nickname } from '@sorare/core/src/components/user/Nickname';
 import { FOOTBALL_USER_CARD_COLLECTION_CARDS } from '@sorare/core/src/constants/routes';
 
-import { CardsNumber } from '@football/components/collections/CardsNumber';
 import ClubShield from '@football/components/user/ClubShield';
 
 import { LeaderboardRow_userCardCollection } from './__generated__/index.graphql';
@@ -131,7 +131,7 @@ LeaderboardRow.fragments = {
     ${Avatar.fragments.publicUserInfoInterface}
     ${Nickname.fragments.user}
     ${ClubShield.fragments.userProfile}
-  `,
+  ` as TypedDocumentNode<LeaderboardRow_userCardCollection>,
 };
 
 export default LeaderboardRow;

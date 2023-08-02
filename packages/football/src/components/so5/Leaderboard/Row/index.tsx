@@ -1,8 +1,13 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
+import {
+  LinkBox,
+  LinkOther,
+  LinkOverlay,
+} from '@sorare/core/src/atoms/navigation/Box';
 import { Text16, Text18 } from '@sorare/core/src/atoms/typography';
 import { Chip } from '@sorare/core/src/atoms/ui/Chip';
 import ActiveUserAvatar from '@sorare/core/src/components/user/ActiveUserAvatar';
@@ -10,7 +15,7 @@ import { Nickname } from '@sorare/core/src/components/user/Nickname';
 import { fantasy, glossary } from '@sorare/core/src/lib/glossary';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
-import defaultBanner from '@football/assets/club/banner_none.jpg';
+import defaultBanner from 'assets/club/banner_none.jpg';
 import ClubShield from '@football/components/user/ClubShield';
 
 import { Row_so5Ranking } from './__generated__/index.graphql';
@@ -21,7 +26,7 @@ type Props = {
   onClick: (id: string) => void;
 };
 
-const Root = styled.button`
+const Root = styled(LinkBox)`
   isolation: isolate;
   position: relative;
   padding: var(--unit);
@@ -33,41 +38,26 @@ const Root = styled.button`
   grid-template-areas:
     'rank avatar name score'
     'rank avatar club score';
-  background-color: var(--c-static-neutral-300);
-  background-size: cover;
   border-radius: var(--unit);
+  background: linear-gradient(
+      90deg,
+      rgba(var(--c-static-rgb-neutral-800), var(--opacity, 0.4)) 5.25%,
+      var(--c-static-neutral-800) 70%,
+      var(--c-static-neutral-800) 100%
+    ),
+    var(--banner);
+  background-size: cover, cover;
   cursor: pointer;
   text-align: left;
   color: var(--c-static-neutral-100);
-
-  &::before {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      90deg,
-      rgba(var(--c-static-rgb-neutral-800), 0.4) 5.25%,
-      var(--c-static-neutral-800) 70%,
-      var(--c-static-neutral-800) 100%
-    );
-    content: '';
-    border-radius: inherit;
-    z-index: 0;
-  }
-
-  & > * {
-    position: relative;
-    z-index: 1;
-  }
 
   &.highlight {
     outline: 4px solid var(--c-brand-600);
   }
 
   &:hover,
-  &:focus {
-    &::before: {
-      opacity: 0.9;
-    }
+  &:focus-within {
+    --opacity: 0.1;
   }
 
   @media ${tabletAndAbove} {
@@ -80,12 +70,13 @@ const Rank = styled(Text16)`
   text-align: center;
 `;
 
-const AvatarContainer = styled.div`
+const AvatarContainer = styled(LinkOther)`
   grid-area: avatar;
 `;
 
 const Name = styled(Text16)`
   grid-area: name;
+  text-align: left;
 `;
 
 const Club = styled.div`
@@ -109,19 +100,21 @@ const Row = ({ manager, highlight, onClick }: Props) => {
   return (
     <Root
       className={classnames({ highlight })}
-      style={{
-        backgroundImage: `url(${clubBanner?.pictureUrl || defaultBanner})`,
-      }}
-      type="button"
-      onClick={() => onClick(id)}
+      style={
+        {
+          '--banner': `url(${clubBanner?.pictureUrl || defaultBanner})`,
+        } as React.CSSProperties
+      }
     >
       <Rank bold>{isCancelled ? '-' : ranking}</Rank>
-      <AvatarContainer>
+      <AvatarContainer as="div">
         <ActiveUserAvatar user={user} variant="medium" />
       </AvatarContainer>
-      <Name bold>
-        <Nickname user={user} />
-      </Name>
+      <LinkOverlay as="button" type="button" onClick={() => onClick(id)}>
+        <Name bold>
+          <Nickname user={user} />
+        </Name>
+      </LinkOverlay>
       <Club>
         <ClubShield size="small" userProfile={user.profile} />
         <Text16>{user.profile.clubName}</Text16>
@@ -146,11 +139,11 @@ const Row = ({ manager, highlight, onClick }: Props) => {
 
 Row.fragments = {
   so5Ranking: gql`
-    fragment Row_so5Ranking on Vicc5Ranking {
+    fragment Row_so5Ranking on So5Ranking {
       id
       ranking
       score
-      so5Lineup:  vicc5Lineup{
+      so5Lineup {
         id
         cancelledAt
         user {
@@ -171,7 +164,7 @@ Row.fragments = {
     }
     ${ActiveUserAvatar.fragments.user}
     ${ClubShield.fragments.userProfile}
-  `,
+  ` as TypedDocumentNode<Row_so5Ranking>,
 };
 
 export default Row;

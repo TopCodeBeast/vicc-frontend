@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 
 import SocialUser from '../SocialUser';
@@ -18,7 +18,7 @@ DiscordUser.fragments = {
       id
       discordUsername
     }
-  `,
+  ` as TypedDocumentNode<DiscordUser_userProfile>,
 };
 
 export default DiscordUser;

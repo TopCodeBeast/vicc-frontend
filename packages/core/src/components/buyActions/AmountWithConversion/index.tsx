@@ -29,14 +29,12 @@ export const AmountWithConversion = (props: Props) => {
   const {
     column = false,
     withApproxSymbol = false,
-    hideExponent = false,
+    hideExponent,
     ...useAmountWithConversionProps
   } = props;
-  // const { main, exponent } = useAmountWithConversion(
-  //   useAmountWithConversionProps
-  // );
-  const main = '$69.52';
-  const exponent = '0.0372 ETH';
+  const { main, exponent } = useAmountWithConversion(
+    useAmountWithConversionProps
+  );
   return (
     <Line $column={column}>
       {main && <Title6 color="var(--c-neutral-1000)">{main}</Title6>}

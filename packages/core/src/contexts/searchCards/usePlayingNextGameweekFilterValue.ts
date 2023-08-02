@@ -1,12 +1,10 @@
 import { useMemo } from 'react';
 
-import { useConfigContext } from '@core/contexts/config';
+import useNextSo5FixtureTeams from '@core/hooks/config/useNextSo5FixtureTeams';
 import { joinFiltersWithOr } from '@core/lib/algolia';
 
 export default () => {
-  const {
-    so5: { nextSo5FixtureTeams },
-  } = useConfigContext();
+  const { nextSo5FixtureTeams } = useNextSo5FixtureTeams();
 
   const activeClubFilters = useMemo(
     () =>

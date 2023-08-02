@@ -1,10 +1,10 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useCallback, useMemo } from 'react';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Vicc5State as So5State } from '@sorare/core/src/__generated__/globalTypes';
+import { So5State } from '@sorare/core/src/__generated__/globalTypes';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Empty } from '@sorare/core/src/components/cards/Empty';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
@@ -18,7 +18,10 @@ import { useLoadMore } from '@football/hooks/useLoadMore';
 import { Player } from '@football/pages/Lobby/Components/Player';
 import { ShowMoreButton } from '@football/pages/Lobby/Components/ShowMoreButton';
 
-import { LobbyMyPlayersQuery } from './__generated__/index.graphql';
+import {
+  LobbyMyPlayersQuery,
+  LobbyMyPlayersQueryVariables,
+} from './__generated__/index.graphql';
 
 type LobbyMyPlayersQuery_so5_so5Fixture_mySo5Lineups_so5Appearances =
   NonNullable<
@@ -57,36 +60,35 @@ const messages = defineMessages({
 });
 
 const LOBBY_MY_PLAYERS_QUERY = gql`
-  query LobbyMyPlayersQuery($type: Vicc5State, $slug: String) {
-    so5: vicc5Root {
-      so5Fixture: vicc5Fixture(type: $type, slug: $slug) {
-        slug
-        mySo5Lineups: myVicc5Lineups {
-          id
-          so5Appearances: vicc5Appearances {
+  query LobbyMyPlayersQuery($type: So5State, $slug: String) {
+    football {
+      so5 {
+        so5Fixture(type: $type, slug: $slug) {
+          slug
+          mySo5Lineups {
             id
-            ...LobbyPlayer_so5Appearance
+            so5Appearances {
+              id
+              ...LobbyPlayer_so5Appearance
+            }
           }
         }
       }
     }
   }
   ${Player.fragments.so5Appearance}
-`;
+` as TypedDocumentNode<LobbyMyPlayersQuery, LobbyMyPlayersQueryVariables>;
 
 export const MyPlayers = ({ type }: { type: So5State }) => {
   const { formatMessage } = useIntl();
   const { slug } = useParams();
-  const { data, loading } = useQuery<LobbyMyPlayersQuery>(
-    LOBBY_MY_PLAYERS_QUERY,
-    {
-      variables: { type, slug: slug !== 'past' ? slug : null },
-      nextFetchPolicy: 'cache-first',
-      fetchPolicy: 'cache-and-network',
-    }
-  );
+  const { data, loading } = useQuery(LOBBY_MY_PLAYERS_QUERY, {
+    variables: { type, slug: slug !== 'past' ? slug : null },
+    nextFetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
+  });
   const players = useMemo(() => {
-    const lineups = data?.so5.so5Fixture?.mySo5Lineups;
+    const lineups = data?.football.so5.so5Fixture?.mySo5Lineups;
     const myPlayers: LobbyMyPlayersQuery_so5_so5Fixture_mySo5Lineups_so5Appearances[] =
       [];
     if (!lineups) {
@@ -98,7 +100,7 @@ export const MyPlayers = ({ type }: { type: So5State }) => {
       );
     });
     return myPlayers;
-  }, [data?.so5.so5Fixture?.mySo5Lineups]);
+  }, [data?.football.so5.so5Fixture?.mySo5Lineups]);
 
   const [displayed, loadMore, hasMoreMatches] = useLoadMore(players, 6);
 

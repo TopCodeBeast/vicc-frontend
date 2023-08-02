@@ -44,9 +44,11 @@ const SPORTS = Object.keys(Sport) as Sport[];
 
 const SearchBarComponents: {
   [key in Sport]: FunctionComponent<
-    React.ComponentProps<typeof SearchBar> & {
-      getOptionalFilters: (index: string) => string[];
-    }
+    React.PropsWithChildren<
+      React.ComponentProps<typeof SearchBar> & {
+        getOptionalFilters: (index: string) => string[];
+      }
+    >
   >;
 } = {
   [Sport.BASEBALL]: makeSearchBar(Sport.BASEBALL, ['Player', 'Club', 'User']),

@@ -2,7 +2,7 @@ import { stringify } from 'qs';
 import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// import { OnBackForgotPassword } from '@sorare/wallet-shared';
+import { OnBackForgotPassword } from '@sorare/wallet-shared';
 import { TermsAndConditionsStatus } from '__generated__/globalTypes';
 import { GoogleReCAPTCHA, ReCAPTCHA } from '@core/components/recaptcha';
 import { TERMS } from '@core/constants/routes';
@@ -22,11 +22,11 @@ import ConnectionContextProvider, {
 } from '.';
 import ConnectionDialog, { isConnectionDialogMode } from './ConnectionDialog';
 import NewDeviceDialog from './NewDeviceDialog';
-// import PasswordForgottenDialog from './PasswordForgottenDialog';
-// import PromptTermsDialog from './PromptTermsDialog';
-// import PromptTwoFactAuthDialog from './PromptTwoFactAuthDialog';
-// import ResetPasswordDialog from './ResetPasswordDialog';
-// import SignUpSuccessMobileViewDialog from './SignUpSuccessMobileViewDialog';
+import PasswordForgottenDialog from './PasswordForgottenDialog';
+import PromptTermsDialog from './PromptTermsDialog';
+import PromptTwoFactAuthDialog from './PromptTwoFactAuthDialog';
+import ResetPasswordDialog from './ResetPasswordDialog';
+import SignUpSuccessMobileViewDialog from './SignUpSuccessMobileViewDialog';
 
 interface Props {
   children: ReactNode;
@@ -154,11 +154,11 @@ const ConnectionProvider = ({ children }: Props) => {
   }, [mode, setMode, mustAcceptTCU, navigate]);
 
   useEffect(() => {
-    // if (passwordForgotten) promptPasswordForgotten();
-    // registerHandler<OnBackForgotPassword>('onBackForgotPassword', async () => {
-    //   setPasswordForgotten(false);
-    //   return {};
-    // });
+    if (passwordForgotten) promptPasswordForgotten();
+    registerHandler<OnBackForgotPassword>('onBackForgotPassword', async () => {
+      setPasswordForgotten(false);
+      return {};
+    });
   }, [
     passwordForgotten,
     promptPasswordForgotten,
@@ -168,7 +168,7 @@ const ConnectionProvider = ({ children }: Props) => {
 
   if (
     mode &&
-    ['recoverKey', 'restoreWallet', 'addFundsEth'].includes(mode) &&
+    ['recoverKey', 'restoreWallet', 'addFundsEth', 'kyc'].includes(mode) &&
     !currentUser
   ) {
     const afterLoggedInTarget = `?${stringify({ action: mode, id })}`;
@@ -216,7 +216,7 @@ const ConnectionProvider = ({ children }: Props) => {
           onClose={handleClose}
         />
       )}
-      {/* {mode === 'signUpSuccessMobileView' && (
+      {mode === 'signUpSuccessMobileView' && (
         <SignUpSuccessMobileViewDialog email={registeredEmail} />
       )}
       {passwordForgotten && (
@@ -227,9 +227,9 @@ const ConnectionProvider = ({ children }: Props) => {
       )}
       {mode === 'resetPassword' && (
         <ResetPasswordDialog open onClose={handleClose} />
-      )} */}
+      )}
       {mode === 'newDevice' && <NewDeviceDialog onClose={handleClose} />}
-      {/* {mode === '2fa' && otpSessionChallenge && (
+      {mode === '2fa' && otpSessionChallenge && (
         <PromptTwoFactAuthDialog
           open
           otpSessionChallenge={otpSessionChallenge}
@@ -237,9 +237,9 @@ const ConnectionProvider = ({ children }: Props) => {
           onClose={handleClose}
           reason={reasonFor2Fa}
         />
-      )} */}
+      )}
       {/* OAUTH GRACE PERIOD */}
-      {/* {mode === 'showTerms' && mustAcceptTCU.current && (
+      {mode === 'showTerms' && mustAcceptTCU.current && (
         <PromptTermsDialog
           open
           onClose={handleClose}
@@ -250,10 +250,10 @@ const ConnectionProvider = ({ children }: Props) => {
           onAccept={null}
           isMobileWebviewSignUp={isMobileWebviewSignUp}
         />
-      )} */}
+      )}
 
       {/* OAUTH AFTER GRACE PERIOD */}
-      {/* {mode === 'acceptTerms' && tcuToken && (
+      {mode === 'acceptTerms' && tcuToken && (
         <PromptTermsDialog
           open
           onClose={handleClose}
@@ -265,9 +265,9 @@ const ConnectionProvider = ({ children }: Props) => {
           onAccept={promptTermsCallback}
           isMobileWebviewSignUp={isMobileWebviewSignUp}
         />
-      )} */}
+      )}
       {/* ALL THE REST  */}
-      {/* {popMode === 'mustAcceptTerms' && (
+      {popMode === 'mustAcceptTerms' && (
         <PromptTermsDialog
           open
           onAccept={promptTermsCallback}
@@ -275,10 +275,10 @@ const ConnectionProvider = ({ children }: Props) => {
           options={promptTermsOptions}
           isMobileWebviewSignUp={isMobileWebviewSignUp}
         />
-      )} */}
-      {/* {(mode === 'signup' || mode === 'signin') && (
+      )}
+      {(mode === 'signup' || mode === 'signin') && (
         <ReCAPTCHA ref={recaptchaRef} />
-      )} */}
+      )}
       {children}
     </ConnectionContextProvider>
   );

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faClock } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -116,10 +116,10 @@ export const GameWeekTitle = ({ so5Fixture, type }: Props) => {
 
 GameWeekTitle.fragments = {
   so5Fixture: gql`
-    fragment GameWeekTitle_so5Fixture on Vicc5Fixture {
+    fragment GameWeekTitle_so5Fixture on So5Fixture {
       slug
       cutOffDate
       endDate
     }
-  `,
+  ` as TypedDocumentNode<GameWeekTitle_so5Fixture>,
 };

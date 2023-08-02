@@ -59,6 +59,7 @@ const AdvancedCardSearch = ({
         <SearchLayout
           cardFilters={cardFilters}
           advancedCardFilters={advancedCardFilters}
+          editableLists={editableLists}
           {...rest}
         >
           {children}
@@ -85,7 +86,6 @@ export const AdvancedBlockchainCardSearch = ({
   ...rest
 }: FullProps) => {
   const index = defaultSort || rest.sorts[0];
-
   return (
     <SearchCardsContextProvider
       cardFilters={cardFilters}

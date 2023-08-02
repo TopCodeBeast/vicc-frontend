@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { Rarity } from '@sorare/core/src/__generated__/globalTypes';
 
@@ -54,5 +54,5 @@ DesktopCollectionsFilters.fragments = {
       ...CheckboxFilters_cardCollectionConnection
     }
     ${CheckboxFilters.fragments.cardCollectionConnection}
-  `,
+  ` as TypedDocumentNode<DesktopCollectionsFilters_cardCollectionConnection>,
 };

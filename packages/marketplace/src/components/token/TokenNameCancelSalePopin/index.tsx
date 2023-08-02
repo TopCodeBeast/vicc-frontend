@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { Text14, Title6 } from '@sorare/core/src/atoms/typography';
@@ -56,10 +56,8 @@ TokenNameCancelSalePopin.fragments = {
       slug
       sport
       metadata {
-        ... on TokenCricketMetadata {
-          id
-        }
         ... on TokenCardMetadataInterface {
+          id
           playerDisplayName
           rarity
           seasonStartYear
@@ -68,7 +66,7 @@ TokenNameCancelSalePopin.fragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<TokenNameCancelSalePopin_token>,
 };
 
 export default TokenNameCancelSalePopin;

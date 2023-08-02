@@ -1,13 +1,13 @@
-import { ApolloClient, gql } from '@apollo/client';
+import { ApolloClient, TypedDocumentNode, gql } from '@apollo/client';
 
-// import {
-//   Analytics_cardInfo,
-//   Analytics_tokenInfo,
-//   CardAnalyticsInfoQuery,
-//   CardAnalyticsInfoQueryVariables,
-//   TokenAnalyticsInfoQuery,
-//   TokenAnalyticsInfoQueryVariables,
-// } from './__generated__/types.graphql';
+import {
+  Analytics_cardInfo,
+  Analytics_tokenInfo,
+  CardAnalyticsInfoQuery,
+  CardAnalyticsInfoQueryVariables,
+  TokenAnalyticsInfoQuery,
+  TokenAnalyticsInfoQueryVariables,
+} from './__generated__/types.graphql';
 
 export enum EventStep {
   STARTED = 'STARTED',
@@ -20,9 +20,9 @@ export const fragments = {
       slug
       assetId
       name
-      lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
-      lastFifteenVicc5AverageScore: averageScore(
-        type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
+      lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_SO5_AVERAGE_SCORE)
+      lastFifteenSo5AverageScore: averageScore(
+        type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
       )
       player {
         slug
@@ -32,10 +32,10 @@ export const fragments = {
             slug
           }
         }
-        lastFiveVicc5Appearances
-        lastFifteenVicc5Appearances
+        lastFiveSo5Appearances
+        lastFifteenSo5Appearances
       }
-      position: positionTyped
+      positionTyped
       rarity
       season {
         startYear
@@ -50,7 +50,7 @@ export const fragments = {
         slug
       }
     }
-  `,
+  ` as TypedDocumentNode<Analytics_cardInfo>,
 
   tokenInfo: gql`
     fragment Analytics_tokenInfo on Token {
@@ -58,11 +58,8 @@ export const fragments = {
       slug
       name
       metadata {
-        ... on TokenCricketMetadata {
-          id
-          playerPosition
-        }
         ... on TokenCardMetadataInterface {
+          id
           playerDisplayName
           playerSlug
           rarity
@@ -70,6 +67,12 @@ export const fragments = {
           serialNumber
           singleCivilYear
           teamSlug
+        }
+        ... on TokenBaseballMetadata {
+          playerPositions
+        }
+        ... on TokenFootballMetadata {
+          playerPosition
         }
       }
       owner {
@@ -79,78 +82,83 @@ export const fragments = {
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<Analytics_tokenInfo>,
 };
 
-// const CARD_ANALYTICS_INFO_QUERY = gql`
-//   query CardAnalyticsInfoQuery($assetId: String!) {
-//     cardByAssetId(assetId: $assetId) {
-//       slug
-//       assetId
-//       name
-//       ...Analytics_cardInfo
-//     }
-//   }
-//   ${fragments.cardInfo}
-// `;
+const CARD_ANALYTICS_INFO_QUERY = gql`
+  query CardAnalyticsInfoQuery($assetId: String!) {
+    football {
+      cardByAssetId(assetId: $assetId) {
+        slug
+        assetId
+        name
+        ...Analytics_cardInfo
+      }
+    }
+  }
+  ${fragments.cardInfo}
+` as TypedDocumentNode<CardAnalyticsInfoQuery, CardAnalyticsInfoQueryVariables>;
 
-// const TOKEN_ANALYTICS_INFO_QUERY = gql`
-//   query TokenAnalyticsInfoQuery($assetId: String!) {
-//     tokens {
-//       nft(assetId: $assetId) {
-//         slug
-//         assetId
-//         ...Analytics_tokenInfo
-//       }
-//     }
-//   }
-//   ${fragments.tokenInfo}
-// `;
+const TOKEN_ANALYTICS_INFO_QUERY = gql`
+  query TokenAnalyticsInfoQuery($assetId: String!) {
+    tokens {
+      nft(assetId: $assetId) {
+        slug
+        assetId
+        ...Analytics_tokenInfo
+      }
+    }
+  }
+  ${fragments.tokenInfo}
+` as TypedDocumentNode<
+  TokenAnalyticsInfoQuery,
+  TokenAnalyticsInfoQueryVariables
+>;
 
-// export const getCardFromAssetId = async (
-//   client: ApolloClient<object>,
-//   assetId: string
-// ): Promise<Analytics_cardInfo> =>
-//   client
-//     .query<CardAnalyticsInfoQuery, CardAnalyticsInfoQueryVariables>({
-//       query: CARD_ANALYTICS_INFO_QUERY,
-//       variables: {
-//         assetId,
-//       },
-//       fetchPolicy: 'cache-first',
-//     })
-//     .then(value => {
-//       return value.data?.cardByAssetId;
-//     });
+export const getCardFromAssetId = async (
+  client: ApolloClient<object>,
+  assetId: string
+): Promise<Analytics_cardInfo> =>
+  client
+    .query<CardAnalyticsInfoQuery, CardAnalyticsInfoQueryVariables>({
+      query: CARD_ANALYTICS_INFO_QUERY,
+      variables: {
+        assetId,
+      },
+      fetchPolicy: 'cache-first',
+    })
+    .then(value => {
+      return value.data?.football?.cardByAssetId;
+    });
 
-// export const getTokenFromAssetId = async (
-//   client: ApolloClient<object>,
-//   assetId: string
-// ): Promise<Analytics_tokenInfo> =>
-//   client
-//     .query<TokenAnalyticsInfoQuery, TokenAnalyticsInfoQueryVariables>({
-//       query: TOKEN_ANALYTICS_INFO_QUERY,
-//       variables: {
-//         assetId,
-//       },
-//       fetchPolicy: 'cache-first',
-//     })
-//     .then(value => {
-//       return value.data?.tokens?.nft;
-//     });
+export const getTokenFromAssetId = async (
+  client: ApolloClient<object>,
+  assetId: string
+): Promise<Analytics_tokenInfo> =>
+  client
+    .query<TokenAnalyticsInfoQuery, TokenAnalyticsInfoQueryVariables>({
+      query: TOKEN_ANALYTICS_INFO_QUERY,
+      variables: {
+        assetId,
+      },
+      fetchPolicy: 'cache-first',
+    })
+    .then(value => {
+      return value.data?.tokens?.nft;
+    });
 
-// export const getCardsFromAssetIds = async (
-//   client: ApolloClient<object>,
-//   assetIds: string[]
-// ): Promise<Analytics_cardInfo[]> =>
-//   Promise.all(
-//     assetIds.map(async assetId => getCardFromAssetId(client, assetId))
-//   );
+export const getCardsFromAssetIds = async (
+  client: ApolloClient<object>,
+  assetIds: string[]
+): Promise<Analytics_cardInfo[]> =>
+  Promise.all(
+    assetIds.map(async assetId => getCardFromAssetId(client, assetId))
+  );
 
-// export const getTokensFromAssetIds = async (
-//   client: ApolloClient<object>,
-//   assetIds: string[]
-// ): Promise<Analytics_tokenInfo[]> =>
-//   Promise.all(
-//     assetIds.map(async assetId => getTokenFromAssetId(client, assetId))
-//   );
+export const getTokensFromAssetIds = async (
+  client: ApolloClient<object>,
+  assetIds: string[]
+): Promise<Analytics_tokenInfo[]> =>
+  Promise.all(
+    assetIds.map(async assetId => getTokenFromAssetId(client, assetId))
+  );

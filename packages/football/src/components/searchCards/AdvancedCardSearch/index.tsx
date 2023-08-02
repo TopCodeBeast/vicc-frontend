@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 
@@ -9,6 +9,8 @@ import AdvancedCardSearch, {
 import { SearchTopic } from '@sorare/marketplace/src/searchCards/AdvancedCardSearch/types';
 
 import CardResultsFromGraphQL from '@football/components/searchCards/CardResultsFromGraphQL';
+
+import { AdvancedCardSearch_card } from './__generated__/index.graphql';
 
 export const CardSearch = (
   props: Omit<FullProps, 'CardResultsComponent' | 'sport'> & {
@@ -46,7 +48,7 @@ CardSearch.fragments = {
       ...CardResultsFromGraphQL_card
     }
     ${CardResultsFromGraphQL.fragments.card}
-  `,
+  ` as TypedDocumentNode<AdvancedCardSearch_card>,
 };
 
 export default CardSearch;

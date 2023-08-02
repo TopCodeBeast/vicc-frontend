@@ -7,13 +7,16 @@ const FAILED_TO_FETCH = 'Failed to fetch dynamically imported module';
 const IMPORTING_SCRIPT_MODULE_FAILED = 'Importing a module script failed';
 const NO_INTERNET = 'No Internet! Please check your network connection.';
 
-type ComponentTypeImport<TYPE extends ComponentType<any> = ComponentType<any>> =
-  { default: TYPE };
+type ComponentTypeImport<
+  TYPE extends ComponentType<React.PropsWithChildren<any>> = ComponentType<
+    React.PropsWithChildren<any>
+  >
+> = { default: TYPE };
 
 const retry = async <T extends ComponentTypeImport>(
   fn: () => Promise<T>,
   retriesLeft = MAX_RETRIES,
-  interval = 5000
+  interval = 1000
 ): Promise<T> => {
   return new Promise((resolve, reject) => {
     fn()
@@ -47,7 +50,7 @@ const retry = async <T extends ComponentTypeImport>(
   });
 };
 
-export const lazy = <T extends ComponentType<any>>(
+export const lazy = <T extends ComponentType<React.PropsWithChildren<any>>>(
   fn: () => Promise<ComponentTypeImport<T>>
 ) =>
   lazyNoRetry<T>(async () => retry<ComponentTypeImport<T>>(async () => fn()));

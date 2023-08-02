@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { withFragments } from '@sorare/core/src/lib/gql';
 
@@ -24,10 +24,10 @@ export const getRewardType = withFragments(
   },
   {
     so5Fixture: gql`
-      fragment getRewardType_so5Fixture on Vicc5Fixture {
+      fragment getRewardType_so5Fixture on So5Fixture {
         slug
         aasmState
       }
-    `,
+    ` as TypedDocumentNode<getRewardType_so5Fixture>,
   }
 );

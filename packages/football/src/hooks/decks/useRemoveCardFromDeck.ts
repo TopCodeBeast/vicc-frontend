@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 
 import { deckFragment } from '@football/pages/CustomDeck/fragments';
 
@@ -28,13 +28,13 @@ const REMOVE_CARD_FROM_CUSTOM_DECK_MUTATION = gql`
     }
   }
   ${deckFragment}
-`;
+` as TypedDocumentNode<
+  RemoveCardFromCustomDeckMutation,
+  RemoveCardFromCustomDeckMutationVariables
+>;
 
 export default () => {
-  const [removeCard] = useMutation<
-    RemoveCardFromCustomDeckMutation,
-    RemoveCardFromCustomDeckMutationVariables
-  >(REMOVE_CARD_FROM_CUSTOM_DECK_MUTATION);
+  const [removeCard] = useMutation(REMOVE_CARD_FROM_CUSTOM_DECK_MUTATION);
 
   return (deckSlug: string) => async (cardSlug: string) =>
     removeCard({

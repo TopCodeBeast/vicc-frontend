@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { faMemo } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
@@ -11,6 +11,7 @@ import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import Dropdown from '@sorare/core/src/atoms/dropdowns/Dropdown';
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Text14 } from '@sorare/core/src/atoms/typography';
+import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
 import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import { range } from '@sorare/core/src/lib/arrays';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
@@ -18,7 +19,6 @@ import { scarcityMessages } from '@sorare/core/src/lib/scarcity';
 
 import useGetPriceHistory from '../../../hooks/useGetPriceHistory';
 import PriceHistoryDate from '../PriceHistoryDate';
-import PriceHistoryValue from '../PriceHistoryValue';
 import { PriceHistoryTooltip_token } from './__generated__/index.graphql';
 
 const PriceHistoryList = styled.div`
@@ -151,9 +151,10 @@ const PriceHistoryTooltipContent = ({ token, ...rest }: PriceHistoryProps) => {
               <PriceHistoryDate date={priceHistorySample.date} />
             </TextGrey>
             <PriceHistoryValueContainer as="span" rarity={metadata.rarity}>
-              <PriceHistoryValue
-                amount={priceHistorySample.amount}
-                amountInFiat={priceHistorySample.amountInFiat}
+              <AmountWithConversion
+                monetaryAmount={priceHistorySample.amounts}
+                column
+                hideExponent
               />
             </PriceHistoryValueContainer>
           </Row>
@@ -244,17 +245,15 @@ PriceHistoryTooltip.fragments = {
       slug
       collection
       metadata {
-        ... on TokenCricketMetadata {
-          id
-        }
         ... on TokenCardMetadataInterface {
+          id
           rarity
           playerSlug
           playerDisplayName
         }
       }
     }
-  `,
+  ` as TypedDocumentNode<PriceHistoryTooltip_token>,
 };
 
 export default PriceHistoryTooltip;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
@@ -79,5 +79,5 @@ ItemOwner.fragments = {
       ...OwnerGalleryLink_User
     }
     ${OwnerGalleryLink.fragments.user}
-  `,
+  ` as TypedDocumentNode<ItemOwner_user>,
 };

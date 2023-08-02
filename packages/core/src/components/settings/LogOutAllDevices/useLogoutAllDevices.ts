@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import useMutation from '@core/hooks/graphql/useMutation';
 
@@ -17,13 +17,13 @@ const LOG_OUT_ALL_DEVICES_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<
+  LogOutAllDevicesMutation,
+  LogOutAllDevicesMutationVariables
+>;
 
 const useLogOutAllDevices = () => {
-  const [logOutAllDevices] = useMutation<
-    LogOutAllDevicesMutation,
-    LogOutAllDevicesMutationVariables
-  >(LOG_OUT_ALL_DEVICES_MUTATION);
+  const [logOutAllDevices] = useMutation(LOG_OUT_ALL_DEVICES_MUTATION);
 
   return { logOutAllDevices };
 };

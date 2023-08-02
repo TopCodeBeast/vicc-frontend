@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { useMemo, useState } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
@@ -23,7 +23,7 @@ const ACCEPT_CASH_OFFERS_QUERY = gql`
       slug
       profile {
         id
-        marketplacePreferences(sports: [CRICKET]) {
+        marketplacePreferences(sports: [FOOTBALL, NBA, BASEBALL]) {
           sport
           preferences {
             name
@@ -33,17 +33,17 @@ const ACCEPT_CASH_OFFERS_QUERY = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<AcceptCashOffersQuery, AcceptCashOffersQueryVariables>;
 
 const messages = defineMessages({
   title: {
-    id: 'Settings.AcceptCashOnly.onlyAcceptETHOffers',
-    defaultMessage: 'Only accept ETH offers',
+    id: 'Settings.AcceptCashOnly.onlyAcceptMoneyOffers',
+    defaultMessage: 'Only accept cash offers',
   },
   description: {
     id: 'Settings.AcceptCashOnly.description',
     defaultMessage:
-      'Prevent managers to propose cards as part of a trade to you, only ETH.',
+      'Prevent managers to propose cards as part of a trade to you, only money.',
   },
 });
 
@@ -61,10 +61,7 @@ export const AcceptCashOnly = () => {
 
   const updateUserProfile = useUpdateUserProfile();
 
-  const { data, loading } = useQuery<
-    AcceptCashOffersQuery,
-    AcceptCashOffersQueryVariables
-  >(ACCEPT_CASH_OFFERS_QUERY);
+  const { data, loading } = useQuery(ACCEPT_CASH_OFFERS_QUERY);
 
   const acceptCashOffersPreferences = useMemo(
     () =>
@@ -128,10 +125,17 @@ export const AcceptCashOnly = () => {
           open
           onClose={() => setConfirmingPreference(undefined)}
           message={
-            <FormattedMessage
-              id="Settings.AcceptCashOnly.confirmChange"
-              defaultMessage="Managers will no longer be able to propose cards as part of a trade to you, only ETH. Are you sure?"
-            />
+            confirmingPreference.checked ? (
+              <FormattedMessage
+                id="Settings.AcceptCashOnly.confirmChange"
+                defaultMessage="Managers will no longer be able to propose cards as part of a trade to you, only money. Are you sure?"
+              />
+            ) : (
+              <FormattedMessage
+                id="Settings.AcceptCashOnly.confirmDisable"
+                defaultMessage="Managers will be able to propose cards as part of a trade to you, not only money. Are you sure?"
+              />
+            )
           }
           onConfirm={() => onChange(confirmingPreference)}
         />

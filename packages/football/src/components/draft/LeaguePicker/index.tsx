@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { CommonDraftCampaignStatus } from '@sorare/core/src/__generated__/globalTypes';
@@ -73,5 +73,5 @@ LeaguePicker.fragments = {
     }
     ${LeagueRow.fragments.competition}
     ${LeagueRow.fragments.commonDraftCampaign}
-  `,
+  ` as TypedDocumentNode<LeaguePicker_onboardingCompetition>,
 };

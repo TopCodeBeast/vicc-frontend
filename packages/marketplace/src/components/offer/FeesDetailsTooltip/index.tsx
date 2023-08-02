@@ -1,66 +1,39 @@
-import { gql } from '@apollo/client';
 import { faInfoCircle } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 
-import { Currency } from '@sorare/core/src/__generated__/globalTypes';
+import { SupportedCurrency } from '@sorare/core/src/__generated__/globalTypes';
 import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
+import {
+  MonetaryAmountOutput,
+  zeroMonetaryAmount,
+} from '@sorare/core/src/hooks/useMonetaryAmount';
 
-import useFormatWithCurrency from '@marketplace/hooks/useFormatWithCurrency';
 import { MarketFeeStatus } from '@marketplace/hooks/useMarketFeesHelperStatus';
 
 import FeesTooltipFromProps from '../FeesTooltipFromProps';
 
-interface PriceFiat {
-  eur: number;
-  usd: number;
-  gbp: number;
-}
 interface FeesDetailsProps {
-  priceWei: string;
-  marketFeeAmountWei?: string;
-  priceFiat?: PriceFiat;
-  marketFeeAmountFiat?: PriceFiat;
-  fees?: number;
-  forceEthDisplay?: boolean;
+  monetaryAmount: MonetaryAmountOutput;
+  marketFeeMonetaryAmount?: MonetaryAmountOutput;
+  referenceCurrency: SupportedCurrency;
   completed?: boolean;
   marketFeeStatus?: MarketFeeStatus.ENABLED | MarketFeeStatus.PARTIALLY_ENABLED;
 }
 
 const OfferFeesDetails = ({
-  priceWei,
-  marketFeeAmountWei = '0',
-  marketFeeAmountFiat,
-  priceFiat,
-  forceEthDisplay,
+  monetaryAmount,
+  marketFeeMonetaryAmount = zeroMonetaryAmount,
+  referenceCurrency,
   completed,
   marketFeeStatus,
 }: FeesDetailsProps) => {
-  const {
-    amountToDisplay,
-    currencySymbol,
-    minimumFractionDigits,
-    maximumFractionDigits,
-  } = useFormatWithCurrency(
-    priceWei,
-    priceFiat,
-    forceEthDisplay ? Currency.ETH : undefined
-  );
-
-  const { amountToDisplay: feesAmountToDisplay } = useFormatWithCurrency(
-    marketFeeAmountWei,
-    marketFeeAmountFiat,
-    forceEthDisplay ? Currency.ETH : undefined
-  );
-
   return (
     <FeesTooltipFromProps
       completed={completed}
-      amount={amountToDisplay}
-      fees={feesAmountToDisplay}
-      currencySymbol={currencySymbol}
-      minimumFractionDigits={minimumFractionDigits}
-      maximumFractionDigits={maximumFractionDigits}
+      monetaryAmount={monetaryAmount}
+      marketFeeMonetaryAmount={marketFeeMonetaryAmount}
+      referenceCurrency={referenceCurrency}
       marketFeeStatus={marketFeeStatus}
     />
   );
@@ -79,11 +52,9 @@ const InfoIcon = styled(FontAwesomeIcon)`
 `;
 
 const FeesDetailsTooltip = ({
-  priceWei,
-  priceFiat,
-  marketFeeAmountWei,
-  marketFeeAmountFiat,
-  forceEthDisplay,
+  monetaryAmount,
+  marketFeeMonetaryAmount,
+  referenceCurrency,
   completed,
   marketFeeStatus,
 }: FeesDetailsProps) => {
@@ -95,11 +66,9 @@ const FeesDetailsTooltip = ({
         placement="top"
         title={
           <OfferFeesDetails
-            priceWei={priceWei}
-            marketFeeAmountWei={marketFeeAmountWei}
-            marketFeeAmountFiat={marketFeeAmountFiat}
-            priceFiat={priceFiat}
-            forceEthDisplay={forceEthDisplay}
+            monetaryAmount={monetaryAmount}
+            marketFeeMonetaryAmount={marketFeeMonetaryAmount}
+            referenceCurrency={referenceCurrency}
             completed={completed}
             marketFeeStatus={marketFeeStatus}
           />
@@ -111,20 +80,6 @@ const FeesDetailsTooltip = ({
       </Tooltip>
     </Container>
   );
-};
-
-FeesDetailsTooltip.fragments = {
-  tokenOffer: gql`
-    fragment FeesDetailsTooltip_tokenOffer on TokenOffer {
-      id
-      priceWei: price
-      priceFiat: priceInFiat {
-        eur
-        usd
-        gbp
-      }
-    }
-  `,
 };
 
 export default FeesDetailsTooltip;

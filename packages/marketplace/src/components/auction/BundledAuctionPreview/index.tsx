@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import classNames from 'classnames';
 import styled from 'styled-components';
 
@@ -10,7 +10,10 @@ import { CardCount } from '@marketplace/components/ItemPreview/ui';
 import FlexToken from '@marketplace/components/token/FlexToken';
 import { useMarketplaceContext } from '@marketplace/contexts/Marketplace';
 
-import { BundledAuctionPreview_auction } from './__generated__/index.graphql';
+import {
+  BundledAuctionPreview_auction,
+  BundledAuctionPreview_token,
+} from './__generated__/index.graphql';
 
 type Props = {
   bundledAuction: BundledAuctionPreview_auction;
@@ -131,7 +134,7 @@ const tokenFragment = gql`
     ...FlexToken_token
   }
   ${FlexToken.fragments.token}
-`;
+` as TypedDocumentNode<BundledAuctionPreview_token>;
 
 BundledAuctionPreview.fragments = {
   token: tokenFragment,
@@ -147,5 +150,5 @@ BundledAuctionPreview.fragments = {
       }
     }
     ${tokenFragment}
-  `,
+  ` as TypedDocumentNode<BundledAuctionPreview_auction>,
 };

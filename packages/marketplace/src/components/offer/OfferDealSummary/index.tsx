@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { ReactNode } from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled from 'styled-components';
@@ -11,6 +11,10 @@ import Blockquote from '@sorare/core/src/atoms/layout/Blockquote';
 import { Text14, Text16, Text20 } from '@sorare/core/src/atoms/typography';
 import useAmountWithConversion from '@sorare/core/src/hooks/useAmountWithConversion';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
+import {
+  MonetaryAmountOutput,
+  zeroMonetaryAmount,
+} from '@sorare/core/src/hooks/useMonetaryAmount';
 import { glossary } from '@sorare/core/src/lib/glossary';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
@@ -45,7 +49,7 @@ const messages = defineMessages({
   durationWarnings: {
     id: 'DealSummary.duration.warning',
     defaultMessage:
-      'The Cards and ETH you send in an offer are held. You cannot include the Cards or ETH in another offer.',
+      'The Cards and money you send in an offer are held. You cannot include the Cards or money in another offer.',
   },
   nbDays: {
     id: 'DealSummary.duration.nbDays',
@@ -62,11 +66,13 @@ type Props = {
   receiver?: ReactNode;
   sender?: ReactNode;
   validationMessages?: Record<string, ReactNode>;
-  sendWeiAmount?: string;
+  sendAmount?: MonetaryAmountOutput;
   sendTokens?: OfferDealSummary_token[];
-  receiveWeiAmount?: string;
-  marketFeeAmountWei?: string;
+  receiveAmount?: MonetaryAmountOutput;
+  marketFeeAmount?: MonetaryAmountOutput;
   receiveTokens?: OfferDealSummary_token[];
+  sendAmountCurrency: SupportedCurrency;
+  receiveAmountCurrency: SupportedCurrency;
   duration?: number;
   actionType?: 'reject' | 'cancel' | 'accept' | 'counter';
   paymentMethod: WalletPaymentMethod | null;
@@ -106,9 +112,9 @@ const WarningWrapper = styled.div`
 const ItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border-radius: var(--double-unit);
+  border-radius: var(--unit);
   background: var(--c-neutral-300);
-  padding: var(--double-unit);
+  padding: var(--unit);
   gap: var(--half-unit);
 `;
 
@@ -117,7 +123,7 @@ const Tokens = ({ tokens, validationMessages }: TokensProps) => {
     <>
       {tokens.map(token => (
         <ItemWrapper key={token.assetId}>
-          <TokenSummary token={token} withoutRecentSales />
+          <TokenSummary small token={token} withoutRecentSales />
           {validationMessages?.[token.slug] && (
             <WarningWrapper>{validationMessages[token.slug]}</WarningWrapper>
           )}
@@ -127,12 +133,6 @@ const Tokens = ({ tokens, validationMessages }: TokensProps) => {
   );
 };
 
-interface AmountsProps {
-  amount: string;
-  marketFeeAmountWei?: string;
-  marketFeeStatus: MarketFeeStatus;
-}
-
 const AmountLabel = styled(Text20)`
   font-style: italic;
 `;
@@ -141,32 +141,41 @@ const ExponentLabel = styled(Text14)`
   color: var(--c-neutral-600);
 `;
 
+interface AmountsProps {
+  amount: MonetaryAmountOutput;
+  marketFeeAmount?: MonetaryAmountOutput;
+  marketFeeStatus: MarketFeeStatus;
+  referenceCurrency: SupportedCurrency;
+}
+
 const Amounts = ({
   amount,
   marketFeeStatus = MarketFeeStatus.DISABLED,
-  marketFeeAmountWei,
+  marketFeeAmount,
+  referenceCurrency,
 }: AmountsProps) => {
   const { main, exponent } = useAmountWithConversion({
-    monetaryAmount: {
-      referenceCurrency: SupportedCurrency.WEI,
-      [SupportedCurrency.WEI.toLowerCase()]: amount,
-    },
+    monetaryAmount: amount,
+    primaryCurrency:
+      referenceCurrency === SupportedCurrency.WEI
+        ? Currency.ETH
+        : Currency.FIAT,
   });
-  if (amount === '0') {
+  if (amount.eur === 0) {
     return null;
   }
-
   const isFeeEnabled = isMarketFeeEnabled(marketFeeStatus);
-
   return (
     <ItemWrapper>
       <AmountLabel>{main}</AmountLabel>
-      {exponent && <ExponentLabel>{`≈ ${exponent}`}</ExponentLabel>}
-      {marketFeeAmountWei && isFeeEnabled && (
+      {exponent && referenceCurrency === SupportedCurrency.WEI && (
+        <ExponentLabel>{`≈ ${exponent}`}</ExponentLabel>
+      )}
+      {marketFeeAmount && isFeeEnabled && (
         <FeesDetailsTooltip
-          forceEthDisplay
-          priceWei={amount}
-          marketFeeAmountWei={marketFeeAmountWei}
+          monetaryAmount={amount}
+          marketFeeMonetaryAmount={marketFeeAmount}
+          referenceCurrency={referenceCurrency}
           marketFeeStatus={marketFeeStatus}
         />
       )}
@@ -209,12 +218,13 @@ const OfferDetails = ({ duration }: Pick<Props, 'duration'>) => {
 interface OfferLegDescriptionProps {
   withEmpty: boolean;
   title: ReactNode;
-  amount: string;
+  amount: MonetaryAmountOutput;
   marketFeeStatus?: MarketFeeStatus;
-  marketFeeAmountWei?: string;
+  marketFeeAmount?: MonetaryAmountOutput;
   tokens: OfferDealSummary_token[];
   validationMessages?: Record<string, ReactNode>;
   paymentMethod?: WalletPaymentMethod | null;
+  referenceCurrency: SupportedCurrency;
 }
 
 const Description = styled.div`
@@ -227,17 +237,18 @@ const Description = styled.div`
 const OfferLegDescription = ({
   withEmpty,
   amount,
-  marketFeeAmountWei,
+  marketFeeAmount,
   title,
   tokens,
   marketFeeStatus = MarketFeeStatus.DISABLED,
   validationMessages,
   paymentMethod,
+  referenceCurrency,
 }: OfferLegDescriptionProps) => {
   const {
-    flags: { useNewWallet = false },
+    flags: { useCashWallet = false },
   } = useFeatureFlags();
-  const empty = amount === '0' && tokens.length === 0;
+  const empty = amount.wei === '0' && tokens.length === 0;
   if (empty && !withEmpty) {
     return null;
   }
@@ -251,10 +262,11 @@ const OfferLegDescription = ({
           <Tokens tokens={tokens} validationMessages={validationMessages} />
           <Amounts
             amount={amount}
-            marketFeeAmountWei={marketFeeAmountWei}
+            marketFeeAmount={marketFeeAmount}
             marketFeeStatus={marketFeeStatus}
+            referenceCurrency={referenceCurrency}
           />
-          {useNewWallet && amount !== '0' && paymentMethod && (
+          {useCashWallet && amount.eur !== 0 && paymentMethod && (
             <>
               <Text14 color="var(--c-neutral-600)">
                 <FormattedMessage {...glossary.payWith} />
@@ -287,10 +299,12 @@ const OfferRow = styled.div`
 `;
 
 const OfferDealSummary = ({
-  sendWeiAmount = '0',
+  sendAmount = zeroMonetaryAmount,
+  sendAmountCurrency,
   sendTokens = [],
-  receiveWeiAmount = '0',
-  marketFeeAmountWei = '0',
+  receiveAmount = zeroMonetaryAmount,
+  marketFeeAmount = zeroMonetaryAmount,
+  receiveAmountCurrency,
   receiveTokens = [],
   withEmpty = false,
   duration,
@@ -306,18 +320,20 @@ const OfferDealSummary = ({
         <OfferLegDescription
           withEmpty={withEmpty}
           title={sender}
-          amount={sendWeiAmount}
+          amount={sendAmount}
           tokens={sendTokens}
           validationMessages={validationMessages}
           paymentMethod={paymentMethod}
+          referenceCurrency={sendAmountCurrency}
         />
         <OfferLegDescription
           withEmpty={withEmpty}
           title={receiver}
-          amount={receiveWeiAmount}
+          amount={receiveAmount}
           marketFeeStatus={marketFeeStatus}
-          marketFeeAmountWei={marketFeeAmountWei}
+          marketFeeAmount={marketFeeAmount}
           tokens={receiveTokens}
+          referenceCurrency={receiveAmountCurrency}
         />
       </OfferRow>
       <OfferDetails duration={duration} />
@@ -331,13 +347,10 @@ OfferDealSummary.fragments = {
       assetId
       slug
       collection
-      slug
       secondaryMarketFeeEnabled
       metadata {
-        ... on TokenCricketMetadata {
-          id
-        }
         ... on TokenCardMetadataInterface {
+          id
           rarity
           playerSlug
         }
@@ -345,7 +358,7 @@ OfferDealSummary.fragments = {
       ...TokenSummary_token
     }
     ${TokenSummary.fragments.token}
-  `,
+  ` as TypedDocumentNode<OfferDealSummary_token>,
 };
 
 export default OfferDealSummary;

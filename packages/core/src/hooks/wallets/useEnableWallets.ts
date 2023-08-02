@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { EnabledWallet } from '__generated__/globalTypes';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
@@ -15,7 +15,7 @@ const ENABLE_WALLETS_MUTATION = gql`
     updateUserProfile(input: $input) {
       userProfile {
         id
-        # enabledWallets
+        enabledWallets
       }
       errors {
         path
@@ -24,15 +24,12 @@ const ENABLE_WALLETS_MUTATION = gql`
       }
     }
   }
-`;
+` as TypedDocumentNode<EnableWalletsMutation, EnableWalletsMutationVariables>;
 
 const useEnableWallets = () => {
   const { showNotification } = useSnackNotificationContext();
   const { currentUser } = useCurrentUserContext();
-  const [mutate, { loading }] = useMutation<
-    EnableWalletsMutation,
-    EnableWalletsMutationVariables
-  >(ENABLE_WALLETS_MUTATION);
+  const [mutate, { loading }] = useMutation(ENABLE_WALLETS_MUTATION);
 
   return {
     enableWallets: async (wallets: EnabledWallet[]) => {
@@ -40,7 +37,7 @@ const useEnableWallets = () => {
         variables: {
           input: {
             enabledWallets: wallets,
-          } as any,//TODO************
+          },
         },
         optimisticResponse: {
           updateUserProfile: {
@@ -52,12 +49,12 @@ const useEnableWallets = () => {
             },
             errors: [],
           },
-        } as any,
+        },
       });
 
-      // if (data) {
-      //   return data.updateUserProfile?.userProfile?.enabledWallets;
-      // }
+      if (data) {
+        return data.updateUserProfile?.userProfile?.enabledWallets;
+      }
       showNotification('errors', errors);
       return null;
     },

@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
 
-import { theme } from '../../style/theme';
+import { breakpoints } from '@core/style/mediaQuery';
 
 export const Container = styled.div`
   display: grid;
   --container-padding: var(--double-unit);
   --container-width: min(
-    ${theme.breakpoints.values.desktop}px,
+    ${breakpoints.desktop}px,
     calc(100% - 2 * var(--container-padding))
   );
 
@@ -39,7 +39,7 @@ export const FullWidthScroll = styled(FullWidth)`
           100% -
             min(
               min(
-                ${theme.breakpoints.values.desktop}px,
+                ${breakpoints.desktop}px,
                 calc(100% - 2 * var(--container-padding))
               )
             )
@@ -50,7 +50,7 @@ export const FullWidthScroll = styled(FullWidth)`
         100% -
           min(
             min(
-              ${theme.breakpoints.values.desktop}px,
+              ${breakpoints.desktop}px,
               calc(100% - 2 * var(--container-padding))
             )
           )
@@ -63,9 +63,6 @@ export const FullWidthScroll = styled(FullWidth)`
 export const SmallContainer = styled(Container)`
   grid-template-columns:
     1fr
-    min(
-      ${theme.breakpoints.values.tablet}px,
-      calc(100% - 2 * var(--container-padding))
-    )
+    min(${breakpoints.tablet}px, calc(100% - 2 * var(--container-padding)))
     1fr;
 `;

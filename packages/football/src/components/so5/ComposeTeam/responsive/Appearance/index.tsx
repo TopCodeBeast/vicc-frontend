@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { RefObject, memo, useCallback, useContext } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -108,16 +108,16 @@ const Appearance = (props: Props) => {
             score={
               card?.[
                 displayedAverageScore ===
-                AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE
+                AveragePlayerScore.LAST_FIVE_SO5_AVERAGE_SCORE
                   ? 'lastFiveSo5AverageScore'
-                  : 'lastFifteenVicc5AverageScore'
+                  : 'lastFifteenSo5AverageScore'
               ]
             }
             withTooltip
             size="smaller"
             scoreMode={
               displayedAverageScore ===
-              AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE
+              AveragePlayerScore.LAST_FIVE_SO5_AVERAGE_SCORE
                 ? 'AVERAGE_LAST_5_GAMES'
                 : 'AVERAGE_LAST_15_GAMES'
             }
@@ -151,23 +151,23 @@ const Memoized = memo(Appearance);
 
 Memoized.fragments = {
   so5_appearance: gql`
-    fragment Appearance_so5Appearance on Vicc5Appearance {
+    fragment Appearance_so5Appearance on So5Appearance {
       ...LineupCard_so5Appearance
       id
       captain
       card {
         assetId
         slug
-        lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
-        lastFifteenVicc5AverageScore: averageScore(
-          type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
+        lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_SO5_AVERAGE_SCORE)
+        lastFifteenSo5AverageScore: averageScore(
+          type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
         )
         ...AppearancePower_card
       }
     }
     ${LineupCard.fragments.so5_appearance}
     ${AppearancePower.fragments.card}
-  `,
+  ` as TypedDocumentNode<Appearance_so5Appearance>,
 };
 
 export default Memoized;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 
 import { Caption } from '@sorare/core/src/atoms/typography';
@@ -43,7 +43,7 @@ CommonCardCurrentOwner.fragments = {
       }
     }
     ${OwnerAccount.fragments.account}
-  `,
+  ` as TypedDocumentNode<CommonCardCurrentOwner_card>,
 };
 
 export default CommonCardCurrentOwner;

@@ -69,7 +69,7 @@ export const THRESHOLD_COLORS: { [key: string]: Color } = {
 };
 
 export const findThreshold = (score: number) => {
-  const threshold = thresholds.find(t => Number(t[0]) > score);
+  const threshold = thresholds.find(t => t[0] > score);
 
   return threshold ? threshold[1] : 'high';
 };
