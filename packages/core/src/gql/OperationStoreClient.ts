@@ -96,7 +96,7 @@ const standardClient = () => {
 };
 
 export default () => {
-  if (isForcedEnv() || process.env.PLAYGROUND === 'true' || IS_TEST_RUNNER) {
+  /*if (isForcedEnv() || process.env.PLAYGROUND === 'true' || IS_TEST_RUNNER) {
     return null;
   }
   if (process.env.NODE_ENV === 'development') {
@@ -107,6 +107,6 @@ export default () => {
           `To use local \`backend:3000\` you need to run \`yarn graphql:operations:sync:development\`.`
       );
     }
-  }
+  }*/
   return standardClient();
 };
