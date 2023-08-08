@@ -85,7 +85,7 @@ const AppProviders = ({
                     <DebugProvider>
                       <EventsProvider>
                         <ResetPrivateKeyProvider>
-                          <CookieConsentBanner />
+                          {/* <CookieConsentBanner /> */}
                           <SnackNotificationProvider>
                             <DeviceFingerprintProvider>
                               <GrapqhqlProvider>

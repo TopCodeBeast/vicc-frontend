@@ -9,7 +9,7 @@ type FontOptions = {
   timeout: number;
 };
 
-const useFontFaceObserver = (fonts: FontFace[], options: FontOptions, errors: any) => {
+const useFontFaceObserver = (fonts: FontFace[], options: FontOptions, errors?: any) => {
   return 'active';
   // return 'initial';
 };

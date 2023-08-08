@@ -43,7 +43,7 @@ export type AlgoliaCardIndexesName = keyof AlgoliaCardIndexes;
 export type AlgoliaCardIndexesNames = AlgoliaCardIndexesName[];
 
 export interface ConfigContext {
-  landingTheme: ConfigQuery_config_landingTheme | null;
+  landingTheme?: ConfigQuery_config_landingTheme | null;
   algoliaIndexes: AlgoliaIndexes;
   algoliaCardIndexes: AlgoliaCardIndexes;
   algoliaApplicationId: string;
@@ -61,7 +61,7 @@ export interface ConfigContext {
   bankAddress: string;
   ethAssetType: string | null;
   ethQuantum: string;
-  starkExchangeAddress: string | null;
+  starkExchangeAddress?: string | null;
   relayAddress: string;
   so5: {
     so5LeaguesAlgoliaFilters: Record<string, string>;

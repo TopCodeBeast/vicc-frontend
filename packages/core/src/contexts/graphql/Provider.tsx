@@ -4,6 +4,7 @@ import {
   ApolloProvider,
   InMemoryCache,
   ServerError,
+  createHttpLink,
   fallbackHttpConfig,
   selectHttpOptionsAndBody,
 } from '@apollo/client';
@@ -280,7 +281,9 @@ export const GraphqlProvider = ({
     });
     /* eslint-disable consistent-return */
 
-    const httpLink = ApolloLink.split(
+    const httpLink = createHttpLink({ uri });
+
+    /*const httpLink = ApolloLink.split(
       hasSubscriptionOperation,
       new ActionCableLink({ cable: wsCable }) as any,
       createUploadLink({
@@ -328,7 +331,7 @@ export const GraphqlProvider = ({
           accept: 'application/json',
         },
       })
-    );
+    );*/
 
     const afterwareLink = new ApolloLink((operation, forward) => {
       return forward
@@ -383,7 +386,7 @@ export const GraphqlProvider = ({
         tmLink,
         afterwareLink,
         authLink,
-        OperationStoreClient()?.apolloLink,
+        // OperationStoreClient()?.apolloLink,
         useOfflineSupport && retryLink,
         onErrorLink,
         httpLink,
