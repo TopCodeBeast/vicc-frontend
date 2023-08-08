@@ -5,7 +5,7 @@ import { lazy } from '@sorare/core/src/lib/retry';
 import SingleSaleOfferContextProvider, { SingleSaleOfferPopinInfo } from '.';
 
 const CancelSalePopin = lazy(
-  async () => import('components/offer/CancelSalePopin')
+  async () => import('@marketplace/components/offer/CancelSalePopin')
 );
 
 interface Props {

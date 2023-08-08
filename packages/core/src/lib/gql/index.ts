@@ -1,4 +1,4 @@
-export { default as mapNodes } from './mapNodes';
+// export { default as mapNodes } from './mapNodes';
 
 export interface GqlType {
   __typename: string;

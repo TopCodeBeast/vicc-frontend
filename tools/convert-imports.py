@@ -20,12 +20,21 @@ def updateImports(filePath):
     updated = text
 
     updated = updated.replace("from 'react-spring'", "from '@react-spring/web'")
-    
+
+    if filePath.find("marketplace\\src\\hooks\\tokens\\useOwnerAccount.tsx") >= 0:
+        updated = updated.replace("account: useOwnerAccount_account | null;", "account?: useOwnerAccount_account | null;")
+
+    if filePath.find("core\\src\\components\\wallet\\BankEthAccounting\\AddFundsToFiatWallet\\WireTransfer\\index.tsx") >= 0:
+        updated = updated.replace("addressLine1: string | null;", "addressLine1?: string | null;")
+
     if filePath.find("\\core\\src\\") >= 0:
         updated = updated.replace("from 'assets/", "from '@core/assets/")
         updated = updated.replace("from 'atoms/", "from '@core/atoms/")
         updated = updated.replace("from 'components/", "from '@core/components/")
         updated = updated.replace("from 'config'", "from '@core/config'")
+        updated = updated.replace("from 'errors'", "from '@core/errors'")
+        updated = updated.replace("from 'gql'", "from '@core/gql'")
+        updated = updated.replace("from 'types'", "from '@core/types'")
         updated = updated.replace("from 'constants/", "from '@core/constants/")
         updated = updated.replace("from 'contexts/", "from '@core/contexts/")
         updated = updated.replace("from 'errors/", "from '@core/errors/")
@@ -38,6 +47,7 @@ def updateImports(filePath):
         updated = updated.replace("from 'style/", "from '@core/style/")
 
     if filePath.find("\\football\\src\\") >= 0:
+        updated = updated.replace("from 'assets/", "from '@football/assets/")
         updated = updated.replace("from 'components/", "from '@football/components/")
         updated = updated.replace("from 'contexts/", "from '@football/contexts/")
         updated = updated.replace("from 'hooks/", "from '@football/hooks/")
@@ -56,6 +66,17 @@ def updateImports(filePath):
         updated = updated.replace("from 'searchCards/", "from '@marketplace/searchCards/")
         updated = updated.replace("from 'types/", "from '@marketplace/types/")
         updated = updated.replace("() => import('pages/", "() => import('@marketplace/pages/")
+        updated = updated.replace("() => import('components/", "() => import('@marketplace/components/")
+
+    if filePath.find("\\shared-pages\\src\\") >= 0:
+        updated = updated.replace("from 'Settings/", "from '@shared-pages/Settings/")
+        updated = updated.replace("from 'Careers/", "from '@shared-pages/Careers/")
+
+    if filePath.find("\\us-sports\\src\\") >= 0:
+        updated = updated.replace("from 'components/", "from '@us-sports/components/")
+        updated = updated.replace("from 'contexts/", "from '@us-sports/contexts/")
+        updated = updated.replace("from 'hooks/", "from '@us-sports/hooks/")
+        updated = updated.replace("from 'lib/", "from '@us-sports/lib/")
 
     if text != updated:
         with open(filePath, 'w+', encoding='utf-8') as fp:

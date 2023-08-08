@@ -21,6 +21,7 @@
     "paths": {
       "@sorare/*": [ "packages/*"],
       "@core/*": [ "packages/core/src/*"],
+      "@blockchain/*": [ "packages/blockchain/src/*"],
       "@football/*": [ "packages/football/src/*"],
       "@marketplace/*": [ "packages/marketplace/src/*"],
       "@shared-pages/*": [ "packages/shared-pages/src/*"],

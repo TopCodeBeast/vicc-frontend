@@ -5,7 +5,7 @@ import Privacy from '@sorare/core/src/components/settings/Privacy';
 import RecoveringYourWallet from '@sorare/core/src/components/settings/RecoveringYourWallet';
 import SigningIntoSorare from '@sorare/core/src/components/settings/SigningIntoSorare';
 
-import { SettingsTabRoot } from 'Settings/ui';
+import { SettingsTabRoot } from '@shared-pages/Settings/ui';
 
 export const Security = () => {
   return (

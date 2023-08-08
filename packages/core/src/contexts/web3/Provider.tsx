@@ -25,9 +25,9 @@ import {
   UpdateUserSettingsLastWeb3ProviderMutationVariables,
 } from './__generated__/Provider.graphql';
 
-const PortisLoader = lazy(async () => import('./PortisLoader'));
-const WalletConnectLoader = lazy(async () => import('./WalletConnectLoader'));
-const CoinbaseWalletLoader = lazy(async () => import('./CoinbaseWalletLoader'));
+// const PortisLoader = lazy(async () => import('./PortisLoader'));
+// const WalletConnectLoader = lazy(async () => import('./WalletConnectLoader'));
+// const CoinbaseWalletLoader = lazy(async () => import('./CoinbaseWalletLoader'));
 
 const UPDATE_USER_SETTINGS_LAST_WEB3_PROVIDER_MUTATION = gql`
   mutation UpdateUserSettingsLastWeb3ProviderMutation(
@@ -194,7 +194,7 @@ export const Web3Provider = ({ children }: Props) => {
         enable,
       }}
     >
-      <Suspense fallback={<div />}>
+      {/* <Suspense fallback={<div />}>
         <>
           {loadPortis && <PortisLoader onEnabled={onWalletEnabled} />}
           {loadWalletConnect && (
@@ -204,7 +204,7 @@ export const Web3Provider = ({ children }: Props) => {
             <CoinbaseWalletLoader onEnabled={onWalletEnabled} />
           )}
         </>
-      </Suspense>
+      </Suspense> */}
       {children}
     </Web3ContextProvider>
   );

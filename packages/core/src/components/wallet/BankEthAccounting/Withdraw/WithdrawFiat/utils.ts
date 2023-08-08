@@ -1,6 +1,6 @@
 import { TypedDocumentNode, gql } from '@apollo/client';
 
-import { isType, withFragments } from 'gql';
+import { isType, withFragments } from '@core/gql';
 
 import { getAccountIdentifier_bankAccount } from './__generated__/utils.graphql';
 

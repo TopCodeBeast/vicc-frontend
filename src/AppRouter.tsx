@@ -71,8 +71,8 @@ import { AppLayout } from '@sorare/us-sports/src/components/AppLayout';
 
 import { metadata as eplMetadata } from '@sorare/football/src/pages/EPLLanding';
 import Landing from '@sorare/shared-pages/src/Landing';
-import AppProviders from 'AppProviders';
-import RedirectRouter from 'RedirectRouter';
+import AppProviders from './AppProviders';
+import RedirectRouter from './RedirectRouter';
 
 const Activity = lazy(async () => import('@sorare/shared-pages/src/Activity'));
 const Careers = lazy(async () => import('@sorare/shared-pages/src/Careers'));
@@ -99,39 +99,39 @@ const Web3Provider = lazy(
 const ConfirmDevice = lazy(
   async () => import('@sorare/shared-pages/src/ConfirmDevice')
 );
-const ConfirmEmail = lazy(
-  async () => import('@sorare/shared-pages/src/ConfirmEmail')
-);
-const Redirect = lazy(async () => import('@sorare/shared-pages/src/Link'));
-const DebugDevice = lazy(
-  async () => import('@sorare/shared-pages/src/DebugDevice')
-);
+// const ConfirmEmail = lazy(
+//   async () => import('@sorare/shared-pages/src/ConfirmEmail')
+// );
+// const Redirect = lazy(async () => import('@sorare/shared-pages/src/Link'));
+// const DebugDevice = lazy(
+//   async () => import('@sorare/shared-pages/src/DebugDevice')
+// );
 
-const MobileSignUp = lazy(
-  async () => import('@sorare/shared-pages/src/MobileSignUp')
-);
+// const MobileSignUp = lazy(
+//   async () => import('@sorare/shared-pages/src/MobileSignUp')
+// );
 const PrivacyPolicy = lazy(
   async () => import('@sorare/shared-pages/src/PrivacyPolicy')
 );
-const CookiePolicy = lazy(
-  async () => import('@sorare/shared-pages/src/CookiePolicy')
-);
-const Terms = lazy(async () => import('@sorare/shared-pages/src/Terms'));
+// const CookiePolicy = lazy(
+//   async () => import('@sorare/shared-pages/src/CookiePolicy')
+// );
+// const Terms = lazy(async () => import('@sorare/shared-pages/src/Terms'));
 
-const OAuth = lazy(async () => import('@sorare/shared-pages/src/OAuth'));
+// const OAuth = lazy(async () => import('@sorare/shared-pages/src/OAuth'));
 
 const GameRules = lazy(
   async () => import('@sorare/shared-pages/src/GameRules')
 );
-const VerifyIdentity = lazy(
-  async () => import('@sorare/shared-pages/src/VerifyIdentity')
-);
-const PromoSignup = lazy(
-  async () => import('@sorare/shared-pages/src/PromoSignup')
-);
-const PromoClaim = lazy(
-  async () => import('@sorare/shared-pages/src/PromoClaim')
-);
+// const VerifyIdentity = lazy(
+//   async () => import('@sorare/shared-pages/src/VerifyIdentity')
+// );
+// const PromoSignup = lazy(
+//   async () => import('@sorare/shared-pages/src/PromoSignup')
+// );
+// const PromoClaim = lazy(
+//   async () => import('@sorare/shared-pages/src/PromoClaim')
+// );
 const MySorare = lazy(async () => import('@sorare/shared-pages/src/MySorare'));
 const Settings = lazy(async () => import('@sorare/shared-pages/src/Settings'));
 const ReferralProgram = lazy(
@@ -140,15 +140,15 @@ const ReferralProgram = lazy(
 const PrivateRoute = lazy(
   async () => import('@sorare/football/src/routing/PrivateRoute')
 );
-const PrivateUserGroupInviteLinkEntryPoint = lazy(
-  async () =>
-    import(
-      '@sorare/football/src/components/userGroup/private/InviteLinkEntryPoint'
-    )
-);
-const BaseballRoot = lazy(async () => import('@sorare/baseball/src/main'));
+// const PrivateUserGroupInviteLinkEntryPoint = lazy(
+//   async () =>
+//     import(
+//       '@sorare/football/src/components/userGroup/private/InviteLinkEntryPoint'
+//     )
+// );
+// const BaseballRoot = lazy(async () => import('@sorare/baseball/src/main'));
 const FootballRoot = lazy(async () => import('@sorare/football/src/main'));
-const NBARoot = lazy(async () => import('@sorare/nba/src/main'));
+// const NBARoot = lazy(async () => import('@sorare/nba/src/main'));
 
 export const BlockchainProviders = ({ children }: { children: ReactNode }) => {
   return (
@@ -185,8 +185,6 @@ const AppsRouter = () => {
   const getSplat = useGetSplat();
   return (
     <Routes location={bgLocation}>
-      <Route path="/nba/*" element={<NBARoot />} />
-      <Route path={'/mlb/*'} element={<BaseballRoot />} />
       <Route path={'/football/*'} element={<FootballRoot />} />
       {/* Force all Football routes to be prefixed with /football now */}
       <Route
@@ -293,14 +291,14 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
         <Route path={GAME_RULES} element={<GameRules />} />
         <Route path={ACCEPT_INVITATION} element={<Landing />} />
         <Route path={REFERRER_LINK} element={<Landing />} />
-        <Route path={MOBILE_SIGN_UP} element={<MobileSignUp />} />
-        <Route path={TERMS} element={<Terms />} />
+        {/* <Route path={MOBILE_SIGN_UP} element={<MobileSignUp />} />
+        <Route path={TERMS} element={<Terms />} /> */}
         <Route path={PRIVACY_POLICY} element={<PrivacyPolicy />} />
-        <Route path={COOKIE_POLICY} element={<CookiePolicy />} />
+        {/* <Route path={COOKIE_POLICY} element={<CookiePolicy />} />
         <Route path={CONFIRM_EMAIL} element={<ConfirmEmail />} />
-        <Route path={LINK} element={<Redirect />} />
+        <Route path={LINK} element={<Redirect />} /> */}
         <Route path={CONFIRM_DEVICE} element={<ConfirmDevice />} />
-        <Route
+        {/* <Route
           path={VERIFY_STRIPE_ACCOUNT}
           element={
             <AppLayout>
@@ -318,7 +316,7 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
               <OAuth />
             </RequireAuth>
           }
-        />
+        /> */}
         <Route
           path={SETTINGS_HOME}
           element={
@@ -345,7 +343,7 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
             </SharedPagesTheme>
           }
         />
-        <Route
+        {/* <Route
           path={INVITE_USER_GROUP}
           element={
             <DarkTheme>
@@ -360,7 +358,7 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
               <PrivateUserGroupInviteLinkEntryPoint metadata={eplMetadata} />
             </DarkTheme>
           }
-        />
+        /> */}
         <Route
           path={INVITE_WILDCARD}
           element={
@@ -404,7 +402,7 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
             </RequireAuth>
           }
         />
-        <Route path={PROMO_SIGNUP} element={<PromoSignup />} />
+        {/* <Route path={PROMO_SIGNUP} element={<PromoSignup />} />
         <Route
           path={PROMO_CLAIM}
           element={
@@ -412,7 +410,7 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
               <PromoClaim />
             </RequireAuth>
           }
-        />
+        /> */}
         <Route
           path={'/*'}
           element={

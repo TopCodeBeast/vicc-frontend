@@ -15,7 +15,7 @@ import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useIntlContext } from '@core/contexts/intl';
 import Warning from '@core/contexts/intl/Warning';
 import { WalletTab, useWalletDrawerContext } from '@core/contexts/walletDrawer';
-import { isType } from 'gql';
+import { isType } from '@core/gql';
 import usePaginatedQuery from '@core/hooks/graphql/usePaginatedQuery';
 import { glossary } from '@core/lib/glossary';
 

@@ -26,7 +26,7 @@ type useOwnerAccount_account_owner_User = useOwnerAccount_account['owner'] & {
 };
 
 type Props = {
-  account: useOwnerAccount_account | null;
+  account?: useOwnerAccount_account | null;
 };
 
 type ReturnedProps = {

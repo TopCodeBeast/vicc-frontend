@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import { Title2 } from '@sorare/core/src/atoms/typography';
 
-import { Job } from 'Careers/types';
+import { Job } from '@shared-pages/Careers/types';
 
 import { Section, StyledContainer } from '../ui';
 

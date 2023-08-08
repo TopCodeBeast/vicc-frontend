@@ -12,7 +12,7 @@ import { fiatAccounts } from '@core/contexts/currentUser/queries';
 import { useIntlContext } from '@core/contexts/intl';
 import { useSnackNotificationContext } from '@core/contexts/snackNotification';
 import { WalletTab, useWalletDrawerContext } from '@core/contexts/walletDrawer';
-import { formatGqlErrors } from 'gql';
+import { formatGqlErrors } from '@core/gql';
 import idFromObject from '@core/gql/idFromObject';
 import useMutation from '@core/hooks/graphql/useMutation';
 import useQuery from '@core/hooks/graphql/useQuery';

@@ -192,7 +192,7 @@ const DepositBankAccountInfos = ({
     iban: string;
     bic: string;
     ownerAddress?: {
-      addressLine1: string | null;
+      addressLine1?: string | null;
       addressLine2?: string | null;
       city: string | null;
       postalCode: string | null;

@@ -47,7 +47,7 @@ const Content = styled.div`
 const HomeOverview = lazy(async () => import('@football/pages/Home/Overview'));
 const Cards = lazy(async () => import('@football/pages/Gallery/Cards'));
 const Collections = lazy(async () => import('@football/pages/Collections/Collections'));
-const CustomDecks = lazy(async () => import('@football/pages/Gallery/CustomDecks'));
+// const CustomDecks = lazy(async () => import('@football/pages/Gallery/CustomDecks'));
 const ClubHonors = lazy(async () => import('@football/pages/Home/ClubHonors'));
 const Network = lazy(async () => import('@football/pages/Home/Network'));
 
@@ -98,7 +98,7 @@ export const Tabs = ({ user, isOwnPage }: Props) => {
     !useCustomLists && {
       path: FOOTBALL_USER_GALLERY_SQUADS,
       label: formatMessage(galleryTabs.customDecks),
-      tabContent: <CustomDecks userSlug={user.slug} readOnly={!isOwnPage} />,
+      tabContent: <>CustomDecks555</>, //<CustomDecks userSlug={user.slug} readOnly={!isOwnPage} />,
     },
     {
       path: FOOTBALL_USER_GALLERY_NETWORK,

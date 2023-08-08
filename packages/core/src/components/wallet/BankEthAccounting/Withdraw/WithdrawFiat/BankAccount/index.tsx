@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import { Text14, Text16 } from '@core/atoms/typography';
-import { isType } from 'gql';
+import { isType } from '@core/gql';
 
 import { getAccountIdentifier } from '../utils';
 import { BankAccount_bankAccount } from './__generated__/index.graphql';

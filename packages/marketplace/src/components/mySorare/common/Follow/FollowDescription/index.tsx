@@ -12,12 +12,7 @@ import {
 } from '@sorare/core/src/constants/routes';
 import { getPositionName } from '@sorare/core/src/lib/baseball';
 import { isType } from '@sorare/core/src/lib/gql';
-import { getPositionName as getNBAPositionName } from '@sorare/core/src/lib/nba';
 import { toDisplayName } from '@sorare/core/src/lib/territories';
-import {
-  FollowDescription_NBAPlayer,
-  FollowDescription_baseballPlayer,
-} from '@sorare/core/src/lib/usSportsGraphql/__generated__/queries.graphql';
 
 import DumbPlayerDescription from '../../DumbPlayerDescription';
 import {
@@ -29,8 +24,6 @@ import {
 interface Props {
   followedItem:
     | FollowDescription_player
-    | FollowDescription_baseballPlayer
-    | FollowDescription_NBAPlayer
     | FollowDescription_club
     | FollowDescription_country;
 }
@@ -96,30 +89,6 @@ const FollowDescription = (props: Props) => {
         positions={[followedItem.position]}
         activeClubName={followedItem.activeClub?.name}
         sport={Sport.FOOTBALL}
-      />
-    );
-  }
-  if (isType(followedItem, 'BaseballPlayer')) {
-    return (
-      <DumbPlayerDescription
-        {...followedItem}
-        positions={followedItem.positions.map(position =>
-          getPositionName(position)
-        )}
-        activeClubName={followedItem.team?.name}
-        sport={Sport.BASEBALL}
-      />
-    );
-  }
-  if (isType(followedItem, 'NBAPlayer')) {
-    return (
-      <DumbPlayerDescription
-        {...followedItem}
-        positions={followedItem.positions.map(position =>
-          getNBAPositionName(position)
-        )}
-        activeClubName={followedItem.team?.name}
-        sport={Sport.NBA}
       />
     );
   }

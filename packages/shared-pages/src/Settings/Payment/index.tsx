@@ -5,7 +5,7 @@ import PaymentMethods from '@sorare/core/src/components/settings/PaymentMethods'
 import PostalAddress from '@sorare/core/src/components/settings/PostalAddress';
 import { RewardCurrency } from '@sorare/core/src/components/settings/RewardCurrency';
 
-import { SettingsTabRoot } from 'Settings/ui';
+import { SettingsTabRoot } from '@shared-pages/Settings/ui';
 
 export const Payment = () => {
   return (

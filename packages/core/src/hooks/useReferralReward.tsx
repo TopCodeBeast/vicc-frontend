@@ -9,12 +9,10 @@ import { Title3 } from '@core/atoms/typography';
 import { CardBack as CardBackFootball } from '@core/components/card/Back/Football';
 import { USSportCardBack } from '@core/components/cards/Back';
 import { FRONTEND_ASSET_HOST } from '@core/constants/assets';
-import { isType } from 'gql';
+import { isType } from '@core/gql';
 import idFromObject from '@core/gql/idFromObject';
 import { getPositionInitials as getMLBPositionInitials } from '@core/lib/baseball';
 import { monetaryAmountFragment } from '@core/lib/monetaryAmount';
-import { getPositionInitials as getNBAPositionInitials } from '@core/lib/nba';
-import { Equals } from '@core/lib/typescript';
 
 import { useReferralReward_referralReward } from './__generated__/useReferralReward.graphql';
 import { useBaseballQuery } from './graphql/baseball';

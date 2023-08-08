@@ -3,7 +3,7 @@ import NetworkError, { NAME as NETWORK_ERROR } from '@core/errors/network';
 import WalletAccessError, {
   NAME as WALLET_ACCESS_ERROR,
 } from '@core/errors/walletAccess';
-import { Await } from 'types';
+import { Await } from '@core/types';
 
 import BankApprovalError, { NAME as BANK_APPROVAL_ERROR } from './bankApproval';
 import EthMigrationError, { NAME as ETH_MIGRATION_ERROR } from './ethMigration';
