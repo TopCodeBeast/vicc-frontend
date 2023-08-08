@@ -15,7 +15,7 @@ import {
 } from '@core/constants/mobile';
 import { useIntlContext } from '@core/contexts/intl';
 import useQueryString from '@core/hooks/useQueryString';
-import 'style/drukFontFaces.css';
+import '@core/style/drukFontFaces.css';
 
 import V4Body from './V4Body';
 

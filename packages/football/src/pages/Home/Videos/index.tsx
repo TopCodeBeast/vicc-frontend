@@ -12,7 +12,7 @@ import { FOOTBALL_HOME } from '@sorare/core/src/constants/routes';
 import { useBgLocation } from '@sorare/core/src/hooks/useBgLocation';
 import useSafePreviousNavigate from '@sorare/core/src/hooks/useSafePreviousNavigate';
 
-import thumbnailTutorial from 'assets/home/thumbnail_tutorial.jpg';
+import thumbnailTutorial from '@football/assets/home/thumbnail_tutorial.jpg';
 
 const DialogContent = styled.div`
   display: flex;

@@ -15,7 +15,7 @@ import { Nickname } from '@sorare/core/src/components/user/Nickname';
 import { fantasy, glossary } from '@sorare/core/src/lib/glossary';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
-import defaultBanner from 'assets/club/banner_none.jpg';
+import defaultBanner from '@football/assets/club/banner_none.jpg';
 import ClubShield from '@football/components/user/ClubShield';
 
 import { Row_so5Ranking } from './__generated__/index.graphql';

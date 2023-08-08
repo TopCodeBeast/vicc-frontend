@@ -20,8 +20,8 @@ import { glossary } from '@sorare/core/src/lib/glossary';
 import { asObject } from '@sorare/core/src/lib/json';
 import { getCardRewards } from '@sorare/core/src/lib/rewards';
 
-import textureImage from 'assets/lobby/texture.png';
-import trophyImage from 'assets/lobby/trophy.png';
+import textureImage from '@football/assets/lobby/texture.png';
+import trophyImage from '@football/assets/lobby/trophy.png';
 import { lineupMessages } from '@football/lib/lineup/messages';
 
 import {

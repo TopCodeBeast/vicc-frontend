@@ -31,12 +31,12 @@ import MultiSportFooter from '@sorare/core/src/routing/MultiSportFooter';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import useFontFaceObserver from '@sorare/use-font-face-observer';
-import winRewardsCards from 'assets/landing/bundesliga/collect-cards.png';
-import winRewardsTickets from 'assets/landing/bundesliga/collect-tickets.png';
-import headerLogo from 'assets/landing/bundesliga/logo.svg';
-import metaImg from 'assets/landing/bundesliga/meta-img.jpg';
-import playersMobile from 'assets/landing/bundesliga/players-mobile.png';
-import players from 'assets/landing/bundesliga/players.png';
+import winRewardsCards from '@football/assets/landing/bundesliga/collect-cards.png';
+import winRewardsTickets from '@football/assets/landing/bundesliga/collect-tickets.png';
+import headerLogo from '@football/assets/landing/bundesliga/logo.svg';
+import metaImg from '@football/assets/landing/bundesliga/meta-img.jpg';
+import playersMobile from '@football/assets/landing/bundesliga/players-mobile.png';
+import players from '@football/assets/landing/bundesliga/players.png';
 
 import '@sorare/core/src/style/drukFontFaces.css';
 import '@sorare/core/src/style/romieFontFaces.css';

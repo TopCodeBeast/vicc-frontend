@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import useFontFaceObserver from '@sorare/use-font-face-observer';
 import Body from '@core/atoms/layout/Body';
 import LoadingIndicator from '@core/atoms/loader/LoadingIndicator';
-import 'style/romieFontFaces.css';
+import '@core/style/romieFontFaces.css';
 
 const Center = styled.div`
   display: flex;

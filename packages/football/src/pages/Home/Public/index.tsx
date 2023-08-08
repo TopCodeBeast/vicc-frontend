@@ -27,9 +27,9 @@ import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import useEvents from '@sorare/core/src/lib/events/useEvents';
 import { glossary } from '@sorare/core/src/lib/glossary';
 
-import cards from 'assets/home/rewards/cards.png';
-import coin from 'assets/home/rewards/coin.png';
-import eth from 'assets/home/rewards/eth.png';
+import cards from '@football/assets/home/rewards/cards.png';
+import coin from '@football/assets/home/rewards/coin.png';
+import eth from '@football/assets/home/rewards/eth.png';
 
 import Section from './Section';
 import Slider from './Slider';

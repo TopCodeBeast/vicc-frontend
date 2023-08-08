@@ -56,6 +56,7 @@ def updateImports(filePath):
         updated = updated.replace("from 'routing/", "from '@football/routing/")
         updated = updated.replace("from 'types/", "from '@football/types/")
         updated = updated.replace("() => import('pages/", "() => import('@football/pages/")
+        updated = updated.replace("() => import('modales/", "() => import('@football/modales/")
 
     if filePath.find("\\marketplace\\src\\") >= 0:
         updated = updated.replace("from 'components/", "from '@marketplace/components/")

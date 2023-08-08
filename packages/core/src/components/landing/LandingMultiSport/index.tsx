@@ -24,7 +24,7 @@ import { WinBlock } from '../CollectCards/WinBlock';
 import { OwnYourGame } from '../OwnYourGame';
 import { TrustedBy } from '../TrustedBy';
 
-import 'style/drukFontFaces.css';
+import '@core/style/drukFontFaces.css';
 
 const DarkBackground = styled.div`
   background-color: black;

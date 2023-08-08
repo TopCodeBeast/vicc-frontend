@@ -7,7 +7,7 @@ import { scarcityNames } from '@sorare/core/src/lib/cards';
 import { withFragments } from '@sorare/core/src/lib/gql';
 import { ScarcityType } from '@sorare/core/src/lib/scarcity';
 
-import arrow from 'assets/lobby/arrow.png';
+import arrow from '@football/assets/lobby/arrow.png';
 import Captain from '@football/components/so5/Captain';
 import { RuleHelperFnReturnType } from '@football/components/so5/Rules/types';
 import { getScoreModifiers } from '@football/lib/so5';

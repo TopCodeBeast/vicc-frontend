@@ -1,6 +1,6 @@
 import '@sorare/core/src/polyfills';
 
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 import { withProfiler } from '@sorare/core/src/contexts/sentry/sentry';
@@ -9,7 +9,7 @@ import { withFFProvider } from '@sorare/core/src/lib/featureFlags';
 import './remove-child-workaround';
 
 import '@sorare/core/src/style/style.css';
-import AppRouter from 'AppRouter';
+import AppRouter from './AppRouter';
 
 const Root = () => {
   const {
@@ -25,9 +25,7 @@ const Root = () => {
 
 const RootWithLDProvider = withProfiler(withFFProvider(Root));
 
-const container = document.getElementById('root');
-const root = createRoot(container!);
-root.render(<RootWithLDProvider />);
+ReactDOM.render(<RootWithLDProvider />, document.getElementById('root'));
 
 // unregister any service worker left-over (see https://gitlab.com/sorare/frontend/-/merge_requests/3852)
 if ('serviceWorker' in navigator) {

@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl';
 
 import { withFragments } from '@sorare/core/src/lib/gql';
 
-import coverage from 'assets/lobby/coverage.png';
+import coverage from '@football/assets/lobby/coverage.png';
 
 import { GetLeaguesRule } from './__generated__/getLeaguesRule.graphql';
 

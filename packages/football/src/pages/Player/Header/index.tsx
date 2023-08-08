@@ -12,7 +12,7 @@ import {
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 import { createVar } from '@sorare/core/src/style/utils';
 
-import placeholder from 'assets/players/placeholder.png';
+import placeholder from '@football/assets/players/placeholder.png';
 import Follower from '@football/components/favorites/Follower';
 import { InnerContainer, Root } from '@football/components/layout/header/ui';
 import Information from '@football/pages/Player/Information';

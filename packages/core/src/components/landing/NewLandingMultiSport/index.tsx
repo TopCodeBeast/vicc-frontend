@@ -17,7 +17,7 @@ import NewLoggedOutAppBar from '@core/routing/MultiSportAppBar/NewLoggedOutAppBa
 import AppBarProvider from '@core/routing/MultiSportAppBar/context/Provider';
 import MultiSportFooter from '@core/routing/MultiSportFooter';
 
-import 'style/drukFontFaces.css';
+import '@core/style/drukFontFaces.css';
 
 import { NewOtherSports } from '../NewOtherSports';
 import { Community } from './Community';

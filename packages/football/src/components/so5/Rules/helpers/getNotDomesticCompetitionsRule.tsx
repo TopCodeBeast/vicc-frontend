@@ -3,7 +3,7 @@ import { FormattedMessage, defineMessages } from 'react-intl';
 
 import { withFragments } from '@sorare/core/src/lib/gql';
 
-import restrictedLeagues from 'assets/lobby/restricted_leagues.png';
+import restrictedLeagues from '@football/assets/lobby/restricted_leagues.png';
 import { RuleHelperFnReturnType } from '@football/components/so5/Rules/types';
 
 import { GetNotDomesticCompetitionsRule } from './__generated__/getNotDomesticCompetitionsRule.graphql';

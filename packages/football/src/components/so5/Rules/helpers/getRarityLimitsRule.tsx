@@ -7,7 +7,7 @@ import { CamelCaseScarcity, scarcityNames } from '@sorare/core/src/lib/cards';
 import { withFragments } from '@sorare/core/src/lib/gql';
 import toSnakeCase from '@sorare/core/src/lib/toSnakeCase';
 
-import arrow from 'assets/lobby/arrow.png';
+import arrow from '@football/assets/lobby/arrow.png';
 import { RuleHelperFnReturnType } from '@football/components/so5/Rules/types';
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import {

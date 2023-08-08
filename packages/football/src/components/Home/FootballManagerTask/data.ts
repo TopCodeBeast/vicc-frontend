@@ -20,10 +20,10 @@ import {
   getComposeTeamRoute,
 } from '@sorare/core/src/constants/routes';
 
-import buyer from 'assets/home/tasks/buyer.png';
-import coach_2 from 'assets/home/tasks/coach-2.png';
-import coach from 'assets/home/tasks/coach.png';
-import scout from 'assets/home/tasks/scout.png';
+import buyer from '@football/assets/home/tasks/buyer.png';
+import coach_2 from '@football/assets/home/tasks/coach-2.png';
+import coach from '@football/assets/home/tasks/coach.png';
+import scout from '@football/assets/home/tasks/scout.png';
 
 import { FootballManagerTask_so5Leaderboard } from './__generated__/index.graphql';
 
