@@ -71,14 +71,15 @@ export const NotificationPreferences = () => {
 
   return (
     <Wrapper>
-      <TabBar value={sport} compact>
+      {/* Remove Sport Selection */}
+      {/* <TabBar value={sport} compact>
         {[Sport.FOOTBALL, Sport.NBA, Sport.BASEBALL].map(s => (
           <Tab key={s} value={s} onClick={() => setSport(s)}>
             <SportIcon sport={s} />
             <FormattedMessage {...sportsLabelsMessages[s]} />
           </Tab>
         ))}
-      </TabBar>
+      </TabBar> */}
       <FormSection title={title}>
         <DisabledEmailWarning />
         {filteredPreferences
