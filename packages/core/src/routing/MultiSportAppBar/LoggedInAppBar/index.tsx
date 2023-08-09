@@ -161,7 +161,7 @@ const StyledChevronDownBold = styled(ChevronDownBold)<{ $expanded: boolean }>`
 `;
 
 const GameSwitch = () => {
-  const { up: upLaptop } = useScreenSize('laptop');
+  /*const { up: upLaptop } = useScreenSize('laptop');
   const { sport } = useSportContext();
   const [expanded, setExpanded] = useState<boolean>(false);
 
@@ -198,7 +198,8 @@ const GameSwitch = () => {
         ))}
       </Dropdown>
     </Relative>
-  );
+  );*/
+  return <></>;
 };
 
 const Items = ({ items }: { items: Config[] }) => (

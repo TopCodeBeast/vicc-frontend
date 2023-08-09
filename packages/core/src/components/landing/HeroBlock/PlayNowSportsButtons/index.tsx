@@ -125,7 +125,9 @@ export const PlayNowSportsButtons = () => {
           {formatMessage(messages.cta)}
         </Button>
       </PlayNowButton>
-      <PlayNowButton
+
+      {/* TODO*** Remove other sports */}
+      {/* <PlayNowButton
         style={{
           backgroundImage: `url(${playNowNBA})`,
         }}
@@ -164,7 +166,7 @@ export const PlayNowSportsButtons = () => {
         <Button color="white" small>
           {formatMessage(messages.cta)}
         </Button>
-      </PlayNowButton>
+      </PlayNowButton> */}
     </Wrapper>
   );
 };
