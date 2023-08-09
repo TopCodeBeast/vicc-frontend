@@ -38,7 +38,7 @@ const instance = ({ withCredentials = true } = {}) =>
     baseURL: API_ROOT,
     xsrfCookieName,
     xsrfHeaderName,
-    withCredentials,
+    // withCredentials, //TODO*********Axios
     headers: {
       ...cloudflareAccessHeaders,
       'sorare-client': CLIENT_TYPE,
