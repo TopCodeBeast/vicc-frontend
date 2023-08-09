@@ -100,6 +100,7 @@ export const GraphqlProvider = ({
   const [seonSession, setSeonSession] = useState('');
   const { sendSafeError } = useSentryContext();
   const { sessionId, apiKey } = useSessionContext();
+  console.log(`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~apiKey`, apiKey)
   const { deviceFingerprint } = useDeviceFingerprintContext();
   const {
     flags: { useOfflineSupport = false },
