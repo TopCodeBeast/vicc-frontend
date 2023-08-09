@@ -77,7 +77,7 @@ export default () => {
       );
     }
 
-    doPrompt();
+    //doPrompt(); //TODO****It shows generate key draws
     return () => {};
   }, [
     currentUser?.email,

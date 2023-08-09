@@ -54,9 +54,10 @@ export const useCheckRedirectToOnboarding = () => {
 
     if (onWhitelistedRoutes) return;
 
-    if (currentUser && onboardingNotCompleted) {
-      navigate(FOOTBALL_ONBOARDING + location.search, { replace: true });
-    }
+    //TODO**** infinite loop
+    // if (currentUser && onboardingNotCompleted) {
+    //   navigate(FOOTBALL_ONBOARDING + location.search, { replace: true });
+    // }
   }, [
     onboardingNotCompleted,
     navigate,
