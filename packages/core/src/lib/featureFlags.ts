@@ -17,7 +17,7 @@ export const withFFProvider = (
 
 export const useUseCustomLists = () => {
   const {
-    flags: { useCustomLists = false },
+    flags: { useCustomLists = true },
   } = useFeatureFlags();
   return useCustomLists;
 };
