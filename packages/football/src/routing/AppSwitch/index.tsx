@@ -137,7 +137,7 @@ import MyClubLayout from './MyClubLayout';
 
 const draftImport = importFactory(async () => import('@football/pages/Draft'));
 const ComposeTeam = lazy(async () => import('@football/pages/ComposeTeam'));
-const ComposeTeamDraft = lazy(async () => import('@football/pages/ComposeTeam/Draft'));
+// const ComposeTeamDraft = lazy(async () => import('@football/pages/ComposeTeam/Draft'));
 const Draft = lazy(draftImport);
 const LobbyCompetitionDetails = lazy(
   async () => import('@football/pages/Lobby/CompetitionDetails/index')
@@ -148,31 +148,31 @@ const LobbyPast = lazy(async () => import('@football/pages/Lobby/Past/index'));
 const Swap = lazy(async () => import('@football/pages/Lobby/Upcoming/Swap'));
 const LobbyPrizePool = lazy(async () => import('@football/pages/Lobby/PrizePool/index'));
 const UserGroups = lazy(async () => import('@football/pages/userGroups/list/index'));
-const PrivateUserGroups = lazy(async () => import('@football/pages/userGroups/private'));
-const PublicUserGroups = lazy(async () => import('@football/pages/userGroups/public'));
-const PublicUserGroupOverview = lazy(
-  async () => import('@football/pages/userGroups/public/overview')
-);
+// const PrivateUserGroups = lazy(async () => import('@football/pages/userGroups/private'));
+// const PublicUserGroups = lazy(async () => import('@football/pages/userGroups/public'));
+// const PublicUserGroupOverview = lazy(
+//   async () => import('@football/pages/userGroups/public/overview')
+// );
 const PrivateUserGroupOverview = lazy(
   async () => import('@football/pages/userGroups/private/overview')
 );
-const Live = lazy(async () => import('@football/pages/live'));
-const LiveGame = lazy(async () => import('@football/pages/live/game'));
-const Market = lazy(async () => import('@football/pages/market'));
-const MyClub = lazy(async () => import('@football/pages/my-club'));
-const MyClubHonors = lazy(async () => import('@football/pages/my-club/honors'));
+// const Live = lazy(async () => import('@football/pages/live'));
+// const LiveGame = lazy(async () => import('@football/pages/live/game'));
+// const Market = lazy(async () => import('@football/pages/market'));
+// const MyClub = lazy(async () => import('@football/pages/my-club'));
+// const MyClubHonors = lazy(async () => import('@football/pages/my-club/honors'));
 
-const StarterBundlesPage = lazy(
-  async () => import('@football/pages/Lobby/StarterBundles')
-);
-const Play = lazy(async () => import('@football/pages/play/index'));
-const PlayPrivateLeagues = lazy(
-  async () => import('@football/pages/play/private-leagues')
-);
-const PlayWeekly = lazy(async () => import('@football/pages/play/weekly'));
+// const StarterBundlesPage = lazy(
+//   async () => import('@football/pages/Lobby/StarterBundles')
+// );
+// const Play = lazy(async () => import('@football/pages/play/index'));
+// const PlayPrivateLeagues = lazy(
+//   async () => import('@football/pages/play/private-leagues')
+// );
+// const PlayWeekly = lazy(async () => import('@football/pages/play/weekly'));
 
-const League = lazy(async () => import('@football/pages/League'));
-const Club = lazy(async () => import('@football/pages/Club'));
+// const League = lazy(async () => import('@football/pages/League'));
+// const Club = lazy(async () => import('@football/pages/Club'));
 const FOOTBALL_LOBBY_UPCOMING = goToLobby('upcoming');
 
 const WithDialog = ({
@@ -276,7 +276,7 @@ export const AppSwitch = () => {
             path={relativePath(FOOTBALL_VIDEOS)}
             element={<ManagerHomeVideos />}
           />
-          <Route
+          {/* <Route
             path={relativePath(FOOTBALL_LOBBY_STARTER_BUNDLES)}
             element={
               <WithDialog
@@ -284,7 +284,7 @@ export const AppSwitch = () => {
                 defaultBackUrl={FOOTBALL_LOBBY_UPCOMING}
               />
             }
-          />
+          /> */}
           <Route
             path={relativePath(FOOTBALL_LOBBY_UPCOMING_SWAP)}
             element={
@@ -415,12 +415,12 @@ export const AppSwitch = () => {
             />
           </>
         )}
-        {isReorgApp && (
+        {/* {isReorgApp && (
           <Route
             path={catchAll(relativePath(FOOTBALL_MARKET))}
             element={<Market />}
           />
-        )}
+        )} */}
         <Route
           path={relativePath(FOOTBALL_TRANSFER_MARKET_STACK_SHOW)}
           element={<TransferMarketStack />}
@@ -438,14 +438,14 @@ export const AppSwitch = () => {
           path={relativePath(FOOTBALL_COUNTRY_SHOW)}
           element={<Country />}
         />
-        <Route
+        {/* <Route
           path={relativePath(FOOTBALL_CLUB_SHOW_WILDCARD)}
           element={<Club />}
         />
         <Route
           path={relativePath(FOOTBALL_LEAGUE_SHOW_WILDCARD)}
           element={<League />}
-        />
+        /> */}
         <Route path={relativePath(REWARDS)} element={<Rewards />} />
         <Route
           path={relativePath(FOOTBALL_USER_GALLERY_WILDCARD)}
@@ -467,7 +467,7 @@ export const AppSwitch = () => {
           <Route path="*" element={<Landing />} />
         )}
       <Route element={<FootballLayout isPrivate />}>
-        {isReorgApp && (
+        {/* {isReorgApp && (
           <>
             <Route
               path={catchAll(relativePath(FOOTBALL_LIVE))}
@@ -497,7 +497,7 @@ export const AppSwitch = () => {
               element={<LiveGame />}
             />
           </>
-        )}
+        )} */}
 
         <Route
           path={relativePath(FOOTBALL_LOBBY_UPCOMING_WILDCARD)}
@@ -548,7 +548,7 @@ export const AppSwitch = () => {
         ))}
       </Route>
 
-      {enableLongFormatCompetition && (
+      {/* {enableLongFormatCompetition && (
         <>
           <Route
             path={relativePath(FOOTBALL_PRIVATE_LEAGUES_PUBLIC)}
@@ -566,7 +566,7 @@ export const AppSwitch = () => {
             element={<PublicUserGroupOverview />}
           />
         </>
-      )}
+      )} */}
       <Route
         path={relativePath(FOOTBALL_PRIVATE_LEAGUES_DETAILS)}
         key={relativePath(FOOTBALL_PRIVATE_LEAGUES_DETAILS)}
@@ -598,10 +598,10 @@ export const AppSwitch = () => {
         element={<Navigate to={goToLobby('upcoming')} replace />}
       />
       <Route path={relativePath(FOOTBALL_DRAFT)} element={<Draft />} />
-      <Route
+      {/* <Route
         path={relativePath(FOOTBALL_COMPOSE_TEAM_DRAFT)}
         element={<ComposeTeamDraft />}
-      />
+      /> */}
       <Route
         path={relativePath(FOOTBALL_LINEUP_SHARING)}
         element={<LineupSharing />}

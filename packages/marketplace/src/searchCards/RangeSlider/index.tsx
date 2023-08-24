@@ -74,8 +74,8 @@ const PriceRangeSlider = () => {
   const { currency, fiatCurrency } = useCurrentUserContext();
   const { convertToWei } = useCurrencyConverters();
 
-  let maxForced;
-  if (currency === Currency.FIAT) {
+  let maxForced = 1000; //TODO*****
+  /*if (currency === Currency.FIAT) {
     maxForced = convertToWei(
       REFINE_PRICE_MAX_FIAT.toString(),
       fiatCurrency.code
@@ -86,7 +86,7 @@ const PriceRangeSlider = () => {
     maxForced = new Big(toWei(REFINE_PRICE_MAX_ETH.toString()))
       .dividedBy(algoliaWeiFactor)
       .toNumber();
-  }
+  }*/
 
   return (
     <RangeSlider
