@@ -54,6 +54,7 @@ export const useToggleHideBalance = () => {
     UPDATE_USER_SETTINGS_HIDE_BALANCE_MUTATION,
     {
       optimisticResponse: {
+        __typename: 'Mutation',
         updateUserSettings: {
           __typename: 'updateUserSettingsPayload',
           userSettings: {

@@ -51,6 +51,7 @@ const useUpdateCurrency = () => {
           },
         },
         optimisticResponse: {
+          __typename: 'Mutation',
           updateUserSettings: {
             __typename: 'updateUserSettingsPayload',
             userSettings: {
