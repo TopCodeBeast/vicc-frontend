@@ -25,8 +25,7 @@ export const retryLink = (
         showNotification('errors', { errors: [networkError.message] });
       }
       if ('statusCode' in networkError && networkError.statusCode === 503) {
-        const { start, end, msg } = (networkError as ServerError).result
-          .maintenance;
+        const { start, end, msg } = ((networkError as ServerError).result as any).maintenance; //TODO
 
         if (msg) {
           showNotification('serviceUnderMaintenance', {

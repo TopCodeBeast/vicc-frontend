@@ -60,7 +60,7 @@ export const CollectionSlots = ({ cardCollection, slots, readOnly }: Props) => {
             />
           );
         }
-        if (isType(slot, 'CardCollectionSlot')) {
+        /*if (isType(slot, 'CardCollectionSlot')) {
           return (
             <EmptySlot
               slot={slot}
@@ -69,7 +69,7 @@ export const CollectionSlots = ({ cardCollection, slots, readOnly }: Props) => {
               readOnly={readOnly}
             />
           );
-        }
+        }*/
 
         return null;
       })}

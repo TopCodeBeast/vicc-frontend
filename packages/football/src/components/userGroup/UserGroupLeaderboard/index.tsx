@@ -36,7 +36,7 @@ const UserGroupLeaderboard = ({ myMembership, memberships }: Props) => {
     <div>
       <LeaderboardHeader />
       <BaseLeaderboard
-        Row={Row}
+        Row={Row as any}
         onRowClick={manager => {
           const liveRankingId = manager?.liveSo5Ranking?.id;
           if (liveRankingId) {

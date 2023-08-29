@@ -111,8 +111,8 @@ const PlayerBlock = ({
         <Player>
           {isRepresented ? (
             <RepresentedPlayerAvatar
-              player={player}
-              representativePlayer={representativePlayer}
+              player={player as any}
+              representativePlayer={representativePlayer as any}
             />
           ) : (
             <Avatar player={player} />

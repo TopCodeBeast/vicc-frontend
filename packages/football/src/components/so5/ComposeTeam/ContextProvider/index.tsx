@@ -183,7 +183,7 @@ const ContextProvider = ({
   const isComplete = useCallback(
     (l = lineup) =>
       Object.values(l)
-        .map(a => a.card)
+        .map((a: any) => a.card)
         .filter(Boolean).length === 5,
     [lineup]
   );
@@ -313,7 +313,7 @@ const ContextProvider = ({
     } else {
       const { handledErrors } = result;
       if (handledErrors?.length) {
-        setErrors(handledErrors);
+        // setErrors(handledErrors); //TODO
       }
     }
   };
@@ -593,9 +593,9 @@ ContextProvider.fragments = {
           ...ComposeOnboarding_competition
         }
       }
-      ...Rules_so5Leaderboard
+      #...Rules_so5Leaderboard
     }
-    ${Rules.fragments.so5Leaderboard}
+    #{Rules.fragments.so5Leaderboard}
     ${ComposeOnboarding.fragments.competition}
   ` as TypedDocumentNode<ContextProvider_so5Leaderboard>,
   so5Lineup: gql`

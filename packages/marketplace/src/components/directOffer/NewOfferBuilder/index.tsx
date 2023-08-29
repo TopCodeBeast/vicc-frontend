@@ -202,7 +202,7 @@ export const NewOfferBuilder = ({
 
   const Component = stageComponents[stage];
 
-  return (
+  /*return (
     <Component
       counterOfferId={counterOfferId}
       counterOfferSport={counterOfferSport}
@@ -213,7 +213,8 @@ export const NewOfferBuilder = ({
       currentUser={currentUser}
       lockReceiveEthInput={lockReceiveEthInput}
     />
-  );
+  );*/
+  return <>Component5</>
 };
 
 NewOfferBuilder.fragments = {

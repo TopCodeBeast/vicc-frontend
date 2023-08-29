@@ -41,7 +41,7 @@ const getCompetitionsRule = withFragments(
       title: messages.title,
       icon: <img src={coverage} alt="" width={28} height={28} />,
       label: rule.map(({ displayName }) => displayName).join(', '),
-    };
+    } as any; //TODO
   },
   {
     rule: gql`

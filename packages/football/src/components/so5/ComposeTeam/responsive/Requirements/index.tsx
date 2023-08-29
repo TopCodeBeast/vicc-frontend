@@ -106,9 +106,9 @@ Title.fragments = {
   so5Leaderboard: gql`
     fragment ComposeLineupTitle_so5Leaderboard on So5Leaderboard {
       slug
-      ...Rules_so5Leaderboard
+      #...Rules_so5Leaderboard
     }
-    ${Rules.fragments.so5Leaderboard}
+    #{Rules.fragments.so5Leaderboard}
   ` as TypedDocumentNode<ComposeLineupTitle_so5Leaderboard>,
 };
 

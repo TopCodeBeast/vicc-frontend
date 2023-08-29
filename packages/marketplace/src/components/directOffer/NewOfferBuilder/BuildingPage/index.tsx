@@ -170,7 +170,7 @@ const BuildingPage = <
   sender,
   receiver,
   lockReceiveEthInput,
-}: Props<DATA, QUERY_RESULT>) => {
+}: any /*Props<DATA, QUERY_RESULT>*/) => {
   const {
     flags: { useCashWallet = false },
   } = useFeatureFlags();
@@ -494,7 +494,7 @@ const BuildingPage = <
                 )
               }
             >
-              <AmountInput state={state} dispatch={dispatch} />
+              {/* <AmountInput state={state} dispatch={dispatch} />
               {useCashWallet && (
                 <TradePaymentMethods
                   state={state}
@@ -502,7 +502,7 @@ const BuildingPage = <
                   onClose={onClose}
                   to={to}
                 />
-              )}
+              )} */}
             </OfferSide>
             <OfferSide
               cards={receiveCards}
@@ -524,7 +524,7 @@ const BuildingPage = <
             </OfferSide>
           </Row>
           <Row>
-            <InputDuration state={state} dispatch={dispatch} to={to} />
+            {/* <InputDuration state={state} dispatch={dispatch} to={to} /> */}
           </Row>
           <ActionWrapper>{renderCta()}</ActionWrapper>
         </Container>

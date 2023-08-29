@@ -1,2 +1,5 @@
 export type EventsType = any;
-export type WithOptionalCommonProperties = any;
+
+export interface WithOptionalCommonProperties<T> {
+
+};

@@ -116,12 +116,13 @@ export default <TData = any, TVariables = OperationVariables>(
         } catch ({ graphQLErrors, networkError }: any) {
           // networkError is NOT an array
           if (networkError) {
-            errors.push(networkError);
-            handleErrors([networkError], true);
+            // TODO
+            // errors.push(networkError);
+            // handleErrors([networkError], true);
           }
           if (graphQLErrors) {
-            errors.push(...graphQLErrors);
-            handleErrors(graphQLErrors);
+            // errors.push(...graphQLErrors);
+            // handleErrors(graphQLErrors);
           }
           if (
             !graphQLErrors &&

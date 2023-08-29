@@ -56,7 +56,7 @@ const getCardBonusRule = withFragments(
             </Icon>
           </IconWrapper>
         ) : null,
-      },
+      } as any, //TODO
     ];
   },
   {

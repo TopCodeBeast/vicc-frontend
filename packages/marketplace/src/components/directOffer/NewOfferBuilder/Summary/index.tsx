@@ -70,7 +70,7 @@ export const Summary = <D extends BaseType>({
   state,
   sender,
   receiver,
-}: Props<D>) => {
+}: any) => {
   const [needsCreateFiatWallet, setNeedsCreateFiatWallet] = useState(false);
   const { canListAndTrade } = useFiatBalance();
   const {
@@ -157,12 +157,12 @@ export const Summary = <D extends BaseType>({
           }
           footer={
             <FooterWrapper>
-              {ConsentMessage && (
+              {/* {ConsentMessage && (
                 <ConsentMessage
                   value={consentAgreed}
                   onChange={setConsentAgreed}
                 />
-              )}
+              )} */}
               <ButtonsBar>
                 <CancelCta
                   color="white"

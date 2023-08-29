@@ -94,7 +94,7 @@ export const CardResultsFromGraphQL = ({
   const { currentRefinement: page, nbPages, refine: setPage } = usePagination();
   const index = results?.index;
 
-  const sortByPrice = useSortByPrice<Token | Item>();
+  const sortByPrice = useSortByPrice<Token | Item | any>();
 
   const [sortedItems, setSortedItems] = useState<Item[] | null>(null);
   const [previousCards, setPreviousCards] = useState<Item[] | undefined>([]);

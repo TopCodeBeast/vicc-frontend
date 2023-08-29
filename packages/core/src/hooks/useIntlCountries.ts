@@ -14,7 +14,7 @@ export const useIntlCountries = () => {
           value: entry[0],
           label:
             entry[1]?.[locale.slice(0, 2) as keyof (typeof entry)[1]] ||
-            entry[1].en,
+            (entry[1] as any).en,
         }))
       ),
     [locale]

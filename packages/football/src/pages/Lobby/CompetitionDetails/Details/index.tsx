@@ -58,7 +58,7 @@ const COMPETITION_DETAILS_DEFAULT_TAB_QUERY = gql`
             ...PrizePoolOverview_leaderboardRewardsConfig
           }
           ...EngineConfiguration_so5Leaderboard
-          ...CompetitionRules_so5Leaderboard
+          #...CompetitionRules_so5Leaderboard
         }
       }
     }
@@ -66,7 +66,7 @@ const COMPETITION_DETAILS_DEFAULT_TAB_QUERY = gql`
   ${EngineConfiguration.fragments.so5Leaderboard}
   ${PrizePoolOverview.fragments.leaderboardRewardsConfig}
   ${PrizePoolOverview.fragments.rewardsOverview}
-  ${CompetitionRules.fragments.so5Leaderboard}
+  #{CompetitionRules.fragments.so5Leaderboard}
   ${MissingCardsMessage.fragments.validity}
 ` as TypedDocumentNode<
   CompetitionDetailsDefaultTabQuery,

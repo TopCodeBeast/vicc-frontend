@@ -247,7 +247,7 @@ export const isPremierLeague = (league: { name: string }) =>
 
 export const hasBonuses = withFragments(
   (leaderboard: hasBonuses_so5Leaderboard) =>
-    Object.keys(asObject(leaderboard.engineConfiguration || {})).filter(
+    Object.keys(asObject((leaderboard as any).engineConfiguration || {})).filter(
       bonus => bonus !== 'captain'
     ).length > 0,
   {

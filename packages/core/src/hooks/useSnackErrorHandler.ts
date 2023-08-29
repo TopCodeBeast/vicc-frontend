@@ -22,7 +22,7 @@ const useSnackErrorHandler = () => {
         return { error };
       }
 
-      return { result };
+      return { result } as any;
     };
   }
 

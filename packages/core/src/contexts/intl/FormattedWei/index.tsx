@@ -5,18 +5,18 @@ import { RoundingMode } from '@core/lib/wei';
 
 import { useIntlContext } from '..';
 
-interface Props extends FormatNumberOptions {
+/*interface Props extends FormatNumberOptions {
   value: string;
   roundingMode?: RoundingMode;
   context: string;
-}
+}*/
 
 export const FormattedWei = ({
   value,
   roundingMode,
   context,
   ...rest
-}: Props) => {
+}: any) => {
   const { formatWei } = useIntlContext();
 
   const { sendSafeError } = useSentryContext();

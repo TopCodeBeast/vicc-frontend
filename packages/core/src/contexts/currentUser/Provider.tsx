@@ -257,7 +257,7 @@ export const CurrentUserProvider = ({ children }: Props) => {
         currentUser,
         currency,
         fiatCurrency,
-        fiatWalletAccountable,
+        fiatWalletAccountable: fiatWalletAccountable as any, //TODO
         displayEth,
         refetch,
         signIn,
