@@ -172,7 +172,8 @@ const So5TransferValidator = ({ slugs, children, transferContext }: Props) => {
       };
     }, {}) || {};
 
-  const ConsentMessage = useCallback<
+  //TODO
+  const ConsentMessage = undefined;/*useCallback<
     NonNullable<TokenTransferChildrenProps['ConsentMessage']>
   >(
     props => {
@@ -187,7 +188,7 @@ const So5TransferValidator = ({ slugs, children, transferContext }: Props) => {
       );
     },
     [cards, transferContext]
-  );
+  );*/
 
   return (
     <>

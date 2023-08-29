@@ -156,9 +156,9 @@ const ConfirmationDialogContent = ({
         )}
         {validationMessages}
       </DetailsWrapper>
-      {ConsentMessage && (
+      {/* {ConsentMessage && (
         <ConsentMessage value={consentAgreed} onChange={setConsentAgreed} />
-      )}
+      )} */}
       <Actions>
         <Button medium onClick={onClose} color="white" disabled={submitting}>
           <FormattedMessage {...glossary.cancel} />

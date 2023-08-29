@@ -46,7 +46,7 @@ export const Offer = ({ payment }: Props) => {
     <AccountEntry
       payment={payment}
       title={formatMessage(data.title, {
-        otherParty: data.otherParty && <Nickname user={data.otherParty} />,
+        otherParty: data.otherParty && <Nickname user={data.otherParty as any} />,
       })}
     >
       <TransactionsOffer tokenOffer={tokenOperation} />

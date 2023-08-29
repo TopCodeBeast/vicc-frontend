@@ -52,11 +52,11 @@ const getPlayerSlugsFromEmptySlots = (
     | CollectionSlots_cardCollectionSlot[]
 ) => {
   const result: string[] = [];
-  slots.forEach(slot => {
+  slots.forEach((slot: any) => {
     if (isType(slot, 'CardCollectionSlot')) {
       result.push(slot.player.slug);
-    } else if (slot.cardCollectionCardsCount === 0) {
-      result.push(slot.slot.player.slug);
+    } else if ((slot as any).cardCollectionCardsCount === 0) {
+      result.push((slot as any).slot.player.slug);
     }
   });
   return result;

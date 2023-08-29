@@ -37,6 +37,7 @@ export interface Props {
   };
   initialIndexUIState?: ExtendedIndexUIState;
   togglePrimary?: boolean;
+  editableLists?: boolean;
 }
 
 export type CardResultsProps = {
@@ -48,4 +49,5 @@ export type CardResultsProps = {
   hideSorareUser: boolean;
   stackable: any;
   showDesktopFilter: boolean;
+  editableLists?: boolean;
 };

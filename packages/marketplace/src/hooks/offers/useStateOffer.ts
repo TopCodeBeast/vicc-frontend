@@ -24,7 +24,7 @@ export const useStateOffer = <T extends CardDataType>({
       return zeroMonetaryAmount;
     }
     return receiveCards.reduce((prev: MonetaryAmountOutput, curr) => {
-      const card = cardsData[curr.objectID];
+      const card: any = cardsData[curr.objectID];
       if (!card?.publicMinPrices) return prev;
 
       const monetaryAmount = toMonetaryAmount(card.publicMinPrices);
@@ -37,7 +37,7 @@ export const useStateOffer = <T extends CardDataType>({
       return zeroMonetaryAmount;
     }
     return sendCards.reduce((prev: MonetaryAmountOutput, curr) => {
-      const card = cardsData[curr.objectID];
+      const card: any = cardsData[curr.objectID];
       if (!card?.publicMinPrices) return prev;
 
       const monetaryAmount = toMonetaryAmount(card.publicMinPrices);

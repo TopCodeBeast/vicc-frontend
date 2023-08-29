@@ -21,7 +21,7 @@ export const refreshCardData = <T extends CardDataType>(
   newCardData: CardData<T>
 ): RefreshCardData<T> => ({
   type: 'refreshCardData',
-  cardData: newCardData,
+  cardData: newCardData as any, //TODO
 });
 
 export const setDuration = (duration: number): SetDuration => ({

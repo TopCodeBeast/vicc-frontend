@@ -122,7 +122,7 @@ const BidPaymentModal = ({ auction, tokens, onSuccess, onClose }: Props) => {
       conversionCreditId?: string;
     }) => {
       const monetaryAmountIndex = getMonetaryAmountIndex(supportedCurrency);
-      const newBid = await bidWithWallet({
+      const newBid: any = await bidWithWallet({
         supportedCurrency,
         bidAmountWei: monetaryAmount.wei,
         amount:

@@ -78,11 +78,12 @@ const TokenWithdrawal = ({ token }: Props) => {
     )
       return null;
     if (
-      !isUserOwner<TokenWithdrawal_token_owner_account_owner_User>(token.owner)
+      !isUserOwner<TokenWithdrawal_token_owner_account_owner_User>(token.owner as any)
     )
       return null;
 
-    if (token.owner.account.owner.slug !== currentUser?.slug) return null;
+    //TODO
+    if ((token.owner.account.owner as any).slug !== currentUser?.slug) return null;
 
     return (
       <div>

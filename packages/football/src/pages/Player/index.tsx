@@ -91,7 +91,7 @@ const PlayerPage = () => {
   if (!selectedPosition) setPosition(player.position);
 
   return (
-    <PageContextProvider value={{ object: player }}>
+    <PageContextProvider value={{ object: player as any }}>
       <PlayerPageContent
         player={player}
         selectedPosition={selectedPosition}
