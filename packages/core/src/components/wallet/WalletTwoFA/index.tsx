@@ -40,6 +40,7 @@ export const Wallet2FA = () => {
       return null;
     }).catch(() => {
       abort = true;
+      return null;
     });
     if (abort) {
       return {

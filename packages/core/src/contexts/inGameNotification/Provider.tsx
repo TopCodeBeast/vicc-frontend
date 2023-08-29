@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import Favico from 'favico.js';
+// import Favico from 'favico.js';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { NotificationCategoryInput, Sport } from '__generated__/globalTypes';
@@ -63,7 +63,7 @@ export const InGameNotificationProvider: FC<
   }
 
   const favicons = useMemo(() => {
-    const faviconList: any[] = [];
+    /*const faviconList: any[] = [];
     document
       .querySelectorAll('link[rel=icon], link[rel="shortcut icon"]')
       .forEach(element => {
@@ -75,7 +75,8 @@ export const InGameNotificationProvider: FC<
           })
         );
       });
-    return faviconList;
+    return faviconList;*/
+    return [];//TODO
   }, []);
 
   if (globalUnreadNotificationsCount > lastGlobalUnreadNotificationsCount) {

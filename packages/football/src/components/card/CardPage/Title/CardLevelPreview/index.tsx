@@ -57,7 +57,7 @@ type Props = {
 const CardLevelPreview = ({ card }: Props) => {
   const { formatNumber } = useIntl();
   const { xpNeededForNextGrade } = card;
-  const { grade, xp, size, nextlevelXP } = useCardLevelSprings(card);
+  const { grade, xp, size, nextlevelXP } = useCardLevelSprings(card as any); //TODO
 
   const leveling = size.get() === '100%';
 

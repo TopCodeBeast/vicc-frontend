@@ -45,7 +45,7 @@ export function getErrorFrom(errors: Errors, id: string) {
   );
 }
 
-export const formatRules = withFragments(
+/*export const formatRules = withFragments(
   (so5Leaderboard: Rules_so5Leaderboard, errors: Errors, intl: IntlShape) => {
     const { displayedRules, engineConfiguration } = so5Leaderboard || {};
     if (!displayedRules) {
@@ -177,3 +177,4 @@ export const formatRules = withFragments(
     ` as TypedDocumentNode<formatRules_so5Leaderboard>,
   }
 );
+*/

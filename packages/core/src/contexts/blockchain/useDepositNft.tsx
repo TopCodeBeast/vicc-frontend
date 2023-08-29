@@ -101,7 +101,7 @@ export const useDepositNft = () => {
 
         const result = await deposit(accountData, contractAddress, assetId);
         return result;
-      } catch (err) {
+      } catch (err: any) {
         if (err.code === userRejectedRequestErrorCode) {
           setLoading(false);
           return { err: undefined };

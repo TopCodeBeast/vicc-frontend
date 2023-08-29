@@ -52,7 +52,7 @@ export const useRegisterMangopayCard = () => {
         return {
           cardId: CardId,
         };
-      } catch (e) {
+      } catch (e: any) {
         if (
           e.ResultCode &&
           Object.keys(mangopayErrors).includes(e.ResultCode)

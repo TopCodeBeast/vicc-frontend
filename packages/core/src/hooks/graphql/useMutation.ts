@@ -113,7 +113,7 @@ export default <TData = any, TVariables = OperationVariables>(
             errors.push(...mutationData.errors);
             handleErrors(mutationData.errors);
           }
-        } catch ({ graphQLErrors, networkError }) {
+        } catch ({ graphQLErrors, networkError }: any) {
           // networkError is NOT an array
           if (networkError) {
             errors.push(networkError);

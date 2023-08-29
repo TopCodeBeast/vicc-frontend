@@ -101,7 +101,7 @@ export const useDepositEth = (accountData: AccountData | null) => {
         setLoading(false);
 
         return { result };
-      } catch (err) {
+      } catch (err: any) {
         setLoading(false);
 
         if (browserWallet === Wallet.TRUST) {

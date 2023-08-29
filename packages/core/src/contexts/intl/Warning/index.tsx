@@ -67,7 +67,7 @@ export const Warning = (props: Props) => {
       )}
       {message && (
         <Message variant={variant}>
-          <FormattedMessage {...message} values={values} />
+          <FormattedMessage {...message} values={values as any} />
         </Message>
       )}
       {children}

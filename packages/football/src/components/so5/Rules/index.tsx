@@ -13,7 +13,7 @@ import { Errors } from '@football/components/so5/ComposeTeam/Context';
 import { ELIGIBILITY_RULES } from '@football/lib/so5';
 
 import { Rules_so5Leaderboard } from './__generated__/index.graphql';
-import { formatRules } from './formatRules';
+// import { formatRules } from './formatRules';
 import { FormatRule } from './types';
 
 type Rules_so5Leaderboard_displayedRules = NonNullable<
@@ -78,7 +78,7 @@ export const Rules = ({
   errors = [],
   Line = ({ content, rule, ...props }) => <Text16 {...props}>{content}</Text16>,
 }: Props) => {
-  const intl = useIntl();
+  /*const intl = useIntl();
   const formattedRules = formatRules(so5Leaderboard, errors, intl);
   if (!formattedRules.length) return null;
 
@@ -120,10 +120,11 @@ export const Rules = ({
           return null;
         })}
     </>
-  );
+  );*/
+  return <>Rules5</>;
 };
 
-Rules.fragments = {
+/*Rules.fragments = {
   so5Leaderboard: gql`
     fragment Rules_so5Leaderboard on So5Leaderboard {
       slug
@@ -131,6 +132,6 @@ Rules.fragments = {
     }
     ${formatRules.fragments.so5Leaderboard}
   ` as TypedDocumentNode<Rules_so5Leaderboard>,
-};
+};*/
 
 export default Rules;

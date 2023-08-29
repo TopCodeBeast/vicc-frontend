@@ -150,7 +150,7 @@ export default () => {
             return { error: errors.map(e => e.message).join(', ') };
           if (!currentUser) return { error: 'Unexpected' };
 
-          return onSignedIn(currentUser, passwordHash);
+          return onSignedIn(currentUser as any, passwordHash);
         } catch (error: any) {
           if (error === 'has_accepted_tcus_after_2FA') return {};
           if (error.networkError?.statusCode === RATE_LIMIT_STATUS_CODE)

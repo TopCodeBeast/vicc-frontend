@@ -50,7 +50,7 @@ type Props = {
 };
 
 export const FootballClubs = ({ clubs }: Props) => {
-  const [searchValue, setSearchValue] = useState('');
+  /*const [searchValue, setSearchValue] = useState('');
 
   const { formatMessage } = useIntl();
 
@@ -124,7 +124,10 @@ export const FootballClubs = ({ clubs }: Props) => {
         );
       })}
     </>
-  );
+  );*/
+
+  //TODO
+  return <>FootballClubs5</>;
 };
 
 FootballClubs.fragments = {
