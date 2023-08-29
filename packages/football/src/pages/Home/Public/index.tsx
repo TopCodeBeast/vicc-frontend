@@ -333,7 +333,7 @@ const FootballPublicHome = () => {
               <>
                 <List>
                   {onboardingCommonDraftCampaigns.map(
-                    ({ competitions, displayName, upcomingSo5Leaderboard }) => {
+                    ({ competitions, displayName, upcomingSo5Leaderboard }: any) => {
                       const competition = competitions[0];
                       if (!competition) {
                         return null;

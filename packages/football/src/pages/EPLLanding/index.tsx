@@ -309,12 +309,12 @@ const EPLLanding = ({ short }: { short?: boolean }) => {
                 poster={poster}
               />
               <CollectBlock
-                title={formatMessage(messages.collectBlockTitle, {
+                title={`formatMessage(messages.collectBlockTitle, {
                   span: (chunks: ReactNode[]) => {
                     return <span>{chunks}</span>;
                   },
                   br: <br />,
-                })}
+                })`}//TODO
                 subtitle={formatMessage(messages.collectBlockSubtitle)}
                 cards={collectblockCards}
                 background={thunderboltCollect}

@@ -76,7 +76,7 @@
     "react-google-recaptcha-v3": "^1.10.1",
     "react-helmet": "^6.1.0",
     "react-instantsearch-hooks-web": "^6.44.3",
-    "react-intl": "^4.5.0",
+    "react-intl": "^6.4.4",
     "react-markdown": "^8.0.7",
     "react-page-visibility": "^7.0.0",
     "react-redux": "^8.1.0",

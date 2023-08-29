@@ -51,16 +51,16 @@ const ActivityIcon = styled.div<{ $active: boolean }>`
   border-radius: var(--radius);
 `;
 
-const messages = defineMessage({
-  online: {
-    id: 'User.Header.online',
-    defaultMessage: 'Online',
-  },
-  offline: {
-    id: 'User.Header.offline',
-    defaultMessage: 'Offline',
-  },
-});
+// const messages = defineMessage({
+//   online: {
+//     id: 'User.Header.online',
+//     defaultMessage: 'Online',
+//   },
+//   offline: {
+//     id: 'User.Header.offline',
+//     defaultMessage: 'Offline',
+//   },
+// });
 
 type Props = {
   user: ActivityIndicator_user;
@@ -90,7 +90,7 @@ export const ActivityIndicator = ({
           <>
             {user.profile.status}
             {user.profile.status && ' ('}
-            {formatMessage(active ? messages.online : messages.offline)}
+            {active ? 'Online' : 'Offline'}
             {user.profile.status && ')'}
           </>
         }

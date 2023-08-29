@@ -163,12 +163,12 @@ export const AcceptOfferDialog = ({
               offer={offer}
               validationMessages={validationMessages}
             />
-            {ConsentMessage && (
+            {/* {ConsentMessage && (
               <ConsentMessage
                 value={consentAgreed}
                 onChange={setConsentAgreed}
               />
-            )}
+            )} */}
           </>
         ) : (
           <Text16>

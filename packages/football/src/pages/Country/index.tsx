@@ -79,7 +79,7 @@ export const Country = () => {
   const { country } = data;
 
   return (
-    <PageContextProvider value={{ object: country }}>
+    <PageContextProvider value={{ object: country as any }}>
       <Body>
         <Wrapper>
           <Header>

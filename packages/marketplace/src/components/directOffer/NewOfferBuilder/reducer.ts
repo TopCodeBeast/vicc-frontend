@@ -59,7 +59,7 @@ export const init = <T extends CardDataType>({
     receiveMarketFeesAmount: initialReceiveMarketFeesAmount,
     cardsData: [...initialSendCards, ...initialReceiveCards].reduce(
       (prev: Record<string, T>, curr) => {
-        const algoliaObjectId = buildAlgoliaObjectId(curr);
+        const algoliaObjectId = buildAlgoliaObjectId(curr as any);
         prev[algoliaObjectId] = curr;
         return prev;
       },

@@ -56,13 +56,13 @@ import {
 type CompetitionDetailsQuery_so5Leaderboard =
   CompetitionDetailsQuery['football']['so5']['so5Leaderboard'];
 
-const Team = lazy(async () => import('@football/pages/Lobby/CompetitionDetails/Team'));
+// const Team = lazy(async () => import('@football/pages/Lobby/CompetitionDetails/Team'));
 const Rewards = lazy(
   async () => import('@football/pages/Lobby/CompetitionDetails/Rewards')
 );
-const Leaderboards = lazy(
-  async () => import('@football/pages/Lobby/CompetitionDetails/Leaderboards')
-);
+// const Leaderboards = lazy(
+//   async () => import('@football/pages/Lobby/CompetitionDetails/Leaderboards')
+// );
 const Details = lazy(
   async () => import('@football/pages/Lobby/CompetitionDetails/Details')
 );
@@ -238,7 +238,7 @@ const ScarcityAndDate = ({
 }: {
   leaderboard: CompetitionDetailsQuery_so5Leaderboard;
 }) => {
-  const { formatMessage, formatDateTimeRange } = useIntlContext();
+  const { formatMessage, /*formatDateTimeRange*/ } = useIntlContext();
   const { endDate, startDate } = leaderboard.so5Fixture;
   const { scarcityMessageDescriptor } = getLeaderboardInfo(leaderboard);
   const formattedScarcity = formatMessage(scarcityMessageDescriptor);
@@ -249,10 +249,10 @@ const ScarcityAndDate = ({
         <circle r={1.5} cx={1.5} cy={1.5} />
       </svg>
       <Text14>
-        {formatDateTimeRange(new Date(startDate), new Date(endDate), {
+        {/* {formatDateTimeRange(new Date(startDate), new Date(endDate), {
           day: '2-digit',
           month: 'short',
-        })}
+        })} */}
       </Text14>
     </Subtitles>
   );
@@ -341,7 +341,7 @@ export const CompetitionDetails = ({ closeButton }: Props) => {
     return undefined;
   };
   const TabsItems = [
-    {
+    /*{
       path: paths.teams,
       to: generatePath(paths.teams, {
         competition,
@@ -359,7 +359,7 @@ export const CompetitionDetails = ({ closeButton }: Props) => {
       label: <span>{formatMessage(messages.leaderboard)}</span>,
       hide: !isFixtureStarted(so5Leaderboard.so5Fixture),
       Component: Leaderboards,
-    },
+    },*///TODO
     {
       path: paths.details,
       to: generatePath(paths.details, {
@@ -426,7 +426,7 @@ export const CompetitionDetails = ({ closeButton }: Props) => {
         </HeaderWrapper>
         <TabsContainer>
           <StyledSecondaryTabs
-            items={TabsItems.filter(({ hide }) => !hide)}
+            items={TabsItems.filter(({ hide }: any) => !hide)}
             noBorder
             badgeColor={lineup?.cancelledAt ? 'var(--c-red-600)' : undefined}
             replace
@@ -441,7 +441,7 @@ export const CompetitionDetails = ({ closeButton }: Props) => {
           )}
         </TabsContainer>
         <RootRoutes>
-          {TabsItems.filter(({ hide }) => !hide).map(({ path, Component }) => {
+          {TabsItems.filter(({ hide }: any) => !hide).map(({ path, Component }) => {
             return (
               <Route
                 path={path}

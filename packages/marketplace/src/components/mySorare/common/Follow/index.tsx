@@ -3,16 +3,16 @@ import styled from 'styled-components';
 import FollowButton from '@sorare/core/src/components/user/FollowButton';
 
 import FollowDescription from './FollowDescription';
-import {
-  Follow_club,
-  Follow_country,
-  Follow_player,
-  Follow_subscription,
-} from './__generated__/index.graphql';
+// import {
+//   Follow_club,
+//   Follow_country,
+//   Follow_player,
+//   Follow_subscription,
+// } from './__generated__/index.graphql';
 
 interface Props {
-  subscription: Follow_subscription;
-  item: Follow_player | Follow_club | Follow_country;
+  subscription: any;//Follow_subscription;
+  item: any;//Follow_player | Follow_club | Follow_country;
 }
 
 const Root = styled.div`

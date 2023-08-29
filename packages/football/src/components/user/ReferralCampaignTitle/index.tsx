@@ -171,7 +171,7 @@ const CampaignDetailsDialog = ({
       }
       body={
         <Body>
-          <CampaignTitle {...referralCampaign} />
+          {/* <CampaignTitle {...referralCampaign} /> */}
           <Text14>
             <FormattedMessage
               id="CampaignDetailsDialog.details"
@@ -290,7 +290,7 @@ export const ReferralCampaignTitle = ({
     <>
       <Root>
         <Title>
-          <CampaignTitle {...referralCampaign} />
+          {/* <CampaignTitle {...referralCampaign} /> */}
         </Title>
         {withCustomDrop && (
           <>

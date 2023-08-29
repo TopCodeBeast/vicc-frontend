@@ -3,7 +3,7 @@ import type { ResultOf, VariablesOf } from '@graphql-typed-document-node/core';
 import { useMemo } from 'react';
 import styled from 'styled-components';
 
-import { RewardState, ShippingState, Sport } from '__generated__/globalTypes';
+import { /*RewardState,*/ ShippingState, Sport } from '__generated__/globalTypes';
 import discountCardBack from '@core/assets/rewards/discount-card-back.png';
 import { Title3 } from '@core/atoms/typography';
 import { CardBack as CardBackFootball } from '@core/components/card/Back/Football';

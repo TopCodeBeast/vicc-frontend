@@ -1157,13 +1157,6 @@
     "@formatjs/intl-localematcher" "0.4.0"
     "tslib" "^2.4.0"
 
-"@formatjs/ecma402-abstract@1.4.0":
-  "integrity" "sha512-Mv027hcLFjE45K8UJ8PjRpdDGfR0aManEFj1KzoN8zXNveHGEygpZGfFf/FTTMl+QEVSrPAUlyxaCApvmv47AQ=="
-  "resolved" "https://registry.npmjs.org/@formatjs/ecma402-abstract/-/ecma402-abstract-1.4.0.tgz"
-  "version" "1.4.0"
-  dependencies:
-    "tslib" "^2.0.1"
-
 "@formatjs/fast-memoize@2.2.0":
   "integrity" "sha512-hnk/nY8FyrL5YxwP9e4r9dqeM6cAbo8PeU9UjyXojZMNvVad2Z06FAVHyR3Ecw6fza+0GH7vdJgiKIVXTMbSBA=="
   "resolved" "https://registry.npmjs.org/@formatjs/fast-memoize/-/fast-memoize-2.2.0.tgz"
@@ -1197,13 +1190,6 @@
     "@formatjs/intl-localematcher" "0.4.0"
     "tslib" "^2.4.0"
 
-"@formatjs/intl-displaynames@^1.2.5":
-  "integrity" "sha512-GROA2RP6+7Ouu0WnHFF78O5XIU7pBfI19WM1qm93l6MFWibUk67nCfVCK3VAYJkLy8L8ZxjkYT11VIAfvSz8wg=="
-  "resolved" "https://registry.npmjs.org/@formatjs/intl-displaynames/-/intl-displaynames-1.2.10.tgz"
-  "version" "1.2.10"
-  dependencies:
-    "@formatjs/intl-utils" "^2.3.0"
-
 "@formatjs/intl-displaynames@6.5.0":
   "integrity" "sha512-sg/nR8ILEdUl+2sWu6jc1nQ5s04yucGlH1RVfatW8TSJ5uG3Yy3vgigi8NNC/BuhcncUNPWqSpTCSI1hA+rhiw=="
   "resolved" "https://registry.npmjs.org/@formatjs/intl-displaynames/-/intl-displaynames-6.5.0.tgz"
@@ -1226,13 +1212,6 @@
   "version" "2.2.1"
   dependencies:
     "tslib" "^2.4.0"
-
-"@formatjs/intl-listformat@^1.4.4":
-  "integrity" "sha512-WNMQlEg0e50VZrGIkgD5n7+DAMGt3boKi1GJALfhFMymslJb5i+5WzWxyj/3a929Z6MAFsmzRIJjKuv+BxKAOQ=="
-  "resolved" "https://registry.npmjs.org/@formatjs/intl-listformat/-/intl-listformat-1.4.8.tgz"
-  "version" "1.4.8"
-  dependencies:
-    "@formatjs/intl-utils" "^2.3.0"
 
 "@formatjs/intl-listformat@7.4.0":
   "integrity" "sha512-ifupb+balZUAF/Oh3QyGRqPRWGSKwWoMPR0cYZEG7r61SimD+m38oFQqVx/3Fp7LfQFF11m7IS+MlxOo2sKINA=="
@@ -1260,34 +1239,7 @@
   dependencies:
     "tslib" "^2.4.0"
 
-"@formatjs/intl-numberformat@^5.5.2":
-  "integrity" "sha512-ZlZfYtvbVHYZY5OG3RXizoCwxKxEKOrzEe2YOw9wbzoxF3PmFn0SAgojCFGLyNXkkR6xVxlylhbuOPf1dkIVNg=="
-  "resolved" "https://registry.npmjs.org/@formatjs/intl-numberformat/-/intl-numberformat-5.7.6.tgz"
-  "version" "5.7.6"
-  dependencies:
-    "@formatjs/ecma402-abstract" "1.4.0"
-    "tslib" "^2.0.1"
-
-"@formatjs/intl-relativetimeformat@^4.5.12":
-  "integrity" "sha512-IQ0haY97oHAH5OYUdykNiepdyEWj3SAT+Fp9ZpR85ov2JNiFx+12WWlxlVS8ehdyncC2ZMt/SwFIy2huK2+6/A=="
-  "resolved" "https://registry.npmjs.org/@formatjs/intl-relativetimeformat/-/intl-relativetimeformat-4.5.16.tgz"
-  "version" "4.5.16"
-  dependencies:
-    "@formatjs/intl-utils" "^2.3.0"
-
-"@formatjs/intl-unified-numberformat@^3.3.3":
-  "integrity" "sha512-KnWgLRHzCAgT9eyt3OS34RHoyD7dPDYhRcuKn+/6Kv2knDF8Im43J6vlSW6Hm1w63fNq3ZIT1cFk7RuVO3Psag=="
-  "resolved" "https://registry.npmjs.org/@formatjs/intl-unified-numberformat/-/intl-unified-numberformat-3.3.7.tgz"
-  "version" "3.3.7"
-  dependencies:
-    "@formatjs/intl-utils" "^2.3.0"
-
-"@formatjs/intl-utils@^2.2.2", "@formatjs/intl-utils@^2.3.0":
-  "integrity" "sha512-KWk80UPIzPmUg+P0rKh6TqspRw0G6eux1PuJr+zz47ftMaZ9QDwbGzHZbtzWkl5hgayM/qrKRutllRC7D/vVXQ=="
-  "resolved" "https://registry.npmjs.org/@formatjs/intl-utils/-/intl-utils-2.3.0.tgz"
-  "version" "2.3.0"
-
-"@formatjs/intl@^2.9.0":
+"@formatjs/intl@^2.9.0", "@formatjs/intl@2.9.0":
   "integrity" "sha512-Ym0trUoC/VO6wQu4YHa0H1VR2tEixFRmwZgADkDLm7nD+vv1Ob+/88mUAoT0pwvirFqYKgUKEwp1tFepqyqvVA=="
   "resolved" "https://registry.npmjs.org/@formatjs/intl/-/intl-2.9.0.tgz"
   "version" "2.9.0"
@@ -2575,11 +2527,6 @@
   "resolved" "https://registry.npmjs.org/@types/http-errors/-/http-errors-2.0.1.tgz"
   "version" "2.0.1"
 
-"@types/invariant@^2.2.31":
-  "integrity" "sha512-DxX1V9P8zdJPYQat1gHyY0xj3efl8gnMVjiM9iCY6y27lj+PoQWkgjt8jDqmovPqULkKVpKRg8J36iQiA+EtEg=="
-  "resolved" "https://registry.npmjs.org/@types/invariant/-/invariant-2.2.35.tgz"
-  "version" "2.2.35"
-
 "@types/jest@^27.5.0":
   "integrity" "sha512-mpT8LJJ4CMeeahobofYWIjFo0xonRS/HfxnVEPMPFSQdGUt1uHCnoPT7Zhb+sjDU2wz0oKV0OLUR0WzrHNgfeA=="
   "resolved" "https://registry.npmjs.org/@types/jest/-/jest-27.5.2.tgz"
@@ -2751,7 +2698,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^17.0.52":
+"@types/react@*", "@types/react@^17.0.52", "@types/react@16 || 17 || 18":
   "integrity" "sha512-eANCyz9DG8p/Vdhr0ZKST8JV12PhH2ACCDYlFw6DIO+D+ca+uP4jtEDEpVqXZrh/uZdXQGwk7whJa3ah5DtyLw=="
   "resolved" "https://registry.npmjs.org/@types/react/-/react-17.0.62.tgz"
   "version" "17.0.62"
@@ -5762,26 +5709,6 @@
   "resolved" "https://registry.npmjs.org/intersection-observer/-/intersection-observer-0.12.2.tgz"
   "version" "0.12.2"
 
-"intl-format-cache@^4.2.24", "intl-format-cache@^4.2.43":
-  "integrity" "sha512-OEUYNA7D06agqPOYhbTkl0T8HA3QKSuwWh1HiClEnpd9vw7N+3XsQt5iZ0GUEchp5CW1fQk/tary+NsbF3yQ1Q=="
-  "resolved" "https://registry.npmjs.org/intl-format-cache/-/intl-format-cache-4.3.1.tgz"
-  "version" "4.3.1"
-
-"intl-messageformat-parser@^5.0.0", "intl-messageformat-parser@^5.2.1":
-  "integrity" "sha512-TvB3LqF2VtP6yI6HXlRT5TxX98HKha6hCcrg9dwlPwNaedVNuQA9KgBdtWKgiyakyCTYHQ+KJeFEstNKfZr64w=="
-  "resolved" "https://registry.npmjs.org/intl-messageformat-parser/-/intl-messageformat-parser-5.5.1.tgz"
-  "version" "5.5.1"
-  dependencies:
-    "@formatjs/intl-numberformat" "^5.5.2"
-
-"intl-messageformat@^8.3.7":
-  "integrity" "sha512-N4jLt0KebfqXZZZQRwBwZMrqwccHzZnN6KSeUsfidIoHMPIlLIgq08KcYsn7bZS6adh1KKH4/99VODWDDDu85Q=="
-  "resolved" "https://registry.npmjs.org/intl-messageformat/-/intl-messageformat-8.4.1.tgz"
-  "version" "8.4.1"
-  dependencies:
-    "intl-format-cache" "^4.2.43"
-    "intl-messageformat-parser" "^5.2.1"
-
 "intl-messageformat@10.5.0":
   "integrity" "sha512-AvojYuOaRb6r2veOKfTVpxH9TrmjSdc5iR9R5RgBwrDZYSmAAFVT+QLbW3C4V7Qsg0OguMp67Q/EoUkxZzXRGw=="
   "resolved" "https://registry.npmjs.org/intl-messageformat/-/intl-messageformat-10.5.0.tgz"
@@ -7845,23 +7772,21 @@
     "instantsearch.js" "4.56.2"
     "use-sync-external-store" "^1.0.0"
 
-"react-intl@^4.5.0":
-  "integrity" "sha512-CQuFR9vjUYOjzxsm7KaVRdM4hKOyMNY2ejvniZCbz3Ni3jMbjfTgcXYmxqYBn0lenMaFg3G2ol7HKkoy2YSXlQ=="
-  "resolved" "https://registry.npmjs.org/react-intl/-/react-intl-4.5.0.tgz"
-  "version" "4.5.0"
+"react-intl@^6.4.4":
+  "integrity" "sha512-/C9Sl/5//ohfkNG6AWlJuf4BhTXsbzyk93K62A4zRhSPANyOGpKZ+fWhN+TLfFd5YjDUHy+exU/09y0w1bO4Xw=="
+  "resolved" "https://registry.npmjs.org/react-intl/-/react-intl-6.4.4.tgz"
+  "version" "6.4.4"
   dependencies:
-    "@formatjs/intl-displaynames" "^1.2.5"
-    "@formatjs/intl-listformat" "^1.4.4"
-    "@formatjs/intl-relativetimeformat" "^4.5.12"
-    "@formatjs/intl-unified-numberformat" "^3.3.3"
-    "@formatjs/intl-utils" "^2.2.2"
+    "@formatjs/ecma402-abstract" "1.17.0"
+    "@formatjs/icu-messageformat-parser" "2.6.0"
+    "@formatjs/intl" "2.9.0"
+    "@formatjs/intl-displaynames" "6.5.0"
+    "@formatjs/intl-listformat" "7.4.0"
     "@types/hoist-non-react-statics" "^3.3.1"
-    "@types/invariant" "^2.2.31"
+    "@types/react" "16 || 17 || 18"
     "hoist-non-react-statics" "^3.3.2"
-    "intl-format-cache" "^4.2.24"
-    "intl-messageformat" "^8.3.7"
-    "intl-messageformat-parser" "^5.0.0"
-    "shallow-equal" "^1.2.1"
+    "intl-messageformat" "10.5.0"
+    "tslib" "^2.4.0"
 
 "react-is@^16.13.1":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
@@ -8453,7 +8378,7 @@
     "inherits" "^2.0.1"
     "safe-buffer" "^5.0.1"
 
-"shallow-equal@^1.0.0", "shallow-equal@^1.2.1":
+"shallow-equal@^1.0.0":
   "integrity" "sha512-S4vJDjHHMBaiZuT9NPb616CSmLf618jawtv3sufLl6ivK8WocjAo58cXwbRV1cgqxH0Qbv+iUt6m05eqEa2IRA=="
   "resolved" "https://registry.npmjs.org/shallow-equal/-/shallow-equal-1.2.1.tgz"
   "version" "1.2.1"
@@ -8970,7 +8895,7 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
 
-"tslib@^2.0.0", "tslib@^2.0.1", "tslib@^2.0.3", "tslib@^2.1.0", "tslib@^2.3.0", "tslib@^2.3.1", "tslib@^2.4.0", "tslib@^2.4.1", "tslib@^2.5.0", "tslib@~2.5.0":
+"tslib@^2.0.0", "tslib@^2.0.3", "tslib@^2.1.0", "tslib@^2.3.0", "tslib@^2.3.1", "tslib@^2.4.0", "tslib@^2.4.1", "tslib@^2.5.0", "tslib@~2.5.0":
   "integrity" "sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w=="
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.5.3.tgz"
   "version" "2.5.3"

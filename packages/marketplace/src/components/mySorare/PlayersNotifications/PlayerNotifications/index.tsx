@@ -45,11 +45,11 @@ export const PlayerNotifications = ({ subscription, item }: Props) => {
 
   return (
     <Root>
-      <DumbPlayerDescription
+      {/* <DumbPlayerDescription
         {...item}
         positions={[item.position]}
         activeClubName={item.activeClub?.name}
-      />
+      /> */}
       <Scarcities>
         {blockchainRarities.map(scarcity => {
           const selected =

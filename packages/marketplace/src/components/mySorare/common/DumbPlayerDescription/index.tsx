@@ -9,10 +9,10 @@ import { useSportContext } from '@sorare/core/src/contexts/sport';
 
 interface Props {
   displayName: string;
-  avatarImageUrl: string | null;
+  avatarImageUrl?: string | null;
   slug: string;
   positions: string[];
-  shirtNumber: number | null;
+  shirtNumber?: number | null;
   activeClubName?: string;
   sport?: Sport;
 }

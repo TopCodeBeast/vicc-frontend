@@ -65,12 +65,13 @@ export const GalleryLink = <T,>({
   if (user.suspended) {
     return <WhenSuspended>{children}</WhenSuspended>;
   }
-  const to = galleryPathFactory
+  const to = '#';
+  /*const to = galleryPathFactory
     ? galleryPathFactory(user)
     : galleryPathFromSport(user.slug, galleryType);
   if (Link) {
     return <Link to={to}>{children}</Link>;
-  }
+  }*/
   return (
     <RouterLink to={to} className={className}>
       {children}
