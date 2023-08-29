@@ -24,7 +24,8 @@ export const Notification = ({ notification, ...rest }: Props) => {
   if (isType(notification, 'AuctionNotification')) {
     return <AuctionNotification notification={notification} {...rest} />;
   }
-  if (isType(notification, 'SaleNotification')) {
+  //TODO
+  /*if (isType(notification, 'SaleNotification')) {
     return <SaleNotification notification={notification} {...rest} />;
   }
   if (isType(notification, 'OfferNotification')) {
@@ -55,7 +56,7 @@ export const Notification = ({ notification, ...rest }: Props) => {
   }
   if (isType(notification, 'KycRequestNotification')) {
     return <KycRequestNotification notification={notification} {...rest} />;
-  }
+  }*/
 
   return null;
 };

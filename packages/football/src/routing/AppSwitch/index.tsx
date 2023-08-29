@@ -145,7 +145,7 @@ const LobbyCompetitionDetails = lazy(
 const LobbyUpcoming = lazy(async () => import('@football/pages/Lobby/Upcoming/index'));
 const LobbyLive = lazy(async () => import('@football/pages/Lobby/Live/index'));
 const LobbyPast = lazy(async () => import('@football/pages/Lobby/Past/index'));
-const Swap = lazy(async () => import('@football/pages/Lobby/Upcoming/Swap'));
+// const Swap = lazy(async () => import('@football/pages/Lobby/Upcoming/Swap'));
 const LobbyPrizePool = lazy(async () => import('@football/pages/Lobby/PrizePool/index'));
 const UserGroups = lazy(async () => import('@football/pages/userGroups/list/index'));
 // const PrivateUserGroups = lazy(async () => import('@football/pages/userGroups/private'));
@@ -153,9 +153,9 @@ const UserGroups = lazy(async () => import('@football/pages/userGroups/list/inde
 // const PublicUserGroupOverview = lazy(
 //   async () => import('@football/pages/userGroups/public/overview')
 // );
-const PrivateUserGroupOverview = lazy(
-  async () => import('@football/pages/userGroups/private/overview')
-);
+// const PrivateUserGroupOverview = lazy(
+//   async () => import('@football/pages/userGroups/private/overview')
+// );
 // const Live = lazy(async () => import('@football/pages/live'));
 // const LiveGame = lazy(async () => import('@football/pages/live/game'));
 // const Market = lazy(async () => import('@football/pages/market'));
@@ -284,7 +284,7 @@ export const AppSwitch = () => {
                 defaultBackUrl={FOOTBALL_LOBBY_UPCOMING}
               />
             }
-          /> */}
+          />
           <Route
             path={relativePath(FOOTBALL_LOBBY_UPCOMING_SWAP)}
             element={
@@ -292,7 +292,7 @@ export const AppSwitch = () => {
                 <PrivateRoute element={<Swap />} />
               </Suspense>
             }
-          />
+          /> */}
           <Route
             path={relativePath(FOOTBALL_BUNDLED_AUCTION)}
             element={
@@ -566,12 +566,12 @@ export const AppSwitch = () => {
             element={<PublicUserGroupOverview />}
           />
         </>
-      )} */}
+      )}
       <Route
         path={relativePath(FOOTBALL_PRIVATE_LEAGUES_DETAILS)}
         key={relativePath(FOOTBALL_PRIVATE_LEAGUES_DETAILS)}
         element={<PrivateUserGroupOverview />}
-      />
+      /> */}
       {[FOOTBALL_ONBOARDING_WILDCARD, FOOTBALL_ONBOARDING].map(path => (
         <Route
           path={relativePath(path)}

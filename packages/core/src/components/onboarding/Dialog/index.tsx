@@ -62,12 +62,14 @@ export const DialogOnboarding = ({
     }
   }, [open]);
 
-  const onNext = () =>
-    updateDOM(() =>
-      isLastStep
-        ? onDone?.() || onClose?.()
-        : setStep(n => (n + 1) % steps.length)
-    );
+  const onNext = () => {
+    //TODO
+    // updateDOM(() =>
+    //   isLastStep
+    //     ? onDone?.() || onClose?.()
+    //     : setStep(n => (n + 1) % steps.length)
+    // );
+  }
 
   const currentStep = steps[step];
   const currentStepElement =

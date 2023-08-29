@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { defineMessages, useIntl } from 'react-intl';
 import styled from 'styled-components';
 
-import { LeaderboardRarity } from '__generated__/globalTypes';
+import { So5LeaderboardRarity } from '__generated__/globalTypes';
 import { Text14 } from '@core/atoms/typography';
 import { proxyUrl } from '@core/atoms/ui/ResponsiveImg';
 import { PictureAvatar, PlaceHolderAvatar } from '@core/components/user/Avatar';
@@ -133,7 +133,7 @@ const UserName = styled.p`
 type PastWinnerProps = {
   leaderboardIconUrl: string;
   leaderboardName: string;
-  leaderboardRarity: Scarcity | LeaderboardRarity | null;
+  leaderboardRarity: Scarcity | So5LeaderboardRarity | null;
   lineupsCount: number;
   winner: { nickname: string; avatarUrl: string | null };
   score: number;

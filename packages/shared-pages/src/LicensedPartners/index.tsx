@@ -10,8 +10,8 @@ import MarketingPage from '@sorare/core/src/components/marketing/MarketingPage';
 import { LICENSED_PARTNERS_BY_SPORT } from '@sorare/core/src/constants/routes';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
 import { useTitleAndDescription } from '@sorare/core/src/hooks/useTitleAndDescription';
-import { MLBTeams } from '@sorare/core/src/lib/mlbTeams';
-import { NBATeams } from '@sorare/core/src/lib/nbaTeams';
+// import { MLBTeams } from '@sorare/core/src/lib/mlbTeams';
+// import { NBATeams } from '@sorare/core/src/lib/nbaTeams';
 import { metadatas } from '@sorare/core/src/lib/seo/common';
 import MultiSportAppBar from '@sorare/core/src/routing/MultiSportAppBar';
 import MultiSportFooter from '@sorare/core/src/routing/MultiSportFooter';
@@ -126,9 +126,7 @@ const LicensedPartners = () => {
   useEffect(() => {
     setTimeout(() => {
       setDisplayedCount(
-        (data?.football.clubsReady.length || 0) +
-          MLBTeams.length +
-          NBATeams.length
+        (data?.football.clubsReady.length || 0)
       );
     }, 0);
   }, [data?.football.clubsReady.length]);

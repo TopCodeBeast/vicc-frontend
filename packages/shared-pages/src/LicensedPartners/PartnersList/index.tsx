@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import { Container } from '@sorare/core/src/atoms/container';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
-import { MLBTeams } from '@sorare/core/src/lib/mlbTeams';
-import { NBATeams } from '@sorare/core/src/lib/nbaTeams';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { FootballClubs } from './FootballClubs';
@@ -47,12 +45,6 @@ export const PartnersList = ({
   loading,
 }: Props) => {
   const getContentView = () => {
-    if (sport === 'nba') {
-      return <USSportClubs clubs={NBATeams} sport={Sport.NBA} />;
-    }
-    if (sport === 'mlb') {
-      return <USSportClubs clubs={MLBTeams} sport={Sport.BASEBALL} />;
-    }
     if (tab === 'competitions') {
       return <FootballCompetitions />;
     }

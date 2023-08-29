@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { Sport } from '@sorare/core/src/__generated__/globalTypes';
 import { MLB_TEAM, NBA_TEAM } from '@sorare/core/src/constants/routes';
-import { MLBTeams } from '@sorare/core/src/lib/mlbTeams';
+// import { MLBTeams } from '@sorare/core/src/lib/mlbTeams';
 import { Baseball } from '@sorare/core/src/routing/MultiSportAppBar/Sport/Baseball';
 import { NBA } from '@sorare/core/src/routing/MultiSportAppBar/Sport/NBA';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
@@ -35,7 +35,7 @@ const SectionTitleWrapper = styled.div`
 `;
 
 type Props = {
-  clubs: typeof MLBTeams;
+  clubs: any;
   sport: Sport.NBA | Sport.BASEBALL;
 };
 

@@ -32,11 +32,11 @@ type Props = {
 
 export const CardBack = ({ sport, rarity, tier, ...props }: Props) => {
   if (sport === Sport.BASEBALL) {
-    return <BaseballCardBack scarcity={rarity} tier={tier} {...props} />;
+    return <BaseballCardBack scarcity={rarity as any} tier={tier} {...props} />;
   }
 
   if (!sport) {
-    return <GenericCardBack rarity={rarity} {...props} />;
+    return <GenericCardBack rarity={rarity as any} {...props} />;
   }
 
   if (sport === Sport.FOOTBALL) {
@@ -48,7 +48,8 @@ export const CardBack = ({ sport, rarity, tier, ...props }: Props) => {
     return <FootballCardBack path={path} {...props} />;
   }
 
-  return <NbaCardBack scarcity={rarity} tier={tier} {...props} />;
+  //TODO Remove any
+  return <NbaCardBack scarcity={rarity as any} tier={tier} {...props} />;
 };
 
 export default CardBack;
