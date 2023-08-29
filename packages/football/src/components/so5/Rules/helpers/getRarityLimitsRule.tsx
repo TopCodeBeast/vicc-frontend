@@ -182,7 +182,7 @@ const getRarityLimitsRule = withFragments(
         title: messages.title,
         icon: (
           <IconWrapper>
-            <ScarcityIcon scarcity={toSnakeCase(rarity)} size="lg" />
+            <ScarcityIcon scarcity={toSnakeCase(rarity) as any} size="lg" />
             {score === ScoreModifier.More ? (
               <Arrow>
                 <img src={arrow} width={16} height={16} alt="Up" />

@@ -10,7 +10,7 @@ import { sportToJSON } from '@core/protos/events/shared/events';
 import * as so5Events from '@core/protos/events/so5/web/events';
 import { StartCase, StringKeysOf } from '@core/types';
 
-import { EventsType, WithOptionalCommonProperties } from './EventsType';
+/*import { EventsType, WithOptionalCommonProperties } from './EventsType';
 
 type ObjectWithToJSON = { toJSON: (args: any) => any };
 
@@ -90,6 +90,15 @@ const useEvents = () => {
   );
 
   return track;
-};
+};*/
+
+//TODO
+const useEvents = () => {
+  const track = useCallback((...params: any) => {
+    console.log('event.track')
+  }, []);
+
+  return track;
+}
 
 export default useEvents;

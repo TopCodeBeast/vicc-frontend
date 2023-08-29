@@ -40,6 +40,7 @@ const useEnableWallets = () => {
           },
         },
         optimisticResponse: {
+          __typename: 'Mutation',
           updateUserProfile: {
             __typename: 'updateUserProfilePayload',
             userProfile: {

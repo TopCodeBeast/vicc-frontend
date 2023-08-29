@@ -61,7 +61,7 @@ const CookieConsentBanner = ({ force = false }: Props) => {
         };
         return (
           <Popup>
-            {detailsOpened ? (
+            {/* {detailsOpened ? (
               <DetailedConsent
                 {...{
                   destinations,
@@ -78,7 +78,8 @@ const CookieConsentBanner = ({ force = false }: Props) => {
                   toggleDetails();
                 }}
               />
-            )}
+            )} */}
+            CookieConsentBanner5
           </Popup>
         );
       }}

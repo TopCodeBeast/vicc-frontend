@@ -65,7 +65,7 @@ function useTour(tour: Tour, stepName: string): HighlightTour {
   useEffect(() => {
     if (display && highlighted !== name) {
       const callback = () => {
-        saveStep(tour, stepName);
+        saveStep(tour, stepName as any); //TODO remove any
       };
 
       highlight(name, { message, callback });
