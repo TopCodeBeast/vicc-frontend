@@ -22,8 +22,6 @@ export const LazyLoader = ({ onEthereumSetup, source }: Props) => {
   const {
     viccTokensAddress,
     viccCardsAddress,
-    baseballTokensAddress,
-    nbaTokensAddress,
     cricketNationalSeriesTokensAddress,
     bankAddress,
     relayAddress,
@@ -75,9 +73,7 @@ export const LazyLoader = ({ onEthereumSetup, source }: Props) => {
       sorareDataAddress: '',
       starkExchangeConfig,
       tokensConfig: {
-        footballTokensAddress: viccTokensAddress,
-        baseballTokensAddress,
-        nbaTokensAddress,
+        cricketTokensAddress: viccTokensAddress,
         cricketNationalSeriesTokensAddress,
       },
     };
@@ -97,8 +93,6 @@ export const LazyLoader = ({ onEthereumSetup, source }: Props) => {
     starkExchangeAddress,
     relayAddress,
     viccTokensAddress,
-    baseballTokensAddress,
-    nbaTokensAddress,
     cricketNationalSeriesTokensAddress,
     viccCardsAddress,
     migratorAddress,

@@ -51,8 +51,6 @@ export interface ConfigContext {
   ethereumNetworkId: string;
   ethereumEndpoint: string;
   viccTokensAddress: string;
-  baseballTokensAddress: string;
-  nbaTokensAddress: string;
   viccCardsAddress: string;
   cricketNationalSeriesTokensAddress: string;
   viccEncryptionKey: string;

@@ -44,6 +44,7 @@ def updateTypes(filePath):
     
     code = code.replace("FOOTBALL = 'FOOTBALL'", "CRICKET = 'CRICKET'")
     code = code.replace("Sport.FOOTBALL", "Sport.CRICKET")
+    code = code.replace("footballTokensAddress", "cricketTokensAddress")
     code = code.replace("footballCardCollections", "cricketCardCollections")
     code = code.replace("footballProfile", "cricketProfile")
     code = code.replace("footballLast30DaysLineupsCount", "cricketLast30DaysLineupsCount")

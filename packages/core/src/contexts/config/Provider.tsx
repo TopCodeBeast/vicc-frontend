@@ -51,8 +51,6 @@ const CONFIG_QUERY = gql`
         sport
       }
       viccTokensAddress
-      baseballTokensAddress
-      nbaTokensAddress
       viccCardsAddress
       cricketNationalSeriesTokensAddress
       viccEncryptionKey
