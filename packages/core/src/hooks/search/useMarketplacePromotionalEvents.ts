@@ -12,7 +12,6 @@ const QUERY = gql`
     config {
       id
       marketplacePromotionalEvents {
-        sport
         events {
           name
           objectIds

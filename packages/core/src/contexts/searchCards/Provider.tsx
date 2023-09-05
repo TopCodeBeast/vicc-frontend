@@ -88,7 +88,7 @@ const SearchCardsProvider = ({
 
   const promotedCards =
     marketplacePromotionalEvents
-      .find(e => e.sport === sport)
+      .find(e => e)
       ?.events?.find(e => e.name === promotion)?.objectIds || [];
 
   const nonPlayableCardsFilters =

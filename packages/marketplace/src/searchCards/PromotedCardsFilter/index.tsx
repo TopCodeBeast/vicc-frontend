@@ -22,7 +22,7 @@ const usePromotionalEventsEntries = () => {
   const { marketplacePromotionalEvents } = useMarketplacePromotionalEvents();
   return useMemo(
     () =>
-      marketplacePromotionalEvents.find(e => e.sport === sport)?.events || [],
+      marketplacePromotionalEvents.find(e => e)?.events || [],
     [marketplacePromotionalEvents, sport]
   );
 };
