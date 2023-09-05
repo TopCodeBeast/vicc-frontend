@@ -31,16 +31,15 @@ def updateTypes(filePath):
     updated = updated.replace("sorareTokensAddress", "viccTokensAddress")
     updated = updated.replace("sorareCardsAddress", "viccCardsAddress")
     updated = updated.replace("sorareAddress", "viccAddress")
+    updated = updated.replace("sorareManaged", "viccManaged")
+    
+    updated = updated.replace("FOOTBALL = 'FOOTBALL'", "CRICKET = 'CRICKET'")
+    updated = updated.replace("Sport.FOOTBALL", "Sport.CRICKET")
+    updated = updated.replace("footballCardCollections", "cricketCardCollections")
+    updated = updated.replace("footballProfile", "cricketProfile")
+    updated = updated.replace("footballLast30DaysLineupsCount", "cricketLast30DaysLineupsCount")
+    updated = updated.replace("footballNationalSeriesTokensAddress", "cricketNationalSeriesTokensAddress")
 
-    updated = updated.replace("so5", "vicc5")
-    updated = updated.replace("So5", "Vicc5")
-    
-    updated = updated.replace("/vicc5", "/so5")
-    updated = updated.replace("/Vicc5", "/So5")
-    
-    updated = updated.replace("</So5", "</Vicc5")
-    updated = updated.replace("./myVicc5", "./mySo5")
-    
     if text != updated:
         with open(filePath, 'w+', encoding='utf-8') as fp:
             fp.write(updated)
