@@ -214,7 +214,7 @@ export const Router = ({ appRoutes }: { appRoutes: ReactNode }) => {
     sessionSport ||
     (currentUser?.userSettings?.lifecycle as Lifecycle)?.lastVisitedSport;
 
-  const SharedPagesTheme = sport === Sport.FOOTBALL ? DarkTheme : Fragment;
+  const SharedPagesTheme = sport === Sport.CRICKET ? DarkTheme : Fragment;
 
   return (
     <>

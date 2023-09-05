@@ -23,7 +23,7 @@ const ACCEPT_CASH_OFFERS_QUERY = gql`
       slug
       profile {
         id
-        marketplacePreferences(sports: [FOOTBALL, NBA, BASEBALL]) {
+        marketplacePreferences(sports: [CRICKET, NBA, BASEBALL]) {
           sport
           preferences {
             name

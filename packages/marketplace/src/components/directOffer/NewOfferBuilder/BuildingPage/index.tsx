@@ -541,7 +541,7 @@ BuildingPage.fragments = {
       nickname
       profile {
         id
-        marketplacePreferences(sports: [FOOTBALL, NBA, BASEBALL]) {
+        marketplacePreferences(sports: [CRICKET, NBA, BASEBALL]) {
           sport
           preferences {
             name
