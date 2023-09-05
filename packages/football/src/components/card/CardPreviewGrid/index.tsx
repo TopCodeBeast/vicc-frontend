@@ -75,7 +75,7 @@ const TokenItem = ({
   displayMarketplaceOnboardingTooltip,
   galleryOwnerSlug,
   hideOwner,
-  hideSorareUser,
+  hideViccUser,
   setCardOpened,
   showFavorite,
   hideDetails,
@@ -85,7 +85,7 @@ const TokenItem = ({
   displayMarketplaceOnboardingTooltip?: boolean;
   galleryOwnerSlug?: string;
   hideOwner?: boolean;
-  hideSorareUser?: boolean;
+  hideViccUser?: boolean;
   showFavorite: boolean;
   setCardOpened?: (item: Item) => void;
   hideDetails: boolean;
@@ -100,7 +100,7 @@ const TokenItem = ({
           displayMarketplaceOnboardingTooltip
         }
         hideOwner={hideOwner}
-        hideSorareUser={hideSorareUser}
+        hideViccUser={hideViccUser}
         stack={item.stack}
         TokenPropertiesButtonComponent={
           item.stack && item.stack.count > 1 ? (
@@ -138,7 +138,7 @@ export const CardPreviewGrid = ({
   nbPages,
   setPage,
   topic,
-  hideSorareUser,
+  hideViccUser,
   stackable,
   loading,
   showDesktopFilter,
@@ -256,7 +256,7 @@ export const CardPreviewGrid = ({
                 displayMarketplaceOnboardingTooltip={i === 0}
                 galleryOwnerSlug={galleryOwnerSlug}
                 hideOwner={hideOwner}
-                hideSorareUser={hideSorareUser}
+                hideViccUser={hideViccUser}
                 setCardOpened={setCardOpened}
                 showFavorite={hoveredItem === getItemKey(item) || !isTablet}
                 hideDetails={!!(hideDetails && galleryOwnerSlug)}

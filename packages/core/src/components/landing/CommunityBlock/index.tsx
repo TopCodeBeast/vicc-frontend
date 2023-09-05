@@ -25,7 +25,7 @@ const messages = defineMessages({
   },
   users: {
     id: 'Landing.CommunityBlock.users',
-    defaultMessage: 'Sorare Managers',
+    defaultMessage: 'Vicc Managers',
   },
   playing: {
     id: 'Landing.CommunityBlock.playing',

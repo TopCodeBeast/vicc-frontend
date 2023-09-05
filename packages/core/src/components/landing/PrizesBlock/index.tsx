@@ -17,7 +17,7 @@ const messages = defineMessages({
   subtitle: {
     id: 'Landing.Prizes.Subtitle',
     defaultMessage:
-      "Here's a sample of one-of-a-kind rewards recently won by Sorare Managers.",
+      "Here's a sample of one-of-a-kind rewards recently won by Vicc Managers.",
   },
 });
 

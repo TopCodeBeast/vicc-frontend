@@ -16,7 +16,7 @@ import InviteFriendsCta from '@football/components/user/InviteFriendsCta';
 const messages = defineMessages({
   title: {
     id: 'Referral.title',
-    defaultMessage: 'Invite a friend to Sorare',
+    defaultMessage: 'Invite a friend to Vicc',
   },
   subtitle: {
     id: 'Referral.subtitle',
@@ -29,12 +29,12 @@ const messages = defineMessages({
   description: {
     id: 'Referral.description',
     defaultMessage:
-      'When your friend collects 5 cards via new card auctions or a starter pack in their first 30 days on Sorare, you’ll both win a free card.',
+      'When your friend collects 5 cards via new card auctions or a starter pack in their first 30 days on Vicc, you’ll both win a free card.',
   },
   conversionCreditDescription: {
     id: 'Referral.conversionCreditDescription',
     defaultMessage:
-      'When your friend collects 5 cards via new card auctions or a starter pack in his first 30 days on Sorare, you’ll win a 50% discount credit applicable to auctions and starter packs purchases up to {amount}',
+      'When your friend collects 5 cards via new card auctions or a starter pack in his first 30 days on Vicc, you’ll win a 50% discount credit applicable to auctions and starter packs purchases up to {amount}',
   },
 });
 

@@ -1,4 +1,4 @@
-// Allow only Sorare URL
+// Allow only Vicc URL
 export const sanitizeRedirectUrl = (uri: string) =>
   /^https:\/\/sorare\.(dev|com|tech|co|fr)\//.test(uri) ? uri : undefined;
 

@@ -50,7 +50,7 @@ export const EndedSaleDetails = ({ sale, token, allowColumnLayout }: Props) => {
         {offerExpired ? (
           <Caption color="var(--c-neutral-600)">
             <FormattedMessage
-              id="MySorare.PastSaleOfferItem.Expired"
+              id="MyVicc.PastSaleOfferItem.Expired"
               defaultMessage="Expired"
             />
           </Caption>
@@ -63,7 +63,7 @@ export const EndedSaleDetails = ({ sale, token, allowColumnLayout }: Props) => {
           {relistedToken ? (
             <Text14 color="var(--c-neutral-600)">
               <FormattedMessage
-                id="MySorare.PastSaleOfferItem.Relisted"
+                id="MyVicc.PastSaleOfferItem.Relisted"
                 defaultMessage="Currently re-listed"
               />
             </Text14>
@@ -71,7 +71,7 @@ export const EndedSaleDetails = ({ sale, token, allowColumnLayout }: Props) => {
             <>
               <Button small stroke color="blue" onClick={onClickListAgain}>
                 <FormattedMessage
-                  id="MySorare.PastSaleOfferItem.ListAgain"
+                  id="MyVicc.PastSaleOfferItem.ListAgain"
                   defaultMessage="List Again"
                 />
               </Button>

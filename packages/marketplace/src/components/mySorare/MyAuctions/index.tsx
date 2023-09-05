@@ -10,7 +10,7 @@ import { tokenAuctionSubscription } from '@marketplace/lib/fragments';
 
 import MyPage from '../MyPage';
 import { messages as sortMessages } from '../common/messages';
-import { MySorarePage } from '../common/pages';
+import { MyViccPage } from '../common/pages';
 import { DefaultSortType, OpenSaleSortType } from '../common/types';
 import useSportSelect from '../common/useSportSelect';
 import AllAuctions from './AllAuctions';
@@ -144,7 +144,7 @@ const MyAuctions = () => {
 
   return (
     <MyPage
-      page={MySorarePage.AUCTIONS}
+      page={MyViccPage.AUCTIONS}
       toolbar={
         <>
           <SportSelect />

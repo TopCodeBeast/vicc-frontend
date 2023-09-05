@@ -19,7 +19,7 @@ const SportSelectValue = {
 
 const messages = {
   [SportSelectType.ALL_SPORTS]: defineMessage({
-    id: 'MySorare.sportSelect.all',
+    id: 'MyVicc.sportSelect.all',
     defaultMessage: 'All Sports',
   }),
   [SportSelectType.CRICKET]: sportsLabelsMessages.CRICKET,
@@ -31,7 +31,7 @@ export default () => {
   const { formatMessage } = useIntlContext();
 
   const [selectedSport, setSelectedSport] = useLocalStorage<SportSelectType>(
-    'MySorare.selectedSport',
+    'MyVicc.selectedSport',
     SportSelectType.ALL_SPORTS
   );
 

@@ -24,7 +24,7 @@ export const messages = defineMessages({
   createText: {
     id: 'Landing.Experience.createText',
     defaultMessage:
-      "Create your fantasy roster by scouting and collecting digital player cards. Set your starting lineup and play in twice-weekly competitions for prizes based on your players' real-life performance.{br}{br}Sorare's skill-based game rewards your sports knowledge and lineup strategy.",
+      "Create your fantasy roster by scouting and collecting digital player cards. Set your starting lineup and play in twice-weekly competitions for prizes based on your players' real-life performance.{br}{br}Vicc's skill-based game rewards your sports knowledge and lineup strategy.",
   },
   strengthenTitle: {
     id: 'Landing.Experience.strengthenTitle',
@@ -33,7 +33,7 @@ export const messages = defineMessages({
   strengthenText: {
     id: 'Landing.Experience.strengthenText',
     defaultMessage:
-      "Buy, sell, and trade digital player cards on Sorare's live Marketplace - which features thousands of players - week over week and season over season. Improve your lineups by adding top performers for an immediate roster boost, or next-generation stars for long-term production.",
+      "Buy, sell, and trade digital player cards on Vicc's live Marketplace - which features thousands of players - week over week and season over season. Improve your lineups by adding top performers for an immediate roster boost, or next-generation stars for long-term production.",
   },
   strengthenCTA: {
     id: 'Landing.Experience.strengthenCTA',
@@ -46,7 +46,7 @@ export const messages = defineMessages({
   competeText: {
     id: 'Landing.Experience.competeText',
     defaultMessage:
-      "Learn the game in our beginner competitions and level up. As you progress and climb leaderboards, you'll collect higher-level player cards to compete in advanced contests with bigger prizes. Sorare competitions are free to play.",
+      "Learn the game in our beginner competitions and level up. As you progress and climb leaderboards, you'll collect higher-level player cards to compete in advanced contests with bigger prizes. Vicc competitions are free to play.",
   },
   winRewardsTitle: {
     id: 'Landing.Experience.winRewardsTitle',
@@ -55,7 +55,7 @@ export const messages = defineMessages({
   winRewardsText: {
     id: 'Landing.Experience.winRewardsText',
     defaultMessage:
-      'Compete for prizes such as ETH, Sorare player cards, game tickets, gear, apparel, and access to players and VIP experiences.{br}{br}Winners of top competitions receive once-in-a-lifetime rewards.',
+      'Compete for prizes such as ETH, Vicc player cards, game tickets, gear, apparel, and access to players and VIP experiences.{br}{br}Winners of top competitions receive once-in-a-lifetime rewards.',
   },
 });
 

@@ -85,7 +85,7 @@ export const ConnectPrivateWallet = () => {
           <Message bold>
             <FormattedMessage
               id="ConnectPrivateWallet.nok"
-              defaultMessage="You need to install an Ethereum wallet to access this part of Sorare."
+              defaultMessage="You need to install an Ethereum wallet to access this part of Vicc."
             />
           </Message>
         );

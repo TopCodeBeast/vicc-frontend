@@ -49,11 +49,11 @@ const messages = defineMessages({
   desktopManagerSalesDescription: {
     id: 'TransferMarket.Home.desktopManagerSalesDescription',
     defaultMessage:
-      'Scout the next superstar and buy player cards directly from other Sorare Managers',
+      'Scout the next superstar and buy player cards directly from other Vicc Managers',
   },
   mobileManagerSalesDescription: {
     id: 'TransferMarket.Home.mobileManagerSalesDescription',
-    defaultMessage: 'Buy player cards directly from other Sorare Managers',
+    defaultMessage: 'Buy player cards directly from other Vicc Managers',
   },
   desktopAuctionsDescription: {
     id: 'TransferMarket.Home.desktopAuctionsDescription',
@@ -68,8 +68,8 @@ const messages = defineMessages({
     id: 'TransferMarket.Home.primarySecondaryCount',
     defaultMessage: '{count, plural, =0 {# card} one {# card} other {# cards}}',
   },
-  mySorareDescription: {
-    id: 'TransferMarket.Home.mySorareDescription',
+  myViccDescription: {
+    id: 'TransferMarket.Home.myViccDescription',
     defaultMessage: 'Manage my sales',
   },
 });
@@ -85,7 +85,7 @@ const Root = styled.div`
   }
 `;
 
-const MySorareImage = styled.div`
+const MyViccImage = styled.div`
   padding: calc(6 * var(--unit)) var(--double-unit);
 `;
 export const Entries = () => {
@@ -154,16 +154,16 @@ export const Entries = () => {
         <Entry
           to={MY_SORARE_HOME}
           title={navLabels.myMarketActivity}
-          description={messages.mySorareDescription}
+          description={messages.myViccDescription}
           desktopImage={
-            <MySorareImage>
+            <MyViccImage>
               <FontAwesomeIcon icon={faGavel} size="4x" />
-            </MySorareImage>
+            </MyViccImage>
           }
           mobileImage={
-            <MySorareImage>
+            <MyViccImage>
               <FontAwesomeIcon icon={faGavel} size="4x" />
-            </MySorareImage>
+            </MyViccImage>
           }
         />
       )}

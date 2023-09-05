@@ -27,7 +27,7 @@ export const shortRefusedReasonsMessages =
     [FiatWalletKycRefusedReason.DOCUMENT_NOT_ACCEPTED]: {
       id: 'createFiatWallet.HandleIdReviewError.error.documentNotAcceptedShort',
       defaultMessage:
-        'The document you submitted is not an ID accepted by Sorare.',
+        'The document you submitted is not an ID accepted by Vicc.',
     },
     [FiatWalletKycRefusedReason.DOCUMENT_UNREADABLE]: {
       id: 'createFiatWallet.HandleIdReviewError.error.documentUnreadableShort',
@@ -46,7 +46,7 @@ export const shortRefusedReasonsMessages =
     [FiatWalletKycRefusedReason.UNDERAGE_PERSON]: {
       id: 'createFiatWallet.HandleIdReviewError.error.underagePersonShort',
       defaultMessage:
-        'The individual on the document submitted is under 18 years old. Please note Sorare is only accessible to those 18 and older. Please contact the Sorare Support team for assistance.',
+        'The individual on the document submitted is under 18 years old. Please note Vicc is only accessible to those 18 and older. Please contact the Vicc Support team for assistance.',
     },
   });
 
@@ -60,7 +60,7 @@ export const refusedReasonsMessages =
     [FiatWalletKycRefusedReason.DOCUMENT_NOT_ACCEPTED]: {
       id: 'createFiatWallet.HandleIdReviewError.error.documentNotAccepted',
       defaultMessage:
-        'The document you submitted is not an ID accepted by Sorare. Please resubmit an approved ID.',
+        'The document you submitted is not an ID accepted by Vicc. Please resubmit an approved ID.',
     },
     [FiatWalletKycRefusedReason.DOCUMENT_UNREADABLE]: {
       id: 'createFiatWallet.HandleIdReviewError.error.documentUnreadable',
@@ -80,7 +80,7 @@ export const refusedReasonsMessages =
     [FiatWalletKycRefusedReason.UNDERAGE_PERSON]: {
       id: 'createFiatWallet.HandleIdReviewError.error.underagePerson',
       defaultMessage:
-        'There was a problem with the ID you uploaded. The individual on the document submitted is under 18 years old. Please note Sorare is only accessible to those 18 and older.',
+        'There was a problem with the ID you uploaded. The individual on the document submitted is under 18 years old. Please note Vicc is only accessible to those 18 and older.',
     },
   });
 

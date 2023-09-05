@@ -13,10 +13,10 @@ import CounteredOffer from './CounteredOffer';
 import CounterpartUser from './CounterpartUser';
 import DirectOfferBody from './DirectOfferBody';
 import DirectOfferStatus from './DirectOfferStatus';
-import { MySorareDirectOffer_tokenOffer } from './__generated__/index.graphql';
+import { MyViccDirectOffer_tokenOffer } from './__generated__/index.graphql';
 
 type Props = {
-  offer: MySorareDirectOffer_tokenOffer;
+  offer: MyViccDirectOffer_tokenOffer;
   inModale?: boolean;
 };
 
@@ -108,17 +108,17 @@ const DirectOffer = ({ offer, inModale }: Props) => {
 
 DirectOffer.fragments = {
   tokenOffer: gql`
-    fragment MySorareDirectOffer_tokenOffer on TokenOffer {
+    fragment MyViccDirectOffer_tokenOffer on TokenOffer {
       id
       status
-      ...MySorareDirectOfferStatus_tokenOffer
+      ...MyViccDirectOfferStatus_tokenOffer
       ...CounterpartUser_tokenOffer
       sender {
         ... on User {
           slug
           ...CounterpartUser_publicUserInfoInterface
           ...CounteredOffer_publicUserInfoInterface
-          ...MySorareDirectOfferBody_publicUserInfoInterface
+          ...MyViccDirectOfferBody_publicUserInfoInterface
         }
       }
       senderSide {
@@ -134,10 +134,10 @@ DirectOffer.fragments = {
           slug
           ...CounterpartUser_publicUserInfoInterface
           ...CounteredOffer_publicUserInfoInterface
-          ...MySorareDirectOfferBody_publicUserInfoInterface
+          ...MyViccDirectOfferBody_publicUserInfoInterface
         }
       }
-      ...MySorareDirectOfferBody_tokenOffer
+      ...MyViccDirectOfferBody_tokenOffer
       counteredOffer {
         id
         ...CounteredOffer_tokenOffer
@@ -151,7 +151,7 @@ DirectOffer.fragments = {
     ${CounterpartUser.fragments.tokenOffer}
     ${TokenTransferValidator.fragments.token}
     ${DirectOfferBody.fragments.user}
-  ` as TypedDocumentNode<MySorareDirectOffer_tokenOffer>,
+  ` as TypedDocumentNode<MyViccDirectOffer_tokenOffer>,
 };
 
 export default DirectOffer;

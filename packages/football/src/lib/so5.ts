@@ -532,17 +532,17 @@ export const startedLineupSharingMessages = defineMessages({
   set1: {
     id: 'StartedLineupSharingMessages.lineup.set1',
     defaultMessage:
-      '🏆 Can you beat my team score in the {displayName} competition on #Sorare? Let’s see what you got! 💪',
+      '🏆 Can you beat my team score in the {displayName} competition on #Vicc? Let’s see what you got! 💪',
   },
   set2: {
     id: 'StartedLineupSharingMessages.lineup.set2',
     defaultMessage:
-      '💥 My #Sorare line-up in the {displayName} competition was on fire! 🔥 Think you can do better? Prove it!',
+      '💥 My #Vicc line-up in the {displayName} competition was on fire! 🔥 Think you can do better? Prove it!',
   },
   set3: {
     id: 'StartedLineupSharingMessages.lineup.set3',
     defaultMessage:
-      '🔭 Another scouting masterclass from {clubName} in the {displayName} competition. Think you know football better? See you on #Sorare!',
+      '🔭 Another scouting masterclass from {clubName} in the {displayName} competition. Think you know football better? See you on #Vicc!',
   },
 });
 
@@ -550,17 +550,17 @@ export const notStartedLineupSharingMessages = defineMessages({
   set1: {
     id: 'NotStartedLineupSharingMessages.lineup.set1',
     defaultMessage:
-      '🚀 I’ve set my line-up for the {displayName} competition! Are you game? Join me on #Sorare and let’s compete! 🥇',
+      '🚀 I’ve set my line-up for the {displayName} competition! Are you game? Join me on #Vicc and let’s compete! 🥇',
   },
   set2: {
     id: 'NotStartedLineupSharingMessages.lineup.set2',
     defaultMessage:
-      '⚡️ It’s almost time for the {displayName} competition! Get your teams ready and challenge me on #Sorare! 🏆',
+      '⚡️ It’s almost time for the {displayName} competition! Get your teams ready and challenge me on #Vicc! 🏆',
   },
   set3: {
     id: 'NotStartedLineupSharingMessages.lineup.set3',
     defaultMessage:
-      '🌟 The {displayName} competition is coming up, and my team is ready to win! Can you beat me? Catch you on #Sorare! 🕶',
+      '🌟 The {displayName} competition is coming up, and my team is ready to win! Can you beat me? Catch you on #Vicc! 🕶',
   },
 });
 
@@ -700,12 +700,12 @@ const PrivateUserGroupInvitationMessages = defineMessages({
   inviteMsg: {
     id: 'UserGroupInvitation.Field.Message',
     defaultMessage:
-      'Come join my Sorare Private League to compete for great prizes!\n',
+      'Come join my Vicc Private League to compete for great prizes!\n',
   },
   inviteMsgWithTournament: {
     id: 'UserGroupInvitation.Field.MessageWithTournament',
     defaultMessage:
-      'Come join my Sorare {tournamentName} Private League to compete for great prizes!\n',
+      'Come join my Vicc {tournamentName} Private League to compete for great prizes!\n',
   },
 });
 

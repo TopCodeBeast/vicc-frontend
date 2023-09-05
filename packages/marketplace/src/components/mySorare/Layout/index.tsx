@@ -33,14 +33,14 @@ import RoutedSidebarMenu, {
   LinkSet,
 } from '@sorare/core/src/routing/RoutedSidebarMenu';
 
-import { MySorarePage, TITLES } from '../common/pages';
+import { MyViccPage, TITLES } from '../common/pages';
 
 interface Props {
   children: ReactNode;
   label?: MessageDescriptor | string;
 }
 
-const links: LinkSet<MySorarePage> = {
+const links: LinkSet<MyViccPage> = {
   new: {
     to: MY_SORARE_NEW,
     icon: faEllipsisV,
@@ -96,12 +96,12 @@ const Root = styled.div`
   flex-direction: column;
 `;
 
-export const MySorareLayout = ({ children }: Props) => {
+export const MyViccLayout = ({ children }: Props) => {
   const isReorgApp = useIsReorgApp();
 
   const content = (
-    <RoutedSidebarMenu<MySorarePage>
-      linkIds={Object.values(MySorarePage)}
+    <RoutedSidebarMenu<MyViccPage>
+      linkIds={Object.values(MyViccPage)}
       links={links}
     >
       {children}
@@ -121,4 +121,4 @@ export const MySorareLayout = ({ children }: Props) => {
   );
 };
 
-export default MySorareLayout;
+export default MyViccLayout;

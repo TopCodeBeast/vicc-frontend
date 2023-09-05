@@ -38,12 +38,12 @@ const messages = defineMessages({
   description: {
     id: 'ConfirmDevice.desc',
     defaultMessage:
-      'You are using an unconfirmed device (phone, computer, tablet) to access Sorare. To access your wallet, you need to use a confirmed device.',
+      'You are using an unconfirmed device (phone, computer, tablet) to access Vicc. To access your wallet, you need to use a confirmed device.',
   },
   instruction: {
     id: 'ConfirmDevice.instruction',
     defaultMessage:
-      'To confirm your device please select the button below and follow the device confirmation link in the confirmation mail sent to the email address associated with your Sorare account.',
+      'To confirm your device please select the button below and follow the device confirmation link in the confirmation mail sent to the email address associated with your Vicc account.',
   },
   send: {
     id: 'ConfirmDevice.send',

@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { ViccLogo } from '@core/atoms/icons/SorareLogo';
 import { LANDING } from '@core/constants/routes';
 import { tabletAndAbove } from '@core/style/mediaQuery';
 
 import SmallerStarBall from '../SmallerStarBall';
 
-const ResponsiveSorareLogo = styled(SorareLogo)`
+const ResponsiveViccLogo = styled(ViccLogo)`
   display: none;
   @media ${tabletAndAbove} {
     display: block;
@@ -26,9 +26,9 @@ type Props = {
 
 export const HomeLink = ({ withStarball = false }: Props) => {
   return (
-    <Logo to={LANDING} aria-label="Sorare">
+    <Logo to={LANDING} aria-label="Vicc">
       {withStarball && <SmallerStarBall />}
-      <ResponsiveSorareLogo />
+      <ResponsiveViccLogo />
     </Logo>
   );
 };

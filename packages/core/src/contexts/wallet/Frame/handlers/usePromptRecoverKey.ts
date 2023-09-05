@@ -27,7 +27,7 @@ export default () => {
         showWallet();
       } else {
         showNotification(
-          'nullSorarePrivateKeyRecovery',
+          'nullViccPrivateKeyRecovery',
           {},
           { autoHideDuration: null }
         );

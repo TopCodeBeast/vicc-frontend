@@ -62,7 +62,7 @@ const useMigrateCards = () => {
             walletStatus !== WalletStatus.INTERNAL &&
             walletStatus !== WalletStatus.MAPPED
           )
-            throw new Error('card should be in Sorare or mapped wallet');
+            throw new Error('card should be in Vicc or mapped wallet');
           prev[walletStatus] = [...(prev[walletStatus] || []), ethereumId];
           return prev;
         },

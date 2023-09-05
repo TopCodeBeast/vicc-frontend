@@ -23,7 +23,7 @@ import { navLabels } from '@sorare/core/src/lib/glossary';
 import { EnsureTopVisibleOnMount } from '@sorare/core/src/routing/EnsureTopVisibleOnMount';
 import { RootRoutes } from '@sorare/core/src/routing/RootRoutes';
 
-import MySorareLayout from '@sorare/marketplace/src/components/mySorare/Layout';
+import MyViccLayout from '@sorare/marketplace/src/components/mySorare/Layout';
 import MyAuctions from '@sorare/marketplace/src/components/mySorare/MyAuctions';
 import MyFollows from '@sorare/marketplace/src/components/mySorare/MyFollows';
 import MyNews from '@sorare/marketplace/src/components/mySorare/MyNews';
@@ -33,20 +33,20 @@ import MyPurchases from '@sorare/marketplace/src/components/mySorare/MyPurchases
 import MySales from '@sorare/marketplace/src/components/mySorare/MySales';
 import PlayersNotifications from '@sorare/marketplace/src/components/mySorare/PlayersNotifications';
 import TransactionsHistory from '@sorare/marketplace/src/components/mySorare/TransactionsHistory';
-import { MySorarePage } from '@sorare/marketplace/src/components/mySorare/common/pages';
+import { MyViccPage } from '@sorare/marketplace/src/components/mySorare/common/pages';
 
-export const MySorare = () => {
+export const MyVicc = () => {
   const bgLocation = useBgLocation(true);
   const isReorgApp = useIsReorgApp();
   return (
     <>
       {isReorgApp && (
         <PageHeader
-          title={<FormattedMessage {...navLabels.mySorare} />}
+          title={<FormattedMessage {...navLabels.myVicc} />}
           defaultBackTo={FOOTBALL_MARKET}
         />
       )}
-      <MySorareLayout>
+      <MyViccLayout>
         <RootRoutes location={bgLocation}>
           <Route
             path={MY_SORARE_NEW}
@@ -84,7 +84,7 @@ export const MySorare = () => {
             path={MY_SORARE_OFFERS_RECEIVED}
             element={
               <EnsureTopVisibleOnMount>
-                <MyOffers page={MySorarePage.OFFERS_RECEIVED} />
+                <MyOffers page={MyViccPage.OFFERS_RECEIVED} />
               </EnsureTopVisibleOnMount>
             }
           />
@@ -92,7 +92,7 @@ export const MySorare = () => {
             path={MY_SORARE_MY_OFFER_RECEIVED}
             element={
               <EnsureTopVisibleOnMount>
-                <MyOffer page={MySorarePage.OFFERS_RECEIVED} />
+                <MyOffer page={MyViccPage.OFFERS_RECEIVED} />
               </EnsureTopVisibleOnMount>
             }
           />
@@ -100,7 +100,7 @@ export const MySorare = () => {
             path={MY_SORARE_OFFERS_SENT}
             element={
               <EnsureTopVisibleOnMount>
-                <MyOffers page={MySorarePage.OFFERS_SENT} />
+                <MyOffers page={MyViccPage.OFFERS_SENT} />
               </EnsureTopVisibleOnMount>
             }
           />
@@ -108,7 +108,7 @@ export const MySorare = () => {
             path={MY_SORARE_MY_OFFER_SENT}
             element={
               <EnsureTopVisibleOnMount>
-                <MyOffer page={MySorarePage.OFFERS_SENT} />
+                <MyOffer page={MyViccPage.OFFERS_SENT} />
               </EnsureTopVisibleOnMount>
             }
           />
@@ -145,9 +145,9 @@ export const MySorare = () => {
             }
           />
         </RootRoutes>
-      </MySorareLayout>
+      </MyViccLayout>
     </>
   );
 };
 
-export default MySorare;
+export default MyVicc;

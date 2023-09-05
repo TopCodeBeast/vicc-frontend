@@ -24,7 +24,7 @@ export const PAGE_IDS = [
   'payment',
 ] as const;
 
-export type MySorarePage = (typeof PAGE_IDS)[number];
+export type MyViccPage = (typeof PAGE_IDS)[number];
 
 const messages = defineMessages({
   settings: {
@@ -33,8 +33,8 @@ const messages = defineMessages({
   },
 });
 
-const TITLES: { [key in MySorarePage]: MessageDescriptor } =
-  defineMessages<MySorarePage>({
+const TITLES: { [key in MyViccPage]: MessageDescriptor } =
+  defineMessages<MyViccPage>({
     account: {
       id: 'Settings.account',
       defaultMessage: 'My Account',
@@ -53,7 +53,7 @@ const TITLES: { [key in MySorarePage]: MessageDescriptor } =
     },
   });
 
-const SettingsLayout = ({ tab }: { tab: MySorarePage }) => {
+const SettingsLayout = ({ tab }: { tab: MyViccPage }) => {
   const { formatMessage } = useIntlContext();
 
   const tabs = [

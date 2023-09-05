@@ -7,11 +7,11 @@ export const defaultTranslations = defineMessages({
   },
   videoSubtitle: {
     id: 'SerieALanding.Video.subtitle',
-    defaultMessage: 'Everything you need to know to get started on Sorare.',
+    defaultMessage: 'Everything you need to know to get started on Vicc.',
   },
   winRewardsMerch: {
     id: 'SerieALanding.WinRewards.merch',
-    defaultMessage: 'Sorare merch',
+    defaultMessage: 'Vicc merch',
   },
   winRewardsJersey: {
     id: 'SerieALanding.WinRewards.signedJerseys',
@@ -27,7 +27,7 @@ export const defaultTranslations = defineMessages({
   },
   winRewardsCards: {
     id: 'SerieALanding.WinRewards.cards',
-    defaultMessage: 'Sorare Digital Cards',
+    defaultMessage: 'Vicc Digital Cards',
   },
   winRewardsEth: {
     id: 'LaLigaLanding.WinRewards.eth',

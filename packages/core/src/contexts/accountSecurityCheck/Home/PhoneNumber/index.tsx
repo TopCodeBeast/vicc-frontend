@@ -76,7 +76,7 @@ export const PhoneNumber = () => {
           <Text14 color="var(--c-neutral-600)">
             <FormattedMessage
               id="accountSecurityCheck.phoneNumber.desc"
-              defaultMessage="Sorare uses phone numbers for security and anti-fraud purposes. It also helps our support team verify your identity in case you’ve lost your authentication device and recovery code."
+              defaultMessage="Vicc uses phone numbers for security and anti-fraud purposes. It also helps our support team verify your identity in case you’ve lost your authentication device and recovery code."
             />
           </Text14>
         )}

@@ -8,7 +8,7 @@ import footballLogo from '@core/assets/logos/football/main.svg';
 import mlbLogo from '@core/assets/logos/mlb/mlb.svg';
 import nbaLogo from '@core/assets/logos/nba/nba.svg';
 import Button from '@core/atoms/buttons/Button';
-import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { ViccLogo } from '@core/atoms/icons/SorareLogo';
 import { LinkOther } from '@core/atoms/navigation/Box';
 import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
 import { useHeroAnimationTimings } from '@core/components/landing/NewLandingMultiSport/utils';
@@ -69,7 +69,7 @@ const Actions = styled.div`
   align-items: center;
 `;
 
-const ResponsiveSorareLogo = styled(SorareLogo)`
+const ResponsiveViccLogo = styled(ViccLogo)`
   display: none;
   @media ${tabletAndAbove} {
     display: block;
@@ -247,10 +247,10 @@ const LoggedOutAppBar = () => {
       <DarkBackground className={classNames({ bgBlack: secondBatch })}>
         <Wrapper>
           <SportsLinks>
-            <Logo to={LANDING} title="Sorare">
+            <Logo to={LANDING} title="Vicc">
               <SmallerStarBall />
               <animated.div style={logoFadeIn}>
-                <ResponsiveSorareLogo />
+                <ResponsiveViccLogo />
               </animated.div>
             </Logo>
             {isDesktop && (

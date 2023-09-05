@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { isPast, parseISO } from 'date-fns';
 
 import { AmountWithConversion } from '@sorare/core/src/components/buyActions/AmountWithConversion';
-import SorareUser from '@sorare/core/src/components/user/SorareUser';
+import ViccUser from '@sorare/core/src/components/user/SorareUser';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
@@ -28,7 +28,7 @@ import { AuctionDetails_auction } from './__generated__/index.graphql';
 type Props = {
   auction: AuctionDetails_auction;
   isDesktopLayout: boolean;
-  hideSorareUser?: boolean;
+  hideViccUser?: boolean;
   showWinnerWhenEnded?: boolean;
   allowColumnLayout?: boolean;
   useConversionRate?: boolean;
@@ -37,7 +37,7 @@ type Props = {
 export const AuctionDetails = ({
   auction,
   isDesktopLayout,
-  hideSorareUser,
+  hideViccUser,
   showWinnerWhenEnded,
   allowColumnLayout,
   useConversionRate = false,
@@ -82,9 +82,9 @@ export const AuctionDetails = ({
             )}
           </TokenDetailsRow>
         </div>
-        {isDesktopLayout && !hideSorareUser && (
+        {isDesktopLayout && !hideViccUser && (
           <TokenDetailsRow>
-            <SorareUser />
+            <ViccUser />
           </TokenDetailsRow>
         )}
       </TokenDetailsInfos>

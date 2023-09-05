@@ -5,7 +5,7 @@ import { useFiatBalance } from '@sorare/core/src/hooks/wallets/useFiatBalance';
 import { getFaCurrencySymbol } from '@sorare/core/src/lib/fiat';
 import { payment } from '@sorare/core/src/lib/glossary';
 
-import SorareWallet from '../SorareWallet';
+import ViccWallet from '../SorareWallet';
 
 type Props = {
   withoutBalance?: boolean;
@@ -14,7 +14,7 @@ type Props = {
 export const FiatWallet = ({ withoutBalance }: Props) => {
   const { fiatCurrency, availableBalanceWithCurrencySymbol } = useFiatBalance();
   return (
-    <SorareWallet
+    <ViccWallet
       icon={getFaCurrencySymbol(fiatCurrency)}
       color="var(--c-green-600)"
       label={<FormattedMessage {...payment.sorareCashWallet} />}

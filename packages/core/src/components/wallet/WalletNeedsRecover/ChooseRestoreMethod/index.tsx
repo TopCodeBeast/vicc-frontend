@@ -60,8 +60,8 @@ export const ChooseRestoreMethod = () => {
       <Text16>
         <FormattedMessage
           id="ChooseRestoreMethod.desc"
-          defaultMessage="We noticed you recently updated your Sorare account password, for
-        security reasons we’ve locked your Sorare wallet."
+          defaultMessage="We noticed you recently updated your Vicc account password, for
+        security reasons we’ve locked your Vicc wallet."
         />
       </Text16>
       <Text16 bold>

@@ -68,7 +68,7 @@ export const SecurityWarning = () => {
         <Title6 color="var(--c-neutral-1000)">
           <FormattedMessage
             id="Wallet.BankEthAccounting.securityWaring.title"
-            defaultMessage="Protect your Sorare account and wallet."
+            defaultMessage="Protect your Vicc account and wallet."
           />
         </Title6>
         <Text14 color="var(--c-neutral-600)">

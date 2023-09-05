@@ -8,7 +8,7 @@ import { TokenAuctionDetails_token } from './__generated__/index.graphql';
 type Props = {
   token: TokenAuctionDetails_token;
   isDesktopLayout: boolean;
-  hideSorareUser?: boolean;
+  hideViccUser?: boolean;
   hideOwner?: boolean;
   galleryOwnerSlug?: string;
   disableSportSpecific?: boolean;
@@ -17,7 +17,7 @@ type Props = {
 export const TokenAuctionDetails = ({
   token,
   isDesktopLayout,
-  hideSorareUser,
+  hideViccUser,
 }: Props) => {
   const auction = useGetAuctionDetails(token.latestEnglishAuction);
   if (!token.latestEnglishAuction || !auction) return null;
@@ -25,7 +25,7 @@ export const TokenAuctionDetails = ({
   return (
     <AuctionDetails
       auction={token.latestEnglishAuction}
-      hideSorareUser={hideSorareUser}
+      hideViccUser={hideViccUser}
       isDesktopLayout={isDesktopLayout}
       useConversionRate
     />

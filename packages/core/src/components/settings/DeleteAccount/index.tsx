@@ -15,7 +15,7 @@ const messages = defineMessages({
   description: {
     id: 'Settings.deleteAccount.description',
     defaultMessage:
-      'Permanently destroy your Sorare account and history of account data. This cannot be undone.',
+      'Permanently destroy your Vicc account and history of account data. This cannot be undone.',
   },
   cta: {
     id: 'Settings.deleteAccount.cta',
@@ -32,7 +32,7 @@ const messages = defineMessages({
   dialogDescription: {
     id: 'Settings.deleteAccount.dialogDescription',
     defaultMessage:
-      'The deletion of your account will result in the irreversible deletion of all User data associated with the account within 30 days. You must save any Collectibles and Cryptocurrencies stored on the Wallet to an external wallet before any deletion request. Any Collectibles and/or Cryptocurrency stored on your Wallet that have not been transferred out of your account at the date of deletion will be permanently irretrievable. Sorare will not be responsible for the permanent loss of any Collectibles and/or Cryptocurrency that was not saved prior to a deletion request.',
+      'The deletion of your account will result in the irreversible deletion of all User data associated with the account within 30 days. You must save any Collectibles and Cryptocurrencies stored on the Wallet to an external wallet before any deletion request. Any Collectibles and/or Cryptocurrency stored on your Wallet that have not been transferred out of your account at the date of deletion will be permanently irretrievable. Vicc will not be responsible for the permanent loss of any Collectibles and/or Cryptocurrency that was not saved prior to a deletion request.',
   },
   dialogCta: {
     id: 'Settings.deleteAccount.dialogCta',

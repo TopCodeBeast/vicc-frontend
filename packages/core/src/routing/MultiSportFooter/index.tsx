@@ -45,7 +45,7 @@ const MultiSportFooter = ({ className }: Props) => {
       <CopyAndLanguage>
         <LanguageSwitcher />
         <CopyContainer>
-          © {new Date().getFullYear()} Sorare, SAS. All Rights Reserved.
+          © {new Date().getFullYear()} Vicc, SAS. All Rights Reserved.
         </CopyContainer>
       </CopyAndLanguage>
     </Footer>

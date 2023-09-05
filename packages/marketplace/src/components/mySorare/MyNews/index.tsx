@@ -31,7 +31,7 @@ import DirectOffer from '../common/DirectOffer';
 import DisplayItems from '../common/DisplayItems';
 import Follow from '../common/Follow';
 import Subscriptions from '../common/Subscriptions';
-import { MySorarePage } from '../common/pages';
+import { MyViccPage } from '../common/pages';
 import {
   MyNewsQuery,
   MyNewsQueryVariables,
@@ -65,14 +65,14 @@ const MY_NEWS_QUERY = gql`
         totalCount
         nodes {
           id
-          ...MySorareDirectOffer_tokenOffer
+          ...MyViccDirectOffer_tokenOffer
         }
       }
       pendingTokenOffersSent(first: 1) {
         totalCount
         nodes {
           id
-          ...MySorareDirectOffer_tokenOffer
+          ...MyViccDirectOffer_tokenOffer
         }
       }
       mySubscriptions(types: [TEAM, COUNTRY, PLAYER], first: 2) {
@@ -94,7 +94,7 @@ const OFFER_SUBSCRIPTION = gql`
   subscription onNewsOfferUpdated {
     tokenOfferWasUpdated {
       id
-      ...MySorareDirectOffer_tokenOffer
+      ...MyViccDirectOffer_tokenOffer
     }
   }
   ${DirectOffer.fragments.tokenOffer}
@@ -219,7 +219,7 @@ const MyNews = () => {
   const hasFollows = follows && follows.nodes.length >= 1;
 
   return (
-    <MyPage page={MySorarePage.NEW}>
+    <MyPage page={MyViccPage.NEW}>
       <Subscription gql={OFFER_SUBSCRIPTION} />
       <Subscription gql={tokenAuctionSubscription} />
       <Root>

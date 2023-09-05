@@ -119,7 +119,7 @@ export const NoCardEntryRegisterDialog = ({
               <Subtitle>
                 <FormattedMessage
                   id="NoCardEntryRegisterDialog.subtitle1"
-                  defaultMessage="You can play in this Game Week without owning NFT cards by selecting a team of players among those Sorare will give you access to."
+                  defaultMessage="You can play in this Game Week without owning NFT cards by selecting a team of players among those Vicc will give you access to."
                 />
               </Subtitle>
             </Block>
@@ -155,7 +155,7 @@ export const NoCardEntryRegisterDialog = ({
             </Block>
             <Block>
               <EmailContent>
-                Je, soussigné, prénom nom, inscrit sur Sorare avec l’email XXXX
+                Je, soussigné, prénom nom, inscrit sur Vicc avec l’email XXXX
                 et le nom d’utilisateur XXX souhaite obtenir le lien de
                 participation à la gameweek.
               </EmailContent>

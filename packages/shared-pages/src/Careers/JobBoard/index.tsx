@@ -162,7 +162,7 @@ export const JobBoard = ({ jobs }: Props) => {
         <StyledContainer>
           <TwoColumnsContainer image="right">
             <div>
-              <Title white>Sorare Careers</Title>
+              <Title white>Vicc Careers</Title>
               <Form>
                 <SimpleSelect
                   value={department}

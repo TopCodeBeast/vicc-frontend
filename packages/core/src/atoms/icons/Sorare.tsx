@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-export const Sorare = ({ ...props }: SVGProps<SVGSVGElement>) => (
+export const Vicc = ({ ...props }: SVGProps<SVGSVGElement>) => (
   <svg
     width="22"
     height="22"

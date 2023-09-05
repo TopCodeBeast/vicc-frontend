@@ -39,7 +39,7 @@ export type Props = {
   forceMobileLayout?: boolean;
   forceDesktopLayout?: boolean;
   galleryOwnerSlug?: string;
-  hideSorareUser?: boolean;
+  hideViccUser?: boolean;
   stack?: StackProps;
   TokenPropertiesButtonComponent?: ReactNode;
   hideDetails?: boolean;
@@ -170,7 +170,7 @@ export const Token = ({
               <Text14 color="var(--c-yellow-100)">
                 <FormattedMessage
                   id="MarketplaceTaskDescription.tryToWin"
-                  defaultMessage="🌟 You can try to win one as a reward in Sorare Competitions"
+                  defaultMessage="🌟 You can try to win one as a reward in Vicc Competitions"
                 />
               </Text14>
             </>

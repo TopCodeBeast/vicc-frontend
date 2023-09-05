@@ -91,13 +91,13 @@ export const NoCardEntryForm = ({ onSubmit, onSuccess }: Props) => {
     if (email !== currentUser.email) {
       errorMessages.email = {
         id: 'NoCardEntryForm.error.currentUser',
-        defaultMessage: 'The email must be the same as your Sorare account',
+        defaultMessage: 'The email must be the same as your Vicc account',
       };
     }
     if (username !== currentUser.nickname) {
       errorMessages.username = {
         id: 'NoCardEntryForm.error.currentUser',
-        defaultMessage: 'The username must be the same as your Sorare account',
+        defaultMessage: 'The username must be the same as your Vicc account',
       };
     }
     return errorMessages;
@@ -146,8 +146,8 @@ export const NoCardEntryForm = ({ onSubmit, onSuccess }: Props) => {
             <Text14>
               <FormattedMessage
                 id="NoCardEntryForm.privacyDisclaimer"
-                defaultMessage="Sorare processes the data collected to enable your participation in the current Gameweek and to combat fraud and attempted violations of applicable Terms and Conditions and Rules.
-              To learn more about how we handle your personal data and to exercise your rights, see <link>Sorare's Privacy Policy</link>.
+                defaultMessage="Vicc processes the data collected to enable your participation in the current Gameweek and to combat fraud and attempted violations of applicable Terms and Conditions and Rules.
+              To learn more about how we handle your personal data and to exercise your rights, see <link>Vicc's Privacy Policy</link>.
               "
                 values={{
                   link: (children: ReactNode[]) => (
@@ -178,7 +178,7 @@ export const NoCardEntryForm = ({ onSubmit, onSuccess }: Props) => {
             label={
               <FormattedMessage
                 id="NoCardEntryForm.username"
-                defaultMessage="Your Sorare username"
+                defaultMessage="Your Vicc username"
               />
             }
             required

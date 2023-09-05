@@ -58,7 +58,7 @@ class HandledErrorBoundary extends Component<
         if (process.env.NODE_ENV === 'development') {
           return handleKnownError(
             'OOPS',
-            `Couldn't connect to the Sorare API: ${error.message}.`
+            `Couldn't connect to the Vicc API: ${error.message}.`
           );
         }
         return handleKnownError('OOPS', 'Lost internet connection.');

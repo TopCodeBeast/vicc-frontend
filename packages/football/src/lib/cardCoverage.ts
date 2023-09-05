@@ -54,6 +54,6 @@ export const messages = defineMessages({
   collectible: {
     id: 'cardCoverage.collectible',
     defaultMessage:
-      'This is a special edition collectible-only Card. It cannot be used in the Sorare Fantasy game.',
+      'This is a special edition collectible-only Card. It cannot be used in the Vicc Fantasy game.',
   },
 });

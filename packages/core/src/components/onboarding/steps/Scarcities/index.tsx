@@ -58,7 +58,7 @@ export const Scarcities = ({
         <OnboardingTitle>
           <FormattedMessage
             id="Scarcities.collect"
-            defaultMessage="Collect Sorare Cards"
+            defaultMessage="Collect Vicc Cards"
           />
         </OnboardingTitle>
         <Text16 bold>

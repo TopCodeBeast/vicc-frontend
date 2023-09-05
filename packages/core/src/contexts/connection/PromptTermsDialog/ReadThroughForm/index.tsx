@@ -93,7 +93,7 @@ const messages = defineMessages({
   formPartnersTitle: {
     id: 'PromptTermsDialog.formPartnersTitle',
     defaultMessage:
-      "Please indicate if you agree to share your information with Sorare's partners. This is optional.",
+      "Please indicate if you agree to share your information with Vicc's partners. This is optional.",
   },
   submit: {
     id: 'PromptTermsDialog.submit',

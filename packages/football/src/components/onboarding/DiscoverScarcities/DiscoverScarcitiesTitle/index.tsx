@@ -34,7 +34,7 @@ export const DiscoverScarcitiesTitle = () => {
       <Title2 as="h1">
         <FormattedMessage
           id="DiscoverScarcities.title"
-          defaultMessage="There are several types of Sorare cards"
+          defaultMessage="There are several types of Vicc cards"
         />
       </Title2>
     </Wrapper>

@@ -3,7 +3,7 @@ import { ReactNode, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { ViccLogo } from '@core/atoms/icons/SorareLogo';
 import DialogWithNavigation from '@core/atoms/layout/DialogWithNavigation';
 import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
 import { Title4 } from '@core/atoms/typography';
@@ -33,7 +33,7 @@ const tabTitles = {
   [SecurityCheckTab.VERIFY_PHONE_NUMBER]: userAttributes.phoneNumber,
   [SecurityCheckTab.ENABLE_2FA]: glossary.twofa,
 };
-const SorareTitle = styled.div`
+const ViccTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,10 +117,10 @@ const AccountSecurityCheckProvider = ({ children }: Props) => {
                 <FormattedMessage {...tabTitles[securityCheckTab]} />
               </Title4>
             ) : (
-              <SorareTitle>
+              <ViccTitle>
                 <SmallerStarBall color="var(--c-neutral-1000)" />
-                <SorareLogo variant="var(--c-neutral-1000)" />
-              </SorareTitle>
+                <ViccLogo variant="var(--c-neutral-1000)" />
+              </ViccTitle>
             )
           }
           headerCentered

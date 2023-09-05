@@ -10,7 +10,7 @@ const messages = defineMessages({
   termsAndPrivacyPolicyLabel: {
     id: 'PromptTermsDialog.termsAndPrivacyPolicyLabel',
     defaultMessage:
-      'I agree to Sorare’s <LinkToTerms>Terms and Conditions</LinkToTerms> and that my personal data will be processed pursuant to the <LinkToPrivacyPolicy>Privacy Policy</LinkToPrivacyPolicy>',
+      'I agree to Vicc’s <LinkToTerms>Terms and Conditions</LinkToTerms> and that my personal data will be processed pursuant to the <LinkToPrivacyPolicy>Privacy Policy</LinkToPrivacyPolicy>',
   },
 });
 

@@ -2,7 +2,7 @@ import { ReactElement } from 'react-markdown/lib/react-markdown';
 import styled from 'styled-components';
 
 import { Sport } from '__generated__/globalTypes';
-import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { ViccLogo } from '@core/atoms/icons/SorareLogo';
 import StarBall from '@core/atoms/icons/StarBall';
 
 import TheNextEraIsYours from './assets/theNextEraIsYours';
@@ -80,7 +80,7 @@ const BannerHalfContent = ({ sport }: { sport: Sport }) => {
     <BannerContentItem>
       <LogoContainer>
         <StarBall color="currentColor" />
-        <SorareLogo variant="currentColor" />
+        <ViccLogo variant="currentColor" />
       </LogoContainer>
       {sport === Sport.CRICKET && <YourLegacyStartsNow />}
       {sport === Sport.BASEBALL && <TheNextEraIsYours />}

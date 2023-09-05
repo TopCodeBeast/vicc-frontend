@@ -85,8 +85,8 @@ const messages = defineMessages({
       'Flex your Premier League knowledge to compose the best five-player lineup and play against global fans.',
   },
   subtitle: {
-    id: 'BuildYourLegacy.PLOnSorare',
-    defaultMessage: 'The Premier League is now on Sorare.',
+    id: 'BuildYourLegacy.PLOnVicc',
+    defaultMessage: 'The Premier League is now on Vicc.',
   },
   subtitleV2: {
     id: 'BuildYourLegacy.subtitleV2',
@@ -103,12 +103,12 @@ const messages = defineMessages({
   },
   metadatasTitle: {
     id: 'EPLLanding.metadatas.title',
-    defaultMessage: 'The free-to-play Fantasy Premier League Game – Sorare',
+    defaultMessage: 'The free-to-play Fantasy Premier League Game – Vicc',
   },
   metadatasDescription: {
     id: 'EPLLanding.metadatas.description',
     defaultMessage:
-      "Collect, play and win officially licensed digital cards featuring players from the Premier League, the world's best football league on Sorare",
+      "Collect, play and win officially licensed digital cards featuring players from the Premier League, the world's best football league on Vicc",
   },
 });
 
@@ -274,12 +274,12 @@ const EPLLanding = ({ short }: { short?: boolean }) => {
           <ThunderboltBackground>
             <LinearGradientBackground>
               <LoggedOutAppBarWithLogo
-                title="Sorare - Premier League"
+                title="Vicc - Premier League"
                 logo={<img src={EPLLogo} alt="Premier League" />}
               />
               <BuildYourLegacy
                 playerImg={playersImg}
-                logo={<img alt="Sorare - Premier League" src={mobileLogo} />}
+                logo={<img alt="Vicc - Premier League" src={mobileLogo} />}
                 backgroundOverlayColor="var(--c-brand-premier-league)"
               >
                 <BuildYourLegacyTitle useV2={short} />

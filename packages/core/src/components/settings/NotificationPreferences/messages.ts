@@ -177,7 +177,7 @@ export const notificationSubtitles = defineMessages<
   gameplay_tips: {
     id: 'NotificationPreference.gameplayTips',
     defaultMessage:
-      'Received when onboarding into Football, NBA or MLB to better understand Sorare Fantasy Game.',
+      'Received when onboarding into Football, NBA or MLB to better understand Vicc Fantasy Game.',
   },
   referrer_reward_ready_to_claim: {
     id: 'NotificationPreference.referrerRewardReadyToClaim',
@@ -195,6 +195,6 @@ export const notificationSubtitles = defineMessages<
   news: {
     id: 'NotificationPreference.news',
     defaultMessage:
-      'Received when Sorare has announcements to share or monthly updates like our newsletter, The Snapshot.',
+      'Received when Vicc has announcements to share or monthly updates like our newsletter, The Snapshot.',
   },
 });

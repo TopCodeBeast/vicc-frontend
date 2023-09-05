@@ -33,7 +33,7 @@ export const resinsurances = [
     subtitle: (
       <FormattedMessage
         id="AffiliateProgram.resinsurance2Subtitle"
-        defaultMessage="Our trusted brand & effective promo material means the traffic you send to Sorare will convert!"
+        defaultMessage="Our trusted brand & effective promo material means the traffic you send to Vicc will convert!"
       />
     ),
   },

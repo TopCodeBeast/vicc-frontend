@@ -9,7 +9,7 @@ const messages = defineMessages({
   partnersLabel: {
     id: 'PromptTermsDialog.partnersLabel',
     defaultMessage:
-      'I agree to share my information with Sorare’s trusted partners for marketing and promotional purposes',
+      'I agree to share my information with Vicc’s trusted partners for marketing and promotional purposes',
   },
 });
 

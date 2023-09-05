@@ -4,7 +4,7 @@ export const metadatas = {
   default: defineMessages({
     title: {
       id: 'Meta.common.default.title',
-      defaultMessage: 'Sorare: Own Your Game',
+      defaultMessage: 'Vicc: Own Your Game',
     },
     description: {
       id: 'Meta.common.default.description',
@@ -16,64 +16,64 @@ export const metadatas = {
     title: {
       id: 'Meta.common.landing.title',
       defaultMessage:
-        'Play Sorare fantasy football, NBA, MLB w/ownable player cards',
+        'Play Vicc fantasy football, NBA, MLB w/ownable player cards',
     },
     description: {
       id: 'Meta.common.landing.description',
       defaultMessage:
-        'Play Sorare’s free fantasy football, MLB & NBA games. Collect, buy, sell and compete with ownable digital player cards to win rewards.',
+        'Play Vicc’s free fantasy football, MLB & NBA games. Collect, buy, sell and compete with ownable digital player cards to win rewards.',
     },
   }),
   card: defineMessages({
     title: {
       id: 'Meta.common.Card.title',
-      defaultMessage: '{scarcity} Card of {display_name} – {season} – Sorare',
+      defaultMessage: '{scarcity} Card of {display_name} – {season} – Vicc',
     },
     description: {
       id: 'Meta.common.Card.description',
       defaultMessage:
-        'Collect, trade and play with {display_name} Sorare Cards available in different scarcities and own your game',
+        'Collect, trade and play with {display_name} Vicc Cards available in different scarcities and own your game',
     },
   }),
   player: defineMessages({
     title: {
       id: 'Meta.common.player.title',
-      defaultMessage: '{display_name} – Player Profile – Sorare',
+      defaultMessage: '{display_name} – Player Profile – Vicc',
     },
     description: {
       id: 'Meta.common.player.description',
       defaultMessage:
-        'Find all the statistics of {display_name}. Collect and trade officially licensed digital cards of your favourite player on Sorare',
+        'Find all the statistics of {display_name}. Collect and trade officially licensed digital cards of your favourite player on Vicc',
     },
   }),
   userGallery: defineMessages({
     title: {
       id: 'Meta.common.userGallery.title',
-      defaultMessage: '{username}’s Gallery and Profile – Sorare',
+      defaultMessage: '{username}’s Gallery and Profile – Vicc',
     },
     description: {
       id: 'Meta.common.userGallery.description',
-      defaultMessage: '{username} Sorare Cards gallery and Profile',
+      defaultMessage: '{username} Vicc Cards gallery and Profile',
     },
   }),
   managerHome: defineMessages({
     title: {
       id: 'Meta.common.managerHome.title',
-      defaultMessage: 'Manager Home – Sorare',
+      defaultMessage: 'Manager Home – Vicc',
     },
     description: {
       id: 'Meta.common.managerHome.description',
-      defaultMessage: '{username} Sorare Manager Home',
+      defaultMessage: '{username} Vicc Manager Home',
     },
   }),
   myGallery: defineMessages({
     title: {
       id: 'Meta.common.myGallery.title',
-      defaultMessage: 'My Gallery – Sorare',
+      defaultMessage: 'My Gallery – Vicc',
     },
     description: {
       id: 'Meta.common.myGallery.description',
-      defaultMessage: '{username} Sorare Cards gallery',
+      defaultMessage: '{username} Vicc Cards gallery',
     },
   }),
   press: defineMessages({

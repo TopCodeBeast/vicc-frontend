@@ -31,7 +31,7 @@ const statusMessages = defineMessages<Tradeable>({
   [Tradeable.NO]: {
     id: 'MakeOffer.no',
     defaultMessage:
-      'This Card cannot be sold on Sorare. The owner must transfer it to their Sorare account.',
+      'This Card cannot be sold on Vicc. The owner must transfer it to their Vicc account.',
   },
   [Tradeable.YES]: {
     id: 'MakeOffer.internal',

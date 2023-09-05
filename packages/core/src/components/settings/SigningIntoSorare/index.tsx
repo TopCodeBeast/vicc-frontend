@@ -6,11 +6,11 @@ import Update2FA from '../Update2FA';
 import UpdatePassword from '../UpdatePassword';
 
 const title = defineMessage({
-  id: 'Settings.SigningIntoSorare.title',
-  defaultMessage: 'Signing into Sorare',
+  id: 'Settings.SigningIntoVicc.title',
+  defaultMessage: 'Signing into Vicc',
 });
 
-const SigningIntoSorare = () => {
+const SigningIntoVicc = () => {
   return (
     <SettingsSection title={title}>
       <UpdatePassword />
@@ -20,4 +20,4 @@ const SigningIntoSorare = () => {
   );
 };
 
-export default SigningIntoSorare;
+export default SigningIntoVicc;

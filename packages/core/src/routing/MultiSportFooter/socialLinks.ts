@@ -34,19 +34,19 @@ const SocialLinksConfig: SocialLinkProps[] = [
     social: 'twitter',
     links: [
       {
-        label: '@Sorare',
+        label: '@Vicc',
         link: TWITTER_URL,
       },
       {
-        label: '@SorareMLB',
+        label: '@ViccMLB',
         link: MLB_TWITTER_URL,
       },
       {
-        label: '@SorareNBA',
+        label: '@ViccNBA',
         link: NBA_TWITTER_URL,
       },
       {
-        label: '@SorareSupport',
+        label: '@ViccSupport',
         link: SUPPORT_TWITTER_URL,
       },
     ],
@@ -56,15 +56,15 @@ const SocialLinksConfig: SocialLinkProps[] = [
     social: 'facebook',
     links: [
       {
-        label: '@Sorare',
+        label: '@Vicc',
         link: FACEBOOK_URL,
       },
       {
-        label: '@SorareMLB',
+        label: '@ViccMLB',
         link: MLB_FACEBOOK_URL,
       },
       {
-        label: '@SorareNBA',
+        label: '@ViccNBA',
         link: NBA_FACEBOOK_URL,
       },
     ],
@@ -74,15 +74,15 @@ const SocialLinksConfig: SocialLinkProps[] = [
     social: 'instagram',
     links: [
       {
-        label: '@Sorare',
+        label: '@Vicc',
         link: INSTAGRAM_URL,
       },
       {
-        label: '@SorareMLB',
+        label: '@ViccMLB',
         link: MLB_INSTAGRAM_URL,
       },
       {
-        label: '@SorareNBA',
+        label: '@ViccNBA',
         link: NBA_INSTAGRAM_URL,
       },
     ],
@@ -92,15 +92,15 @@ const SocialLinksConfig: SocialLinkProps[] = [
     social: 'discord',
     links: [
       {
-        label: 'Sorare: Football',
+        label: 'Vicc: Football',
         link: DISCORD_INVITATION_URL,
       },
       {
-        label: 'Sorare: MLB',
+        label: 'Vicc: MLB',
         link: MLB_DISCORD_INVITATION_URL,
       },
       {
-        label: 'Sorare: NBA',
+        label: 'Vicc: NBA',
         link: NBA_DISCORD_INVITATION_URL,
       },
     ],
@@ -120,7 +120,7 @@ const SocialLinksConfig: SocialLinkProps[] = [
     social: 'youtube',
     links: [
       {
-        label: '@SorareHQ',
+        label: '@ViccHQ',
         link: YOUTUBE_URL,
       },
     ],
@@ -130,7 +130,7 @@ const SocialLinksConfig: SocialLinkProps[] = [
     social: 'tiktok',
     links: [
       {
-        label: '@Sorare',
+        label: '@Vicc',
         link: TIKTOK_URL,
       },
     ],

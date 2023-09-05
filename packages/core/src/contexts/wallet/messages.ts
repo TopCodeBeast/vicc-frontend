@@ -146,7 +146,7 @@ export const messages = defineMessages<keyof Dict>({
   },
   signInTitle: {
     id: 'walletApp.signInTitle',
-    defaultMessage: 'Sign in to Sorare',
+    defaultMessage: 'Sign in to Vicc',
   },
   signMigration: {
     id: 'walletApp.signMigration',
@@ -159,16 +159,16 @@ export const messages = defineMessages<keyof Dict>({
   signUpAgreePartnersOffers: {
     id: 'walletApp.signUpAgreePartnersOffers',
     defaultMessage:
-      "I want to receive email offers from Sorare's partnering clubs.",
+      "I want to receive email offers from Vicc's partnering clubs.",
   },
   signUpTerms: {
     id: 'walletApp.signUpTerms',
     defaultMessage:
-      "I agree to Sorare's <t>Terms of Service</t> and <g>Game Rules</g>",
+      "I agree to Vicc's <t>Terms of Service</t> and <g>Game Rules</g>",
   },
   signUpTitle: {
     id: 'walletApp.signUpTitle',
-    defaultMessage: 'Sign up to Sorare',
+    defaultMessage: 'Sign up to Vicc',
   },
   signUpSubtitle: {
     id: 'walletApp.signUpSubtitle',
@@ -231,7 +231,7 @@ export const messages = defineMessages<keyof Dict>({
   generateWallet: {
     id: 'walletApp.generateWallet',
     defaultMessage:
-      'Please choose a password in order to protect your Sorare wallet.',
+      'Please choose a password in order to protect your Vicc wallet.',
   },
   updateWallet: {
     id: 'walletApp.updateWallet',
@@ -278,7 +278,7 @@ export const messages = defineMessages<keyof Dict>({
   starkwareKeysDescription: {
     id: 'walletApp.starkwareKeysDescription',
     defaultMessage:
-      'This is your Sorare (Starkware) Wallet. This cannot receive ETH directly and is only used within Sorare.',
+      'This is your Vicc (Starkware) Wallet. This cannot receive ETH directly and is only used within Vicc.',
   },
   errorTrackingTitle: {
     id: 'walletApp.errorMessage.title',
@@ -319,7 +319,7 @@ export const messages = defineMessages<keyof Dict>({
   trustedPartnersDesc1: {
     id: 'walletApp.trustedPartnersDesc1',
     defaultMessage:
-      'Sorare will only share information with trusted partners subject to your express consent.',
+      'Vicc will only share information with trusted partners subject to your express consent.',
   },
   trustedPartnersDesc2: {
     id: 'walletApp.trustedPartnersDesc2',
@@ -363,12 +363,12 @@ export const messages = defineMessages<keyof Dict>({
   iAgreeToShare: {
     id: 'walletApp.iAgreeToShare',
     defaultMessage:
-      "I agree to share my information with Sorare's trusted partners for marketing and promotional purposes",
+      "I agree to share my information with Vicc's trusted partners for marketing and promotional purposes",
   },
   iAgreeToShareV2: {
     id: 'walletApp.iAgreeToShareV2',
     defaultMessage:
-      "I agree to share my information with Sorare's trusted partners listed <partnerslist>here</partnerslist> for marketing and promotional purposes",
+      "I agree to share my information with Vicc's trusted partners listed <partnerslist>here</partnerslist> for marketing and promotional purposes",
   },
   privacyPolicy: {
     id: 'walletApp.privacyPolicy',
@@ -384,7 +384,7 @@ export const messages = defineMessages<keyof Dict>({
   },
   iAgreeToTermsAndConditions: {
     id: 'walletApp.iAgreeToTermsAndConditions',
-    defaultMessage: `I agree to Sorare's <terms>Terms and Conditions</terms> and that my personal data will be processed pursuant to the <privacy>Privacy Policy</privacy>.`,
+    defaultMessage: `I agree to Vicc's <terms>Terms and Conditions</terms> and that my personal data will be processed pursuant to the <privacy>Privacy Policy</privacy>.`,
   },
   youMustAcceptTermsAndConditions: {
     id: 'walletApp.youMustAcceptTermsAndConditions',
@@ -406,7 +406,7 @@ export const messages = defineMessages<keyof Dict>({
   forgotPasswordHelper: {
     id: 'walletApp.forgotPasswordHelper',
     defaultMessage:
-      'Enter the email address associated with your Sorare account.',
+      'Enter the email address associated with your Vicc account.',
   },
   // Partners Optin
   epl: {

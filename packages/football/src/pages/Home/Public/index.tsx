@@ -160,7 +160,7 @@ const messages = defineMessages({
 const meta = defineMessages({
   title: {
     id: 'Football.Home.Public.meta.title',
-    defaultMessage: 'The free-to-play Fantasy Football Game - Sorare: Football',
+    defaultMessage: 'The free-to-play Fantasy Football Game - Vicc: Football',
   },
   description: {
     id: 'Football.Home.Public.meta.description',
@@ -309,7 +309,7 @@ const FootballPublicHome = () => {
             subtitle={
               <FormattedMessage
                 id="Football.Home.Public.compete.subtitle"
-                defaultMessage="Play one or multiple global leagues and become the best Sorare: Football General Manager"
+                defaultMessage="Play one or multiple global leagues and become the best Vicc: Football General Manager"
               />
             }
           >
@@ -411,7 +411,7 @@ const FootballPublicHome = () => {
             subtitle={
               <FormattedMessage
                 id="Football.Home.Public.rewards.subtitle"
-                defaultMessage="Only available to Sorare Managers"
+                defaultMessage="Only available to Vicc Managers"
               />
             }
           >

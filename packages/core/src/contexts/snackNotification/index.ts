@@ -32,7 +32,7 @@ export const notifications = defineMessages({
   },
   cardDropPickerError: {
     id: 'CardDropPicker.errorNotification',
-    defaultMessage: 'Unable to proceed. Please contact Sorare.',
+    defaultMessage: 'Unable to proceed. Please contact Vicc.',
   },
   cardDropPickerTooLong: {
     id: 'CardDropPicker.tooLongNotification',
@@ -116,7 +116,7 @@ export const notifications = defineMessages({
   },
   acceptInvitation: {
     id: 'AcceptInvitation.successNotification',
-    defaultMessage: 'Welcome to Sorare!',
+    defaultMessage: 'Welcome to Vicc!',
   },
   passwordForgottenError: {
     id: 'PasswordForgotten.errorNotification',
@@ -249,7 +249,7 @@ export const notifications = defineMessages({
   secondFactorRecommendation: {
     id: 'CurrentUser.secondFactorRecommendation',
     defaultMessage:
-      'To ensure the security of your assets on Sorare, we strongly recommend that you <link>enable a second authentication factor</link>.',
+      'To ensure the security of your assets on Vicc, we strongly recommend that you <link>enable a second authentication factor</link>.',
   },
   confirmEmail: {
     id: 'CurrentUser.confirmEmail.remainingHours',
@@ -261,8 +261,8 @@ export const notifications = defineMessages({
     defaultMessage:
       "The username <strong>{referrer}</strong> doesn't exist. Please try another referral link.",
   },
-  nullSorarePrivateKeyRecovery: {
-    id: 'CurrentUser.nullSorarePrivateKeyRecovery',
+  nullViccPrivateKeyRecovery: {
+    id: 'CurrentUser.nullViccPrivateKeyRecovery',
     defaultMessage:
       'Your wallet is not pending recovery. If you recently changed your password you will receive a new email within 24 hours.',
   },
@@ -289,7 +289,7 @@ export const notifications = defineMessages({
       'You’ve been successfully logged out from all other devices besides this one',
   },
   accountingExtractSent: {
-    id: 'MySorare.TransactionsHistory.accountingExtractSent',
+    id: 'MyVicc.TransactionsHistory.accountingExtractSent',
     defaultMessage:
       'You should receive an email with your accounting extract within the coming minutes.',
   },
@@ -305,7 +305,7 @@ export const notifications = defineMessages({
   learnCompetitionsSuccess: {
     id: 'Onboarding.learnCompetitionsSuccess',
     defaultMessage:
-      '<notification><success>Task successfully completed!</success>Learn about Sorare Competitions</notification>',
+      '<notification><success>Task successfully completed!</success>Learn about Vicc Competitions</notification>',
   },
   playerAddedToFavorites: {
     id: 'Favorites.playerAdded',

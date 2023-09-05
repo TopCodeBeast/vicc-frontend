@@ -9,10 +9,10 @@ import Avatar from '@sorare/core/src/components/user/Avatar';
 import UserName from '@sorare/core/src/components/user/UserName';
 import { FOOTBALL_USER_GALLERY } from '@sorare/core/src/constants/routes';
 
-import { PlayerOnSorare_player } from './__generated__/index.graphql';
+import { PlayerOnVicc_player } from './__generated__/index.graphql';
 
 interface Props {
-  player: PlayerOnSorare_player;
+  player: PlayerOnVicc_player;
 }
 
 const Container = styled.div`
@@ -21,14 +21,14 @@ const Container = styled.div`
   gap: var(--unit);
 `;
 
-const PlayerOnSorareBlock = styled(Block)`
+const PlayerOnViccBlock = styled(Block)`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: var(--unit);
 `;
 
-const PlayerOnSorare = ({ player }: Props) => {
+const PlayerOnVicc = ({ player }: Props) => {
   const { user } = player;
 
   if (!user || user.suspended) return null;
@@ -37,12 +37,12 @@ const PlayerOnSorare = ({ player }: Props) => {
     <Container>
       <Title6 as="h2">
         <FormattedMessage
-          id="PlayerOnSorare.Title"
-          defaultMessage="This player is a Sorare manager"
+          id="PlayerOnVicc.Title"
+          defaultMessage="This player is a Vicc manager"
         />
       </Title6>
 
-      <PlayerOnSorareBlock
+      <PlayerOnViccBlock
         to={generatePath(FOOTBALL_USER_GALLERY, {
           slug: user.slug,
         })}
@@ -51,14 +51,14 @@ const PlayerOnSorare = ({ player }: Props) => {
         <Text16 color="var(--c-neutral-1000)" bold>
           <UserName user={user} />
         </Text16>
-      </PlayerOnSorareBlock>
+      </PlayerOnViccBlock>
     </Container>
   );
 };
 
-PlayerOnSorare.fragments = {
+PlayerOnVicc.fragments = {
   player: gql`
-    fragment PlayerOnSorare_player on Player {
+    fragment PlayerOnVicc_player on Player {
       slug
       user {
         slug
@@ -68,7 +68,7 @@ PlayerOnSorare.fragments = {
     }
     ${Avatar.fragments.publicUserInfoInterface}
     ${UserName.fragments.user}
-  ` as TypedDocumentNode<PlayerOnSorare_player>,
+  ` as TypedDocumentNode<PlayerOnVicc_player>,
 };
 
-export default PlayerOnSorare;
+export default PlayerOnVicc;

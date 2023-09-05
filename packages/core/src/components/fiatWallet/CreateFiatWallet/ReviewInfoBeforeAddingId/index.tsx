@@ -94,7 +94,7 @@ export const ReviewInfoBeforeAddingId = ({ setStep }: Props) => {
       <Text16>
         <FormattedMessage
           id="CreateFiatWallet.ReviewInfo.edit.description"
-          defaultMessage="Please review the info below for accuracy so we can verify your identity. Your ID should match the personal info in your Sorare account."
+          defaultMessage="Please review the info below for accuracy so we can verify your identity. Your ID should match the personal info in your Vicc account."
         />
       </Text16>
       <StyledGraphqlForm

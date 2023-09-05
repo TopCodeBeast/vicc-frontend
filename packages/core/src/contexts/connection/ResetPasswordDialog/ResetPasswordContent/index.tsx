@@ -76,13 +76,13 @@ export const ResetPasswordContent = ({ hasSubmitted }: Props) => {
       <Text16 color="var(--c-neutral-1000)">
         <FormattedMessage
           id="ResetPasswordDialog.desc"
-          defaultMessage="Enter a new password to secure your Sorare account. It must be at least six characters long."
+          defaultMessage="Enter a new password to secure your Vicc account. It must be at least six characters long."
         />
       </Text16>
       <Text16 color="var(--c-neutral-1000)">
         <FormattedMessage
           id="ResetPasswordDialog.helper"
-          defaultMessage="Setting a new password will require you to recover your Sorare wallet the next time you log in."
+          defaultMessage="Setting a new password will require you to recover your Vicc wallet the next time you log in."
         />
       </Text16>
       <Frame />

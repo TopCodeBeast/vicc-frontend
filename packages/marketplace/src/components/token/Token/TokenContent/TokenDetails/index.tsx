@@ -12,7 +12,7 @@ type Props = {
   token: TokenDetails_token;
   stackedTokensCount?: number;
   isDesktopLayout: boolean;
-  hideSorareUser?: boolean;
+  hideViccUser?: boolean;
   hideOwner?: boolean;
   galleryOwnerSlug?: string;
   disableSportSpecific?: boolean;
@@ -23,7 +23,7 @@ export const TokenDetails = ({
   token,
   stackedTokensCount,
   isDesktopLayout,
-  hideSorareUser,
+  hideViccUser,
   hideOwner,
   galleryOwnerSlug,
   disableSportSpecific,
@@ -49,7 +49,7 @@ export const TokenDetails = ({
     return (
       <TokenAuctionDetails
         token={token}
-        hideSorareUser={hideSorareUser}
+        hideViccUser={hideViccUser}
         isDesktopLayout={isDesktopLayout}
       />
     );

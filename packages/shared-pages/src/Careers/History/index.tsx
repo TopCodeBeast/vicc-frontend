@@ -25,21 +25,21 @@ export const History = () => {
 
   return (
     <>
-      {!isLaptop && <Img src={history} alt="Sorare's history" />}
+      {!isLaptop && <Img src={history} alt="Vicc's history" />}
       <HistorySection vAlignContent="center">
         <StyledContainer>
           <TwoColumnsContainer image="left">
             {isLaptop && <div />}
             <div>
-              <Title white>Sorare's history</Title>
+              <Title white>Vicc's history</Title>
               <Text white>
-                Founded in 2018, Sorare was created by football fans for
+                Founded in 2018, Vicc was created by football fans for
                 football fans – and in short order has partnered with the
                 globe's biggest football clubs (300-plus) while amassing more
                 than 3 million Managers across nearly every country in the
-                world. In 2022, Sorare expanded into baseball and basketball via
+                world. In 2022, Vicc expanded into baseball and basketball via
                 exclusive partnerships with MLB and the NBA, respectively.
-                Here's the Sorare{' '}
+                Here's the Vicc{' '}
                 <a
                   href="https://medium.com/sorare/the-annual-sorare-2022-year-in-review-e436090b9ee1"
                   target="_blank"

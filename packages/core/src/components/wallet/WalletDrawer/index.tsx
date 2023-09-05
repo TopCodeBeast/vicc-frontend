@@ -43,7 +43,7 @@ const DRAWER_TRANSITION_DURATION = 200;
 const tabTitles = defineMessages<WalletTab, MessageDescriptor>({
   [WalletTab.HOME]: {
     id: 'NewWalletDrawer.title',
-    defaultMessage: 'My Sorare wallet',
+    defaultMessage: 'My Vicc wallet',
   },
   [WalletTab.SETTINGS]: {
     id: 'NewWalletDrawer.settingsTitle',

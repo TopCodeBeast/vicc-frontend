@@ -22,7 +22,7 @@ export const JulioRodriguezPrize = ({ isHovered }: Props) => {
       subtitle={formatMessage(messages.access)}
       cta={formatMessage(messages.watchCTA)}
       bgImage={julioRodriguez}
-      link="https://twitter.com/SorareMLB/status/1682027993521328132"
+      link="https://twitter.com/ViccMLB/status/1682027993521328132"
     />
   );
 };

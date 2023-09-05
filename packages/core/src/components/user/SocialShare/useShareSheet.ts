@@ -53,7 +53,7 @@ export default ({
     const fetchImage = async () => {
       setLoading(true);
       setImageFile(
-        await fetchFile(image, toSnakeCase(title || `Sorare-${Date.now()}`))
+        await fetchFile(image, toSnakeCase(title || `Vicc-${Date.now()}`))
       );
       setLoading(false);
     };

@@ -85,7 +85,7 @@ export const CardResultsFromGraphQL = ({
   removeFinishedAuctions,
   removeEndedSingleSaleOffers,
   topic,
-  hideSorareUser,
+  hideViccUser,
   stackable,
   showDesktopFilter,
   editableLists,
@@ -286,7 +286,7 @@ export const CardResultsFromGraphQL = ({
       removeFinishedAuctions={removeFinishedAuctions}
       removeEndedSingleSaleOffers={removeEndedSingleSaleOffers}
       topic={topic}
-      hideSorareUser={hideSorareUser}
+      hideViccUser={hideViccUser}
       stackable={stackable}
       loading={loading}
       showDesktopFilter={showDesktopFilter}

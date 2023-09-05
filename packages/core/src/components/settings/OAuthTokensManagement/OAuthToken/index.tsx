@@ -174,7 +174,7 @@ export const OAuthToken = ({ oAuthAccessToken }: Props) => {
           <div>
             <FormattedMessage
               id="Settings.OAuthTokensManagement.confirmRevoke"
-              defaultMessage="You will revoke your Sorare authentication token on <b>{application}</b> application. This means <b>{application}</b> will no longer be able to let you connect with your Sorare account. Are you sure?"
+              defaultMessage="You will revoke your Vicc authentication token on <b>{application}</b> application. This means <b>{application}</b> will no longer be able to let you connect with your Vicc account. Are you sure?"
               values={{
                 application: oAuthAccessToken.application.name,
                 b: Bold,

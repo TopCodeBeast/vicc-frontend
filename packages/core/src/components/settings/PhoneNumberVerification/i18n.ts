@@ -16,7 +16,7 @@ export default defineMessages({
   noticeFirstParagraph: {
     id: 'Settings.phoneNumberVerification.noticeFirstParagraph',
     defaultMessage:
-      'Sorare processes phone numbers for security and anti-fraud purposes (notably to monitor the respect of our terms for referral activities, non-casual line-up creations and credit cards payment).',
+      'Vicc processes phone numbers for security and anti-fraud purposes (notably to monitor the respect of our terms for referral activities, non-casual line-up creations and credit cards payment).',
   },
   noticeSecondParagraph: {
     id: 'Settings.phoneNumberVerification.noticeSecondParagraph',

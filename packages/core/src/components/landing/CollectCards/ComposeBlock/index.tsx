@@ -63,7 +63,7 @@ export const ComposeBlock = () => (
         <FormattedMessage
           id="Landing.CollectCards.ComposeBlock.subheading"
           defaultMessage="Submit five-player lineups (football & NBA) or seven-player lineups (MLB)
-          in a range of free competitions against Sorare Managers around the world. Plus, play against friends in private leagues."
+          in a range of free competitions against Vicc Managers around the world. Plus, play against friends in private leagues."
         />
       }
     />

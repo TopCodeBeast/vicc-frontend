@@ -18,7 +18,7 @@ const messages = defineMessages({
   description: {
     id: 'Settings.RecoveringYourWallet.description',
     defaultMessage:
-      'You can receive a unique wallet recovery key to any of the methods below to help you recover your Sorare wallet after you change your account password or if you don’t log in for an extended time.',
+      'You can receive a unique wallet recovery key to any of the methods below to help you recover your Vicc wallet after you change your account password or if you don’t log in for an extended time.',
   },
 });
 const RecoveringYourWallet = () => {

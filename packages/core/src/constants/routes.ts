@@ -11,7 +11,7 @@ export const NBA_PATH = '/nba';
 
 export const AFFILIATE_PROGRAM = '/affiliate-program';
 
-export const MY_SORARE_HOME = '/my-sorare';
+export const MY_SORARE_HOME = '/my-vicc';
 export const MY_SORARE_WILDCARD = `${MY_SORARE_HOME}/*`;
 export const MY_SORARE_NEW = `${MY_SORARE_HOME}/new`;
 export const MY_SORARE_AUCTIONS = `${MY_SORARE_HOME}/auctions`;

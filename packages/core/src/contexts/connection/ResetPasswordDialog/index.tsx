@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { ViccLogo } from '@core/atoms/icons/SorareLogo';
 import Dialog from '@core/atoms/layout/Dialog';
 import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
 import { useWalletContext } from '@core/contexts/wallet';
@@ -16,7 +16,7 @@ type Props = {
   onClose: () => void;
 };
 
-const SorareTitle = styled.div`
+const ViccTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,10 +46,10 @@ export const ResetPasswordDialog = ({ open, onClose: doOnclose }: Props) => {
     <Dialog
       open={open}
       title={
-        <SorareTitle>
+        <ViccTitle>
           <SmallerStarBall color="var(--c-neutral-1000)" />
-          <SorareLogo variant="var(--c-neutral-1000)" />
-        </SorareTitle>
+          <ViccLogo variant="var(--c-neutral-1000)" />
+        </ViccTitle>
       }
       headerCentered
       onClose={onClose}

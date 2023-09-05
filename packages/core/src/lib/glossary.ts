@@ -423,9 +423,9 @@ export const navLabels = defineMessages({
     id: 'Nav.managerAssistant',
     defaultMessage: 'Manager Assistant',
   },
-  mySorare: {
-    id: 'Nav.mySorare',
-    defaultMessage: 'My Sorare',
+  myVicc: {
+    id: 'Nav.myVicc',
+    defaultMessage: 'My Vicc',
   },
   new: {
     id: 'Nav.new',
@@ -514,15 +514,15 @@ export const navLabels = defineMessages({
   },
   footballMarket: {
     id: 'Footer.footballMarket',
-    defaultMessage: 'Sorare: Football Market',
+    defaultMessage: 'Vicc: Football Market',
   },
   mlbMarket: {
     id: 'Footer.mlbMarket',
-    defaultMessage: 'Sorare: MLB Market',
+    defaultMessage: 'Vicc: MLB Market',
   },
   nbaMarket: {
     id: 'Footer.nbaMarket',
-    defaultMessage: 'Sorare: NBA Market',
+    defaultMessage: 'Vicc: NBA Market',
   },
   home: {
     id: 'Nav.Home',
@@ -1166,7 +1166,7 @@ export const payment = defineMessages({
   },
   sorareWallet: {
     id: 'Glossary.sorareWallet',
-    defaultMessage: 'Sorare Wallet',
+    defaultMessage: 'Vicc Wallet',
   },
   sorareEthWallet: {
     id: 'Glossary.sorareEthWallet',

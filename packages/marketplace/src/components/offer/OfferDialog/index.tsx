@@ -106,7 +106,7 @@ export const messages = defineMessages({
   },
   marketFeesDetails: {
     id: 'OfferDialog.marketFeesDetails',
-    defaultMessage: 'Sorare is currently covering this fee',
+    defaultMessage: 'Vicc is currently covering this fee',
   },
   tooltip: {
     id: 'OfferDialog.tooltip',
@@ -625,7 +625,7 @@ const OfferDialog = ({
                       <Text16 color="var(--c-neutral-600)">
                         <FormattedMessage
                           id="OfferDialog.enableFiatWalletBeforeLaunch.acceptedCurrenciesHaveBeenSet.BOTH.description"
-                          defaultMessage="Starting on Wednesday, Sorare Managers can pay you in either cash or ETH, and you can change your accepted payment types (e.g. only cash or only ETH)."
+                          defaultMessage="Starting on Wednesday, Vicc Managers can pay you in either cash or ETH, and you can change your accepted payment types (e.g. only cash or only ETH)."
                         />
                       </Text16>
                     </HelperText>

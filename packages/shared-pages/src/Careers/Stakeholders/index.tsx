@@ -25,14 +25,14 @@ export const Stakeholders = () => {
 
   return (
     <>
-      {!isLaptop && <Img src={stakeholders} alt="Sorare stakeholders" />}
+      {!isLaptop && <Img src={stakeholders} alt="Vicc stakeholders" />}
       <StakeholdersSection vAlignContent="center" blackLayer="left">
         <StyledContainer>
           <TwoColumnsContainer image="right">
             <div>
-              <Title white>Sorare stakeholders</Title>
+              <Title white>Vicc stakeholders</Title>
               <Text white>
-                Sorare is funded by a world-class team including SoftBank,
+                Vicc is funded by a world-class team including SoftBank,
                 Benchmark, Accel Partners, and Headline; star footballers Gerard
                 Piqué, Antoine Griezmann, and Rio Ferdinand; and key tech
                 investors such as Alexis Ohanian, among many others. In

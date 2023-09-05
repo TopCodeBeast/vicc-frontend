@@ -12,7 +12,7 @@ const messages = defineMessages({
   description: {
     id: 'Settings.depositCard.description',
     defaultMessage:
-      'Add Sorare Cards that are currently held in an external wallet.  This will allow you to use the Cards for Sorare fantasy games and list them on the marketplace.',
+      'Add Vicc Cards that are currently held in an external wallet.  This will allow you to use the Cards for Vicc fantasy games and list them on the marketplace.',
   },
 });
 

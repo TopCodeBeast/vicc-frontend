@@ -38,12 +38,12 @@ const messages = defineMessages({
   currencyDetails: {
     id: 'Settings.currency.currencyDetails',
     defaultMessage:
-      'Choose the conversion that you would like to see displayed across Sorare, including your wallet and the marketplace.',
+      'Choose the conversion that you would like to see displayed across Vicc, including your wallet and the marketplace.',
   },
   fiatCurrencyDetails: {
     id: 'Settings.currency.fiatCurrencyDetails',
     defaultMessage:
-      'Choose the currency that you would like to see displayed across Sorare, including your wallet and the marketplace.',
+      'Choose the currency that you would like to see displayed across Vicc, including your wallet and the marketplace.',
   },
 });
 

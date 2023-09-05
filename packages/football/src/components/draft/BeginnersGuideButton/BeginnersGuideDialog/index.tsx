@@ -60,7 +60,7 @@ const BeginnersGuideDialog = ({ onClose }: Props) => {
           <Text14>
             <FormattedMessage
               id="Draft.BeginnersGuideBanner.BeginnersGuideDialog.Subtitle"
-              defaultMessage="Level up your knowledge and become the best Sorare manager."
+              defaultMessage="Level up your knowledge and become the best Vicc manager."
             />
           </Text14>
 
@@ -69,7 +69,7 @@ const BeginnersGuideDialog = ({ onClose }: Props) => {
             title={
               <FormattedMessage
                 id="Draft.BeginnersGuideBanner.BeginnersGuideDialog.HowToPlay.Title"
-                defaultMessage="How Sorare Works"
+                defaultMessage="How Vicc Works"
               />
             }
             subtitle={
@@ -81,7 +81,7 @@ const BeginnersGuideDialog = ({ onClose }: Props) => {
           >
             <FormattedMessage
               id="Draft.BeginnersGuideBanner.BeginnersGuideDialog.HowToPlay.Content"
-              defaultMessage="Sorare is a revolutionary fantasy football game transforming fans into owners. With Sorare, you build your club from the ground up by scouting, trading and winning amazing rewards in our fantasy competitions."
+              defaultMessage="Vicc is a revolutionary fantasy football game transforming fans into owners. With Vicc, you build your club from the ground up by scouting, trading and winning amazing rewards in our fantasy competitions."
             />
           </Section>
 
@@ -170,7 +170,7 @@ const BeginnersGuideDialog = ({ onClose }: Props) => {
           >
             <FormattedMessage
               id="Draft.BeginnersGuideBanner.BeginnersGuideDialog.Scores.Content"
-              defaultMessage="Scoring is designed to best match each player's contribution to their team's success. From goals and assists to more nuanced actions like tackles, long passes and duels won, Sorare’s sophisticated scoring system tracks 48 different stats. A player’s score ranges from 0 to 100."
+              defaultMessage="Scoring is designed to best match each player's contribution to their team's success. From goals and assists to more nuanced actions like tackles, long passes and duels won, Vicc’s sophisticated scoring system tracks 48 different stats. A player’s score ranges from 0 to 100."
             />
           </Section>
 

@@ -10,7 +10,7 @@ import { Subscription } from '@marketplace/components/Subscription';
 
 import MyPage from '../../MyPage';
 import { messages } from '../messages';
-import { MySorarePage } from '../pages';
+import { MyViccPage } from '../pages';
 import {
   OfferSelectType as SelectType,
   DefaultSortType as SortType,
@@ -22,7 +22,7 @@ import {
 } from './__generated__/index.graphql';
 
 interface Props {
-  page: MySorarePage;
+  page: MyViccPage;
   displayItems: (
     selectType: SelectType,
     sortType: SortType,

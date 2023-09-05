@@ -122,7 +122,7 @@ export const BuyOnAuction = ({ rarity, sport }: BuyOnAuctionProps) => {
       <Text14 color="var(--c-neutral-1000)">
         <FormattedMessage
           id="buyOnAuction.desc"
-          defaultMessage="Buy directly from Sorare's new card auctions using your credit or debit card."
+          defaultMessage="Buy directly from Vicc's new card auctions using your credit or debit card."
         />
       </Text14>
       <StyledLink to={getMarketUrl({ sport, playerName, rarity })}>

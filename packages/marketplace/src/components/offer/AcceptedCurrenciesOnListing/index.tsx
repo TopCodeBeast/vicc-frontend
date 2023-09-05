@@ -102,11 +102,11 @@ const messages = defineMessages({
   prelaunchCashAndEthDesc: {
     id: 'PreLaunchFiatWalletListing.options.cashAndEth.description.prelaunch',
     defaultMessage:
-      'Starting on Wednesday, Sorare Managers can pay you with either cash or ETH.',
+      'Starting on Wednesday, Vicc Managers can pay you with either cash or ETH.',
   },
   cashAndEthDesc: {
     id: 'postLaunchFiatWalletListing.options.cashAndEth.description',
-    defaultMessage: 'Sorare Managers can pay you with either cash or ETH.',
+    defaultMessage: 'Vicc Managers can pay you with either cash or ETH.',
   },
 });
 

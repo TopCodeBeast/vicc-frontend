@@ -60,7 +60,7 @@ const messages = defineMessages({
   transactionFeesValue: {
     id: 'WireTransfer.transactionFeesValue',
     defaultMessage:
-      'For international wire transfers, please note that your bank may assess additional costs and/or fees. Sorare will charge a {value} fee when your deposit is processed.',
+      'For international wire transfers, please note that your bank may assess additional costs and/or fees. Vicc will charge a {value} fee when your deposit is processed.',
   },
   processingTimes: {
     id: 'WireTransfer.processingTime',

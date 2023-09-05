@@ -15,7 +15,7 @@ const messages = defineMessages({
   description: {
     id: 'NewsSigningsOnboardingDialog.description',
     defaultMessage:
-      'Bid on cards in auctions to take a chance at becoming the first owner of those new Sorare cards',
+      'Bid on cards in auctions to take a chance at becoming the first owner of those new Vicc cards',
   },
 });
 

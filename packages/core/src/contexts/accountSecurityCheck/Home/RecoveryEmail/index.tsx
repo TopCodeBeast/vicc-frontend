@@ -102,7 +102,7 @@ export const RecoveryEmail = () => {
         <Text14 color="var(--c-neutral-600)">
           <FormattedMessage
             id="accountSecurityCheck.recoveryEmails.desc"
-            defaultMessage="We strongly recommend adding a recovery email. It will help us contact you if you get locked out and assist in recovering your Sorare wallet."
+            defaultMessage="We strongly recommend adding a recovery email. It will help us contact you if you get locked out and assist in recovering your Vicc wallet."
           />
         </Text14>
       )}

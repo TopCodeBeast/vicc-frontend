@@ -34,12 +34,12 @@ const messages = defineMessages({
   ipfsData: {
     id: 'BlockchainInfo.ipfsDataInfo',
     defaultMessage:
-      'IPFS is a decentralized storage system that enables the secure and persistent storage of digital content. For Sorare NFTs, the IPFS data includes information about the unique digital asset, such as its image, as well as metadata describing its immutable properties. This ensures the NFT remains independently accessible and verifiable at all times.',
+      'IPFS is a decentralized storage system that enables the secure and persistent storage of digital content. For Vicc NFTs, the IPFS data includes information about the unique digital asset, such as its image, as well as metadata describing its immutable properties. This ensures the NFT remains independently accessible and verifiable at all times.',
   },
   ipfsPicture: {
     id: 'BlockchainInfo.ipfsPictureInfo',
     defaultMessage:
-      'IPFS is a decentralized storage system that enables the secure and persistent storage of digital content. Sorare uses IPFS to store the picture of the NFTs. This ensures the NFT remains independently accessible and verifiable at all times.',
+      'IPFS is a decentralized storage system that enables the secure and persistent storage of digital content. Vicc uses IPFS to store the picture of the NFTs. This ensures the NFT remains independently accessible and verifiable at all times.',
   },
 });
 

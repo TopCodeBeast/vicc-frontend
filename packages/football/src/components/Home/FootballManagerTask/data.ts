@@ -42,11 +42,11 @@ const messages = defineMessages({
   },
   desktopWatchVideo: {
     id: 'Awards.scout',
-    defaultMessage: 'Master Sorare 101 and learn the basics of our game',
+    defaultMessage: 'Master Vicc 101 and learn the basics of our game',
   },
   mobileWatchVideo: {
     id: 'FootballManagerTask.Mobile.watch_video',
-    defaultMessage: 'Master Sorare 101',
+    defaultMessage: 'Master Vicc 101',
   },
   watchTutorial: {
     id: 'FootballManagerTask.Desktop.watch_tutorial',

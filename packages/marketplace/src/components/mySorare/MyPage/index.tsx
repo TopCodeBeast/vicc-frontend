@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { Title2 } from '@sorare/core/src/atoms/typography';
 import { desktopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
-import MySorareMarketplaceProvider from '@marketplace/contexts/MySorareMarketplace';
+import MyViccMarketplaceProvider from '@marketplace/contexts/MySorareMarketplace';
 
-import { HEADERS, MySorarePage } from '../common/pages';
+import { HEADERS, MyViccPage } from '../common/pages';
 
 interface Props {
-  page: MySorarePage;
+  page: MyViccPage;
   children: React.ReactNode;
   toolbar?: React.ReactNode;
 }
@@ -34,7 +34,7 @@ const Toolbar = styled.div`
 
 export const MyPage = ({ page, children, toolbar }: Props) => {
   return (
-    <MySorareMarketplaceProvider>
+    <MyViccMarketplaceProvider>
       <Header>
         <Title2>
           <FormattedMessage {...HEADERS[page]} />
@@ -42,7 +42,7 @@ export const MyPage = ({ page, children, toolbar }: Props) => {
         {toolbar && <Toolbar>{toolbar}</Toolbar>}
       </Header>
       {children}
-    </MySorareMarketplaceProvider>
+    </MyViccMarketplaceProvider>
   );
 };
 

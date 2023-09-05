@@ -64,7 +64,7 @@ type Props = {
   onSuccess: () => void;
 };
 
-const MESSAGE = 'Link to Sorare account';
+const MESSAGE = 'Link to Vicc account';
 
 export const AddEthereumAccountForm = ({ onSuccess: doOnSuccess }: Props) => {
   const [address, setAddress] = useState<string | null>(null);
@@ -114,7 +114,7 @@ export const AddEthereumAccountForm = ({ onSuccess: doOnSuccess }: Props) => {
         <Text16 color="var(--c-neutral-600)">
           <FormattedMessage
             id="AddEthereumAccountForm.disconnectedDesc"
-            defaultMessage="Connect your Ethereum wallet to link an Ethereum address to yout Sorare account"
+            defaultMessage="Connect your Ethereum wallet to link an Ethereum address to yout Vicc account"
           />
         </Text16>
         <Wallets>
@@ -135,7 +135,7 @@ export const AddEthereumAccountForm = ({ onSuccess: doOnSuccess }: Props) => {
         <Text16>
           <FormattedMessage
             id="AddEthereumAccountForm.description"
-            defaultMessage="Enter the address you would like to link to your Sorare account"
+            defaultMessage="Enter the address you would like to link to your Vicc account"
           />
         </Text16>
       </Group>

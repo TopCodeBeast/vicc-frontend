@@ -11,12 +11,12 @@ const Root = styled.div`
   gap: var(--unit);
 `;
 
-const SorareUser = () => {
+const ViccUser = () => {
   return (
     <Root>
-      <Verified /> Sorare
+      <Verified /> Vicc
     </Root>
   );
 };
 
-export default SorareUser;
+export default ViccUser;

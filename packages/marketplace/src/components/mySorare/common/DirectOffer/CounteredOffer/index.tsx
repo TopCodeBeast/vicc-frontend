@@ -158,7 +158,7 @@ CounteredOffer.fragments = {
           ...Nickname_publicUserInfoInterface
         }
       }
-      ...MySorareDirectOfferBody_tokenOffer
+      ...MyViccDirectOfferBody_tokenOffer
     }
     ${DirectOfferBody.fragments.tokenOffer}
     ${Nickname.fragments.user}

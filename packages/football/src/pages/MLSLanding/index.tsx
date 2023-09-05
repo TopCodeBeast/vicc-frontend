@@ -84,12 +84,12 @@ const messages = defineMessages({
   },
   metadatasTitle: {
     id: 'MLSLanding.metadatas.title',
-    defaultMessage: 'The free-to-play Fantasy MLS Game – Sorare',
+    defaultMessage: 'The free-to-play Fantasy MLS Game – Vicc',
   },
   metadatasDescription: {
     id: 'MLSLanding.metadatas.description',
     defaultMessage:
-      'MLS: Play Sorare’s free fantasy MLS game. Collect, buy, sell, and compete with ownable digital player cards to win rewards.',
+      'MLS: Play Vicc’s free fantasy MLS game. Collect, buy, sell, and compete with ownable digital player cards to win rewards.',
   },
 });
 
@@ -282,13 +282,13 @@ const MLSLanding = () => {
           <HeroBackground>
             <LinearGradientBackground>
               <LoggedOutAppBarWithLogo
-                title="Sorare – MLS"
-                hideSorareLogo
+                title="Vicc – MLS"
+                hideViccLogo
                 logo={<img width="180px" src={headerLogo} alt="MLS" />}
               />
               <BuildYourLegacy
                 playerImg={playersImg}
-                logo={<img width="120px" alt="Sorare – MLS" src={headerLogo} />}
+                logo={<img width="120px" alt="Vicc – MLS" src={headerLogo} />}
                 backgroundOverlayColor="var(--c-brand-mls)"
               >
                 <BuildYourLegacyTitle />
@@ -319,7 +319,7 @@ const MLSLanding = () => {
               poster={poster}
             />
             <CTABanner
-              hideSorareLogo
+              hideViccLogo
               to={MLS_DRAFT}
               logo={
                 <img

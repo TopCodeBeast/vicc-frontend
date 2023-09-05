@@ -20,7 +20,7 @@ const messages = defineMessages({
   autoBidExplanation: {
     id: 'BidConfirmedDialogContent.autoBidExplanation',
     defaultMessage:
-      'Sorare will continue to bid up on your behalf until your max bid is reached.',
+      'Vicc will continue to bid up on your behalf until your max bid is reached.',
   },
   buttonLabel: {
     id: 'BidConfirmedDialogContent.buttonLabel',

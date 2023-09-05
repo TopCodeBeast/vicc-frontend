@@ -49,12 +49,12 @@ const messages = defineMessages({
   },
   metadatasTitle: {
     id: 'BundesligaLanding.metadatas.title',
-    defaultMessage: 'The free-to-play Fantasy Bundesliga Game – Sorare',
+    defaultMessage: 'The free-to-play Fantasy Bundesliga Game – Vicc',
   },
   metadatasDescription: {
     id: 'BundesligaLanding.metadatas.description',
     defaultMessage:
-      'Bundesliga: Play Sorare’s free fantasy Bundesliga game. Collect, buy, sell, and compete with ownable digital player cards to win rewards.',
+      'Bundesliga: Play Vicc’s free fantasy Bundesliga game. Collect, buy, sell, and compete with ownable digital player cards to win rewards.',
   },
 });
 
@@ -162,15 +162,15 @@ const BundesligaLanding = () => {
       <>
         <PageBackground>
           <LoggedOutAppBarWithLogo
-            title="Sorare – Bundesliga"
-            hideSorareLogo
+            title="Vicc – Bundesliga"
+            hideViccLogo
             logo={<img width="180px" src={headerLogo} alt="Bundesliga" />}
           />
           <HeroContainer>
             <BuildYourLegacy
               playerImg={playersImg}
               logo={
-                <img width="160px" alt="Sorare – Bundesliga" src={headerLogo} />
+                <img width="160px" alt="Vicc – Bundesliga" src={headerLogo} />
               }
               backgroundOverlayColor="transparent"
             >

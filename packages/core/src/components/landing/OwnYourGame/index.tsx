@@ -159,7 +159,7 @@ export const OwnYourGame = () => {
     subtitle = (
       <FormattedMessage
         id="Landing.OwnYourGame.subtitleNBA"
-        defaultMessage="Sorare is a fantasy sports game and marketplace transforming fans into owners. Collect, buy, sell, and compete with officially licensed digital cards – featuring the best MLB, NBA, and global football players – to win amazing rewards. Win or lose, you still own your cards."
+        defaultMessage="Vicc is a fantasy sports game and marketplace transforming fans into owners. Collect, buy, sell, and compete with officially licensed digital cards – featuring the best MLB, NBA, and global football players – to win amazing rewards. Win or lose, you still own your cards."
       />
     );
   }

@@ -175,7 +175,7 @@ export const SearchLayout = (props: Props) => {
     title,
     subtitle,
     banner,
-    hideSorareUser,
+    hideViccUser,
   } = props;
 
   const responsiveFilters = !isLaptop;
@@ -271,7 +271,7 @@ export const SearchLayout = (props: Props) => {
                 removeFinishedAuctions={removeFinishedAuctions}
                 removeEndedSingleSaleOffers={removeEndedSingleSaleOffers}
                 topic={topic}
-                hideSorareUser={hideSorareUser}
+                hideViccUser={hideViccUser}
                 stackable={stackable}
                 showDesktopFilter={showDesktopFilter}
                 alwaysShowFavoriteButton={alwaysShowFavoriteButton}

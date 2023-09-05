@@ -50,7 +50,7 @@ const messages = defineMessages({
   needFundsHelper: {
     id: 'DirectOfferStatus.needFundsHelper',
     defaultMessage:
-      'You don’t have enough funds in your Sorare wallet to accept this offer. Add funds to your wallet to accept it.',
+      'You don’t have enough funds in your Vicc wallet to accept this offer. Add funds to your wallet to accept it.',
   },
 });
 

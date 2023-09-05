@@ -44,7 +44,7 @@ type Props = {
   withoutBalance?: boolean;
 };
 
-export const SorareWallet = ({
+export const ViccWallet = ({
   icon,
   label,
   balance,
@@ -64,4 +64,4 @@ export const SorareWallet = ({
   );
 };
 
-export default SorareWallet;
+export default ViccWallet;

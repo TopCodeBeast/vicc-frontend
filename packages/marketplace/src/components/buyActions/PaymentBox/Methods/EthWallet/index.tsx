@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import UserBalance from '@sorare/core/src/components/wallet/UserBalance';
 import { payment } from '@sorare/core/src/lib/glossary';
 
-import SorareWallet from '../SorareWallet';
+import ViccWallet from '../SorareWallet';
 
 type Props = {
   withoutBalance?: boolean;
@@ -12,7 +12,7 @@ type Props = {
 
 export const EthWallet = ({ withoutBalance }: Props) => {
   return (
-    <SorareWallet
+    <ViccWallet
       color="var(--c-brand-600)"
       icon={faEthereum}
       label={<FormattedMessage {...payment.sorareEthWallet} />}

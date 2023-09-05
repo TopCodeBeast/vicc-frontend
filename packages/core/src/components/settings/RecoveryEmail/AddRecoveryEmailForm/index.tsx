@@ -201,7 +201,7 @@ export const AddRecoveryEmailForm = ({
         <Text16>
           <FormattedMessage
             id="Settings.addRecoveryEmailForm.desc"
-            defaultMessage="Your recovery email is used to contact you in case you get locked out or to help you recover your Sorare wallet."
+            defaultMessage="Your recovery email is used to contact you in case you get locked out or to help you recover your Vicc wallet."
           />
         </Text16>
       </Group>

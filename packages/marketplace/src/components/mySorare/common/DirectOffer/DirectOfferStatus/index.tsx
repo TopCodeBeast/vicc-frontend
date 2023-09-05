@@ -28,7 +28,7 @@ import useRejectOffer from '@marketplace/hooks/offers/useRejectOffer';
 import DirectOfferDialog from '../DirectOfferDialog';
 import OfferSummary from '../OfferSummary';
 import { AcceptOfferDialog } from './AcceptOfferDialog';
-import { MySorareDirectOfferStatus_tokenOffer } from './__generated__/index.graphql';
+import { MyViccDirectOfferStatus_tokenOffer } from './__generated__/index.graphql';
 
 const messages = defineMessages({
   nothing: {
@@ -110,7 +110,7 @@ const DirectOfferStatus = ({
   ConsentMessage,
   validationLoading,
 }: {
-  offer: MySorareDirectOfferStatus_tokenOffer;
+  offer: MyViccDirectOfferStatus_tokenOffer;
   isCurrentUserSender: boolean;
   validationLoading: boolean;
 } & Pick<
@@ -400,7 +400,7 @@ const DirectOfferStatus = ({
 
 DirectOfferStatus.fragments = {
   tokenOffer: gql`
-    fragment MySorareDirectOfferStatus_tokenOffer on TokenOffer {
+    fragment MyViccDirectOfferStatus_tokenOffer on TokenOffer {
       id
       blockchainId
       status
@@ -437,7 +437,7 @@ DirectOfferStatus.fragments = {
     ${OfferSummary.fragments.tokenOffer}
     ${CounterOfferBuilder.fragments.tokenOffer}
     ${AcceptOfferDialog.fragments.tokenOffer}
-  ` as TypedDocumentNode<MySorareDirectOfferStatus_tokenOffer>,
+  ` as TypedDocumentNode<MyViccDirectOfferStatus_tokenOffer>,
 };
 
 export default DirectOfferStatus;

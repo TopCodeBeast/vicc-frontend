@@ -57,16 +57,16 @@ const Wrapper = styled(Text16)`
   text-overflow: ellipsis;
 `;
 
-type SorareUserProps = Props & {
+type ViccUserProps = Props & {
   user: User_user | User_blockchainUser_User;
 };
 
-const SorareSuspendedUser = ({
+const ViccSuspendedUser = ({
   user,
   disabled,
   reverse,
   context,
-}: SorareUserProps) => {
+}: ViccUserProps) => {
   return (
     <StyledLink as="div" className={classnames({ disabled, reverse })}>
       <UserContainer>
@@ -84,12 +84,12 @@ const SorareSuspendedUser = ({
   );
 };
 
-const SorareRegularUser = ({
+const ViccRegularUser = ({
   user,
   disabled,
   reverse,
   context,
-}: SorareUserProps) => {
+}: ViccUserProps) => {
   const { generateSportPath } = useSportContext();
   return (
     <StyledLink
@@ -113,11 +113,11 @@ const SorareRegularUser = ({
   );
 };
 
-const SorareUser = ({ user, ...rest }: SorareUserProps) => {
+const ViccUser = ({ user, ...rest }: ViccUserProps) => {
   if (user.suspended) {
-    return <SorareSuspendedUser user={user} {...rest} />;
+    return <ViccSuspendedUser user={user} {...rest} />;
   }
-  return <SorareRegularUser user={user} {...rest} />;
+  return <ViccRegularUser user={user} {...rest} />;
 };
 
 const AnonymousUser = ({
@@ -137,7 +137,7 @@ export const User = ({ user, ...rest }: Props) => {
   if (!user) return null;
 
   if (isType(user, 'User')) {
-    return <SorareUser user={user} {...rest} />;
+    return <ViccUser user={user} {...rest} />;
   }
 
   return <AnonymousUser user={user} {...rest} />;

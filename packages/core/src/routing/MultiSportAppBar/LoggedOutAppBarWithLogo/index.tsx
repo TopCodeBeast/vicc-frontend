@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Button from '@core/atoms/buttons/Button';
-import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { ViccLogo } from '@core/atoms/icons/SorareLogo';
 import Container from '@core/atoms/layout/Container';
 import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
 import { LANDING } from '@core/constants/routes';
@@ -43,10 +43,10 @@ const Divider = styled.div`
 interface Props {
   title: string;
   logo: ReactNode;
-  hideSorareLogo?: boolean;
+  hideViccLogo?: boolean;
 }
 
-const LoggedOutAppBarWithLogo = ({ title, logo, hideSorareLogo }: Props) => {
+const LoggedOutAppBarWithLogo = ({ title, logo, hideViccLogo }: Props) => {
   const { track } = useEventsContext();
   const { signIn, signUp } = useConnectionContext();
   const { up: isTablet } = useScreenSize('tablet');
@@ -60,12 +60,12 @@ const LoggedOutAppBarWithLogo = ({ title, logo, hideSorareLogo }: Props) => {
     <Container>
       <Wrapper>
         <Logo to={LANDING} title={title}>
-          {(!hideSorareLogo || !isTablet) && <SmallerStarBall />}
+          {(!hideViccLogo || !isTablet) && <SmallerStarBall />}
           {isTablet && (
             <>
-              {!hideSorareLogo && (
+              {!hideViccLogo && (
                 <>
-                  <SorareLogo />
+                  <ViccLogo />
                   <Divider />
                 </>
               )}

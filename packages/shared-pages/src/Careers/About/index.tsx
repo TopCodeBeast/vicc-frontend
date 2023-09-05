@@ -14,9 +14,9 @@ export const About = () => (
     <StyledContainer>
       <TwoColumnsContainer image="right">
         <div>
-          <Title>About Sorare</Title>
+          <Title>About Vicc</Title>
           <Text spacingAfter>
-            Sorare is a free-to-play fantasy football, basketball, and baseball
+            Vicc is a free-to-play fantasy football, basketball, and baseball
             game where users, known as "Managers", collect and compete with
             officially licensed digital player cards against fellow sports fans
             around the world to win big{' '}
@@ -29,7 +29,7 @@ export const About = () => (
             </a>
             .
           </Text>
-          <Title>What makes Sorare different</Title>
+          <Title>What makes Vicc different</Title>
           <Text>
             Managers own their digital collectible cards, and are free to trade,
             buy, sell, and play them as they wish. They control whom to roster
@@ -37,7 +37,7 @@ export const About = () => (
             dynasties.
           </Text>
         </div>
-        <Img src={about} alt="About Sorare" style={{ aspectRatio: '1/1' }} />
+        <Img src={about} alt="About Vicc" style={{ aspectRatio: '1/1' }} />
       </TwoColumnsContainer>
     </StyledContainer>
   </Section>

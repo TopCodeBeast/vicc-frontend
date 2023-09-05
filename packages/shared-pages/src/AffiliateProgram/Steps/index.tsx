@@ -74,13 +74,13 @@ export const Steps = () => {
             defaultMessage="How it works"
           />
         </DrukWide24>
-        <Subtitle>Sorare</Subtitle>
+        <Subtitle>Vicc</Subtitle>
       </div>
       <Earn>
         <MarketingText20>
           <FormattedMessage
             id="affiliateProgram.steps.helper"
-            defaultMessage="Earn up to 10% commissions by promoting Sorare"
+            defaultMessage="Earn up to 10% commissions by promoting Vicc"
           />
         </MarketingText20>
       </Earn>

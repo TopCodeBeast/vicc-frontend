@@ -21,13 +21,13 @@ export const steps = [
     title: (
       <FormattedMessage
         id="AffiliateProgram.step2Title"
-        defaultMessage="Promote Sorare"
+        defaultMessage="Promote Vicc"
       />
     ),
     subtitle: (
       <FormattedMessage
         id="AffiliateProgram.step2Subtitle"
-        defaultMessage="Create content (videos, articles, ads, etc.) and link to your Sorare affiliate link."
+        defaultMessage="Create content (videos, articles, ads, etc.) and link to your Vicc affiliate link."
       />
     ),
   },
@@ -42,7 +42,7 @@ export const steps = [
     subtitle: (
       <FormattedMessage
         id="AffiliateProgram.step3Subtitle"
-        defaultMessage="Get up to 10% in commissions for every qualifying Card purchase you’ve brought to Sorare."
+        defaultMessage="Get up to 10% in commissions for every qualifying Card purchase you’ve brought to Vicc."
       />
     ),
   },

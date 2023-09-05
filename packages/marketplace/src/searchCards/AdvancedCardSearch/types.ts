@@ -31,7 +31,7 @@ export interface Props {
   advancedCardFilters?: (FilterWidget | FilterSeparator)[];
   stackable?: boolean;
   attributesToRetrieve?: string[];
-  hideSorareUser?: boolean;
+  hideViccUser?: boolean;
   favPlayerHit?: {
     display_name: string;
   };
@@ -46,7 +46,7 @@ export type CardResultsProps = {
   removeFinishedAuctions: boolean;
   removeEndedSingleSaleOffers: any;
   topic: SearchTopic;
-  hideSorareUser: boolean;
+  hideViccUser: boolean;
   stackable: any;
   showDesktopFilter: boolean;
   editableLists?: boolean;

@@ -81,7 +81,7 @@ const DialogContainer = ({ closeDialog }: Props) => {
         <Text16 color="var(--c-neutral-600)">
           <FormattedMessage
             id="DepositCard.Container.disconnectedDesc"
-            defaultMessage="Connect your Ethereum wallet to deposit Cards into your Sorare account"
+            defaultMessage="Connect your Ethereum wallet to deposit Cards into your Vicc account"
           />
         </Text16>
         <Wallets>

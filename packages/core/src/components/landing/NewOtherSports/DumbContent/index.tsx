@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { Sport } from '__generated__/globalTypes';
 import Button from '@core/atoms/buttons/Button';
-import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { ViccLogo } from '@core/atoms/icons/SorareLogo';
 import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
 import { Text16 } from '@core/atoms/typography';
 import ResponsiveImg from '@core/atoms/ui/ResponsiveImg';
@@ -124,7 +124,7 @@ export const DumbContent = ({
       <LogoWrapper>
         <div>
           <StarBall />
-          <SorareLogo />
+          <ViccLogo />
         </div>
         {logos}
       </LogoWrapper>

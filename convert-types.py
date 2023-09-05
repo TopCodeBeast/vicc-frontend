@@ -89,12 +89,15 @@ def updateTypes(filePath):
     code = code.replace("counts.football", "counts")
     code = code.replace("playerDetailsData.football", "playerDetailsData")
     code = code.replace("starterBundleData.football", "starterBundleData")
+    
+    code = code.replace("'/my-sorare'", "'/my-vicc'")
 
     startIndex = 0
     while True:
         endIndex = code.find(" from '", startIndex)
         code = replace(code, "so5", "vicc5", startIndex, endIndex)
         code = replace(code, "So5", "Vicc5", startIndex, endIndex)
+        code = replace(code, "Sorare", "Vicc", startIndex, endIndex)
         if endIndex < 0: break
         startIndex = code.index("'", code.index("'", endIndex) + 1)
 

@@ -66,7 +66,7 @@ export const Affiliates = () => {
       title={
         <FormattedMessage
           id="AffiliateProgram.reinsurance.who.title"
-          defaultMessage="Discover some of Sorare's Affiliates"
+          defaultMessage="Discover some of Vicc's Affiliates"
         />
       }
       decorationText={

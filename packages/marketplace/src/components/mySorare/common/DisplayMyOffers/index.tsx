@@ -64,7 +64,7 @@ const MY_OFFERS_QUERY = gql`
         totalCount
         nodes {
           id
-          ...MySorareDirectOffer_tokenOffer
+          ...MyViccDirectOffer_tokenOffer
         }
         pageInfo {
           endCursor

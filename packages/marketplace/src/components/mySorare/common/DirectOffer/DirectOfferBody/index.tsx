@@ -24,8 +24,8 @@ import CardOffer from '../../CardOffer';
 import CardsChanged from '../CardsChanged';
 import { useGetCardsDetails } from '../useGetCardsDetails';
 import {
-  MySorareDirectOfferBody_publicUserInfoInterface,
-  MySorareDirectOfferBody_tokenOffer,
+  MyViccDirectOfferBody_publicUserInfoInterface,
+  MyViccDirectOfferBody_tokenOffer,
 } from './__generated__/index.graphql';
 
 const messages = defineMessages({
@@ -53,8 +53,8 @@ const messages = defineMessages({
 });
 
 type Props = {
-  offer: MySorareDirectOfferBody_tokenOffer;
-  counterpartUser: MySorareDirectOfferBody_publicUserInfoInterface;
+  offer: MyViccDirectOfferBody_tokenOffer;
+  counterpartUser: MyViccDirectOfferBody_publicUserInfoInterface;
   isCurrentUserSender: boolean;
   validationMessages?: Record<string, ReactNode>;
 };
@@ -346,7 +346,7 @@ const DirectOfferBody = ({
 
 DirectOfferBody.fragments = {
   tokenOffer: gql`
-    fragment MySorareDirectOfferBody_tokenOffer on TokenOffer {
+    fragment MyViccDirectOfferBody_tokenOffer on TokenOffer {
       id
       status
       marketFeeAmounts {
@@ -392,16 +392,16 @@ DirectOfferBody.fragments = {
     ${useMarketFeesHelperStatus.fragments.token}
     ${Nickname.fragments.user}
     ${CardsChanged.fragments.tokenOffer}
-  ` as TypedDocumentNode<MySorareDirectOfferBody_tokenOffer>,
+  ` as TypedDocumentNode<MyViccDirectOfferBody_tokenOffer>,
   user: gql`
-    fragment MySorareDirectOfferBody_publicUserInfoInterface on PublicUserInfoInterface {
+    fragment MyViccDirectOfferBody_publicUserInfoInterface on PublicUserInfoInterface {
       slug
       ...Nickname_publicUserInfoInterface
       ...CardsChanged_user
     }
     ${Nickname.fragments.user}
     ${CardsChanged.fragments.user}
-  ` as TypedDocumentNode<MySorareDirectOfferBody_publicUserInfoInterface>,
+  ` as TypedDocumentNode<MyViccDirectOfferBody_publicUserInfoInterface>,
 };
 
 export default DirectOfferBody;

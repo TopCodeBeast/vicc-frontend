@@ -16,7 +16,7 @@ import { RoundingMode, fromWei } from '@core/lib/wei';
 import { RAMP_API_KEY, RAMP_URL } from '../config';
 import useDepositEthEvent from './events/useDeposithEthEvent';
 
-const hostAppName = 'Sorare';
+const hostAppName = 'Vicc';
 const hostLogoUrl = `${FRONTEND_ASSET_HOST}/wallet/logo.png`;
 
 export default () => {

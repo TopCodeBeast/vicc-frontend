@@ -15,7 +15,7 @@ import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNoti
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
 import MyPage from '../MyPage';
-import { MySorarePage } from '../common/pages';
+import { MyViccPage } from '../common/pages';
 import { SpentFiatPaymentIntents } from './SpentFiatPaymentIntents';
 import { UserAccountEntries } from './UserAccountEntries';
 import {
@@ -95,7 +95,7 @@ export const TransactionsHistory = () => {
 
   return (
     <MyPage
-      page={MySorarePage.TRANSACTIONS}
+      page={MyViccPage.TRANSACTIONS}
       toolbar={
         useAccountingExtract && (
           <LoadingButton
@@ -106,7 +106,7 @@ export const TransactionsHistory = () => {
             loading={loading}
           >
             <FormattedMessage
-              id="MySorare.TransactionsHistory.downloadCSV"
+              id="MyVicc.TransactionsHistory.downloadCSV"
               defaultMessage="Download CSV"
             />
           </LoadingButton>

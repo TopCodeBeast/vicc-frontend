@@ -38,17 +38,17 @@ export const marketplaceTaskDescription =
     [MarketplaceOnboardingStep.menu]: {
       id: 'MarketplaceTaskDescription.menu',
       defaultMessage:
-        'You can recruit new players on the Sorare Market, accessible from the menu.',
+        'You can recruit new players on the Vicc Market, accessible from the menu.',
     },
     [MarketplaceOnboardingStep.managerSalesLink]: {
       id: 'MarketplaceTaskDescription.managerSalesLink',
       defaultMessage:
-        'The best way to get started is to buy cards from other Sorare Managers.',
+        'The best way to get started is to buy cards from other Vicc Managers.',
     },
     [MarketplaceOnboardingStep.search]: {
       id: 'MarketplaceTaskDescription.search',
       defaultMessage:
-        'There are thousands of players licensed on Sorare. You can search for a player using the search bar.',
+        'There are thousands of players licensed on Vicc. You can search for a player using the search bar.',
     },
     [MarketplaceOnboardingStep.marketplaceItem]: {
       id: 'MarketplaceTaskDescription.marketplaceItem',

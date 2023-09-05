@@ -51,11 +51,11 @@ const SeoProvider = ({ children }: Props) => {
     (componentTitle: string, options?: Options) => {
       const titleWithNamespace =
         componentTitle.indexOf('•') >= 0 ||
-        componentTitle.indexOf('- Sorare') >= 0 ||
-        componentTitle.indexOf('– Sorare') >= 0 ||
-        componentTitle.indexOf('Sorare') === 0
+        componentTitle.indexOf('- Vicc') >= 0 ||
+        componentTitle.indexOf('– Vicc') >= 0 ||
+        componentTitle.indexOf('Vicc') === 0
           ? componentTitle
-          : `${componentTitle} • Sorare`;
+          : `${componentTitle} • Vicc`;
 
       const seoTitle = options?.replaceFullTitle
         ? componentTitle

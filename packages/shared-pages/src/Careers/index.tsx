@@ -13,7 +13,7 @@ import { Careers as CareersSection } from './Careers';
 import { History } from './History';
 import { JobBoard } from './JobBoard';
 import { JobForm } from './JobForm';
-import { LifeAtSorare } from './Life';
+import { LifeAtVicc } from './Life';
 import { Mission } from './Mission';
 import { Stakeholders } from './Stakeholders';
 import { Job } from './types';
@@ -65,7 +65,7 @@ const Careers = () => {
             <Stakeholders />
             <Mission />
             <BuildYourCareer />
-            <LifeAtSorare />
+            <LifeAtVicc />
           </>
         )}
         <div id="jobs" ref={anchorRef} />

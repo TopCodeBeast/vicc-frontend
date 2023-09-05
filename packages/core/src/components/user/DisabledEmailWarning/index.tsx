@@ -77,7 +77,7 @@ export const DisabledEmailWarning = () => {
           <Title6>
             <FormattedMessage
               id="DisabledEmailWarning.WarningTitle"
-              defaultMessage="You cannot receive Sorare emails"
+              defaultMessage="You cannot receive Vicc emails"
             />
           </Title6>
           <Text16>
@@ -92,7 +92,7 @@ export const DisabledEmailWarning = () => {
             <small>
               <FormattedMessage
                 id="disabledEmail.pending"
-                defaultMessage="You should soon be able to receive Sorare emails."
+                defaultMessage="You should soon be able to receive Vicc emails."
               />
             </small>
           </div>
@@ -105,7 +105,7 @@ export const DisabledEmailWarning = () => {
           >
             <FormattedMessage
               id="disabledEmail.unblock"
-              defaultMessage="Unblock Sorare emails"
+              defaultMessage="Unblock Vicc emails"
             />
           </Button>
         )}

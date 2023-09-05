@@ -15,7 +15,7 @@ const messages = defineMessages({
   description: {
     id: 'SalesOnboardingDialog.description',
     defaultMessage:
-      'Scout the next superstar and buy player cards directly from other Sorare Managers',
+      'Scout the next superstar and buy player cards directly from other Vicc Managers',
   },
 });
 

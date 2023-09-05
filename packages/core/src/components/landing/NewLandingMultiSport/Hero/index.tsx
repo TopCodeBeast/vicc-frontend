@@ -17,7 +17,7 @@ const messages = defineMessages({
   subtitle: {
     id: 'MultiSport.Landing.Hero.subtitle',
     defaultMessage:
-      'Sorare is a next-level fantasy sports game where you collect and compete with ownable digital player cards to win epic prizes. No matter where you finish, you own your cards forever.',
+      'Vicc is a next-level fantasy sports game where you collect and compete with ownable digital player cards to win epic prizes. No matter where you finish, you own your cards forever.',
   },
 });
 export const Hero = () => {

@@ -19,7 +19,7 @@ const messages = defineMessages({
   },
   description: {
     id: 'Settings.ethereumAccounts.description',
-    defaultMessage: 'Link external Ethereum accounts to your Sorare account',
+    defaultMessage: 'Link external Ethereum accounts to your Vicc account',
   },
   addEthereumAccount: {
     id: 'Settings.ethereumAccounts.linkEthereumAccount',

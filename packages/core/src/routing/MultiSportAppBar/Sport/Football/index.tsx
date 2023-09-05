@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
-import { Sorare } from '@core/atoms/icons/Sorare';
+import { Vicc } from '@core/atoms/icons/Sorare';
 
-const SorareLogo = styled(Sorare)`
+const ViccLogo = styled(Vicc)`
   color: var(--c-brand-600);
   fill: var(--c-neutral-100);
 `;
 
 export const Football = () => (
   <>
-    <SorareLogo />
+    <ViccLogo />
     <svg
       width="99"
       height="11"

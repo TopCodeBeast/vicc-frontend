@@ -35,7 +35,7 @@ const Press = () => {
           extract={
             <FormattedMessage
               id="Press.press.desc"
-              defaultMessage="Find the Sorare latest press releases and related material such as press kit, company information and images library. Reach out to {email} for any media inquiries"
+              defaultMessage="Find the Vicc latest press releases and related material such as press kit, company information and images library. Reach out to {email} for any media inquiries"
               values={{
                 email: <a href="mailto:press@sorare.com">press@sorare.com</a>,
               }}
@@ -75,7 +75,7 @@ const Press = () => {
           chapo={
             <FormattedMessage
               id="Press.aboutUs.desc"
-              defaultMessage="Sorare was founded by <bold>Nicolas Julia</bold> and <bold>Adrien Montfort</bold> in 2018 in Paris to bring sports fans across the globe closer to the players, teams, and leagues they love. "
+              defaultMessage="Vicc was founded by <bold>Nicolas Julia</bold> and <bold>Adrien Montfort</bold> in 2018 in Paris to bring sports fans across the globe closer to the players, teams, and leagues they love. "
               values={{
                 bold: Bold,
               }}
@@ -84,8 +84,8 @@ const Press = () => {
           paragraph={
             <FormattedMessage
               id="Press.aboutUs.paragraph.1"
-              defaultMessage="Sorare is a fantasy sports gaming experience and marketplace featuring officially licensed digital player cards. With Sorare you build legacy teams buying, selling, collecting and trading player cards and compete with them in free-to-play fantasy games to win rewards week over week and season over season, just like a professional sports owner. {br}
-            Sorare is revolutionising digital sports fandom, and now has over 3 million users across 180 countries. More than 300 iconic teams, clubs, and organisations including the <bold>Premier League, La Liga, Bundesliga, Serie A, MLS, NBA, NBPA, MLB, MLBPA</bold>, and many others have partnered with Sorare to build the next sports entertainment giant."
+              defaultMessage="Vicc is a fantasy sports gaming experience and marketplace featuring officially licensed digital player cards. With Vicc you build legacy teams buying, selling, collecting and trading player cards and compete with them in free-to-play fantasy games to win rewards week over week and season over season, just like a professional sports owner. {br}
+            Vicc is revolutionising digital sports fandom, and now has over 3 million users across 180 countries. More than 300 iconic teams, clubs, and organisations including the <bold>Premier League, La Liga, Bundesliga, Serie A, MLS, NBA, NBPA, MLB, MLBPA</bold>, and many others have partnered with Vicc to build the next sports entertainment giant."
               values={{
                 bold: Bold,
                 br: <br />,
@@ -113,7 +113,7 @@ const Press = () => {
           paragraph={
             <FormattedMessage
               id="Press.aboutUs.paragraph.2"
-              defaultMessage="One of Europe’s fastest-growing startups and recently raised a $680 million Series B funding round at a $4.3 billion valuation from world-class investors including SoftBank, Accel, and Benchmark. Sorare also has athletes <bold>Serena Williams, Lionel Messi, Zinedine Zidane, Rio Ferdinand, Antoine Griezmann, Gerard Piqué, Blake Griffin, and Rudy Gobert</bold> among its investors, ambassadors, and advisors."
+              defaultMessage="One of Europe’s fastest-growing startups and recently raised a $680 million Series B funding round at a $4.3 billion valuation from world-class investors including SoftBank, Accel, and Benchmark. Vicc also has athletes <bold>Serena Williams, Lionel Messi, Zinedine Zidane, Rio Ferdinand, Antoine Griezmann, Gerard Piqué, Blake Griffin, and Rudy Gobert</bold> among its investors, ambassadors, and advisors."
               values={{
                 bold: Bold,
                 br: <br />,

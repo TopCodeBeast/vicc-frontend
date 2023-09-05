@@ -373,7 +373,7 @@ export const TellUsAboutYou = ({
                   <Text14>
                     <FormattedMessage
                       id="createFiatWallet.tellUsAboutYou.countryOfResidence.unsupported"
-                      defaultMessage="You can continue to list and buy cards using your Sorare ETH Wallet. We will inform you if Cash Wallet becomes available in your country."
+                      defaultMessage="You can continue to list and buy cards using your Vicc ETH Wallet. We will inform you if Cash Wallet becomes available in your country."
                     />
                   </Text14>
                 </Field>

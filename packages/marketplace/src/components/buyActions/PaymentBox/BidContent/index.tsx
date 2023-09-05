@@ -176,7 +176,7 @@ const BidContent = (props: Props) => {
                 title={
                   <FormattedMessage
                     id="NewPaymentBox.autoBidTooltip"
-                    defaultMessage="Sorare will continue to bid up on your behalf until your max bid is reached."
+                    defaultMessage="Vicc will continue to bid up on your behalf until your max bid is reached."
                   />
                 }
               >

@@ -68,12 +68,12 @@ const messages = defineMessages({
   },
   metadatasTitle: {
     id: 'LaLigaLanding.metadatas.title',
-    defaultMessage: 'The free-to-play Fantasy LaLiga Game – Sorare',
+    defaultMessage: 'The free-to-play Fantasy LaLiga Game – Vicc',
   },
   metadatasDescription: {
     id: 'LaLigaLanding.metadatas.description',
     defaultMessage:
-      'Play Sorare’s fantasy LaLiga game. Collect, buy, sell, and compete with ownable digital player cards from all 20 LaLiga football clubs to win rewards.',
+      'Play Vicc’s fantasy LaLiga game. Collect, buy, sell, and compete with ownable digital player cards from all 20 LaLiga football clubs to win rewards.',
   },
 });
 
@@ -281,13 +281,13 @@ const LaLigaLanding = () => {
           <HeroBackground>
             <LinearGradientBackground>
               <LoggedOutAppBarWithLogo
-                title="Sorare – LALIGA"
-                hideSorareLogo
+                title="Vicc – LALIGA"
+                hideViccLogo
                 logo={<img width="220px" src={logo} alt="LALIGA" />}
               />
               <BuildYourLegacy
                 playerImg={playersImg}
-                logo={<img width="240px" alt="Sorare – LALIGA" src={logo} />}
+                logo={<img width="240px" alt="Vicc – LALIGA" src={logo} />}
                 backgroundOverlayColor="var(--c-brand-laliga)"
               >
                 <BuildYourLegacyTitle />
@@ -317,7 +317,7 @@ const LaLigaLanding = () => {
             <BannerBackground>
               <CTABanner
                 to={LALIGA_DRAFT}
-                hideSorareLogo
+                hideViccLogo
                 logo={
                   <img
                     width={isTablet ? '340px' : '260px'}

@@ -15,7 +15,7 @@ import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery'
 
 import { MyPage } from '../MyPage';
 import Subscriptions from '../common/Subscriptions';
-import { MySorarePage } from '../common/pages';
+import { MyViccPage } from '../common/pages';
 import useSortByDate from '../common/useSortByDate';
 import useSportSelect from '../common/useSportSelect';
 import PlayerNotifications from './PlayerNotifications';
@@ -99,7 +99,7 @@ export const PlayersNotifications = () => {
 
   return (
     <MyPage
-      page={MySorarePage.PLAYERS_NOTIFICATIONS}
+      page={MyViccPage.PLAYERS_NOTIFICATIONS}
       toolbar={
         <>
           <SportSelect />

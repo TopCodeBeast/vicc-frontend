@@ -80,13 +80,13 @@ export const SimpleConsent = ({ saveConsent, seeDetails }: Props) => {
         <Title>
           <FormattedMessage
             id="CookieConsentBanner.title"
-            defaultMessage="Sorare respects your privacy"
+            defaultMessage="Vicc respects your privacy"
           />
         </Title>
         <Text16 color="var(--c-neutral-600)">
           <FormattedMessage
             id="CookieConsentBanner.description"
-            defaultMessage="We use cookies to provide you with the best browsing experience. The data collected by cookies is used to optimise the website for our visitors and deliver targeted information to Sorare users."
+            defaultMessage="We use cookies to provide you with the best browsing experience. The data collected by cookies is used to optimise the website for our visitors and deliver targeted information to Vicc users."
           />
         </Text16>
         <Text16 color="var(--c-neutral-600)">

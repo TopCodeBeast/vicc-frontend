@@ -50,7 +50,7 @@ const NewSignings = () => {
           analyticsTags={['NewSignings', 'Football']}
           togglePrimary
           removeFinishedAuctions
-          hideSorareUser
+          hideViccUser
           title={
             <>
               <Title2>

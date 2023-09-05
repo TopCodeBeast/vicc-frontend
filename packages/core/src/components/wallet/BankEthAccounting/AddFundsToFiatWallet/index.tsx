@@ -30,7 +30,7 @@ import { GenericWireTransfer, WireTransfer } from './WireTransfer';
 const messages = defineMessages({
   saveCreditCardLabel: {
     id: 'AddFundsToFiatWallet.saveCreditCardLabel',
-    defaultMessage: 'Sorare will save your payment info for next time.',
+    defaultMessage: 'Vicc will save your payment info for next time.',
   },
 });
 

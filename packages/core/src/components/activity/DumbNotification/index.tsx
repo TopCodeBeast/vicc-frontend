@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import { Sport } from '__generated__/globalTypes';
-import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { ViccLogo } from '@core/atoms/icons/SorareLogo';
 import { Caption, Text14 } from '@core/atoms/typography';
 import UninteractiveToken from '@core/components/token/UninteractiveToken';
 import Avatar from '@core/components/user/Avatar';
@@ -63,7 +63,7 @@ const Root = styled.span`
   }
 `;
 
-const SorareContainer = styled.div`
+const ViccContainer = styled.div`
   width: calc(5 * var(--unit));
   height: calc(5 * var(--unit));
   display: flex;
@@ -72,7 +72,7 @@ const SorareContainer = styled.div`
   background-color: var(--c-brand-800);
   border-radius: var(--unit);
 `;
-const StyledSorareLogo = styled(SorareLogo)`
+const StyledViccLogo = styled(ViccLogo)`
   width: calc(4 * var(--unit));
 `;
 const Infos = styled.div`
@@ -121,9 +121,9 @@ export const DumbNotification = ({
         {userAvatar ? (
           <Avatar variant="medium" user={userAvatar} />
         ) : (
-          <SorareContainer>
-            <StyledSorareLogo />
-          </SorareContainer>
+          <ViccContainer>
+            <StyledViccLogo />
+          </ViccContainer>
         )}
       </div>
       <Infos>

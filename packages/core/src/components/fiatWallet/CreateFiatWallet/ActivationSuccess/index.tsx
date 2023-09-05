@@ -16,7 +16,7 @@ const messages = defineMessages({
   ownerDescription: {
     id: 'CreateFiatWallet.ActivationSuccess.ownerDescription',
     defaultMessage:
-      'You can now accept cash for Sorare cards you list for sale.',
+      'You can now accept cash for Vicc cards you list for sale.',
   },
   validatedOwnerDescription: {
     id: 'CreateFiatWallet.ActivationSuccess.validatedOwnerDescription',

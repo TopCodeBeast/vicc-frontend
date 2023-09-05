@@ -26,12 +26,12 @@ const messages = defineMessages({
   helperWithoutRecoveryEmails: {
     id: 'Settings.recoveryEmails.helperWithoutRecoveryEmails',
     defaultMessage:
-      'Consider adding a recovery email. It will help us contact you if you get locked out or to help you recover your Sorare wallet.',
+      'Consider adding a recovery email. It will help us contact you if you get locked out or to help you recover your Vicc wallet.',
   },
   helperWithRecoveryEmails: {
     id: 'Settings.recoveryEmails.helperWithRecoveryEmails',
     defaultMessage:
-      'We can contact you to this email if you get locked out or to help you recover your Sorare wallet.',
+      'We can contact you to this email if you get locked out or to help you recover your Vicc wallet.',
   },
   submit: {
     id: 'Settings.recoveryEmails.submit',

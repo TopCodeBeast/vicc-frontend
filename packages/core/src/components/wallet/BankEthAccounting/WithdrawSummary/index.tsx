@@ -147,7 +147,7 @@ const messages = defineMessages({
   },
   gasFeesInfo: {
     id: 'WithdrawSummary.gasFeesInfo',
-    defaultMessage: 'Sorare covers the gas fees for this withdrawal',
+    defaultMessage: 'Vicc covers the gas fees for this withdrawal',
   },
   totalReceived: {
     id: 'WithdrawSummary.totalReceived',

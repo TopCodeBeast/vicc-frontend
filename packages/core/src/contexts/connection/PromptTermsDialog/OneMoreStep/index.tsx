@@ -9,7 +9,7 @@ import {
 import { FormattedMessage, defineMessages } from 'react-intl';
 import styled, { css } from 'styled-components';
 
-import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { ViccLogo } from '@core/atoms/icons/SorareLogo';
 import StarBall from '@core/atoms/icons/StarBall';
 import { Text14, Title4, Title5 } from '@core/atoms/typography';
 import {
@@ -65,7 +65,7 @@ const Section = styled.div`
   margin: 8px 0;
 `;
 
-const SorareHeader = styled.div`
+const ViccHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -81,11 +81,11 @@ const AcceptTermsAndPrivacyPolicySection = styled.div<{ error?: boolean }>`
   ${props => (props.error ? sectionInError : '')}
 `;
 
-const StyledSorareIcon = styled(StarBall)`
+const StyledViccIcon = styled(StarBall)`
   height: 28px;
 `;
 
-const StyledSorareLogo = styled(SorareLogo).attrs({
+const StyledViccLogo = styled(ViccLogo).attrs({
   variant: 'black',
 })`
   height: 16px;
@@ -204,10 +204,10 @@ const OneMoreStep = ({ onFormSuccess, acceptTerms }: Props) => {
         >
       ) => (
         <>
-          <SorareHeader>
-            <StyledSorareIcon color="currentColor" />
-            <StyledSorareLogo />
-          </SorareHeader>
+          <ViccHeader>
+            <StyledViccIcon color="currentColor" />
+            <StyledViccLogo />
+          </ViccHeader>
           <JustOneMoreStepDiv>
             <FormattedMessage {...messages.justOneMoreStep} />
           </JustOneMoreStepDiv>

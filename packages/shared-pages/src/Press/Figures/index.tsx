@@ -62,7 +62,7 @@ export const Figures = () => {
         <Title color="var(--c-pink-600)">
           <FormattedMessage
             id="figures.title"
-            defaultMessage="Sorare by the numbers"
+            defaultMessage="Vicc by the numbers"
           />
         </Title>
       </Cell>

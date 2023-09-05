@@ -68,12 +68,12 @@ const messages = defineMessages({
   },
   metadatasTitle: {
     id: 'SerieALanding.metadatas.title',
-    defaultMessage: 'The free-to-play Fantasy Serie A Game – Sorare',
+    defaultMessage: 'The free-to-play Fantasy Serie A Game – Vicc',
   },
   metadatasDescription: {
     id: 'SerieALanding.metadatas.description',
     defaultMessage:
-      'Serie A: Play Sorare’s free fantasy Serie A game. Collect, buy, sell, and compete with ownable digital player cards to win rewards.',
+      'Serie A: Play Vicc’s free fantasy Serie A game. Collect, buy, sell, and compete with ownable digital player cards to win rewards.',
   },
 });
 
@@ -286,13 +286,13 @@ const SerieALanding = () => {
           <HeroBackground>
             <LinearGradientBackground>
               <LoggedOutAppBarWithLogo
-                title="Sorare – Serie A"
+                title="Vicc – Serie A"
                 logo={<img width="30px" src={SerieALogo} alt="Serie A" />}
               />
               <BuildYourLegacy
                 playerImg={playersImg}
                 logo={
-                  <img width="120px" alt="Sorare – Serie A" src={mobileLogo} />
+                  <img width="120px" alt="Vicc – Serie A" src={mobileLogo} />
                 }
                 backgroundOverlayColor="var(--c-brand-serie-a)"
               >

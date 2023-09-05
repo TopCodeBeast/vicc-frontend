@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { ViccLogo } from '@core/atoms/icons/SorareLogo';
 import StarBall from '@core/atoms/icons/StarBall';
 import Container from '@core/atoms/layout/Container';
 import { tabletAndAbove } from '@core/style/mediaQuery';
@@ -47,19 +47,19 @@ interface Props {
   logo: ReactNode;
   to: string;
   bgImage?: string;
-  hideSorareLogo?: boolean;
+  hideViccLogo?: boolean;
 }
 
 const CTABanner = (props: Props) => {
-  const { to, bgImage, logo, hideSorareLogo } = props;
+  const { to, bgImage, logo, hideViccLogo } = props;
   return (
     <StyledContainer>
       <Content backgroundImage={bgImage}>
         <Logo>
-          {!hideSorareLogo && (
+          {!hideViccLogo && (
             <>
               <StarBall />
-              <SorareLogo />
+              <ViccLogo />
               <Divider />
             </>
           )}

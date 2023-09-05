@@ -15,7 +15,7 @@ import CardSupply from '@football/pages/Player/CardSupply';
 import Career from '@football/pages/Player/Career';
 import CareerStats from '@football/pages/Player/CareerStats';
 import LastGames from '@football/pages/Player/LastGames';
-import PlayerOnSorare from '@football/pages/Player/PlayerOnSorare';
+import PlayerOnVicc from '@football/pages/Player/PlayerOnSorare';
 import RelatedPlayers from '@football/pages/Player/RelatedPlayers';
 import UpcomingGames from '@football/pages/Player/UpcomingGames';
 
@@ -80,7 +80,7 @@ const Description = ({
         <Career player={player} />
       </Left>
       <Right>
-        <PlayerOnSorare player={player} />
+        <PlayerOnVicc player={player} />
         <CardSupply player={player} />
         <CareerStats player={player} />
         <RelatedPlayers player={player} />
@@ -99,7 +99,7 @@ Description.fragments = {
       ...CareerStats_player
       ...Career_player
       ...CardSupply_player
-      ...PlayerOnSorare_player
+      ...PlayerOnVicc_player
       ...RelatedPlayers_player
     }
     ${PlayerLastScores.fragments.player}
@@ -108,7 +108,7 @@ Description.fragments = {
     ${CareerStats.fragments.player}
     ${Career.fragments.player}
     ${CardSupply.fragments.player}
-    ${PlayerOnSorare.fragments.player}
+    ${PlayerOnVicc.fragments.player}
     ${RelatedPlayers.fragments.player}
   ` as TypedDocumentNode<Description_player>,
 };

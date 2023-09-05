@@ -26,7 +26,7 @@ type Props = {
   forceMobileLayout?: boolean;
   forceDesktopLayout?: boolean;
   galleryOwnerSlug?: string;
-  hideSorareUser?: boolean;
+  hideViccUser?: boolean;
   stackedTokensCount?: number;
   TokenPropertiesButtonComponent?: ReactNode;
   hideDetails: boolean;
@@ -62,7 +62,7 @@ export const TokenContent = ({
   disableSportSpecific,
   displayMarketplaceOnboardingTooltip,
   hideOwner,
-  hideSorareUser,
+  hideViccUser,
   galleryOwnerSlug,
   TokenPropertiesButtonComponent,
   hideDetails,
@@ -112,7 +112,7 @@ export const TokenContent = ({
             token={token}
             stackedTokensCount={stackedTokensCount}
             isDesktopLayout={isDesktopLayout}
-            hideSorareUser={hideSorareUser}
+            hideViccUser={hideViccUser}
             hideOwner={hideOwner}
             galleryOwnerSlug={galleryOwnerSlug}
             disableSportSpecific={disableSportSpecific}

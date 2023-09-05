@@ -7,7 +7,7 @@ import { animated, useSpring, useTransition } from '@react-spring/web';
 import styled from 'styled-components';
 
 import Button from '@core/atoms/buttons/Button';
-import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { ViccLogo } from '@core/atoms/icons/SorareLogo';
 import { Text16, Text18 } from '@core/atoms/typography';
 import { ContentContainer } from '@core/components/landing/NewLandingMultiSport/ui';
 import {
@@ -125,7 +125,7 @@ const BigLogoWrapper = styled(animated.div)`
   }
 `;
 
-const BigLogo = styled(SorareLogo)`
+const BigLogo = styled(ViccLogo)`
   width: 100%;
   height: auto;
   max-height: 80%;

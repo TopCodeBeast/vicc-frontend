@@ -3,7 +3,7 @@ type Props = {
   variant?: string;
 };
 
-export const SorareLogo = ({ className, variant = 'white' }: Props) => {
+export const ViccLogo = ({ className, variant = 'white' }: Props) => {
   return (
     <svg
       width="80"

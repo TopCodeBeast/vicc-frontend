@@ -8,7 +8,7 @@ import mlbpaLogoSrc from '@core/assets/logos/mlb/mlbpa.svg';
 import nbaLogoSrc from '@core/assets/logos/nba/nba.svg';
 import nbpaLogoSrc from '@core/assets/logos/nba/nbpa.svg';
 import Button from '@core/atoms/buttons/Button';
-import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { ViccLogo } from '@core/atoms/icons/SorareLogo';
 import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
 import { Text18 } from '@core/atoms/typography';
 import { ContentContainer } from '@core/components/landing/NewLandingMultiSport/ui';
@@ -65,7 +65,7 @@ const PlayNowButton = styled.div`
   }
 `;
 
-const SorareWrapper = styled.div`
+const ViccWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
@@ -76,7 +76,7 @@ const StarBall = styled(SmallerStarBall)`
   margin-right: var(--half-unit);
 `;
 
-const SmallSorareLogo = styled(SorareLogo)`
+const SmallViccLogo = styled(ViccLogo)`
   width: 50px;
 `;
 
@@ -102,11 +102,11 @@ export const PlayNowSportsButtons = () => {
   const navigate = useNavigate();
   const { formatMessage } = useIntl();
 
-  const SorareLogoWithStarball = () => (
-    <SorareWrapper>
+  const ViccLogoWithStarball = () => (
+    <ViccWrapper>
       <StarBall />
-      <SmallSorareLogo />
-    </SorareWrapper>
+      <SmallViccLogo />
+    </ViccWrapper>
   );
 
   return (
@@ -119,7 +119,7 @@ export const PlayNowSportsButtons = () => {
       >
         <div>
           <Title>{formatMessage(sportsLabelsMessages[Sport.CRICKET])}</Title>
-          <SorareLogoWithStarball />
+          <ViccLogoWithStarball />
         </div>
         <Button color="white" small>
           {formatMessage(messages.cta)}
@@ -136,7 +136,7 @@ export const PlayNowSportsButtons = () => {
         <div>
           <Title>{formatMessage(sportsLabelsMessages[Sport.NBA])}</Title>
           <LogosWrapper>
-            <SorareLogoWithStarball />
+            <ViccLogoWithStarball />
             <VerticalDivider />
             <img src={nbaLogoSrc} height={16} alt="NBA" />
             <VerticalDivider />
@@ -156,7 +156,7 @@ export const PlayNowSportsButtons = () => {
         <div>
           <Title>{formatMessage(sportsLabelsMessages[Sport.BASEBALL])}</Title>
           <LogosWrapper>
-            <SorareLogoWithStarball />
+            <ViccLogoWithStarball />
             <VerticalDivider />
             <img src={mlbLogoSrc} width={20} alt="MLB" />
             <VerticalDivider />

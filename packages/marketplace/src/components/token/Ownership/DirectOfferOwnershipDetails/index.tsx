@@ -20,7 +20,7 @@ const DIRECT_OFFER_OWNERSHIP_DETAILS_QUERY = gql`
     tokens {
       offer(id: $id) {
         id
-        ...MySorareDirectOffer_tokenOffer
+        ...MyViccDirectOffer_tokenOffer
       }
     }
   }

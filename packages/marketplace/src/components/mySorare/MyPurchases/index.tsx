@@ -1,5 +1,5 @@
 import MyPage from '../MyPage';
-import { MySorarePage } from '../common/pages';
+import { MyViccPage } from '../common/pages';
 import useSortByDate from '../common/useSortByDate';
 import useSportSelect from '../common/useSportSelect';
 import BoughtSingleSaleOffers from './BoughtSingleSaleOffers';
@@ -10,7 +10,7 @@ const MyPurchases = () => {
 
   return (
     <MyPage
-      page={MySorarePage.PURCHASES}
+      page={MyViccPage.PURCHASES}
       toolbar={
         <>
           <SportSelect />

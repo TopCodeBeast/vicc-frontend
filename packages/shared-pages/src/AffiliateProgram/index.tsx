@@ -20,27 +20,27 @@ import Steps from './Steps';
 const messages = defineMessages({
   title: {
     id: 'AffiliateProgram.title',
-    defaultMessage: 'Become a Sorare Affiliate',
+    defaultMessage: 'Become a Vicc Affiliate',
   },
   subtitle: {
     id: 'AffiliateProgram.subtitle',
     defaultMessage:
-      'Earn money by promoting Sorare, where you can buy, trade, and play with official digital cards of football, NBA and MLB players.',
+      'Earn money by promoting Vicc, where you can buy, trade, and play with official digital cards of football, NBA and MLB players.',
   },
   shortSubtitle: {
     id: 'AffiliateProgram.shortSubtitle',
-    defaultMessage: 'Promote Sorare and earn money',
+    defaultMessage: 'Promote Vicc and earn money',
   },
 });
 
-const becomeASorareAffiliate = `${FRONTEND_ASSET_HOST}/pages/affiliateProgram/becomeASorareAffiliate.jpg`;
+const becomeAViccAffiliate = `${FRONTEND_ASSET_HOST}/pages/affiliateProgram/becomeAViccAffiliate.jpg`;
 const becomeAnAffiliate = `${FRONTEND_ASSET_HOST}/pages/affiliateProgram/becomeAnAffiliate.jpg`;
 
 export const AffiliateProgram = () => {
   const { track } = useEventsContext();
 
   const trackBecomeAnAffiliate = () => {
-    track('Become a Sorare Affiliate');
+    track('Become a Vicc Affiliate');
   };
 
   return (
@@ -55,7 +55,7 @@ export const AffiliateProgram = () => {
             <Button
               externalLink
               onClick={trackBecomeAnAffiliate}
-              href="https://app.impact.com/campaign-promo-signup/Sorare.brand?execution=e1s1"
+              href="https://app.impact.com/campaign-promo-signup/Vicc.brand?execution=e1s1"
               color="black"
               medium
             >
@@ -79,11 +79,11 @@ export const AffiliateProgram = () => {
         <Affiliates />
         <Gap size="xl" />
         <Poster
-          pictureUrl={becomeASorareAffiliate}
+          pictureUrl={becomeAViccAffiliate}
           title={
             <FormattedMessage
               id="AffiliateProgram.poster.title"
-              defaultMessage="Become a <bold>Sorare</bold> Affiliate"
+              defaultMessage="Become a <bold>Vicc</bold> Affiliate"
               values={{ bold: Bold }}
             />
           }
@@ -96,7 +96,7 @@ export const AffiliateProgram = () => {
               <Button
                 externalLink
                 onClick={trackBecomeAnAffiliate}
-                href="https://app.impact.com/campaign-promo-signup/Sorare.brand?execution=e1s1"
+                href="https://app.impact.com/campaign-promo-signup/Vicc.brand?execution=e1s1"
                 color="white"
                 medium
               >

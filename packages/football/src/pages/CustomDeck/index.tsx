@@ -67,11 +67,11 @@ const messages = defineMessages({
   },
   shareMessage: {
     id: 'CustomDeck.shareMessage',
-    defaultMessage: 'What do you think of my {name} squad on @Sorare?',
+    defaultMessage: 'What do you think of my {name} squad on @Vicc?',
   },
   shareOtherMessage: {
     id: 'CustomDeck.shareOtherMessage',
-    defaultMessage: "What do you think of {manager}'s {name} squad on @Sorare?",
+    defaultMessage: "What do you think of {manager}'s {name} squad on @Vicc?",
   },
   createdBy: {
     id: 'CustomDeck.createdBy',

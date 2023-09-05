@@ -161,13 +161,13 @@ export const TrustedBy = () => {
       <Title>
         <FormattedMessage
           id="TrustedBy.title"
-          defaultMessage="Sorare partners"
+          defaultMessage="Vicc partners"
         />
       </Title>
       <SubHeading>
         <FormattedMessage
           id="TrustedBy.subhead"
-          defaultMessage="Dozens of high-profile athletes and investors have joined forces with Sorare as brand ambassadors, advocates, and/or investors."
+          defaultMessage="Dozens of high-profile athletes and investors have joined forces with Vicc as brand ambassadors, advocates, and/or investors."
         />
       </SubHeading>
       {load && (

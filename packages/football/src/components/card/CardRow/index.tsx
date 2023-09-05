@@ -27,7 +27,7 @@ export const CardRow = ({ cards, count = 5 }: Props) => {
           c.token && (
             <Token
               forceDesktopLayout
-              hideSorareUser
+              hideViccUser
               key={c.slug}
               token={c.token}
             />

@@ -8,13 +8,13 @@ import {
   statesFromSelectType,
 } from '../common/DisplayMyOffers';
 import DisplayOffers from '../common/DisplayOffers';
-import { MySorarePage } from '../common/pages';
+import { MyViccPage } from '../common/pages';
 import { DefaultSortType, OfferSelectType } from '../common/types';
 
 export const MyOffers = ({
   page,
 }: {
-  page: MySorarePage.OFFERS_RECEIVED | MySorarePage.OFFERS_SENT;
+  page: MyViccPage.OFFERS_RECEIVED | MyViccPage.OFFERS_SENT;
 }) => {
   return (
     <DisplayOffers
@@ -28,7 +28,7 @@ export const MyOffers = ({
           sortType={sortType}
           sport={sport}
           direction={
-            page === MySorarePage.OFFERS_RECEIVED
+            page === MyViccPage.OFFERS_RECEIVED
               ? OfferDirection.RECEIVED
               : OfferDirection.SENT
           }

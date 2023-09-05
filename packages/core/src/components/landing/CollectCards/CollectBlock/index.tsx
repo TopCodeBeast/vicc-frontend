@@ -118,7 +118,7 @@ export const CollectBlock = () => (
       subHeading={
         <FormattedMessage
           id="Landing.CollectCards.CollectBlock.subHeading"
-          defaultMessage="Collect, buy, sell, and trade officially licensed digital player cards in Sorare’s Marketplace
+          defaultMessage="Collect, buy, sell, and trade officially licensed digital player cards in Vicc’s Marketplace
           to build your ultimate fantasy team. There are no sign-up costs."
         />
       }

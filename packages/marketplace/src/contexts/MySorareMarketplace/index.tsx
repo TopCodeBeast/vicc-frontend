@@ -3,7 +3,7 @@ import { ReactNode, useState } from 'react';
 import MarketplaceProvider from '../Marketplace/Provider';
 // This provider has been created because child components call useMarketplaceContext().
 // Props are not used.
-const MySorareMarketplaceProvider = ({ children }: { children: ReactNode }) => {
+const MyViccMarketplaceProvider = ({ children }: { children: ReactNode }) => {
   const [hideDetails, setHideDetails] = useState(false);
 
   return (
@@ -20,4 +20,4 @@ const MySorareMarketplaceProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default MySorareMarketplaceProvider;
+export default MyViccMarketplaceProvider;

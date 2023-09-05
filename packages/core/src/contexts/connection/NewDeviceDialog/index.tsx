@@ -16,7 +16,7 @@ const messages = defineMessages({
   description: {
     id: 'NewDeviceDialog.description',
     defaultMessage:
-      "It looks like you're signing in to Sorare from a computer or device we haven't seen before.",
+      "It looks like you're signing in to Vicc from a computer or device we haven't seen before.",
   },
   link: {
     id: 'NewDeviceDialog.link',

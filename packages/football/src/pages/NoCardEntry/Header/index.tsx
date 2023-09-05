@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { SorareLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
+import { ViccLogo } from '@sorare/core/src/atoms/icons/SorareLogo';
 import StarBall from '@sorare/core/src/atoms/icons/StarBall';
 import { Text14, Title2 } from '@sorare/core/src/atoms/typography';
 import { LANDING } from '@sorare/core/src/constants/routes';
@@ -42,7 +42,7 @@ const Header = ({ displayTitle }: Props) => {
       <Navbar>
         <FlexContainer>
           <SmallStarBall />
-          <SorareLogo />
+          <ViccLogo />
         </FlexContainer>
 
         <FlexContainer>

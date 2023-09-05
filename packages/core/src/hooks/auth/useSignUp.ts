@@ -10,7 +10,7 @@ import { useLocation } from 'react-router-dom';
 
 import {
   SignupPlatform,
-  SorarePrivateKeyAttributes,
+  ViccPrivateKeyAttributes,
 } from '__generated__/globalTypes';
 import { getValue } from '@core/components/PersistsQueryStringParameters/storage';
 import { useConfigContext } from '@core/contexts/config';
@@ -97,7 +97,7 @@ function useSignUp() {
       passwordHash: string;
       certified: string;
       viccAddress?: string;
-      viccPrivateKey?: SorarePrivateKeyAttributes;
+      viccPrivateKey?: ViccPrivateKeyAttributes;
       viccPrivateKeyBackup?: string;
       agreedToReceiveOffersFromPartners: boolean;
       acceptTerms: boolean;

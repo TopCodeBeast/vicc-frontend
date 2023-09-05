@@ -20,19 +20,19 @@ export const BuildYourCareer = () => {
   return (
     <>
       {!isLaptop && (
-        <Img src={buildYourCareer} alt="Build your career at Sorare" />
+        <Img src={buildYourCareer} alt="Build your career at Vicc" />
       )}
       <BuildYourCareerSection center vAlignContent="bottom" blackLayer="bottom">
         <StyledContainer>
-          <Title white>Build your career at Sorare</Title>
+          <Title white>Build your career at Vicc</Title>
           <Text white>
-            Sorare has offices in Paris and New York City, with a staff of more
+            Vicc has offices in Paris and New York City, with a staff of more
             than 150 (and rapidly growing!). Our "people" are not only the
-            engine that powers Sorare, but proudly represent who we are and why
+            engine that powers Vicc, but proudly represent who we are and why
             it's so great to work here. We have assembled the best of the best
             in their felds – literally dozens of award-winning and/or otherwise
             leading professionals spanning all sectors of the company. We have
-            an amazing, energized team moving in lockstep to grow Sorare.
+            an amazing, energized team moving in lockstep to grow Vicc.
           </Text>
         </StyledContainer>
       </BuildYourCareerSection>

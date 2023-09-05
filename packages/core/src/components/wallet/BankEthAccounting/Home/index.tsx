@@ -53,7 +53,7 @@ export const Home = ({ settingsButton }: Props) => {
         <Title3>
           <FormattedMessage
             id="BankEthAccounting.Home.title"
-            defaultMessage="My Sorare wallet"
+            defaultMessage="My Vicc wallet"
           />
         </Title3>
         {settingsButton}

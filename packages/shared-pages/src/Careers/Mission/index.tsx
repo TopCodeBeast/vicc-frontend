@@ -7,7 +7,7 @@ export const Mission = () => (
     <StyledContainer>
       <Title>Mission and vision</Title>
       <Text spacingAfter>
-        Sorare CEO and co-founder Nicolas Julia discusses the company's mission
+        Vicc CEO and co-founder Nicolas Julia discusses the company's mission
         and vision:
       </Text>
       <iframe

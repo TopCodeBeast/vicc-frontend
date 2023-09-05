@@ -17,7 +17,7 @@ import { Sport } from '__generated__/globalTypes';
 import { Container, FullWidth } from '@core/atoms/container';
 import Dropdown from '@core/atoms/dropdowns/Dropdown';
 import { ChevronDownBold } from '@core/atoms/icons/ChevronDownBold';
-import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { ViccLogo } from '@core/atoms/icons/SorareLogo';
 import { Text16, text16 } from '@core/atoms/typography';
 import Notifications from '@core/components/notification/Notifications';
 import ManagerTaskTooltip from '@core/components/onboarding/managerTask/ManagerTaskTooltip';
@@ -858,7 +858,7 @@ export const LoggedInAppBar = ({
       {
         key: 'my-sorare',
         to: MY_SORARE_HOME,
-        label: navLabels.mySorare,
+        label: navLabels.myVicc,
         sport: Sport.CRICKET,
         subMenu: [
           {
@@ -959,7 +959,7 @@ export const LoggedInAppBar = ({
     },
     {
       key: 'my-profile',
-      label: navLabels.mySorare,
+      label: navLabels.myVicc,
       subMenu: [
         {
           key: 'my-sorare-news',
@@ -1105,14 +1105,14 @@ export const LoggedInAppBar = ({
                       onClick={() => setMobileMenuOpened(true)}
                     />
                   </ManagerTaskTooltip>
-                  <Link to={LANDING} aria-label="Sorare">
-                    <SorareLogo />
+                  <Link to={LANDING} aria-label="Vicc">
+                    <ViccLogo />
                   </Link>
                 </>
               ) : (
                 <>
-                  <Link to={LANDING} aria-label="Sorare">
-                    <SorareLogo />
+                  <Link to={LANDING} aria-label="Vicc">
+                    <ViccLogo />
                   </Link>
                   <LogoAndSwitchesSeparator />
                   <GameSwitch />

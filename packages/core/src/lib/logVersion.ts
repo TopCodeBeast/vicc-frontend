@@ -34,7 +34,7 @@ export const parseVersion = (version: string): Date | null => {
 
 export function logVersion() {
   /* eslint-disable  no-console */
-  console.log('%cSorare', 'font-size: large');
+  console.log('%cVicc', 'font-size: large');
 
   const date = parseVersion(VERSION.toString());
   if (date !== null) {

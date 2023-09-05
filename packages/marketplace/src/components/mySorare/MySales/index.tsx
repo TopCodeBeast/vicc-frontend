@@ -7,7 +7,7 @@ import { useQueryState } from '@sorare/core/src/hooks/useQueryState';
 
 import MyPage from '../MyPage';
 import { messages as sortMessages } from '../common/messages';
-import { MySorarePage } from '../common/pages';
+import { MyViccPage } from '../common/pages';
 import { DefaultSortType, OpenSaleSortType } from '../common/types';
 import useSportSelect from '../common/useSportSelect';
 import AllSingleSaleOffers from './AllSingleSaleOffers';
@@ -142,7 +142,7 @@ const MySales = () => {
 
   return (
     <MyPage
-      page={MySorarePage.SALES}
+      page={MyViccPage.SALES}
       toolbar={
         <>
           <SportSelect />

@@ -9,7 +9,7 @@ import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery'
 import { MyPage } from '../MyPage';
 import Follow from '../common/Follow';
 import Subscriptions from '../common/Subscriptions';
-import { MySorarePage } from '../common/pages';
+import { MyViccPage } from '../common/pages';
 import useSortByDate from '../common/useSortByDate';
 import useSportSelect from '../common/useSportSelect';
 import useSubscribableTypesSelect from '../common/useSubscribableTypesSelect';
@@ -84,7 +84,7 @@ export const MyFollows = () => {
 
   return (
     <MyPage
-      page={MySorarePage.FOLLOWS}
+      page={MyViccPage.FOLLOWS}
       toolbar={
         <>
           <SportSelect />

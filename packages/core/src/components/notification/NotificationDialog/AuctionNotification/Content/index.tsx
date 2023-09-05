@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
 import Button from '@core/atoms/buttons/Button';
-import { SorareLogo } from '@core/atoms/icons/SorareLogo';
+import { ViccLogo } from '@core/atoms/icons/SorareLogo';
 import { Text16, Title3 } from '@core/atoms/typography';
 import UninteractiveBundledAuctionPreview from '@core/components/bundled/UninteractiveBundledAuctionPreview';
 import UninteractiveToken from '@core/components/token/UninteractiveToken';
@@ -73,7 +73,7 @@ const Footer = styled.div`
   text-align: center;
 `;
 
-const SmallSorareLogo = styled(SorareLogo)`
+const SmallViccLogo = styled(ViccLogo)`
   max-width: 60px;
 `;
 
@@ -135,7 +135,7 @@ export const AuctionWonContent = ({
           </User>
         )}
         {isRendering ? (
-          <SmallSorareLogo variant="var(--c-neutral-500)" />
+          <SmallViccLogo variant="var(--c-neutral-500)" />
         ) : (
           <CTAS>
             <Button onClick={onClick} medium color="white">

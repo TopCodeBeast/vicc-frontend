@@ -236,7 +236,7 @@ const TokenWithdrawalInfo = ({ token, transferRequest, onComplete }: Props) => {
                 title={
                   <FormattedMessage
                     id="CardWithdrawalInfo.mintingTooltip"
-                    defaultMessage="The process of crafting your Sorare Card into a digital asset on Ethereum mainnet."
+                    defaultMessage="The process of crafting your Vicc Card into a digital asset on Ethereum mainnet."
                   />
                 }
               >
@@ -263,7 +263,7 @@ const TokenWithdrawalInfo = ({ token, transferRequest, onComplete }: Props) => {
                 title={
                   <FormattedMessage
                     id="CardWithdrawalInfo.withdrawalTooltip"
-                    defaultMessage="The process of sending your Sorare mainnet NFT to your Ethereum wallet."
+                    defaultMessage="The process of sending your Vicc mainnet NFT to your Ethereum wallet."
                   />
                 }
               >

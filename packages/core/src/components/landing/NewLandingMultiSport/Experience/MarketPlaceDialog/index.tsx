@@ -23,7 +23,7 @@ const messages = defineMessages({
   subtext: {
     id: 'Landing.Experience.MarketDialog.subtext',
     defaultMessage:
-      "Scout players and use Sorare's Marketplace to buy or trade for their digital cards. Keep improving your team, week over week and season over season.",
+      "Scout players and use Vicc's Marketplace to buy or trade for their digital cards. Keep improving your team, week over week and season over season.",
   },
   mlbMarket: {
     id: 'Landing.Experience.MarketDialog.mlbMarket',

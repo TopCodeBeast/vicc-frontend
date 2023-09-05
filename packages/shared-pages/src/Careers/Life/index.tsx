@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import lifeAtSorare from '../assets/life-at-sorare.png';
+import lifeAtVicc from '../assets/life-at-sorare.png';
 import {
   Img,
   Section,
@@ -9,17 +9,17 @@ import {
   TwoColumnsContainer,
 } from '../ui';
 
-export const LifeAtSorare = () => (
+export const LifeAtVicc = () => (
   <Section spacing>
     <StyledContainer>
       <TwoColumnsContainer image="left">
         <Img
-          src={lifeAtSorare}
-          alt="Life at Sorare"
+          src={lifeAtVicc}
+          alt="Life at Vicc"
           style={{ aspectRatio: '1/1' }}
         />
         <div>
-          <Title>Life at Sorare</Title>
+          <Title>Life at Vicc</Title>
           <Text spacingAfter>
             On a day-to-day level, we aim to make life comfortable for our
             fast-moving team members through benefits like a flexible work

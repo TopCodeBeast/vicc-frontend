@@ -174,7 +174,7 @@ const Field = ({ render, confirm, showTerms = false, title }: Props) => {
           <Caption>
             <FormattedMessage
               id="ComposeTeams.TermsAndConditions"
-              defaultMessage="By confirming your team, you agree to the Sorare: <link>Games Rules</link>"
+              defaultMessage="By confirming your team, you agree to the Vicc: <link>Games Rules</link>"
               values={{
                 link: (c: any) => (
                   <a
