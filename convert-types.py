@@ -21,6 +21,20 @@ def replace(text, oldvalue, newvalue, startIndex, endIndex):
             text = text[:i] + newvalue + text[i + len(oldvalue):]
     return text
 
+def remove_football(text):
+    search = "football {"
+    startIndex = 0
+    while startIndex >= 0:
+        startIndex = text.find(search, startIndex)
+        if startIndex >= 0:
+            endIndex = text.find("\n    }", startIndex)
+            if endIndex >= 0:
+                text = text[:endIndex + 5] + "#}" + text[endIndex + 6:]
+                text = text[:startIndex] + '#' + search + text[startIndex + len(search):]
+            startIndex += len(search)
+
+    return text
+
 
 def updateTypes(filePath):
     print(filePath)
@@ -58,6 +72,8 @@ def updateTypes(filePath):
         code = replace(code, "So5", "Vicc5", startIndex, endIndex)
         if endIndex < 0: break
         startIndex = code.index("'", code.index("'", endIndex) + 1)
+
+    code = remove_football(code)
     
     if code != text:
         with open(filePath, 'w+', encoding='utf-8') as fp:
