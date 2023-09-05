@@ -54,7 +54,7 @@ const COLLECTION_QUERY = gql`
       slug
       nickname
     }
-    football {
+    #football {
       cardCollection(slug: $slug) {
         slug
         name
@@ -79,7 +79,7 @@ const COLLECTION_QUERY = gql`
         }
         ...Header_cardCollection
       }
-    }
+    #}
   }
   ${CollectionSlots.fragments.userCardCollectionSlot}
   ${CollectionSlots.fragments.cardCollectionSlot}

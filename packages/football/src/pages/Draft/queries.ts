@@ -26,7 +26,7 @@ type DraftAutofillQuery_vicc5Leaderboard_commonDraftCampaign_autoPick =
 
 const DRAFT_SETUP_QUERY = gql`
   query DraftSetupQuery($vicc5LeaderboardSlug: String!) {
-    football {
+    #football {
       vicc5 {
         vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
@@ -51,7 +51,7 @@ const DRAFT_SETUP_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${Picker.fragments.commonDraftCampaign}
   ${Picker.fragments.draftablePlayer}
@@ -85,7 +85,7 @@ const DRAFT_QUERY = gql`
     $query: String
     $selectedPrintablePlayerIds: [ID!]
   ) {
-    football {
+    #football {
       vicc5 {
         vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
@@ -115,7 +115,7 @@ const DRAFT_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${Picker.fragments.draftablePlayer}
   ${Card.fragments.draftablePlayer}
@@ -141,7 +141,7 @@ const AUTOFILL_QUERY = gql`
     $vicc5LeaderboardSlug: String!
     $selectedPrintablePlayerIds: [ID!]
   ) {
-    football {
+    #football {
       vicc5 {
         vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
@@ -156,7 +156,7 @@ const AUTOFILL_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${Picker.fragments.commonDraftCampaignAutoPick}
   ${Card.fragments.draftablePlayer}

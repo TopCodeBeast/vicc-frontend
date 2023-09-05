@@ -43,7 +43,7 @@ const TeamsRoutes = styled.div`
 
 const LOBBY_LIVE_INDEX_QUERY = gql`
   query LobbyLiveIndexQuery {
-    football {
+    #football {
       vicc5 {
         vicc5Fixture(type: LIVE) {
           slug
@@ -57,7 +57,7 @@ const LOBBY_LIVE_INDEX_QUERY = gql`
           ...ComposeTeamReminderBanner_vicc5Fixture
         }
       }
-    }
+    #}
   }
   ${Teams.fragments.vicc5Fixture}
   ${Layout.fragments.vicc5Fixture}

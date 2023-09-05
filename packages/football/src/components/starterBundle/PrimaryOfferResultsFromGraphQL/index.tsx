@@ -14,13 +14,13 @@ import {
 
 const BATCH_STARTER_BUNDLE_PREVIEW_QUERY = gql`
   query BatchStarterBundlePreviewQuery($assetIds: [String!]!) {
-    football {
+    #football {
       cards(assetIds: $assetIds) {
         slug
         assetId
         ...CustomStarterBundlePreview_card
       }
-    }
+    #}
   }
   ${CustomStarterBundlePreview.fragments.card}
 ` as TypedDocumentNode<

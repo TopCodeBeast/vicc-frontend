@@ -75,7 +75,7 @@ const BUNDLED_AUCTION_QUERY = gql`
 
 export const BUNDLED_AUCTION_CARDS_QUERY = gql`
   query BundledAuctionCardsQuery($slugs: [String!]!) {
-    football {
+    #football {
       cards(slugs: $slugs) {
         slug
         assetId
@@ -89,7 +89,7 @@ export const BUNDLED_AUCTION_CARDS_QUERY = gql`
           ...RelatedTeam_team
         }
       }
-    }
+    #}
   }
   ${analyticsFragments.cardInfo}
   ${CardProperties.fragments.card}

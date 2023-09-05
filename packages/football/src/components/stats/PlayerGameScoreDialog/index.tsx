@@ -21,7 +21,7 @@ const playerFragment = gql`
 
 export const PLAYER_GAME_SCORE_DIALOG_QUERY = gql`
   query PlayerGameScoreDialogQuery($id: ID!) {
-    football {
+    #football {
       vicc5 {
         vicc5Score(id: $id) {
           id
@@ -52,7 +52,7 @@ export const PLAYER_GAME_SCORE_DIALOG_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${PlayerStatsDialog.fragments.vicc5Score}
   ${playerFragment}

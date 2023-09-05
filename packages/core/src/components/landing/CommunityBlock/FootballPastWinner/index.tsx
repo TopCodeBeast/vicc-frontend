@@ -15,7 +15,7 @@ import {
 
 const FOOTBALL_PAST_LEADERBOARD_SLUG_QUERY = gql`
   query FootballPastLeaderboardSlugQuery {
-    football {
+    #football {
       vicc5 {
         vicc5Fixture(type: PAST) {
           slug
@@ -25,7 +25,7 @@ const FOOTBALL_PAST_LEADERBOARD_SLUG_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
 ` as TypedDocumentNode<
   FootballPastLeaderboardSlugQuery,
@@ -34,7 +34,7 @@ const FOOTBALL_PAST_LEADERBOARD_SLUG_QUERY = gql`
 
 const FOOTBALL_PAST_LEADERBOARD_QUERY = gql`
   query FootballPastLeaderboardQuery($leaderboardSlug: String!) {
-    football {
+    #football {
       vicc5 {
         vicc5Leaderboard(slug: $leaderboardSlug) {
           slug
@@ -53,7 +53,7 @@ const FOOTBALL_PAST_LEADERBOARD_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
 ` as TypedDocumentNode<
   FootballPastLeaderboardQuery,
@@ -61,7 +61,7 @@ const FOOTBALL_PAST_LEADERBOARD_QUERY = gql`
 >;
 const FOOTBALL_PAST_LINEUP_WINNER_QUERY = gql`
   query FootballPastLineupWinnerQuery($lineupId: ID!) {
-    football {
+    #football {
       vicc5 {
         vicc5Lineup(id: $lineupId) {
           vicc5Appearances {
@@ -81,7 +81,7 @@ const FOOTBALL_PAST_LINEUP_WINNER_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
 ` as TypedDocumentNode<
   FootballPastLineupWinnerQuery,

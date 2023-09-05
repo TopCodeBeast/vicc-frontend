@@ -106,7 +106,7 @@ export const GET_MY_PRIVATE_USER_GROUPS_QUERY = gql`
     $enableLongFormatCompetition: Boolean!
     $after: String
   ) {
-    football {
+    #football {
       vicc5 {
         myVicc5UserGroups(first: 8) @include(if: $enableLongFormatCompetition) {
           nodes {
@@ -147,7 +147,7 @@ export const GET_MY_PRIVATE_USER_GROUPS_QUERY = gql`
           totalCount
         }
       }
-    }
+    #}
   }
   ${PrivateUserGroup.fragments.vicc5UserGroup}
   ${PublicUserGroup.fragments.vicc5UserGroup}

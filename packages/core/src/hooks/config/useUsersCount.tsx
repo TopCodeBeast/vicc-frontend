@@ -13,13 +13,13 @@ const QUERY = gql`
       id
       counts {
         usersCount
-        football {
+        #football {
           starterPacksCount
           managerSalesCount
           auctionsCount
         }
       }
-    }
+    #}
   }
 ` as TypedDocumentNode<UsersCount, UsersCountVariables>;
 

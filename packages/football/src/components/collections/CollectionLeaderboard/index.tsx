@@ -29,7 +29,7 @@ const COLLECTION_LEADERBOARD_QUERY = gql`
     $includeUserCardCollection: Boolean!
     $cursor: String
   ) {
-    football {
+    #football {
       cardCollection(slug: $slug) {
         slug
         slotsCount
@@ -49,7 +49,7 @@ const COLLECTION_LEADERBOARD_QUERY = gql`
           ...LeaderboardRow_userCardCollection
         }
       }
-    }
+    #}
   }
   ${LeaderboardRow.fragments.userCardCollection}
 ` as TypedDocumentNode<

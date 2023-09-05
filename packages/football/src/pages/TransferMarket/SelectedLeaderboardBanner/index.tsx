@@ -67,7 +67,7 @@ const StyledButton = styled(Button)`
 
 const MARKET_LEADERBOARD_QUERY = gql`
   query MarketLeaderboardQuery($slug: String!) {
-    football {
+    #football {
       vicc5 {
         vicc5Leaderboard(slug: $slug) {
           slug
@@ -78,7 +78,7 @@ const MARKET_LEADERBOARD_QUERY = gql`
           ...DivisionLogo_vicc5Leaderboard
         }
       }
-    }
+    #}
   }
   ${DivisionLogo.fragments.vicc5Leaderboard}
   ${MissingCardsMessage.fragments.validity}

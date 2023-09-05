@@ -35,7 +35,7 @@ export interface RangeReward
 
 export const COMPETITION_DETAILS_REWARDS_TAB_QUERY = gql`
   query CompetitionDetailsRewardsTabQuery($slug: String!) {
-    football {
+    #football {
       vicc5 {
         vicc5Leaderboard(slug: $slug) {
           slug
@@ -87,7 +87,7 @@ export const COMPETITION_DETAILS_REWARDS_TAB_QUERY = gql`
           ...ScoreBasedRewards_vicc5Leaderboard
         }
       }
-    }
+    #}
   }
   ${RankBasedRewards.fragments.vicc5League}
   ${RankBasedRewards.fragments.vicc5RewardConfig}

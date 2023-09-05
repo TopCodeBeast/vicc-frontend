@@ -102,7 +102,7 @@ export const LOBBY_TOP_PLAYERS_PER_POSITION_QUERY = gql`
     $position: String!
     $cursor: String
   ) {
-    football {
+    #football {
       vicc5 {
         vicc5Fixture(slug: $slug) {
           slug
@@ -153,7 +153,7 @@ export const LOBBY_TOP_PLAYERS_PER_POSITION_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${getPlayerScore.fragments.vicc5Score}
 ` as TypedDocumentNode<

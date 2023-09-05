@@ -14,7 +14,7 @@ import {
 
 export const LOBBY_UPCOMING_TOURNAMENTS_QUERY = gql`
   query LobbyUpcomingTournamentsQuery {
-    football {
+    #football {
       vicc5 {
         upcomingLeaderboards {
           slug
@@ -27,7 +27,7 @@ export const LOBBY_UPCOMING_TOURNAMENTS_QUERY = gql`
           ...CompetitionList_clubShopItem
         }
       }
-    }
+    #}
   }
   ${CompetitionList.fragments.vicc5Leaderboard}
   ${CompetitionList.fragments.clubShopItem}

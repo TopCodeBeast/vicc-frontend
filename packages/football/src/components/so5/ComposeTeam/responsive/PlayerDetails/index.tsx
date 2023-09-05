@@ -54,7 +54,7 @@ const FIXTURE_SCORES_QUERY = gql`
     $cursor: String
     $position: Position
   ) {
-    football {
+    #football {
       player(slug: $slug) {
         slug
         lastFiveVicc5AverageScore: averageScore(
@@ -77,7 +77,7 @@ const FIXTURE_SCORES_QUERY = gql`
         }
         ...LastScores_player
       }
-    }
+    #}
   }
   ${LastScores.fragments.vicc5Score}
   ${LastScores.fragments.player}
@@ -85,7 +85,7 @@ const FIXTURE_SCORES_QUERY = gql`
 
 const PLAYER_DETAILS_QUERY = gql`
   query PlayerDetailsQuery($slug: String!) {
-    football {
+    #football {
       player(slug: $slug) {
         slug
         activeClub {
@@ -105,7 +105,7 @@ const PLAYER_DETAILS_QUERY = gql`
         ...PlayerProperties_player
         ...PlayerUnavailabilityPanel_player
       }
-    }
+    #}
   }
   ${PlayerUpcomingGames.fragments.game}
   ${PlayerProperties.fragments.player}

@@ -61,7 +61,7 @@ const LoaderContainer = styled.div`
 
 const MATCH_VIEW_PLAYER_SCORE_QUERY = gql`
   query MatchViewPlayerDetailsQuery($slug: String!, $id: ID!) {
-    football {
+    #football {
       player(slug: $slug) {
         slug
         displayName
@@ -70,7 +70,7 @@ const MATCH_VIEW_PLAYER_SCORE_QUERY = gql`
           ...DetailedScoreV4V5_vicc5Score
         }
       }
-    }
+    #}
   }
   ${DetailedScoreV4V5.fragments.vicc5Score}
 ` as TypedDocumentNode<

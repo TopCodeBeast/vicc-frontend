@@ -51,7 +51,7 @@ export const BENCH_CARDS_QUERY = gql`
     $lastFifteenVicc5AverageScore: RangeInput
     $deckId: String
   ) {
-    football {
+    #football {
       vicc5 {
         vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
@@ -86,7 +86,7 @@ export const BENCH_CARDS_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${cardFragment}
 ` as TypedDocumentNode<BenchCardsQuery, BenchCardsQueryVariables>;

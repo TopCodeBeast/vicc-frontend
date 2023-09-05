@@ -13,7 +13,7 @@ import {
 
 export const LAST_LINEUP_QUERY = gql`
   query myLastLineupQuery {
-    football {
+    #football {
       vicc5 {
         myUpcomingLineupsPaginated {
           nodes {
@@ -34,7 +34,7 @@ export const LAST_LINEUP_QUERY = gql`
           totalCount
         }
       }
-    }
+    #}
   }
 ` as TypedDocumentNode<myLastLineupQuery, myLastLineupQueryVariables>;
 const useFavPlayer = ({ skip = false }: { skip?: boolean }) => {

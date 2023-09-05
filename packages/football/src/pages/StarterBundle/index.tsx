@@ -35,13 +35,13 @@ const cardFragment = gql`
 
 const STARTER_BUNDLE_PAGE_QUERY = gql`
   query StarterBundlePageQuery($assetIds: [String!]!) {
-    football {
+    #football {
       cards(assetIds: $assetIds) {
         slug
         assetId
         ...StarterBundlePage_card
       }
-    }
+    #}
   }
   ${cardFragment}
 ` as TypedDocumentNode<StarterBundlePageQuery, StarterBundlePageQueryVariables>;

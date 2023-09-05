@@ -141,7 +141,7 @@ const Captain = styled.div`
 
 const LINEUP_SHARING_QUERY = gql`
   query LineupSharingQuery($id: ID!) {
-    football {
+    #football {
       vicc5 {
         vicc5Lineup(id: $id) {
           id
@@ -186,7 +186,7 @@ const LINEUP_SHARING_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${LineupDate.fragments.fixture}
 ` as TypedDocumentNode<LineupSharingQuery, LineupSharingQueryVariables>;

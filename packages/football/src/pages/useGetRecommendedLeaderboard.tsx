@@ -15,7 +15,7 @@ import {
 
 export const RECOMMENDED_LEADERBOARDS_QUERY = gql`
   query RecommendedLeaderboardsQuery {
-    football {
+    #football {
       vicc5 {
         upcomingLeaderboards {
           slug
@@ -28,7 +28,7 @@ export const RECOMMENDED_LEADERBOARDS_QUERY = gql`
           ...LineupToDiscover_vicc5Leaderboard
         }
       }
-    }
+    #}
   }
   ${LineupToDiscover.fragments.vicc5Leaderboard}
 ` as TypedDocumentNode<

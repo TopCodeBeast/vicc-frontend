@@ -83,7 +83,7 @@ const subscription = gql`
 
 const GAMES_QUERY = gql`
   query GamesQuery {
-    football {
+    #football {
       vicc5 {
         vicc5Fixture(type: LIVE) {
           slug
@@ -98,7 +98,7 @@ const GAMES_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${Game.fragments.game}
 ` as TypedDocumentNode<GamesQuery, GamesQueryVariables>;

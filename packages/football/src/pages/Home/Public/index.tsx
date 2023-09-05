@@ -43,7 +43,7 @@ import '@sorare/core/src/style/romieFontFaces.css';
 
 const HOME_DATA_QUERY = gql`
   query HomeDataQuery {
-    football {
+    #football {
       vicc5 {
         onboardingCommonDraftCampaigns {
           slug
@@ -60,7 +60,7 @@ const HOME_DATA_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
 ` as TypedDocumentNode<HomeDataQuery, HomeDataQueryVariables>;
 

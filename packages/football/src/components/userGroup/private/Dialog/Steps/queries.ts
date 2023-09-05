@@ -9,14 +9,14 @@ import {
 
 export const ELIGIBLE_TOURNAMENTS_FOR_PRIVATE_USER_GROUP_QUERY = gql`
   query eligibleTournamentsForPrivateUserGroupQuery {
-    football {
+    #football {
       vicc5 {
         eligibleTournamentTypesForVicc5UserGroups {
           id
           ...TournamentInput_tournaments
         }
       }
-    }
+    #}
   }
   ${TournamentInput.fragments.tournaments}
 ` as TypedDocumentNode<

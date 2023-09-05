@@ -84,7 +84,7 @@ const messages = defineMessages({
 
 export const UPCOMING_TEAMS_SETUP_QUERY = gql`
   query UpcomingTeamsSetupQuery {
-    football {
+    #football {
       vicc5 {
         lineups: myUpcomingLineupsPaginated {
           totalCount
@@ -105,7 +105,7 @@ export const UPCOMING_TEAMS_SETUP_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
 ` as TypedDocumentNode<
   UpcomingTeamsSetupQuery,

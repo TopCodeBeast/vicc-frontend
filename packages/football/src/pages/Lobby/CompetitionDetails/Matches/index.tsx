@@ -43,7 +43,7 @@ const StyledGame = styled(Game)`
 
 const COMPETITION_DETAILS_MATCHES_TAB_QUERY = gql`
   query CompetitionDetailsMatchesTabQuery($leaderboardSlug: String!) {
-    football {
+    #football {
       vicc5 {
         vicc5Leaderboard(slug: $leaderboardSlug) {
           slug
@@ -59,7 +59,7 @@ const COMPETITION_DETAILS_MATCHES_TAB_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   fragment CompetitionDetailsMatchesTabQuery_game on Game {
     id

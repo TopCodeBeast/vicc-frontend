@@ -40,12 +40,12 @@ const cardSortsWithBestValue = createCardSorts({
 
 const SO5_SECONDARY_MARKET_STACK_PLAYER_QUERY = gql`
   query Vicc5SecondaryMarketStackPlayerQuery($slug: String!) {
-    football {
+    #football {
       player(slug: $slug) {
         slug
         displayName
       }
-    }
+    #}
   }
 ` as TypedDocumentNode<
   Vicc5SecondaryMarketStackPlayerQuery,

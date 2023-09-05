@@ -40,7 +40,7 @@ const CompetitionsList = styled.div`
 
 const FOOTBALL_COMPETITIONS_QUERY = gql`
   query FootballCompetitionQuery {
-    football {
+    #football {
       leaguesOpenForGameStats {
         slug
         displayName
@@ -50,7 +50,7 @@ const FOOTBALL_COMPETITIONS_QUERY = gql`
           slug
         }
       }
-    }
+    #}
   }
 ` as TypedDocumentNode<
   FootballCompetitionQuery,

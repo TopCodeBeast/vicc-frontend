@@ -25,7 +25,7 @@ const PLAYER_QUERY = gql`
     $after: String
     $first: Int
   ) {
-    football {
+    #football {
       player(slug: $slug) {
         slug
         position: positionTyped
@@ -33,7 +33,7 @@ const PLAYER_QUERY = gql`
         ...PageContext_subscribable
         ...PlayerPageContent_player
       }
-    }
+    #}
   }
   ${PlayerPageContent.fragments.player}
   ${pageContextFragments.subscribable}

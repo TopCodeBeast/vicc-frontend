@@ -26,13 +26,13 @@ interface Props {
 
 const CARDS_ON_SALE_QUERY = gql`
   query CardsOnSaleQuery($slugs: [String!]!) {
-    football {
+    #football {
       cards(slugs: $slugs) {
         slug
         assetId
         ...CardRow_card
       }
-    }
+    #}
   }
   ${CardRow.fragments.card}
 ` as TypedDocumentNode<CardsOnSaleQuery, CardsOnSaleQueryVariables>;

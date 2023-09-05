@@ -25,7 +25,7 @@ const HOME_LEADERBOARDS_QUERY = gql`
       slug
       ...ManagerAssistant_currentUser
     }
-    football {
+    #football {
       vicc5 {
         upcomingLeaderboards {
           slug
@@ -42,7 +42,7 @@ const HOME_LEADERBOARDS_QUERY = gql`
         ...PrivateLeagues_vicc5
         ...TournamentsTimeline_vicc5
       }
-    }
+    #}
   }
 
   ${PrivateLeagues.fragments.vicc5}

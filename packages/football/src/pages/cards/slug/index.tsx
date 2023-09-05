@@ -24,7 +24,7 @@ export const CARD_QUERY = gql`
     $scoreCursor: String
     $first: Int
   ) {
-    football {
+    #football {
       card(slug: $slug) {
         slug
         assetId
@@ -40,7 +40,7 @@ export const CARD_QUERY = gql`
         }
         ...CardPage_card
       }
-    }
+    #}
   }
   ${CardPageContent.fragments.card}
 ` as TypedDocumentNode<FootballCardQuery, FootballCardQueryVariables>;

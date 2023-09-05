@@ -24,13 +24,13 @@ const fragment = gql`
 ` as TypedDocumentNode<CustomStarterBundlePreview_card>;
 const CUSTOM_STARTER_BUNDLE_PREVIEW_QUERY = gql`
   query CustomStarterBundlePreviewQuery($assetIds: [String!]!) {
-    football {
+    #football {
       cards(assetIds: $assetIds) {
         slug
         assetId
         ...CustomStarterBundlePreview_card
       }
-    }
+    #}
   }
   ${fragment}
 ` as TypedDocumentNode<

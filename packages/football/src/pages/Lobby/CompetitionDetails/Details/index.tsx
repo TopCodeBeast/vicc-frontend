@@ -36,7 +36,7 @@ import {
 
 const COMPETITION_DETAILS_DEFAULT_TAB_QUERY = gql`
   query CompetitionDetailsDefaultTabQuery($slug: String!) {
-    football {
+    #football {
       vicc5 {
         vicc5Leaderboard(slug: $slug) {
           slug
@@ -61,7 +61,7 @@ const COMPETITION_DETAILS_DEFAULT_TAB_QUERY = gql`
           #...CompetitionRules_vicc5Leaderboard
         }
       }
-    }
+    #}
   }
   ${EngineConfiguration.fragments.vicc5Leaderboard}
   ${PrizePoolOverview.fragments.leaderboardRewardsConfig}

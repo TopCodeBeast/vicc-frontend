@@ -103,7 +103,7 @@ export const SHOP_ITEM_PICKER_QUERY = gql`
     $types: [ShopItemType!]
     $unlocked: Boolean
   ) {
-    football {
+    #football {
       shopItems(
         first: 12
         after: $cursor
@@ -129,7 +129,7 @@ export const SHOP_ITEM_PICKER_QUERY = gql`
         }
         totalCount
       }
-    }
+    #}
     currentUser {
       slug
       ...DefaultListing_user

@@ -37,7 +37,7 @@ import {
 
 const COMPOSE_TEAM_LEADERBOARD_QUERY = gql`
   query ComposeTeamLeaderboardQuery($vicc5LeaderboardSlug: String!) {
-    football {
+    #football {
       vicc5 {
         vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
@@ -59,7 +59,7 @@ const COMPOSE_TEAM_LEADERBOARD_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
 ` as TypedDocumentNode<
   ComposeTeamLeaderboardQuery,
@@ -71,7 +71,7 @@ const COMPOSE_TEAM_QUERY = gql`
     $vicc5LineupId: String
     $statsView: Boolean!
   ) {
-    football {
+    #football {
       vicc5 {
         vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
@@ -87,7 +87,7 @@ const COMPOSE_TEAM_QUERY = gql`
           ...ComposeTeamComponent_vicc5Leaderboard
         }
       }
-    }
+    #}
   }
   ${ComposeTeamComponent.fragments.vicc5Leaderboard}
   ${ComposeTeamComponent.fragments.vicc5Lineup}

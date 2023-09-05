@@ -34,13 +34,13 @@ const UpcomingContent = styled.div<{ hide?: boolean }>`
 
 export const LINEUPS_COUNT_QUERY = gql`
   query LineupsCountQuery {
-    football {
+    #football {
       vicc5 {
         myUpcomingLineupsPaginated {
           totalCount
         }
       }
-    }
+    #}
   }
 ` as TypedDocumentNode<LineupsCountQuery, LineupsCountQueryVariables>;
 

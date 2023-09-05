@@ -102,7 +102,7 @@ const LeagueTileWrapper = styled.div`
 
 const GET_ONBOARDING_DRAFT_CAMPAIGNS_QUERY = gql`
   query GetOnboardingDraftCampaignsQuery {
-    football {
+    #football {
       vicc5 {
         onboardingCompetitions {
           slug
@@ -116,7 +116,7 @@ const GET_ONBOARDING_DRAFT_CAMPAIGNS_QUERY = gql`
           ...LeaguePicker_onboardingCompetition
         }
       }
-    }
+    #}
   }
   ${LeaguePicker.fragments.onboardingCompetition}
   ${LeagueTile.fragments.commonDraftCampaign}

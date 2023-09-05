@@ -87,14 +87,14 @@ export const fragments = {
 
 const CARD_ANALYTICS_INFO_QUERY = gql`
   query CardAnalyticsInfoQuery($assetId: String!) {
-    football {
+    #football {
       cardByAssetId(assetId: $assetId) {
         slug
         assetId
         name
         ...Analytics_cardInfo
       }
-    }
+    #}
   }
   ${fragments.cardInfo}
 ` as TypedDocumentNode<CardAnalyticsInfoQuery, CardAnalyticsInfoQueryVariables>;

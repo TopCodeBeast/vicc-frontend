@@ -20,7 +20,7 @@ const LOBBY_UPCOMING_LINEUPS_QUERY = gql`
     $limit: Int = 6
     $draft: Boolean
   ) {
-    football {
+    #football {
       vicc5 {
         myUpcomingLineupsPaginated(
           after: $startCursor
@@ -47,7 +47,7 @@ const LOBBY_UPCOMING_LINEUPS_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${Lineup.fragments.vicc5Lineup}
   ${Lineup.fragments.vicc5Leaderboard}
@@ -65,7 +65,7 @@ const LOBBY_LINEUPS_QUERY = gql`
     $draft: Boolean
     $limit: Int = 6
   ) {
-    football {
+    #football {
       vicc5 {
         vicc5Fixture(type: $type, slug: $slug) {
           slug
@@ -94,7 +94,7 @@ const LOBBY_LINEUPS_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${Lineup.fragments.vicc5Lineup}
   ${Lineup.fragments.vicc5Leaderboard}

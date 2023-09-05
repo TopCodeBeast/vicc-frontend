@@ -88,7 +88,7 @@ export const LOBBY_PRIZE_POOL_QUERY = gql`
     $cursor: String
     $rarities: [Vicc5LeaderboardRarity!]
   ) {
-    football {
+    #football {
       vicc5 {
         futureLeaderboardsPaginated(
           after: $cursor
@@ -110,7 +110,7 @@ export const LOBBY_PRIZE_POOL_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${LeaderboardRow.fragments.vicc5Leaderboard}
 ` as TypedDocumentNode<LobbyPrizePoolQuery, LobbyPrizePoolQueryVariables>;

@@ -47,7 +47,7 @@ const LOBBY_LEADERBOARDS_FETCHER_QUERY = gql`
     $onlyFollowed: Boolean
     $page: Int!
   ) {
-    football {
+    #football {
       vicc5 {
         vicc5Leaderboard(slug: $slug) {
           slug
@@ -71,7 +71,7 @@ const LOBBY_LEADERBOARDS_FETCHER_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${LeaderboardWithLineupDetails.fragments.vicc5Ranking}
   ${Leaderboard.fragments.vicc5Memberships}

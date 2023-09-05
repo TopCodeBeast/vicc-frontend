@@ -36,7 +36,7 @@ import {
 
 export const GET_PRIVATE_USER_GROUP_QUERY = gql`
   query GetPrivateUserGroupQuery($slug: String!) {
-    football {
+    #football {
       vicc5 {
         vicc5UserGroup(slug: $slug) {
           slug
@@ -52,7 +52,7 @@ export const GET_PRIVATE_USER_GROUP_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${fragments.vicc5UserGroup}
 ` as TypedDocumentNode<

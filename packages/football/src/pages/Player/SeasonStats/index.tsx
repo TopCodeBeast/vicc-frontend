@@ -32,7 +32,7 @@ type Props = {
 
 export const SEASON_STATS_QUERY = gql`
   query SeasonStatsQuery($playerSlug: String!, $seasonStartYear: Int!) {
-    football {
+    #football {
       player(slug: $playerSlug) {
         slug
         stats(seasonStartYear: $seasonStartYear) {
@@ -46,7 +46,7 @@ export const SEASON_STATS_QUERY = gql`
           substituteOut
         }
       }
-    }
+    #}
   }
 ` as TypedDocumentNode<SeasonStatsQuery, SeasonStatsQueryVariables>;
 

@@ -61,7 +61,7 @@ const messages = defineMessages({
 
 const LOBBY_MY_PLAYERS_QUERY = gql`
   query LobbyMyPlayersQuery($type: Vicc5State, $slug: String) {
-    football {
+    #football {
       vicc5 {
         vicc5Fixture(type: $type, slug: $slug) {
           slug
@@ -74,7 +74,7 @@ const LOBBY_MY_PLAYERS_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${Player.fragments.vicc5Appearance}
 ` as TypedDocumentNode<LobbyMyPlayersQuery, LobbyMyPlayersQueryVariables>;

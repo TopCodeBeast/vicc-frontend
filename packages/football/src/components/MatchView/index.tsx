@@ -54,13 +54,13 @@ const subscription = gql`
 
 const MATCH_VIEW_FORMATIONS_QUERY = gql`
   query MatchViewFormationsQuery($id: ID!) {
-    football {
+    #football {
       game(id: $id) {
         id
         ...Overview_game
         ...FootballField_game
       }
-    }
+    #}
   }
   ${Overview.fragments.game}
   ${FootballField.fragments.game}

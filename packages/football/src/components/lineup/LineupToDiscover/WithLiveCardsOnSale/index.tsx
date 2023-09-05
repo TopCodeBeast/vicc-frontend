@@ -19,7 +19,7 @@ import useLiveCardsOnSale from './useLiveCardsOnSale';
 // it also should not be merged with card query to avoid refetching drafted players on shuffle
 const WITH_LIVE_CARDS_ON_SALE_LEADERBOARD_QUERY = gql`
   query WithLiveCardsOnSaleLeaderboardQuery($slug: String!) {
-    football {
+    #football {
       vicc5 {
         vicc5Leaderboard(slug: $slug) {
           slug
@@ -37,7 +37,7 @@ const WITH_LIVE_CARDS_ON_SALE_LEADERBOARD_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${WithLineupSuggestions.fragments.draftablePlayer}
 ` as TypedDocumentNode<

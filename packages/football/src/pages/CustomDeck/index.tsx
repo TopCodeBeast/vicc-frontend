@@ -50,12 +50,12 @@ type CustomDeck_customDeck_deckCards_nodes =
 
 const CUSTOM_DECK_QUERY = gql`
   query CustomDeckQuery($deckSlug: String!, $after: String) {
-    football {
+    #football {
       customDeck(slug: $deckSlug) {
         slug
         ...CustomDeck_customDeck
       }
-    }
+    #}
   }
   ${deckFragment}
 ` as TypedDocumentNode<CustomDeckQuery, CustomDeckQueryVariables>;

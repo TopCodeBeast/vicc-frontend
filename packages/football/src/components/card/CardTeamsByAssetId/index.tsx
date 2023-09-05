@@ -22,13 +22,13 @@ const fragment = gql`
 
 const CARD_TEAMS_BY_ASSET_ID = gql`
   query CardTeamsByAssetIdQuery($assetId: String!) {
-    football {
+    #football {
       cardByAssetId(assetId: $assetId) {
         assetId
         slug
         ...CardTeamsByAssetId_card
       }
-    }
+    #}
   }
   ${fragment}
 ` as TypedDocumentNode<

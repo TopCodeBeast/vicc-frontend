@@ -9,7 +9,7 @@ import {
 
 const GET_PRIVATE_USER_GROUP_QUERY = gql`
   query GetPrivateUserGroupByJoinSecretQuery($joinSecret: String!) {
-    football {
+    #football {
       vicc5 {
         vicc5UserGroup(joinSecret: $joinSecret) {
           id
@@ -41,7 +41,7 @@ const GET_PRIVATE_USER_GROUP_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
 ` as TypedDocumentNode<
   GetPrivateUserGroupByJoinSecretQuery,

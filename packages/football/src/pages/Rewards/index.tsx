@@ -58,7 +58,7 @@ export const REWARD_POOL_QUERY = gql`
     $rarity: String!
     $quality: String!
   ) {
-    football {
+    #football {
       vicc5 {
         vicc5League(slug: $vicc5LeagueSlug) {
           slug
@@ -99,7 +99,7 @@ export const REWARD_POOL_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${Data.fragments.playerWithSupply}
 ` as TypedDocumentNode<RewardPoolQuery, RewardPoolQueryVariables>;

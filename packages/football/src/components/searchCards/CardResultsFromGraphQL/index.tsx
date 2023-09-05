@@ -56,14 +56,14 @@ const cardFragment = gql`
 
 export const CARDS_QUERY = gql`
   query CardsQuery($slugs: [String!]!) {
-    football {
+    #football {
       cards(slugs: $slugs) {
         slug
         assetId
         visible
         ...CardResultsFromGraphQL_card
       }
-    }
+    #}
   }
   ${cardFragment}
 ` as TypedDocumentNode<CardsQuery, CardsQueryVariables>;

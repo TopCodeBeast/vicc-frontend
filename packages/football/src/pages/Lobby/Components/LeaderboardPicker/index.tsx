@@ -48,7 +48,7 @@ const Filters = styled.div`
 
 const LOBBY_LEADERBOARD_PICKER_QUERY = gql`
   query LobbyLeaderboardPickerQuery($type: Vicc5State, $slug: String) {
-    football {
+    #football {
       vicc5 {
         vicc5Fixture(type: $type, slug: $slug) {
           slug
@@ -73,7 +73,7 @@ const LOBBY_LEADERBOARD_PICKER_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
 ` as TypedDocumentNode<
   LobbyLeaderboardPickerQuery,

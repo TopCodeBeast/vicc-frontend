@@ -103,12 +103,12 @@ const Footer = styled(MultiSportFooter)`
 
 const LICENSED_CLUBS_QUERY = gql`
   query LicensedClubsQuery {
-    football {
+    #football {
       clubsReady {
         slug
         ...PartnersList_club
       }
-    }
+    #}
   }
   ${PartnersList.fragments.club}
 ` as TypedDocumentNode<LicensedClubsQuery, LicensedClubsQueryVariables>;

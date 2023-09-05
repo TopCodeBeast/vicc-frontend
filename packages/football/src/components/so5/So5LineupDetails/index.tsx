@@ -71,7 +71,7 @@ const TiebreakerScore = styled.div`
 
 export const SO5_RANKING_DETAILS_QUERY = gql`
   query Vicc5RankingDetailsQuery($id: ID!) {
-    football {
+    #football {
       vicc5 {
         vicc5Ranking(id: $id) {
           id
@@ -97,7 +97,7 @@ export const SO5_RANKING_DETAILS_QUERY = gql`
           }
         }
       }
-    }
+    #}
   }
   ${DivisionLogo.fragments.vicc5Leaderboard}
   ${Vicc5LineupAppearance.fragments.vicc5Appearance}

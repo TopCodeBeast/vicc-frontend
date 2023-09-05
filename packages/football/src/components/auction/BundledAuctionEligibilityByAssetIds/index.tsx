@@ -25,13 +25,13 @@ const cardFragment = gql`
 
 const BUNDLED_AUCTION_ELIGIBILITY_BY_ASSET_IDS_QUERY = gql`
   query BundledAuctionEligibilityByAssetIdsQuery($assetIds: [String!]!) {
-    football {
+    #football {
       cards(assetIds: $assetIds) {
         slug
         assetId
         ...BundledAuctionEligibilityByAssetIds_card
       }
-    }
+    #}
   }
   ${cardFragment}
 ` as TypedDocumentNode<

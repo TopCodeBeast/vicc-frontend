@@ -190,7 +190,7 @@ const ShareLabel = styled.span`
 
 const COMPETITION_DETAILS_QUERY = gql`
   query CompetitionDetailsQuery($slug: String!) {
-    football {
+    #football {
       vicc5 {
         vicc5Leaderboard(slug: $slug) {
           slug
@@ -218,7 +218,7 @@ const COMPETITION_DETAILS_QUERY = gql`
           ...getLineupDisplayName_vicc5Leaderboard
         }
       }
-    }
+    #}
   }
   ${TeamActions.fragments.lineup}
   ${SocialShare.fragments.socialPictures}
