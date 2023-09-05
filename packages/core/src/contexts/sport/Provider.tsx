@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { Params, generatePath } from 'react-router-dom';
 
 import { Sport } from '__generated__/globalTypes';
-import { FOOTBALL_PATH, MLB_PATH, NBA_PATH } from '@core/constants/routes';
+import { CRICKET_PATH, MLB_PATH, NBA_PATH } from '@core/constants/routes';
 import useStoreLastVisitedSport from '@core/hooks/useStoreLastVisitedSport';
 
 import SportContextProvider from '.';
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const appsPaths = {
-  [Sport.CRICKET]: FOOTBALL_PATH,
+  [Sport.CRICKET]: CRICKET_PATH,
   [Sport.BASEBALL]: MLB_PATH,
   [Sport.NBA]: NBA_PATH,
 };

@@ -62,11 +62,11 @@ export const RoutesWithDialogs = ({
            * especially when you are nesting this component, so you end up with a `Routes` here with only a
            * specific number of `Route` that we want to render.
            *
-           * Imagine the senario where location is "/dialog" and bgLocation is "/football"
+           * Imagine the senario where location is "/dialog" and bgLocation is "/cricket"
            *
            * <RoutesWithDialog dialogRoutes={<Route path="/special-route-dialog" />}
            *   <RoutesWithDialog dialogRoutes={<Route path="/dialog" />}>
-           *     <Route path="/football" />
+           *     <Route path="/cricket" />
            *   </RoutesWithDialog>
            * </RoutesWithDialog>
            *

@@ -40,9 +40,9 @@ const CloseButtonBox = styled.div`
 `;
 
 const VIDEOS = {
-  'football-beginner-guide': {
+  'cricket-beginner-guide': {
     poster: thumbnailTutorial,
-    src: `${FRONTEND_ASSET_HOST}/football/tutorial_3_min_desktop.mp4`,
+    src: `${FRONTEND_ASSET_HOST}/cricket/tutorial_3_min_desktop.mp4`,
   },
 };
 

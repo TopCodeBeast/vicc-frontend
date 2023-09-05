@@ -13,7 +13,7 @@ import { LinkOther } from '@core/atoms/navigation/Box';
 import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
 import { useHeroAnimationTimings } from '@core/components/landing/NewLandingMultiSport/utils';
 import ResponsiveSearchBar from '@core/components/search/ResponsiveSearchBar';
-import { FOOTBALL_PATH, LANDING, MLB_PATH, NBA_PATH } from '@core/constants/routes';
+import { CRICKET_PATH, LANDING, MLB_PATH, NBA_PATH } from '@core/constants/routes';
 import { useConnectionContext } from '@core/contexts/connection';
 import { useCurrentUserContext } from '@core/contexts/currentUser';
 import { useIntlContext } from '@core/contexts/intl';
@@ -208,7 +208,7 @@ const LoggedOutAppBar = () => {
       <>
         <LinkOther
           as={SportButton}
-          href={FOOTBALL_PATH}
+          href={CRICKET_PATH}
           style={{ '--logo-width': '20px' }}
         >
           {formatMessage(sportsLabelsMessages.CRICKET)}

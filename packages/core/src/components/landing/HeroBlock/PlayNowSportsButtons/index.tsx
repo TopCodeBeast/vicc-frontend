@@ -12,7 +12,7 @@ import { ViccLogo } from '@core/atoms/icons/SorareLogo';
 import SmallerStarBall from '@core/atoms/navigation/SmallerStarBall';
 import { Text18 } from '@core/atoms/typography';
 import { ContentContainer } from '@core/components/landing/NewLandingMultiSport/ui';
-import { FOOTBALL_PATH, MLB_PATH, NBA_PATH } from '@core/constants/routes';
+import { CRICKET_PATH, MLB_PATH, NBA_PATH } from '@core/constants/routes';
 import { sportsLabelsMessages } from '@core/lib/glossary';
 import { laptopAndAbove, tabletAndAbove } from '@core/style/mediaQuery';
 import { hideScrollbar } from '@core/style/utils';
@@ -115,7 +115,7 @@ export const PlayNowSportsButtons = () => {
         style={{
           backgroundImage: `url(${playNowFootball})`,
         }}
-        onClick={() => navigate(FOOTBALL_PATH)}
+        onClick={() => navigate(CRICKET_PATH)}
       >
         <div>
           <Title>{formatMessage(sportsLabelsMessages[Sport.CRICKET])}</Title>

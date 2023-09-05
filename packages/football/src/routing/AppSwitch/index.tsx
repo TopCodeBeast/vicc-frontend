@@ -49,7 +49,7 @@ import {
   FOOTBALL_NO_CARD_ROUTE_REQUEST,
   FOOTBALL_ONBOARDING,
   FOOTBALL_ONBOARDING_WILDCARD,
-  FOOTBALL_PATH,
+  CRICKET_PATH,
   FOOTBALL_PICK_LEAGUE,
   FOOTBALL_PLAY,
   FOOTBALL_PLAYER_SHOW_WILDCARD,
@@ -201,7 +201,7 @@ const WithDialog = ({
 };
 
 const relativePath = (path: string) => {
-  return relative(FOOTBALL_PATH, path);
+  return relative(CRICKET_PATH, path);
 };
 
 const FootballLayout = ({ isPrivate }: { isPrivate?: boolean }) => {
@@ -240,7 +240,7 @@ export const AppSwitch = () => {
 
   return (
     <RoutesWithDialogs
-      basePath={FOOTBALL_PATH}
+      basePath={CRICKET_PATH}
       dialogRoutes={({ isDialog }) => (
         <>
           <Route
@@ -461,7 +461,7 @@ export const AppSwitch = () => {
         )}
       </Route>
       {!currentUser &&
-        /* Eg. sorare.com/football/laligasantander_22_23 */
+        /* Eg. vicc.com/cricket/laligasantander_22_23 */
         landingTheme &&
         landingTheme.slug !== 'default-landing-theme' && (
           <Route path="*" element={<Landing />} />

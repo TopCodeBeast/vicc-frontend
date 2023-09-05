@@ -5,7 +5,7 @@ import { Sport } from '__generated__/globalTypes';
 
 import { API_ROOT } from '../config';
 
-export const FOOTBALL_PATH = '/football';
+export const CRICKET_PATH = '/cricket';
 export const MLB_PATH = '/mlb';
 export const NBA_PATH = '/nba';
 
@@ -46,21 +46,21 @@ export const LEGACY_BUNDLED_AUCTION = `/bundled-auctions/:id`;
 
 export const LOCKEDON = '/lockedon';
 
-export const FOOTBALL_CARD_SHOW = `${FOOTBALL_PATH}${LEGACY_CARD_SHOW}`;
+export const FOOTBALL_CARD_SHOW = `${CRICKET_PATH}${LEGACY_CARD_SHOW}`;
 
-export const FOOTBALL_CLUB_SHOW = `${FOOTBALL_PATH}/clubs/:slug`;
+export const FOOTBALL_CLUB_SHOW = `${CRICKET_PATH}/clubs/:slug`;
 export const FOOTBALL_CLUB_SHOW_WILDCARD = `${FOOTBALL_CLUB_SHOW}/*`;
 export const FOOTBALL_CLUB_SHOW_SQUAD = `${FOOTBALL_CLUB_SHOW}/squad`;
 export const FOOTBALL_CLUB_SHOW_CARDS = `${FOOTBALL_CLUB_SHOW}/cards`;
 
-export const FOOTBALL_LEAGUE_SHOW = `${FOOTBALL_PATH}/leagues/:slug`;
+export const FOOTBALL_LEAGUE_SHOW = `${CRICKET_PATH}/leagues/:slug`;
 export const FOOTBALL_LEAGUE_SHOW_WILDCARD = `${FOOTBALL_LEAGUE_SHOW}/*`;
 export const FOOTBALL_LEAGUE_SHOW_HOME = `${FOOTBALL_LEAGUE_SHOW}/home`;
 export const FOOTBALL_LEAGUE_SHOW_CARDS = `${FOOTBALL_LEAGUE_SHOW}/cards`;
 
-export const FOOTBALL_COUNTRY_SHOW = `${FOOTBALL_PATH}/countries/:slug`;
-export const FOOTBALL_CUSTOM_DECK_SHOW = `${FOOTBALL_PATH}/squads/:slug`;
-export const FOOTBALL_CUSTOM_DECK_EDIT = `${FOOTBALL_PATH}/squads/:name/edit`;
+export const FOOTBALL_COUNTRY_SHOW = `${CRICKET_PATH}/countries/:slug`;
+export const FOOTBALL_CUSTOM_DECK_SHOW = `${CRICKET_PATH}/squads/:slug`;
+export const FOOTBALL_CUSTOM_DECK_EDIT = `${CRICKET_PATH}/squads/:name/edit`;
 export const FAQ = '/faq';
 export const LICENSED_PARTNERS = '/licensed-partners';
 export const LICENSED_PARTNERS_BY_SPORT = '/licensed-partners/:sport';
@@ -70,7 +70,7 @@ export const LICENSED_PARTNERS_FOOTBALL_TAB =
 export const PRESS = '/press';
 export const PASSWORD_FORGOTTEN = '/password-forgotten';
 
-export const FOOTBALL_PLAYER_SHOW = `${FOOTBALL_PATH}${LEGACY_PLAYER_SHOW}`;
+export const FOOTBALL_PLAYER_SHOW = `${CRICKET_PATH}${LEGACY_PLAYER_SHOW}`;
 export const FOOTBALL_PLAYER_SHOW_WILDCARD = `${FOOTBALL_PLAYER_SHOW}/*`;
 export const FOOTBALL_PLAYER_SHOW_DESCRIPTION = `${FOOTBALL_PLAYER_SHOW}/description`;
 export const FOOTBALL_PLAYER_SHOW_CARDS = `${FOOTBALL_PLAYER_SHOW}/cards`;
@@ -81,9 +81,9 @@ const GALLERY_AWARDS_RELATIVE = 'awards';
 const GALLERY_COLLECTIONS_RELATIVE = 'collections';
 const GALLERY_NETWORK_RELATIVE = 'network';
 
-export const MY_GALLERY_WILDCARD = `${FOOTBALL_PATH}/my-gallery/*`; // deprecated. Only kept for legacy links
+export const MY_GALLERY_WILDCARD = `${CRICKET_PATH}/my-gallery/*`; // deprecated. Only kept for legacy links
 
-export const FOOTBALL_USER_GALLERY = `${FOOTBALL_PATH}/gallery/:slug`;
+export const FOOTBALL_USER_GALLERY = `${CRICKET_PATH}/gallery/:slug`;
 export const FOOTBALL_USER_GALLERY_WILDCARD = `${FOOTBALL_USER_GALLERY}/*`;
 export const FOOTBALL_USER_GALLERY_OVERVIEW = `${FOOTBALL_USER_GALLERY}/${GALLERY_OVERVIEW_RELATIVE}`;
 export const FOOTBALL_USER_GALLERY_CARDS = `${FOOTBALL_USER_GALLERY}/${GALLERY_CARDS_RELATIVE}`;
@@ -93,10 +93,10 @@ export const FOOTBALL_USER_GALLERY_CUSTOM_DECKS = `${FOOTBALL_USER_GALLERY}/cust
 export const FOOTBALL_USER_GALLERY_SQUADS = `${FOOTBALL_USER_GALLERY}/squads`;
 export const FOOTBALL_USER_GALLERY_NETWORK = `${FOOTBALL_USER_GALLERY}/${GALLERY_NETWORK_RELATIVE}`;
 export const FOOTBALL_USER_GALLERY_CARD_COLLECTIONS = `${FOOTBALL_USER_GALLERY}/${GALLERY_COLLECTIONS_RELATIVE}`;
-export const FOOTBALL_USER_CARD_COLLECTION = `${FOOTBALL_PATH}/collection/:slug/:collectionSlug`;
+export const FOOTBALL_USER_CARD_COLLECTION = `${CRICKET_PATH}/collection/:slug/:collectionSlug`;
 export const FOOTBALL_USER_CARD_COLLECTION_CARDS = `${FOOTBALL_USER_CARD_COLLECTION}/cards`;
 export const FOOTBALL_USER_CARD_COLLECTION_LEADERBOARD = `${FOOTBALL_USER_CARD_COLLECTION}/leaderboard`;
-export const FOOTBALL_NO_CARD_ENTRY = `${FOOTBALL_PATH}/no-card-route`;
+export const FOOTBALL_NO_CARD_ENTRY = `${CRICKET_PATH}/no-card-route`;
 export const FOOTBALL_NO_CARD_ROUTE_REQUEST = `${FOOTBALL_NO_CARD_ENTRY}/:vicc5FixtureId`;
 export const FOOTBALL_NO_CARD_ROUTE_ACCEPT = `${FOOTBALL_NO_CARD_ENTRY}/:vicc5FixtureId/:vicc5LineupId/accept`;
 export const FOOTBALL_NO_CARD_ROUTE_CANCEL = `${FOOTBALL_NO_CARD_ENTRY}/:vicc5FixtureId/:vicc5LineupId/cancel`;
@@ -113,13 +113,13 @@ export const CONFIRM_EMAIL = '/confirm-email';
 export const CONFIRM_DEVICE = '/confirm-device';
 export const VERIFY_STRIPE_ACCOUNT = '/verify-identity/:id';
 export const DEBUG_DEVICE = '/debug-device';
-export const FOOTBALL_COMPOSE_TEAM = `/football/compose-team/:vicc5LeaderboardSlug`;
-export const FOOTBALL_COMPOSE_TEAM_DRAFT = `${FOOTBALL_PATH}/compose/draft/:slug`;
-export const FOOTBALL_COMPOSE_TEAM_LINEUP = `${FOOTBALL_PATH}/compose-team/:vicc5LeaderboardSlug/:vicc5LineupId`;
-export const FOOTBALL_BUNDLED_AUCTION = `${FOOTBALL_PATH}${LEGACY_BUNDLED_AUCTION}`;
+export const FOOTBALL_COMPOSE_TEAM = `/cricket/compose-team/:vicc5LeaderboardSlug`;
+export const FOOTBALL_COMPOSE_TEAM_DRAFT = `${CRICKET_PATH}/compose/draft/:slug`;
+export const FOOTBALL_COMPOSE_TEAM_LINEUP = `${CRICKET_PATH}/compose-team/:vicc5LeaderboardSlug/:vicc5LineupId`;
+export const FOOTBALL_BUNDLED_AUCTION = `${CRICKET_PATH}${LEGACY_BUNDLED_AUCTION}`;
 export const LEGACY_TOKEN_AUCTION = `/auctions/:id`;
-export const TOKEN_AUCTION = `${FOOTBALL_PATH}/auctions/:id`;
-export const REWARDS = `${FOOTBALL_PATH}/rewards/:vicc5LeagueSlug/:rarity/:quality`;
+export const TOKEN_AUCTION = `${CRICKET_PATH}/auctions/:id`;
+export const REWARDS = `${CRICKET_PATH}/rewards/:vicc5LeagueSlug/:rarity/:quality`;
 export const ACTIVITY_WILDCARD = '/activity/*';
 export const ACTIVITY = '/activity';
 export const ACTIVITY_NEWS = '/activity/news';
@@ -133,26 +133,26 @@ export const MOBILE_SIGN_UP = '/mobile-sign-up';
 export const OAUTH_AUTORIZE = '/oauth/authorize';
 export const PROMO_SIGNUP = '/promo/signup/:code';
 export const PROMO_CLAIM = '/promo/claim/:code';
-export const FOOTBALL_CLUB_SHOP = `${FOOTBALL_PATH}/club-shop`;
-export const FOOTBALL_CLUB_SHOP_WILDCARD = `${FOOTBALL_PATH}/club-shop/*`;
-export const FOOTBALL_CLUB_SHOP_SKINS = `${FOOTBALL_PATH}/club-shop/skins`;
-export const FOOTBALL_CLUB_SHOP_BOOSTS = `${FOOTBALL_PATH}/club-shop/boosts`;
-export const FOOTBALL_CLUB_SHOP_MERCH = `${FOOTBALL_PATH}/club-shop/merch`;
-export const FOOTBALL_CLUB_SHOP_INVENTORY = `${FOOTBALL_PATH}/club-shop/inventory`;
-export const FOOTBALL_LINEUP_SHARING = `${FOOTBALL_PATH}/lineups/:id`;
+export const FOOTBALL_CLUB_SHOP = `${CRICKET_PATH}/club-shop`;
+export const FOOTBALL_CLUB_SHOP_WILDCARD = `${CRICKET_PATH}/club-shop/*`;
+export const FOOTBALL_CLUB_SHOP_SKINS = `${CRICKET_PATH}/club-shop/skins`;
+export const FOOTBALL_CLUB_SHOP_BOOSTS = `${CRICKET_PATH}/club-shop/boosts`;
+export const FOOTBALL_CLUB_SHOP_MERCH = `${CRICKET_PATH}/club-shop/merch`;
+export const FOOTBALL_CLUB_SHOP_INVENTORY = `${CRICKET_PATH}/club-shop/inventory`;
+export const FOOTBALL_LINEUP_SHARING = `${CRICKET_PATH}/lineups/:id`;
 
-export const FOOTBALL_ONBOARDING = `${FOOTBALL_PATH}/onboarding`;
+export const FOOTBALL_ONBOARDING = `${CRICKET_PATH}/onboarding`;
 export const FOOTBALL_ONBOARDING_WILDCARD = `${FOOTBALL_ONBOARDING}/*`;
 export const EPL_DRAFT = `${FOOTBALL_ONBOARDING}?league=premier_league`;
 export const SERIE_A_DRAFT = `${FOOTBALL_ONBOARDING}?league=serie_a`;
 export const MLS_DRAFT = `${FOOTBALL_ONBOARDING}?league=mls`;
 export const BUNDESLIGA_DRAFT = `${FOOTBALL_ONBOARDING}?league=bundesliga`;
 export const LALIGA_DRAFT = `${FOOTBALL_ONBOARDING}?league=la_liga`;
-export const FOOTBALL_PICK_LEAGUE = `${FOOTBALL_PATH}/pick-league`;
-export const FOOTBALL_SCARCITIES = `${FOOTBALL_PATH}/scarcities`;
+export const FOOTBALL_PICK_LEAGUE = `${CRICKET_PATH}/pick-league`;
+export const FOOTBALL_SCARCITIES = `${CRICKET_PATH}/scarcities`;
 
-export const FOOTBALL_PLAY = `${FOOTBALL_PATH}/play`;
-export const FOOTBALL_MARKET = `${FOOTBALL_PATH}/market`;
+export const FOOTBALL_PLAY = `${CRICKET_PATH}/play`;
+export const FOOTBALL_MARKET = `${CRICKET_PATH}/market`;
 export const FOOTBALL_NEW_SIGNINGS = `${FOOTBALL_MARKET}/new-signings`;
 export const FOOTBALL_TRANSFER_MARKET = `${FOOTBALL_MARKET}/transfers`;
 export const FOOTBALL_TRANSFER_MARKET_STACK_SHOW = `${FOOTBALL_TRANSFER_MARKET}/:player_slug/:rarity`;
@@ -167,20 +167,20 @@ export const RENDERING_SO5_LINEUP = '/rendering/vicc5-lineups/:id';
 export const RENDERING_CARD_COLLECTION = `/rendering/card-collections/:slug/:userSlug`;
 export const RENDERING_AUCTION = `/rendering/auction/:id`;
 
-export const FOOTBALL_COMPETITION_DETAILS_WILDCARD = `${FOOTBALL_PATH}/competition-details/:competition/*`;
-export const FOOTBALL_COMPETITION_DETAILS = `${FOOTBALL_PATH}/competition-details/:competition/:tab`;
-export const FOOTBALL_COMPETITION_DETAILS_TEAM = `${FOOTBALL_PATH}/competition-details/:competition/team`;
-export const FOOTBALL_COMPETITION_DETAILS_MATCHES = `${FOOTBALL_PATH}/competition-details/:competition/matches`;
-export const FOOTBALL_COMPETITION_DETAILS_REWARDS = `${FOOTBALL_PATH}/competition-details/:competition/rewards`;
-export const FOOTBALL_COMPETITION_DETAILS_LEADERBOARD = `${FOOTBALL_PATH}/competition-details/:competition/leaderboards`;
-export const FOOTBALL_COMPETITION_DETAILS_DETAILS = `${FOOTBALL_PATH}/competition-details/:competition/details`;
+export const FOOTBALL_COMPETITION_DETAILS_WILDCARD = `${CRICKET_PATH}/competition-details/:competition/*`;
+export const FOOTBALL_COMPETITION_DETAILS = `${CRICKET_PATH}/competition-details/:competition/:tab`;
+export const FOOTBALL_COMPETITION_DETAILS_TEAM = `${CRICKET_PATH}/competition-details/:competition/team`;
+export const FOOTBALL_COMPETITION_DETAILS_MATCHES = `${CRICKET_PATH}/competition-details/:competition/matches`;
+export const FOOTBALL_COMPETITION_DETAILS_REWARDS = `${CRICKET_PATH}/competition-details/:competition/rewards`;
+export const FOOTBALL_COMPETITION_DETAILS_LEADERBOARD = `${CRICKET_PATH}/competition-details/:competition/leaderboards`;
+export const FOOTBALL_COMPETITION_DETAILS_DETAILS = `${CRICKET_PATH}/competition-details/:competition/details`;
 
-export const FOOTBALL_LIVE = `${FOOTBALL_PATH}/live`;
+export const FOOTBALL_LIVE = `${CRICKET_PATH}/live`;
 export const FOOTBALL_LIVE_LINEUPS = `${FOOTBALL_LIVE}/lineups`;
 export const FOOTBALL_LIVE_GAME = `${FOOTBALL_LIVE}/game/:id`;
 export const FOOTBALL_LIVE_GAME_MY_LINEUPS = `${FOOTBALL_LIVE}/game/:id/my-lineups`;
 
-export const FOOTBALL_LOBBY_ROOT = `${FOOTBALL_PATH}/lobby`;
+export const FOOTBALL_LOBBY_ROOT = `${CRICKET_PATH}/lobby`;
 export const FOOTBALL_LOBBY = `${FOOTBALL_LOBBY_ROOT}/upcoming`;
 export const FOOTBALL_LOBBY_UPCOMING_WILDCARD = `${FOOTBALL_LOBBY_ROOT}/upcoming/*`;
 export const FOOTBALL_LOBBY_UPCOMING_SWAP = `${FOOTBALL_LOBBY_ROOT}/upcoming/swap/:leaderboardSlug`;
@@ -189,7 +189,7 @@ export const FOOTBALL_LOBBY_STARTER_BUNDLES = `${FOOTBALL_LOBBY_ROOT}/starter-bu
 export const FOOTBALL_LOBBY_PRIVATE_LEAGUES = `${FOOTBALL_LOBBY_ROOT}/private-leagues/*`;
 export const FOOTBALL_LOBBY_PRIZE_POOL = `${FOOTBALL_LOBBY_ROOT}/prize-pool`;
 
-export const FOOTBALL_PRIVATE_LEAGUES = `${FOOTBALL_PATH}/private-leagues`;
+export const FOOTBALL_PRIVATE_LEAGUES = `${CRICKET_PATH}/private-leagues`;
 export const FOOTBALL_PRIVATE_LEAGUES_WILDCARD = `${FOOTBALL_PRIVATE_LEAGUES}/*`;
 export const FOOTBALL_PRIVATE_LEAGUES_CREATE = `${FOOTBALL_PRIVATE_LEAGUES}/:step`;
 export const FOOTBALL_PRIVATE_LEAGUES_CREATED = `${FOOTBALL_PRIVATE_LEAGUES}/:slug/:step`;
@@ -199,23 +199,23 @@ export const FOOTBALL_PRIVATE_LEAGUES_PUBLIC = `${FOOTBALL_PRIVATE_LEAGUES}/publ
 export const FOOTBALL_PRIVATE_LEAGUES_PUBLIC_DETAILS = `${FOOTBALL_PRIVATE_LEAGUES}/public/:slug/details/:tab`;
 export const FOOTBALL_PRIVATE_LEAGUES_PUBLIC_USER_DETAILS = `${FOOTBALL_PRIVATE_LEAGUES_PUBLIC_DETAILS}/:membershipId`;
 
-export const FOOTBALL_VIDEOS = `${FOOTBALL_PATH}/videos/:slug`;
-export const FOOTBALL_HOME = FOOTBALL_PATH;
-export const FOOTBALL_WILDCARD = `${FOOTBALL_PATH}/*`;
+export const FOOTBALL_VIDEOS = `${CRICKET_PATH}/videos/:slug`;
+export const FOOTBALL_HOME = CRICKET_PATH;
+export const FOOTBALL_WILDCARD = `${CRICKET_PATH}/*`;
 export const FOOTBALL_MANAGER_HOME_CARDS = `${FOOTBALL_HOME}/cards`; // deprecated. Only kept for legacy links
 export const FOOTBALL_MANAGER_HOME_CARD_COLLECTIONS = `${FOOTBALL_HOME}/collections`; // deprecated. Only kept for legacy links
 export const FOOTBALL_MANAGER_HOME_SQUADS = `${FOOTBALL_HOME}/squads`; // deprecated. Only kept for legacy links
 export const FOOTBALL_MANAGER_HOME_CLUB_HONORS = `${FOOTBALL_HOME}/club-honors`; // deprecated. Only kept for legacy links
 export const FOOTBALL_MANAGER_HOME_NETWORK = `${FOOTBALL_HOME}/network`; // deprecated. Only kept for legacy links
-export const FOOTBALL_MY_CLUB = `${FOOTBALL_PATH}/my-club`;
+export const FOOTBALL_MY_CLUB = `${CRICKET_PATH}/my-club`;
 export const FOOTBALL_MY_CLUB_CARDS = `${FOOTBALL_MY_CLUB}/cards`;
 export const FOOTBALL_MY_CLUB_COLLECTIONS = `${FOOTBALL_MY_CLUB}/collections`;
 export const FOOTBALL_MY_CLUB_HISTORY = `${FOOTBALL_MY_CLUB}/history`;
 export const FOOTBALL_MY_CLUB_NETWORK = `${FOOTBALL_MY_CLUB}/network`;
 export const FOOTBALL_MY_CLUB_HONORS = `${FOOTBALL_MY_CLUB}/honors`;
-export const FOOTBALL_PLAY_WEEKLY = `${FOOTBALL_PATH}/play/weekly`;
-export const FOOTBALL_PLAY_PRIVATE_LEAGUES = `${FOOTBALL_PATH}/play/private-leagues`;
-export const FOOTBALL_HALL_OF_FAME = `${FOOTBALL_PATH}/hall-of-fame`;
+export const FOOTBALL_PLAY_WEEKLY = `${CRICKET_PATH}/play/weekly`;
+export const FOOTBALL_PLAY_PRIVATE_LEAGUES = `${CRICKET_PATH}/play/private-leagues`;
+export const FOOTBALL_HALL_OF_FAME = `${CRICKET_PATH}/hall-of-fame`;
 export const FOOTBALL_MARKET_STARTER_PACKS = `${FOOTBALL_MARKET}/starter-packs`;
 export const FOOTBALL_MARKET_MANAGER_SALES = `${FOOTBALL_MARKET}/manager-sales`;
 
@@ -231,27 +231,27 @@ export enum PrivateLeaguesTab {
   MEMBERS = 'members',
 }
 
-export const FOOTBALL_LOBBY_LIVE_WILDCARD = `${FOOTBALL_PATH}/lobby/live/*`;
-export const FOOTBALL_LOBBY_LIVE = `${FOOTBALL_PATH}/lobby/live/:tab`;
-export const FOOTBALL_LOBBY_PAST_WILDCARD = `${FOOTBALL_PATH}/lobby/:slug/*`;
-export const FOOTBALL_LOBBY_PAST = `${FOOTBALL_PATH}/lobby/:slug/:tab`;
-export const FOOTBALL_LOBBY_WILDCARD = `${FOOTBALL_PATH}/lobby/*`;
+export const FOOTBALL_LOBBY_LIVE_WILDCARD = `${CRICKET_PATH}/lobby/live/*`;
+export const FOOTBALL_LOBBY_LIVE = `${CRICKET_PATH}/lobby/live/:tab`;
+export const FOOTBALL_LOBBY_PAST_WILDCARD = `${CRICKET_PATH}/lobby/:slug/*`;
+export const FOOTBALL_LOBBY_PAST = `${CRICKET_PATH}/lobby/:slug/:tab`;
+export const FOOTBALL_LOBBY_WILDCARD = `${CRICKET_PATH}/lobby/*`;
 
-export const FOOTBALL_DRAFT = `/football/draft/:slug`;
+export const FOOTBALL_DRAFT = `/cricket/draft/:slug`;
 
-export const EPL_LANDING = `${FOOTBALL_PATH}/premier-league`;
-export const EPL_LANDING_V2 = `${FOOTBALL_PATH}/epl`;
-export const EPLV_LANDING_V2_SHORT = `${FOOTBALL_PATH}/pl`;
+export const EPL_LANDING = `${CRICKET_PATH}/premier-league`;
+export const EPL_LANDING_V2 = `${CRICKET_PATH}/epl`;
+export const EPLV_LANDING_V2_SHORT = `${CRICKET_PATH}/pl`;
 export const INVITE_EPL_USER_GROUP = `${EPL_LANDING}${INVITE_USER_GROUP}`;
-export const SERIEA_LANDING = `${FOOTBALL_PATH}/serie-a`;
-export const MLS_LANDING = `${FOOTBALL_PATH}/major-league-soccer`;
-export const MLS_LANDING_SHORT = `${FOOTBALL_PATH}/mls`;
-export const LALIGA_SANTANDER_LANDING = `${FOOTBALL_PATH}/laliga-santander`;
-export const LALIGA_LANDING = `${FOOTBALL_PATH}/laliga`;
-export const BUNDESLIGA_LANDING = `${FOOTBALL_PATH}/bundesliga`;
+export const SERIEA_LANDING = `${CRICKET_PATH}/serie-a`;
+export const MLS_LANDING = `${CRICKET_PATH}/major-league-soccer`;
+export const MLS_LANDING_SHORT = `${CRICKET_PATH}/mls`;
+export const LALIGA_SANTANDER_LANDING = `${CRICKET_PATH}/laliga-santander`;
+export const LALIGA_LANDING = `${CRICKET_PATH}/laliga`;
+export const BUNDESLIGA_LANDING = `${CRICKET_PATH}/bundesliga`;
 
-export const FOOTBALL_STARTER_BUNDLE_PAGE = `${FOOTBALL_PATH}/starter-packs/:id`;
-export const FOOTBALL_STARTER_BUNDLE_WILDCARD = `${FOOTBALL_PATH}/starter-packs/*`;
+export const FOOTBALL_STARTER_BUNDLE_PAGE = `${CRICKET_PATH}/starter-packs/:id`;
+export const FOOTBALL_STARTER_BUNDLE_WILDCARD = `${CRICKET_PATH}/starter-packs/*`;
 
 export const MLB_HOME = '/mlb/';
 export const MLB_LOCKEDON = '/mlb/lockedon';
@@ -460,7 +460,7 @@ export const NBA_NO_CARD_ENTRY_DECLINE = `${NBA_NO_CARD_ENTRY}/decline`;
 export const NBA_NO_CARD_ENTRY_ELIGIBLE_LEADERBOARDS = `${NBA_NO_CARD_ENTRY}/eligible_leaderboards`;
 
 export const LANDING_BY_SPORT: Record<Sport, string> = {
-  [Sport.CRICKET]: FOOTBALL_PATH,
+  [Sport.CRICKET]: CRICKET_PATH,
   [Sport.NBA]: NBA_LANDING,
   [Sport.BASEBALL]: MLB_LANDING,
 };

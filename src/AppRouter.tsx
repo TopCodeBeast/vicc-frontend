@@ -185,13 +185,13 @@ const AppsRouter = () => {
   const getSplat = useGetSplat();
   return (
     <Routes location={bgLocation}>
-      <Route path={'/football/*'} element={<FootballRoot />} />
-      {/* Force all Football routes to be prefixed with /football now */}
+      <Route path={'/cricket/*'} element={<FootballRoot />} />
+      {/* Force all Football routes to be prefixed with /cricket now */}
       <Route
         path={'/*'}
         element={
           <Navigate
-            to={getSplat('/*', '/football/*') + location.search}
+            to={getSplat('/*', '/cricket/*') + location.search}
             replace
           />
         }
