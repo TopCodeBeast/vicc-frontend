@@ -7,7 +7,7 @@ import { Text14 } from '@sorare/core/src/atoms/typography';
 import { AccountEntry } from '@sorare/core/src/components/mySorare/TransactionsHistory/UserAccountEntries/AccountEntry';
 import { LOBBY_TABS, goToLobby } from '@sorare/core/src/constants/routes';
 
-import { DumbSo5Reward_userAccountEntry } from './__generated__/index.graphql';
+import { DumbVicc5Reward_userAccountEntry } from './__generated__/index.graphql';
 
 type SO5RewardLink = {
   slug: string;
@@ -16,7 +16,7 @@ type SO5RewardLink = {
   gameWeek: number;
 };
 export interface Props {
-  userAccountEntry: DumbSo5Reward_userAccountEntry;
+  userAccountEntry: DumbVicc5Reward_userAccountEntry;
   primaryCurrency: Currency;
   link?: SO5RewardLink;
 }
@@ -33,7 +33,7 @@ const messages = defineMessages({
   },
 });
 
-export const DumbSo5Reward = ({
+export const DumbVicc5Reward = ({
   userAccountEntry,
   link,
   primaryCurrency,
@@ -70,14 +70,14 @@ export const DumbSo5Reward = ({
   );
 };
 
-DumbSo5Reward.fragments = {
+DumbVicc5Reward.fragments = {
   userAccountEntry: gql`
-    fragment DumbSo5Reward_userAccountEntry on UserAccountEntry {
+    fragment DumbVicc5Reward_userAccountEntry on UserAccountEntry {
       id
       ...AccountEntry_userAccountEntry
     }
     ${AccountEntry.fragments.userAccountEntry}
-  ` as TypedDocumentNode<DumbSo5Reward_userAccountEntry>,
+  ` as TypedDocumentNode<DumbVicc5Reward_userAccountEntry>,
 };
 
-export default DumbSo5Reward;
+export default DumbVicc5Reward;

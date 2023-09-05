@@ -5,10 +5,10 @@ import ExperienceIcon from '@sorare/core/src/components/rewards/ExperienceIcon';
 
 import { HighlightedRewardRow } from '@football/pages/Lobby/CompetitionDetails/Rewards/RewardRow';
 
-import { ExperienceReward_so5RewardExperience } from './__generated__/index.graphql';
+import { ExperienceReward_vicc5RewardExperience } from './__generated__/index.graphql';
 
 type Props = {
-  experience: ExperienceReward_so5RewardExperience;
+  experience: ExperienceReward_vicc5RewardExperience;
 };
 const ExperienceReward = ({ experience: { description, type } }: Props) => {
   return (
@@ -20,12 +20,12 @@ const ExperienceReward = ({ experience: { description, type } }: Props) => {
 };
 
 ExperienceReward.fragments = {
-  So5RewardExperience: gql`
-    fragment ExperienceReward_so5RewardExperience on So5RewardExperience {
+  Vicc5RewardExperience: gql`
+    fragment ExperienceReward_vicc5RewardExperience on Vicc5RewardExperience {
       description
       type
     }
-  ` as TypedDocumentNode<ExperienceReward_so5RewardExperience>,
+  ` as TypedDocumentNode<ExperienceReward_vicc5RewardExperience>,
 };
 
 export default ExperienceReward;

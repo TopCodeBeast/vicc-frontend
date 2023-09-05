@@ -19,7 +19,7 @@ import { RewardType } from '@football/lib/lineupRewards';
 
 import {
   LineupRewards_rewardsOverview,
-  LineupRewards_so5Ranking,
+  LineupRewards_vicc5Ranking,
 } from './__generated__/index.graphql';
 
 const Wrapper = styled(LinkOther)`
@@ -80,7 +80,7 @@ const RewardLabel = styled.div`
 
 type Props = {
   rewardType: RewardType;
-  rankingRewards?: LineupRewards_so5Ranking;
+  rankingRewards?: LineupRewards_vicc5Ranking;
   totalRewards: LineupRewards_rewardsOverview;
   linkToCompetitionDetails: string;
 };
@@ -91,7 +91,7 @@ export const LineupRewards = ({
   linkToCompetitionDetails,
 }: Props) => {
   const { isOverflowing, containerRef } = useIsOverflowing();
-  const { eligibleRewards, so5Rewards } = rankingRewards || {};
+  const { eligibleRewards, vicc5Rewards } = rankingRewards || {};
   const withEligibleRewards = !!eligibleRewards?.find(eligibleReward =>
     hasEligibleRewards(eligibleReward)
   );
@@ -128,7 +128,7 @@ export const LineupRewards = ({
   };
 
   const displayActualRewards = () => {
-    if (!so5Rewards?.length) {
+    if (!vicc5Rewards?.length) {
       return (
         <FormattedMessage
           id="LineupRewards.NoRealRewards"
@@ -144,7 +144,7 @@ export const LineupRewards = ({
             defaultMessage="Rewards"
           />
         </RewardLabel>
-        <ActualRewards rewards={so5Rewards} />
+        <ActualRewards rewards={vicc5Rewards} />
       </>
     );
   };
@@ -169,7 +169,7 @@ export const LineupRewards = ({
       className={classNames({
         empty:
           (rewardType === RewardType.Eligible && !withEligibleRewards) ||
-          (rewardType === RewardType.Actual && !so5Rewards?.length) ||
+          (rewardType === RewardType.Actual && !vicc5Rewards?.length) ||
           (rewardType === RewardType.Generic && !hasRewards(totalRewards)),
       })}
     >
@@ -188,22 +188,22 @@ export const LineupRewards = ({
 };
 
 LineupRewards.fragments = {
-  so5Ranking: gql`
-    fragment LineupRewards_so5Ranking on So5Ranking {
+  vicc5Ranking: gql`
+    fragment LineupRewards_vicc5Ranking on Vicc5Ranking {
       id
       eligibleRewards {
         ...EligibleRewards_rewardConfig
-        ...hasEligibleRewards_so5RewardConfig
+        ...hasEligibleRewards_vicc5RewardConfig
       }
-      so5Rewards {
+      vicc5Rewards {
         slug
-        ...ActualRewards_so5Reward
+        ...ActualRewards_vicc5Reward
       }
     }
     ${EligibleRewards.fragments.rewardConfig}
     ${hasEligibleRewards.fragments.rewardConfig}
-    ${ActualRewards.fragments.so5Reward}
-  ` as TypedDocumentNode<LineupRewards_so5Ranking>,
+    ${ActualRewards.fragments.vicc5Reward}
+  ` as TypedDocumentNode<LineupRewards_vicc5Ranking>,
   rewardsOverview: gql`
     fragment LineupRewards_rewardsOverview on RewardsOverview {
       ...Rewards_rewardsOverview

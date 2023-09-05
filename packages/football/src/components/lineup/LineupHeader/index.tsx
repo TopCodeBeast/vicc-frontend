@@ -12,8 +12,8 @@ import { useFootballEvents } from '@football/lib/events';
 import getLineupDisplayName from '@football/lib/lineup/getLineupDisplayName';
 
 import {
-  LineupHeader_so5Leaderboard,
-  LineupHeader_so5Lineup,
+  LineupHeader_vicc5Leaderboard,
+  LineupHeader_vicc5Lineup,
 } from './__generated__/index.graphql';
 
 const Header = styled.header`
@@ -47,8 +47,8 @@ const DivisionLogoWrapper = styled.div`
 `;
 
 type Props = {
-  leaderboard: LineupHeader_so5Leaderboard;
-  lineup?: LineupHeader_so5Lineup | null;
+  leaderboard: LineupHeader_vicc5Leaderboard;
+  lineup?: LineupHeader_vicc5Lineup | null;
   hideGameWeekInfo?: boolean;
   hideActions?: boolean;
   linkToCompetitionDetails: string;
@@ -76,49 +76,49 @@ export const LineupHeader = ({
       >
         {!!leaderboard && (
           <DivisionLogoWrapper>
-            <DivisionLogo so5Leaderboard={leaderboard} />
+            <DivisionLogo vicc5Leaderboard={leaderboard} />
           </DivisionLogoWrapper>
         )}
         <LineupInfo>
-          {!hideGameWeekInfo && <LineupDate fixture={leaderboard.so5Fixture} />}
+          {!hideGameWeekInfo && <LineupDate fixture={leaderboard.vicc5Fixture} />}
           <Text16>{getLineupDisplayName(lineup, leaderboard)}</Text16>
         </LineupInfo>
       </StyledLinkOverlay>
       {!hideActions && (
-        <DropdownActions so5Leaderboard={leaderboard} so5Lineup={lineup} />
+        <DropdownActions vicc5Leaderboard={leaderboard} vicc5Lineup={lineup} />
       )}
     </Header>
   );
 };
 
 LineupHeader.fragments = {
-  so5Leaderboard: gql`
-    fragment LineupHeader_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment LineupHeader_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       gameWeek
       displayName
-      so5Fixture {
+      vicc5Fixture {
         slug
         id
         ...LineupDate_fixture
       }
-      ...DivisionLogo_so5Leaderboard
-      ...DropdownActions_so5Leaderboard
-      ...getLineupDisplayName_so5Leaderboard
+      ...DivisionLogo_vicc5Leaderboard
+      ...DropdownActions_vicc5Leaderboard
+      ...getLineupDisplayName_vicc5Leaderboard
     }
-    ${DivisionLogo.fragments.so5Leaderboard}
+    ${DivisionLogo.fragments.vicc5Leaderboard}
     ${LineupDate.fragments.fixture}
-    ${DropdownActions.fragments.so5Leaderboard}
-    ${getLineupDisplayName.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<LineupHeader_so5Leaderboard>,
-  so5Lineup: gql`
-    fragment LineupHeader_so5Lineup on So5Lineup {
+    ${DropdownActions.fragments.vicc5Leaderboard}
+    ${getLineupDisplayName.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<LineupHeader_vicc5Leaderboard>,
+  vicc5Lineup: gql`
+    fragment LineupHeader_vicc5Lineup on Vicc5Lineup {
       id
       name
-      ...DropdownActions_so5Lineup
-      ...getLineupDisplayName_so5Lineup
+      ...DropdownActions_vicc5Lineup
+      ...getLineupDisplayName_vicc5Lineup
     }
-    ${DropdownActions.fragments.so5Lineup}
-    ${getLineupDisplayName.fragments.so5Lineup}
-  ` as TypedDocumentNode<LineupHeader_so5Lineup>,
+    ${DropdownActions.fragments.vicc5Lineup}
+    ${getLineupDisplayName.fragments.vicc5Lineup}
+  ` as TypedDocumentNode<LineupHeader_vicc5Lineup>,
 };

@@ -108,7 +108,7 @@ export const ScoringPeriodInput = ({ upcomingFixture }: Props) => {
 
 ScoringPeriodInput.fragments = {
   upcomingFixture: gql`
-    fragment ScoringPeriodInput_upcomingFixture on So5Fixture {
+    fragment ScoringPeriodInput_upcomingFixture on Vicc5Fixture {
       slug
       gameWeek
       displayName

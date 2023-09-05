@@ -3,17 +3,17 @@ import { TypedDocumentNode, gql } from '@apollo/client';
 import useQuery from '@core/hooks/graphql/useQuery';
 
 import {
-  NextSo5FixtureTeams,
-  NextSo5FixtureTeamsVariables,
+  NextVicc5FixtureTeams,
+  NextVicc5FixtureTeamsVariables,
 } from './__generated__/useNextSo5FixtureTeams.graphql';
 
 const QUERY = gql`
-  query NextSo5FixtureTeams {
+  query NextVicc5FixtureTeams {
     config {
       id
-      so5 {
+      vicc5 {
         id
-        nextSo5FixtureTeams {
+        nextVicc5FixtureTeams {
           ... on TeamInterface {
             slug
           }
@@ -21,7 +21,7 @@ const QUERY = gql`
       }
     }
   }
-` as TypedDocumentNode<NextSo5FixtureTeams, NextSo5FixtureTeamsVariables>;
+` as TypedDocumentNode<NextVicc5FixtureTeams, NextVicc5FixtureTeamsVariables>;
 
 export default () => {
   const { data, loading } = useQuery(QUERY, {
@@ -30,7 +30,7 @@ export default () => {
   });
 
   return {
-    nextSo5FixtureTeams: data?.config?.so5?.nextSo5FixtureTeams || [],
+    nextVicc5FixtureTeams: data?.config?.vicc5?.nextVicc5FixtureTeams || [],
     loading,
   };
 };

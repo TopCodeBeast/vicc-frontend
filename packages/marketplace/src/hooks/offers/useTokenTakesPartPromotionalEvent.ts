@@ -18,7 +18,7 @@ const getTokenEvent = (
   const { sport, slug, assetId } = token;
 
   const objectId =
-    sport === Sport.FOOTBALL ? slug : `baseball-assetId:${assetId}`;
+    sport === Sport.CRICKET ? slug : `baseball-assetId:${assetId}`;
   const sportEvents = promotionalEvents.find(
     event => event.sport === sport
   )?.events;

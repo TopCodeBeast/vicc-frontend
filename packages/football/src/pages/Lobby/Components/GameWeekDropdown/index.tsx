@@ -18,9 +18,9 @@ import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery'
 import { isFixtureLive, isFixtureOpened } from '@football/lib/so5';
 
 import {
-  Lobby_GameWeekDropdownHeader_so5Fixture,
-  So5FixturesDropdownQuery,
-  So5FixturesDropdownQueryVariables,
+  Lobby_GameWeekDropdownHeader_vicc5Fixture,
+  Vicc5FixturesDropdownQuery,
+  Vicc5FixturesDropdownQueryVariables,
 } from './__generated__/index.graphql';
 
 const styles = {
@@ -96,11 +96,11 @@ const styles = {
   },
 };
 
-type So5FixturesDropdownQuery_so5_so5Fixtures_nodes =
-  So5FixturesDropdownQuery['football']['so5']['so5Fixtures']['nodes'][number];
+type Vicc5FixturesDropdownQuery_vicc5_vicc5Fixtures_nodes =
+  Vicc5FixturesDropdownQuery['football']['vicc5']['vicc5Fixtures']['nodes'][number];
 
-const so5FixtureFragment = gql`
-  fragment Lobby_GameWeekDropdownHeader_so5Fixture on So5Fixture {
+const vicc5FixtureFragment = gql`
+  fragment Lobby_GameWeekDropdownHeader_vicc5Fixture on Vicc5Fixture {
     slug
     gameWeek
     startDate
@@ -109,16 +109,16 @@ const so5FixtureFragment = gql`
     displayName
     shortDisplayName
   }
-` as TypedDocumentNode<Lobby_GameWeekDropdownHeader_so5Fixture>;
+` as TypedDocumentNode<Lobby_GameWeekDropdownHeader_vicc5Fixture>;
 
 const SO5_FIXTURES_DROPDOWN_QUERY = gql`
-  query So5FixturesDropdownQuery($cursor: String) {
+  query Vicc5FixturesDropdownQuery($cursor: String) {
     football {
-      so5 {
-        so5Fixtures(first: 50, after: $cursor) {
+      vicc5 {
+        vicc5Fixtures(first: 50, after: $cursor) {
           nodes {
             slug
-            ...Lobby_GameWeekDropdownHeader_so5Fixture
+            ...Lobby_GameWeekDropdownHeader_vicc5Fixture
           }
           pageInfo {
             endCursor
@@ -128,10 +128,10 @@ const SO5_FIXTURES_DROPDOWN_QUERY = gql`
       }
     }
   }
-  ${so5FixtureFragment}
+  ${vicc5FixtureFragment}
 ` as TypedDocumentNode<
-  So5FixturesDropdownQuery,
-  So5FixturesDropdownQueryVariables
+  Vicc5FixturesDropdownQuery,
+  Vicc5FixturesDropdownQueryVariables
 >;
 
 export type GameWeekOptionType = {
@@ -145,7 +145,7 @@ export type GameWeekOptionType = {
 };
 
 export interface GameWeekDropdownProps {
-  defaultFixture: Lobby_GameWeekDropdownHeader_so5Fixture;
+  defaultFixture: Lobby_GameWeekDropdownHeader_vicc5Fixture;
   enabled?: boolean;
 }
 
@@ -169,8 +169,8 @@ const Gameweek = styled.div`
   align-items: center;
 `;
 
-const Option = (so5Fixture: So5FixturesDropdownQuery_so5_so5Fixtures_nodes) => {
-  const { startDate, endDate, shortDisplayName } = so5Fixture || {};
+const Option = (vicc5Fixture: Vicc5FixturesDropdownQuery_vicc5_vicc5Fixtures_nodes) => {
+  const { startDate, endDate, shortDisplayName } = vicc5Fixture || {};
 
   return (
     <Root>
@@ -203,17 +203,17 @@ const StyledDate = styled.div`
 `;
 
 const ValueContainer = (props: {
-  so5Fixture?: So5FixturesDropdownQuery_so5_so5Fixtures_nodes;
+  vicc5Fixture?: Vicc5FixturesDropdownQuery_vicc5_vicc5Fixtures_nodes;
   children?: React.ReactNode;
 }) => {
-  const { so5Fixture, children } = props;
-  const { startDate = '', endDate = '' } = so5Fixture || {};
+  const { vicc5Fixture, children } = props;
+  const { startDate = '', endDate = '' } = vicc5Fixture || {};
 
-  if (!so5Fixture) {
+  if (!vicc5Fixture) {
     return null;
   }
 
-  const isPast = !isFixtureOpened(so5Fixture) && !isFixtureLive(so5Fixture);
+  const isPast = !isFixtureOpened(vicc5Fixture) && !isFixtureLive(vicc5Fixture);
 
   return (
     <StyledRoot>
@@ -233,13 +233,13 @@ const ValueContainer = (props: {
   );
 };
 
-const formatOption = (node: Lobby_GameWeekDropdownHeader_so5Fixture) => ({
+const formatOption = (node: Lobby_GameWeekDropdownHeader_vicc5Fixture) => ({
   ...node,
   year: new Date(node?.startDate).getFullYear(),
 });
 
 const groupNodesBySlug = (
-  nodes: So5FixturesDropdownQuery_so5_so5Fixtures_nodes[]
+  nodes: Vicc5FixturesDropdownQuery_vicc5_vicc5Fixtures_nodes[]
 ) => {
   const optionsBySlug: Record<string, any> = {};
   nodes.forEach(node => {
@@ -273,27 +273,27 @@ const GameWeekDropdown = ({
   const optionsBySlug = useRef<Record<string, GameWeekOptionType>>({});
   const [defaultOptions, setDefaultOptions] = useState<GroupBase[]>([]);
   const { data, loadMore } = usePaginatedQuery(SO5_FIXTURES_DROPDOWN_QUERY, {
-    connection: 'So5FixtureConnection',
+    connection: 'Vicc5FixtureConnection',
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
     skip: !enabled,
   });
-  const so5Fixtures = data?.football.so5.so5Fixtures;
-  const endCursor = so5Fixtures?.pageInfo?.endCursor;
-  const hasMore = Boolean(so5Fixtures?.pageInfo.hasNextPage);
-  const latestGameWeek = so5Fixtures?.nodes[0]?.gameWeek;
-  const fixturesCount = so5Fixtures?.nodes.length || 0;
+  const vicc5Fixtures = data?.football.vicc5.vicc5Fixtures;
+  const endCursor = vicc5Fixtures?.pageInfo?.endCursor;
+  const hasMore = Boolean(vicc5Fixtures?.pageInfo.hasNextPage);
+  const latestGameWeek = vicc5Fixtures?.nodes[0]?.gameWeek;
+  const fixturesCount = vicc5Fixtures?.nodes.length || 0;
 
   const fetchNext = useCallback(() => {
     loadMore(false, { cursor: endCursor });
   }, [endCursor, loadMore]);
 
   const parseOptions = useCallback<() => GroupBase[]>(() => {
-    if (!data?.football.so5.so5Fixtures?.nodes) {
+    if (!data?.football.vicc5.vicc5Fixtures?.nodes) {
       return [];
     }
     optionsBySlug.current = groupNodesBySlug(
-      data.football.so5.so5Fixtures.nodes
+      data.football.vicc5.vicc5Fixtures.nodes
     );
     return groupOptionsByYear(optionsBySlug.current);
   }, [data, optionsBySlug]);
@@ -328,7 +328,7 @@ const GameWeekDropdown = ({
   ]);
 
   if (!defaultValue || !optionsBySlug.current[defaultValue?.slug] || !enabled) {
-    return <ValueContainer so5Fixture={defaultFixture} />;
+    return <ValueContainer vicc5Fixture={defaultFixture} />;
   }
 
   return (
@@ -365,7 +365,7 @@ const GameWeekDropdown = ({
         Placeholder: () => null,
         NoOptionsMessage: () => null,
         ValueContainer: p => (
-          <ValueContainer {...p} so5Fixture={defaultFixture} />
+          <ValueContainer {...p} vicc5Fixture={defaultFixture} />
         ),
       }}
       formatGroupLabel={groupProps => <GroupHeading {...groupProps} />}
@@ -377,5 +377,5 @@ const GameWeekDropdown = ({
 export default GameWeekDropdown;
 
 GameWeekDropdown.fragments = {
-  so5Fixture: so5FixtureFragment,
+  vicc5Fixture: vicc5FixtureFragment,
 };

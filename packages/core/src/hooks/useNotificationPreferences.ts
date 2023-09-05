@@ -22,7 +22,7 @@ const notificationPreferencesFragment = gql`
 export const USE_NOTIFICATION_PREFERENCES_USER_SETTINGS = gql`
   fragment useNotificationPreferences_userSettings on UserSettings {
     id
-    footballNotificationPreferences: notificationPreferences(sport: FOOTBALL) {
+    footballNotificationPreferences: notificationPreferences(sport: CRICKET) {
       ...useNotificationPreferences_notificationPreference
     }
     nbaNotificationPreferences: notificationPreferences(sport: NBA) {
@@ -59,7 +59,7 @@ export const useNotificationPreferences = (sport: Sport) => {
   const { userSettings } = data.currentUser;
 
   return {
-    [Sport.FOOTBALL]: userSettings.footballNotificationPreferences,
+    [Sport.CRICKET]: userSettings.footballNotificationPreferences,
     [Sport.NBA]: userSettings.nbaNotificationPreferences,
     [Sport.BASEBALL]: userSettings.baseballNotificationPreferences,
   }[sport];

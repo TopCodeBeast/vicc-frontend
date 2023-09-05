@@ -19,7 +19,7 @@ import {
   isGameScheduled,
 } from '@football/lib/so5';
 
-import { PlayerCard_so5Appearance } from './__generated__/index.graphql';
+import { PlayerCard_vicc5Appearance } from './__generated__/index.graphql';
 
 const CaptainBadge = styled.aside`
   position: absolute;
@@ -83,17 +83,17 @@ const DateInfo = styled.span`
 
 type Props = {
   onClick?: () => void;
-  appearance: PlayerCard_so5Appearance;
+  appearance: PlayerCard_vicc5Appearance;
   isLive: boolean;
 };
 
 export const PlayerCard = ({ onClick, appearance, isLive }: Props) => {
-  const { so5Score, captain, card, bonus, id } = appearance;
+  const { vicc5Score, captain, card, bonus, id } = appearance;
 
   const { pictureUrl } = card || {};
-  const { status, date } = so5Score?.game || {};
+  const { status, date } = vicc5Score?.game || {};
   const { score: playerScore, status: scoreStatus } = getPlayerScore(
-    so5Score,
+    vicc5Score,
     bonus
   );
   const gameIsScheduled = !!status && isGameScheduled(status);
@@ -122,7 +122,7 @@ export const PlayerCard = ({ onClick, appearance, isLive }: Props) => {
       as="button"
       onClick={onClick}
       type="button"
-      disabled={!so5Score?.id}
+      disabled={!vicc5Score?.id}
     >
       <Picture>
         <PlayerPicture>
@@ -144,7 +144,7 @@ export const PlayerCard = ({ onClick, appearance, isLive }: Props) => {
           }
         >
           {gameIsLive && <LiveDot size="sm" animate />}
-          {so5Score?.playerGameStats?.goals && <Ball />}
+          {vicc5Score?.playerGameStats?.goals && <Ball />}
           {getScoreLabel()}
         </PlayerScore>
       </CardFooter>
@@ -153,8 +153,8 @@ export const PlayerCard = ({ onClick, appearance, isLive }: Props) => {
 };
 
 PlayerCard.fragments = {
-  so5Appearance: gql`
-    fragment PlayerCard_so5Appearance on So5Appearance {
+  vicc5Appearance: gql`
+    fragment PlayerCard_vicc5Appearance on Vicc5Appearance {
       id
       bonus
       captain
@@ -163,7 +163,7 @@ PlayerCard.fragments = {
         slug
         pictureUrl: pictureUrl(derivative: "tinified")
       }
-      so5Score {
+      vicc5Score {
         id
         playerGameStats {
           id
@@ -175,9 +175,9 @@ PlayerCard.fragments = {
           date
         }
 
-        ...getPlayerScore_so5Score
+        ...getPlayerScore_vicc5Score
       }
     }
-    ${getPlayerScore.fragments.so5Score}
-  ` as TypedDocumentNode<PlayerCard_so5Appearance>,
+    ${getPlayerScore.fragments.vicc5Score}
+  ` as TypedDocumentNode<PlayerCard_vicc5Appearance>,
 };

@@ -55,13 +55,13 @@ const messages = defineMessages({
   },
 });
 const PlayerStatusWarning = ({ card }: Props) => {
-  const { openedSo5Lineups } = card;
-  const { so5Lineup, so5Leaderboard } = useContext(Context)!;
+  const { openedVicc5Lineups } = card;
+  const { vicc5Lineup, vicc5Leaderboard } = useContext(Context)!;
 
-  const lineupUsingThisPlayer = openedSo5Lineups.find(openedLineup => {
+  const lineupUsingThisPlayer = openedVicc5Lineups.find(openedLineup => {
     return (
-      openedLineup.so5Leaderboard?.gameWeek === so5Leaderboard.gameWeek &&
-      openedLineup.id !== so5Lineup.id
+      openedLineup.vicc5Leaderboard?.gameWeek === vicc5Leaderboard.gameWeek &&
+      openedLineup.id !== vicc5Lineup.id
     );
   });
 
@@ -75,10 +75,10 @@ const PlayerStatusWarning = ({ card }: Props) => {
     <Wrapper>
       {lineupUsingThisPlayer && (
         <>
-          {lineupUsingThisPlayer.so5Leaderboard && (
+          {lineupUsingThisPlayer.vicc5Leaderboard && (
             <DivisionLogoWrapper>
               <DivisionLogo
-                so5Leaderboard={lineupUsingThisPlayer.so5Leaderboard}
+                vicc5Leaderboard={lineupUsingThisPlayer.vicc5Leaderboard}
               />
             </DivisionLogoWrapper>
           )}
@@ -142,23 +142,23 @@ PlayerStatusWarning.fragments = {
     fragment PlayerStatusWarning_card on Card {
       slug
       assetId
-      openedSo5Lineups {
+      openedVicc5Lineups {
         id
         name
-        so5Leaderboard {
+        vicc5Leaderboard {
           slug
           gameWeek
-          ...DivisionLogo_so5Leaderboard
+          ...DivisionLogo_vicc5Leaderboard
         }
-        ...formatLineupDisplayName_so5Lineup
+        ...formatLineupDisplayName_vicc5Lineup
       }
       ...isSentInDirectOffer_card
       ...isMyCardListedOnMarket_card
     }
     ${isMyCardListedOnMarket.fragments.card}
     ${isSentInDirectOffer.fragments.card}
-    ${DivisionLogo.fragments.so5Leaderboard}
-    ${formatLineupDisplayName.fragments.so5Lineup}
+    ${DivisionLogo.fragments.vicc5Leaderboard}
+    ${formatLineupDisplayName.fragments.vicc5Lineup}
   ` as TypedDocumentNode<PlayerStatusWarning_card>,
 };
 

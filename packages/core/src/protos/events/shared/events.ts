@@ -19,7 +19,7 @@ export function sportFromJSON(object: any): Sport {
       return Sport.UNKNOWN_SPORT;
     case 1:
     case 'FOOTBALL':
-      return Sport.FOOTBALL;
+      return Sport.CRICKET;
     case 2:
     case 'BASEBALL':
       return Sport.BASEBALL;
@@ -37,7 +37,7 @@ export function sportToJSON(object: Sport): string {
   switch (object) {
     case Sport.UNKNOWN_SPORT:
       return 'UNKNOWN_SPORT';
-    case Sport.FOOTBALL:
+    case Sport.CRICKET:
       return 'FOOTBALL';
     case Sport.BASEBALL:
       return 'BASEBALL';

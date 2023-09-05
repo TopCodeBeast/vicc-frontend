@@ -213,7 +213,7 @@ export const FeaturedSportFootball = ({
       useLandingFeateuredSportImages = useLandingFeateuredSportImagesDefault,
     },
   } = useFeatureFlags();
-  const CTAProps = useSportCTAProps(Sport.FOOTBALL);
+  const CTAProps = useSportCTAProps(Sport.CRICKET);
   const defaultSportPages = useDefaultSportPages();
 
   return (
@@ -222,7 +222,7 @@ export const FeaturedSportFootball = ({
         cards={useLandingFeateuredSportImages.football || footballCards}
       />
       <CardContent>
-        <LinkOverlay as={Link} to={defaultSportPages[Sport.FOOTBALL]}>
+        <LinkOverlay as={Link} to={defaultSportPages[Sport.CRICKET]}>
           <Title>
             <FormattedMessage {...sportsLabelsMessages.FOOTBALL} />
           </Title>

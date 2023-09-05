@@ -37,7 +37,7 @@ const Wrapper = styled.div`
 `;
 
 const SportIcon = ({ sport }: { sport: Sport }) => {
-  if (sport === Sport.FOOTBALL) return <Ball />;
+  if (sport === Sport.CRICKET) return <Ball />;
   if (sport === Sport.NBA) return <NBABall />;
   return <MLBBall />;
 };
@@ -46,7 +46,7 @@ export const NotificationPreferences = () => {
   const { currentUser } = useCurrentUserContext();
   const lastVisitedSport = (currentUser?.userSettings?.lifecycle as Lifecycle)
     ?.lastVisitedSport;
-  const [sport, setSport] = useState<Sport>(lastVisitedSport || Sport.FOOTBALL);
+  const [sport, setSport] = useState<Sport>(lastVisitedSport || Sport.CRICKET);
   const sportNotificationPreferences = useNotificationPreferences(sport);
 
   const filteredPreferences = useMemo(() => {
@@ -73,7 +73,7 @@ export const NotificationPreferences = () => {
     <Wrapper>
       {/* Remove Sport Selection */}
       {/* <TabBar value={sport} compact>
-        {[Sport.FOOTBALL, Sport.NBA, Sport.BASEBALL].map(s => (
+        {[Sport.CRICKET, Sport.NBA, Sport.BASEBALL].map(s => (
           <Tab key={s} value={s} onClick={() => setSport(s)}>
             <SportIcon sport={s} />
             <FormattedMessage {...sportsLabelsMessages[s]} />

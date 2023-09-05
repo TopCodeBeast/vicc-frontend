@@ -10,11 +10,11 @@ import LineupActions from '@football/pages/Lobby/Components/LineupActions';
 import { TeamActions_lineup } from './__generated__/index.graphql';
 
 interface Props {
-  so5Leaderboard: TeamActions_lineup;
+  vicc5Leaderboard: TeamActions_lineup;
   lineupId?: string;
 }
 
-const TeamActions = ({ so5Leaderboard, lineupId }: Props) => {
+const TeamActions = ({ vicc5Leaderboard, lineupId }: Props) => {
   const navigate = useNavigate();
   const bgLocation = useBgLocation();
   const closePage = useCallback(
@@ -29,7 +29,7 @@ const TeamActions = ({ so5Leaderboard, lineupId }: Props) => {
   return (
     <LineupActions
       onDelete={closePage}
-      so5Leaderboard={so5Leaderboard}
+      vicc5Leaderboard={vicc5Leaderboard}
       lineupId={lineupId}
     />
   );
@@ -37,11 +37,11 @@ const TeamActions = ({ so5Leaderboard, lineupId }: Props) => {
 
 TeamActions.fragments = {
   lineup: gql`
-    fragment TeamActions_lineup on So5Leaderboard {
+    fragment TeamActions_lineup on Vicc5Leaderboard {
       slug
-      ...Lobby_LineupActions_so5Leaderboard
+      ...Lobby_LineupActions_vicc5Leaderboard
     }
-    ${LineupActions.fragments.so5Leaderboard}
+    ${LineupActions.fragments.vicc5Leaderboard}
   ` as TypedDocumentNode<TeamActions_lineup>,
 };
 

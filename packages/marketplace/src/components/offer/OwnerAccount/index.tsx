@@ -42,7 +42,7 @@ const Owner = styled.div`
 `;
 
 export const OwnerAccount = ({ children, account }: Props) => {
-  const { sorareTokensAddress } = useConfigContext();
+  const { viccTokensAddress } = useConfigContext();
   const galleryLinkPath = useCurrentSportGallery();
 
   if (!account) return null;
@@ -88,7 +88,7 @@ export const OwnerAccount = ({ children, account }: Props) => {
     return renderOwnerAccount(
       account.accountable,
       <a
-        href={tokenHolderLink(sorareTokensAddress, account.accountable.address)}
+        href={tokenHolderLink(viccTokensAddress, account.accountable.address)}
         title={account.accountable.address}
         target="_blank"
         rel="noreferrer"

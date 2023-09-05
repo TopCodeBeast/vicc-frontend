@@ -19,16 +19,16 @@ import {
   DraftSetupQueryVariables,
 } from './__generated__/queries.graphql';
 
-type DraftAutofillQuery_so5Leaderboard_commonDraftCampaign_autoPick =
+type DraftAutofillQuery_vicc5Leaderboard_commonDraftCampaign_autoPick =
   NonNullable<
-    DraftAutofillQuery['football']['so5']['so5Leaderboard']['commonDraftCampaign']
+    DraftAutofillQuery['football']['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
   >['autoPick'][number];
 
 const DRAFT_SETUP_QUERY = gql`
-  query DraftSetupQuery($so5LeaderboardSlug: String!) {
+  query DraftSetupQuery($vicc5LeaderboardSlug: String!) {
     football {
-      so5 {
-        so5Leaderboard(slug: $so5LeaderboardSlug) {
+      vicc5 {
+        vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
           commonDraftCampaign {
             slug
@@ -64,7 +64,7 @@ const DRAFT_SETUP_QUERY = gql`
 
 export const useSetupQuery = (slug?: string) => {
   const { data, loading } = useQuery(DRAFT_SETUP_QUERY, {
-    variables: { so5LeaderboardSlug: slug || '' },
+    variables: { vicc5LeaderboardSlug: slug || '' },
     skip: !slug,
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
@@ -75,7 +75,7 @@ export const useSetupQuery = (slug?: string) => {
 
 const DRAFT_QUERY = gql`
   query DraftQuery(
-    $so5LeaderboardSlug: String!
+    $vicc5LeaderboardSlug: String!
     $after: String
     $pageSize: Int
     $position: Position!
@@ -86,8 +86,8 @@ const DRAFT_QUERY = gql`
     $selectedPrintablePlayerIds: [ID!]
   ) {
     football {
-      so5 {
-        so5Leaderboard(slug: $so5LeaderboardSlug) {
+      vicc5 {
+        vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
           commonDraftCampaign {
             slug
@@ -130,7 +130,7 @@ export const useDraftQuery = (variables: DraftQueryVariables) => {
     fetchPolicy: 'cache-first',
   });
   const { nodes: availablePlayers = [], pageInfo } =
-    data?.football.so5.so5Leaderboard.commonDraftCampaign?.availablePlayers ||
+    data?.football.vicc5.vicc5Leaderboard.commonDraftCampaign?.availablePlayers ||
     {};
 
   return { data: { availablePlayers, pageInfo }, loading, loadMore };
@@ -138,12 +138,12 @@ export const useDraftQuery = (variables: DraftQueryVariables) => {
 
 const AUTOFILL_QUERY = gql`
   query DraftAutofillQuery(
-    $so5LeaderboardSlug: String!
+    $vicc5LeaderboardSlug: String!
     $selectedPrintablePlayerIds: [ID!]
   ) {
     football {
-      so5 {
-        so5Leaderboard(slug: $so5LeaderboardSlug) {
+      vicc5 {
+        vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
           commonDraftCampaign {
             slug
@@ -164,21 +164,21 @@ const AUTOFILL_QUERY = gql`
 ` as TypedDocumentNode<DraftAutofillQuery, DraftAutofillQueryVariables>;
 
 export const useAutoFillQuery = ({
-  so5LeaderboardSlug,
+  vicc5LeaderboardSlug,
   onCompleted,
 }: {
-  so5LeaderboardSlug: string;
+  vicc5LeaderboardSlug: string;
   onCompleted?: (
-    autoPick: DraftAutofillQuery_so5Leaderboard_commonDraftCampaign_autoPick[]
+    autoPick: DraftAutofillQuery_vicc5Leaderboard_commonDraftCampaign_autoPick[]
   ) => void;
 }) => {
   return useLazyQuery<DraftAutofillQuery, DraftAutofillQueryVariables>(
     AUTOFILL_QUERY,
     {
-      variables: { so5LeaderboardSlug },
+      variables: { vicc5LeaderboardSlug },
       onCompleted: autoFillData => {
         const { autoPick } =
-          autoFillData?.football.so5.so5Leaderboard.commonDraftCampaign || {};
+          autoFillData?.football.vicc5.vicc5Leaderboard.commonDraftCampaign || {};
         if (autoPick && onCompleted) {
           onCompleted(autoPick);
         }

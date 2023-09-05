@@ -28,8 +28,8 @@ import { RefineFootballPosition } from '@football/components/searchCards/RefineP
 import PageTemplate from '@football/pages/TransferMarket/PageTemplate';
 
 import {
-  So5SecondaryMarketStackPlayerQuery,
-  So5SecondaryMarketStackPlayerQueryVariables,
+  Vicc5SecondaryMarketStackPlayerQuery,
+  Vicc5SecondaryMarketStackPlayerQueryVariables,
 } from './__generated__/index.graphql';
 
 const cardSortsWithBestValue = createCardSorts({
@@ -39,7 +39,7 @@ const cardSortsWithBestValue = createCardSorts({
 });
 
 const SO5_SECONDARY_MARKET_STACK_PLAYER_QUERY = gql`
-  query So5SecondaryMarketStackPlayerQuery($slug: String!) {
+  query Vicc5SecondaryMarketStackPlayerQuery($slug: String!) {
     football {
       player(slug: $slug) {
         slug
@@ -48,8 +48,8 @@ const SO5_SECONDARY_MARKET_STACK_PLAYER_QUERY = gql`
     }
   }
 ` as TypedDocumentNode<
-  So5SecondaryMarketStackPlayerQuery,
-  So5SecondaryMarketStackPlayerQueryVariables
+  Vicc5SecondaryMarketStackPlayerQuery,
+  Vicc5SecondaryMarketStackPlayerQueryVariables
 >;
 
 const TransferMarketStack = () => {
@@ -114,7 +114,7 @@ const TransferMarketStack = () => {
           <MarketStackTitle
             player={data.football.player}
             rarity={rarity as Rarity}
-            sport={Sport.FOOTBALL}
+            sport={Sport.CRICKET}
           />
         }
         isBlockchain

@@ -36,7 +36,7 @@ export const useConversionCredit = (
     if (!sport) return undefined;
 
     const sportConversionCredit = {
-      [Sport.FOOTBALL]: currentUser?.footballConversionCredit,
+      [Sport.CRICKET]: currentUser?.footballConversionCredit,
       [Sport.NBA]: currentUser?.nbaConversionCredit,
       [Sport.BASEBALL]: currentUser?.baseballConversionCredit,
     }[sport];
@@ -92,7 +92,7 @@ useConversionCredit.fragments = {
   currentUser: gql`
     fragment useConversionCredit_currentUser on CurrentUser {
       slug
-      footballConversionCredit: sportConversionCredit(sport: FOOTBALL) {
+      footballConversionCredit: sportConversionCredit(sport: CRICKET) {
         ...useConversionCredit_conversionCredit
       }
       nbaConversionCredit: sportConversionCredit(sport: NBA) {

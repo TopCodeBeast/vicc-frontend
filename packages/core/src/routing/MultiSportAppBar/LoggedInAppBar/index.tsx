@@ -168,7 +168,7 @@ const GameSwitch = () => {
   if (upLaptop)
     return (
       <StyledGameSwitch>
-        {switches[Sport.FOOTBALL]}
+        {switches[Sport.CRICKET]}
         {switches[Sport.NBA]}
         {switches[Sport.BASEBALL]}
       </StyledGameSwitch>
@@ -716,7 +716,7 @@ export const LoggedInAppBar = ({
             },
           ]),
     ],
-    [Sport.FOOTBALL]: [
+    [Sport.CRICKET]: [
       {
         key: 'football',
         label: navLabels.home,
@@ -859,7 +859,7 @@ export const LoggedInAppBar = ({
         key: 'my-sorare',
         to: MY_SORARE_HOME,
         label: navLabels.mySorare,
-        sport: Sport.FOOTBALL,
+        sport: Sport.CRICKET,
         subMenu: [
           {
             key: 'my-sorare-auctions',
@@ -898,7 +898,7 @@ export const LoggedInAppBar = ({
         key: 'profile-settings',
         to: SETTINGS_HOME,
         label: navLabels.settings,
-        sport: Sport.FOOTBALL,
+        sport: Sport.CRICKET,
       },
       {
         key: 'log-out',

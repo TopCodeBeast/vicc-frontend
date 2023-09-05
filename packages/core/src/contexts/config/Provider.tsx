@@ -50,12 +50,12 @@ const CONFIG_QUERY = gql`
         }
         sport
       }
-      sorareTokensAddress
+      viccTokensAddress
       baseballTokensAddress
       nbaTokensAddress
-      sorareCardsAddress
-      footballNationalSeriesTokensAddress
-      sorareEncryptionKey
+      viccCardsAddress
+      cricketNationalSeriesTokensAddress
+      viccEncryptionKey
       sponsorAccountAddress
       migratorAddress
       minimumReceiveWeiAmount
@@ -67,9 +67,9 @@ const CONFIG_QUERY = gql`
       defaultFiatCurrency
       ethAssetType
       ethQuantum
-      so5 {
+      vicc5 {
         id
-        so5LeaguesAlgoliaFilters
+        vicc5LeaguesAlgoliaFilters
       }
       currentLocation {
         countryCode
@@ -222,10 +222,10 @@ export const ConfigProvider = ({ children }: Props) => {
     <ConfigContextProvider
       value={{
         ...config,
-        so5: {
-          ...config.so5,
-          so5LeaguesAlgoliaFilters: asObject(
-            config.so5.so5LeaguesAlgoliaFilters
+        vicc5: {
+          ...config.vicc5,
+          vicc5LeaguesAlgoliaFilters: asObject(
+            config.vicc5.vicc5LeaguesAlgoliaFilters
           ),
         },
         marketFeeRateBasisPoints: config.marketFeeRateBasisPoints / 10000,

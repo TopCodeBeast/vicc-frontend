@@ -43,7 +43,7 @@ export default () => {
       receiver: {
         __typename: 'User',
         slug: '',
-        sorareAddress: sponsorAccountAddress,
+        viccAddress: sponsorAccountAddress,
       },
     });
 

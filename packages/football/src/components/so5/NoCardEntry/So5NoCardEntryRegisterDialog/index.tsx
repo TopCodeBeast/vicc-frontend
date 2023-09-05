@@ -19,7 +19,7 @@ const NO_CARD_ENTRY_REGISTER_DIALOG_QUERY = gql`
   query NoCardEntryRegisterDialogConfiQuery {
     config {
       id
-      so5 {
+      vicc5 {
         id
         noCardRoute {
           id
@@ -36,7 +36,7 @@ const NO_CARD_ENTRY_REGISTER_DIALOG_QUERY = gql`
   NoCardEntryRegisterDialogConfiQueryVariables
 >;
 
-const So5NoCardEntryRegisterDialog = (props: Props) => {
+const Vicc5NoCardEntryRegisterDialog = (props: Props) => {
   const [loadConfig, { data, loading }] = useLazyQuery(
     NO_CARD_ENTRY_REGISTER_DIALOG_QUERY,
     {
@@ -47,7 +47,7 @@ const So5NoCardEntryRegisterDialog = (props: Props) => {
 
   const { open } = props;
   const { maxLineupsPerUser, emailAddress } =
-    data?.config?.so5?.noCardRoute || {};
+    data?.config?.vicc5?.noCardRoute || {};
 
   useEffect(() => {
     if (open) {
@@ -60,9 +60,9 @@ const So5NoCardEntryRegisterDialog = (props: Props) => {
       loading={loading}
       maxLineupsPerUser={maxLineupsPerUser}
       emailAddress={emailAddress}
-      poolDetail={<PoolDetail noCardRoute={data?.config?.so5?.noCardRoute} />}
+      poolDetail={<PoolDetail noCardRoute={data?.config?.vicc5?.noCardRoute} />}
     />
   );
 };
 
-export default So5NoCardEntryRegisterDialog;
+export default Vicc5NoCardEntryRegisterDialog;

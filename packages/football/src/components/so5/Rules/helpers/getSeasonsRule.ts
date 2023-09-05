@@ -35,7 +35,7 @@ const getSeasonsRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetSeasonsRule on So5Leaderboard {
+      fragment GetSeasonsRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

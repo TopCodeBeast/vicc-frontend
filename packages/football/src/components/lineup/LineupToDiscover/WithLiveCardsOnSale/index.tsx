@@ -11,7 +11,7 @@ import WithLineupSuggestions from '@football/components/lineup/LineupToDiscover/
 import {
   WithLiveCardsOnSaleLeaderboardQuery,
   WithLiveCardsOnSaleLeaderboardQueryVariables,
-  WithLiveCardsOnSale_so5Leaderboard,
+  WithLiveCardsOnSale_vicc5Leaderboard,
 } from './__generated__/index.graphql';
 import useLiveCardsOnSale from './useLiveCardsOnSale';
 
@@ -20,8 +20,8 @@ import useLiveCardsOnSale from './useLiveCardsOnSale';
 const WITH_LIVE_CARDS_ON_SALE_LEADERBOARD_QUERY = gql`
   query WithLiveCardsOnSaleLeaderboardQuery($slug: String!) {
     football {
-      so5 {
-        so5Leaderboard(slug: $slug) {
+      vicc5 {
+        vicc5Leaderboard(slug: $slug) {
           slug
           commonDraftCampaign {
             slug
@@ -30,7 +30,7 @@ const WITH_LIVE_CARDS_ON_SALE_LEADERBOARD_QUERY = gql`
               position
               player {
                 slug
-                averageScore(type: LAST_FIFTEEN_SO5_AVERAGE_SCORE)
+                averageScore(type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE)
               }
               ...WithLineupSuggestions_draftablePlayer
             }
@@ -55,7 +55,7 @@ type CardHit = {
 };
 
 type CommonDraftCampaign = NonNullable<
-  WithLiveCardsOnSaleLeaderboardQuery['football']['so5']['so5Leaderboard']['commonDraftCampaign']
+  WithLiveCardsOnSaleLeaderboardQuery['football']['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
 >;
 
 const POSITIONS = [
@@ -97,7 +97,7 @@ type Props = {
   children: (props: Partial<LineupProps>) => React.JSX.Element;
   amateurLeaderboardSlug: string;
   leagueFilter: string;
-  so5Leaderboard: WithLiveCardsOnSale_so5Leaderboard;
+  vicc5Leaderboard: WithLiveCardsOnSale_vicc5Leaderboard;
   onPaymentSuccess: () => void;
 };
 
@@ -125,7 +125,7 @@ const WithLiveCardsOnSale = ({
   );
 
   const { draftedPlayers } =
-    leaderboardData?.football.so5.so5Leaderboard?.commonDraftCampaign || {};
+    leaderboardData?.football.vicc5.vicc5Leaderboard?.commonDraftCampaign || {};
   const bestDraftedPlayers = useMemo(
     () => getBestPlayers(draftedPlayers || []),
     [draftedPlayers]
@@ -187,13 +187,13 @@ const WithLiveCardsOnSaleContainer = ({
 };
 
 WithLiveCardsOnSaleContainer.fragments = {
-  so5Leaderboard: gql`
-    fragment WithLiveCardsOnSale_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment WithLiveCardsOnSale_vicc5Leaderboard on Vicc5Leaderboard {
       slug
-      ...WithLineupSuggestions_so5Leaderboard
+      ...WithLineupSuggestions_vicc5Leaderboard
     }
-    ${WithLineupSuggestions.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<WithLiveCardsOnSale_so5Leaderboard>,
+    ${WithLineupSuggestions.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<WithLiveCardsOnSale_vicc5Leaderboard>,
 };
 
 export default WithLiveCardsOnSaleContainer;

@@ -20,9 +20,9 @@ export const fragments = {
       slug
       assetId
       name
-      lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_SO5_AVERAGE_SCORE)
-      lastFifteenSo5AverageScore: averageScore(
-        type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
+      lastFiveVicc5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
+      lastFifteenVicc5AverageScore: averageScore(
+        type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
       )
       player {
         slug
@@ -32,8 +32,8 @@ export const fragments = {
             slug
           }
         }
-        lastFiveSo5Appearances
-        lastFifteenSo5Appearances
+        lastFiveVicc5Appearances
+        lastFifteenVicc5Appearances
       }
       positionTyped
       rarity
@@ -71,7 +71,7 @@ export const fragments = {
         ... on TokenBaseballMetadata {
           playerPositions
         }
-        ... on TokenFootballMetadata {
+        ... on TokenCricketMetadata {
           playerPosition
         }
       }

@@ -52,7 +52,7 @@ const SearchBarComponents: {
   >;
 } = {
   [Sport.BASEBALL]: makeSearchBar(Sport.BASEBALL, ['Player', 'Club', 'User']),
-  [Sport.FOOTBALL]: makeSearchBar(Sport.FOOTBALL, [
+  [Sport.CRICKET]: makeSearchBar(Sport.CRICKET, [
     'Player',
     'Club',
     'Country',
@@ -63,7 +63,7 @@ const SearchBarComponents: {
 };
 
 const MultiSportSearchBar = ({ onExit, onSelect }: Props) => {
-  const { sport: currentSport = Sport.FOOTBALL } = useAppBarContext();
+  const { sport: currentSport = Sport.CRICKET } = useAppBarContext();
   const { currentUser } = useCurrentUserContext();
   const [presetSearch, setPresetSearch] = useState<string>('');
   const [selectedSport, setSelectedSport] = useState(currentSport);

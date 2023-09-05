@@ -26,7 +26,7 @@ const HOME_LEADERBOARDS_QUERY = gql`
       ...ManagerAssistant_currentUser
     }
     football {
-      so5 {
+      vicc5 {
         upcomingLeaderboards {
           slug
           canCompose {
@@ -36,19 +36,19 @@ const HOME_LEADERBOARDS_QUERY = gql`
             slug
             status
           }
-          so5LeaderboardType
-          ...ManagerAssistant_so5Leaderboard
+          vicc5LeaderboardType
+          ...ManagerAssistant_vicc5Leaderboard
         }
-        ...PrivateLeagues_so5
-        ...TournamentsTimeline_so5
+        ...PrivateLeagues_vicc5
+        ...TournamentsTimeline_vicc5
       }
     }
   }
 
-  ${PrivateLeagues.fragments.so5}
-  ${TournamentsTimeline.fragments.so5}
+  ${PrivateLeagues.fragments.vicc5}
+  ${TournamentsTimeline.fragments.vicc5}
   ${ManagerAssistant.fragments.currentUser}
-  ${ManagerAssistant.fragments.so5Leaderboard}
+  ${ManagerAssistant.fragments.vicc5Leaderboard}
 ` as TypedDocumentNode<HomeLeaderboardsQuery, HomeLeaderboardsQueryVariables>;
 
 export const Overview = () => {
@@ -60,9 +60,9 @@ export const Overview = () => {
     nextFetchPolicy: 'cache-and-network',
     fetchPolicy: 'cache-and-network',
   });
-  const leaderboards = data?.football.so5.upcomingLeaderboards;
+  const leaderboards = data?.football.vicc5.upcomingLeaderboards;
   const user = data?.currentUser;
-  const so5 = data?.football.so5;
+  const vicc5 = data?.football.vicc5;
 
   const contentUnits = !disableHomeContentUnits && (
     <ContentUnits
@@ -80,9 +80,9 @@ export const Overview = () => {
         leaderboards={leaderboards}
         loading={loading}
       />
-      <TournamentsTimeline so5={so5} loading={loading} />
+      <TournamentsTimeline vicc5={vicc5} loading={loading} />
       {contentUnits}
-      <PrivateLeagues so5={so5} loading={loading} />
+      <PrivateLeagues vicc5={vicc5} loading={loading} />
     </Wrapper>
   );
 };

@@ -40,7 +40,7 @@ PlayerUpcomingGames.fragments = {
   game: gql`
     fragment PlayerUpcomingGames_game on Game {
       id
-      ...So5Game_game
+      ...Vicc5Game_game
     }
     ${Game.fragments.game}
   ` as TypedDocumentNode<PlayerUpcomingGames_game>,

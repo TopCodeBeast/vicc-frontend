@@ -17,11 +17,11 @@ import { glossary } from '@sorare/core/src/lib/glossary';
 import { formatLineupDisplayName } from '@sorare/core/src/lib/so5';
 
 import Context, {
-  ContextProvider_so5Lineup_so5Appearances_card,
+  ContextProvider_vicc5Lineup_vicc5Appearances_card,
 } from '@football/components/so5/ComposeTeam/Context';
 import {
-  ContextProvider_so5Leaderboard,
-  ContextProvider_so5Lineup,
+  ContextProvider_vicc5Leaderboard,
+  ContextProvider_vicc5Lineup,
 } from '@football/components/so5/ComposeTeam/ContextProvider/__generated__/index.graphql';
 import DivisionLogo from '@football/components/so5/DivisionLogo';
 import { EditableLineup } from '@football/lib/so5';
@@ -55,29 +55,29 @@ const Row = styled.div`
   gap: var(--unit);
 `;
 
-type Lineup = EditableLineup<ContextProvider_so5Lineup_so5Appearances_card>;
+type Lineup = EditableLineup<ContextProvider_vicc5Lineup_vicc5Appearances_card>;
 
 type getUsedCardsParams = {
   lineup: Lineup;
-  so5Lineup: ContextProvider_so5Lineup;
-  so5Leaderboard: ContextProvider_so5Leaderboard;
+  vicc5Lineup: ContextProvider_vicc5Lineup;
+  vicc5Leaderboard: ContextProvider_vicc5Leaderboard;
 };
 const getUsedCards = ({
   lineup,
-  so5Lineup,
-  so5Leaderboard,
+  vicc5Lineup,
+  vicc5Leaderboard,
 }: getUsedCardsParams) => {
   return Object.values(lineup)
     .map(appearance => {
       if (!appearance.card) {
         return null;
       }
-      const { openedSo5Lineups } = appearance.card;
+      const { openedVicc5Lineups } = appearance.card;
 
-      const lineupUsingThisPlayer = openedSo5Lineups.find(openedLineup => {
+      const lineupUsingThisPlayer = openedVicc5Lineups.find(openedLineup => {
         return (
-          openedLineup.so5Leaderboard?.gameWeek === so5Leaderboard.gameWeek &&
-          openedLineup.id !== so5Lineup.id
+          openedLineup.vicc5Leaderboard?.gameWeek === vicc5Leaderboard.gameWeek &&
+          openedLineup.id !== vicc5Lineup.id
         );
       });
 
@@ -108,12 +108,12 @@ const getListedCards = (lineup: Lineup) => {
 };
 
 export const useHasWarnings = () => {
-  const { lineup, so5Lineup, so5Leaderboard } = useContext(Context)!;
+  const { lineup, vicc5Lineup, vicc5Leaderboard } = useContext(Context)!;
 
   const usedCardsCount = getUsedCards({
     lineup,
-    so5Lineup,
-    so5Leaderboard,
+    vicc5Lineup,
+    vicc5Leaderboard,
   }).length;
 
   const sentInLiveOfferCards = getSentInDirectOfferCards(lineup).length;
@@ -170,8 +170,8 @@ type Props = {
   onContinue: () => void;
 };
 export const ConfirmWarningDialog = ({ open, onCancel, onContinue }: Props) => {
-  const { lineup, so5Lineup, so5Leaderboard } = useContext(Context)!;
-  const usedCards = getUsedCards({ lineup, so5Lineup, so5Leaderboard });
+  const { lineup, vicc5Lineup, vicc5Leaderboard } = useContext(Context)!;
+  const usedCards = getUsedCards({ lineup, vicc5Lineup, vicc5Leaderboard });
   const sentInLiveOfferCards = getSentInDirectOfferCards(lineup);
   const listedCards = getListedCards(lineup);
 
@@ -244,8 +244,8 @@ export const ConfirmWarningDialog = ({ open, onCancel, onContinue }: Props) => {
                         <>
                           <DivisionLogoWrapper>
                             <DivisionLogo
-                              so5Leaderboard={
-                                lineupUsingThisPlayer!.so5Leaderboard!
+                              vicc5Leaderboard={
+                                lineupUsingThisPlayer!.vicc5Leaderboard!
                               }
                             />
                           </DivisionLogoWrapper>

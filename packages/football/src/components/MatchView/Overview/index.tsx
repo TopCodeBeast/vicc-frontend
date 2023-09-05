@@ -179,7 +179,7 @@ type Props = {
 const Overview = ({ game, selectedTeam, desktop }: Props) => {
   const { formatMessage } = useIntl();
   const { formatDate } = useIntlContext();
-  const { date, homeTeam, awayTeam, status, so5Fixture } = game;
+  const { date, homeTeam, awayTeam, status, vicc5Fixture } = game;
 
   const isPlaying = status === GameEventStatus.PLAYING;
   const isNormalCase = normalCaseStatuses.includes(status as GameEventStatus);
@@ -257,10 +257,10 @@ const Overview = ({ game, selectedTeam, desktop }: Props) => {
                         ? gameDate
                         : formatMessage(gameStatusMessages[status])}
                     </span>
-                    {so5Fixture && (
+                    {vicc5Fixture && (
                       <>
                         <span>-</span>
-                        <span>{so5Fixture.shortDisplayName}</span>
+                        <span>{vicc5Fixture.shortDisplayName}</span>
                       </>
                     )}
                   </>
@@ -363,7 +363,7 @@ Overview.fragments = {
           pictureUrl(derivative: "avatar")
         }
       }
-      so5Fixture {
+      vicc5Fixture {
         slug
         shortDisplayName
       }

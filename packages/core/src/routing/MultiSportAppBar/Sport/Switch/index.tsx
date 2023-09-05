@@ -46,7 +46,7 @@ export const Switch = ({ to, Component, sport }: Props) => {
 
 const FootballSwitch = () => {
   return (
-    <Switch Component={Football} to={FOOTBALL_HOME} sport={Sport.FOOTBALL} />
+    <Switch Component={Football} to={FOOTBALL_HOME} sport={Sport.CRICKET} />
   );
 };
 
@@ -70,13 +70,13 @@ const MLBSwitch = () => {
 export const sportLogos: {
   [key in Sport]: ({ active }: { active: boolean }) => React.JSX.Element;
 } = {
-  [Sport.FOOTBALL]: Football,
+  [Sport.CRICKET]: Football,
   [Sport.NBA]: NBA,
   [Sport.BASEBALL]: Baseball,
 };
 
 export const switches: { [key in Sport]: ReactNode } = {
-  [Sport.FOOTBALL]: <FootballSwitch />,
+  [Sport.CRICKET]: <FootballSwitch />,
   [Sport.NBA]: <NBASwitch />,
   [Sport.BASEBALL]: <MLBSwitch />,
 };

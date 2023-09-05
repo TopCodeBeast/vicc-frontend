@@ -205,13 +205,13 @@ export const SearchBar = ({
     },
     [algoliaIndexes.Club]: {
       routes: {
-        [Sport.FOOTBALL]: FOOTBALL_CLUB_SHOW_CARDS,
+        [Sport.CRICKET]: FOOTBALL_CLUB_SHOW_CARDS,
         [Sport.BASEBALL]: MLB_TEAM_CARDS,
         [Sport.NBA]: NBA_TEAM_CARDS,
       },
       search: searchWithOnSale,
       titles: {
-        [Sport.FOOTBALL]: formatMessage(messages.clubs),
+        [Sport.CRICKET]: formatMessage(messages.clubs),
         [Sport.BASEBALL]: formatMessage(messages.teams),
         [Sport.NBA]: formatMessage(messages.teams),
       },
@@ -220,7 +220,7 @@ export const SearchBar = ({
     },
     [algoliaIndexes.User]: {
       routes: {
-        [Sport.FOOTBALL]: FOOTBALL_USER_GALLERY_OVERVIEW,
+        [Sport.CRICKET]: FOOTBALL_USER_GALLERY_OVERVIEW,
         [Sport.BASEBALL]: MLB_USER_GALLERY,
         [Sport.NBA]: NBA_USER_GALLERY,
       },

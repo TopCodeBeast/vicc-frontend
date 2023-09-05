@@ -12,19 +12,19 @@ import { useCurrentUserContext } from '@core/contexts/currentUser';
 import idFromObject from '@core/gql/idFromObject';
 
 import { commonNotificationInterfaceFragment } from '../fragments';
-import { So5LineupNotification_so5LineupNotification } from './__generated__/index.graphql';
+import { Vicc5LineupNotification_vicc5LineupNotification } from './__generated__/index.graphql';
 
 type Props = {
-  notification: So5LineupNotification_so5LineupNotification;
+  notification: Vicc5LineupNotification_vicc5LineupNotification;
 };
 
 const messages = defineMessages({
-  so5_lineup_too_powerful: {
-    id: 'Activity.Notifications.so5LineupTooPowerful',
+  vicc5_lineup_too_powerful: {
+    id: 'Activity.Notifications.vicc5LineupTooPowerful',
     defaultMessage: 'Your lineup for <b>{leaderboard}</b> is too powerful',
   },
-  so5_lineup_invalid: {
-    id: 'Activity.Notifications.so5LineupInvalid',
+  vicc5_lineup_invalid: {
+    id: 'Activity.Notifications.vicc5LineupInvalid',
     defaultMessage: 'Your lineup for <b>{leaderboard}</b> is not valid anymore',
   },
   appearance_destroyed: {
@@ -32,26 +32,26 @@ const messages = defineMessages({
     defaultMessage:
       'Your card <b>{card}</b> has been removed from <b>{leaderboard}</b>',
   },
-  so5_lineup_cancelled: {
-    id: 'Activity.Notifications.so5LineupCancelled',
+  vicc5_lineup_cancelled: {
+    id: 'Activity.Notifications.vicc5LineupCancelled',
     defaultMessage: 'Your lineup for <b>{leaderboard}</b> has been cancelled',
   },
 });
 
-export const So5LineupNotification = ({ notification, ...rest }: Props) => {
+export const Vicc5LineupNotification = ({ notification, ...rest }: Props) => {
   const { currentUser } = useCurrentUserContext();
 
-  const { createdAt, name, so5Lineup, appearance, sport, read } = notification;
-  if (!so5Lineup.so5Leaderboard) return null;
+  const { createdAt, name, vicc5Lineup, appearance, sport, read } = notification;
+  if (!vicc5Lineup.vicc5Leaderboard) return null;
 
   const link =
-    name === 'so5_lineup_cancelled' || name === 'appearance_destroyed'
+    name === 'vicc5_lineup_cancelled' || name === 'appearance_destroyed'
       ? generatePath(FOOTBALL_COMPETITION_DETAILS_TEAM, {
-          competition: so5Lineup.so5Leaderboard.slug,
+          competition: vicc5Lineup.vicc5Leaderboard.slug,
         })
       : generatePath(FOOTBALL_COMPOSE_TEAM_LINEUP, {
-          so5LeaderboardSlug: so5Lineup.so5Leaderboard.slug,
-          so5LineupId: idFromObject(so5Lineup.id),
+          vicc5LeaderboardSlug: vicc5Lineup.vicc5Leaderboard.slug,
+          vicc5LineupId: idFromObject(vicc5Lineup.id),
         });
 
   const title = messages[name as keyof typeof messages];
@@ -64,7 +64,7 @@ export const So5LineupNotification = ({ notification, ...rest }: Props) => {
             {...title}
             values={{
               b: Bold,
-              leaderboard: so5Lineup.so5Leaderboard.displayName,
+              leaderboard: vicc5Lineup.vicc5Leaderboard.displayName,
               card: appearance?.name,
             }}
           />
@@ -80,25 +80,25 @@ export const So5LineupNotification = ({ notification, ...rest }: Props) => {
   );
 };
 
-So5LineupNotification.fragments = {
-  so5LineupNotification: gql`
-    fragment So5LineupNotification_so5LineupNotification on So5LineupNotification {
+Vicc5LineupNotification.fragments = {
+  vicc5LineupNotification: gql`
+    fragment Vicc5LineupNotification_vicc5LineupNotification on Vicc5LineupNotification {
       ...Notification_notificationInterface
       appearance: card {
         slug
         assetId
         name
       }
-      so5Lineup {
+      vicc5Lineup {
         id
-        so5Fixture {
+        vicc5Fixture {
           slug
         }
-        so5Leaderboard {
+        vicc5Leaderboard {
           slug
           displayName
           rarityType
-          so5League {
+          vicc5League {
             slug
             name
             displayName
@@ -109,5 +109,5 @@ So5LineupNotification.fragments = {
       }
     }
     ${commonNotificationInterfaceFragment}
-  ` as TypedDocumentNode<So5LineupNotification_so5LineupNotification>,
+  ` as TypedDocumentNode<Vicc5LineupNotification_vicc5LineupNotification>,
 };

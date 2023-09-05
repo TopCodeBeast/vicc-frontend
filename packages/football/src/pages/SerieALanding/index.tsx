@@ -329,7 +329,7 @@ const SerieALanding = () => {
           />
         </PageBackground>
         <Baseline />
-        <BannerWrapper sport={Sport.FOOTBALL}>
+        <BannerWrapper sport={Sport.CRICKET}>
           <BannerContent>
             <ChooseYourSportContent hideDescription />
           </BannerContent>

@@ -17,13 +17,13 @@ import { DumbBanner } from '@football/components/rewards/DumbBanner';
 import { formatReward } from '@football/components/rewards/utils';
 import useClaimRewards from '@football/hooks/so5/useClaimRewards';
 
-import { RewardsBanner_so5Reward } from './__generated__/index.graphql';
+import { RewardsBanner_vicc5Reward } from './__generated__/index.graphql';
 
-type Props = { rewards: RewardsBanner_so5Reward[] };
+type Props = { rewards: RewardsBanner_vicc5Reward[] };
 export const RewardsBanner = ({ rewards }: Props) => {
   const { fiatWalletAccountable } = useCurrentUserContext();
   const [initialRewards, setInitialRewards] = useState<
-    RewardsBanner_so5Reward[] | null
+    RewardsBanner_vicc5Reward[] | null
   >(null);
   const [claimRewards, { loading }] = useClaimRewards();
 
@@ -74,7 +74,7 @@ export const RewardsBanner = ({ rewards }: Props) => {
     .flatMap(({ rewardCards }) => rewardCards.map(({ card }) => card))
     .filter(Boolean);
   const hasBlockchainRewards = cards.some(card => card!.rarity !== 'common');
-  const gameWeek = initialRewards[0]?.so5Fixture.gameWeek;
+  const gameWeek = initialRewards[0]?.vicc5Fixture.gameWeek;
   const rewardsList = formatReward(initialRewards, { onClaimFiatRewards });
 
   return (
@@ -151,8 +151,8 @@ export const RewardsBanner = ({ rewards }: Props) => {
 };
 
 RewardsBanner.fragments = {
-  so5Reward: gql`
-    fragment RewardsBanner_so5Reward on So5Reward {
+  vicc5Reward: gql`
+    fragment RewardsBanner_vicc5Reward on Vicc5Reward {
       slug
       coinAmount
       rewardCards {
@@ -163,12 +163,12 @@ RewardsBanner.fragments = {
           pictureUrl: pictureUrl(derivative: "tinified")
         }
       }
-      so5Fixture {
+      vicc5Fixture {
         slug
         endDate
       }
-      ...formatReward_so5Reward
+      ...formatReward_vicc5Reward
     }
-    ${formatReward.fragments.so5Reward}
-  ` as TypedDocumentNode<RewardsBanner_so5Reward>,
+    ${formatReward.fragments.vicc5Reward}
+  ` as TypedDocumentNode<RewardsBanner_vicc5Reward>,
 };

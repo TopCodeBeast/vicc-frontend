@@ -20,16 +20,16 @@ const PlayerLastScores = ({
   selectedPosition,
   InfiniteScrollLoader,
 }: Props) => {
-  const { cardPositions, lastFiveSo5AverageScore, lastFifteenSo5AverageScore } =
+  const { cardPositions, lastFiveVicc5AverageScore, lastFifteenVicc5AverageScore } =
     player;
 
-  if (!player.allSo5Scores.nodes?.length) return null;
+  if (!player.allVicc5Scores.nodes?.length) return null;
 
   return (
     <LastScores
-      lastFifteenSo5AverageScore={lastFifteenSo5AverageScore}
-      lastFiveSo5AverageScore={lastFiveSo5AverageScore}
-      so5Scores={player.allSo5Scores.nodes}
+      lastFifteenVicc5AverageScore={lastFifteenVicc5AverageScore}
+      lastFiveVicc5AverageScore={lastFiveVicc5AverageScore}
+      vicc5Scores={player.allVicc5Scores.nodes}
       cardPositions={cardPositions}
       player={player}
       setPosition={setPosition}
@@ -47,18 +47,18 @@ PlayerLastScores.fragments = {
       activeClub {
         slug
       }
-      lastFiveSo5AverageScore: averageScore(
-        type: LAST_FIVE_SO5_AVERAGE_SCORE
+      lastFiveVicc5AverageScore: averageScore(
+        type: LAST_FIVE_VICC5_AVERAGE_SCORE
         position: $position
       )
-      lastFifteenSo5AverageScore: averageScore(
-        type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
+      lastFifteenVicc5AverageScore: averageScore(
+        type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
         position: $position
       )
-      allSo5Scores(first: $first, after: $after, position: $position) {
+      allVicc5Scores(first: $first, after: $after, position: $position) {
         nodes {
           id
-          ...LastScores_so5Score
+          ...LastScores_vicc5Score
         }
         pageInfo {
           endCursor
@@ -68,7 +68,7 @@ PlayerLastScores.fragments = {
       ...LastScores_player
     }
     ${LastScores.fragments.player}
-    ${LastScores.fragments.so5Score}
+    ${LastScores.fragments.vicc5Score}
   ` as TypedDocumentNode<PlayerLastScores_player>,
 };
 

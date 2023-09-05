@@ -35,7 +35,7 @@ const getAtLeastOfClubsRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetAtLeastOfClubsRule on So5Leaderboard {
+      fragment GetAtLeastOfClubsRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

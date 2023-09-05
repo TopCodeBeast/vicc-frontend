@@ -36,7 +36,7 @@ const getSameActiveClubRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetSameActiveClubRule on So5Leaderboard {
+      fragment GetSameActiveClubRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

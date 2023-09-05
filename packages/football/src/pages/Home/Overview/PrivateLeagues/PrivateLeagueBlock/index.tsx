@@ -41,18 +41,18 @@ type Props = {
 };
 
 export const PrivateLeagueBlock = ({ userGroupsList }: Props) => {
-  const leaderboard = userGroupsList[0].upcomingSo5Leaderboard;
+  const leaderboard = userGroupsList[0].upcomingVicc5Leaderboard;
   return (
     <Wrapper>
       <Header as={Link} to={generatePath(FOOTBALL_PRIVATE_LEAGUES)}>
         {leaderboard ? (
-          <DivisionLogo so5Leaderboard={leaderboard} />
+          <DivisionLogo vicc5Leaderboard={leaderboard} />
         ) : (
           <DivisionPlaceholder />
         )}
         <Text14>
           {leaderboard?.displayName ||
-            userGroupsList[0].so5TournamentType.displayName}
+            userGroupsList[0].vicc5TournamentType.displayName}
         </Text14>
       </Header>
       <List>
@@ -66,21 +66,21 @@ export const PrivateLeagueBlock = ({ userGroupsList }: Props) => {
 
 PrivateLeagueBlock.fragments = {
   userGroup: gql`
-    fragment PrivateLeagueBlock_userGroup on So5UserGroup {
+    fragment PrivateLeagueBlock_userGroup on Vicc5UserGroup {
       slug
       displayName
-      upcomingSo5Leaderboard {
+      upcomingVicc5Leaderboard {
         slug
         displayName
-        ...DivisionLogo_so5Leaderboard
+        ...DivisionLogo_vicc5Leaderboard
       }
-      so5TournamentType {
+      vicc5TournamentType {
         id
         displayName
       }
       ...PrivateLeagueItem_userGroup
     }
-    ${DivisionLogo.fragments.so5Leaderboard}
+    ${DivisionLogo.fragments.vicc5Leaderboard}
     ${PrivateLeagueItem.fragments.userGroup}
   ` as TypedDocumentNode<PrivateLeagueBlock_userGroup>,
 };

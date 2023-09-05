@@ -8,14 +8,14 @@ import { FOOTBALL_LOBBY_UPCOMING_SWAP } from '@core/constants/routes';
 import { Link } from '@core/routing/Link';
 
 import { LineupActionCta } from '../LineupActionCta';
-import { SwapCta_so5Leaderboard } from './__generated__/index.graphql';
+import { SwapCta_vicc5Leaderboard } from './__generated__/index.graphql';
 
 type Props = {
   onTrack: () => void;
-  so5Leaderboard: SwapCta_so5Leaderboard;
+  vicc5Leaderboard: SwapCta_vicc5Leaderboard;
 };
-export const SwapCta = ({ onTrack, so5Leaderboard }: Props) => {
-  return so5Leaderboard?.commonDraftCampaign?.availableSwapsCountForUpcoming ? (
+export const SwapCta = ({ onTrack, vicc5Leaderboard }: Props) => {
+  return vicc5Leaderboard?.commonDraftCampaign?.availableSwapsCountForUpcoming ? (
     <Tooltip
       title={
         <Text14>
@@ -31,7 +31,7 @@ export const SwapCta = ({ onTrack, so5Leaderboard }: Props) => {
         color="white"
         component={Link}
         to={generatePath(FOOTBALL_LOBBY_UPCOMING_SWAP, {
-          leaderboardSlug: so5Leaderboard.slug,
+          leaderboardSlug: vicc5Leaderboard.slug,
         })}
         onClick={() => onTrack()}
       >
@@ -47,13 +47,13 @@ export const SwapCta = ({ onTrack, so5Leaderboard }: Props) => {
 export default SwapCta;
 
 SwapCta.fragments = {
-  so5Leaderboard: gql`
-    fragment SwapCta_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment SwapCta_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       commonDraftCampaign {
         slug
         availableSwapsCountForUpcoming
       }
     }
-  ` as TypedDocumentNode<SwapCta_so5Leaderboard>,
+  ` as TypedDocumentNode<SwapCta_vicc5Leaderboard>,
 };

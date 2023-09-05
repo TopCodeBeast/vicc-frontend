@@ -76,7 +76,7 @@ const RelatedPlayers = ({ player }: Props) => {
                 </Label>
                 <Score>
                   <AverageScore
-                    score={relatedPlayer.lastFiveSo5AverageScore}
+                    score={relatedPlayer.lastFiveVicc5AverageScore}
                     withTooltip
                     scoreMode="AVERAGE_LAST_5_GAMES"
                   />
@@ -97,7 +97,7 @@ RelatedPlayers.fragments = {
       relatedPlayers {
         slug
         ...FootballPlayerAvatar_player
-        lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_SO5_AVERAGE_SCORE)
+        lastFiveVicc5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
         activeClub {
           slug
           name

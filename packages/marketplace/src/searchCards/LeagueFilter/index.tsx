@@ -20,7 +20,7 @@ const FILTER = VIRTUAL_TOGGLE_FILTERS.leagueFilter;
 
 const LeagueFilter = () => {
   const {
-    so5: { so5LeaguesAlgoliaFilters },
+    vicc5: { vicc5LeaguesAlgoliaFilters },
   } = useConfigContext();
   const setVirtualToggle = useVirtualToggleManager();
   const { currentRefinement } = useVirtualToggle<string>({
@@ -47,7 +47,7 @@ const LeagueFilter = () => {
 
   return (
     <FilterSection>
-      {Object.keys(so5LeaguesAlgoliaFilters).map(k => (
+      {Object.keys(vicc5LeaguesAlgoliaFilters).map(k => (
         <Option
           key={k}
           label={k}

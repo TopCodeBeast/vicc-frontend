@@ -12,7 +12,7 @@ import {
 import { RuleRow } from '@football/components/competition/CompetitionRules/RuleRow';
 import { FormatRule } from '@football/components/so5/Rules/types';
 
-import { RuleSection_so5Leaderboard } from './__generated__/index.graphql';
+import { RuleSection_vicc5Leaderboard } from './__generated__/index.graphql';
 
 const Wrapper = styled.div`
   display: flex;
@@ -41,11 +41,11 @@ const RulesList = styled.div`
 
 type Props = {
   rules: FormatRule[];
-  so5Leaderboard: RuleSection_so5Leaderboard;
+  vicc5Leaderboard: RuleSection_vicc5Leaderboard;
 };
 
 const RARITY_LIMIT_PREFIX = 'rarityLimits_';
-const RuleSection = ({ rules, so5Leaderboard }: Props) => {
+const RuleSection = ({ rules, vicc5Leaderboard }: Props) => {
   return (
     <Wrapper>
       {rules[0].title && (
@@ -63,7 +63,7 @@ const RuleSection = ({ rules, so5Leaderboard }: Props) => {
                 label={item.label}
                 description={item.description}
                 requirement={item.requirement}
-                so5Leaderboard={so5Leaderboard}
+                vicc5Leaderboard={vicc5Leaderboard}
                 rarity={
                   item.id.slice(
                     RARITY_LIMIT_PREFIX.length
@@ -107,13 +107,13 @@ const RuleSection = ({ rules, so5Leaderboard }: Props) => {
 };
 
 RuleSection.fragments = {
-  so5Leaderboard: gql`
-    fragment RuleSection_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment RuleSection_vicc5Leaderboard on Vicc5Leaderboard {
       slug
-      ...RarityLimitRuleRow_so5Leaderboard
+      ...RarityLimitRuleRow_vicc5Leaderboard
     }
-    ${RarityLimitRuleRow.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<RuleSection_so5Leaderboard>,
+    ${RarityLimitRuleRow.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<RuleSection_vicc5Leaderboard>,
 };
 
 export default RuleSection;

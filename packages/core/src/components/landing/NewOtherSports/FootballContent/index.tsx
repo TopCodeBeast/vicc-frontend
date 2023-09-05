@@ -25,10 +25,10 @@ export const FootballContent = () => {
   return (
     <DumbContent
       bgImage={messi}
-      sport={Sport.FOOTBALL}
+      sport={Sport.CRICKET}
       cardsUrls={footballCards}
       text={formatMessage(message)}
-      title={formatMessage(sportsLabelsMessages[Sport.FOOTBALL])}
+      title={formatMessage(sportsLabelsMessages[Sport.CRICKET])}
     />
   );
 };

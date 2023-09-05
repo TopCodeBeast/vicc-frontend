@@ -26,7 +26,7 @@ const getSameNationalityRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetSameNationalityRule on So5Leaderboard {
+      fragment GetSameNationalityRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

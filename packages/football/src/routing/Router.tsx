@@ -12,7 +12,7 @@ import { useCheckRedirectToOnboarding } from '@football/hooks/onboarding/useChec
 
 import AppSwitch from './AppSwitch';
 
-const subscriptionsVariables = { variables: { sports: [Sport.FOOTBALL] } };
+const subscriptionsVariables = { variables: { sports: [Sport.CRICKET] } };
 
 export const AppRouter = () => {
   useCheckRedirectToOnboarding();

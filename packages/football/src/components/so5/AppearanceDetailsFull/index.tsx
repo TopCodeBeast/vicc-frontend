@@ -6,11 +6,11 @@ import ViewAllDetailedScore from '@football/components/stats/ViewAllDetailedScor
 
 import {
   AppearanceDetailsFull_player,
-  AppearanceDetailsFull_so5Score,
+  AppearanceDetailsFull_vicc5Score,
 } from './__generated__/index.graphql';
 
 type Props = {
-  so5Score: AppearanceDetailsFull_so5Score;
+  vicc5Score: AppearanceDetailsFull_vicc5Score;
   player?: AppearanceDetailsFull_player;
 };
 
@@ -22,26 +22,26 @@ const Root = styled.div`
   padding: 0 var(--double-unit) var(--unit);
 `;
 
-export const AppearanceDetailsFull = ({ so5Score, player }: Props) => {
+export const AppearanceDetailsFull = ({ vicc5Score, player }: Props) => {
   return (
     <Root>
-      <AppearanceDetails so5Score={so5Score} />
-      {so5Score.scoringVersion > 3 && (
-        <ViewAllDetailedScore so5Score={so5Score} player={player} />
+      <AppearanceDetails vicc5Score={vicc5Score} />
+      {vicc5Score.scoringVersion > 3 && (
+        <ViewAllDetailedScore vicc5Score={vicc5Score} player={player} />
       )}
     </Root>
   );
 };
 
 AppearanceDetailsFull.fragments = {
-  so5Score: gql`
-    fragment AppearanceDetailsFull_so5Score on So5Score {
-      ...ViewAllDetailedScore_so5Score
-      ...AppearanceDetails_so5Score
+  vicc5Score: gql`
+    fragment AppearanceDetailsFull_vicc5Score on Vicc5Score {
+      ...ViewAllDetailedScore_vicc5Score
+      ...AppearanceDetails_vicc5Score
     }
-    ${ViewAllDetailedScore.fragments.so5Score}
-    ${AppearanceDetails.fragments.so5Score}
-  ` as TypedDocumentNode<AppearanceDetailsFull_so5Score>,
+    ${ViewAllDetailedScore.fragments.vicc5Score}
+    ${AppearanceDetails.fragments.vicc5Score}
+  ` as TypedDocumentNode<AppearanceDetailsFull_vicc5Score>,
   player: gql`
     fragment AppearanceDetailsFull_player on Player {
       slug

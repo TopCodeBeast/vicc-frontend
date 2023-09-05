@@ -34,12 +34,12 @@ export const messages = defineMessages({
   },
   notEligible: {
     id: 'cardCoverage.notEligible',
-    defaultMessage: 'This Card is not eligible for the So5 game',
+    defaultMessage: 'This Card is not eligible for the Vicc5 game',
   },
   legend: {
     id: 'cardCoverage.legend',
     defaultMessage:
-      'This player is not covered in So5 except for special occasions.',
+      'This player is not covered in Vicc5 except for special occasions.',
   },
   partial: {
     id: 'cardCoverage.partial',

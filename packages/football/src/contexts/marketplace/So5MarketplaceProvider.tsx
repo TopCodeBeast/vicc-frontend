@@ -6,7 +6,7 @@ import BundledAuctionEligibilityByAssetIds from '@football/components/auction/Bu
 import CardPropertiesByAssetId from '@football/components/card/CardPropertiesByAssetId';
 import CardTeamsByAssetId from '@football/components/card/CardTeamsByAssetId';
 
-const So5MarketplaceProvider = ({ children }: { children: ReactNode }) => {
+const Vicc5MarketplaceProvider = ({ children }: { children: ReactNode }) => {
   const [hideDetails, setHideDetails] = useState(false);
   return (
     <MarketplaceProvider
@@ -28,4 +28,4 @@ const So5MarketplaceProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default So5MarketplaceProvider;
+export default Vicc5MarketplaceProvider;

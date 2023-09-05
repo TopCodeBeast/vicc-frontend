@@ -19,9 +19,9 @@ export default () => {
         return;
       }
 
-      if (currentUser.sorarePrivateKeyRecovery) {
+      if (currentUser.viccPrivateKeyRecovery) {
         await sendRequest<PromptRecoverKey>('promptRecoverKey', {
-          userPrivateKeyRecovery: currentUser.sorarePrivateKeyRecovery,
+          userPrivateKeyRecovery: currentUser.viccPrivateKeyRecovery,
         });
         setCurrentTab(WalletTab.RECOVER_KEY);
         showWallet();

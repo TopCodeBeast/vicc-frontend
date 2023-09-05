@@ -12,7 +12,7 @@ import {
   Props as RuleRowProps,
 } from '@football/components/competition/CompetitionRules/RuleRow';
 
-import { RarityLimitRuleRow_so5Leaderboard } from './__generated__/index.graphql';
+import { RarityLimitRuleRow_vicc5Leaderboard } from './__generated__/index.graphql';
 
 const Requirement = styled.div`
   display: flex;
@@ -22,12 +22,12 @@ const Requirement = styled.div`
 `;
 
 export type Props = RuleRowProps & {
-  so5Leaderboard: RarityLimitRuleRow_so5Leaderboard;
+  vicc5Leaderboard: RarityLimitRuleRow_vicc5Leaderboard;
   rarity: CamelCase<Exclude<keyof typeof Rarity, 'custom_series'>>;
 };
 
 export const RarityLimitRuleRow = ({
-  so5Leaderboard,
+  vicc5Leaderboard,
   rarity,
   ...otherProps
 }: Props) => {
@@ -36,7 +36,7 @@ export const RarityLimitRuleRow = ({
     if (!currentUser || rarity === 'common') {
       return true;
     }
-    const rarityLimits = so5Leaderboard.displayedRules?.rarityLimits?.[rarity];
+    const rarityLimits = vicc5Leaderboard.displayedRules?.rarityLimits?.[rarity];
     const neededCards =
       rarityLimits?.min === 0 && rarityLimits.max === 5
         ? rarityLimits.max
@@ -61,8 +61,8 @@ export const RarityLimitRuleRow = ({
 };
 
 RarityLimitRuleRow.fragments = {
-  so5Leaderboard: gql`
-    fragment RarityLimitRuleRow_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment RarityLimitRuleRow_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       displayedRules {
         id
@@ -86,5 +86,5 @@ RarityLimitRuleRow.fragments = {
         }
       }
     }
-  ` as TypedDocumentNode<RarityLimitRuleRow_so5Leaderboard>,
+  ` as TypedDocumentNode<RarityLimitRuleRow_vicc5Leaderboard>,
 };

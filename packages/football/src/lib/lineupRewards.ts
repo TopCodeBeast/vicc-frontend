@@ -2,7 +2,7 @@ import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { withFragments } from '@sorare/core/src/lib/gql';
 
-import { getRewardType_so5Fixture } from './__generated__/lineupRewards.graphql';
+import { getRewardType_vicc5Fixture } from './__generated__/lineupRewards.graphql';
 import { isFixtureClosed, isFixtureStarted } from './so5';
 
 export enum RewardType {
@@ -12,22 +12,22 @@ export enum RewardType {
 }
 
 export const getRewardType = withFragments(
-  (so5Fixture: getRewardType_so5Fixture | null | undefined) => {
-    if (so5Fixture && isFixtureClosed(so5Fixture)) {
+  (vicc5Fixture: getRewardType_vicc5Fixture | null | undefined) => {
+    if (vicc5Fixture && isFixtureClosed(vicc5Fixture)) {
       return RewardType.Actual;
     }
-    if (so5Fixture && isFixtureStarted(so5Fixture)) {
+    if (vicc5Fixture && isFixtureStarted(vicc5Fixture)) {
       return RewardType.Eligible;
     }
 
     return RewardType.Generic;
   },
   {
-    so5Fixture: gql`
-      fragment getRewardType_so5Fixture on So5Fixture {
+    vicc5Fixture: gql`
+      fragment getRewardType_vicc5Fixture on Vicc5Fixture {
         slug
         aasmState
       }
-    ` as TypedDocumentNode<getRewardType_so5Fixture>,
+    ` as TypedDocumentNode<getRewardType_vicc5Fixture>,
   }
 );

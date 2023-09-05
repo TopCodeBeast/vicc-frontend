@@ -2,7 +2,7 @@ import { TypedDocumentNode, gql } from '@apollo/client';
 
 import {
   useGetSuspensionsAndInjuries_player,
-  useGetSuspensionsAndInjuries_so5Score,
+  useGetSuspensionsAndInjuries_vicc5Score,
 } from './__generated__/useGetSuspensionsAndInjuries.graphql';
 
 const useGetSuspensionsAndInjuries = (
@@ -14,7 +14,7 @@ const useGetSuspensionsAndInjuries = (
       injuries: useGetSuspensionsAndInjuries_player['injuries'];
     }
   >(
-    game: useGetSuspensionsAndInjuries_so5Score['game']
+    game: useGetSuspensionsAndInjuries_vicc5Score['game']
   ): {
     suspensions: T['suspensions'];
     injuries: T['injuries'];
@@ -40,8 +40,8 @@ const useGetSuspensionsAndInjuries = (
 };
 
 useGetSuspensionsAndInjuries.fragments = {
-  so5Score: gql`
-    fragment useGetSuspensionsAndInjuries_so5Score on So5Score {
+  vicc5Score: gql`
+    fragment useGetSuspensionsAndInjuries_vicc5Score on Vicc5Score {
       id
       game {
         id
@@ -51,7 +51,7 @@ useGetSuspensionsAndInjuries.fragments = {
         }
       }
     }
-  ` as TypedDocumentNode<useGetSuspensionsAndInjuries_so5Score>,
+  ` as TypedDocumentNode<useGetSuspensionsAndInjuries_vicc5Score>,
   player: gql`
     fragment useGetSuspensionsAndInjuries_player on Player {
       slug

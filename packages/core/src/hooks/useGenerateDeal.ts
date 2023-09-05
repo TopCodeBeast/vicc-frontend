@@ -40,8 +40,8 @@ const useGenerateDeal = () => {
   }: Args) => {
     return {
       dealId: generateDealId(),
-      sender: currentUser!.sorareAddress!,
-      receiver: receiver?.sorareAddress || null,
+      sender: currentUser!.viccAddress!,
+      receiver: receiver?.viccAddress || null,
       receiveTokenIds: toTokenIds(receiveTokens),
       sendTokenIds: toTokenIds(sendTokens),
       sendAmountInWei,
@@ -62,7 +62,7 @@ useGenerateDeal.fragments = {
   user: gql`
     fragment useGenerateDeal_user on PublicUserInfoInterface {
       slug
-      sorareAddress
+      viccAddress
     }
   ` as TypedDocumentNode<useGenerateDeal_user>,
 };

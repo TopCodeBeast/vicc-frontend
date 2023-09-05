@@ -6,10 +6,10 @@ import styled from 'styled-components';
 import { statLabels } from '@football/lib/scoring';
 
 import DetailedScoreV4V5 from './DetailedScoreV4V5';
-import { DetailedScore_so5Score } from './__generated__/index.graphql';
+import { DetailedScore_vicc5Score } from './__generated__/index.graphql';
 
 type Props = {
-  so5Score: DetailedScore_so5Score;
+  vicc5Score: DetailedScore_vicc5Score;
   dark?: boolean;
   withDetails?: boolean;
 };
@@ -64,13 +64,13 @@ const Score = styled.td`
   }
 `;
 
-export const DetailedScore = ({ so5Score, dark, withDetails }: Props) => {
+export const DetailedScore = ({ vicc5Score, dark, withDetails }: Props) => {
   const { formatMessage, formatNumber } = useIntl();
 
-  if (so5Score.scoringVersion === 4 || so5Score.scoringVersion === 5)
-    return <DetailedScoreV4V5 so5Score={so5Score} withDetails={withDetails} />;
+  if (vicc5Score.scoringVersion === 4 || vicc5Score.scoringVersion === 5)
+    return <DetailedScoreV4V5 vicc5Score={vicc5Score} withDetails={withDetails} />;
 
-  const lines = so5Score.detailedScore.filter(
+  const lines = vicc5Score.detailedScore.filter(
     s => s.totalScore !== 0 && s.stat !== 'starting_score'
   );
 
@@ -106,8 +106,8 @@ export const DetailedScore = ({ so5Score, dark, withDetails }: Props) => {
 };
 
 DetailedScore.fragments = {
-  so5Score: gql`
-    fragment DetailedScore_so5Score on So5Score {
+  vicc5Score: gql`
+    fragment DetailedScore_vicc5Score on Vicc5Score {
       id
       scoringVersion
       detailedScore {
@@ -115,10 +115,10 @@ DetailedScore.fragments = {
         statValue
         totalScore
       }
-      ...DetailedScoreV4V5_so5Score
+      ...DetailedScoreV4V5_vicc5Score
     }
-    ${DetailedScoreV4V5.fragments.so5Score}
-  ` as TypedDocumentNode<DetailedScore_so5Score>,
+    ${DetailedScoreV4V5.fragments.vicc5Score}
+  ` as TypedDocumentNode<DetailedScore_vicc5Score>,
 };
 
 export default DetailedScore;

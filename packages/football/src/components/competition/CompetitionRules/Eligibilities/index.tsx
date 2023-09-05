@@ -9,16 +9,16 @@ import { Errors } from '@football/components/so5/ComposeTeam/Context';
 import { ELIGIBILITY_RULES } from '@football/lib/so5';
 
 import EligibilityIcon from './EligibilityIcon';
-import { Eligibilities_so5Leaderboard } from './__generated__/index.graphql';
+import { Eligibilities_vicc5Leaderboard } from './__generated__/index.graphql';
 import { formatEligibilityRules } from './formatEligibilityRules';
 
 const Wrapper = styled.div`
   padding-top: var(--double-unit);
 `;
-type Eligibilities_so5Leaderboard_rules =
-  Eligibilities_so5Leaderboard['displayedRules'];
+type Eligibilities_vicc5Leaderboard_rules =
+  Eligibilities_vicc5Leaderboard['displayedRules'];
 const hasEligibilities = (
-  rules?: Eligibilities_so5Leaderboard_rules | null,
+  rules?: Eligibilities_vicc5Leaderboard_rules | null,
   excludeProps?: string[]
 ) => {
   if (!rules) {
@@ -29,7 +29,7 @@ const hasEligibilities = (
       return (
         ![...(excludeProps || []), '__typename', 'id']?.includes(rule) &&
         ELIGIBILITY_RULES?.includes(
-          rule as keyof Eligibilities_so5Leaderboard_rules
+          rule as keyof Eligibilities_vicc5Leaderboard_rules
         ) &&
         value !== null
       );
@@ -37,21 +37,21 @@ const hasEligibilities = (
   );
   return Object.keys(eligibilityRules).length === 0
     ? false
-    : (eligibilityRules as Eligibilities_so5Leaderboard_rules);
+    : (eligibilityRules as Eligibilities_vicc5Leaderboard_rules);
 };
 
 type Props = {
-  so5Leaderboard: Eligibilities_so5Leaderboard;
+  vicc5Leaderboard: Eligibilities_vicc5Leaderboard;
   errors?: Errors;
 };
 
-const Eligibilities = ({ so5Leaderboard, errors = [] }: Props) => {
-  if (!hasEligibilities(so5Leaderboard.displayedRules)) {
+const Eligibilities = ({ vicc5Leaderboard, errors = [] }: Props) => {
+  if (!hasEligibilities(vicc5Leaderboard.displayedRules)) {
     return null;
   }
 
   const formattedRules = formatEligibilityRules(
-    so5Leaderboard.displayedRules,
+    vicc5Leaderboard.displayedRules,
     errors
   );
   return (
@@ -86,13 +86,13 @@ const Eligibilities = ({ so5Leaderboard, errors = [] }: Props) => {
 };
 
 Eligibilities.fragments = {
-  so5Leaderboard: gql`
-    fragment Eligibilities_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment Eligibilities_vicc5Leaderboard on Vicc5Leaderboard {
       slug
-      ...formatEligibilityRules_so5Leaderboard
+      ...formatEligibilityRules_vicc5Leaderboard
     }
-    ${formatEligibilityRules.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<Eligibilities_so5Leaderboard>,
+    ${formatEligibilityRules.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<Eligibilities_vicc5Leaderboard>,
 };
 
 export default Eligibilities;

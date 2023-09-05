@@ -4,18 +4,18 @@ import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNoti
 import { formatGqlErrors } from '@sorare/core/src/gql';
 
 import {
-  ConfirmSo5LineupsMutation,
-  ConfirmSo5LineupsMutationVariables,
+  ConfirmVicc5LineupsMutation,
+  ConfirmVicc5LineupsMutationVariables,
 } from './__generated__/useConfirmLineups.graphql';
 
 const CONFIRM_SO5_LINEUPS_MUTATION = gql`
-  mutation ConfirmSo5LineupsMutation($input: confirmSo5LineupsInput!) {
-    confirmSo5Lineups(input: $input) {
+  mutation ConfirmVicc5LineupsMutation($input: confirmVicc5LineupsInput!) {
+    confirmVicc5Lineups(input: $input) {
       currentUser {
         slug
         blockchainCardsInLineups
       }
-      so5Lineups {
+      vicc5Lineups {
         id
         name
         draft
@@ -28,30 +28,30 @@ const CONFIRM_SO5_LINEUPS_MUTATION = gql`
     }
   }
 ` as TypedDocumentNode<
-  ConfirmSo5LineupsMutation,
-  ConfirmSo5LineupsMutationVariables
+  ConfirmVicc5LineupsMutation,
+  ConfirmVicc5LineupsMutationVariables
 >;
 
 export default () => {
   const [confirmLineups] = useMutation(CONFIRM_SO5_LINEUPS_MUTATION);
   const { showNotification } = useSnackNotificationContext();
 
-  return async (so5LineupIds: string[]) => {
+  return async (vicc5LineupIds: string[]) => {
     const result = await confirmLineups({
       variables: {
         input: {
-          so5LineupIds,
+          vicc5LineupIds,
         },
       },
     });
 
-    const errors = result.data?.confirmSo5Lineups?.errors || [];
+    const errors = result.data?.confirmVicc5Lineups?.errors || [];
 
     if (errors.length) {
       showNotification('errors', { errors: formatGqlErrors(errors) });
       return errors;
     }
-    showNotification('so5LineupsConfirm');
+    showNotification('vicc5LineupsConfirm');
     return null;
   };
 };

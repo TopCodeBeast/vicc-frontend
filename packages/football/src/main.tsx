@@ -5,18 +5,18 @@ import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import SportProvider from '@sorare/core/src/contexts/sport/Provider';
 
 import DeckProvider from '@football/contexts/deck/Provider';
-import So5MarketplaceProvider from '@football/contexts/marketplace/So5MarketplaceProvider';
+import Vicc5MarketplaceProvider from '@football/contexts/marketplace/So5MarketplaceProvider';
 import Router from '@football/routing/Router';
 
 export const Root = () => {
   return (
-    <SportProvider sport={Sport.FOOTBALL}>
+    <SportProvider sport={Sport.CRICKET}>
       <DeckProvider>
-        <So5MarketplaceProvider>
+        <Vicc5MarketplaceProvider>
           <Suspense fallback={<LoadingIndicator fullScreen />}>
             <Router />
           </Suspense>
-        </So5MarketplaceProvider>
+        </Vicc5MarketplaceProvider>
       </DeckProvider>
     </SportProvider>
   );

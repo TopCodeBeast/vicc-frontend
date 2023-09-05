@@ -56,7 +56,7 @@ const getCardsCountOfCurrentUserRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetCardsCountOfCurrentUserRule on So5Leaderboard {
+      fragment GetCardsCountOfCurrentUserRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

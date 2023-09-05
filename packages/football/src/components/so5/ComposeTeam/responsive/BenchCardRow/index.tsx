@@ -10,18 +10,18 @@ import IconButton from '@sorare/core/src/atoms/buttons/IconButton';
 import { Text16 } from '@sorare/core/src/atoms/typography';
 
 import Context from '@football/components/so5/ComposeTeam/Context';
-import { ContextProvider_so5Lineup } from '@football/components/so5/ComposeTeam/ContextProvider/__generated__/index.graphql';
+import { ContextProvider_vicc5Lineup } from '@football/components/so5/ComposeTeam/ContextProvider/__generated__/index.graphql';
 import BenchCard from '@football/components/so5/ComposeTeam/responsive/BenchCard';
 
 import { PlayerGameScores } from './PlayerGameScores';
 import PlayerStatusWarning from './PlayerStatusWarning';
 import { BenchCardRow_card } from './__generated__/index.graphql';
 
-type ContextProvider_so5Lineup_so5Appearances_card =
-  ContextProvider_so5Lineup['so5Appearances'][number]['card'];
+type ContextProvider_vicc5Lineup_vicc5Appearances_card =
+  ContextProvider_vicc5Lineup['vicc5Appearances'][number]['card'];
 
 type Props = {
-  card: BenchCardRow_card | ContextProvider_so5Lineup_so5Appearances_card;
+  card: BenchCardRow_card | ContextProvider_vicc5Lineup_vicc5Appearances_card;
   onSelect?: () => void;
   statsView: boolean;
   selectedCard?: boolean;

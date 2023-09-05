@@ -42,7 +42,7 @@ export const TokensAvailableOnPrimary = ({ hitsPerRow, sport }: TokenProps) => {
       />
       <TokensRow
         hitsPerRow={hitsPerRow}
-        {...(sport === Sport.FOOTBALL
+        {...(sport === Sport.CRICKET
           ? { slugs: objectIds }
           : { assetIds: objectIds })}
       />

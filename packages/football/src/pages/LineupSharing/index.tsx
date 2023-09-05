@@ -142,10 +142,10 @@ const Captain = styled.div`
 const LINEUP_SHARING_QUERY = gql`
   query LineupSharingQuery($id: ID!) {
     football {
-      so5 {
-        so5Lineup(id: $id) {
+      vicc5 {
+        vicc5Lineup(id: $id) {
           id
-          so5Appearances {
+          vicc5Appearances {
             id
             captain
             card {
@@ -160,13 +160,13 @@ const LINEUP_SHARING_QUERY = gql`
               }
             }
           }
-          so5Leaderboard {
+          vicc5Leaderboard {
             slug
             displayName
             rarityType
             svgLogoUrl
           }
-          so5Fixture {
+          vicc5Fixture {
             slug
             startDate
             ...LineupDate_fixture
@@ -201,7 +201,7 @@ const LineupSharing = () => {
   const { data } = useQuery(LINEUP_SHARING_QUERY, {
     variables: {
       id: id!,
-      so5LeaderboardSlug: null,
+      vicc5LeaderboardSlug: null,
     },
     skip: !id,
   });
@@ -209,9 +209,9 @@ const LineupSharing = () => {
   useEffect(() => {
     if (data) {
       const img =
-        data.football.so5.so5Lineup.socialPictureUrls?.post ||
-        data.football.so5.so5Lineup.socialPictureUrls?.square ||
-        data.football.so5.so5Lineup.socialPictureUrls?.story ||
+        data.football.vicc5.vicc5Lineup.socialPictureUrls?.post ||
+        data.football.vicc5.vicc5Lineup.socialPictureUrls?.square ||
+        data.football.vicc5.vicc5Lineup.socialPictureUrls?.story ||
         undefined;
 
       setPageMetadata(
@@ -220,14 +220,14 @@ const LineupSharing = () => {
             id: 'LineUpSharing.title',
             defaultMessage: "{nickname}'s Lineup",
           },
-          { nickname: data.football.so5.so5Lineup.user?.nickname }
+          { nickname: data.football.vicc5.vicc5Lineup.user?.nickname }
         ),
         { img }
       );
-      if (data.football.so5.so5Lineup.so5Leaderboard) {
+      if (data.football.vicc5.vicc5Lineup.vicc5Leaderboard) {
         track('View Shared Lineup', {
-          lineup: data?.football.so5.so5Lineup.id,
-          competition: data.football.so5.so5Lineup.so5Leaderboard.displayName,
+          lineup: data?.football.vicc5.vicc5Lineup.id,
+          competition: data.football.vicc5.vicc5Lineup.vicc5Leaderboard.displayName,
         });
       }
     }
@@ -242,12 +242,12 @@ const LineupSharing = () => {
 
   if (!data) return null;
 
-  const { so5Appearances, so5Leaderboard, so5Fixture, user } =
-    data.football.so5.so5Lineup;
-  const lineup = getAppearancesByPosition(so5Appearances);
+  const { vicc5Appearances, vicc5Leaderboard, vicc5Fixture, user } =
+    data.football.vicc5.vicc5Lineup;
+  const lineup = getAppearancesByPosition(vicc5Appearances);
 
   return (
-    <Root rarity={so5Leaderboard?.rarityType} withRarityText>
+    <Root rarity={vicc5Leaderboard?.rarityType} withRarityText>
       <MultiSportAppBar color={!currentUser ? 'transparent' : undefined} />
       <Background src={`${FRONTEND_ASSET_HOST}/fields/fallback.jpg`} alt="" />
       <Lineup style={{ '--delay': '0s' } as any}>
@@ -255,11 +255,11 @@ const LineupSharing = () => {
           title={
             <HeaderWrapper>
               <Header>
-                <Logo src={so5Leaderboard?.svgLogoUrl} />
+                <Logo src={vicc5Leaderboard?.svgLogoUrl} />
                 <Date>
-                  <LineupDate fixture={so5Fixture} />
+                  <LineupDate fixture={vicc5Fixture} />
                 </Date>
-                <LeaderboardName>{so5Leaderboard?.displayName}</LeaderboardName>
+                <LeaderboardName>{vicc5Leaderboard?.displayName}</LeaderboardName>
               </Header>
               <Manager
                 to={generatePath(FOOTBALL_USER_GALLERY_OVERVIEW, {

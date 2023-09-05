@@ -5,12 +5,12 @@ import { useSnackNotificationContext } from '@core/contexts/snackNotification';
 import { formatGqlErrors } from '@core/lib/gql';
 
 import {
-  ClaimSo5ReferralRewardMutation,
-  ClaimSo5ReferralRewardMutationVariables,
+  ClaimVicc5ReferralRewardMutation,
+  ClaimVicc5ReferralRewardMutationVariables,
 } from './__generated__/useCoreClaimReferralReward.graphql';
 
 const CLAIM_REFERRAL_REWARD_MUTATION = gql`
-  mutation ClaimSo5ReferralRewardMutation($input: claimReferralRewardInput!) {
+  mutation ClaimVicc5ReferralRewardMutation($input: claimReferralRewardInput!) {
     claimReferralReward(input: $input) {
       referralReward {
         id
@@ -28,8 +28,8 @@ const CLAIM_REFERRAL_REWARD_MUTATION = gql`
     }
   }
 ` as TypedDocumentNode<
-  ClaimSo5ReferralRewardMutation,
-  ClaimSo5ReferralRewardMutationVariables
+  ClaimVicc5ReferralRewardMutation,
+  ClaimVicc5ReferralRewardMutationVariables
 >;
 
 export default () => {

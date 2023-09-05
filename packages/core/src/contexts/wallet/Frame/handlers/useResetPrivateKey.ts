@@ -19,7 +19,7 @@ const RESET_PRIVATE_KEY_MUTATION = gql`
       currentUser {
         id
         slug
-        sorarePrivateKey {
+        viccPrivateKey {
           iv
           salt
           encryptedPrivateKey

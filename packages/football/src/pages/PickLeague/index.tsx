@@ -103,12 +103,12 @@ const LeagueTileWrapper = styled.div`
 const GET_ONBOARDING_DRAFT_CAMPAIGNS_QUERY = gql`
   query GetOnboardingDraftCampaignsQuery {
     football {
-      so5 {
+      vicc5 {
         onboardingCompetitions {
           slug
           commonDraftCampaign {
             slug
-            upcomingSo5Leaderboard {
+            upcomingVicc5Leaderboard {
               slug
             }
             ...LeagueTile_commonDraftCampaign
@@ -161,7 +161,7 @@ export const PickLeague = ({ preloads, allowClosing }: Props) => {
     }
   };
 
-  const { onboardingCompetitions } = data?.football.so5 || {};
+  const { onboardingCompetitions } = data?.football.vicc5 || {};
 
   const shouldSkipOnboarding =
     useDisableFootballOnboarding ||
@@ -193,7 +193,7 @@ export const PickLeague = ({ preloads, allowClosing }: Props) => {
   )?.commonDraftCampaign;
 
   const hasMatchingDraftCampaignFromQuery =
-    !!matchingDraftCampaign?.upcomingSo5Leaderboard?.slug;
+    !!matchingDraftCampaign?.upcomingVicc5Leaderboard?.slug;
 
   return (
     <Root>
@@ -234,7 +234,7 @@ export const PickLeague = ({ preloads, allowClosing }: Props) => {
                   trackLeagueSelection(matchingDraftCampaign.slug, true);
                 }}
                 to={generatePathWithSearch(FOOTBALL_DRAFT, {
-                  slug: matchingDraftCampaign.upcomingSo5Leaderboard?.slug,
+                  slug: matchingDraftCampaign.upcomingVicc5Leaderboard?.slug,
                 })}
               />
             </LeagueTileWrapper>

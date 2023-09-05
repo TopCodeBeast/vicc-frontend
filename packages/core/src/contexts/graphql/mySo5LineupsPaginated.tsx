@@ -4,22 +4,22 @@ import { relayStylePagination } from '@apollo/client/utilities';
 import { mergeDeep } from '@apollo/client/utilities/common/mergeDeep';
 import { Reference } from '@apollo/client/utilities/graphql/storeUtils';
 
-import { So5LineupConnection, So5LineupEdge } from '__generated__/globalTypes';
+import { Vicc5LineupConnection, Vicc5LineupEdge } from '__generated__/globalTypes';
 
 // Cached data has an extra __ref property that allows links between elements of the cache. They are unique identifiers in the cache
-type CachedSo5LineupEdge = So5LineupEdge & { node: Reference };
-type CachedSo5LineupConnection = So5LineupConnection & {
-  edges: CachedSo5LineupEdge[];
+type CachedVicc5LineupEdge = Vicc5LineupEdge & { node: Reference };
+type CachedVicc5LineupConnection = Vicc5LineupConnection & {
+  edges: CachedVicc5LineupEdge[];
 };
 
-const getExtras = (obj: SafeReadonly<CachedSo5LineupConnection>) => {
+const getExtras = (obj: SafeReadonly<CachedVicc5LineupConnection>) => {
   const { edges, pageInfo, ...rest } = obj;
   return rest;
 };
 
-function makeEmptyData(): SafeReadonly<CachedSo5LineupConnection> {
+function makeEmptyData(): SafeReadonly<CachedVicc5LineupConnection> {
   return {
-    __typename: 'So5LineupConnection',
+    __typename: 'Vicc5LineupConnection',
     nodes: [],
     edges: [],
     totalCount: 0,
@@ -34,13 +34,13 @@ function makeEmptyData(): SafeReadonly<CachedSo5LineupConnection> {
 }
 
 export default {
-  ...relayStylePagination(['withTraining', 'so5LeaderboardSlug', 'draft']),
+  ...relayStylePagination(['withTraining', 'vicc5LeaderboardSlug', 'draft']),
 
   // Override relayStylePagination merge function
   // Adapted from node_modules/@apollo/client/utilities/policies/pagination.js
   merge(
-    exi: SafeReadonly<CachedSo5LineupConnection>,
-    inc: SafeReadonly<CachedSo5LineupConnection>,
+    exi: SafeReadonly<CachedVicc5LineupConnection>,
+    inc: SafeReadonly<CachedVicc5LineupConnection>,
     { args, isReference, readField }: FieldFunctionOptions
   ) {
     const existing = !exi ? makeEmptyData() : exi;
@@ -51,8 +51,8 @@ export default {
     }
 
     let incomingEdges = incoming.edges
-      ? incoming.edges.map((s5Edge: CachedSo5LineupEdge) => {
-          const edge: CachedSo5LineupEdge = { ...s5Edge };
+      ? incoming.edges.map((s5Edge: CachedVicc5LineupEdge) => {
+          const edge: CachedVicc5LineupEdge = { ...s5Edge };
           if (isReference(edge)) {
             edge.cursor = readField('cursor', edge) || '';
           }
@@ -88,8 +88,8 @@ export default {
       }
     }
 
-    let prefix: CachedSo5LineupEdge[] = existing.edges;
-    let suffix: CachedSo5LineupEdge[] = [];
+    let prefix: CachedVicc5LineupEdge[] = existing.edges;
+    let suffix: CachedVicc5LineupEdge[] = [];
     // Prepare existing data if incoming needs to be injected in the middle of existing
     if (args?.after) {
       const index = prefix.findIndex(edge => edge.cursor === args.after);
@@ -113,7 +113,7 @@ export default {
           return acc;
         }, {} as { [key: string]: number });
 
-        incomingEdges.forEach((it: CachedSo5LineupEdge) => {
+        incomingEdges.forEach((it: CachedVicc5LineupEdge) => {
           // eslint-disable-next-line no-underscore-dangle
           const idx = prefixIds[it?.node?.__ref];
           if (idx >= 0) {

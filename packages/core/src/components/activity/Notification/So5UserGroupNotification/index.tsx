@@ -12,18 +12,18 @@ import { useCurrentUserContext } from '@core/contexts/currentUser';
 
 import { commonNotificationInterfaceFragment } from '../fragments';
 import { CommonNotificationProps } from '../types';
-import { So5UserGroupNotification_so5UserGroupNotification } from './__generated__/index.graphql';
+import { Vicc5UserGroupNotification_vicc5UserGroupNotification } from './__generated__/index.graphql';
 
 type Props = CommonNotificationProps & {
-  notification: So5UserGroupNotification_so5UserGroupNotification;
+  notification: Vicc5UserGroupNotification_vicc5UserGroupNotification;
 };
 
-export const So5UserGroupNotification = ({ notification, ...rest }: Props) => {
+export const Vicc5UserGroupNotification = ({ notification, ...rest }: Props) => {
   const { currentUser } = useCurrentUserContext();
 
   const {
     createdAt,
-    so5UserGroup,
+    vicc5UserGroup,
     membership,
     otherMembershipsCount,
     sport,
@@ -31,7 +31,7 @@ export const So5UserGroupNotification = ({ notification, ...rest }: Props) => {
   } = notification;
 
   const link = generatePath(FOOTBALL_PRIVATE_LEAGUES_DETAILS, {
-    slug: so5UserGroup.slug,
+    slug: vicc5UserGroup.slug,
     tab: PrivateLeaguesTab.MEMBERS,
   });
 
@@ -39,12 +39,12 @@ export const So5UserGroupNotification = ({ notification, ...rest }: Props) => {
     <DumbNotification
       title={
         <FormattedMessage
-          id="Activity.Notifications.so5UserGroupJoined"
+          id="Activity.Notifications.vicc5UserGroupJoined"
           defaultMessage="<b>{nickname}{otherMembershipsCount, plural, =0 {} one { and 1 other} other { and {otherMembershipsCount} others}}</b> joined your private league <b>{displayName}</b>"
           values={{
             b: Bold,
             nickname: membership?.user.nickname,
-            displayName: so5UserGroup.displayName,
+            displayName: vicc5UserGroup.displayName,
             otherMembershipsCount,
           }}
         />
@@ -59,11 +59,11 @@ export const So5UserGroupNotification = ({ notification, ...rest }: Props) => {
   );
 };
 
-So5UserGroupNotification.fragments = {
-  so5UserGroupNotification: gql`
-    fragment So5UserGroupNotification_so5UserGroupNotification on So5UserGroupNotification {
+Vicc5UserGroupNotification.fragments = {
+  vicc5UserGroupNotification: gql`
+    fragment Vicc5UserGroupNotification_vicc5UserGroupNotification on Vicc5UserGroupNotification {
       ...Notification_notificationInterface
-      so5UserGroup {
+      vicc5UserGroup {
         id
         slug
         displayName
@@ -78,5 +78,5 @@ So5UserGroupNotification.fragments = {
       otherMembershipsCount
     }
     ${commonNotificationInterfaceFragment}
-  ` as TypedDocumentNode<So5UserGroupNotification_so5UserGroupNotification>,
+  ` as TypedDocumentNode<Vicc5UserGroupNotification_vicc5UserGroupNotification>,
 };

@@ -141,7 +141,7 @@ MakeOffer.fragments = {
         user {
           slug
           id
-          sorareAddress
+          viccAddress
           nickname
           ...NewOfferBuilder_publicUserInfoInterface
         }

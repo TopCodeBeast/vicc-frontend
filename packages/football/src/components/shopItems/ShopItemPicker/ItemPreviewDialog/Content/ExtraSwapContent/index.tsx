@@ -63,7 +63,7 @@ export const ExtraSwapContent = ({
     return null;
   }
 
-  const leaderboard = item.so5Leaderboard;
+  const leaderboard = item.vicc5Leaderboard;
   const status = leaderboard?.commonDraftCampaign?.status;
   const isDraftable = status === CommonDraftCampaignStatus.OPEN;
   const isRedraftable = status === CommonDraftCampaignStatus.REDRAFTABLE;
@@ -139,7 +139,7 @@ export const ExtraSwapContent = ({
                   () =>
                     navigate(
                       generatePath(FOOTBALL_LOBBY_UPCOMING_SWAP, {
-                        leaderboardSlug: item.so5Leaderboard?.slug,
+                        leaderboardSlug: item.vicc5Leaderboard?.slug,
                       }),
                       { state: { backgroundState: location } }
                     ),
@@ -175,7 +175,7 @@ ExtraSwapContent.fragments = {
       }
       ... on ExtraSwapShopItem {
         id
-        so5Leaderboard {
+        vicc5Leaderboard {
           slug
           commonDraftCampaign {
             slug

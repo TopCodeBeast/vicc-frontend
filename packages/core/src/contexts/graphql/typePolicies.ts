@@ -7,7 +7,7 @@ import {
 
 import { mergeArrayOfUnnormalizedObjects, replaceByIncoming } from '@core/lib/gql';
 
-import mySo5LineupsPaginated from './mySo5LineupsPaginated';
+import myVicc5LineupsPaginated from './mySo5LineupsPaginated';
 
 type CardForComposeLineup = {
   nodes: { card: { __ref: any } }[];
@@ -320,7 +320,7 @@ export const typePolicies: TypePolicies = {
       unclaimedActionRewards: {
         merge: replaceByIncoming,
       },
-      unclaimedSo5Rewards: {
+      unclaimedVicc5Rewards: {
         merge: replaceByIncoming,
       },
       userSettings: {
@@ -573,10 +573,10 @@ export const typePolicies: TypePolicies = {
   Season: {
     keyFields: ['startYear'],
   },
-  So5Fixture: {
-    fields: { mySo5LineupsPaginated },
+  Vicc5Fixture: {
+    fields: { myVicc5LineupsPaginated },
   },
-  So5Leaderboard: {
+  Vicc5Leaderboard: {
     fields: {
       canCompose: {
         merge(existing, incoming, { mergeObjects }) {
@@ -590,14 +590,14 @@ export const typePolicies: TypePolicies = {
       },
     },
   },
-  So5Ranking: {
+  Vicc5Ranking: {
     fields: {
       eligibleRewards: {
         merge: mergeArrayOfUnnormalizedObjects,
       },
     },
   },
-  So5Root: {
+  Vicc5Root: {
     merge: true,
   },
   TeamInterface: {

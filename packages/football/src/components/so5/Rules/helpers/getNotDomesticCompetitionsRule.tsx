@@ -63,7 +63,7 @@ const getNotDomesticCompetitionsRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetNotDomesticCompetitionsRule on So5Leaderboard {
+      fragment GetNotDomesticCompetitionsRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

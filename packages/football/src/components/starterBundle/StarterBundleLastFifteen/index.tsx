@@ -35,7 +35,7 @@ type Props = {
 
 export const StarterBundleLastFifteen = ({ cards }: Props) => {
   const lastFifteen = cards.reduce<number>((acc, c) => {
-    return acc + (c.player?.lastFifteenSo5AverageScore || 0);
+    return acc + (c.player?.lastFifteenVicc5AverageScore || 0);
   }, 0);
 
   const thresold = findStarterThreshold(lastFifteen);
@@ -62,8 +62,8 @@ StarterBundleLastFifteen.fragments = {
       assetId
       player {
         slug
-        lastFifteenSo5AverageScore: averageScore(
-          type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
+        lastFifteenVicc5AverageScore: averageScore(
+          type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
         )
       }
     }

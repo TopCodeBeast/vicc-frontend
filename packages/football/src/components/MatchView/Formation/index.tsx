@@ -68,7 +68,7 @@ const Formation = forwardRef<HTMLDivElement, FormationProps>(function Formation(
         <PlayerLine key={i} className={classnames({ desktop })}>
           {formationRow.map(
             player =>
-              player.so5Score && (
+              player.vicc5Score && (
                 <PlayerWrapper key={player.slug}>
                   <button
                     type="button"

@@ -11,7 +11,7 @@ export const CURRENT_USER_PURCHASES = gql`
   query CurrentUserPurchasesQuery {
     currentUser {
       slug
-      wonTokenAuctions(first: 1, sport: FOOTBALL) {
+      wonTokenAuctions(first: 1, sport: CRICKET) {
         totalCount
       }
       boughtSingleSaleTokenOffers(first: 1) {

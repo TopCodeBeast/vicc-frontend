@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { So5State } from '@sorare/core/src/__generated__/globalTypes';
+import { Vicc5State } from '@sorare/core/src/__generated__/globalTypes';
 import { Container } from '@sorare/core/src/atoms/container';
 import { Flag } from '@sorare/core/src/atoms/icons/Flag';
 import { Jersey } from '@sorare/core/src/atoms/icons/Jersey';
@@ -44,24 +44,24 @@ const TeamsRoutes = styled.div`
 const LOBBY_LIVE_INDEX_QUERY = gql`
   query LobbyLiveIndexQuery {
     football {
-      so5 {
-        so5Fixture(type: LIVE) {
+      vicc5 {
+        vicc5Fixture(type: LIVE) {
           slug
-          totalLineups: mySo5LineupsCount(draft: false)
-          ...Lobby_Layout_so5Fixture
-          ...ComposeTeamReminderBanner_so5Fixture
-          ...Teams_so5Fixture
+          totalLineups: myVicc5LineupsCount(draft: false)
+          ...Lobby_Layout_vicc5Fixture
+          ...ComposeTeamReminderBanner_vicc5Fixture
+          ...Teams_vicc5Fixture
         }
-        so5FixtureUpcoming: so5Fixture(type: UPCOMING) {
+        vicc5FixtureUpcoming: vicc5Fixture(type: UPCOMING) {
           slug
-          ...ComposeTeamReminderBanner_so5Fixture
+          ...ComposeTeamReminderBanner_vicc5Fixture
         }
       }
     }
   }
-  ${Teams.fragments.so5Fixture}
-  ${Layout.fragments.so5Fixture}
-  ${ComposeTeamReminderBanner.fragments.so5Fixture}
+  ${Teams.fragments.vicc5Fixture}
+  ${Layout.fragments.vicc5Fixture}
+  ${ComposeTeamReminderBanner.fragments.vicc5Fixture}
 ` as TypedDocumentNode<LobbyLiveIndexQuery, LobbyLiveIndexQueryVariables>;
 
 const messages = defineMessages({
@@ -106,26 +106,26 @@ export const LobbyLiveIndex = () => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const so5Fixture = data?.football.so5.so5Fixture || undefined;
+  const vicc5Fixture = data?.football.vicc5.vicc5Fixture || undefined;
 
   return (
-    <Layout so5Fixture={so5Fixture}>
+    <Layout vicc5Fixture={vicc5Fixture}>
       <Container>
         <ComposeTeamReminderBanner
-          so5Fixture={data?.football.so5.so5FixtureUpcoming}
+          vicc5Fixture={data?.football.vicc5.vicc5FixtureUpcoming}
         />
-        {!so5Fixture && loading && (
+        {!vicc5Fixture && loading && (
           <Loading>
             <LoadingIndicator />
           </Loading>
         )}
-        {!so5Fixture && !loading && (
+        {!vicc5Fixture && !loading && (
           <Empty
             title={formatMessage(messages.emptyTitle)}
             description={formatMessage(messages.emptyDescription)}
           />
         )}
-        {so5Fixture && (
+        {vicc5Fixture && (
           <LiveContent>
             <StyledSecondaryTabs
               noBorder
@@ -134,7 +134,7 @@ export const LobbyLiveIndex = () => {
                   to: goToLobby('live', LOBBY_TABS.MY_TEAMS),
                   label: formatMessage(messages.myTeams),
                   icon: <Jersey />,
-                  badge: so5Fixture?.totalLineups,
+                  badge: vicc5Fixture?.totalLineups,
                 },
                 {
                   to: goToLobby('live', LOBBY_TABS.MY_PLAYERS),
@@ -154,11 +154,11 @@ export const LobbyLiveIndex = () => {
               <Routes location={bgLocation}>
                 <Route
                   path={LOBBY_TABS.MY_PLAYERS}
-                  element={<MyPlayers type={So5State.LIVE} />}
+                  element={<MyPlayers type={Vicc5State.LIVE} />}
                 />
                 <Route
                   path={`${LOBBY_TABS.LEADERBOARD}/*`}
-                  element={<LeaderboardPicker type={So5State.LIVE} />}
+                  element={<LeaderboardPicker type={Vicc5State.LIVE} />}
                 >
                   {/** render null as it's only for routing redirection */}
                   <Route path=":leaderboardSlug" element={null} />
@@ -168,11 +168,11 @@ export const LobbyLiveIndex = () => {
                   element={
                     <Teams
                       queryVariables={{
-                        type: So5State.LIVE,
+                        type: Vicc5State.LIVE,
                         slug: null,
                         draft: false,
                       }}
-                      so5Fixture={so5Fixture}
+                      vicc5Fixture={vicc5Fixture}
                     />
                   }
                 />

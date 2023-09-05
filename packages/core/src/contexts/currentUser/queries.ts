@@ -37,7 +37,7 @@ export const onboardingStatus = gql`
 const sportProfile = gql`
   fragment CurrentUseProvider_sportProfile on CurrentUser {
     slug
-    footballProfile {
+    cricketProfile {
       id
       onboarded
     }
@@ -82,7 +82,7 @@ export const ethereumAccounts = gql`
     slug
     accounts {
       id
-      sorareManaged
+      viccManaged
       accountable {
         ... on EthereumAccount {
           address
@@ -153,7 +153,7 @@ export const currentUser = gql`
     referrals {
       totalCount
     }
-    footballReferralsCompleted: referrals(sport: FOOTBALL, state: COMPLETED) {
+    footballReferralsCompleted: referrals(sport: CRICKET, state: COMPLETED) {
       totalCount
     }
     nbaReferralsCompleted: referrals(sport: NBA, state: COMPLETED) {
@@ -163,13 +163,13 @@ export const currentUser = gql`
       totalCount
     }
     referralUrl
-    sorarePrivateKey {
+    viccPrivateKey {
       iv
       salt
       encryptedPrivateKey
     }
-    sorarePrivateKeyRecovery
-    sorareAddress
+    viccPrivateKeyRecovery
+    viccAddress
     starkKey
     bankMappedEthereumAddress
     depositedEth
@@ -228,10 +228,10 @@ export const currentUser = gql`
     unclaimedActionRewards {
       id
     }
-    unclaimedSo5Rewards {
+    unclaimedVicc5Rewards {
       slug
       coinAmount
-      so5Fixture {
+      vicc5Fixture {
         slug
         endDate
       }
@@ -250,7 +250,7 @@ export const currentUser = gql`
       provider
     }
     noCardRouteEnabled
-    so5NoCardRouteOpened
+    vicc5NoCardRouteOpened
     blockchainCardsInLineups
     ...CurrentUserProvider_conversionCredit
     ...CurrentUserProvider_onboardingStatus
@@ -328,7 +328,7 @@ export const subscription = gql`
         id
         aasmState
         footballCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
-          sport: FOOTBALL
+          sport: CRICKET
         )
         nbaCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
           sport: NBA

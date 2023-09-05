@@ -23,7 +23,7 @@ export const ConfirmButton = () => {
     needCaptain,
     submitting,
     submit,
-    so5Leaderboard,
+    vicc5Leaderboard,
   } = useContext(Context)!;
   const track = useFootballEvents();
   const [openConfirmWarningDialog, setOpenConfirmWarningDialog] =
@@ -34,7 +34,7 @@ export const ConfirmButton = () => {
 
   const onClick = () => {
     track('Click Confirm Lineup', {
-      campaignSlug: so5Leaderboard.commonDraftCampaign?.slug,
+      campaignSlug: vicc5Leaderboard.commonDraftCampaign?.slug,
       isLogged: true,
       hasWarnings,
     });
@@ -54,7 +54,7 @@ export const ConfirmButton = () => {
         onContinue={() => {
           submit();
           track('Click Confirm Lineup After Warning', {
-            campaignSlug: so5Leaderboard.commonDraftCampaign?.slug,
+            campaignSlug: vicc5Leaderboard.commonDraftCampaign?.slug,
           });
         }}
         onCancel={() => setOpenConfirmWarningDialog(false)}
@@ -67,7 +67,7 @@ export const ConfirmButton = () => {
         fullWidth
       >
         <FormattedMessage
-          id="So5DesktopComposeLineup.confirm"
+          id="Vicc5DesktopComposeLineup.confirm"
           defaultMessage="Confirm {check}"
           values={{
             check: disabled ? <div /> : <CheckIcon />,

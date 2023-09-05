@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import Form from '@football/pages/NoCardEntry/Form';
 
-import useCancelSo5NoCardLineup from './useCancelSo5NoCardLineup';
+import useCancelVicc5NoCardLineup from './useCancelSo5NoCardLineup';
 
 const messages = defineMessages({
   title: {
@@ -13,12 +13,12 @@ const messages = defineMessages({
 });
 
 const NoCardEntryCancel = () => {
-  const { so5LineupId } = useParams();
-  const cancelLineup = useCancelSo5NoCardLineup();
+  const { vicc5LineupId } = useParams();
+  const cancelLineup = useCancelVicc5NoCardLineup();
 
   const mutate = async () => {
     const { errors } = await cancelLineup({
-      so5NoCardLineupId: `So5NoCardLineup:${so5LineupId}`,
+      vicc5NoCardLineupId: `Vicc5NoCardLineup:${vicc5LineupId}`,
     });
     return errors.length === 0;
   };

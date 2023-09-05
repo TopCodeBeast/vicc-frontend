@@ -59,7 +59,7 @@ const SuggestionCard = ({ card }: Props) => {
       })}
       onClick={() => {
         if (card.assetId) {
-          trackClickCard(card.assetId, Sport.FOOTBALL);
+          trackClickCard(card.assetId, Sport.CRICKET);
         }
       }}
     >

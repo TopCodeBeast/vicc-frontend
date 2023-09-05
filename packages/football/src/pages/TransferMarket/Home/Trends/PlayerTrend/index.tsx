@@ -55,7 +55,7 @@ export const PlayerTrend = ({ player, timeframe }: Props) => {
     <Trend
       to={generateSportPath(LEGACY_PLAYER_SHOW, {
         params: { slug: player.slug },
-        sport: Sport.FOOTBALL,
+        sport: Sport.CRICKET,
       })}
       onClick={() =>
         track('Click Market Trend', {

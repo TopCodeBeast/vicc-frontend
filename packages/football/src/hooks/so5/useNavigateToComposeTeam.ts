@@ -27,8 +27,8 @@ const useNavigateToComposeTeam = () => {
     }) => {
       navigateWithDeepLink(
         getComposeTeamRoute({
-          so5LeaderboardSlug: leaderboardSlug,
-          so5LineupId: idFromObject(lineupId),
+          vicc5LeaderboardSlug: leaderboardSlug,
+          vicc5LineupId: idFromObject(lineupId),
         }),
         options
       );

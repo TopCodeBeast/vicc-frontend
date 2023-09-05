@@ -3,22 +3,22 @@ import { useMemo } from 'react';
 
 import {
   CommonDraftCampaignStatus,
-  So5LeaderboardType,
+  Vicc5LeaderboardType,
 } from '@sorare/core/src/__generated__/globalTypes';
 import { groupBy } from '@sorare/core/src/lib/arrays';
 
 import { Discover } from '@football/pages/Home/Overview/Discover';
 
 import { UpcomingFixture } from './UpcomingFixture';
-import { UpcomingFixtures_so5 } from './__generated__/index.graphql';
+import { UpcomingFixtures_vicc5 } from './__generated__/index.graphql';
 
 type Props = {
-  so5: Nullable<UpcomingFixtures_so5>;
+  vicc5: Nullable<UpcomingFixtures_vicc5>;
   loading: boolean;
 };
 
 type UpcomingFixtures_leaderboard =
-  UpcomingFixtures_so5['upcomingLeaderboards'][number];
+  UpcomingFixtures_vicc5['upcomingLeaderboards'][number];
 
 const filterCanCompose = (l: UpcomingFixtures_leaderboard) => {
   return (
@@ -28,7 +28,7 @@ const filterCanCompose = (l: UpcomingFixtures_leaderboard) => {
 };
 
 const filterTraining = (l: UpcomingFixtures_leaderboard) => {
-  return l.so5LeaderboardType !== So5LeaderboardType.SPECIAL_TRAINING_CENTER;
+  return l.vicc5LeaderboardType !== Vicc5LeaderboardType.SPECIAL_TRAINING_CENTER;
 };
 
 const filterTooManyCards = (l: UpcomingFixtures_leaderboard) => {
@@ -39,8 +39,8 @@ const filterTooManyCards = (l: UpcomingFixtures_leaderboard) => {
   );
 };
 
-export const UpcomingFixtures = ({ so5, loading }: Props) => {
-  const leaderboards = so5?.upcomingLeaderboards;
+export const UpcomingFixtures = ({ vicc5, loading }: Props) => {
+  const leaderboards = vicc5?.upcomingLeaderboards;
 
   const eligibleLeaderboards = useMemo(
     () => leaderboards?.filter(l => filterTraining(l) && filterCanCompose(l)),
@@ -96,7 +96,7 @@ export const UpcomingFixtures = ({ so5, loading }: Props) => {
         return (
           <UpcomingFixture
             key={gameWeek}
-            so5Leaderboards={leaderboardsList}
+            vicc5Leaderboards={leaderboardsList}
             loading={loading}
             index={index}
             isLast={index === leaderboardsToDisplay.length - 1}
@@ -116,19 +116,19 @@ export const UpcomingFixtures = ({ so5, loading }: Props) => {
 };
 
 UpcomingFixtures.fragments = {
-  so5: gql`
-    fragment UpcomingFixtures_so5 on So5Root {
+  vicc5: gql`
+    fragment UpcomingFixtures_vicc5 on Vicc5Root {
       upcomingLeaderboards {
         slug
         gameWeek
-        so5LeaderboardType
+        vicc5LeaderboardType
         commonDraftCampaign {
           slug
           status
         }
-        ...UpcomingFixture_so5Leaderboard
+        ...UpcomingFixture_vicc5Leaderboard
       }
     }
-    ${UpcomingFixture.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<UpcomingFixtures_so5>,
+    ${UpcomingFixture.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<UpcomingFixtures_vicc5>,
 };

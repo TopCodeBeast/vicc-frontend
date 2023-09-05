@@ -125,7 +125,7 @@ const Root = styled.iframe`
  */
 export const Frame = () => {
   const { registerHandler } = useMessagingContext();
-  const { sorareEncryptionKey } = useConfigContext();
+  const { viccEncryptionKey } = useConfigContext();
   const { currentUser } = useCurrentUserContext();
   const iFrame = useRef<HTMLIFrameElement | null>(null);
   const [frameStyle, setFrameStyle] = useState<FrameStyle>(defaultStyle);
@@ -170,8 +170,8 @@ export const Frame = () => {
   useEffect(
     () =>
       registerHandler<Keys>('keys', async () => {
-        if (!currentUser) return { result: { sorareEncryptionKey } };
-        const { sorarePrivateKey, otpRequiredForLogin } = currentUser;
+        if (!currentUser) return { result: { viccEncryptionKey } };
+        const { viccPrivateKey, otpRequiredForLogin } = currentUser;
         if (use2FA && otpRequiredForLogin) {
           const result = await fetchEncryptedPrivateKey({
             variables: { input: {} },
@@ -184,23 +184,23 @@ export const Frame = () => {
             return {
               result: {
                 userPrivateKey: undefined,
-                sorareEncryptionKey,
+                viccEncryptionKey,
               },
               error: 'invalid-otp',
             };
           return {
             result: {
               userPrivateKey:
-                result.data?.fetchEncryptedPrivateKey?.sorarePrivateKey ||
+                result.data?.fetchEncryptedPrivateKey?.viccPrivateKey ||
                 undefined,
-              sorareEncryptionKey,
+              viccEncryptionKey,
             },
           };
         }
         return {
           result: {
-            userPrivateKey: sorarePrivateKey || undefined,
-            sorareEncryptionKey,
+            userPrivateKey: viccPrivateKey || undefined,
+            viccEncryptionKey,
           },
         };
       }),
@@ -209,7 +209,7 @@ export const Frame = () => {
       use2FA,
       registerHandler,
       fetchEncryptedPrivateKey,
-      sorareEncryptionKey,
+      viccEncryptionKey,
     ]
   );
 

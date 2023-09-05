@@ -23,7 +23,7 @@ export interface IntlContext extends IntlShape {
     displayOptions?: DisplayOptions
   ) => string;
   formatCardBonus: (value: number) => string;
-  formatFixtureDate: (so5Fixture: {
+  formatFixtureDate: (vicc5Fixture: {
     startDate: ISO8601DateTime;
     endDate: ISO8601DateTime;
   }) => string;

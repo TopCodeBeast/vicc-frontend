@@ -12,10 +12,10 @@ import { GameEventStatus } from '@football/lib/so5';
 import { StatusRow, StatusRowProps } from './StatusRow';
 import { TeamRow } from './TeamRow';
 import {
-  So5Game_game as So5Game,
-  So5Game_competitionName,
-  So5Game_gameWeek,
-  So5Game_teamCountry,
+  Vicc5Game_game as Vicc5Game,
+  Vicc5Game_competitionName,
+  Vicc5Game_gameWeek,
+  Vicc5Game_teamCountry,
 } from './__generated__/index.graphql';
 
 const MatchViewButon = styled.button`
@@ -23,15 +23,15 @@ const MatchViewButon = styled.button`
   width: 100%;
 `;
 
-type MinimalGame = Pick<So5Game, 'date' | 'homeTeam' | 'awayTeam' | 'status'>;
+type MinimalGame = Pick<Vicc5Game, 'date' | 'homeTeam' | 'awayTeam' | 'status'>;
 type WithTeamCountry = {
   homeTeam?: { country?: { slug: string } } | null;
   awayTeam?: { country?: { slug: string } } | null;
 };
-type WithShortDisplayName = { so5Fixture: { shortDisplayName: string } | null };
+type WithShortDisplayName = { vicc5Fixture: { shortDisplayName: string } | null };
 type WithCompetition = { competition: { displayName: string } | null };
 type GameType = MinimalGame &
-  Partial<So5Game> &
+  Partial<Vicc5Game> &
   Partial<WithTeamCountry> &
   Partial<WithShortDisplayName> &
   Partial<WithCompetition>;
@@ -85,7 +85,7 @@ export const Game = ({
       StatusRow={
         <StatusRow
           date={date}
-          so5Fixture={game.so5Fixture}
+          vicc5Fixture={game.vicc5Fixture}
           competitionName={game.competition?.displayName}
           status={status as GameEventStatus}
           minute={minute}
@@ -145,7 +145,7 @@ export const Game = ({
 
 Game.fragments = {
   game: gql`
-    fragment So5Game_game on Game {
+    fragment Vicc5Game_game on Game {
       id
       date
       minute
@@ -176,25 +176,25 @@ Game.fragments = {
       penaltyScoreHome
       penaltyScoreAway
     }
-  ` as TypedDocumentNode<So5Game>,
+  ` as TypedDocumentNode<Vicc5Game>,
   gameWeek: gql`
-    fragment So5Game_gameWeek on Game {
-      so5Fixture {
+    fragment Vicc5Game_gameWeek on Game {
+      vicc5Fixture {
         slug
         shortDisplayName
       }
     }
-  ` as TypedDocumentNode<So5Game_gameWeek>,
+  ` as TypedDocumentNode<Vicc5Game_gameWeek>,
   competitionName: gql`
-    fragment So5Game_competitionName on Game {
+    fragment Vicc5Game_competitionName on Game {
       competition {
         slug
         displayName
       }
     }
-  ` as TypedDocumentNode<So5Game_competitionName>,
+  ` as TypedDocumentNode<Vicc5Game_competitionName>,
   teamCountry: gql`
-    fragment So5Game_teamCountry on Game {
+    fragment Vicc5Game_teamCountry on Game {
       awayTeam {
         ... on TeamInterface {
           slug
@@ -212,5 +212,5 @@ Game.fragments = {
         }
       }
     }
-  ` as TypedDocumentNode<So5Game_teamCountry>,
+  ` as TypedDocumentNode<Vicc5Game_teamCountry>,
 };

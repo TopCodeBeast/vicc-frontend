@@ -14,7 +14,7 @@ import {
   RewardRow,
 } from '@football/pages/Lobby/CompetitionDetails/Rewards/RewardRow';
 
-import { CardReward_so5RewardCardConfig } from './__generated__/index.graphql';
+import { CardReward_vicc5RewardCardConfig } from './__generated__/index.graphql';
 
 const CardDetails = styled(Text16)`
   display: flex;
@@ -34,7 +34,7 @@ const CardQuality = styled.span`
 `;
 
 type Props = {
-  card: CardReward_so5RewardCardConfig;
+  card: CardReward_vicc5RewardCardConfig;
   slug: string;
 };
 const CardReward = ({ card, slug }: Props) => {
@@ -45,7 +45,7 @@ const CardReward = ({ card, slug }: Props) => {
   const link = useMemo(() => {
     if (card.quality) {
       return generatePath(REWARDS, {
-        so5LeagueSlug: slug,
+        vicc5LeagueSlug: slug,
         rarity: card.rarity,
         quality: card.quality.toLowerCase(),
       });
@@ -78,14 +78,14 @@ const CardReward = ({ card, slug }: Props) => {
 };
 
 CardReward.fragments = {
-  So5RewardCardConfig: gql`
-    fragment CardReward_so5RewardCardConfig on So5RewardCardConfig {
+  Vicc5RewardCardConfig: gql`
+    fragment CardReward_vicc5RewardCardConfig on Vicc5RewardCardConfig {
       quantity
       quality
       rarity
       displayEdition
     }
-  ` as TypedDocumentNode<CardReward_so5RewardCardConfig>,
+  ` as TypedDocumentNode<CardReward_vicc5RewardCardConfig>,
 };
 
 export default CardReward;

@@ -26,7 +26,7 @@ const getSerialNumberRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetSerialNumberRule on So5Leaderboard {
+      fragment GetSerialNumberRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

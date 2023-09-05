@@ -24,7 +24,7 @@ export const CardSearch = (
   return isBlockchain ? (
     <AdvancedBlockchainCardSearch
       CardResultsComponent={CardResultsFromGraphQL}
-      sport={Sport.FOOTBALL}
+      sport={Sport.CRICKET}
       distinct={distinct}
       editableLists={editableLists}
       {...rest}
@@ -32,7 +32,7 @@ export const CardSearch = (
   ) : (
     <AdvancedCardSearch
       CardResultsComponent={CardResultsFromGraphQL}
-      sport={Sport.FOOTBALL}
+      sport={Sport.CRICKET}
       distinct={distinct}
       editableLists={editableLists}
       {...rest}

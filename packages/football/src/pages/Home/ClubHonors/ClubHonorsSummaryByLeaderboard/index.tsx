@@ -2,7 +2,7 @@ import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import styled from 'styled-components';
 
-import { So5Tournament } from '@sorare/core/src/__generated__/globalTypes';
+import { Vicc5Tournament } from '@sorare/core/src/__generated__/globalTypes';
 import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import CardRewards from '@football/pages/Home/ClubHonors/CardRewards';
@@ -65,9 +65,9 @@ const RewardsWrapper = styled.div`
 
 type Props = {
   leaderboards: ClubHonorsSummaryByLeaderboard_user['trophies'];
-  selectedLeaderboard: So5Tournament | null;
+  selectedLeaderboard: Vicc5Tournament | null;
   onSelectLeaderboard: React.Dispatch<
-    React.SetStateAction<So5Tournament | null>
+    React.SetStateAction<Vicc5Tournament | null>
   >;
 };
 const ClubHonorsSummaryByLeaderboard = ({
@@ -75,17 +75,17 @@ const ClubHonorsSummaryByLeaderboard = ({
   selectedLeaderboard,
   onSelectLeaderboard,
 }: Props) => {
-  const { so5LeaderboardType } = selectedLeaderboard || {};
+  const { vicc5LeaderboardType } = selectedLeaderboard || {};
 
   if (!leaderboards) {
     return null;
   }
 
-  const onClick = (so5Tournament: So5Tournament) => {
-    if (so5LeaderboardType === so5Tournament.so5LeaderboardType) {
+  const onClick = (vicc5Tournament: Vicc5Tournament) => {
+    if (vicc5LeaderboardType === vicc5Tournament.vicc5LeaderboardType) {
       onSelectLeaderboard(null);
     } else {
-      onSelectLeaderboard(so5Tournament);
+      onSelectLeaderboard(vicc5Tournament);
     }
   };
 
@@ -93,20 +93,20 @@ const ClubHonorsSummaryByLeaderboard = ({
     <Root>
       <LeaderboardsCollapse showMore={leaderboards.length > 5}>
         <div>
-          {leaderboards.map(({ so5TournamentType, ...cards }) => (
+          {leaderboards.map(({ vicc5TournamentType, ...cards }) => (
             <LeaderboardRewards
-              key={so5TournamentType.id}
+              key={vicc5TournamentType.id}
               className={classnames({
                 selected:
-                  so5LeaderboardType === so5TournamentType.so5LeaderboardType,
+                  vicc5LeaderboardType === vicc5TournamentType.vicc5LeaderboardType,
               })}
-              onClick={() => onClick(so5TournamentType)}
+              onClick={() => onClick(vicc5TournamentType)}
             >
               <LeaderboardLogo
-                src={so5TournamentType.svgLogoUrl}
-                alt={so5TournamentType.displayName}
+                src={vicc5TournamentType.svgLogoUrl}
+                alt={vicc5TournamentType.displayName}
               />
-              <LeaderboardName>{so5TournamentType.displayName}</LeaderboardName>
+              <LeaderboardName>{vicc5TournamentType.displayName}</LeaderboardName>
               <RewardsWrapper>
                 <CardRewards {...cards} />
               </RewardsWrapper>
@@ -123,11 +123,11 @@ ClubHonorsSummaryByLeaderboard.fragments = {
     fragment ClubHonorsSummaryByLeaderboard_user on PublicUserInfoInterface {
       slug
       trophies {
-        so5TournamentType {
+        vicc5TournamentType {
           id
           displayName
           svgLogoUrl
-          so5LeaderboardType
+          vicc5LeaderboardType
         }
         limited: cardRewards(rarity: limited)
         rare: cardRewards(rarity: rare)

@@ -65,7 +65,7 @@ export const LineupDate = ({ fixture }: Props) => {
 
 LineupDate.fragments = {
   fixture: gql`
-    fragment LineupDate_fixture on So5Fixture {
+    fragment LineupDate_fixture on Vicc5Fixture {
       slug
       id
       startDate

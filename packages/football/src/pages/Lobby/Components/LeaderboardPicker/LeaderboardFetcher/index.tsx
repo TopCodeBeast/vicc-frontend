@@ -48,33 +48,33 @@ const LOBBY_LEADERBOARDS_FETCHER_QUERY = gql`
     $page: Int!
   ) {
     football {
-      so5 {
-        so5Leaderboard(slug: $slug) {
+      vicc5 {
+        vicc5Leaderboard(slug: $slug) {
           slug
-          so5League {
+          vicc5League {
             slug
           }
-          mySo5Rankings {
+          myVicc5Rankings {
             id
-            ...Leaderboard_so5Rankings
+            ...Leaderboard_vicc5Rankings
           }
-          universalSo5UserGroups {
+          universalVicc5UserGroups {
             slug
-            ...Leaderboard_so5Memberships
+            ...Leaderboard_vicc5Memberships
           }
-          so5LineupsCount
-          so5Rankings(first: 5, onlyFollowed: $onlyFollowed) {
+          vicc5LineupsCount
+          vicc5Rankings(first: 5, onlyFollowed: $onlyFollowed) {
             nodes {
               id
-              ...Leaderboard_so5Rankings
+              ...Leaderboard_vicc5Rankings
             }
           }
         }
       }
     }
   }
-  ${LeaderboardWithLineupDetails.fragments.so5Ranking}
-  ${Leaderboard.fragments.so5Memberships}
+  ${LeaderboardWithLineupDetails.fragments.vicc5Ranking}
+  ${Leaderboard.fragments.vicc5Memberships}
 ` as TypedDocumentNode<
   LobbyLeaderboardsFetcherQuery,
   LobbyLeaderboardsFetcherQueryVariables
@@ -94,18 +94,18 @@ export const LeaderboardFetcher = ({
   });
 
   const { football } = data || {};
-  const { so5 } = football || {};
-  const { so5Leaderboard } = so5 || {};
+  const { vicc5 } = football || {};
+  const { vicc5Leaderboard } = vicc5 || {};
   const {
-    mySo5Rankings,
-    so5Rankings,
-    so5LineupsCount,
-    universalSo5UserGroups,
-  } = so5Leaderboard || {};
+    myVicc5Rankings,
+    vicc5Rankings,
+    vicc5LineupsCount,
+    universalVicc5UserGroups,
+  } = vicc5Leaderboard || {};
 
   const globalRanking =
-    universalSo5UserGroups?.[0]?.membershipsPaginated?.memberships?.slice(0, 5);
-  const myGlobalRanking = universalSo5UserGroups?.[0]?.myMembership;
+    universalVicc5UserGroups?.[0]?.membershipsPaginated?.memberships?.slice(0, 5);
+  const myGlobalRanking = universalVicc5UserGroups?.[0]?.myMembership;
 
   useEffect(() => {
     refetch();
@@ -114,10 +114,10 @@ export const LeaderboardFetcher = ({
   return (
     <Root>
       {!(
-        so5Leaderboard &&
-        mySo5Rankings &&
-        so5Rankings &&
-        typeof so5LineupsCount === 'number'
+        vicc5Leaderboard &&
+        myVicc5Rankings &&
+        vicc5Rankings &&
+        typeof vicc5LineupsCount === 'number'
       ) ? (
         <LoaderWrapper>
           <LoadingIndicator />
@@ -132,12 +132,12 @@ export const LeaderboardFetcher = ({
               />
             ) : (
               <LeaderboardWithLineupDetails
-                rankings={so5Rankings.nodes}
-                myRanking={mySo5Rankings[0]}
+                rankings={vicc5Rankings.nodes}
+                myRanking={myVicc5Rankings[0]}
                 onlyFollowed={onlyFollowed}
               />
             )}
-            {!!so5Rankings.nodes?.length && (
+            {!!vicc5Rankings.nodes?.length && (
               <ShowMoreButton
                 component={Link}
                 to={generatePath(FOOTBALL_COMPETITION_DETAILS_LEADERBOARD, {

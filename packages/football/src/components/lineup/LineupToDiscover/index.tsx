@@ -8,11 +8,11 @@ import { useConfigContext } from '@sorare/core/src/contexts/config';
 import { Lineup, Props as LineupProps } from '@football/components/lineup/Lineup';
 
 import WithLiveCardsOnSale from './WithLiveCardsOnSale';
-import { LineupToDiscover_so5Leaderboard } from './__generated__/index.graphql';
+import { LineupToDiscover_vicc5Leaderboard } from './__generated__/index.graphql';
 
 type Props = LineupProps & {
-  amateurDraftedLeaderboard?: LineupToDiscover_so5Leaderboard;
-  leaderboard: LineupToDiscover_so5Leaderboard;
+  amateurDraftedLeaderboard?: LineupToDiscover_vicc5Leaderboard;
+  leaderboard: LineupToDiscover_vicc5Leaderboard;
   onPaymentSuccess: () => void;
 };
 
@@ -20,13 +20,13 @@ const SUGGESTION_CARDS_MAX_HITS = 20;
 
 const LineupToDiscover = (props: Props) => {
   const {
-    so5: { so5LeaguesAlgoliaFilters },
+    vicc5: { vicc5LeaguesAlgoliaFilters },
   } = useConfigContext();
   const { amateurDraftedLeaderboard, onPaymentSuccess, ...otherProps } = props;
   const { leaderboard } = otherProps;
-  const correspondingLeagueFilter = Object.keys(so5LeaguesAlgoliaFilters).find(
+  const correspondingLeagueFilter = Object.keys(vicc5LeaguesAlgoliaFilters).find(
     leagueSlug =>
-      amateurDraftedLeaderboard?.so5League.displayName.includes(leagueSlug)
+      amateurDraftedLeaderboard?.vicc5League.displayName.includes(leagueSlug)
   );
 
   const lineupWithoutSuggestion = (
@@ -47,12 +47,12 @@ const LineupToDiscover = (props: Props) => {
       indexes={['Best Value']}
       defaultHitsPerPage={SUGGESTION_CARDS_MAX_HITS}
       analyticsTags={['LineupToDiscover']}
-      sport={Sport.FOOTBALL}
+      sport={Sport.CRICKET}
       defaultFilters={[
         'sale.primary:false',
         'rarity:limited',
         'NOT position:Goalkeeper',
-        so5LeaguesAlgoliaFilters[correspondingLeagueFilter],
+        vicc5LeaguesAlgoliaFilters[correspondingLeagueFilter],
       ]}
       distinct
     >
@@ -60,7 +60,7 @@ const LineupToDiscover = (props: Props) => {
         loadingView={lineupWithoutSuggestion}
         amateurLeaderboardSlug={amateurDraftedLeaderboard!.slug}
         leagueFilter={correspondingLeagueFilter}
-        so5Leaderboard={leaderboard}
+        vicc5Leaderboard={leaderboard}
         onPaymentSuccess={onPaymentSuccess}
         {...otherProps}
       >
@@ -71,20 +71,20 @@ const LineupToDiscover = (props: Props) => {
 };
 
 LineupToDiscover.fragments = {
-  so5Leaderboard: gql`
-    fragment LineupToDiscover_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment LineupToDiscover_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       division
-      so5League {
+      vicc5League {
         slug
         displayName
       }
-      ...Lineup_so5Leaderboard
-      ...WithLiveCardsOnSale_so5Leaderboard
+      ...Lineup_vicc5Leaderboard
+      ...WithLiveCardsOnSale_vicc5Leaderboard
     }
-    ${Lineup.fragments.so5Leaderboard}
-    ${WithLiveCardsOnSale.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<LineupToDiscover_so5Leaderboard>,
+    ${Lineup.fragments.vicc5Leaderboard}
+    ${WithLiveCardsOnSale.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<LineupToDiscover_vicc5Leaderboard>,
 };
 
 export default LineupToDiscover;

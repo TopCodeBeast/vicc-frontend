@@ -17,7 +17,7 @@ import { Link } from '@sorare/core/src/routing/Link';
 import UserGroupPicture from '@football/components/userGroup/UserGroupPicture';
 import PrivateUserGroupRanking from '@football/components/userGroup/private/PrivateUserGroupRanking';
 
-import { PrivateUserGroup_so5UserGroup } from './__generated__/index.graphql';
+import { PrivateUserGroup_vicc5UserGroup } from './__generated__/index.graphql';
 
 const Root = styled(LinkBox)`
   position: relative;
@@ -101,16 +101,16 @@ const Footer = styled.div`
   padding: 0 var(--unit);
 `;
 
-type Props = { group: PrivateUserGroup_so5UserGroup };
+type Props = { group: PrivateUserGroup_vicc5UserGroup };
 const PrivateUserGroup = ({ group }: Props) => {
   const {
     slug,
     displayName,
     logo,
-    so5TournamentType,
+    vicc5TournamentType,
     administrator,
-    startSo5Fixture,
-    endSo5Fixture,
+    startVicc5Fixture,
+    endVicc5Fixture,
   } = group;
 
   return (
@@ -128,7 +128,7 @@ const PrivateUserGroup = ({ group }: Props) => {
         />
         <FlexColContainer>
           <Text16 color="var(--c-neutral-600)">
-            {so5TournamentType.displayName}
+            {vicc5TournamentType.displayName}
           </Text16>
           <Title5 color="var(--c-neutral-1000)" bold>
             {displayName}
@@ -141,12 +141,12 @@ const PrivateUserGroup = ({ group }: Props) => {
         <Dates>
           <Text16 color="var(--c-neutral-600)" bold>
             <FormattedDate
-              value={startSo5Fixture?.startDate}
+              value={startVicc5Fixture?.startDate}
               day="numeric"
               month="short"
             />
           </Text16>
-          {endSo5Fixture?.endDate && (
+          {endVicc5Fixture?.endDate && (
             <>
               <FontAwesomeIcon
                 icon={faArrowRight}
@@ -154,7 +154,7 @@ const PrivateUserGroup = ({ group }: Props) => {
               />
               <Text16 color="var(--c-neutral-600)" bold>
                 <FormattedDate
-                  value={endSo5Fixture?.endDate}
+                  value={endVicc5Fixture?.endDate}
                   day="numeric"
                   month="short"
                 />
@@ -171,8 +171,8 @@ const PrivateUserGroup = ({ group }: Props) => {
 };
 
 PrivateUserGroup.fragments = {
-  so5UserGroup: gql`
-    fragment PrivateUserGroup_so5UserGroup on So5UserGroup {
+  vicc5UserGroup: gql`
+    fragment PrivateUserGroup_vicc5UserGroup on Vicc5UserGroup {
       slug
       administrator {
         slug
@@ -196,23 +196,23 @@ PrivateUserGroup.fragments = {
         score
         administrator
       }
-      so5TournamentType {
+      vicc5TournamentType {
         id
         displayName
       }
-      startSo5Fixture {
+      startVicc5Fixture {
         slug
         startDate
       }
-      endSo5Fixture {
+      endVicc5Fixture {
         slug
         endDate
       }
       ...PrivateUserGroupRanking_userGroup
     }
-    ${PrivateUserGroupRanking.fragments.so5UserGroup}
+    ${PrivateUserGroupRanking.fragments.vicc5UserGroup}
     ${Nickname.fragments.user}
-  ` as TypedDocumentNode<PrivateUserGroup_so5UserGroup>,
+  ` as TypedDocumentNode<PrivateUserGroup_vicc5UserGroup>,
 };
 
 export default PrivateUserGroup;

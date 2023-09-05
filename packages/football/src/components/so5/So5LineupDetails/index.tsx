@@ -22,12 +22,12 @@ import { glossary } from '@sorare/core/src/lib/glossary';
 
 import DivisionLogo from '@football/components/so5/DivisionLogo';
 import Points from '@football/components/so5/Points';
-import So5LineupAppearance from '@football/components/so5/So5LineupAppearance';
+import Vicc5LineupAppearance from '@football/components/so5/So5LineupAppearance';
 import { socialSharingMessages } from '@football/lib/so5';
 
 import {
-  So5RankingDetailsQuery,
-  So5RankingDetailsQueryVariables,
+  Vicc5RankingDetailsQuery,
+  Vicc5RankingDetailsQueryVariables,
 } from './__generated__/index.graphql';
 
 const Header = styled.div`
@@ -70,28 +70,28 @@ const TiebreakerScore = styled.div`
 `;
 
 export const SO5_RANKING_DETAILS_QUERY = gql`
-  query So5RankingDetailsQuery($id: ID!) {
+  query Vicc5RankingDetailsQuery($id: ID!) {
     football {
-      so5 {
-        so5Ranking(id: $id) {
+      vicc5 {
+        vicc5Ranking(id: $id) {
           id
           ranking
           score
           tiebreakerScore
-          so5Leaderboard {
+          vicc5Leaderboard {
             slug
             displayName
-            ...DivisionLogo_so5Leaderboard
+            ...DivisionLogo_vicc5Leaderboard
           }
-          so5Lineup {
+          vicc5Lineup {
             id
             cancelledAt
             user {
               slug
               ...Nickname_publicUserInfoInterface
             }
-            so5Appearances {
-              ...So5LineupAppearance_so5Appearance
+            vicc5Appearances {
+              ...Vicc5LineupAppearance_vicc5Appearance
             }
             ...SocialShare_SocialPictures
           }
@@ -99,22 +99,22 @@ export const SO5_RANKING_DETAILS_QUERY = gql`
       }
     }
   }
-  ${DivisionLogo.fragments.so5Leaderboard}
-  ${So5LineupAppearance.fragments.so5Appearance}
+  ${DivisionLogo.fragments.vicc5Leaderboard}
+  ${Vicc5LineupAppearance.fragments.vicc5Appearance}
   ${SocialShare.fragments.socialPictures}
   ${Nickname.fragments.user}
-` as TypedDocumentNode<So5RankingDetailsQuery, So5RankingDetailsQueryVariables>;
+` as TypedDocumentNode<Vicc5RankingDetailsQuery, Vicc5RankingDetailsQueryVariables>;
 type Props = {
-  so5RankingId: string | null;
+  vicc5RankingId: string | null;
   onClose: () => void;
 };
 
-export const So5LineupDetails = (props: Props) => {
+export const Vicc5LineupDetails = (props: Props) => {
   const { formatMessage } = useIntlContext();
-  const { so5RankingId, onClose } = props;
+  const { vicc5RankingId, onClose } = props;
   const { loading, data } = useQuery(SO5_RANKING_DETAILS_QUERY, {
-    variables: { id: idFromObject(so5RankingId)! },
-    skip: !so5RankingId,
+    variables: { id: idFromObject(vicc5RankingId)! },
+    skip: !vicc5RankingId,
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
     pollInterval: 60000,
@@ -131,9 +131,9 @@ export const So5LineupDetails = (props: Props) => {
     return null;
   }
 
-  const { so5Ranking } = data.football.so5;
-  const { ranking, score, so5Leaderboard, so5Lineup } = so5Ranking;
-  const { cancelledAt, so5Appearances, user } = so5Lineup;
+  const { vicc5Ranking } = data.football.vicc5;
+  const { ranking, score, vicc5Leaderboard, vicc5Lineup } = vicc5Ranking;
+  const { cancelledAt, vicc5Appearances, user } = vicc5Lineup;
 
   return (
     <Dialog
@@ -148,7 +148,7 @@ export const So5LineupDetails = (props: Props) => {
             </GalleryLink>
           </CenteredText16>
           <SocialShare
-            image={so5Lineup.socialPictureUrls}
+            image={vicc5Lineup.socialPictureUrls}
             title={formatMessage(socialSharingMessages.lineup)}
             trackingEventName={socialShareEventName.SHARE_LINEUP}
             trackingEventContext={socialShareEventContext.LEADERBOARD}
@@ -165,8 +165,8 @@ export const So5LineupDetails = (props: Props) => {
         <Content>
           <Leaderboard>
             <Division>
-              <DivisionLogo so5Leaderboard={so5Leaderboard} />
-              <Text16 bold>{so5Leaderboard.displayName}</Text16>
+              <DivisionLogo vicc5Leaderboard={vicc5Leaderboard} />
+              <Text16 bold>{vicc5Leaderboard.displayName}</Text16>
             </Division>
             <RankAndScore>
               {cancelledAt ? (
@@ -191,20 +191,20 @@ export const So5LineupDetails = (props: Props) => {
             </RankAndScore>
           </Leaderboard>
           <div>
-            {so5Appearances.map(so5Appearance => (
-              <So5LineupAppearance
-                key={so5Appearance.id}
-                so5Appearance={so5Appearance}
+            {vicc5Appearances.map(vicc5Appearance => (
+              <Vicc5LineupAppearance
+                key={vicc5Appearance.id}
+                vicc5Appearance={vicc5Appearance}
               />
             ))}
           </div>
-          {so5Ranking.tiebreakerScore > 0 && (
+          {vicc5Ranking.tiebreakerScore > 0 && (
             <TiebreakerScore>
               <Text14>
                 <FormattedMessage
-                  id="So5LienupDetails.tiebreakerScore"
+                  id="Vicc5LienupDetails.tiebreakerScore"
                   defaultMessage="Tiebreaker score: <strong>{score, number, ::.00} pts</strong>"
-                  values={{ strong: Bold, score: so5Ranking.tiebreakerScore }}
+                  values={{ strong: Bold, score: vicc5Ranking.tiebreakerScore }}
                 />
               </Text14>
             </TiebreakerScore>
@@ -215,4 +215,4 @@ export const So5LineupDetails = (props: Props) => {
   );
 };
 
-export default So5LineupDetails;
+export default Vicc5LineupDetails;

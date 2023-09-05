@@ -17,29 +17,29 @@ import {
 } from '@football/lib/so5';
 
 import {
-  generateLineupSharingTitle_so5Fixture,
-  useLineupSharingAttributes_so5Lineup,
+  generateLineupSharingTitle_vicc5Fixture,
+  useLineupSharingAttributes_vicc5Lineup,
 } from './__generated__/useLineupSharingAttributes.graphql';
 
 const generateLineupSharingTitle = withFragments(
-  (fixture: generateLineupSharingTitle_so5Fixture): MessageDescriptor => {
+  (fixture: generateLineupSharingTitle_vicc5Fixture): MessageDescriptor => {
     const messages = isFixtureStarted(fixture)
       ? startedLineupSharingMessages
       : notStartedLineupSharingMessages;
     return randomElement([messages.set1, messages.set2, messages.set3]);
   },
   {
-    so5Fixture: gql`
-      fragment generateLineupSharingTitle_so5Fixture on So5Fixture {
+    vicc5Fixture: gql`
+      fragment generateLineupSharingTitle_vicc5Fixture on Vicc5Fixture {
         slug
         aasmState
       }
-    ` as TypedDocumentNode<generateLineupSharingTitle_so5Fixture>,
+    ` as TypedDocumentNode<generateLineupSharingTitle_vicc5Fixture>,
   }
 );
 
 export const useLineupSharingAttributes = (
-  so5Lineup?: useLineupSharingAttributes_so5Lineup | null
+  vicc5Lineup?: useLineupSharingAttributes_vicc5Lineup | null
 ) => {
   const {
     flags: { enableLineupSharing = false },
@@ -47,38 +47,38 @@ export const useLineupSharingAttributes = (
   const { formatMessage } = useIntl();
   const { currentUser } = useCurrentUserContext();
 
-  if (!so5Lineup || !enableLineupSharing) {
+  if (!vicc5Lineup || !enableLineupSharing) {
     return {};
   }
   return {
     url:
       window.location.origin +
       generatePath(FOOTBALL_LINEUP_SHARING, {
-        id: idFromObject(so5Lineup.id),
+        id: idFromObject(vicc5Lineup.id),
       }),
-    message: formatMessage(generateLineupSharingTitle(so5Lineup.so5Fixture), {
-      displayName: so5Lineup.so5Leaderboard?.displayName,
+    message: formatMessage(generateLineupSharingTitle(vicc5Lineup.vicc5Fixture), {
+      displayName: vicc5Lineup.vicc5Leaderboard?.displayName,
       clubName: currentUser?.profile.clubName,
     }),
     sharedItem: UTM_CAMPAIGNS.LINEUP,
-    sharedItemId: idFromObject(so5Lineup.id),
+    sharedItemId: idFromObject(vicc5Lineup.id),
   };
 };
 
 useLineupSharingAttributes.fragments = {
-  so5Lineup: gql`
-    fragment useLineupSharingAttributes_so5Lineup on So5Lineup {
+  vicc5Lineup: gql`
+    fragment useLineupSharingAttributes_vicc5Lineup on Vicc5Lineup {
       id
-      so5Fixture {
+      vicc5Fixture {
         slug
         aasmState
-        ...generateLineupSharingTitle_so5Fixture
+        ...generateLineupSharingTitle_vicc5Fixture
       }
-      so5Leaderboard {
+      vicc5Leaderboard {
         slug
         displayName
       }
     }
-    ${generateLineupSharingTitle.fragments.so5Fixture}
-  ` as TypedDocumentNode<useLineupSharingAttributes_so5Lineup>,
+    ${generateLineupSharingTitle.fragments.vicc5Fixture}
+  ` as TypedDocumentNode<useLineupSharingAttributes_vicc5Lineup>,
 };

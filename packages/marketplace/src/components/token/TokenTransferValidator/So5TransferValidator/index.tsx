@@ -16,34 +16,34 @@ import {
 } from '../types';
 import { LiveLineupConsentMessage } from './LiveLineupConsentMessage';
 import {
-  So5TokenTransferValidatorCardQuery,
-  So5TokenTransferValidatorCardQueryVariables,
+  Vicc5TokenTransferValidatorCardQuery,
+  Vicc5TokenTransferValidatorCardQueryVariables,
 } from './__generated__/index.graphql';
 
 const SO5_TOKEN_TRANSFER_VALIDATOR_CARDS_QUERY = gql`
-  query So5TokenTransferValidatorCardQuery($slugs: [String!]!, $first: Int!) {
+  query Vicc5TokenTransferValidatorCardQuery($slugs: [String!]!, $first: Int!) {
     currentUser {
       slug
       paginatedCards(first: $first, slugs: $slugs) {
         nodes {
           assetId
           slug
-          openedSo5Lineups {
+          openedVicc5Lineups {
             id
-            ...formatLineupDisplayName_so5Lineup
+            ...formatLineupDisplayName_vicc5Lineup
           }
-          liveSo5Lineup {
+          liveVicc5Lineup {
             id
-            ...formatLineupDisplayName_so5Lineup
+            ...formatLineupDisplayName_vicc5Lineup
           }
         }
       }
     }
   }
-  ${formatLineupDisplayName.fragments.so5Lineup}
+  ${formatLineupDisplayName.fragments.vicc5Lineup}
 ` as TypedDocumentNode<
-  So5TokenTransferValidatorCardQuery,
-  So5TokenTransferValidatorCardQueryVariables
+  Vicc5TokenTransferValidatorCardQuery,
+  Vicc5TokenTransferValidatorCardQueryVariables
 >;
 
 const WarningWrapper = styled.div`
@@ -76,23 +76,23 @@ type Props = {
 
 const messages = defineMessages({
   listTitle: {
-    id: 'So5TransferValidator.listTitle',
+    id: 'Vicc5TransferValidator.listTitle',
     defaultMessage: 'Listing this card will unregister:',
   },
   sendTradeTitle: {
-    id: 'So5TransferValidator.sendTradeTitle',
+    id: 'Vicc5TransferValidator.sendTradeTitle',
     defaultMessage: 'Sending a trade including this card will unregister:',
   },
   receiveTradeTitle: {
-    id: 'So5TransferValidator.receiveTradeTitle',
+    id: 'Vicc5TransferValidator.receiveTradeTitle',
     defaultMessage: 'Accepting this trade will unregister:',
   },
   liveLineupWarning: {
-    id: 'So5TransferValidator.liveLineupWarning',
+    id: 'Vicc5TransferValidator.liveLineupWarning',
     defaultMessage: '<e>Live</e> <b>{competition}</b> lineup',
   },
   upcomingLineupWarning: {
-    id: 'So5TransferValidator.upcomingLineupWarning',
+    id: 'Vicc5TransferValidator.upcomingLineupWarning',
     defaultMessage: 'Upcoming <b>{competition}</b> lineup',
   },
 });
@@ -103,7 +103,7 @@ const TITLE_MAPS = {
   receive_trade: messages.receiveTradeTitle,
 };
 
-const So5TransferValidator = ({ slugs, children, transferContext }: Props) => {
+const Vicc5TransferValidator = ({ slugs, children, transferContext }: Props) => {
   const { data, loading } = useQuery(SO5_TOKEN_TRANSFER_VALIDATOR_CARDS_QUERY, {
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-first',
@@ -114,7 +114,7 @@ const So5TransferValidator = ({ slugs, children, transferContext }: Props) => {
 
   const validationMessages =
     cards?.reduce<{ [key: string]: React.JSX.Element }>((acc, card) => {
-      if (!card.openedSo5Lineups?.length && !card.liveSo5Lineup) {
+      if (!card.openedVicc5Lineups?.length && !card.liveVicc5Lineup) {
         return acc;
       }
       return {
@@ -134,19 +134,19 @@ const So5TransferValidator = ({ slugs, children, transferContext }: Props) => {
                   {...TITLE_MAPS[transferContext]}
                   values={{
                     count:
-                      card.openedSo5Lineups.length +
-                      (card.liveSo5Lineup ? 1 : 0),
+                      card.openedVicc5Lineups.length +
+                      (card.liveVicc5Lineup ? 1 : 0),
                   }}
                 />
               </Text14>
             </Row>
-            {card.liveSo5Lineup && (
+            {card.liveVicc5Lineup && (
               <Row>
                 <Text14>
                   <FormattedMessage
                     {...messages.liveLineupWarning}
                     values={{
-                      competition: formatLineupDisplayName(card.liveSo5Lineup),
+                      competition: formatLineupDisplayName(card.liveVicc5Lineup),
                       b: Bold,
                       e: ErrorBold,
                     }}
@@ -154,7 +154,7 @@ const So5TransferValidator = ({ slugs, children, transferContext }: Props) => {
                 </Text14>
               </Row>
             )}
-            {card.openedSo5Lineups.map(lineup => (
+            {card.openedVicc5Lineups.map(lineup => (
               <Row key={lineup.id}>
                 <Text14>
                   <FormattedMessage
@@ -178,7 +178,7 @@ const So5TransferValidator = ({ slugs, children, transferContext }: Props) => {
   >(
     props => {
       const liveLineupsCount =
-        cards?.filter(card => card.liveSo5Lineup).length || 0;
+        cards?.filter(card => card.liveVicc5Lineup).length || 0;
       return (
         <LiveLineupConsentMessage
           lineupsCount={liveLineupsCount}
@@ -195,7 +195,7 @@ const So5TransferValidator = ({ slugs, children, transferContext }: Props) => {
       {children({
         validationMessages,
         loading,
-        ConsentMessage: cards?.some(card => card.liveSo5Lineup)
+        ConsentMessage: cards?.some(card => card.liveVicc5Lineup)
           ? ConsentMessage
           : undefined,
       })}
@@ -203,7 +203,7 @@ const So5TransferValidator = ({ slugs, children, transferContext }: Props) => {
   );
 };
 
-const So5TransferValidatorContainer = (props: Props) => {
+const Vicc5TransferValidatorContainer = (props: Props) => {
   const { slugs, children } = props;
 
   if (slugs.length === 0) {
@@ -216,7 +216,7 @@ const So5TransferValidatorContainer = (props: Props) => {
       </>
     );
   }
-  return <So5TransferValidator {...props} />;
+  return <Vicc5TransferValidator {...props} />;
 };
 
-export default So5TransferValidatorContainer;
+export default Vicc5TransferValidatorContainer;

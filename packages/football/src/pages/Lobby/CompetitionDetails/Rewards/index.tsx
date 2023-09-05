@@ -20,13 +20,13 @@ import {
   CompetitionDetailsRewardsTabQueryVariables,
 } from './__generated__/index.graphql';
 
-type CompetitionDetailsRewardsTabQuery_so5Leaderboard_rewardsConfig_ranking =
+type CompetitionDetailsRewardsTabQuery_vicc5Leaderboard_rewardsConfig_ranking =
   NonNullable<
-    CompetitionDetailsRewardsTabQuery['football']['so5']['so5Leaderboard']['rewardsConfig']['ranking']
+    CompetitionDetailsRewardsTabQuery['football']['vicc5']['vicc5Leaderboard']['rewardsConfig']['ranking']
   >[number];
 
 export interface RangeReward
-  extends CompetitionDetailsRewardsTabQuery_so5Leaderboard_rewardsConfig_ranking {
+  extends CompetitionDetailsRewardsTabQuery_vicc5Leaderboard_rewardsConfig_ranking {
   startRank?: number | null;
   startPct?: number | null;
   endRank?: number | null;
@@ -36,16 +36,16 @@ export interface RangeReward
 export const COMPETITION_DETAILS_REWARDS_TAB_QUERY = gql`
   query CompetitionDetailsRewardsTabQuery($slug: String!) {
     football {
-      so5 {
-        so5Leaderboard(slug: $slug) {
+      vicc5 {
+        vicc5Leaderboard(slug: $slug) {
           slug
-          so5League {
+          vicc5League {
             slug
-            ...RankBasedRewards_so5League
+            ...RankBasedRewards_vicc5League
           }
-          mySo5Lineups {
+          myVicc5Lineups {
             id
-            so5Rankings {
+            vicc5Rankings {
               id
               score
               ranking
@@ -58,13 +58,13 @@ export const COMPETITION_DETAILS_REWARDS_TAB_QUERY = gql`
           }
           rewardsConfig {
             ranking {
-              ...RankBasedRewards_so5RewardConfig
+              ...RankBasedRewards_vicc5RewardConfig
             }
             conditional {
-              ...ScoreBasedRewards_so5RewardConfig
+              ...ScoreBasedRewards_vicc5RewardConfig
             }
           }
-          universalSo5UserGroups {
+          universalVicc5UserGroups {
             slug
             myMembership {
               id
@@ -77,22 +77,22 @@ export const COMPETITION_DETAILS_REWARDS_TAB_QUERY = gql`
             }
             rewardsConfig {
               ranking {
-                ...RankBasedRewards_so5RewardConfig
+                ...RankBasedRewards_vicc5RewardConfig
               }
               conditional {
-                ...ScoreBasedRewards_so5RewardConfig
+                ...ScoreBasedRewards_vicc5RewardConfig
               }
             }
           }
-          ...ScoreBasedRewards_so5Leaderboard
+          ...ScoreBasedRewards_vicc5Leaderboard
         }
       }
     }
   }
-  ${RankBasedRewards.fragments.so5League}
-  ${RankBasedRewards.fragments.so5RewardConfig}
-  ${ScoreBasedRewards.fragments.so5RewardConfig}
-  ${ScoreBasedRewards.fragments.so5Leaderboard}
+  ${RankBasedRewards.fragments.vicc5League}
+  ${RankBasedRewards.fragments.vicc5RewardConfig}
+  ${ScoreBasedRewards.fragments.vicc5RewardConfig}
+  ${ScoreBasedRewards.fragments.vicc5Leaderboard}
 ` as TypedDocumentNode<
   CompetitionDetailsRewardsTabQuery,
   CompetitionDetailsRewardsTabQueryVariables
@@ -115,14 +115,14 @@ const Header = styled.div`
 
 const parseRankingRewards = (
   rewards:
-    | CompetitionDetailsRewardsTabQuery_so5Leaderboard_rewardsConfig_ranking[]
+    | CompetitionDetailsRewardsTabQuery_vicc5Leaderboard_rewardsConfig_ranking[]
     | null
 ): RangeReward[] => {
   if (!rewards) return [];
 
   const init: RangeReward[] = [
     {
-      __typename: 'So5RewardConfig',
+      __typename: 'Vicc5RewardConfig',
       score: null,
       ranks: null,
       rankPct: null,
@@ -165,21 +165,21 @@ const CompetitionDetailsRewardsTab = () => {
   const [leaderboardMode, setLeaderboardMode] =
     useLocalStorage<LeaderboardModes>(STORAGE.leaderboardMode, 'matchday');
 
-  const so5Leaderboard = data?.football.so5.so5Leaderboard;
-  const so5League = so5Leaderboard?.so5League;
-  const universalSo5UserGroup = so5Leaderboard?.universalSo5UserGroups?.[0];
+  const vicc5Leaderboard = data?.football.vicc5.vicc5Leaderboard;
+  const vicc5League = vicc5Leaderboard?.vicc5League;
+  const universalVicc5UserGroup = vicc5Leaderboard?.universalVicc5UserGroups?.[0];
 
   const rewardsConfig =
     leaderboardMode === 'matchday'
-      ? so5Leaderboard?.rewardsConfig
-      : universalSo5UserGroup?.rewardsConfig;
+      ? vicc5Leaderboard?.rewardsConfig
+      : universalVicc5UserGroup?.rewardsConfig;
   const conditions = rewardsConfig?.conditional;
   const rewards = rewardsConfig?.ranking || null;
 
-  const so5Ranking = so5Leaderboard?.mySo5Lineups?.[0]?.so5Rankings?.[0];
-  const so5UserGroupMembership = universalSo5UserGroup?.myMembership;
+  const vicc5Ranking = vicc5Leaderboard?.myVicc5Lineups?.[0]?.vicc5Rankings?.[0];
+  const vicc5UserGroupMembership = universalVicc5UserGroup?.myMembership;
   const { score: myScore, eligibleRewards } =
-    (leaderboardMode === 'matchday' ? so5Ranking : so5UserGroupMembership) ||
+    (leaderboardMode === 'matchday' ? vicc5Ranking : vicc5UserGroupMembership) ||
     {};
   const myRankPct = eligibleRewards?.find(e => !!e.rankPct)?.rankPct;
   const myEligibleRewardScore = eligibleRewards?.reduce((highest, reward) => {
@@ -194,13 +194,13 @@ const CompetitionDetailsRewardsTab = () => {
     return <LoadingIndicator grow />;
   }
 
-  if (!universalSo5UserGroup && leaderboardMode !== 'matchday') {
+  if (!universalVicc5UserGroup && leaderboardMode !== 'matchday') {
     setLeaderboardMode('matchday');
   }
 
   return (
     <Root>
-      {universalSo5UserGroup && (
+      {universalVicc5UserGroup && (
         <Header>
           <LeaderboardModeSelect
             leaderboardMode={leaderboardMode}
@@ -208,14 +208,14 @@ const CompetitionDetailsRewardsTab = () => {
           />
         </Header>
       )}
-      {data && so5League && (
+      {data && vicc5League && (
         <>
           {!!parsedRewards?.length && (
             <RankBasedRewards
               rewards={parsedRewards}
-              myRanking={so5Ranking?.ranking}
+              myRanking={vicc5Ranking?.ranking}
               myRankPct={myRankPct}
-              so5League={so5League}
+              vicc5League={vicc5League}
             />
           )}
           {!!conditions?.length && (
@@ -223,7 +223,7 @@ const CompetitionDetailsRewardsTab = () => {
               conditions={conditions}
               myScore={myScore}
               myEligibleRewardScore={myEligibleRewardScore}
-              so5Leaderboard={so5Leaderboard}
+              vicc5Leaderboard={vicc5Leaderboard}
             />
           )}
         </>

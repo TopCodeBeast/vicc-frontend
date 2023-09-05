@@ -1,7 +1,7 @@
 import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 
 // eslint-disable-next-line import/named
-import { createOrUpdateSo5LineupInput } from '@sorare/core/src/__generated__/globalTypes';
+import { createOrUpdateVicc5LineupInput } from '@sorare/core/src/__generated__/globalTypes';
 import {
   Level,
   useSnackNotificationContext,
@@ -11,21 +11,21 @@ import { formatGqlErrors } from '@sorare/core/src/gql';
 import { HANDLED_RULES } from '@football/lib/so5';
 
 import {
-  CreateOrUpdateSo5LineupMutation,
-  CreateOrUpdateSo5LineupMutationVariables,
+  CreateOrUpdateVicc5LineupMutation,
+  CreateOrUpdateVicc5LineupMutationVariables,
 } from './__generated__/useCreateOrUpdateLineup.graphql';
 
-type CreateOrUpdateSo5LineupMutation_createOrUpdateSo5Lineup_errors =
+type CreateOrUpdateVicc5LineupMutation_createOrUpdateVicc5Lineup_errors =
   NonNullable<
-    CreateOrUpdateSo5LineupMutation['createOrUpdateSo5Lineup']
+    CreateOrUpdateVicc5LineupMutation['createOrUpdateVicc5Lineup']
   >['errors'][number];
 
 const CREATE_OR_UPDATE_SO5_LINEUP_MUTATION = gql`
-  mutation CreateOrUpdateSo5LineupMutation(
-    $input: createOrUpdateSo5LineupInput!
+  mutation CreateOrUpdateVicc5LineupMutation(
+    $input: createOrUpdateVicc5LineupInput!
   ) {
-    createOrUpdateSo5Lineup(input: $input) {
-      so5Lineup {
+    createOrUpdateVicc5Lineup(input: $input) {
+      vicc5Lineup {
         id
         name
         draft
@@ -49,8 +49,8 @@ const CREATE_OR_UPDATE_SO5_LINEUP_MUTATION = gql`
     }
   }
 ` as TypedDocumentNode<
-  CreateOrUpdateSo5LineupMutation,
-  CreateOrUpdateSo5LineupMutationVariables
+  CreateOrUpdateVicc5LineupMutation,
+  CreateOrUpdateVicc5LineupMutationVariables
 >;
 
 export default ({
@@ -58,25 +58,25 @@ export default ({
 }: {
   hideNotification?: boolean;
 }) => {
-  const [createOrUpdateSo5Lineup] = useMutation(
+  const [createOrUpdateVicc5Lineup] = useMutation(
     CREATE_OR_UPDATE_SO5_LINEUP_MUTATION
   );
 
   const { showNotification } = useSnackNotificationContext();
 
-  return async (input: createOrUpdateSo5LineupInput) => {
-    const result = await createOrUpdateSo5Lineup({
+  return async (input: createOrUpdateVicc5LineupInput) => {
+    const result = await createOrUpdateVicc5Lineup({
       variables: { input },
     }).catch(e => {
       return {
         data: {
-          createOrUpdateSo5Lineup: {
+          createOrUpdateVicc5Lineup: {
             errors: [e],
           },
         },
       };
     });
-    const errors = result.data?.createOrUpdateSo5Lineup?.errors || [];
+    const errors = result.data?.createOrUpdateVicc5Lineup?.errors || [];
     if (!errors?.length) {
       if (!hideNotification) {
         showNotification('composeLineup');
@@ -87,8 +87,8 @@ export default ({
     }
 
     const { unhandledErrors, handledErrors } = errors.reduce<{
-      unhandledErrors: CreateOrUpdateSo5LineupMutation_createOrUpdateSo5Lineup_errors[];
-      handledErrors: CreateOrUpdateSo5LineupMutation_createOrUpdateSo5Lineup_errors[];
+      unhandledErrors: CreateOrUpdateVicc5LineupMutation_createOrUpdateVicc5Lineup_errors[];
+      handledErrors: CreateOrUpdateVicc5LineupMutation_createOrUpdateVicc5Lineup_errors[];
     }>(
       (prev, curr) => {
         const ruleHandled = HANDLED_RULES.find(rule => {

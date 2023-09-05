@@ -3,7 +3,7 @@ import { TypedDocumentNode, gql } from '@apollo/client';
 import { Currency } from '@sorare/core/src/__generated__/globalTypes';
 import { isType } from '@sorare/core/src/lib/gql';
 
-import DumbSo5Reward from './DumbSo5Reward';
+import DumbVicc5Reward from './DumbSo5Reward';
 import { Reward_userAccountEntry } from './__generated__/index.graphql';
 
 type Props = {
@@ -11,22 +11,22 @@ type Props = {
   primaryCurrency: Currency;
 };
 
-type Reward_userAccountEntry_tokenOperation_So5Reward =
+type Reward_userAccountEntry_tokenOperation_Vicc5Reward =
   Reward_userAccountEntry['tokenOperation'] & {
-    __typename: 'So5Reward';
+    __typename: 'Vicc5Reward';
   };
 
 const generateLink = (
-  so5Ranking: NonNullable<
-    Reward_userAccountEntry_tokenOperation_So5Reward['so5Ranking']
+  vicc5Ranking: NonNullable<
+    Reward_userAccountEntry_tokenOperation_Vicc5Reward['vicc5Ranking']
   >
 ) => {
-  const { so5Leaderboard } = so5Ranking;
+  const { vicc5Leaderboard } = vicc5Ranking;
   return {
-    slug: so5Leaderboard.so5Fixture?.slug,
-    ranking: so5Ranking.ranking,
-    leaderboard: so5Leaderboard.displayName,
-    gameWeek: so5Leaderboard.so5Fixture.gameWeek,
+    slug: vicc5Leaderboard.vicc5Fixture?.slug,
+    ranking: vicc5Ranking.ranking,
+    leaderboard: vicc5Leaderboard.displayName,
+    gameWeek: vicc5Leaderboard.vicc5Fixture.gameWeek,
   };
 };
 
@@ -34,19 +34,19 @@ export const Reward = ({ userAccountEntry, primaryCurrency }: Props) => {
   const { tokenOperation } = userAccountEntry;
 
   if (
-    !isType(tokenOperation, 'So5Reward') &&
+    !isType(tokenOperation, 'Vicc5Reward') &&
     !isType(tokenOperation, 'TokenMonetaryReward')
   ) {
     return null;
   }
 
   const link =
-    isType(tokenOperation, 'So5Reward') && tokenOperation.so5Ranking
-      ? generateLink(tokenOperation.so5Ranking)
+    isType(tokenOperation, 'Vicc5Reward') && tokenOperation.vicc5Ranking
+      ? generateLink(tokenOperation.vicc5Ranking)
       : undefined;
 
   return (
-    <DumbSo5Reward
+    <DumbVicc5Reward
       userAccountEntry={userAccountEntry}
       primaryCurrency={primaryCurrency}
       link={link}
@@ -58,20 +58,20 @@ Reward.fragments = {
   userAccountEntry: gql`
     fragment Reward_userAccountEntry on UserAccountEntry {
       id
-      ...DumbSo5Reward_userAccountEntry
+      ...DumbVicc5Reward_userAccountEntry
       tokenOperation {
         ... on TokenMonetaryReward {
           id
         }
-        ... on So5Reward {
+        ... on Vicc5Reward {
           slug
-          so5Ranking {
+          vicc5Ranking {
             id
             ranking
-            so5Leaderboard {
+            vicc5Leaderboard {
               slug
               displayName
-              so5Fixture {
+              vicc5Fixture {
                 slug
                 gameWeek
               }
@@ -80,6 +80,6 @@ Reward.fragments = {
         }
       }
     }
-    ${DumbSo5Reward.fragments.userAccountEntry}
+    ${DumbVicc5Reward.fragments.userAccountEntry}
   ` as TypedDocumentNode<Reward_userAccountEntry>,
 };

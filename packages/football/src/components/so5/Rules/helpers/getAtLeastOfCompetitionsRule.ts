@@ -40,7 +40,7 @@ const getAtLeastOfCompetitionsRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetAtLeastOfCompetitionsRule on So5Leaderboard {
+      fragment GetAtLeastOfCompetitionsRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

@@ -13,7 +13,7 @@ import { EligibleRewardsBanner } from '@football/components/rewards/EligibleRewa
 // eslint-disable-next-line sorare/no-unrendered-component-imports
 import { RewardType } from '@football/lib/lineupRewards';
 
-import { LiveFixture_so5 } from './__generated__/index.graphql';
+import { LiveFixture_vicc5 } from './__generated__/index.graphql';
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -22,16 +22,16 @@ const ContentWrapper = styled.div`
 `;
 
 type Props = {
-  so5: Nullable<LiveFixture_so5>;
+  vicc5: Nullable<LiveFixture_vicc5>;
   loading: boolean;
 };
 
-export const LiveFixture = ({ so5, loading }: Props) => {
-  const { edges } = so5?.so5Fixture?.mySo5LineupsPaginated || {};
+export const LiveFixture = ({ vicc5, loading }: Props) => {
+  const { edges } = vicc5?.vicc5Fixture?.myVicc5LineupsPaginated || {};
   const lineups =
-    edges?.map(edge => edge.node).filter(lineup => lineup?.so5Leaderboard) ||
+    edges?.map(edge => edge.node).filter(lineup => lineup?.vicc5Leaderboard) ||
     [];
-  const lineupsCount = so5?.so5Fixture?.mySo5LineupsCount;
+  const lineupsCount = vicc5?.vicc5Fixture?.myVicc5LineupsCount;
 
   if (!lineups.length && !loading) {
     return null;
@@ -39,9 +39,9 @@ export const LiveFixture = ({ so5, loading }: Props) => {
 
   return (
     <HomeBlockWithTimeline
-      gameWeek={so5?.so5Fixture?.gameWeek}
-      fixtureShortDisplayName={so5?.so5Fixture?.shortDisplayName}
-      title={<GameWeekTitle so5Fixture={so5?.so5Fixture} type="live" />}
+      gameWeek={vicc5?.vicc5Fixture?.gameWeek}
+      fixtureShortDisplayName={vicc5?.vicc5Fixture?.shortDisplayName}
+      title={<GameWeekTitle vicc5Fixture={vicc5?.vicc5Fixture} type="live" />}
       type="live"
       loading={loading}
       action={
@@ -59,10 +59,10 @@ export const LiveFixture = ({ so5, loading }: Props) => {
         <ItemRows itemsCount={lineups.length} loading={loading}>
           {lineups.map(
             lineup =>
-              lineup?.so5Leaderboard && (
+              lineup?.vicc5Leaderboard && (
                 <Lineup
                   key={lineup.id}
-                  leaderboard={lineup.so5Leaderboard}
+                  leaderboard={lineup.vicc5Leaderboard}
                   lineup={lineup}
                   rewardType={RewardType.Eligible}
                   displayScore
@@ -74,9 +74,9 @@ export const LiveFixture = ({ so5, loading }: Props) => {
         {!loading && (
           <EligibleRewardsBanner
             rewardConfigs={lineups.flatMap(lineup =>
-              lineup.so5Rankings.flatMap(ranking => ranking.eligibleRewards)
+              lineup.vicc5Rankings.flatMap(ranking => ranking.eligibleRewards)
             )}
-            rewardsDeliveryDate={so5?.so5Fixture?.rewardsDeliveryDate}
+            rewardsDeliveryDate={vicc5?.vicc5Fixture?.rewardsDeliveryDate}
           />
         )}
       </ContentWrapper>
@@ -85,25 +85,25 @@ export const LiveFixture = ({ so5, loading }: Props) => {
 };
 
 LiveFixture.fragments = {
-  so5: gql`
-    fragment LiveFixture_so5 on So5Root {
-      so5Fixture(type: LIVE) {
+  vicc5: gql`
+    fragment LiveFixture_vicc5 on Vicc5Root {
+      vicc5Fixture(type: LIVE) {
         slug
         gameWeek
         shortDisplayName
         rewardsDeliveryDate
-        ...GameWeekTitle_so5Fixture
-        mySo5LineupsCount(training: false, draft: false)
-        mySo5LineupsPaginated(first: 3, withTraining: false) {
+        ...GameWeekTitle_vicc5Fixture
+        myVicc5LineupsCount(training: false, draft: false)
+        myVicc5LineupsPaginated(first: 3, withTraining: false) {
           edges {
             node {
               id
-              ...Lineup_so5Lineup
-              so5Leaderboard {
+              ...Lineup_vicc5Lineup
+              vicc5Leaderboard {
                 slug
-                ...Lineup_so5Leaderboard
+                ...Lineup_vicc5Leaderboard
               }
-              so5Rankings {
+              vicc5Rankings {
                 id
                 eligibleRewards {
                   ...EligibleRewards_rewardConfig
@@ -115,9 +115,9 @@ LiveFixture.fragments = {
         }
       }
     }
-    ${GameWeekTitle.fragments.so5Fixture}
-    ${Lineup.fragments.so5Leaderboard}
-    ${Lineup.fragments.so5Lineup}
+    ${GameWeekTitle.fragments.vicc5Fixture}
+    ${Lineup.fragments.vicc5Leaderboard}
+    ${Lineup.fragments.vicc5Lineup}
     ${EligibleRewardsBanner.fragments.rewardConfig}
-  ` as TypedDocumentNode<LiveFixture_so5>,
+  ` as TypedDocumentNode<LiveFixture_vicc5>,
 };

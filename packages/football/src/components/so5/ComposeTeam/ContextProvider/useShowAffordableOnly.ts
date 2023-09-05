@@ -4,17 +4,17 @@ import { BenchFilters } from '@football/components/so5/ComposeTeam/Context';
 import { MAX_CARD_VALUE } from '@football/components/so5/ComposeTeam/responsive/BenchFilter/FilterContent';
 import { EditableLineup } from '@football/lib/so5';
 
-import { ContextProvider_so5Lineup } from './__generated__/index.graphql';
+import { ContextProvider_vicc5Lineup } from './__generated__/index.graphql';
 
-type ContextProvider_so5Lineup_so5Appearances_card =
-  ContextProvider_so5Lineup['so5Appearances'][number]['card'];
+type ContextProvider_vicc5Lineup_vicc5Appearances_card =
+  ContextProvider_vicc5Lineup['vicc5Appearances'][number]['card'];
 
 const useShowAffordableOnly = ({
   lineup,
   setFilters,
   fifteenGameAverageTotalLimit,
 }: {
-  lineup: EditableLineup<ContextProvider_so5Lineup_so5Appearances_card>;
+  lineup: EditableLineup<ContextProvider_vicc5Lineup_vicc5Appearances_card>;
   setFilters: Dispatch<SetStateAction<BenchFilters>>;
   fifteenGameAverageTotalLimit: number | null | undefined;
 }): [boolean, Dispatch<SetStateAction<boolean>>] => {
@@ -23,7 +23,7 @@ const useShowAffordableOnly = ({
   const totalFifteenAverageScore = useMemo(
     () =>
       Object.values(lineup).reduce((acc, cur) => {
-        return (cur.card?.lastFifteenSo5AverageScore || 0) + acc;
+        return (cur.card?.lastFifteenVicc5AverageScore || 0) + acc;
       }, 0),
     [lineup]
   );
@@ -36,7 +36,7 @@ const useShowAffordableOnly = ({
         fifteenGameAverageTotalLimit - totalFifteenAverageScore;
       setFilters(f => ({
         ...f,
-        lastFifteenSo5AverageScore:
+        lastFifteenVicc5AverageScore:
           remainingPoints >= MAX_CARD_VALUE
             ? undefined
             : {
@@ -55,7 +55,7 @@ const useShowAffordableOnly = ({
     if (!showAffordableOnly) {
       setFilters(f => ({
         ...f,
-        lastFifteenSo5AverageScore: undefined,
+        lastFifteenVicc5AverageScore: undefined,
       }));
     }
   }, [showAffordableOnly, setFilters]);

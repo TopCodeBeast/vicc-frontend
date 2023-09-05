@@ -10,8 +10,8 @@ import { withFragments } from '@sorare/core/src/lib/gql';
 import { LeaderboardAction } from '@football/types/leaderboard';
 
 import {
-  getLineupActions_so5Leaderboard,
-  getLineupActions_so5Lineup,
+  getLineupActions_vicc5Leaderboard,
+  getLineupActions_vicc5Lineup,
 } from './__generated__/getLineupActions.graphql';
 
 const defaultValues = {
@@ -20,42 +20,42 @@ const defaultValues = {
 };
 const getLineupActions = withFragments(
   (
-    so5Lineup: Nullable<getLineupActions_so5Lineup>,
-    so5Leaderboard: Nullable<getLineupActions_so5Leaderboard>
+    vicc5Lineup: Nullable<getLineupActions_vicc5Lineup>,
+    vicc5Leaderboard: Nullable<getLineupActions_vicc5Leaderboard>
   ): {
     availableActions: LeaderboardAction[];
     tooManyCards: boolean;
   } => {
-    if (!so5Leaderboard) {
+    if (!vicc5Leaderboard) {
       return defaultValues;
     }
 
-    const { mySo5Lineups, teamsCap, startDate } = so5Leaderboard;
+    const { myVicc5Lineups, teamsCap, startDate } = vicc5Leaderboard;
 
     if (isPast(new Date(startDate))) {
       return {
         ...defaultValues,
-        availableActions: so5Lineup?.draft ? [] : [LeaderboardAction.Share],
+        availableActions: vicc5Lineup?.draft ? [] : [LeaderboardAction.Share],
       };
     }
 
-    const { canCompose } = so5Leaderboard;
+    const { canCompose } = vicc5Leaderboard;
 
     const showRedraft =
-      so5Leaderboard.commonDraftCampaign?.status ===
+      vicc5Leaderboard.commonDraftCampaign?.status ===
       CommonDraftCampaignStatus.REDRAFTABLE;
     const showSwap =
-      so5Leaderboard.commonDraftCampaign?.status ===
+      vicc5Leaderboard.commonDraftCampaign?.status ===
       CommonDraftCampaignStatus.SWAPPABLE;
     const showDraft =
-      so5Leaderboard.commonDraftCampaign?.status ===
+      vicc5Leaderboard.commonDraftCampaign?.status ===
       CommonDraftCampaignStatus.OPEN;
     const showExtraDraft =
-      so5Leaderboard.commonDraftCampaign?.campaignType ===
+      vicc5Leaderboard.commonDraftCampaign?.campaignType ===
       CommonDraftCampaignType.EXTRA;
-    const showEdit = !!so5Lineup;
-    const showDelete = !!so5Lineup;
-    const capHit = mySo5Lineups.length === teamsCap;
+    const showEdit = !!vicc5Lineup;
+    const showDelete = !!vicc5Lineup;
+    const capHit = myVicc5Lineups.length === teamsCap;
     const showCompose = canCompose.value && !(showDraft || showEdit || capHit);
 
     const locked = !canCompose.value && !(showDraft || showRedraft || showSwap);
@@ -63,7 +63,7 @@ const getLineupActions = withFragments(
     const showUnlock = locked && canCompose.notEnoughEligibleCards;
 
     const showConfirm =
-      !showUnlock && so5Lineup?.confirmable && so5Lineup?.draft;
+      !showUnlock && vicc5Lineup?.confirmable && vicc5Lineup?.draft;
 
     const tooManyCards = locked && !canCompose.notEnoughEligibleCards;
 
@@ -77,7 +77,7 @@ const getLineupActions = withFragments(
       [LeaderboardAction.Delete]: showDelete,
       [LeaderboardAction.Unlock]: locked && !tooManyCards,
       [LeaderboardAction.Confirm]: showConfirm,
-      [LeaderboardAction.Share]: !so5Lineup?.draft,
+      [LeaderboardAction.Share]: !vicc5Lineup?.draft,
     })
       .filter(entry => entry[1])
       .map(([key]) => key as LeaderboardAction);
@@ -88,15 +88,15 @@ const getLineupActions = withFragments(
     };
   },
   {
-    so5Lineup: gql`
-      fragment getLineupActions_so5Lineup on So5Lineup {
+    vicc5Lineup: gql`
+      fragment getLineupActions_vicc5Lineup on Vicc5Lineup {
         id
         draft
         confirmable
       }
-    ` as TypedDocumentNode<getLineupActions_so5Lineup>,
-    so5Leaderboard: gql`
-      fragment getLineupActions_so5Leaderboard on So5Leaderboard {
+    ` as TypedDocumentNode<getLineupActions_vicc5Lineup>,
+    vicc5Leaderboard: gql`
+      fragment getLineupActions_vicc5Leaderboard on Vicc5Leaderboard {
         slug
         teamsCap
         startDate
@@ -110,11 +110,11 @@ const getLineupActions = withFragments(
           status
           campaignType
         }
-        mySo5Lineups {
+        myVicc5Lineups {
           id
         }
       }
-    ` as TypedDocumentNode<getLineupActions_so5Leaderboard>,
+    ` as TypedDocumentNode<getLineupActions_vicc5Leaderboard>,
   }
 );
 

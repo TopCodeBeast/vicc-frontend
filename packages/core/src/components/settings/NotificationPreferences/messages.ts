@@ -57,12 +57,12 @@ export const notificationTitles = defineMessages<
     id: 'NotificationPreferenceTitle.offerCountered',
     defaultMessage: 'Counter offer received',
   },
-  so5_lineup_too_powerful: {
-    id: 'NotificationPreferenceTitle.so5LineupTooPowerful',
-    defaultMessage: 'So5 lineup too powerful',
+  vicc5_lineup_too_powerful: {
+    id: 'NotificationPreferenceTitle.vicc5LineupTooPowerful',
+    defaultMessage: 'Vicc5 lineup too powerful',
   },
-  so5_lineup_invalid: {
-    id: 'NotificationPreferenceTitle.so5LineupInvalid',
+  vicc5_lineup_invalid: {
+    id: 'NotificationPreferenceTitle.vicc5LineupInvalid',
     defaultMessage: 'Lineup invalid',
   },
   appearance_destroyed: {
@@ -155,13 +155,13 @@ export const notificationSubtitles = defineMessages<
     id: 'NotificationPreference.offerCancelled',
     defaultMessage: 'Received when one of your offers has been canceled.',
   },
-  so5_lineup_too_powerful: {
-    id: 'NotificationPreference.so5LineupTooPowerful',
+  vicc5_lineup_too_powerful: {
+    id: 'NotificationPreference.vicc5LineupTooPowerful',
     defaultMessage:
       'Received when one of your lineup exceeds the leaderboard power cap.',
   },
-  so5_lineup_invalid: {
-    id: 'NotificationPreference.so5LineupInvalid',
+  vicc5_lineup_invalid: {
+    id: 'NotificationPreference.vicc5LineupInvalid',
     defaultMessage:
       'Received when one of your submitted lineup becomes invalid.',
   },

@@ -56,7 +56,7 @@ export const useCurrentSportGallery = () => {
 export const GalleryLink = <T,>({
   user,
   galleryPathFactory,
-  galleryType = Sport.FOOTBALL,
+  galleryType = Sport.CRICKET,
   children,
   Link,
   WhenSuspended = Fragment,

@@ -40,7 +40,7 @@ const PageFooter = ({
   dark?: boolean;
 }) => {
   return (
-    <BannerWrapper sport={Sport.FOOTBALL} dark={dark}>
+    <BannerWrapper sport={Sport.CRICKET} dark={dark}>
       <BackgroundImage style={{ backgroundImage: `url(${bgImage})` }}>
         <Wrapper>
           {title}

@@ -28,7 +28,7 @@ import {
 } from './__generated__/index.graphql';
 
 interface Props {
-  so5Fixture?: { slug: string } | null;
+  vicc5Fixture?: { slug: string } | null;
   live?: boolean;
 }
 
@@ -103,16 +103,16 @@ export const LOBBY_TOP_PLAYERS_PER_POSITION_QUERY = gql`
     $cursor: String
   ) {
     football {
-      so5 {
-        so5Fixture(slug: $slug) {
+      vicc5 {
+        vicc5Fixture(slug: $slug) {
           slug
-          orderedSo5Scores(first: 1) {
+          orderedVicc5Scores(first: 1) {
             position
-            so5Scores {
+            vicc5Scores {
               id
             }
           }
-          orderedSo5ScoresByPosition(
+          orderedVicc5ScoresByPosition(
             position: $position
             minScore: 1
             after: $cursor
@@ -144,7 +144,7 @@ export const LOBBY_TOP_PLAYERS_PER_POSITION_QUERY = gql`
                   avatarPictureUrl: pictureUrl(derivative: "avatar")
                 }
               }
-              ...getPlayerScore_so5Score
+              ...getPlayerScore_vicc5Score
             }
             pageInfo {
               endCursor
@@ -155,13 +155,13 @@ export const LOBBY_TOP_PLAYERS_PER_POSITION_QUERY = gql`
       }
     }
   }
-  ${getPlayerScore.fragments.so5Score}
+  ${getPlayerScore.fragments.vicc5Score}
 ` as TypedDocumentNode<
   LobbyTopPlayersPerPositionQuery,
   LobbyTopPlayersPerPositionQueryVariables
 >;
 
-export const TopPlayers = ({ so5Fixture }: Props) => {
+export const TopPlayers = ({ vicc5Fixture }: Props) => {
   const { formatMessage } = useIntl();
   const [openPlayerGameScore, setOpenPlayerGameScore] = useState('');
   const sortedPlayablePosition = [...playablePositions].reverse();
@@ -176,22 +176,22 @@ export const TopPlayers = ({ so5Fixture }: Props) => {
     LOBBY_TOP_PLAYERS_PER_POSITION_QUERY,
     {
       variables: {
-        slug: so5Fixture?.slug,
+        slug: vicc5Fixture?.slug,
         position,
       },
       nextFetchPolicy: 'cache-first',
       fetchPolicy: 'cache-and-network',
-      connection: 'So5ScoreConnection',
-      skip: !so5Fixture?.slug,
+      connection: 'Vicc5ScoreConnection',
+      skip: !vicc5Fixture?.slug,
     }
   );
-  const fixture = data?.football.so5.so5Fixture;
-  const hasScores = !!fixture?.orderedSo5Scores.find(
-    ({ so5Scores }) => so5Scores.length
+  const fixture = data?.football.vicc5.vicc5Fixture;
+  const hasScores = !!fixture?.orderedVicc5Scores.find(
+    ({ vicc5Scores }) => vicc5Scores.length
   );
 
-  const orderedSo5ScoresByPosition = fixture?.orderedSo5ScoresByPosition;
-  const { pageInfo, nodes } = orderedSo5ScoresByPosition || {};
+  const orderedVicc5ScoresByPosition = fixture?.orderedVicc5ScoresByPosition;
+  const { pageInfo, nodes } = orderedVicc5ScoresByPosition || {};
   const cursor = pageInfo?.endCursor;
 
   const loadMoreCallback = useCallback(() => {
@@ -240,18 +240,18 @@ export const TopPlayers = ({ so5Fixture }: Props) => {
         {nodes?.length ? (
           <>
             <PlayersWrapper>
-              {nodes.map(so5Score => {
+              {nodes.map(vicc5Score => {
                 const {
                   player,
                   playerGameStats: { player: representativePlayer, team },
-                } = so5Score;
-                const { score, status } = getPlayerScore(so5Score);
+                } = vicc5Score;
+                const { score, status } = getPlayerScore(vicc5Score);
                 const isIrlScore = representativePlayer.slug === player.slug;
                 return (
                   <PlayerButton
-                    key={so5Score.id}
+                    key={vicc5Score.id}
                     type="button"
-                    onClick={() => setOpenPlayerGameScore(so5Score.id)}
+                    onClick={() => setOpenPlayerGameScore(vicc5Score.id)}
                   >
                     {isIrlScore ? (
                       <PlayerAvatar
@@ -291,7 +291,7 @@ export const TopPlayers = ({ so5Fixture }: Props) => {
               </Footer>
             )}
             <PlayerGameScoreDialog
-              so5ScoreId={idFromObject(openPlayerGameScore)!}
+              vicc5ScoreId={idFromObject(openPlayerGameScore)!}
               onClose={() => setOpenPlayerGameScore('')}
               open={!!openPlayerGameScore}
             />

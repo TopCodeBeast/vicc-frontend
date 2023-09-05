@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const appsPaths = {
-  [Sport.FOOTBALL]: FOOTBALL_PATH,
+  [Sport.CRICKET]: FOOTBALL_PATH,
   [Sport.BASEBALL]: MLB_PATH,
   [Sport.NBA]: NBA_PATH,
 };

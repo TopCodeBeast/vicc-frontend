@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import Form from '@football/pages/NoCardEntry/Form';
 
-import useRequestSo5NoCardLineupEligibleLeaderboards from './useRequestSo5NoCardLineupEligibleLeaderboards';
+import useRequestVicc5NoCardLineupEligibleLeaderboards from './useRequestSo5NoCardLineupEligibleLeaderboards';
 
 const messages = defineMessages({
   title: {
@@ -13,12 +13,12 @@ const messages = defineMessages({
 });
 
 const Accept = () => {
-  const { so5LineupId } = useParams();
-  const requestLineup = useRequestSo5NoCardLineupEligibleLeaderboards();
+  const { vicc5LineupId } = useParams();
+  const requestLineup = useRequestVicc5NoCardLineupEligibleLeaderboards();
 
   const mutate = async () => {
     const { errors } = await requestLineup({
-      so5NoCardLineupId: `So5NoCardLineup:${so5LineupId}`,
+      vicc5NoCardLineupId: `Vicc5NoCardLineup:${vicc5LineupId}`,
     });
     return errors.length === 0;
   };

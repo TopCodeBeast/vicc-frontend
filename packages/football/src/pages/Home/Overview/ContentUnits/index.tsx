@@ -17,7 +17,7 @@ import {
 import useHideContentUnit from './useHideContentUnit';
 
 type ContentUnit = Omit<
-  ManagerHomeContentUnits['config']['so5']['managerHomeContentUnitsSets'][number]['contentUnits'][number],
+  ManagerHomeContentUnits['config']['vicc5']['managerHomeContentUnitsSets'][number]['contentUnits'][number],
   '__typename'
 >;
 
@@ -33,7 +33,7 @@ const QUERY = gql`
   query ManagerHomeContentUnits {
     config {
       id
-      so5 {
+      vicc5 {
         id
         managerHomeContentUnitsSets {
           id
@@ -61,7 +61,7 @@ export const ContentUnits = ({ loading: homeLoading }: Props) => {
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-first',
   });
-  const contentUnitsSet = data?.config.so5.managerHomeContentUnitsSets?.[0];
+  const contentUnitsSet = data?.config.vicc5.managerHomeContentUnitsSets?.[0];
   const contentUnits: ContentUnit[] =
     contentUnitsSet?.contentUnits ||
     range(3).map(id => ({

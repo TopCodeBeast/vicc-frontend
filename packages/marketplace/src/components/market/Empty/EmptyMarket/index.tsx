@@ -56,8 +56,8 @@ export const EmptyMarket = ({ ctaMessage }: Props) => {
 
   const to = generatePath(
     isPrimary
-      ? secondaryMarketPaths[sport ?? Sport.FOOTBALL]
-      : primaryMarketPaths[sport ?? Sport.FOOTBALL]
+      ? secondaryMarketPaths[sport ?? Sport.CRICKET]
+      : primaryMarketPaths[sport ?? Sport.CRICKET]
   );
   const linkMessage = isPrimary ? messages.goToSecondary : messages.goToPrimary;
   return (

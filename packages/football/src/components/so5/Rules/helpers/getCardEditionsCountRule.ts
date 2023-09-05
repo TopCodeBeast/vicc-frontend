@@ -106,7 +106,7 @@ const getCardEditionsCountRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetCardEditionsCountRule on So5Leaderboard {
+      fragment GetCardEditionsCountRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

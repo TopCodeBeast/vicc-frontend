@@ -10,15 +10,15 @@ import CardReward from '@football/pages/Lobby/CompetitionDetails/Rewards/CardRew
 import CoinReward from '@football/pages/Lobby/CompetitionDetails/Rewards/CoinReward';
 import ExperienceReward from '@football/pages/Lobby/CompetitionDetails/Rewards/ExperienceReward';
 import MoneyReward from '@football/pages/Lobby/CompetitionDetails/Rewards/MoneyReward';
-import { MoneyReward_so5RewardConfig } from '@football/pages/Lobby/CompetitionDetails/Rewards/MoneyReward/__generated__/index.graphql';
+import { MoneyReward_vicc5RewardConfig } from '@football/pages/Lobby/CompetitionDetails/Rewards/MoneyReward/__generated__/index.graphql';
 import RewardRange from '@football/pages/Lobby/CompetitionDetails/Rewards/RewardRange';
 
 import {
-  RankBasedRewards_so5League,
-  RankBasedRewards_so5RewardConfig,
+  RankBasedRewards_vicc5League,
+  RankBasedRewards_vicc5RewardConfig,
 } from './__generated__/index.graphql';
 
-export interface RangeReward extends RankBasedRewards_so5RewardConfig {
+export interface RangeReward extends RankBasedRewards_vicc5RewardConfig {
   startRank?: number | null;
   startPct?: number | null;
   endRank?: number | null;
@@ -77,7 +77,7 @@ type Props = {
   rewards: RangeReward[];
   myRanking?: number | null;
   myRankPct?: number | null;
-  so5League: RankBasedRewards_so5League;
+  vicc5League: RankBasedRewards_vicc5League;
 };
 
 const TROPHY_ICONS: {
@@ -92,7 +92,7 @@ const RankBasedRewards = ({
   rewards,
   myRanking,
   myRankPct,
-  so5League,
+  vicc5League,
 }: Props) => {
   return (
     <Wrapper>
@@ -162,7 +162,7 @@ const RankBasedRewards = ({
               isProjectedReward={isMyRange}
               rank={Rank}
               rewards={
-                so5League && (
+                vicc5League && (
                   <>
                     {experiences?.map(experience => (
                       <ExperienceReward
@@ -177,7 +177,7 @@ const RankBasedRewards = ({
                             ethAmount,
                             usdAmount,
                             minimumGuaranteedUsdAmount,
-                          } as MoneyReward_so5RewardConfig
+                          } as MoneyReward_vicc5RewardConfig
                         }
                       />
                     )}
@@ -185,7 +185,7 @@ const RankBasedRewards = ({
                     {cards?.map(card => (
                       <CardReward
                         key={`${card.quality}-${card.rarity}`}
-                        slug={so5League.slug}
+                        slug={vicc5League.slug}
                         card={card}
                       />
                     ))}
@@ -201,30 +201,30 @@ const RankBasedRewards = ({
 };
 
 RankBasedRewards.fragments = {
-  so5League: gql`
-    fragment RankBasedRewards_so5League on So5League {
+  vicc5League: gql`
+    fragment RankBasedRewards_vicc5League on Vicc5League {
       slug
       name
     }
-  ` as TypedDocumentNode<RankBasedRewards_so5League>,
-  so5RewardConfig: gql`
-    fragment RankBasedRewards_so5RewardConfig on So5RewardConfig {
+  ` as TypedDocumentNode<RankBasedRewards_vicc5League>,
+  vicc5RewardConfig: gql`
+    fragment RankBasedRewards_vicc5RewardConfig on Vicc5RewardConfig {
       ranks
       rankPct
       score
       coinAmount
-      ...MoneyReward_so5RewardConfig
+      ...MoneyReward_vicc5RewardConfig
       cards {
-        ...CardReward_so5RewardCardConfig
+        ...CardReward_vicc5RewardCardConfig
       }
       experiences {
-        ...ExperienceReward_so5RewardExperience
+        ...ExperienceReward_vicc5RewardExperience
       }
     }
-    ${CardReward.fragments.So5RewardCardConfig}
-    ${ExperienceReward.fragments.So5RewardExperience}
-    ${MoneyReward.fragments.so5RewardConfig}
-  ` as TypedDocumentNode<RankBasedRewards_so5RewardConfig>,
+    ${CardReward.fragments.Vicc5RewardCardConfig}
+    ${ExperienceReward.fragments.Vicc5RewardExperience}
+    ${MoneyReward.fragments.vicc5RewardConfig}
+  ` as TypedDocumentNode<RankBasedRewards_vicc5RewardConfig>,
 };
 
 export default RankBasedRewards;

@@ -118,7 +118,7 @@ export const PlayNowSportsButtons = () => {
         onClick={() => navigate(FOOTBALL_PATH)}
       >
         <div>
-          <Title>{formatMessage(sportsLabelsMessages[Sport.FOOTBALL])}</Title>
+          <Title>{formatMessage(sportsLabelsMessages[Sport.CRICKET])}</Title>
           <SorareLogoWithStarball />
         </div>
         <Button color="white" small>

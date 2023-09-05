@@ -12,12 +12,12 @@ import Bold from '@sorare/core/src/atoms/typography/Bold';
 import { Errors } from '@football/components/so5/ComposeTeam/Context';
 import { ELIGIBILITY_RULES } from '@football/lib/so5';
 
-import { Rules_so5Leaderboard } from './__generated__/index.graphql';
+import { Rules_vicc5Leaderboard } from './__generated__/index.graphql';
 // import { formatRules } from './formatRules';
 import { FormatRule } from './types';
 
-type Rules_so5Leaderboard_displayedRules = NonNullable<
-  Rules_so5Leaderboard['displayedRules']
+type Rules_vicc5Leaderboard_displayedRules = NonNullable<
+  Rules_vicc5Leaderboard['displayedRules']
 >;
 
 export type RuleLineProps = { content: ReactNode; idx: number };
@@ -39,7 +39,7 @@ const Status = styled.span`
 `;
 
 type Props = {
-  so5Leaderboard: Rules_so5Leaderboard;
+  vicc5Leaderboard: Rules_vicc5Leaderboard;
   hideCompetitions?: boolean;
   displayStatus?: boolean;
   errors?: Errors;
@@ -50,7 +50,7 @@ type Props = {
 };
 
 export const hasRules = (
-  rules?: Rules_so5Leaderboard_displayedRules | null,
+  rules?: Rules_vicc5Leaderboard_displayedRules | null,
   excludeProps?: string[]
 ) => {
   if (!rules) {
@@ -67,19 +67,19 @@ export const hasRules = (
         ]?.includes(rule) && !(rule === 'captainRarities' && rules[rule])
     )
     .find(rule => {
-      const r = rule as keyof Rules_so5Leaderboard_displayedRules;
+      const r = rule as keyof Rules_vicc5Leaderboard_displayedRules;
       return Array.isArray(rules[r]) ? !!(rules[r] as [])?.length : !!rules[r];
     });
 };
 
 export const Rules = ({
-  so5Leaderboard,
+  vicc5Leaderboard,
   hideCompetitions = false,
   errors = [],
   Line = ({ content, rule, ...props }) => <Text16 {...props}>{content}</Text16>,
 }: Props) => {
   /*const intl = useIntl();
-  const formattedRules = formatRules(so5Leaderboard, errors, intl);
+  const formattedRules = formatRules(vicc5Leaderboard, errors, intl);
   if (!formattedRules.length) return null;
 
   return (
@@ -125,13 +125,13 @@ export const Rules = ({
 };
 
 /*Rules.fragments = {
-  so5Leaderboard: gql`
-    fragment Rules_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment Rules_vicc5Leaderboard on Vicc5Leaderboard {
       slug
-      ...formatRules_so5Leaderboard
+      ...formatRules_vicc5Leaderboard
     }
-    ${formatRules.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<Rules_so5Leaderboard>,
+    ${formatRules.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<Rules_vicc5Leaderboard>,
 };*/
 
 export default Rules;

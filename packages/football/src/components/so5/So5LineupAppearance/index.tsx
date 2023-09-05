@@ -16,10 +16,10 @@ import PlayerScore from '@football/components/stats/PlayerScore';
 import ScoreFrom from '@football/components/stats/ScoreFrom';
 import { getPlayerScore } from '@football/lib/so5';
 
-import { So5LineupAppearance_so5Appearance } from './__generated__/index.graphql';
+import { Vicc5LineupAppearance_vicc5Appearance } from './__generated__/index.graphql';
 
 type Props = {
-  so5Appearance: So5LineupAppearance_so5Appearance;
+  vicc5Appearance: Vicc5LineupAppearance_vicc5Appearance;
 };
 
 const CaptainBadge = styled.div`
@@ -75,14 +75,14 @@ const NameBlock = styled.div`
   justify-content: left;
 `;
 
-export const So5LineupAppearance = ({ so5Appearance }: Props) => {
+export const Vicc5LineupAppearance = ({ vicc5Appearance }: Props) => {
   const [expanded, toggleExpanded] = useToggle(false);
 
-  const { card, bonus, captain, so5Score } = so5Appearance;
-  const { score, status } = getPlayerScore(so5Score);
+  const { card, bonus, captain, vicc5Score } = vicc5Appearance;
+  const { score, status } = getPlayerScore(vicc5Score);
   const scoreWithBonus = bonus && score ? score * bonus : null;
   const { player } = card;
-  const representativePlayer = so5Score?.playerGameStats?.player;
+  const representativePlayer = vicc5Score?.playerGameStats?.player;
 
   const onAppearanceClick = () => toggleExpanded();
 
@@ -94,7 +94,7 @@ export const So5LineupAppearance = ({ so5Appearance }: Props) => {
         tabIndex={0}
         aria-hidden="true"
       >
-        <CardBlock item={card} sport={Sport.FOOTBALL}>
+        <CardBlock item={card} sport={Sport.CRICKET}>
           <Card>
             <FlexCard card={card} width={80} />
             {captain && (
@@ -127,18 +127,18 @@ export const So5LineupAppearance = ({ so5Appearance }: Props) => {
           </NameBlock>
         </AppearanceRight>
       </AppearanceContent>
-      {so5Score && (
+      {vicc5Score && (
         <Collapse in={expanded}>
-          <AppearanceDetailsFull so5Score={so5Score} player={player} />
+          <AppearanceDetailsFull vicc5Score={vicc5Score} player={player} />
         </Collapse>
       )}
     </Root>
   );
 };
 
-So5LineupAppearance.fragments = {
-  so5Appearance: gql`
-    fragment So5LineupAppearance_so5Appearance on So5Appearance {
+Vicc5LineupAppearance.fragments = {
+  vicc5Appearance: gql`
+    fragment Vicc5LineupAppearance_vicc5Appearance on Vicc5Appearance {
       id
       captain
       bonus
@@ -154,7 +154,7 @@ So5LineupAppearance.fragments = {
         ...FlexCard_card
         ...CardBonus_card
       }
-      so5Score {
+      vicc5Score {
         id
         score
         playerGameStats {
@@ -164,16 +164,16 @@ So5LineupAppearance.fragments = {
             displayName
           }
         }
-        ...AppearanceDetailsFull_so5Score
-        ...getPlayerScore_so5Score
+        ...AppearanceDetailsFull_vicc5Score
+        ...getPlayerScore_vicc5Score
       }
     }
     ${FlexCard.fragments.card}
     ${CardBonus.fragments.card}
-    ${AppearanceDetailsFull.fragments.so5Score}
+    ${AppearanceDetailsFull.fragments.vicc5Score}
     ${AppearanceDetailsFull.fragments.player}
-    ${getPlayerScore.fragments.so5Score}
-  ` as TypedDocumentNode<So5LineupAppearance_so5Appearance>,
+    ${getPlayerScore.fragments.vicc5Score}
+  ` as TypedDocumentNode<Vicc5LineupAppearance_vicc5Appearance>,
 };
 
-export default So5LineupAppearance;
+export default Vicc5LineupAppearance;

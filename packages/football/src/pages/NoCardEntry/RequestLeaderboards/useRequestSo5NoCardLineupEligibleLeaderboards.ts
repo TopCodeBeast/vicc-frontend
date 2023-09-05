@@ -1,18 +1,18 @@
 import { TypedDocumentNode, gql } from '@apollo/client';
 
-import { requestSo5NoCardLineupEligibleLeaderboardsInput } from '@sorare/core/src/__generated__/globalTypes';
+import { requestVicc5NoCardLineupEligibleLeaderboardsInput } from '@sorare/core/src/__generated__/globalTypes';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 
 import {
-  RequestSo5NoCardLineupEligibleLeaderboardsMutation,
-  RequestSo5NoCardLineupEligibleLeaderboardsMutationVariables,
+  RequestVicc5NoCardLineupEligibleLeaderboardsMutation,
+  RequestVicc5NoCardLineupEligibleLeaderboardsMutationVariables,
 } from './__generated__/useRequestSo5NoCardLineupEligibleLeaderboards.graphql';
 
 const REQUEST_NO_CARD_LINEUP_ELIGIBLE_LEADERBOARDS_MUTATION = gql`
-  mutation RequestSo5NoCardLineupEligibleLeaderboardsMutation(
-    $input: requestSo5NoCardLineupEligibleLeaderboardsInput!
+  mutation RequestVicc5NoCardLineupEligibleLeaderboardsMutation(
+    $input: requestVicc5NoCardLineupEligibleLeaderboardsInput!
   ) {
-    requestSo5NoCardLineupEligibleLeaderboards(input: $input) {
+    requestVicc5NoCardLineupEligibleLeaderboards(input: $input) {
       currentUser {
         slug
       }
@@ -24,11 +24,11 @@ const REQUEST_NO_CARD_LINEUP_ELIGIBLE_LEADERBOARDS_MUTATION = gql`
     }
   }
 ` as TypedDocumentNode<
-  RequestSo5NoCardLineupEligibleLeaderboardsMutation,
-  RequestSo5NoCardLineupEligibleLeaderboardsMutationVariables
+  RequestVicc5NoCardLineupEligibleLeaderboardsMutation,
+  RequestVicc5NoCardLineupEligibleLeaderboardsMutationVariables
 >;
 
-const useRequestSo5NoCardLineupEligibleLeaderboards = () => {
+const useRequestVicc5NoCardLineupEligibleLeaderboards = () => {
   const [mutate] = useMutation(
     REQUEST_NO_CARD_LINEUP_ELIGIBLE_LEADERBOARDS_MUTATION,
     {
@@ -36,8 +36,8 @@ const useRequestSo5NoCardLineupEligibleLeaderboards = () => {
     }
   );
 
-  return async (input: requestSo5NoCardLineupEligibleLeaderboardsInput) =>
+  return async (input: requestVicc5NoCardLineupEligibleLeaderboardsInput) =>
     mutate({ variables: { input } });
 };
 
-export default useRequestSo5NoCardLineupEligibleLeaderboards;
+export default useRequestVicc5NoCardLineupEligibleLeaderboards;

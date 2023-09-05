@@ -244,7 +244,7 @@ export const getSport = (): Sport => {
   if (matchPath(MLB_WILDCARD, pathname)) {
     return Sport.BASEBALL;
   }
-  return Sport.FOOTBALL;
+  return Sport.CRICKET;
 };
 
 // This is a helper function used to define what to pass to Segments' .page() function

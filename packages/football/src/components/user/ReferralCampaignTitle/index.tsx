@@ -110,7 +110,7 @@ const CampaignTitle = ({
             <FormattedMessage
               {...messages.requiredCards}
               values={{
-                cardsCount: CARDS_REQUIREMENTS_BY_SPORT[Sport.FOOTBALL],
+                cardsCount: CARDS_REQUIREMENTS_BY_SPORT[Sport.CRICKET],
               }}
             />
           </Text14>

@@ -109,7 +109,7 @@ const Banner = ({ sport }: { sport: Sport }) => {
   const { fiatCurrency } = useCurrentUserContext();
   const { formatNumber } = useIntlContext();
 
-  if (sport === Sport.FOOTBALL && abTestUseConversionCreditForReferrerReward) {
+  if (sport === Sport.CRICKET && abTestUseConversionCreditForReferrerReward) {
     return (
       <ConversionCreditDesignBlock>
         <Title3>

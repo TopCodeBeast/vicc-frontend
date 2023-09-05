@@ -12,10 +12,10 @@ import { EditableAppearance, Position } from '@football/lib/so5';
 
 import {
   LineupCard_card,
-  LineupCard_so5Appearance,
+  LineupCard_vicc5Appearance,
 } from './__generated__/index.graphql';
 
-type LineupCard_so5Appearance_card = LineupCard_so5Appearance['card'];
+type LineupCard_vicc5Appearance_card = LineupCard_vicc5Appearance['card'];
 
 const Captain = styled.div`
   position: absolute;
@@ -31,7 +31,7 @@ const Button = styled.button`
 `;
 
 interface Props {
-  item: EditableAppearance<LineupCard_so5Appearance_card>;
+  item: EditableAppearance<LineupCard_vicc5Appearance_card>;
   active: boolean;
   onSelect: () => void;
   position: Position;
@@ -99,8 +99,8 @@ const cardFragment = gql`
 
 Memoized.fragments = {
   card: cardFragment,
-  so5_appearance: gql`
-    fragment LineupCard_so5Appearance on So5Appearance {
+  vicc5_appearance: gql`
+    fragment LineupCard_vicc5Appearance on Vicc5Appearance {
       card {
         slug
         assetId
@@ -108,7 +108,7 @@ Memoized.fragments = {
       }
     }
     ${cardFragment}
-  ` as TypedDocumentNode<LineupCard_so5Appearance>,
+  ` as TypedDocumentNode<LineupCard_vicc5Appearance>,
 };
 
 export default Memoized;

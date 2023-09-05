@@ -27,10 +27,10 @@ import {
 import { RewardHeader } from '@football/components/rewards/Header';
 
 import {
-  formatCardRewards_so5Reward,
-  formatCoinRewards_so5Reward,
-  formatMonetaryRewards_so5Reward,
-  formatReward_so5Reward,
+  formatCardRewards_vicc5Reward,
+  formatCoinRewards_vicc5Reward,
+  formatMonetaryRewards_vicc5Reward,
+  formatReward_vicc5Reward,
 } from './__generated__/utils.graphql';
 
 const CoinRewardHeader = styled.div`
@@ -48,7 +48,7 @@ const ClickableButtonLink = styled(Button)`
 `;
 
 const formatCoinRewards = withFragments(
-  (coinRewards: formatCoinRewards_so5Reward[]): Reward | null => {
+  (coinRewards: formatCoinRewards_vicc5Reward[]): Reward | null => {
     if (!coinRewards.length) return null;
 
     const totalCoinAmount = coinRewards.reduce(
@@ -96,20 +96,20 @@ const formatCoinRewards = withFragments(
     };
   },
   {
-    so5Reward: gql`
-      fragment formatCoinRewards_so5Reward on So5Reward {
+    vicc5Reward: gql`
+      fragment formatCoinRewards_vicc5Reward on Vicc5Reward {
         id
         slug
         aasmState
         coinAmount
       }
-    ` as TypedDocumentNode<formatCoinRewards_so5Reward>,
+    ` as TypedDocumentNode<formatCoinRewards_vicc5Reward>,
   }
 );
 
 const formatMonetaryRewards = withFragments(
   (
-    monetaryRewards: formatMonetaryRewards_so5Reward[],
+    monetaryRewards: formatMonetaryRewards_vicc5Reward[],
     { onClaimFiatRewards }: { onClaimFiatRewards?: () => void } = {}
   ): Reward[] => {
     if (!monetaryRewards.length) return [];
@@ -120,9 +120,9 @@ const formatMonetaryRewards = withFragments(
           id,
           aasmState,
           amount,
-          so5Fixture,
-          so5Ranking,
-          so5UserGroupMembership,
+          vicc5Fixture,
+          vicc5Ranking,
+          vicc5UserGroupMembership,
         } = reward;
 
         if (
@@ -135,11 +135,11 @@ const formatMonetaryRewards = withFragments(
         )
           return null;
 
-        const { gameWeek } = so5Fixture || {};
-        const { score, ranking } = so5Ranking || so5UserGroupMembership || {};
+        const { gameWeek } = vicc5Fixture || {};
+        const { score, ranking } = vicc5Ranking || vicc5UserGroupMembership || {};
         const title =
-          so5Ranking?.so5Lineup?.so5Leaderboard?.displayName ||
-          so5UserGroupMembership?.so5UserGroup?.displayName ||
+          vicc5Ranking?.vicc5Lineup?.vicc5Leaderboard?.displayName ||
+          vicc5UserGroupMembership?.vicc5UserGroup?.displayName ||
           '';
 
         const currency =
@@ -171,19 +171,19 @@ const formatMonetaryRewards = withFragments(
       .filter(Boolean);
   },
   {
-    so5Reward: gql`
-      fragment formatMonetaryRewards_so5Reward on So5Reward {
+    vicc5Reward: gql`
+      fragment formatMonetaryRewards_vicc5Reward on Vicc5Reward {
         id
         slug
         aasmState
         amount {
           ...MonetaryAmountFragment_monetaryAmount
         }
-        so5Ranking {
+        vicc5Ranking {
           id
-          so5Lineup {
+          vicc5Lineup {
             id
-            so5Leaderboard {
+            vicc5Leaderboard {
               slug
               displayName
             }
@@ -191,28 +191,28 @@ const formatMonetaryRewards = withFragments(
           ranking
           score
         }
-        so5UserGroupMembership {
+        vicc5UserGroupMembership {
           id
           ranking
           score
-          so5UserGroup {
+          vicc5UserGroup {
             slug
             id
             displayName
           }
         }
-        so5Fixture {
+        vicc5Fixture {
           slug
           gameWeek
         }
       }
       ${monetaryAmountFragment}
-    ` as TypedDocumentNode<formatMonetaryRewards_so5Reward>,
+    ` as TypedDocumentNode<formatMonetaryRewards_vicc5Reward>,
   }
 );
 
 const formatCardRewards = withFragments(
-  (cardRewards: formatCardRewards_so5Reward[]): Reward[] => {
+  (cardRewards: formatCardRewards_vicc5Reward[]): Reward[] => {
     if (!cardRewards.length) return [];
 
     return cardRewards
@@ -220,17 +220,17 @@ const formatCardRewards = withFragments(
         const {
           id,
           aasmState,
-          so5Fixture,
-          so5Ranking,
-          so5UserGroupMembership,
+          vicc5Fixture,
+          vicc5Ranking,
+          vicc5UserGroupMembership,
           rewardCards,
         } = reward;
 
-        const { gameWeek } = so5Fixture || {};
-        const { score, ranking } = so5Ranking || so5UserGroupMembership || {};
+        const { gameWeek } = vicc5Fixture || {};
+        const { score, ranking } = vicc5Ranking || vicc5UserGroupMembership || {};
         const title =
-          so5Ranking?.so5Lineup?.so5Leaderboard?.displayName ||
-          so5UserGroupMembership?.so5UserGroup?.displayName ||
+          vicc5Ranking?.vicc5Lineup?.vicc5Leaderboard?.displayName ||
+          vicc5UserGroupMembership?.vicc5UserGroup?.displayName ||
           '';
 
         return rewardCards
@@ -276,16 +276,16 @@ const formatCardRewards = withFragments(
       .flat();
   },
   {
-    so5Reward: gql`
-      fragment formatCardRewards_so5Reward on So5Reward {
+    vicc5Reward: gql`
+      fragment formatCardRewards_vicc5Reward on Vicc5Reward {
         id
         slug
         aasmState
-        so5Ranking {
+        vicc5Ranking {
           id
-          so5Lineup {
+          vicc5Lineup {
             id
-            so5Leaderboard {
+            vicc5Leaderboard {
               slug
               displayName
             }
@@ -293,17 +293,17 @@ const formatCardRewards = withFragments(
           ranking
           score
         }
-        so5UserGroupMembership {
+        vicc5UserGroupMembership {
           id
           ranking
           score
-          so5UserGroup {
+          vicc5UserGroup {
             slug
             id
             displayName
           }
         }
-        so5Fixture {
+        vicc5Fixture {
           slug
           gameWeek
         }
@@ -332,13 +332,13 @@ const formatCardRewards = withFragments(
           backPictureUrl
         }
       }
-    ` as TypedDocumentNode<formatCardRewards_so5Reward>,
+    ` as TypedDocumentNode<formatCardRewards_vicc5Reward>,
   }
 );
 
 export const formatReward = withFragments(
   (
-    rewards: formatReward_so5Reward[],
+    rewards: formatReward_vicc5Reward[],
     { onClaimFiatRewards }: { onClaimFiatRewards?: () => void } = {}
   ): Reward[] => {
     const coinReward = formatCoinRewards(
@@ -359,8 +359,8 @@ export const formatReward = withFragments(
     ];
   },
   {
-    so5Reward: gql`
-      fragment formatReward_so5Reward on So5Reward {
+    vicc5Reward: gql`
+      fragment formatReward_vicc5Reward on Vicc5Reward {
         slug
         id
         coinAmount
@@ -370,13 +370,13 @@ export const formatReward = withFragments(
         rewardCards {
           id
         }
-        ...formatCoinRewards_so5Reward
-        ...formatMonetaryRewards_so5Reward
-        ...formatCardRewards_so5Reward
+        ...formatCoinRewards_vicc5Reward
+        ...formatMonetaryRewards_vicc5Reward
+        ...formatCardRewards_vicc5Reward
       }
-      ${formatCoinRewards.fragments.so5Reward}
-      ${formatMonetaryRewards.fragments.so5Reward}
-      ${formatCardRewards.fragments.so5Reward}
-    ` as TypedDocumentNode<formatReward_so5Reward>,
+      ${formatCoinRewards.fragments.vicc5Reward}
+      ${formatMonetaryRewards.fragments.vicc5Reward}
+      ${formatCardRewards.fragments.vicc5Reward}
+    ` as TypedDocumentNode<formatReward_vicc5Reward>,
   }
 );

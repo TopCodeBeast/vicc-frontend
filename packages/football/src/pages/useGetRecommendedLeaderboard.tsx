@@ -16,21 +16,21 @@ import {
 export const RECOMMENDED_LEADERBOARDS_QUERY = gql`
   query RecommendedLeaderboardsQuery {
     football {
-      so5 {
+      vicc5 {
         upcomingLeaderboards {
           slug
-          so5LeaderboardType
+          vicc5LeaderboardType
           tournamentType
           commonDraftCampaign {
             slug
             status
           }
-          ...LineupToDiscover_so5Leaderboard
+          ...LineupToDiscover_vicc5Leaderboard
         }
       }
     }
   }
-  ${LineupToDiscover.fragments.so5Leaderboard}
+  ${LineupToDiscover.fragments.vicc5Leaderboard}
 ` as TypedDocumentNode<
   RecommendedLeaderboardsQuery,
   RecommendedLeaderboardsQueryVariables
@@ -51,7 +51,7 @@ const useGetRecommendedLeaderboard = ({
     return {};
   }
 
-  const leaderboards = data?.football.so5.upcomingLeaderboards;
+  const leaderboards = data?.football.vicc5.upcomingLeaderboards;
 
   const draftedLeaderboards =
     leaderboards?.filter(
@@ -62,7 +62,7 @@ const useGetRecommendedLeaderboard = ({
     const draftedLeaderboard = draftedLeaderboards[0];
     const correspondingSemiProLeaderboard = leaderboards?.find(
       l =>
-        SEMI_PRO_TOURNAMENT_TYPES.includes(l.so5LeaderboardType) &&
+        SEMI_PRO_TOURNAMENT_TYPES.includes(l.vicc5LeaderboardType) &&
         l.tournamentType === draftedLeaderboard.tournamentType
     );
     return {

@@ -14,12 +14,12 @@ import {
 export const LAST_LINEUP_QUERY = gql`
   query myLastLineupQuery {
     football {
-      so5 {
+      vicc5 {
         myUpcomingLineupsPaginated {
           nodes {
             name
             draft
-            so5Appearances {
+            vicc5Appearances {
               captain
               card {
                 slug
@@ -43,8 +43,8 @@ const useFavPlayer = ({ skip = false }: { skip?: boolean }) => {
   const { data } = useQuery(LAST_LINEUP_QUERY, { skip });
 
   const card =
-    data?.football.so5.myUpcomingLineupsPaginated.nodes[0]?.so5Appearances.find(
-      so5Appearance => so5Appearance.captain
+    data?.football.vicc5.myUpcomingLineupsPaginated.nodes[0]?.vicc5Appearances.find(
+      vicc5Appearance => vicc5Appearance.captain
     )?.card;
 
   const myCaptainHits = useFacetedSearchCards({

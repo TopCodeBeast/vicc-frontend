@@ -63,11 +63,11 @@ const InnerComponent = ({ children, setLocale, testMode }: InnerProps) => {
    * If both date belong to the same month, return for instance 8–12 May
    * If both date belong to different months, return 31 May–2 June
    */
-  const formatFixtureDate = (so5Fixture: {
+  const formatFixtureDate = (vicc5Fixture: {
     startDate: ISO8601DateTime;
     endDate: ISO8601DateTime;
   }) => {
-    const { startDate, endDate } = so5Fixture;
+    const { startDate, endDate } = vicc5Fixture;
     const options: FormatDateOptions = { month: 'short', day: 'numeric' };
     const [startDateM, endDateM] = [new Date(startDate), new Date(endDate)];
     if (new Date(startDateM).getMonth() === new Date(endDateM).getMonth()) {

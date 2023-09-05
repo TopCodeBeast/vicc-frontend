@@ -77,9 +77,9 @@ export default () => {
           id,
           email,
           nickname,
-          sorareAddress,
+          viccAddress,
           starkKey,
-          sorarePrivateKey,
+          viccPrivateKey,
         } = currentUser;
 
         setInitializedAs(id);
@@ -90,8 +90,8 @@ export default () => {
             user: {
               email,
               nickname,
-              address: sorareAddress || undefined,
-              userPrivateKey: sorarePrivateKey || undefined,
+              address: viccAddress || undefined,
+              userPrivateKey: viccPrivateKey || undefined,
               starkKey: starkKey || undefined,
             },
           },

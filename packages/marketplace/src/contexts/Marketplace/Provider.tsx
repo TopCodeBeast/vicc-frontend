@@ -40,10 +40,10 @@ interface Props
 const cardInfoProperties = (card: Analytics_cardInfo) => ({
   cardSlug: card.slug,
   domesticLeagueSlug: card.player.activeClub?.domesticLeague?.slug || '',
-  lastFiveSo5Appearances: card.player.lastFiveSo5Appearances || 0,
-  lastFiveSo5AverageScore: card.lastFiveSo5AverageScore || 0.0,
-  lastFifteenSo5Appearances: card.player.lastFifteenSo5Appearances || 0,
-  lastFifteenSo5AverageScore: card.lastFifteenSo5AverageScore || 0.0,
+  lastFiveVicc5Appearances: card.player.lastFiveVicc5Appearances || 0,
+  lastFiveVicc5AverageScore: card.lastFiveVicc5AverageScore || 0.0,
+  lastFifteenVicc5Appearances: card.player.lastFifteenVicc5Appearances || 0,
+  lastFifteenVicc5AverageScore: card.lastFifteenVicc5AverageScore || 0.0,
   playerSlug: card.player.slug,
   position: card.positionTyped,
   positions: [],
@@ -52,8 +52,8 @@ const cardInfoProperties = (card: Analytics_cardInfo) => ({
   serialNumber: card.serialNumber,
   teamSlug: card.team.slug,
   value: 0,
-  lastFortySo5Appearances: 0,
-  lastFortySo5AverageScore: 0,
+  lastFortyVicc5Appearances: 0,
+  lastFortyVicc5AverageScore: 0,
   playerTier: '',
   tierVersion: 0,
 });
@@ -76,12 +76,12 @@ const cardsInfoProperties = (cards: Analytics_cardInfo[]) => ({
 const tokenInfoProperties = (token: Analytics_tokenInfo) => ({
   cardSlug: token.slug,
   domesticLeagueSlug: '',
-  lastFiveSo5Appearances: 0,
-  lastFiveSo5AverageScore: 0.0,
-  lastFifteenSo5Appearances: 0,
-  lastFifteenSo5AverageScore: 0.0,
+  lastFiveVicc5Appearances: 0,
+  lastFiveVicc5AverageScore: 0.0,
+  lastFifteenVicc5Appearances: 0,
+  lastFifteenVicc5AverageScore: 0.0,
   playerSlug: token.metadata.playerSlug,
-  position: isType(token.metadata, 'TokenFootballMetadata')
+  position: isType(token.metadata, 'TokenCricketMetadata')
     ? token.metadata.playerPosition
     : '',
   positions: isType(token.metadata, 'TokenBaseballMetadata')
@@ -92,8 +92,8 @@ const tokenInfoProperties = (token: Analytics_tokenInfo) => ({
   serialNumber: token.metadata.serialNumber,
   teamSlug: token.metadata.teamSlug,
   value: 0,
-  lastFortySo5Appearances: 0,
-  lastFortySo5AverageScore: 0,
+  lastFortyVicc5Appearances: 0,
+  lastFortyVicc5AverageScore: 0,
   playerTier: '',
   tierVersion: 0,
 });
@@ -106,7 +106,7 @@ const tokensInfoProperties = (tokens: Analytics_tokenInfo[]) => ({
     if (isType(token.metadata, 'TokenBaseballMetadata')) {
       return token.metadata.playerPositions;
     }
-    if (isType(token.metadata, 'TokenFootballMetadata')) {
+    if (isType(token.metadata, 'TokenCricketMetadata')) {
       return [token.metadata.playerPosition];
     }
     return [];
@@ -134,7 +134,7 @@ const MarketplaceProvider = ({
   const [hideDetails, setHideDetails] = useState(false);
   const trackClickCard = useCallback(
     (assetId: string, sport: Sport) => {
-      if (sport === Sport.FOOTBALL) {
+      if (sport === Sport.CRICKET) {
         getCardFromAssetId(client, assetId).then(card => {
           const params = {
             sport,
@@ -166,7 +166,7 @@ const MarketplaceProvider = ({
         sport,
       };
 
-      if (sport === Sport.FOOTBALL) {
+      if (sport === Sport.CRICKET) {
         getCardsFromAssetIds(client, assetIds).then(cards => {
           const params = {
             ...sharedProperties,
@@ -207,7 +207,7 @@ const MarketplaceProvider = ({
         sport,
       };
 
-      if (sport === Sport.FOOTBALL) {
+      if (sport === Sport.CRICKET) {
         getCardsFromAssetIds(client, assetIds).then(cards => {
           if (cards.length === 1) {
             const params = {
@@ -266,7 +266,7 @@ const MarketplaceProvider = ({
         sport,
       };
 
-      if (sport === Sport.FOOTBALL) {
+      if (sport === Sport.CRICKET) {
         getCardsFromAssetIds(client, assetIds).then(cards => {
           if (cards.length === 1) {
             const params = {

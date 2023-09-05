@@ -14,7 +14,7 @@ type USSportProps = {
 };
 
 type FootballProps = {
-  sport: Sport.FOOTBALL;
+  sport: Sport.CRICKET;
   rarity: Rarity;
 };
 
@@ -39,7 +39,7 @@ export const CardBack = ({ sport, rarity, tier, ...props }: Props) => {
     return <GenericCardBack rarity={rarity as any} {...props} />;
   }
 
-  if (sport === Sport.FOOTBALL) {
+  if (sport === Sport.CRICKET) {
     const tokens: string[] = [Rarity[rarity]];
     if (tier !== undefined) {
       tokens.push(`tier_${tier}`);

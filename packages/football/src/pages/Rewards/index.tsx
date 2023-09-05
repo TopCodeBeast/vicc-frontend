@@ -26,8 +26,8 @@ import {
   RewardPoolQueryVariables,
 } from './__generated__/index.graphql';
 
-type RewardPoolQuery_so5League_so5Fixture_so5Leagues =
-  RewardPoolQuery['football']['so5']['so5League']['so5Fixture']['so5Leagues'][number];
+type RewardPoolQuery_vicc5League_vicc5Fixture_vicc5Leagues =
+  RewardPoolQuery['football']['vicc5']['vicc5League']['vicc5Fixture']['vicc5Leagues'][number];
 
 const Breadcrumbs = styled.div`
   display: flex;
@@ -54,29 +54,29 @@ const messages = defineMessages({
 
 export const REWARD_POOL_QUERY = gql`
   query RewardPoolQuery(
-    $so5LeagueSlug: String!
+    $vicc5LeagueSlug: String!
     $rarity: String!
     $quality: String!
   ) {
     football {
-      so5 {
-        so5League(slug: $so5LeagueSlug) {
+      vicc5 {
+        vicc5League(slug: $vicc5LeagueSlug) {
           slug
           name
           displayName
           category
           rewardPoolComputedAt
           rewardedRarities
-          so5Fixture {
+          vicc5Fixture {
             slug
             gameWeek
             displayName
-            so5Leagues {
+            vicc5Leagues {
               slug
               name
               displayName
               category
-              so5Leaderboards {
+              vicc5Leaderboards {
                 slug
                 rewardsConfig {
                   ranking {
@@ -112,10 +112,10 @@ const qualities = Object.entries(qualityNames).reduce<{
 }, {});
 
 const leagueQualities = (
-  so5League: RewardPoolQuery_so5League_so5Fixture_so5Leagues
+  vicc5League: RewardPoolQuery_vicc5League_vicc5Fixture_vicc5Leagues
 ): string[] => {
   const cardQualities = new Array<string>();
-  so5League.so5Leaderboards.forEach(sl => [
+  vicc5League.vicc5Leaderboards.forEach(sl => [
     [sl.rewardsConfig.conditional, sl.rewardsConfig.ranking]
       .flat()
       .filter(Boolean)
@@ -129,10 +129,10 @@ const leagueQualities = (
 };
 
 const buildSchema = (
-  so5Leagues: RewardPoolQuery_so5League_so5Fixture_so5Leagues[],
+  vicc5Leagues: RewardPoolQuery_vicc5League_vicc5Fixture_vicc5Leagues[],
   rewardedRarities: string[]
 ) =>
-  orderLeagues(so5Leagues)
+  orderLeagues(vicc5Leagues)
     .filter(({ name }) => !['training_center'].includes(name))
     .reduce<{
       [key: string]: { [key: string]: string[] };
@@ -152,38 +152,38 @@ export const Rewards = () => {
   const { formatMessage, formatDate, formatTime } = useIntl();
   const {
     rarity = Rarity.rare,
-    so5LeagueSlug = '',
+    vicc5LeagueSlug = '',
     quality = CardQuality.TIER_0,
-  } = useParams<{ rarity: Rarity; so5LeagueSlug: string; quality: string }>();
+  } = useParams<{ rarity: Rarity; vicc5LeagueSlug: string; quality: string }>();
 
   const { data, loading } = useQuery(REWARD_POOL_QUERY, {
     variables: {
       rarity,
-      so5LeagueSlug,
+      vicc5LeagueSlug,
       quality: quality.toLowerCase(),
     },
   });
 
-  const so5LeagueSlugs = useMemo(
+  const vicc5LeagueSlugs = useMemo(
     () =>
-      (data?.football.so5.so5League?.so5Fixture.so5Leagues || []).reduce<{
+      (data?.football.vicc5.vicc5League?.vicc5Fixture.vicc5Leagues || []).reduce<{
         [key: string]: string;
       }>((sum, cur) => {
         sum[cur.displayName] = cur.slug;
 
         return sum;
       }, {}),
-    [data?.football.so5.so5League?.so5Fixture.so5Leagues]
+    [data?.football.vicc5.vicc5League?.vicc5Fixture.vicc5Leagues]
   );
   const rewardedRarities = useMemo(
     () =>
-      data?.football.so5.so5League?.rewardedRarities?.reduce<{
+      data?.football.vicc5.vicc5League?.rewardedRarities?.reduce<{
         [key: string]: string;
       }>((sum, slug) => {
         sum[scarcityNames[slug]] = slug;
         return sum;
       }, {}) || {},
-    [data?.football.so5.so5League?.rewardedRarities]
+    [data?.football.vicc5.vicc5League?.rewardedRarities]
   );
 
   const onSelect = useCallback(
@@ -194,34 +194,34 @@ export const Rewards = () => {
     ]) => {
       navigate(
         generatePath(REWARDS, {
-          so5LeagueSlug: so5LeagueSlugs[league],
+          vicc5LeagueSlug: vicc5LeagueSlugs[league],
           rarity: rewardedRarities[rarityName!] || rarity,
           quality: qualities[qualityName!].toLowerCase(),
         })
       );
     },
-    [navigate, so5LeagueSlugs, rewardedRarities, rarity]
+    [navigate, vicc5LeagueSlugs, rewardedRarities, rarity]
   );
 
   const schema = useMemo(
     () =>
       buildSchema(
-        (data?.football.so5.so5League?.so5Fixture.so5Leagues || []) as any,
+        (data?.football.vicc5.vicc5League?.vicc5Fixture.vicc5Leagues || []) as any,
         Object.keys(rewardedRarities)
       ),
-    [data?.football.so5.so5League?.so5Fixture.so5Leagues, rewardedRarities]
+    [data?.football.vicc5.vicc5League?.vicc5Fixture.vicc5Leagues, rewardedRarities]
   );
 
-  if ((!data && loading) || !rarity || !quality || !so5LeagueSlug)
+  if ((!data && loading) || !rarity || !quality || !vicc5LeagueSlug)
     return <LoadingIndicator fullHeight />;
 
   if (!data) return null;
 
-  const { so5League } = data.football.so5;
-  const { so5Fixture, rewardPool, rewardPoolComputedAt } = so5League;
+  const { vicc5League } = data.football.vicc5;
+  const { vicc5Fixture, rewardPool, rewardPoolComputedAt } = vicc5League;
 
   const selected: [string, string, string] = [
-    so5League!.displayName,
+    vicc5League!.displayName,
     qualityNames[quality.toUpperCase() as CardQuality],
     scarcityNames[rarity],
   ];
@@ -237,15 +237,15 @@ export const Rewards = () => {
             <Title2 color="var(--c-neutral-900)">
               {formatMessage(messages.fixture, {
                 fixture:
-                  so5Fixture.displayName ||
+                  vicc5Fixture.displayName ||
                   formatMessage(fantasy.gameWeek, {
-                    gameWeek: so5Fixture.gameWeek,
+                    gameWeek: vicc5Fixture.gameWeek,
                   }),
               })}
             </Title2>
             <Title2 color="var(--c-neutral-900)">/</Title2>
             <Title2 color="var(--c-neutral-600)">
-              {so5League!.displayName}
+              {vicc5League!.displayName}
             </Title2>
           </Breadcrumbs>
         }

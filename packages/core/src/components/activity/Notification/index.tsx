@@ -11,8 +11,8 @@ import { KycRequestNotification } from './KycRequestNotification';
 import { OfferNotification } from './OfferNotification';
 import { ReferralRewardNotification } from './ReferralRewardNotification';
 import { SaleNotification } from './SaleNotification';
-import { So5LineupNotification } from './So5LineupNotification';
-import { So5UserGroupNotification } from './So5UserGroupNotification';
+import { Vicc5LineupNotification } from './So5LineupNotification';
+import { Vicc5UserGroupNotification } from './So5UserGroupNotification';
 import { Notification_notification } from './__generated__/index.graphql';
 import { CommonNotificationProps } from './types';
 
@@ -31,8 +31,8 @@ export const Notification = ({ notification, ...rest }: Props) => {
   if (isType(notification, 'OfferNotification')) {
     return <OfferNotification notification={notification} {...rest} />;
   }
-  if (isType(notification, 'So5LineupNotification')) {
-    return <So5LineupNotification notification={notification} {...rest} />;
+  if (isType(notification, 'Vicc5LineupNotification')) {
+    return <Vicc5LineupNotification notification={notification} {...rest} />;
   }
   if (isType(notification, 'AnnouncementNotification')) {
     return <AnnouncementNotification notification={notification} {...rest} />;
@@ -43,8 +43,8 @@ export const Notification = ({ notification, ...rest }: Props) => {
   if (isType(notification, 'CardNotification')) {
     return <CardNotification notification={notification} {...rest} />;
   }
-  if (isType(notification, 'So5UserGroupNotification')) {
-    return <So5UserGroupNotification notification={notification} {...rest} />;
+  if (isType(notification, 'Vicc5UserGroupNotification')) {
+    return <Vicc5UserGroupNotification notification={notification} {...rest} />;
   }
   if (isType(notification, 'CardCollectionNotification')) {
     return <CardCollectionNotification notification={notification} {...rest} />;
@@ -67,11 +67,11 @@ Notification.fragments = {
       ...AuctionNotification_auctionNotification
       ...SaleNotification_saleNotification
       ...OfferNotification_offerNotification
-      ...So5LineupNotification_so5LineupNotification
+      ...Vicc5LineupNotification_vicc5LineupNotification
       ...AnnouncementNotification_announcementNotification
       ...ReferralRewardNotification_referralRewardNotification
       ...CardNotification_cardNotification
-      ...So5UserGroupNotification_so5UserGroupNotification
+      ...Vicc5UserGroupNotification_vicc5UserGroupNotification
       ...CardCollectionNotification_cardCollectionNotification
       ...ExternalDepositNotification_externalDepositNotification
       ...KycRequestNotification_kycRequestNotification
@@ -79,11 +79,11 @@ Notification.fragments = {
     ${AuctionNotification.fragments.auctionNotification}
     ${SaleNotification.fragments.saleNotification}
     ${OfferNotification.fragments.offerNotification}
-    ${So5LineupNotification.fragments.so5LineupNotification}
+    ${Vicc5LineupNotification.fragments.vicc5LineupNotification}
     ${AnnouncementNotification.fragments.announcementNotification}
     ${ReferralRewardNotification.fragments.referralRewardNotification}
     ${CardNotification.fragments.cardNotification}
-    ${So5UserGroupNotification.fragments.so5UserGroupNotification}
+    ${Vicc5UserGroupNotification.fragments.vicc5UserGroupNotification}
     ${CardCollectionNotification.fragments.cardCollectionNotification}
     ${ExternalDepositNotification.fragments.externalDepositNotification}
     ${KycRequestNotification.fragments.kycRequestNotification}

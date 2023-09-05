@@ -106,7 +106,7 @@ export const EligibleRewardsBanner = ({
 
 EligibleRewardsBanner.fragments = {
   rewardConfig: gql`
-    fragment EligibleRewardsBanner_rewardConfig on So5RewardConfig {
+    fragment EligibleRewardsBanner_rewardConfig on Vicc5RewardConfig {
       cards {
         quality
         rarity
@@ -117,7 +117,7 @@ EligibleRewardsBanner.fragments = {
       ethAmount
       usdAmount
       coinAmount
-      ...hasEligibleRewards_so5RewardConfig
+      ...hasEligibleRewards_vicc5RewardConfig
     }
     ${hasEligibleRewards.fragments.rewardConfig}
   ` as TypedDocumentNode<EligibleRewardsBanner_rewardConfig>,

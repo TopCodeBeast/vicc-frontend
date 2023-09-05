@@ -97,11 +97,11 @@ export const FOOTBALL_USER_CARD_COLLECTION = `${FOOTBALL_PATH}/collection/:slug/
 export const FOOTBALL_USER_CARD_COLLECTION_CARDS = `${FOOTBALL_USER_CARD_COLLECTION}/cards`;
 export const FOOTBALL_USER_CARD_COLLECTION_LEADERBOARD = `${FOOTBALL_USER_CARD_COLLECTION}/leaderboard`;
 export const FOOTBALL_NO_CARD_ENTRY = `${FOOTBALL_PATH}/no-card-route`;
-export const FOOTBALL_NO_CARD_ROUTE_REQUEST = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId`;
-export const FOOTBALL_NO_CARD_ROUTE_ACCEPT = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:so5LineupId/accept`;
-export const FOOTBALL_NO_CARD_ROUTE_CANCEL = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:so5LineupId/cancel`;
-export const FOOTBALL_NO_CARD_ROUTE_CONFIRM = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:so5LineupId/confirm`;
-export const FOOTBALL_NO_CARD_ROUTE_LEADERBOARDS = `${FOOTBALL_NO_CARD_ENTRY}/:so5FixtureId/:so5LineupId/leaderboards`;
+export const FOOTBALL_NO_CARD_ROUTE_REQUEST = `${FOOTBALL_NO_CARD_ENTRY}/:vicc5FixtureId`;
+export const FOOTBALL_NO_CARD_ROUTE_ACCEPT = `${FOOTBALL_NO_CARD_ENTRY}/:vicc5FixtureId/:vicc5LineupId/accept`;
+export const FOOTBALL_NO_CARD_ROUTE_CANCEL = `${FOOTBALL_NO_CARD_ENTRY}/:vicc5FixtureId/:vicc5LineupId/cancel`;
+export const FOOTBALL_NO_CARD_ROUTE_CONFIRM = `${FOOTBALL_NO_CARD_ENTRY}/:vicc5FixtureId/:vicc5LineupId/confirm`;
+export const FOOTBALL_NO_CARD_ROUTE_LEADERBOARDS = `${FOOTBALL_NO_CARD_ENTRY}/:vicc5FixtureId/:vicc5LineupId/leaderboards`;
 
 export const LANDING = '/';
 export const TERMS = '/terms-and-conditions';
@@ -113,13 +113,13 @@ export const CONFIRM_EMAIL = '/confirm-email';
 export const CONFIRM_DEVICE = '/confirm-device';
 export const VERIFY_STRIPE_ACCOUNT = '/verify-identity/:id';
 export const DEBUG_DEVICE = '/debug-device';
-export const FOOTBALL_COMPOSE_TEAM = `/football/compose-team/:so5LeaderboardSlug`;
+export const FOOTBALL_COMPOSE_TEAM = `/football/compose-team/:vicc5LeaderboardSlug`;
 export const FOOTBALL_COMPOSE_TEAM_DRAFT = `${FOOTBALL_PATH}/compose/draft/:slug`;
-export const FOOTBALL_COMPOSE_TEAM_LINEUP = `${FOOTBALL_PATH}/compose-team/:so5LeaderboardSlug/:so5LineupId`;
+export const FOOTBALL_COMPOSE_TEAM_LINEUP = `${FOOTBALL_PATH}/compose-team/:vicc5LeaderboardSlug/:vicc5LineupId`;
 export const FOOTBALL_BUNDLED_AUCTION = `${FOOTBALL_PATH}${LEGACY_BUNDLED_AUCTION}`;
 export const LEGACY_TOKEN_AUCTION = `/auctions/:id`;
 export const TOKEN_AUCTION = `${FOOTBALL_PATH}/auctions/:id`;
-export const REWARDS = `${FOOTBALL_PATH}/rewards/:so5LeagueSlug/:rarity/:quality`;
+export const REWARDS = `${FOOTBALL_PATH}/rewards/:vicc5LeagueSlug/:rarity/:quality`;
 export const ACTIVITY_WILDCARD = '/activity/*';
 export const ACTIVITY = '/activity';
 export const ACTIVITY_NEWS = '/activity/news';
@@ -163,7 +163,7 @@ export const HOME = FOOTBALL_MARKET;
 
 export const RENDERING_CARD_FACTORY_CARD_SAMPLE_PICTURE = `/rendering/card-factory/card-sample-pictures/:id/:serialNumber`;
 export const RENDERING_CARD_FACTORY_CARD_PICTURE = `/rendering/card-factory/cards/:id`;
-export const RENDERING_SO5_LINEUP = '/rendering/so5-lineups/:id';
+export const RENDERING_SO5_LINEUP = '/rendering/vicc5-lineups/:id';
 export const RENDERING_CARD_COLLECTION = `/rendering/card-collections/:slug/:userSlug`;
 export const RENDERING_AUCTION = `/rendering/auction/:id`;
 
@@ -460,19 +460,19 @@ export const NBA_NO_CARD_ENTRY_DECLINE = `${NBA_NO_CARD_ENTRY}/decline`;
 export const NBA_NO_CARD_ENTRY_ELIGIBLE_LEADERBOARDS = `${NBA_NO_CARD_ENTRY}/eligible_leaderboards`;
 
 export const LANDING_BY_SPORT: Record<Sport, string> = {
-  [Sport.FOOTBALL]: FOOTBALL_PATH,
+  [Sport.CRICKET]: FOOTBALL_PATH,
   [Sport.NBA]: NBA_LANDING,
   [Sport.BASEBALL]: MLB_LANDING,
 };
 
 export const SECONDARY_MARKET_STACK_SHOW_BY_SPORT: Record<Sport, string> = {
-  [Sport.FOOTBALL]: FOOTBALL_TRANSFER_MARKET_STACK_SHOW,
+  [Sport.CRICKET]: FOOTBALL_TRANSFER_MARKET_STACK_SHOW,
   [Sport.NBA]: NBA_SECONDARY_MARKET_STACK_SHOW,
   [Sport.BASEBALL]: MLB_SECONDARY_MARKET_STACK_SHOW,
 };
 
 export const AUCTION_MARKET_URL: Record<Sport, string> = {
-  [Sport.FOOTBALL]: FOOTBALL_NEW_SIGNINGS,
+  [Sport.CRICKET]: FOOTBALL_NEW_SIGNINGS,
   [Sport.BASEBALL]: MLB_PRIMARY_MARKET,
   [Sport.NBA]: NBA_PRIMARY_MARKET,
 };
@@ -480,7 +480,7 @@ export const AUCTION_MARKET_URL: Record<Sport, string> = {
 export const STARTER_BUNDLES_URL: Record<Sport, string> = {
   [Sport.BASEBALL]: MLB_STARTER_BUNDLES,
   [Sport.NBA]: NBA_STARTER_BUNDLES,
-  [Sport.FOOTBALL]: FOOTBALL_MARKET_STARTER_PACKS,
+  [Sport.CRICKET]: FOOTBALL_MARKET_STARTER_PACKS,
 };
 
 export const LOBBY_TABS = {
@@ -512,20 +512,20 @@ export function goToLobby(
 }
 
 export function getComposeTeamRoute({
-  so5LeaderboardSlug,
-  so5LineupId,
+  vicc5LeaderboardSlug,
+  vicc5LineupId,
   ...rest
 }: {
-  so5LeaderboardSlug: string;
-  so5LineupId?: string;
+  vicc5LeaderboardSlug: string;
+  vicc5LineupId?: string;
   [key: string]: string | undefined;
 }) {
   let url;
   const params = {
-    so5LeaderboardSlug,
-    so5LineupId,
+    vicc5LeaderboardSlug,
+    vicc5LineupId,
   };
-  if (so5LineupId) {
+  if (vicc5LineupId) {
     url = generatePath(FOOTBALL_COMPOSE_TEAM_LINEUP, params);
   } else {
     url = generatePath(FOOTBALL_COMPOSE_TEAM, params);

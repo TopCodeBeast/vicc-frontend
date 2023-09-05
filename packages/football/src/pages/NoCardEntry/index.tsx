@@ -24,7 +24,7 @@ const CenteredContainer = styled.div`
 `;
 
 const NoCardEntry = () => {
-  const { so5FixtureId } = useParams();
+  const { vicc5FixtureId } = useParams();
   const accessToken = useQueryString('token');
   const [success, setSuccess] = useState(false);
 
@@ -36,7 +36,7 @@ const NoCardEntry = () => {
   ) => {
     const { recaptchaTokenV2, proofOfResidency } = attributes;
     const result = await generateNoCardLineup({
-      so5FixtureId: `So5Fixture:${so5FixtureId!}`,
+      vicc5FixtureId: `Vicc5Fixture:${vicc5FixtureId!}`,
       recaptchaTokenV2,
       accessToken: accessToken || '',
       proofOfResidency,

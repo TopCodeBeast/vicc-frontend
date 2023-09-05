@@ -46,7 +46,7 @@ export default () => {
             replace: true,
           });
         } else {
-          const onboardedOnFootball = currentUser.footballProfile?.onboarded;
+          const onboardedOnFootball = currentUser.cricketProfile?.onboarded;
           const onboardedOnMLB = currentUser.baseballProfile?.onboarded;
           const onboardedOnNBA = currentUser.nbaProfile?.onboarded;
 

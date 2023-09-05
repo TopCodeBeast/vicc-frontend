@@ -15,7 +15,7 @@ import useNoCardRoute from '@sorare/core/src/hooks/config/useNoCardRoute';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
-import So5NoCardEntryRegisterDialog from './So5NoCardEntryRegisterDialog';
+import Vicc5NoCardEntryRegisterDialog from './So5NoCardEntryRegisterDialog';
 
 const Root = styled.div`
   background: var(--c-neutral-200);
@@ -90,12 +90,12 @@ const NoCardEntry = () => {
   } = useNoCardRoute();
   const { currentUser } = useCurrentUserContext();
   const {
-    flags: { so5GameWeekPoolComposition = {} },
+    flags: { vicc5GameWeekPoolComposition = {} },
   } = useFeatureFlags();
 
-  const so5GameWeekPoolCompositionToDisplay =
-    Object.keys(so5GameWeekPoolComposition).length > 0
-      ? so5GameWeekPoolComposition
+  const vicc5GameWeekPoolCompositionToDisplay =
+    Object.keys(vicc5GameWeekPoolComposition).length > 0
+      ? vicc5GameWeekPoolComposition
       : DEFAULT_SO5_GAME_WEEK_POOL_COMPOSITION;
 
   const onMainDialogClose = () => setMainDialogOpened(false);
@@ -103,7 +103,7 @@ const NoCardEntry = () => {
 
   if (!currentUser?.noCardRouteEnabled) return null;
 
-  const { so5NoCardRouteOpened } = currentUser;
+  const { vicc5NoCardRouteOpened } = currentUser;
   const showOpensIn = !!nextOpenDate && new Date(nextOpenDate) > new Date();
   const showCloseIn =
     !showOpensIn && !!nextCloseDate && new Date(nextCloseDate) > new Date();
@@ -155,8 +155,8 @@ const NoCardEntry = () => {
           <Button
             small
             fullWidth
-            disabled={!so5NoCardRouteOpened}
-            color={so5NoCardRouteOpened ? 'blue' : 'darkGray'}
+            disabled={!vicc5NoCardRouteOpened}
+            color={vicc5NoCardRouteOpened ? 'blue' : 'darkGray'}
             onClick={() => setMainDialogOpened(true)}
           >
             <FormattedMessage
@@ -166,7 +166,7 @@ const NoCardEntry = () => {
           </Button>
         </Cta>
       </Root>
-      <So5NoCardEntryRegisterDialog
+      <Vicc5NoCardEntryRegisterDialog
         open={mainDialogOpened}
         onClose={onMainDialogClose}
       />
@@ -178,11 +178,11 @@ const NoCardEntry = () => {
             id="Lobby.CompetitionList.NoCardEntry.poolDetail"
             defaultMessage="For instance, for Game Week {gameWeek}, the pool of players available was composed of {limitedCount} Limited Cards, {rareCount} Rare Cards, {superRareCount} Super Rare Cards, {uniqueCount} Unique Cards."
             values={{
-              gameWeek: so5GameWeekPoolCompositionToDisplay.gameWeek,
-              limitedCount: so5GameWeekPoolCompositionToDisplay.limited,
-              rareCount: so5GameWeekPoolCompositionToDisplay.rare,
-              superRareCount: so5GameWeekPoolCompositionToDisplay.superRare,
-              uniqueCount: so5GameWeekPoolCompositionToDisplay.unique,
+              gameWeek: vicc5GameWeekPoolCompositionToDisplay.gameWeek,
+              limitedCount: vicc5GameWeekPoolCompositionToDisplay.limited,
+              rareCount: vicc5GameWeekPoolCompositionToDisplay.rare,
+              superRareCount: vicc5GameWeekPoolCompositionToDisplay.superRare,
+              uniqueCount: vicc5GameWeekPoolCompositionToDisplay.unique,
             }}
           />
         }

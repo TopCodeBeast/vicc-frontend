@@ -22,7 +22,7 @@ const getAllowLegendRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetAllowLegendRule on So5Leaderboard {
+      fragment GetAllowLegendRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

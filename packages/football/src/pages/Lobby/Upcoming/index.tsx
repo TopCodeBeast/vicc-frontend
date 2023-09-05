@@ -35,7 +35,7 @@ const UpcomingContent = styled.div<{ hide?: boolean }>`
 export const LINEUPS_COUNT_QUERY = gql`
   query LineupsCountQuery {
     football {
-      so5 {
+      vicc5 {
         myUpcomingLineupsPaginated {
           totalCount
         }
@@ -75,7 +75,7 @@ export const LobbyUpcoming = () => {
   });
 
   const { formatMessage } = useIntlContext();
-  const { myUpcomingLineupsPaginated } = data?.football.so5 || {};
+  const { myUpcomingLineupsPaginated } = data?.football.vicc5 || {};
   const totalLineups = myUpcomingLineupsPaginated?.totalCount || 0;
 
   if (tab && !Object.values(LOBBY_TABS).includes(tab)) {

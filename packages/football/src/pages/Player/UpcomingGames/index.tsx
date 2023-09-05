@@ -97,9 +97,9 @@ UpcomingGames.fragments = {
           id
           coverageStatus
           date
-          ...So5Game_game
-          ...So5Game_gameWeek
-          ...So5Game_competitionName
+          ...Vicc5Game_game
+          ...Vicc5Game_gameWeek
+          ...Vicc5Game_competitionName
         }
       }
       activeNationalTeam {
@@ -108,9 +108,9 @@ UpcomingGames.fragments = {
           id
           coverageStatus
           date
-          ...So5Game_game
-          ...So5Game_gameWeek
-          ...So5Game_competitionName
+          ...Vicc5Game_game
+          ...Vicc5Game_gameWeek
+          ...Vicc5Game_competitionName
         }
       }
     }

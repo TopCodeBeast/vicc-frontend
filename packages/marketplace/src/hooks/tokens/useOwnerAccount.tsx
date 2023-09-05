@@ -35,7 +35,7 @@ type ReturnedProps = {
 } | null;
 
 export const useOwnerAccount = ({ account }: Props): ReturnedProps => {
-  const { sorareTokensAddress } = useConfigContext();
+  const { viccTokensAddress } = useConfigContext();
   const galleryLinkPath = useCurrentSportGallery();
 
   if (!account) return null;
@@ -67,7 +67,7 @@ export const useOwnerAccount = ({ account }: Props): ReturnedProps => {
       owner: (
         <a
           href={tokenHolderLink(
-            sorareTokensAddress,
+            viccTokensAddress,
             account.accountable.address
           )}
           title={account.accountable.address}

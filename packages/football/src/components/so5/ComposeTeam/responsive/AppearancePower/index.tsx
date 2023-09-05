@@ -18,7 +18,7 @@ type Props = {
 };
 
 export const AppearancePower = ({ card, position, captain }: Props) => {
-  const { so5Leaderboard } = useContext(Context)!;
+  const { vicc5Leaderboard } = useContext(Context)!;
 
   if (!card) {
     return null;
@@ -29,7 +29,7 @@ export const AppearancePower = ({ card, position, captain }: Props) => {
       <CardBonus
         card={card}
         captain={captain}
-        engineConfiguration={so5Leaderboard.engineConfiguration}
+        engineConfiguration={vicc5Leaderboard.engineConfiguration}
       />
       {position === 'Extra Player' && card && (
         <Chip

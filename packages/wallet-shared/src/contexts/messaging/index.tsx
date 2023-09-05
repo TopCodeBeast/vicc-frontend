@@ -557,7 +557,7 @@ export interface Keys extends WalletRPC {
   response: {
     result: {
       userPrivateKey?: EncryptedPrivateKey;
-      sorareEncryptionKey: string;
+      viccEncryptionKey: string;
     };
     error?: 'invalid-otp';
   };

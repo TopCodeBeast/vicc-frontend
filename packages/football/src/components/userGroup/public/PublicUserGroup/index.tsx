@@ -18,7 +18,7 @@ import UserGroupPicture from '@football/components/userGroup/UserGroupPicture';
 import UserGroupStatus from '@football/components/userGroup/UserGroupStatus';
 import PublicUserGroupRanking from '@football/components/userGroup/public/PublicUserGroupRanking';
 
-import { PublicUserGroup_so5UserGroup } from './__generated__/index.graphql';
+import { PublicUserGroup_vicc5UserGroup } from './__generated__/index.graphql';
 
 const Root = styled(LinkBox)`
   position: relative;
@@ -102,18 +102,18 @@ const Footer = styled.div`
   padding: 0 var(--unit);
 `;
 
-type Props = { so5UserGroup: PublicUserGroup_so5UserGroup };
-const PublicUserGroup = ({ so5UserGroup }: Props) => {
+type Props = { vicc5UserGroup: PublicUserGroup_vicc5UserGroup };
+const PublicUserGroup = ({ vicc5UserGroup }: Props) => {
   const {
     slug,
     displayName,
     logo,
     myMembership,
-    so5TournamentType,
-    startSo5Fixture,
-    endSo5Fixture,
+    vicc5TournamentType,
+    startVicc5Fixture,
+    endVicc5Fixture,
     rarityType,
-  } = so5UserGroup;
+  } = vicc5UserGroup;
 
   return (
     <Root
@@ -131,7 +131,7 @@ const PublicUserGroup = ({ so5UserGroup }: Props) => {
         />
         <FlexColContainer>
           <Text16 color="var(--c-neutral-600)">
-            {so5TournamentType.displayName}
+            {vicc5TournamentType.displayName}
           </Text16>
           <Title5 color="var(--c-neutral-1000)" bold>
             {displayName}
@@ -141,12 +141,12 @@ const PublicUserGroup = ({ so5UserGroup }: Props) => {
           <FlexContainer>
             <Text16 color="var(--c-neutral-600)" bold uppercase>
               <FormattedDate
-                value={startSo5Fixture?.startDate}
+                value={startVicc5Fixture?.startDate}
                 day="numeric"
                 month="short"
               />
             </Text16>
-            {endSo5Fixture?.endDate && (
+            {endVicc5Fixture?.endDate && (
               <>
                 <FontAwesomeIcon
                   icon={faArrowRight}
@@ -154,7 +154,7 @@ const PublicUserGroup = ({ so5UserGroup }: Props) => {
                 />
                 <Text16 color="var(--c-neutral-600)" bold uppercase>
                   <FormattedDate
-                    value={endSo5Fixture?.endDate}
+                    value={endVicc5Fixture?.endDate}
                     day="numeric"
                     month="short"
                   />
@@ -162,19 +162,19 @@ const PublicUserGroup = ({ so5UserGroup }: Props) => {
               </>
             )}
           </FlexContainer>
-          <UserGroupStatus so5UserGroup={so5UserGroup} />
+          <UserGroupStatus vicc5UserGroup={vicc5UserGroup} />
         </DatesAndStatus>
       </Body>
       <Footer>
-        {so5UserGroup && <PublicUserGroupRanking so5UserGroup={so5UserGroup} />}
+        {vicc5UserGroup && <PublicUserGroupRanking vicc5UserGroup={vicc5UserGroup} />}
       </Footer>
     </Root>
   );
 };
 
 PublicUserGroup.fragments = {
-  so5UserGroup: gql`
-    fragment PublicUserGroup_so5UserGroup on So5UserGroup {
+  vicc5UserGroup: gql`
+    fragment PublicUserGroup_vicc5UserGroup on Vicc5UserGroup {
       slug
       displayName
       joinDisabled
@@ -191,24 +191,24 @@ PublicUserGroup.fragments = {
         score
         administrator
       }
-      so5TournamentType {
+      vicc5TournamentType {
         id
         displayName
       }
-      startSo5Fixture {
+      startVicc5Fixture {
         slug
         startDate
       }
-      endSo5Fixture {
+      endVicc5Fixture {
         slug
         endDate
       }
-      ...PublicUserGroupRanking_so5UserGroup
-      ...UserGroupStatus_so5UserGroup
+      ...PublicUserGroupRanking_vicc5UserGroup
+      ...UserGroupStatus_vicc5UserGroup
     }
-    ${PublicUserGroupRanking.fragments.so5UserGroup}
-    ${UserGroupStatus.fragments.so5UserGroup}
-  ` as TypedDocumentNode<PublicUserGroup_so5UserGroup>,
+    ${PublicUserGroupRanking.fragments.vicc5UserGroup}
+    ${UserGroupStatus.fragments.vicc5UserGroup}
+  ` as TypedDocumentNode<PublicUserGroup_vicc5UserGroup>,
 };
 
 export default PublicUserGroup;

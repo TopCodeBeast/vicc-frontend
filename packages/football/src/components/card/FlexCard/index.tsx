@@ -26,7 +26,7 @@ export const FlexCard = forwardRef<HTMLDivElement, FlexCardProps>(
         ...card,
         assetId: card.assetId!,
         collection: Collection.FOOTBALL,
-        sport: Sport.FOOTBALL,
+        sport: Sport.CRICKET,
       }),
       [card]
     );

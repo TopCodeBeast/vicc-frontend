@@ -63,7 +63,7 @@ const MobileSecondaryMarketStackedBackButtonContainer = styled.div`
 `;
 
 const SECONDARY_MARKET_URLS = {
-  [Sport.FOOTBALL]: FOOTBALL_TRANSFER_MARKET,
+  [Sport.CRICKET]: FOOTBALL_TRANSFER_MARKET,
   [Sport.BASEBALL]: MLB_SECONDARY_MARKET,
   [Sport.NBA]: NBA_SECONDARY_MARKET,
 };

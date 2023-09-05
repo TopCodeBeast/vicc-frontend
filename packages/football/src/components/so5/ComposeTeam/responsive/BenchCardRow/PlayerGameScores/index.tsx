@@ -18,15 +18,15 @@ type Props = {
 };
 
 export const PlayerGameScores = ({ player }: Props) => {
-  if (player.so5Scores.length === 0) {
+  if (player.vicc5Scores.length === 0) {
     return null;
   }
   return (
     <Wrapper>
-      {player.so5Scores.map((so5Score, index) => (
+      {player.vicc5Scores.map((vicc5Score, index) => (
         <BenchPlayerGameScore
-          key={so5Score ? so5Score.id : `dnp-${index}`}
-          so5Score={so5Score}
+          key={vicc5Score ? vicc5Score.id : `dnp-${index}`}
+          vicc5Score={vicc5Score}
         />
       ))}
     </Wrapper>
@@ -37,11 +37,11 @@ PlayerGameScores.fragments = {
   player: gql`
     fragment PlayerGameScores_player on Player {
       slug
-      so5Scores(last: 5) {
+      vicc5Scores(last: 5) {
         id
-        ...BenchPlayerGameScore_so5Score
+        ...BenchPlayerGameScore_vicc5Score
       }
     }
-    ${BenchPlayerGameScore.fragments.so5Score}
+    ${BenchPlayerGameScore.fragments.vicc5Score}
   ` as TypedDocumentNode<PlayerGameScores_player>,
 };

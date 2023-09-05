@@ -1,10 +1,10 @@
 import { TypedDocumentNode, gql } from '@apollo/client';
 
-import { so5UserGroup } from './__generated__/fragments.graphql';
+import { vicc5UserGroup } from './__generated__/fragments.graphql';
 
 export const fragments = {
-  so5UserGroup: gql`
-    fragment so5UserGroup on So5UserGroup {
+  vicc5UserGroup: gql`
+    fragment vicc5UserGroup on Vicc5UserGroup {
       id
       slug
       displayName
@@ -14,5 +14,5 @@ export const fragments = {
         pictureUrl
       }
     }
-  ` as TypedDocumentNode<so5UserGroup>,
+  ` as TypedDocumentNode<vicc5UserGroup>,
 };

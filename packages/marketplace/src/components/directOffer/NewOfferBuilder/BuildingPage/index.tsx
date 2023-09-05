@@ -288,7 +288,7 @@ const BuildingPage = <
 
         newState.forEach(c => {
           const associatedToken = data.tokens.nfts.find(token => {
-            if (token.sport === Sport.FOOTBALL) {
+            if (token.sport === Sport.CRICKET) {
               return token.slug === c.objectID;
             }
             return token.assetId === idFromObject(c.objectID);

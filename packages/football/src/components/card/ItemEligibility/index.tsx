@@ -2,7 +2,7 @@ import { TypedDocumentNode, gql } from '@apollo/client';
 
 import { CardCoverageStatus } from '@sorare/core/src/__generated__/globalTypes';
 
-import So5Eligibility from '@football/components/so5/CardProperties/So5Eligibility';
+import Vicc5Eligibility from '@football/components/so5/CardProperties/So5Eligibility';
 import { messages } from '@football/lib/cardCoverage';
 
 import {
@@ -19,16 +19,16 @@ export const ItemEligibility = ({ cards }: Props) => {
   const coverageStatuses = new Set(cards.map(c => c.coverageStatus));
 
   if (coverageStatuses.has(CardCoverageStatus.NOT_ELIGIBLE)) {
-    return <So5Eligibility description={messages.notEligible} />;
+    return <Vicc5Eligibility description={messages.notEligible} />;
   }
 
   if (coverageStatuses.has(CardCoverageStatus.LEGEND)) {
-    return <So5Eligibility partial description={messages.legend} />;
+    return <Vicc5Eligibility partial description={messages.legend} />;
   }
 
   if (coverageStatuses.has(CardCoverageStatus.PARTIAL)) {
     return (
-      <So5Eligibility
+      <Vicc5Eligibility
         partial
         description={bundle ? messages.partialBundle : messages.partial}
       />
@@ -36,12 +36,12 @@ export const ItemEligibility = ({ cards }: Props) => {
   }
 
   if (coverageStatuses.has(CardCoverageStatus.SPECIAL)) {
-    return <So5Eligibility description={messages.collectible} />;
+    return <Vicc5Eligibility description={messages.collectible} />;
   }
 
   if (coverageStatuses.has(CardCoverageStatus.NOT_COVERED)) {
     return (
-      <So5Eligibility
+      <Vicc5Eligibility
         description={bundle ? messages.notCoveredBundle : messages.notCovered}
       />
     );

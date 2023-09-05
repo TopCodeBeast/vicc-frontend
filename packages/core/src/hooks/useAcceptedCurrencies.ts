@@ -47,7 +47,7 @@ export const useAcceptedCurrencies = () => {
     walletPreferences: { onlyShowFiatCurrency },
   } = useCurrentUserContext();
 
-  const { sport = Sport.FOOTBALL } = useSportContext();
+  const { sport = Sport.CRICKET } = useSportContext();
   const updateUserProfile = useUpdateUserProfile();
   const { data } = useQuery(ACCEPTED_CURRENCIES_QUERY);
   const marketplacePreferences =
@@ -75,7 +75,7 @@ export const useAcceptedCurrencies = () => {
       return updateUserProfile({
         marketplacePreferences: [
           {
-            sports: [Sport.BASEBALL, Sport.FOOTBALL, Sport.NBA],
+            sports: [Sport.BASEBALL, Sport.CRICKET, Sport.NBA],
             name: MARKETPLACE_PREFERENCES_ACCEPTED_CURRENCIES,
             value,
           },

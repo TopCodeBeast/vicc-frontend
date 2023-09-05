@@ -50,12 +50,12 @@ export interface ConfigContext {
   algoliaSearchApiKey: string;
   ethereumNetworkId: string;
   ethereumEndpoint: string;
-  sorareTokensAddress: string;
+  viccTokensAddress: string;
   baseballTokensAddress: string;
   nbaTokensAddress: string;
-  sorareCardsAddress: string;
-  footballNationalSeriesTokensAddress: string;
-  sorareEncryptionKey: string;
+  viccCardsAddress: string;
+  cricketNationalSeriesTokensAddress: string;
+  viccEncryptionKey: string;
   sponsorAccountAddress: string;
   migratorAddress?: string | null;
   bankAddress: string;
@@ -63,8 +63,8 @@ export interface ConfigContext {
   ethQuantum: string;
   starkExchangeAddress?: string | null;
   relayAddress: string;
-  so5: {
-    so5LeaguesAlgoliaFilters: Record<string, string>;
+  vicc5: {
+    vicc5LeaguesAlgoliaFilters: Record<string, string>;
   };
   currentUser: ConfigQuery_currentUser | null;
   refetch: () => Promise<any>;

@@ -19,31 +19,31 @@ interface Props {
 }
 
 export const favoriteCardType: Record<Sport, string> = {
-  [Sport.FOOTBALL]: 'Card',
+  [Sport.CRICKET]: 'Card',
   [Sport.BASEBALL]: 'BaseballCard',
   [Sport.NBA]: 'NBACard',
 };
 
 export const favoritePlayerType: Record<Sport, string> = {
-  [Sport.FOOTBALL]: 'Player',
+  [Sport.CRICKET]: 'Player',
   [Sport.BASEBALL]: 'BaseballPlayer',
   [Sport.NBA]: 'NBAPlayer',
 };
 
 const sportOfCardType = {
-  Card: Sport.FOOTBALL,
+  Card: Sport.CRICKET,
   BaseballCard: Sport.BASEBALL,
   NBACard: Sport.NBA,
 };
 
 const sportOfPlayerType = {
-  Player: Sport.FOOTBALL,
+  Player: Sport.CRICKET,
   BaseballPlayer: Sport.BASEBALL,
   NBAPlayer: Sport.NBA,
 };
 
 const emptyCatalogBySport = {
-  [Sport.FOOTBALL]: [],
+  [Sport.CRICKET]: [],
   [Sport.NBA]: [],
   [Sport.BASEBALL]: [],
 } as Record<Sport, FollowQuery_currentUser_mySubscriptions_nodes[]>;

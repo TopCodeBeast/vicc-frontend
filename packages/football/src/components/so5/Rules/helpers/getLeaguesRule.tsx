@@ -41,7 +41,7 @@ const getLeaguesRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetLeaguesRule on So5Leaderboard {
+      fragment GetLeaguesRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

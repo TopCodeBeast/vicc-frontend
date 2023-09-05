@@ -8,53 +8,53 @@ import { Scarcity } from '@sorare/core/src/lib/cards';
 
 import {
   ContextProvider_card,
-  ContextProvider_so5Leaderboard,
-  ContextProvider_so5Lineup,
+  ContextProvider_vicc5Leaderboard,
+  ContextProvider_vicc5Lineup,
 } from '@football/components/so5/ComposeTeam/ContextProvider/__generated__/index.graphql';
 import { EditableAppearance, EditableLineup, Position } from '@football/lib/so5';
 
-type ContextProvider_so5Leaderboard_displayedRules = NonNullable<
-  ContextProvider_so5Leaderboard['displayedRules']
+type ContextProvider_vicc5Leaderboard_displayedRules = NonNullable<
+  ContextProvider_vicc5Leaderboard['displayedRules']
 >;
 
-export type ContextProvider_so5Lineup_so5Appearances_card =
-  ContextProvider_so5Lineup['so5Appearances'][number]['card'];
+export type ContextProvider_vicc5Lineup_vicc5Appearances_card =
+  ContextProvider_vicc5Lineup['vicc5Appearances'][number]['card'];
 
 export type Errors = { path: string[] | null; message: string }[] | null;
 
 export type BenchFilters = {
   includeNoGameCards: boolean;
   includeUsedCards: boolean;
-  lastFifteenSo5AverageScore?: RangeInput;
+  lastFifteenVicc5AverageScore?: RangeInput;
 };
 
 const composeTeamContext = createContext<{
   initialLineupCards: string[];
-  lineup: EditableLineup<ContextProvider_so5Lineup_so5Appearances_card>;
+  lineup: EditableLineup<ContextProvider_vicc5Lineup_vicc5Appearances_card>;
   lineupRarities: {
     [x: string]: number;
     [x: number]: number;
   };
   lineupComplete: boolean;
-  addCard: (card: ContextProvider_so5Lineup_so5Appearances_card) => void;
+  addCard: (card: ContextProvider_vicc5Lineup_vicc5Appearances_card) => void;
   removeCard: (position: Position) => void;
   activePosition: Position;
   setActivePosition: (newPosition: Position) => void;
-  so5Lineup: ContextProvider_so5Lineup;
-  so5Leaderboard: ContextProvider_so5Leaderboard;
+  vicc5Lineup: ContextProvider_vicc5Lineup;
+  vicc5Leaderboard: ContextProvider_vicc5Leaderboard;
   toggleCaptain: (position: Position) => void;
   statsView: boolean;
   toggleStatsView: () => void;
   onClose: () => void;
   submitting: boolean;
   submit: () => Promise<any>;
-  captain: EditableAppearance<ContextProvider_so5Lineup_so5Appearances_card> | null;
+  captain: EditableAppearance<ContextProvider_vicc5Lineup_vicc5Appearances_card> | null;
   needCaptain: boolean;
   captainRarities: Scarcity[];
   sortedPositions: Position[];
   search: string;
   setSearch: (value: string) => void;
-  rules: ContextProvider_so5Leaderboard_displayedRules | null;
+  rules: ContextProvider_vicc5Leaderboard_displayedRules | null;
   onboarding?: boolean;
   isMobile: boolean;
   showFilters: boolean;

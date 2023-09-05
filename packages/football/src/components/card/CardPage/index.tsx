@@ -119,7 +119,7 @@ export const CardPage = (props: Props) => {
     return <LoadingIndicator fullHeight />;
   }
 
-  const { token, lastFifteenSo5AverageScore, lastFiveSo5AverageScore, rarity } =
+  const { token, lastFifteenVicc5AverageScore, lastFiveVicc5AverageScore, rarity } =
     card;
 
   return (
@@ -185,7 +185,7 @@ export const CardPage = (props: Props) => {
               />
               <CardAttributes card={card} />
             </PageBlock>
-            {card.allSo5Scores.nodes.length > 0 && (
+            {card.allVicc5Scores.nodes.length > 0 && (
               <PageBlock>
                 <BlockHeader
                   title={
@@ -197,9 +197,9 @@ export const CardPage = (props: Props) => {
                 />
                 <LastScores
                   player={card.player}
-                  so5Scores={card.allSo5Scores.nodes}
-                  lastFifteenSo5AverageScore={lastFifteenSo5AverageScore}
-                  lastFiveSo5AverageScore={lastFiveSo5AverageScore}
+                  vicc5Scores={card.allVicc5Scores.nodes}
+                  lastFifteenVicc5AverageScore={lastFifteenVicc5AverageScore}
+                  lastFiveVicc5AverageScore={lastFiveVicc5AverageScore}
                   InfiniteScrollLoader={InfiniteScrollLoader}
                 />
               </PageBlock>
@@ -221,7 +221,7 @@ export const CardPage = (props: Props) => {
             )}
             {token && !token.latestEnglishAuction?.open && (
               <TokensAvailableOnPrimaryWhenInsufficientFundsInWallet
-                sport={Sport.FOOTBALL}
+                sport={Sport.CRICKET}
                 hitsPerRow={2}
                 token={token}
               />
@@ -311,14 +311,14 @@ CardPage.fragments = {
     fragment CardPage_card on Card {
       slug
       assetId
-      lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_SO5_AVERAGE_SCORE)
-      lastFifteenSo5AverageScore: averageScore(
-        type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
+      lastFiveVicc5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
+      lastFifteenVicc5AverageScore: averageScore(
+        type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
       )
-      allSo5Scores(first: $first, after: $scoreCursor) {
+      allVicc5Scores(first: $first, after: $scoreCursor) {
         nodes {
           id
-          ...LastScores_so5Score
+          ...LastScores_vicc5Score
         }
         pageInfo {
           endCursor
@@ -376,7 +376,7 @@ CardPage.fragments = {
       ...CollectionInfo_card
     }
     ${LastScores.fragments.player}
-    ${LastScores.fragments.so5Score}
+    ${LastScores.fragments.vicc5Score}
     ${Header.fragments.card}
     ${Title.fragments.card}
     ${CommonCardCurrentOwner.fragments.card}

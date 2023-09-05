@@ -25,7 +25,7 @@ import SuggestionCard from './SuggestionCard';
 import {
   WithLineupSuggestions_card,
   WithLineupSuggestions_draftablePlayer,
-  WithLineupSuggestions_so5Leaderboard,
+  WithLineupSuggestions_vicc5Leaderboard,
 } from './__generated__/index.graphql';
 
 const SuggestionCardWrapper = styled.div`
@@ -56,7 +56,7 @@ type Props = {
   isLastCardsOnSalePage: boolean;
   leagueFilter: string;
   loading: boolean;
-  so5Leaderboard: WithLineupSuggestions_so5Leaderboard;
+  vicc5Leaderboard: WithLineupSuggestions_vicc5Leaderboard;
   onPaymentSuccess: () => void;
 };
 
@@ -68,7 +68,7 @@ const WithLineupSuggestions = ({
   leagueFilter,
   draftedPlayers,
   loading,
-  so5Leaderboard,
+  vicc5Leaderboard,
   onPaymentSuccess,
 }: Props) => {
   const track = useFootballEvents();
@@ -162,9 +162,9 @@ const WithLineupSuggestions = ({
                   component={Link}
                   onClick={() => {
                     track('Redirect To Marketplace', {
-                      leaderboardSlug: so5Leaderboard.slug,
-                      leaderboardName: so5Leaderboard.displayName,
-                      leaderboardRarity: so5Leaderboard.rarityType,
+                      leaderboardSlug: vicc5Leaderboard.slug,
+                      leaderboardName: vicc5Leaderboard.displayName,
+                      leaderboardRarity: vicc5Leaderboard.rarityType,
                       destination: marketUrl,
                     });
                   }}
@@ -215,19 +215,19 @@ WithLineupSuggestions.fragments = {
       position
       player {
         slug
-        averageScore(type: LAST_FIFTEEN_SO5_AVERAGE_SCORE)
+        averageScore(type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE)
       }
       ...CommonPlayerCard_draftablePlayer
     }
     ${CommonPlayerCard.fragments.draftablePlayer}
   ` as TypedDocumentNode<WithLineupSuggestions_draftablePlayer>,
-  so5Leaderboard: gql`
-    fragment WithLineupSuggestions_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment WithLineupSuggestions_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       displayName
       rarityType
     }
-  ` as TypedDocumentNode<WithLineupSuggestions_so5Leaderboard>,
+  ` as TypedDocumentNode<WithLineupSuggestions_vicc5Leaderboard>,
 };
 
 export default WithLineupSuggestions;

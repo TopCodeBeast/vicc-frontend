@@ -68,13 +68,13 @@ import useDraftReducer, {
   Player as DraftablePlayer,
 } from './useDraftReducer';
 
-type DraftQuery_so5Leaderboard_commonDraftCampaign_availablePlayers_nodes =
+type DraftQuery_vicc5Leaderboard_commonDraftCampaign_availablePlayers_nodes =
   NonNullable<
-    DraftQuery['football']['so5']['so5Leaderboard']['commonDraftCampaign']
+    DraftQuery['football']['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
   >['availablePlayers']['nodes'][number];
 
-type DraftSetupQuery_so5Leaderboard_commonDraftCampaign = NonNullable<
-  DraftSetupQuery['football']['so5']['so5Leaderboard']['commonDraftCampaign']
+type DraftSetupQuery_vicc5Leaderboard_commonDraftCampaign = NonNullable<
+  DraftSetupQuery['football']['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
 >;
 
 const PAGE_SIZE = 20;
@@ -172,17 +172,17 @@ const SlideInCards = ({
   openedPlayerSlug,
   togglePlayerDetails,
 }: {
-  cards: DraftQuery_so5Leaderboard_commonDraftCampaign_availablePlayers_nodes[];
+  cards: DraftQuery_vicc5Leaderboard_commonDraftCampaign_availablePlayers_nodes[];
   remove: (playerId: string) => void;
   add: (
-    player: DraftQuery_so5Leaderboard_commonDraftCampaign_availablePlayers_nodes
+    player: DraftQuery_vicc5Leaderboard_commonDraftCampaign_availablePlayers_nodes
   ) => void;
   selected: string[];
   reset?: boolean;
   togglePlayerDetails: (args: {
     slug: string;
     pictureUrl: string;
-    card: DraftQuery_so5Leaderboard_commonDraftCampaign_availablePlayers_nodes;
+    card: DraftQuery_vicc5Leaderboard_commonDraftCampaign_availablePlayers_nodes;
   }) => void;
   openedPlayerSlug?: string;
 }) => {
@@ -226,10 +226,10 @@ const SlideInCards = ({
 };
 
 type Props = {
-  so5LeaderboardSlug: string;
-  commonDraftCampaign: DraftSetupQuery_so5Leaderboard_commonDraftCampaign;
+  vicc5LeaderboardSlug: string;
+  commonDraftCampaign: DraftSetupQuery_vicc5Leaderboard_commonDraftCampaign;
 };
-const Draft = ({ so5LeaderboardSlug, commonDraftCampaign }: Props) => {
+const Draft = ({ vicc5LeaderboardSlug, commonDraftCampaign }: Props) => {
   const {
     positions,
     budget,
@@ -262,7 +262,7 @@ const Draft = ({ so5LeaderboardSlug, commonDraftCampaign }: Props) => {
   const headerRef = useRef<HTMLDivElement>(null);
   const { upsertDraft } = useUpsertDraft();
   const [storedDraft, setStoredDraft, clearStoredDraft] = useLocalStorage(
-    so5LeaderboardSlug,
+    vicc5LeaderboardSlug,
     [] as DraftType
   );
   const [
@@ -297,7 +297,7 @@ const Draft = ({ so5LeaderboardSlug, commonDraftCampaign }: Props) => {
 
   const variables = useMemo(
     () => ({
-      so5LeaderboardSlug,
+      vicc5LeaderboardSlug,
       position: currentPosition || Position.Unknown,
       pageSize: PAGE_SIZE,
       selectedPrintablePlayerIds,
@@ -305,7 +305,7 @@ const Draft = ({ so5LeaderboardSlug, commonDraftCampaign }: Props) => {
     }),
     // we explicitly ignore selectedPrintablePlayerIds to prevent useless reloading when on same position
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [so5LeaderboardSlug, currentPosition, filtersState.appliedFilters]
+    [vicc5LeaderboardSlug, currentPosition, filtersState.appliedFilters]
   );
   const {
     data: { availablePlayers, pageInfo },
@@ -313,7 +313,7 @@ const Draft = ({ so5LeaderboardSlug, commonDraftCampaign }: Props) => {
     loadMore,
   } = useDraftQuery(variables);
   const [loadAutoFill, { loading: loadingAutoFill }] = useAutoFillQuery({
-    so5LeaderboardSlug,
+    vicc5LeaderboardSlug,
     onCompleted: autoPick => {
       dispatch({ type: 'autoFill', payload: autoPick });
     },
@@ -321,17 +321,17 @@ const Draft = ({ so5LeaderboardSlug, commonDraftCampaign }: Props) => {
   const autoPick = useCallback(() => {
     loadAutoFill({
       variables: {
-        so5LeaderboardSlug,
+        vicc5LeaderboardSlug,
         selectedPrintablePlayerIds,
       },
     });
-  }, [selectedPrintablePlayerIds, loadAutoFill, so5LeaderboardSlug]);
+  }, [selectedPrintablePlayerIds, loadAutoFill, vicc5LeaderboardSlug]);
   const dryUpsert = useCallback(
     (ids: string[]) => {
       upsertDraft({
         variables: {
           input: {
-            so5LeaderboardSlug,
+            vicc5LeaderboardSlug,
             force: status === CommonDraftCampaignStatus.REDRAFTABLE,
             commonDraftCampaignSlug,
             printablePlayerIds: ids,
@@ -351,7 +351,7 @@ const Draft = ({ so5LeaderboardSlug, commonDraftCampaign }: Props) => {
         }
       });
     },
-    [dispatch, upsertDraft, status, commonDraftCampaignSlug, so5LeaderboardSlug]
+    [dispatch, upsertDraft, status, commonDraftCampaignSlug, vicc5LeaderboardSlug]
   );
   const navigate = useNavigate();
   const navigateToComposeTeam = useNavigateToComposeTeam();
@@ -407,7 +407,7 @@ const Draft = ({ so5LeaderboardSlug, commonDraftCampaign }: Props) => {
     const { data: upsertData } = await upsertDraft({
       variables: {
         input: {
-          so5LeaderboardSlug,
+          vicc5LeaderboardSlug,
           force: status === CommonDraftCampaignStatus.REDRAFTABLE,
           commonDraftCampaignSlug,
           printablePlayerIds: selectedPrintablePlayerIds,
@@ -431,7 +431,7 @@ const Draft = ({ so5LeaderboardSlug, commonDraftCampaign }: Props) => {
       });
     } else if (currentUser?.slug && !isOnboarding) {
       navigateToComposeTeam({
-        leaderboardSlug: so5LeaderboardSlug,
+        leaderboardSlug: vicc5LeaderboardSlug,
         options: {
           state: {
             context: 'postDraft',
@@ -452,7 +452,7 @@ const Draft = ({ so5LeaderboardSlug, commonDraftCampaign }: Props) => {
       }
       navigate(
         generatePathWithSearch(FOOTBALL_COMPOSE_TEAM, {
-          so5LeaderboardSlug,
+          vicc5LeaderboardSlug,
         }),
         {
           state: {
@@ -464,7 +464,7 @@ const Draft = ({ so5LeaderboardSlug, commonDraftCampaign }: Props) => {
       setStoredDraft(draft);
       navigate(
         generatePath(FOOTBALL_COMPOSE_TEAM_DRAFT, {
-          slug: so5LeaderboardSlug,
+          slug: vicc5LeaderboardSlug,
         })
       );
     }
@@ -666,14 +666,14 @@ const DraftOrRedirect = () => {
         <LoadingIndicator fullScreen />
       </div>
     );
-  if (!slug || !data?.football.so5.so5Leaderboard.commonDraftCampaign) {
+  if (!slug || !data?.football.vicc5.vicc5Leaderboard.commonDraftCampaign) {
     return <Navigate to={LANDING} />;
   }
 
   return (
     <Draft
-      so5LeaderboardSlug={slug}
-      commonDraftCampaign={data.football.so5.so5Leaderboard.commonDraftCampaign}
+      vicc5LeaderboardSlug={slug}
+      commonDraftCampaign={data.football.vicc5.vicc5Leaderboard.commonDraftCampaign}
     />
   );
 };

@@ -14,7 +14,7 @@ import { getDraftUrl } from '@football/components/unlockCompetition/getDraftUrl'
 import { getMarketUrl } from '@football/components/unlockCompetition/getMarketUrl';
 import { getMissingCards } from '@football/components/unlockCompetition/getMissingCards';
 
-import { LockedCompetitionAction_so5Leaderboard } from './__generated__/index.graphql';
+import { LockedCompetitionAction_vicc5Leaderboard } from './__generated__/index.graphql';
 
 const Content = styled.div`
   padding: var(--double-unit);
@@ -42,31 +42,31 @@ const Content = styled.div`
 `;
 
 type Props = {
-  so5Leaderboard: Nullable<LockedCompetitionAction_so5Leaderboard>;
+  vicc5Leaderboard: Nullable<LockedCompetitionAction_vicc5Leaderboard>;
   Wrapper: FunctionComponent<React.PropsWithChildren<unknown>>;
 };
 
-export const LockedCompetitionAction = ({ so5Leaderboard, Wrapper }: Props) => {
-  if (!so5Leaderboard?.canCompose?.notEnoughEligibleCards) {
+export const LockedCompetitionAction = ({ vicc5Leaderboard, Wrapper }: Props) => {
+  if (!vicc5Leaderboard?.canCompose?.notEnoughEligibleCards) {
     return null;
   }
 
-  const marketUrl = getMarketUrl(so5Leaderboard);
-  const { common } = getMissingCards(so5Leaderboard.canCompose);
+  const marketUrl = getMarketUrl(vicc5Leaderboard);
+  const { common } = getMissingCards(vicc5Leaderboard.canCompose);
   const shouldDraft = common > 0;
 
   return (
     <Wrapper>
       <Content>
         <Text16 bold color="var(--c-yellow-800)">
-          <MissingCardsMessage validity={so5Leaderboard.canCompose} />
+          <MissingCardsMessage validity={vicc5Leaderboard.canCompose} />
         </Text16>
         {shouldDraft ? (
           <Button
             small
             color="black"
             component={Link}
-            to={getDraftUrl(so5Leaderboard)}
+            to={getDraftUrl(vicc5Leaderboard)}
           >
             <FormattedMessage {...fantasy.draft} />
           </Button>
@@ -84,20 +84,20 @@ export const LockedCompetitionAction = ({ so5Leaderboard, Wrapper }: Props) => {
 };
 
 LockedCompetitionAction.fragments = {
-  so5Leaderboard: gql`
-    fragment LockedCompetitionAction_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment LockedCompetitionAction_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       canCompose {
         notEnoughEligibleCards
         ...MissingCardsMessage_validity
         ...getMissingCards_validity
       }
-      ...getMarketUrl_so5Leaderboard
-      ...getDraftUrl_so5Leaderboard
+      ...getMarketUrl_vicc5Leaderboard
+      ...getDraftUrl_vicc5Leaderboard
     }
     ${MissingCardsMessage.fragments.validity}
-    ${getMarketUrl.fragments.so5Leaderboard}
-    ${getDraftUrl.fragments.so5Leaderboard}
+    ${getMarketUrl.fragments.vicc5Leaderboard}
+    ${getDraftUrl.fragments.vicc5Leaderboard}
     ${getMissingCards.fragments.validity}
-  ` as TypedDocumentNode<LockedCompetitionAction_so5Leaderboard>,
+  ` as TypedDocumentNode<LockedCompetitionAction_vicc5Leaderboard>,
 };

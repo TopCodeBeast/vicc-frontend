@@ -61,8 +61,8 @@ export const messages = defineMessages({
     id: 'Notifications.referralRewards',
     defaultMessage: 'Referral rewards',
   },
-  so5LineupCancelled: {
-    id: 'Notifications.so5LineupCancelled',
+  vicc5LineupCancelled: {
+    id: 'Notifications.vicc5LineupCancelled',
     defaultMessage: 'Lineup canceled',
   },
   kycRequests: {
@@ -90,7 +90,7 @@ const notificationCategories = [
   'offer_countered',
   'referee_reward_ready_to_claim',
   'referrer_reward_ready_to_claim',
-  'so5_lineup_cancelled',
+  'vicc5_lineup_cancelled',
   'appearance_destroyed',
   'kyc_request_validated',
   'kyc_request_refused',
@@ -119,8 +119,8 @@ export const notificationCategoryTypes: {
   offer_countered: 'OfferNotification',
   referee_reward_ready_to_claim: 'ReferralRewardNotification',
   referrer_reward_ready_to_claim: 'ReferralRewardNotification',
-  so5_lineup_cancelled: 'So5LineupNotification',
-  appearance_destroyed: 'So5LineupNotification',
+  vicc5_lineup_cancelled: 'Vicc5LineupNotification',
+  appearance_destroyed: 'Vicc5LineupNotification',
   kyc_request_validated: 'KycRequestNotification',
   kyc_request_refused: 'KycRequestNotification',
 };
@@ -146,7 +146,7 @@ export const notificationGroups: {
     'referee_reward_ready_to_claim',
     'referrer_reward_ready_to_claim',
   ],
-  so5LineupCancelled: ['so5_lineup_cancelled', 'appearance_destroyed'],
+  vicc5LineupCancelled: ['vicc5_lineup_cancelled', 'appearance_destroyed'],
   kycRequests: ['kyc_request_refused', 'kyc_request_validated'],
 };
 

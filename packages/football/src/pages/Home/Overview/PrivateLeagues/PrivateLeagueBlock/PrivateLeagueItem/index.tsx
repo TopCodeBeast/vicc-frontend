@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { generatePath } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { So5UserGroupStatus } from '@sorare/core/src/__generated__/globalTypes';
+import { Vicc5UserGroupStatus } from '@sorare/core/src/__generated__/globalTypes';
 import { LinkOther } from '@sorare/core/src/atoms/navigation/Box';
 import { Text14 } from '@sorare/core/src/atoms/typography';
 import {
@@ -99,13 +99,13 @@ export const PrivateLeagueItem = ({ userGroup }: Props) => {
               size="xs"
             />
             <Text14 color="var(--c-neutral-600)">
-              {userGroup.status === So5UserGroupStatus.ENDED && (
+              {userGroup.status === Vicc5UserGroupStatus.ENDED && (
                 <FormattedMessage
                   id="useUserGroupStatusLabel.GroupStatusEnded"
                   defaultMessage="League ended"
                 />
               )}
-              {userGroup.status === So5UserGroupStatus.TO_START && (
+              {userGroup.status === Vicc5UserGroupStatus.TO_START && (
                 <FormattedMessage
                   id="useUserGroupStatusLabel.GroupStatusToStart"
                   defaultMessage="Starts on GW {gw}"
@@ -122,7 +122,7 @@ export const PrivateLeagueItem = ({ userGroup }: Props) => {
 
 PrivateLeagueItem.fragments = {
   userGroup: gql`
-    fragment PrivateLeagueItem_userGroup on So5UserGroup {
+    fragment PrivateLeagueItem_userGroup on Vicc5UserGroup {
       slug
       displayName
       status

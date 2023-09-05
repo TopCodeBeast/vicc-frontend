@@ -195,13 +195,13 @@ const FilterContent = () => {
         <PointsFilter
           disabled={showAffordableOnly}
           value={{
-            min: filters.lastFifteenSo5AverageScore?.min || 0,
-            max: filters.lastFifteenSo5AverageScore?.max || MAX_CARD_VALUE,
+            min: filters.lastFifteenVicc5AverageScore?.min || 0,
+            max: filters.lastFifteenVicc5AverageScore?.max || MAX_CARD_VALUE,
           }}
           onChange={value => {
             setFilters({
               ...filters,
-              lastFifteenSo5AverageScore: value,
+              lastFifteenVicc5AverageScore: value,
             });
           }}
           boundariesRange={{

@@ -35,7 +35,7 @@ import {
   DeclareFootballManagerTaskMutation,
   DeclareFootballManagerTaskMutationVariables,
   FootballManagerTask_footballManagerTask,
-  FootballManagerTask_so5Leaderboard,
+  FootballManagerTask_vicc5Leaderboard,
 } from './__generated__/index.graphql';
 import { tasksData } from './data';
 import { FootballManagerTaskProps } from './types';
@@ -174,7 +174,7 @@ export const FootballManagerTask = ({
   const isDesktop = useIsDesktop();
   const { setStep, setTask, setOnSuccessCallback } = useManagerTaskContext();
   const {
-    so5: { so5LeaguesAlgoliaFilters },
+    vicc5: { vicc5LeaguesAlgoliaFilters },
   } = useConfigContext();
   const { showDrawer, setCurrentTab } = useWalletDrawerContext();
   const track = useFootballEvents();
@@ -197,7 +197,7 @@ export const FootballManagerTask = ({
     : taskData.mobileDescription;
   const to = taskData.getLink?.({
     leaderboards,
-    so5LeaguesAlgoliaFilters,
+    vicc5LeaguesAlgoliaFilters,
   });
   const validateRewardCallback = () => {
     if (task.aasmState !== FootballManagerTaskState.CLAIMED) {
@@ -264,10 +264,10 @@ FootballManagerTask.fragments = {
       coinAmount
     }
   ` as TypedDocumentNode<FootballManagerTask_footballManagerTask>,
-  so5Leaderboard: gql`
-    fragment FootballManagerTask_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment FootballManagerTask_vicc5Leaderboard on Vicc5Leaderboard {
       slug
-      so5LeaderboardType
+      vicc5LeaderboardType
       division
       canCompose {
         value
@@ -276,14 +276,14 @@ FootballManagerTask.fragments = {
         slug
         status
       }
-      mySo5Lineups {
+      myVicc5Lineups {
         id
         draft
       }
-      so5League {
+      vicc5League {
         slug
         displayName
       }
     }
-  ` as TypedDocumentNode<FootballManagerTask_so5Leaderboard>,
+  ` as TypedDocumentNode<FootballManagerTask_vicc5Leaderboard>,
 };

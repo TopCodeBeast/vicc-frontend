@@ -5,7 +5,7 @@ import Button from '@core/atoms/buttons/Button';
 import { Text16 } from '@core/atoms/typography';
 
 const messages = defineMessages({
-  [Sport.FOOTBALL]: {
+  [Sport.CRICKET]: {
     id: 'EmptyResult.FOOTBALL',
     defaultMessage: 'No result in Football',
   },

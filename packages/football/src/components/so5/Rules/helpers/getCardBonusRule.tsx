@@ -9,7 +9,7 @@ import { withFragments } from '@sorare/core/src/gql';
 
 import { FormatRule } from '@football/components/so5/Rules/types';
 
-import { getCardBonusRule_so5Leaderboard } from './__generated__/getCardBonusRule.graphql';
+import { getCardBonusRule_vicc5Leaderboard } from './__generated__/getCardBonusRule.graphql';
 
 const IconWrapper = styled.div`
   position: relative;
@@ -34,8 +34,8 @@ const messages = defineMessages({
 });
 
 const getCardBonusRule = withFragments(
-  (so5Leaderboard: getCardBonusRule_so5Leaderboard): FormatRule[] => {
-    const { engineConfiguration, mainRarityType } = so5Leaderboard;
+  (vicc5Leaderboard: getCardBonusRule_vicc5Leaderboard): FormatRule[] => {
+    const { engineConfiguration, mainRarityType } = vicc5Leaderboard;
     const { grade, collection, season } = engineConfiguration;
 
     if (grade || collection || season) {
@@ -60,8 +60,8 @@ const getCardBonusRule = withFragments(
     ];
   },
   {
-    so5Leaderboard: gql`
-      fragment getCardBonusRule_so5Leaderboard on So5Leaderboard {
+    vicc5Leaderboard: gql`
+      fragment getCardBonusRule_vicc5Leaderboard on Vicc5Leaderboard {
         slug
         mainRarityType
         engineConfiguration {
@@ -70,7 +70,7 @@ const getCardBonusRule = withFragments(
           season
         }
       }
-    ` as TypedDocumentNode<getCardBonusRule_so5Leaderboard>,
+    ` as TypedDocumentNode<getCardBonusRule_vicc5Leaderboard>,
   }
 );
 

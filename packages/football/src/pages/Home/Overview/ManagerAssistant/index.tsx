@@ -24,7 +24,7 @@ import { useFootballEvents } from '@football/lib/events';
 
 import {
   ManagerAssistant_currentUser,
-  ManagerAssistant_so5Leaderboard,
+  ManagerAssistant_vicc5Leaderboard,
 } from './__generated__/index.graphql';
 
 const Content = styled.div`
@@ -58,7 +58,7 @@ const Title = styled(Title5)`
 type Props = {
   user: Nullable<ManagerAssistant_currentUser>;
   loading: boolean;
-  leaderboards: Nullable<ManagerAssistant_so5Leaderboard[]>;
+  leaderboards: Nullable<ManagerAssistant_vicc5Leaderboard[]>;
 };
 
 const ITEM_HEIGHT = 50;
@@ -183,11 +183,11 @@ ManagerAssistant.fragments = {
     }
     ${FootballManagerTask.fragments.footballManagerTask}
   ` as TypedDocumentNode<ManagerAssistant_currentUser>,
-  so5Leaderboard: gql`
-    fragment ManagerAssistant_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment ManagerAssistant_vicc5Leaderboard on Vicc5Leaderboard {
       slug
-      ...FootballManagerTask_so5Leaderboard
+      ...FootballManagerTask_vicc5Leaderboard
     }
-    ${FootballManagerTask.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<ManagerAssistant_so5Leaderboard>,
+    ${FootballManagerTask.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<ManagerAssistant_vicc5Leaderboard>,
 };

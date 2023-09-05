@@ -333,7 +333,7 @@ const MLSLanding = () => {
           </WhiteBackground>
         </PageBackground>
 
-        <BannerWrapper sport={Sport.FOOTBALL}>
+        <BannerWrapper sport={Sport.CRICKET}>
           <BannerContent>
             <ChooseYourSportContent hideDescription />
           </BannerContent>

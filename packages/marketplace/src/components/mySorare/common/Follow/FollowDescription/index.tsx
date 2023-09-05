@@ -88,7 +88,7 @@ const FollowDescription = (props: Props) => {
         {...followedItem}
         positions={[followedItem.position]}
         activeClubName={followedItem.activeClub?.name}
-        sport={Sport.FOOTBALL}
+        sport={Sport.CRICKET}
       />
     );
   }

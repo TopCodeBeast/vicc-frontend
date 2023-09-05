@@ -7,10 +7,10 @@ import { Text14, Text16, Title5 } from '@sorare/core/src/atoms/typography';
 
 import { categoryLabels, splitScore, statLabels } from '@football/lib/scoring';
 
-import { DetailedScoreV4V5_so5Score } from './__generated__/index.graphql';
+import { DetailedScoreV4V5_vicc5Score } from './__generated__/index.graphql';
 
 type Props = {
-  so5Score: DetailedScoreV4V5_so5Score;
+  vicc5Score: DetailedScoreV4V5_vicc5Score;
   withDetails?: boolean;
 };
 
@@ -84,14 +84,14 @@ const DecisiveStats = ({
   </>
 );
 
-export const DetailedScoreV4V5 = ({ so5Score, withDetails }: Props) => {
+export const DetailedScoreV4V5 = ({ vicc5Score, withDetails }: Props) => {
   const {
     position,
     decisiveScore,
     positiveDecisiveStats,
     negativeDecisiveStats,
     allAroundStats,
-  } = so5Score;
+  } = vicc5Score;
   const { formatMessage } = useIntl();
 
   const formatScore = (value: number) =>
@@ -187,8 +187,8 @@ export const DetailedScoreV4V5 = ({ so5Score, withDetails }: Props) => {
 };
 
 DetailedScoreV4V5.fragments = {
-  so5Score: gql`
-    fragment DetailedScoreV4V5_so5Score on So5Score {
+  vicc5Score: gql`
+    fragment DetailedScoreV4V5_vicc5Score on Vicc5Score {
       id
       position
       decisiveScore {
@@ -209,7 +209,7 @@ DetailedScoreV4V5.fragments = {
         statValue
       }
     }
-  ` as TypedDocumentNode<DetailedScoreV4V5_so5Score>,
+  ` as TypedDocumentNode<DetailedScoreV4V5_vicc5Score>,
 };
 
 export default DetailedScoreV4V5;

@@ -46,7 +46,7 @@ export const FulfilledSlot = ({
 
   return (
     <Wrapper>
-      <StyledOpenItemDialogLink item={card} sport={Sport.FOOTBALL}>
+      <StyledOpenItemDialogLink item={card} sport={Sport.CRICKET}>
         <GlareEffect
           width={320}
           pictureUrl={card.pictureUrl || ''}

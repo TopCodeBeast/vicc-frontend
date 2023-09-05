@@ -60,7 +60,7 @@ type Props = {
 };
 
 const SportLogo = ({ sport }: { sport: Sport }) => {
-  if (sport === Sport.FOOTBALL) {
+  if (sport === Sport.CRICKET) {
     return <Ball />;
   }
   if (sport === Sport.NBA) {
@@ -125,10 +125,10 @@ export const ReferralStatus = ({ referral, cardsRequirements }: Props) => {
         )}
       {!!referral.footballCardsAuctionCount && (
         <Progression
-          icon={<SportLogo sport={Sport.FOOTBALL} />}
+          icon={<SportLogo sport={Sport.CRICKET} />}
           count={referral.footballCardsAuctionCount}
           max={cardsRequirements}
-          sport={Sport.FOOTBALL}
+          sport={Sport.CRICKET}
         />
       )}
       {!!referral.nbaCardsAuctionCount && (
@@ -156,7 +156,7 @@ ReferralStatus.fragments = {
       aasmState
       sport
       footballCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
-        sport: FOOTBALL
+        sport: CRICKET
       )
       nbaCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
         sport: NBA

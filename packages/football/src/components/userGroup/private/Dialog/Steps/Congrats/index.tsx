@@ -37,24 +37,24 @@ import {
 export const GET_PRIVATE_USER_GROUP_QUERY = gql`
   query GetPrivateUserGroupQuery($slug: String!) {
     football {
-      so5 {
-        so5UserGroup(slug: $slug) {
+      vicc5 {
+        vicc5UserGroup(slug: $slug) {
           slug
           membershipsCount
-          ...so5UserGroup
+          ...vicc5UserGroup
           myMembership {
             id
             administrator
           }
-          so5TournamentType {
+          vicc5TournamentType {
             id
-            so5LeaderboardType
+            vicc5LeaderboardType
           }
         }
       }
     }
   }
-  ${fragments.so5UserGroup}
+  ${fragments.vicc5UserGroup}
 ` as TypedDocumentNode<
   GetPrivateUserGroupQuery,
   GetPrivateUserGroupQueryVariables
@@ -139,7 +139,7 @@ export const Congrats = ({ slug, redirectToManagerHome }: Props) => {
   }
   const {
     football: {
-      so5: { so5UserGroup },
+      vicc5: { vicc5UserGroup },
     },
   } = data;
 
@@ -149,12 +149,12 @@ export const Congrats = ({ slug, redirectToManagerHome }: Props) => {
     myMembership,
     membershipsCount,
     joinSecret,
-    so5TournamentType: { so5LeaderboardType },
-  } = so5UserGroup;
+    vicc5TournamentType: { vicc5LeaderboardType },
+  } = vicc5UserGroup;
   const isCreation = myMembership?.administrator && membershipsCount === 1;
 
   const { title, message, values } =
-    generatePrivateUserGroupInvitationWording(so5LeaderboardType);
+    generatePrivateUserGroupInvitationWording(vicc5LeaderboardType);
   return (
     <DialogContent>
       <Content>
@@ -190,7 +190,7 @@ export const Congrats = ({ slug, redirectToManagerHome }: Props) => {
               url={generatePrivateUserGroupInviteLink(
                 joinSecret,
                 currentUser?.slug,
-                so5LeaderboardType
+                vicc5LeaderboardType
               )}
               title={formatMessage(title)}
               message={formatMessage(message, values)}

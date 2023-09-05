@@ -54,7 +54,7 @@ const EthereumAccounts = () => {
 
   const addresses = currentUser.accounts
     .map(a =>
-      a.accountable.__typename === 'EthereumAccount' && !a.sorareManaged
+      a.accountable.__typename === 'EthereumAccount' && !a.viccManaged
         ? a.accountable.address
         : null
     )

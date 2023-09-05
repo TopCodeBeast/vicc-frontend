@@ -16,11 +16,11 @@ import {
 const FOOTBALL_PAST_LEADERBOARD_SLUG_QUERY = gql`
   query FootballPastLeaderboardSlugQuery {
     football {
-      so5 {
-        so5Fixture(type: PAST) {
+      vicc5 {
+        vicc5Fixture(type: PAST) {
           slug
           displayName
-          so5Leaderboards {
+          vicc5Leaderboards {
             slug
           }
         }
@@ -35,18 +35,18 @@ const FOOTBALL_PAST_LEADERBOARD_SLUG_QUERY = gql`
 const FOOTBALL_PAST_LEADERBOARD_QUERY = gql`
   query FootballPastLeaderboardQuery($leaderboardSlug: String!) {
     football {
-      so5 {
-        so5Leaderboard(slug: $leaderboardSlug) {
+      vicc5 {
+        vicc5Leaderboard(slug: $leaderboardSlug) {
           slug
           displayName
           svgLogoUrl
           mainRarityType
-          so5LineupsCount
-          so5Rankings(first: 1) {
+          vicc5LineupsCount
+          vicc5Rankings(first: 1) {
             nodes {
               score
               ranking
-              so5Lineup {
+              vicc5Lineup {
                 id
               }
             }
@@ -62,9 +62,9 @@ const FOOTBALL_PAST_LEADERBOARD_QUERY = gql`
 const FOOTBALL_PAST_LINEUP_WINNER_QUERY = gql`
   query FootballPastLineupWinnerQuery($lineupId: ID!) {
     football {
-      so5 {
-        so5Lineup(id: $lineupId) {
-          so5Appearances {
+      vicc5 {
+        vicc5Lineup(id: $lineupId) {
+          vicc5Appearances {
             card {
               slug
               assetId
@@ -95,7 +95,7 @@ type Props = {
 export const FootballPastWinner = ({ leaderboardSlug }: Props) => {
   const { data: slugData } = useQuery(FOOTBALL_PAST_LEADERBOARD_SLUG_QUERY);
   const lastLeaderboard =
-    slugData?.football.so5.so5Fixture?.so5Leaderboards.find(leaderboard =>
+    slugData?.football.vicc5.vicc5Fixture?.vicc5Leaderboards.find(leaderboard =>
       leaderboard.slug.includes(leaderboardSlug)
     );
 
@@ -105,34 +105,34 @@ export const FootballPastWinner = ({ leaderboardSlug }: Props) => {
   });
 
   const leaderboardDataSimplified =
-    leaderboardData?.football.so5.so5Leaderboard;
+    leaderboardData?.football.vicc5.vicc5Leaderboard;
 
   const lineupId =
-    leaderboardDataSimplified?.so5Rankings.nodes[0]?.so5Lineup?.id;
+    leaderboardDataSimplified?.vicc5Rankings.nodes[0]?.vicc5Lineup?.id;
 
   const { data: lineupData } = useQuery(FOOTBALL_PAST_LINEUP_WINNER_QUERY, {
     skip: !idFromObject(lineupId),
     variables: { lineupId: idFromObject(lineupId)! },
   });
 
-  const lineupDataSimplified = lineupData?.football.so5.so5Lineup;
+  const lineupDataSimplified = lineupData?.football.vicc5.vicc5Lineup;
 
-  if (!lineupDataSimplified || !leaderboardDataSimplified?.so5LineupsCount)
+  if (!lineupDataSimplified || !leaderboardDataSimplified?.vicc5LineupsCount)
     return null;
   return (
     <DumbPastWinner
-      cards={lineupDataSimplified.so5Appearances.map(card => ({
+      cards={lineupDataSimplified.vicc5Appearances.map(card => ({
         imageUrl: card.card.pictureUrl,
       }))}
       leaderboardIconUrl={leaderboardDataSimplified.svgLogoUrl}
       leaderboardName={leaderboardDataSimplified.displayName}
       leaderboardRarity={leaderboardDataSimplified.mainRarityType}
-      lineupsCount={leaderboardDataSimplified.so5LineupsCount}
+      lineupsCount={leaderboardDataSimplified.vicc5LineupsCount}
       winner={{
         nickname: lineupDataSimplified.user.nickname,
         avatarUrl: lineupDataSimplified.user.profile.pictureUrl,
       }}
-      score={leaderboardDataSimplified.so5Rankings.nodes[0].score}
+      score={leaderboardDataSimplified.vicc5Rankings.nodes[0].score}
     />
   );
 };

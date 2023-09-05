@@ -10,7 +10,7 @@ import useFeatureFlags from '@core/hooks/useFeatureFlags';
 
 type FetchEncryptedKeyData = {
   fetchEncryptedPrivateKey: {
-    sorarePrivateKey: EncryptedPrivateKey;
+    viccPrivateKey: EncryptedPrivateKey;
   };
 };
 
@@ -50,7 +50,7 @@ export const Wallet2FA = () => {
     return {
       result: {
         userPrivateKey:
-          data?.fetchEncryptedPrivateKey.sorarePrivateKey || undefined,
+          data?.fetchEncryptedPrivateKey.viccPrivateKey || undefined,
       },
     };
   }, [use2FA, currentUser?.otpRequiredForLogin]);

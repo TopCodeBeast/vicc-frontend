@@ -7,7 +7,7 @@ import { Caption, Text16 } from '@sorare/core/src/atoms/typography';
 import TeamAvatar from '@football/components/club/TeamAvatar';
 import { DidNotPlayLabel } from '@football/components/stats/PlayingLabel';
 
-import { BenchPlayerGameScore_so5Score } from './__generated__/index.graphql';
+import { BenchPlayerGameScore_vicc5Score } from './__generated__/index.graphql';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -27,11 +27,11 @@ const TeamAvatarWrapper = styled.div`
   display: inline-flex;
 `;
 type Props = {
-  so5Score: BenchPlayerGameScore_so5Score | null;
+  vicc5Score: BenchPlayerGameScore_vicc5Score | null;
 };
 
-export const BenchPlayerGameScore = ({ so5Score }: Props) => {
-  const { playerGameStats } = so5Score || {};
+export const BenchPlayerGameScore = ({ vicc5Score }: Props) => {
+  const { playerGameStats } = vicc5Score || {};
   const opponent =
     playerGameStats?.team?.slug === playerGameStats?.game?.homeTeam?.slug
       ? playerGameStats?.game?.awayTeam
@@ -41,7 +41,7 @@ export const BenchPlayerGameScore = ({ so5Score }: Props) => {
     <Wrapper>
       <Caption color="var(--c-neutral-500)">
         <FormattedDate
-          value={so5Score?.playerGameStats?.game?.date}
+          value={vicc5Score?.playerGameStats?.game?.date}
           month="short"
           day="numeric"
         />
@@ -51,8 +51,8 @@ export const BenchPlayerGameScore = ({ so5Score }: Props) => {
           <TeamAvatar team={opponent} withTooltip />
         </TeamAvatarWrapper>
         <Text16 bold color="var(--c-neutral-600)">
-          {so5Score?.score != null ? (
-            Math.round(so5Score?.score)
+          {vicc5Score?.score != null ? (
+            Math.round(vicc5Score?.score)
           ) : (
             <DidNotPlayLabel />
           )}
@@ -63,8 +63,8 @@ export const BenchPlayerGameScore = ({ so5Score }: Props) => {
 };
 
 BenchPlayerGameScore.fragments = {
-  so5Score: gql`
-    fragment BenchPlayerGameScore_so5Score on So5Score {
+  vicc5Score: gql`
+    fragment BenchPlayerGameScore_vicc5Score on Vicc5Score {
       id
       score
       playerGameStats {
@@ -97,5 +97,5 @@ BenchPlayerGameScore.fragments = {
       }
     }
     ${TeamAvatar.fragments.team}
-  ` as TypedDocumentNode<BenchPlayerGameScore_so5Score>,
+  ` as TypedDocumentNode<BenchPlayerGameScore_vicc5Score>,
 };

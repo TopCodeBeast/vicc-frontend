@@ -21,7 +21,7 @@ import getLineupActions from '@football/lib/lineup/getLineupActions';
 import { LeaderboardAction } from '@football/types/leaderboard';
 
 import ListItemAction from './ListItemAction';
-import { CompetitionListActions_so5Leaderboard } from './__generated__/index.graphql';
+import { CompetitionListActions_vicc5Leaderboard } from './__generated__/index.graphql';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -35,27 +35,27 @@ const Wrapper = styled.div`
 `;
 
 type Props = {
-  so5Leaderboard: CompetitionListActions_so5Leaderboard;
+  vicc5Leaderboard: CompetitionListActions_vicc5Leaderboard;
   onActionSuccess: () => void;
   lineupId: number;
   linkToCompetitionDetails: string;
 };
 
 const CompetitionListActions = ({
-  so5Leaderboard,
+  vicc5Leaderboard,
   onActionSuccess,
   lineupId,
   linkToCompetitionDetails,
 }: Props) => {
   const track = useFootballEvents();
-  const { mySo5Lineups } = so5Leaderboard;
-  const lineup = mySo5Lineups[lineupId];
+  const { myVicc5Lineups } = vicc5Leaderboard;
+  const lineup = myVicc5Lineups[lineupId];
   const { availableActions, tooManyCards } = getLineupActions(
     lineup,
-    so5Leaderboard
+    vicc5Leaderboard
   );
   const draftUrl = generatePath(FOOTBALL_DRAFT, {
-    slug: so5Leaderboard.slug,
+    slug: vicc5Leaderboard.slug,
   });
 
   const visibleActions = {
@@ -78,7 +78,7 @@ const CompetitionListActions = ({
         component={Link}
         fullWidth
         to={generatePath(FOOTBALL_LOBBY_UPCOMING_SWAP, {
-          leaderboardSlug: so5Leaderboard.slug,
+          leaderboardSlug: vicc5Leaderboard.slug,
         })}
       >
         <FormattedMessage {...fantasy.swap} />
@@ -90,8 +90,8 @@ const CompetitionListActions = ({
         component={Link}
         fullWidth
         to={getComposeTeamRoute({
-          so5LeaderboardSlug: so5Leaderboard.slug,
-          so5LineupId: idFromObject(lineup?.id),
+          vicc5LeaderboardSlug: vicc5Leaderboard.slug,
+          vicc5LineupId: idFromObject(lineup?.id),
         })}
       >
         <FormattedMessage {...glossary.edit} />
@@ -103,7 +103,7 @@ const CompetitionListActions = ({
         component={Link}
         fullWidth
         to={getComposeTeamRoute({
-          so5LeaderboardSlug: so5Leaderboard.slug,
+          vicc5LeaderboardSlug: vicc5Leaderboard.slug,
         })}
       >
         <FormattedMessage {...glossary.register} />
@@ -116,8 +116,8 @@ const CompetitionListActions = ({
         to={linkToCompetitionDetails}
         onClick={() => {
           track('Click Competition', {
-            leaderboardSlug: so5Leaderboard.slug,
-            leaderboardName: so5Leaderboard.displayName,
+            leaderboardSlug: vicc5Leaderboard.slug,
+            leaderboardName: vicc5Leaderboard.displayName,
           });
         }}
       >
@@ -130,7 +130,7 @@ const CompetitionListActions = ({
     if (tooManyCards) {
       return (
         <ListItemAction fullWidth disabled>
-          <Tooltip title={so5Leaderboard.canCompose.reason || ''}>
+          <Tooltip title={vicc5Leaderboard.canCompose.reason || ''}>
             <FormattedMessage
               id="CompetitionListActions.locked"
               defaultMessage="Locked"
@@ -148,8 +148,8 @@ const CompetitionListActions = ({
           .map(([key, element]) => cloneElement(element, { key }))}
 
         <DropdownActions
-          so5Leaderboard={so5Leaderboard}
-          so5Lineup={lineup}
+          vicc5Leaderboard={vicc5Leaderboard}
+          vicc5Lineup={lineup}
           onActionSuccess={onActionSuccess}
         />
       </>
@@ -159,25 +159,25 @@ const CompetitionListActions = ({
 };
 
 CompetitionListActions.fragments = {
-  so5Leaderboard: gql`
-    fragment CompetitionListActions_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment CompetitionListActions_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       displayName
-      mySo5Lineups {
+      myVicc5Lineups {
         id
-        ...DropdownActions_so5Lineup
-        ...getLineupActions_so5Lineup
+        ...DropdownActions_vicc5Lineup
+        ...getLineupActions_vicc5Lineup
       }
       canCompose {
         reason
       }
-      ...getLineupActions_so5Leaderboard
-      ...DropdownActions_so5Leaderboard
+      ...getLineupActions_vicc5Leaderboard
+      ...DropdownActions_vicc5Leaderboard
     }
-    ${getLineupActions.fragments.so5Leaderboard}
-    ${getLineupActions.fragments.so5Lineup}
-    ${DropdownActions.fragments.so5Lineup}
-    ${DropdownActions.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<CompetitionListActions_so5Leaderboard>,
+    ${getLineupActions.fragments.vicc5Leaderboard}
+    ${getLineupActions.fragments.vicc5Lineup}
+    ${DropdownActions.fragments.vicc5Lineup}
+    ${DropdownActions.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<CompetitionListActions_vicc5Leaderboard>,
 };
 export default CompetitionListActions;

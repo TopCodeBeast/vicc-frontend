@@ -31,13 +31,13 @@ import { GameEventStatus, gameStatusMessages } from '@football/lib/so5';
 
 import {
   LastScores_player,
-  LastScores_so5Score,
+  LastScores_vicc5Score,
 } from './__generated__/index.graphql';
 
 type Props = {
-  lastFiveSo5AverageScore: number | null;
-  lastFifteenSo5AverageScore: number | null;
-  so5Scores: (LastScores_so5Score | null)[];
+  lastFiveVicc5AverageScore: number | null;
+  lastFifteenVicc5AverageScore: number | null;
+  vicc5Scores: (LastScores_vicc5Score | null)[];
   player: LastScores_player;
   cardPositions?: Position[];
   setPosition?: (position?: Position) => void;
@@ -116,16 +116,16 @@ const GamesContainer = styled.div`
 `;
 
 const isHomeGame = (
-  gameStats: LastScores_so5Score['playerGameStats']
+  gameStats: LastScores_vicc5Score['playerGameStats']
 ): boolean => {
   return gameStats.team.slug === gameStats.game.homeTeam?.slug;
 };
 
 const gameOpponent = (
-  gameStats: LastScores_so5Score['playerGameStats']
+  gameStats: LastScores_vicc5Score['playerGameStats']
 ):
-  | LastScores_so5Score['playerGameStats']['game']['homeTeam']
-  | LastScores_so5Score['playerGameStats']['game']['awayTeam']
+  | LastScores_vicc5Score['playerGameStats']['game']['homeTeam']
+  | LastScores_vicc5Score['playerGameStats']['game']['awayTeam']
   | null => {
   return isHomeGame(gameStats)
     ? gameStats.game.awayTeam
@@ -175,11 +175,11 @@ const StatusIcon: {
 
 const PerformancesSummary = ({
   player,
-  lastFiveSo5AverageScore,
-  lastFifteenSo5AverageScore,
+  lastFiveVicc5AverageScore,
+  lastFifteenVicc5AverageScore,
 }: {
-  lastFiveSo5AverageScore: number | null;
-  lastFifteenSo5AverageScore: number | null;
+  lastFiveVicc5AverageScore: number | null;
+  lastFifteenVicc5AverageScore: number | null;
   player: LastScores_player;
 }) => {
   const { formatNumber } = useIntl();
@@ -188,12 +188,12 @@ const PerformancesSummary = ({
 
   const summaryData = {
     [ScoreTabValue.l5]: {
-      score: lastFiveSo5AverageScore,
-      appearanceRate: (player.lastFiveSo5Appearances || 0) / 5,
+      score: lastFiveVicc5AverageScore,
+      appearanceRate: (player.lastFiveVicc5Appearances || 0) / 5,
     },
     [ScoreTabValue.l15]: {
-      score: lastFifteenSo5AverageScore,
-      appearanceRate: (player.lastFifteenSo5Appearances || 0) / 15,
+      score: lastFifteenVicc5AverageScore,
+      appearanceRate: (player.lastFifteenVicc5Appearances || 0) / 15,
     },
   };
 
@@ -248,25 +248,25 @@ const PerformancesSummary = ({
 };
 
 const LastScores = ({
-  lastFifteenSo5AverageScore,
-  lastFiveSo5AverageScore,
+  lastFifteenVicc5AverageScore,
+  lastFiveVicc5AverageScore,
   cardPositions = [],
   setPosition,
   selectedPosition,
-  so5Scores,
+  vicc5Scores,
   player,
   InfiniteScrollLoader,
 }: Props) => {
   const { formatMessage, formatDate } = useIntl();
-  const [so5Score, setSo5Score] = useState<LastScores_so5Score | undefined>();
+  const [vicc5Score, setVicc5Score] = useState<LastScores_vicc5Score | undefined>();
 
   const [homeAwayTab, setHomeAwayTab] = useState<TabValue>(TabValue.all);
 
   const getSuspensionsAndInjuries = useGetSuspensionsAndInjuries(player);
 
-  if (!so5Scores?.length) return null;
+  if (!vicc5Scores?.length) return null;
 
-  const sortedScores = so5Scores.filter(Boolean).sort((a, b) => {
+  const sortedScores = vicc5Scores.filter(Boolean).sort((a, b) => {
     const dateA = new Date(a.game.date);
     const dateB = new Date(b.game.date);
     return dateA > dateB ? 1 : -1;
@@ -296,7 +296,7 @@ const LastScores = ({
         gameLabel: (
           <Label>
             <Avatar team={gameOpponent(score.playerGameStats)} />
-            <div>{score.playerGameStats.game.so5Fixture?.shortDisplayName}</div>
+            <div>{score.playerGameStats.game.vicc5Fixture?.shortDisplayName}</div>
           </Label>
         ),
         color:
@@ -307,7 +307,7 @@ const LastScores = ({
             ? THRESHOLD_COLORS[findThreshold(score.score || 0)]
             : 'var(--c-neutral-500)',
         onClick: () => {
-          setSo5Score(score);
+          setVicc5Score(score);
         },
         dnpLabel: !gamePlayed ? (
           <FontAwesomeIcon
@@ -362,8 +362,8 @@ const LastScores = ({
 
         <PerformancesSummary
           player={player}
-          lastFiveSo5AverageScore={lastFiveSo5AverageScore}
-          lastFifteenSo5AverageScore={lastFifteenSo5AverageScore}
+          lastFiveVicc5AverageScore={lastFiveVicc5AverageScore}
+          lastFifteenVicc5AverageScore={lastFifteenVicc5AverageScore}
         />
       </Section>
       <Section>
@@ -389,11 +389,11 @@ const LastScores = ({
             />
           </Games>
         </GamesContainer>
-        {so5Score && (
+        {vicc5Score && (
           <PlayerGameScoreDialog
-            so5ScoreId={so5Score.id}
-            onClose={() => setSo5Score(undefined)}
-            open={!!so5Score}
+            vicc5ScoreId={vicc5Score.id}
+            onClose={() => setVicc5Score(undefined)}
+            open={!!vicc5Score}
           />
         )}
       </Section>
@@ -402,8 +402,8 @@ const LastScores = ({
 };
 
 LastScores.fragments = {
-  so5Score: gql`
-    fragment LastScores_so5Score on So5Score {
+  vicc5Score: gql`
+    fragment LastScores_vicc5Score on Vicc5Score {
       id
       score
       playerGameStats {
@@ -417,7 +417,7 @@ LastScores.fragments = {
         game {
           id
           status
-          so5Fixture {
+          vicc5Fixture {
             slug
             gameWeek
             shortDisplayName
@@ -436,17 +436,17 @@ LastScores.fragments = {
           }
         }
       }
-      ...useGetSuspensionsAndInjuries_so5Score
+      ...useGetSuspensionsAndInjuries_vicc5Score
     }
     ${TeamAvatar.fragments.team}
-    ${useGetSuspensionsAndInjuries.fragments.so5Score}
-  ` as TypedDocumentNode<LastScores_so5Score>,
+    ${useGetSuspensionsAndInjuries.fragments.vicc5Score}
+  ` as TypedDocumentNode<LastScores_vicc5Score>,
   player: gql`
     fragment LastScores_player on Player {
       id
       slug
-      lastFiveSo5Appearances
-      lastFifteenSo5Appearances
+      lastFiveVicc5Appearances
+      lastFifteenVicc5Appearances
       injuries {
         id
         ...PlayerUnavailabilityBadge_injury

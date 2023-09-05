@@ -105,7 +105,7 @@ const Content = ({
         defaultValue={nickname}
         helperText={formatMessage(messages.nicknameWarning)}
       />
-      {(sport || lifecycle?.lastVisitedSport) === Sport.FOOTBALL && (
+      {(sport || lifecycle?.lastVisitedSport) === Sport.CRICKET && (
         <TextField
           name="clubName"
           maxLength={100}

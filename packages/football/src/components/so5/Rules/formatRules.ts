@@ -6,8 +6,8 @@ import { withFragments } from '@sorare/core/src/lib/gql';
 import { Errors } from '@football/components/so5/ComposeTeam/Context';
 import { HANDLED_RULES } from '@football/lib/so5';
 
-import { formatRules_so5Leaderboard } from './__generated__/formatRules.graphql';
-import { Rules_so5Leaderboard } from './__generated__/index.graphql';
+import { formatRules_vicc5Leaderboard } from './__generated__/formatRules.graphql';
+import { Rules_vicc5Leaderboard } from './__generated__/index.graphql';
 import {
   getActiveClubsRule,
   getAgeRule,
@@ -46,8 +46,8 @@ export function getErrorFrom(errors: Errors, id: string) {
 }
 
 /*export const formatRules = withFragments(
-  (so5Leaderboard: Rules_so5Leaderboard, errors: Errors, intl: IntlShape) => {
-    const { displayedRules, engineConfiguration } = so5Leaderboard || {};
+  (vicc5Leaderboard: Rules_vicc5Leaderboard, errors: Errors, intl: IntlShape) => {
+    const { displayedRules, engineConfiguration } = vicc5Leaderboard || {};
     if (!displayedRules) {
       return [];
     }
@@ -122,12 +122,12 @@ export function getErrorFrom(errors: Errors, id: string) {
             return [];
         }
       }),
-      ...getCardBonusRule(so5Leaderboard),
+      ...getCardBonusRule(vicc5Leaderboard),
     ].filter(Boolean);
   },
   {
-    so5Leaderboard: gql`
-      fragment formatRules_so5Leaderboard on So5Leaderboard {
+    vicc5Leaderboard: gql`
+      fragment formatRules_vicc5Leaderboard on Vicc5Leaderboard {
         slug
         ...GetSeasonsRule
         ...GetLeaguesRule
@@ -150,7 +150,7 @@ export function getErrorFrom(errors: Errors, id: string) {
         ...GetCardEditionsCountRule
         ...GetAllowLegendRule
         ...GetSumOfAverageScoresRule
-        ...getCardBonusRule_so5Leaderboard
+        ...getCardBonusRule_vicc5Leaderboard
       }
       ${getSeasonsRule.fragments.rule}
       ${getLeaguesRule.fragments.rule}
@@ -173,8 +173,8 @@ export function getErrorFrom(errors: Errors, id: string) {
       ${getCardEditionsCountRule.fragments.rule}
       ${getAllowLegend.fragments.rule}
       ${getSumOfAverageScoresRule.fragments.rule}
-      ${getCardBonusRule.fragments.so5Leaderboard}
-    ` as TypedDocumentNode<formatRules_so5Leaderboard>,
+      ${getCardBonusRule.fragments.vicc5Leaderboard}
+    ` as TypedDocumentNode<formatRules_vicc5Leaderboard>,
   }
 );
 */

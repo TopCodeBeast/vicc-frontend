@@ -39,18 +39,18 @@ export default () => {
     async (
       {
         email,
-        sorareAddress,
-        sorarePrivateKey,
+        viccAddress,
+        viccPrivateKey,
         error,
         mustAcceptTcus,
         ...rest
       }: SignedInInfo,
       passwordHash: string
     ) => {
-      let address = sorareAddress;
-      let userPrivateKey = sorarePrivateKey;
+      let address = viccAddress;
+      let userPrivateKey = viccPrivateKey;
 
-      if (!sorareAddress || sorareAddress === nullAddress) {
+      if (!viccAddress || viccAddress === nullAddress) {
         const { result } = await sendRequest<GenerateKey>('generateKey', {
           email,
         });

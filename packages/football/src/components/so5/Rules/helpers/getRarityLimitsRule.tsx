@@ -213,7 +213,7 @@ const getRarityLimitsRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetRarityLimitsRule on So5Leaderboard {
+      fragment GetRarityLimitsRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

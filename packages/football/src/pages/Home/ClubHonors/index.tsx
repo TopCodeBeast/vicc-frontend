@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { So5Tournament } from '@sorare/core/src/__generated__/globalTypes';
+import { Vicc5Tournament } from '@sorare/core/src/__generated__/globalTypes';
 import Container from '@sorare/core/src/atoms/layout/Container';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Title4 } from '@sorare/core/src/atoms/typography';
@@ -122,7 +122,7 @@ const CLUB_HONORS_SUMMARIES_QUERY = gql`
 const CLUB_HONORS_LINEUPS_QUERY = gql`
   query ClubHonorsLineupsQuery(
     $slug: String!
-    $so5LeaderboardType: So5LeaderboardType
+    $vicc5LeaderboardType: Vicc5LeaderboardType
     $cursor: String
   ) {
     user(slug: $slug) {
@@ -130,17 +130,17 @@ const CLUB_HONORS_LINEUPS_QUERY = gql`
       rewardedRankings(
         after: $cursor
         first: 12
-        so5LeaderboardType: $so5LeaderboardType
+        vicc5LeaderboardType: $vicc5LeaderboardType
       ) {
         nodes {
           id
-          so5Lineup {
+          vicc5Lineup {
             id
-            ...Lineup_so5Lineup
+            ...Lineup_vicc5Lineup
           }
-          so5Leaderboard {
+          vicc5Leaderboard {
             slug
-            ...Lineup_so5Leaderboard
+            ...Lineup_vicc5Leaderboard
           }
         }
         pageInfo {
@@ -150,14 +150,14 @@ const CLUB_HONORS_LINEUPS_QUERY = gql`
       }
     }
   }
-  ${Lineup.fragments.so5Leaderboard}
-  ${Lineup.fragments.so5Lineup}
+  ${Lineup.fragments.vicc5Leaderboard}
+  ${Lineup.fragments.vicc5Lineup}
 ` as TypedDocumentNode<ClubHonorsLineupsQuery, ClubHonorsLineupsQueryVariables>;
 
 const ClubHonors = ({ user: { slug }, readOnly }: Props) => {
   const useCustomLists = useUseCustomLists();
   const [selectedLeaderboard, setSelectedLeaderboard] =
-    useState<So5Tournament | null>(null);
+    useState<Vicc5Tournament | null>(null);
   const { data: summariesData, loading } = useQuery(
     CLUB_HONORS_SUMMARIES_QUERY,
     {
@@ -171,10 +171,10 @@ const ClubHonors = ({ user: { slug }, readOnly }: Props) => {
     {
       variables: {
         slug,
-        so5LeaderboardType: selectedLeaderboard?.so5LeaderboardType,
+        vicc5LeaderboardType: selectedLeaderboard?.vicc5LeaderboardType,
       },
       skip: readOnly,
-      connection: 'So5RankingConnection',
+      connection: 'Vicc5RankingConnection',
     }
   );
 
@@ -208,7 +208,7 @@ const ClubHonors = ({ user: { slug }, readOnly }: Props) => {
         if (a.customSeries !== b.customSeries) {
           return b.customSeries - a.customSeries;
         }
-        return a.so5TournamentType.displayName > b.so5TournamentType.displayName
+        return a.vicc5TournamentType.displayName > b.vicc5TournamentType.displayName
           ? 1
           : -1;
       })
@@ -272,11 +272,11 @@ const ClubHonors = ({ user: { slug }, readOnly }: Props) => {
                 {lineupsData?.user.rewardedRankings ? (
                   <>
                     {lineupsData.user.rewardedRankings.nodes.map(
-                      ({ id, so5Lineup, so5Leaderboard }) => (
+                      ({ id, vicc5Lineup, vicc5Leaderboard }) => (
                         <Lineup
                           key={id}
-                          lineup={so5Lineup}
-                          leaderboard={so5Leaderboard}
+                          lineup={vicc5Lineup}
+                          leaderboard={vicc5Leaderboard}
                           rewardType={RewardType.Actual}
                           displayScore
                         />

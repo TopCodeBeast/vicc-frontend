@@ -124,13 +124,13 @@ type Props = {
   totalRewards?: PrizePoolOverview_rewardsOverview;
   rewardsConfig?: PrizePoolOverview_leaderboardRewardsConfig;
   displaySemiProIncentive?: boolean;
-  so5LeaderboardSlug?: string;
+  vicc5LeaderboardSlug?: string;
 };
 const PrizePoolOverview = ({
   totalRewards,
   rewardsConfig,
   displaySemiProIncentive,
-  so5LeaderboardSlug,
+  vicc5LeaderboardSlug,
 }: Props) => {
   const { formatNumber } = useIntl();
 
@@ -238,11 +238,11 @@ const PrizePoolOverview = ({
               </Text16>
             </RewardRow>
           )}
-          {so5LeaderboardSlug && (
+          {vicc5LeaderboardSlug && (
             <InnerLink
               as={Link}
               to={generatePath(FOOTBALL_COMPETITION_DETAILS_REWARDS, {
-                competition: so5LeaderboardSlug,
+                competition: vicc5LeaderboardSlug,
               })}
               state={{
                 backgroundState: bgLocation,

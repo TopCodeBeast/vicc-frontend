@@ -57,18 +57,18 @@ const FIXTURE_SCORES_QUERY = gql`
     football {
       player(slug: $slug) {
         slug
-        lastFiveSo5AverageScore: averageScore(
-          type: LAST_FIVE_SO5_AVERAGE_SCORE
+        lastFiveVicc5AverageScore: averageScore(
+          type: LAST_FIVE_VICC5_AVERAGE_SCORE
           position: $position
         )
-        lastFifteenSo5AverageScore: averageScore(
-          type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
+        lastFifteenVicc5AverageScore: averageScore(
+          type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
           position: $position
         )
-        allSo5Scores(first: 10, after: $cursor, position: $position) {
+        allVicc5Scores(first: 10, after: $cursor, position: $position) {
           nodes {
             id
-            ...LastScores_so5Score
+            ...LastScores_vicc5Score
           }
           pageInfo {
             endCursor
@@ -79,7 +79,7 @@ const FIXTURE_SCORES_QUERY = gql`
       }
     }
   }
-  ${LastScores.fragments.so5Score}
+  ${LastScores.fragments.vicc5Score}
   ${LastScores.fragments.player}
 ` as TypedDocumentNode<FixtureScoresQuery, FixtureScoresQueryVariables>;
 
@@ -147,7 +147,7 @@ const PlayerDetails = ({
       slug,
       ...(card ? { position: card.position } : {}),
     },
-    connection: 'So5ScoreConnection',
+    connection: 'Vicc5ScoreConnection',
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
@@ -157,16 +157,16 @@ const PlayerDetails = ({
       loadMore(false, {
         slug: slug!,
         cursor:
-          fixtureScoresData?.football.player.allSo5Scores.pageInfo.endCursor,
+          fixtureScoresData?.football.player.allVicc5Scores.pageInfo.endCursor,
         ...(card ? { position: card.position } : {}),
       });
     }, [
       card,
       slug,
       loadMore,
-      fixtureScoresData?.football.player.allSo5Scores.pageInfo.endCursor,
+      fixtureScoresData?.football.player.allVicc5Scores.pageInfo.endCursor,
     ]),
-    fixtureScoresData?.football.player.allSo5Scores.pageInfo.hasNextPage ||
+    fixtureScoresData?.football.player.allVicc5Scores.pageInfo.hasNextPage ||
       false,
     fixtureScoresLoading
   );
@@ -199,14 +199,14 @@ const PlayerDetails = ({
       {extraActions && <Actions>{extraActions}</Actions>}
       <PlayerUnavailabilityPanel player={playerDetailsData.football.player} />
       <LastScores
-        lastFiveSo5AverageScore={
-          fixtureScoresData?.football.player.lastFiveSo5AverageScore
+        lastFiveVicc5AverageScore={
+          fixtureScoresData?.football.player.lastFiveVicc5AverageScore
         }
-        lastFifteenSo5AverageScore={
-          fixtureScoresData?.football.player.lastFifteenSo5AverageScore
+        lastFifteenVicc5AverageScore={
+          fixtureScoresData?.football.player.lastFifteenVicc5AverageScore
         }
         player={fixtureScoresData?.football.player}
-        so5Scores={fixtureScoresData?.football.player.allSo5Scores.nodes}
+        vicc5Scores={fixtureScoresData?.football.player.allVicc5Scores.nodes}
         InfiniteScrollLoader={<InfiniteScrollLoader />}
       />
       <PlayerUpcomingGames games={upcomingGames} />

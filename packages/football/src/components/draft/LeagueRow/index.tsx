@@ -131,7 +131,7 @@ export const LeagueRow = ({
 }: Props) => {
   const generatePathWithSearch = useGeneratePathWithSearch();
 
-  if (!commonDraftCampaign?.upcomingSo5Leaderboard?.slug) {
+  if (!commonDraftCampaign?.upcomingVicc5Leaderboard?.slug) {
     return (
       <Wrapper className="disabled">
         <LeagueRowContent competition={competition} />
@@ -167,7 +167,7 @@ export const LeagueRow = ({
         as={Button}
         component={Link}
         to={generatePathWithSearch(FOOTBALL_DRAFT, {
-          slug: commonDraftCampaign.upcomingSo5Leaderboard.slug,
+          slug: commonDraftCampaign.upcomingVicc5Leaderboard.slug,
         })}
         onClick={() => onClick(commonDraftCampaign.slug)}
         color="blue"
@@ -188,7 +188,7 @@ LeagueRow.fragments = {
     fragment LeagueRow_commonDraftCampaign on CommonDraftCampaign {
       slug
       status
-      upcomingSo5Leaderboard {
+      upcomingVicc5Leaderboard {
         slug
       }
     }

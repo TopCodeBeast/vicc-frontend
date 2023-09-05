@@ -31,5 +31,5 @@ export const REFERRAL_HELP =
 export const FEES_HELP_LINKS = {
   [Sport.BASEBALL]: MLB_FEES_HELP,
   [Sport.NBA]: NBA_FEES_HELP,
-  [Sport.FOOTBALL]: HREF_HELP,
+  [Sport.CRICKET]: HREF_HELP,
 };

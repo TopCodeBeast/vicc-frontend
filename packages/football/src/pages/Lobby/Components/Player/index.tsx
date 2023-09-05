@@ -13,7 +13,7 @@ import PlayerGameScoreDialog from '@football/components/stats/PlayerGameScoreDia
 import PlayerScore from '@football/components/stats/PlayerScore';
 import { getPlayerScore } from '@football/lib/so5';
 
-import { LobbyPlayer_so5Appearance } from './__generated__/index.graphql';
+import { LobbyPlayer_vicc5Appearance } from './__generated__/index.graphql';
 
 const Root = styled.div`
   display: flex;
@@ -69,23 +69,23 @@ const Rect = styled.rect<{ color: string }>`
   fill: ${({ color }) =>
     color === 'red' ? 'var(--c-red-600)' : 'var(--c-yellow-600)'};
 `;
-export const Player = ({ player }: { player: LobbyPlayer_so5Appearance }) => {
+export const Player = ({ player }: { player: LobbyPlayer_vicc5Appearance }) => {
   const [openPlayerGameScore, setOpenPlayerGameScore] = useState<string>('');
-  const { card, so5Score } = player;
-  const { game } = so5Score || {};
+  const { card, vicc5Score } = player;
+  const { game } = vicc5Score || {};
   const { displayName, pictureUrl } = card?.player || {};
-  const { score, status } = getPlayerScore(so5Score);
+  const { score, status } = getPlayerScore(vicc5Score);
   return (
     <Root>
       <PlayerInfo
         type="button"
-        onClick={() => setOpenPlayerGameScore(so5Score?.id || '')}
+        onClick={() => setOpenPlayerGameScore(vicc5Score?.id || '')}
       >
         <Picture src={pictureUrl ?? undefined} alt="" width={80} />
         <Info>
           <Title6>{displayName}</Title6>
           <Chips>
-            {so5Score?.playerGameStats?.goals && (
+            {vicc5Score?.playerGameStats?.goals && (
               <Chip
                 size="smaller"
                 label={Label => (
@@ -95,8 +95,8 @@ export const Player = ({ player }: { player: LobbyPlayer_so5Appearance }) => {
                 )}
               />
             )}
-            {(so5Score?.playerGameStats?.redCard ||
-              so5Score?.playerGameStats?.yellowCard) && (
+            {(vicc5Score?.playerGameStats?.redCard ||
+              vicc5Score?.playerGameStats?.yellowCard) && (
               <Chip
                 size="smaller"
                 label={Label => (
@@ -107,7 +107,7 @@ export const Player = ({ player }: { player: LobbyPlayer_so5Appearance }) => {
                         width="8"
                         height="12"
                         color={
-                          so5Score?.playerGameStats?.redCard ? 'red' : 'yellow'
+                          vicc5Score?.playerGameStats?.redCard ? 'red' : 'yellow'
                         }
                       />
                     </svg>
@@ -123,7 +123,7 @@ export const Player = ({ player }: { player: LobbyPlayer_so5Appearance }) => {
       </PlayerInfo>
       {game && <Game game={game} withMatchView />}
       <PlayerGameScoreDialog
-        so5ScoreId={idFromObject(openPlayerGameScore)!}
+        vicc5ScoreId={idFromObject(openPlayerGameScore)!}
         onClose={() => setOpenPlayerGameScore('')}
         open={!!openPlayerGameScore}
       />
@@ -132,15 +132,15 @@ export const Player = ({ player }: { player: LobbyPlayer_so5Appearance }) => {
 };
 
 Player.fragments = {
-  so5Appearance: gql`
-    fragment LobbyPlayer_so5Appearance on So5Appearance {
+  vicc5Appearance: gql`
+    fragment LobbyPlayer_vicc5Appearance on Vicc5Appearance {
       id
-      so5Score {
+      vicc5Score {
         id
         game {
           id
-          ...So5Game_game
-          ...So5Game_teamCountry
+          ...Vicc5Game_game
+          ...Vicc5Game_teamCountry
         }
         playerGameStats {
           id
@@ -148,7 +148,7 @@ Player.fragments = {
           yellowCard
           redCard
         }
-        ...getPlayerScore_so5Score
+        ...getPlayerScore_vicc5Score
       }
       card {
         slug
@@ -162,6 +162,6 @@ Player.fragments = {
     }
     ${Game.fragments.game}
     ${Game.fragments.teamCountry}
-    ${getPlayerScore.fragments.so5Score}
-  ` as TypedDocumentNode<LobbyPlayer_so5Appearance>,
+    ${getPlayerScore.fragments.vicc5Score}
+  ` as TypedDocumentNode<LobbyPlayer_vicc5Appearance>,
 };

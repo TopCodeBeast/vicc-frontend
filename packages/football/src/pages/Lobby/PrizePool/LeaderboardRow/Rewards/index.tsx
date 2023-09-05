@@ -12,7 +12,7 @@ import { Fiat } from '@sorare/core/src/atoms/icons/Fiat';
 
 import CardRewardsByTier, { CardsByTier } from './CardRewardsByTier';
 import ExperienceIcon from './ExperienceIcon';
-import { Rewards_so5RewardConfig } from './__generated__/index.graphql';
+import { Rewards_vicc5RewardConfig } from './__generated__/index.graphql';
 
 type GroupedRewards = {
   coinAmount: number;
@@ -66,7 +66,7 @@ const atLeastOneCardReward = (cards: CardsByTier): boolean =>
   ) > 0;
 
 type Props = {
-  rewards: Rewards_so5RewardConfig[];
+  rewards: Rewards_vicc5RewardConfig[];
 };
 const Rewards = ({ rewards }: Props) => {
   const { formatNumber } = useIntl();
@@ -135,8 +135,8 @@ const Rewards = ({ rewards }: Props) => {
 };
 
 Rewards.fragments = {
-  so5RewardConfig: gql`
-    fragment Rewards_so5RewardConfig on So5RewardConfig {
+  vicc5RewardConfig: gql`
+    fragment Rewards_vicc5RewardConfig on Vicc5RewardConfig {
       score
       ethAmount
       coinAmount
@@ -151,7 +151,7 @@ Rewards.fragments = {
         type
       }
     }
-  ` as TypedDocumentNode<Rewards_so5RewardConfig>,
+  ` as TypedDocumentNode<Rewards_vicc5RewardConfig>,
 };
 
 export default Rewards;

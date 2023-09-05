@@ -28,38 +28,38 @@ import {
 } from '@sorare/core/src/lib/players';
 
 import {
-  Lib_So5_so5Leaderboard,
-  Lib_So5_so5League,
-  getLeaderboardInfo_so5Leaderboard,
-  getPlayerScore_so5Score,
-  hasBonuses_so5Leaderboard,
-  isBlockchainLeague_so5League,
+  Lib_Vicc5_vicc5Leaderboard,
+  Lib_Vicc5_vicc5League,
+  getLeaderboardInfo_vicc5Leaderboard,
+  getPlayerScore_vicc5Score,
+  hasBonuses_vicc5Leaderboard,
+  isBlockchainLeague_vicc5League,
   sortLeaderboards_leaderboard,
 } from './__generated__/so5.graphql';
 
 const fragments = {
-  so5Leaderboard: gql`
-    fragment Lib_So5_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment Lib_Vicc5_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       displayName
       rarityType
     }
-  ` as TypedDocumentNode<Lib_So5_so5Leaderboard>,
-  so5League: gql`
-    fragment Lib_So5_so5League on So5League {
+  ` as TypedDocumentNode<Lib_Vicc5_vicc5Leaderboard>,
+  vicc5League: gql`
+    fragment Lib_Vicc5_vicc5League on Vicc5League {
       slug
       name
       displayName
       shortDisplayName
       category
     }
-  ` as TypedDocumentNode<Lib_So5_so5League>,
+  ` as TypedDocumentNode<Lib_Vicc5_vicc5League>,
 };
 
-export type LeagueType = Omit<Lib_So5_so5League, '__typename' | 'slug'>;
+export type LeagueType = Omit<Lib_Vicc5_vicc5League, '__typename' | 'slug'>;
 export type LeagueNameType = { name: string };
 export type LeaderboardType = Omit<
-  Lib_So5_so5Leaderboard,
+  Lib_Vicc5_vicc5Leaderboard,
   '__typename' | 'slug'
 >;
 export type LeaderboardDivisionType = { division: number };
@@ -81,12 +81,12 @@ const maxPower: {
 };
 
 export const orderLeaderboards = <T extends LeaderboardDivisionType>(
-  so5Leaderboards: T[],
+  vicc5Leaderboards: T[],
   direction: 'asc' | 'desc' = 'asc'
 ): T[] => {
   const d = direction === 'asc' ? 1 : -1;
   // don't sort the array in-place since it comes from gql cache
-  return [...so5Leaderboards].sort((a, b) =>
+  return [...vicc5Leaderboards].sort((a, b) =>
     a.division < b.division ? d : -d
   );
 };
@@ -118,34 +118,34 @@ const leagueOrder: League[] = [
 ];
 
 export const orderLeagues = <T extends { name: string; category: string }>(
-  so5Leagues: T[]
+  vicc5Leagues: T[]
 ): T[] =>
-  [...so5Leagues].sort(
+  [...vicc5Leagues].sort(
     (a, b) =>
       leagueOrder.indexOf(a.name as League) -
       leagueOrder.indexOf(b.name as League)
   );
 
 export const isBlockchainLeague = withFragments(
-  (so5League: isBlockchainLeague_so5League) =>
-    so5League.restrictionGroup === RestrictionGroup.BLOCKCHAIN_GROUP,
+  (vicc5League: isBlockchainLeague_vicc5League) =>
+    vicc5League.restrictionGroup === RestrictionGroup.BLOCKCHAIN_GROUP,
   {
-    so5League: gql`
-      fragment isBlockchainLeague_so5League on So5League {
+    vicc5League: gql`
+      fragment isBlockchainLeague_vicc5League on Vicc5League {
         slug
         restrictionGroup
       }
-    ` as TypedDocumentNode<isBlockchainLeague_so5League>,
+    ` as TypedDocumentNode<isBlockchainLeague_vicc5League>,
   }
 );
 
 export const isWeekly = (league: { name: string }) => league.name === 'weekly';
-export const isSpecialWeeklyEvent = (so5Fixture: {
+export const isSpecialWeeklyEvent = (vicc5Fixture: {
   specialWeeklyBanner: any;
-}) => so5Fixture.specialWeeklyBanner !== null;
+}) => vicc5Fixture.specialWeeklyBanner !== null;
 
 export interface EditableAppearance<C> {
-  __typename: 'So5Appearance';
+  __typename: 'Vicc5Appearance';
   card: C | null;
   captain: boolean;
   id: string;
@@ -156,7 +156,7 @@ export type EditableLineup<C> = {
 };
 
 export const emptyAppearance: EditableAppearance<null> = {
-  __typename: 'So5Appearance',
+  __typename: 'Vicc5Appearance',
   captain: false,
   id: '',
   card: null,
@@ -171,10 +171,10 @@ export const emptyLineupByPosition: EditableLineup<any> = {
 };
 
 export const emptyLineup: {
-  __typename: 'So5Lineup';
+  __typename: 'Vicc5Lineup';
   id: string;
   name: string | null;
-  so5Appearances: [];
+  vicc5Appearances: [];
   socialPictureUrls: {
     __typename: 'SocialPictureDerivative';
     post: string | null;
@@ -182,10 +182,10 @@ export const emptyLineup: {
     square: string | null;
   };
 } = {
-  __typename: 'So5Lineup',
+  __typename: 'Vicc5Lineup',
   id: '',
   name: null,
-  so5Appearances: [],
+  vicc5Appearances: [],
   socialPictureUrls: {
     __typename: 'SocialPictureDerivative',
     post: null,
@@ -246,13 +246,13 @@ export const isPremierLeague = (league: { name: string }) =>
   league.name === 'england';
 
 export const hasBonuses = withFragments(
-  (leaderboard: hasBonuses_so5Leaderboard) =>
+  (leaderboard: hasBonuses_vicc5Leaderboard) =>
     Object.keys(asObject((leaderboard as any).engineConfiguration || {})).filter(
       bonus => bonus !== 'captain'
     ).length > 0,
   {
-    so5Leaderboard: gql`
-      fragment hasBonuses_so5Leaderboard on So5Leaderboard {
+    vicc5Leaderboard: gql`
+      fragment hasBonuses_vicc5Leaderboard on Vicc5Leaderboard {
         slug
         engineConfiguration {
           scarcity
@@ -260,7 +260,7 @@ export const hasBonuses = withFragments(
           season
         }
       }
-    ` as TypedDocumentNode<hasBonuses_so5Leaderboard>,
+    ` as TypedDocumentNode<hasBonuses_vicc5Leaderboard>,
   }
 );
 
@@ -391,17 +391,17 @@ export const isGameLeft = (gameStatus: string): boolean =>
 export const isGameScheduled = (gameStatus: string): boolean =>
   gameStatus === GameEventStatus.SCHEDULED;
 
-export type So5Score_playerScore = Omit<getPlayerScore_so5Score, 'id'>;
+export type Vicc5Score_playerScore = Omit<getPlayerScore_vicc5Score, 'id'>;
 
 export const getPlayerScore = withFragments(
-  (so5Score?: So5Score_playerScore | null, bonus?: number | null) => {
-    if (!so5Score) {
+  (vicc5Score?: Vicc5Score_playerScore | null, bonus?: number | null) => {
+    if (!vicc5Score) {
       return { score: null, status: PlayerScoreStatus.NO_GAME };
     }
 
-    const { game } = so5Score;
+    const { game } = vicc5Score;
     const gameStatus = game.status;
-    const { minsPlayed } = so5Score.playerGameStats;
+    const { minsPlayed } = vicc5Score.playerGameStats;
 
     if (!!gameStatus && isGameScheduled(gameStatus)) {
       return { score: null, status: PlayerScoreStatus.PENDING };
@@ -411,20 +411,20 @@ export const getPlayerScore = withFragments(
       return { score: null, status: PlayerScoreStatus.DID_NOT_PLAY };
     }
 
-    const isScoreDefined = typeof so5Score.score === 'number';
+    const isScoreDefined = typeof vicc5Score.score === 'number';
 
     if (!isScoreDefined) {
       return { score: null, status: null };
     }
 
-    const score = so5Score.score
-      ? so5Score.score * (bonus || 1)
-      : so5Score.score;
+    const score = vicc5Score.score
+      ? vicc5Score.score * (bonus || 1)
+      : vicc5Score.score;
 
     const reviewing = Boolean(
       gameStatus &&
         (isGameLive(gameStatus) || isGameFinished(gameStatus)) &&
-        !so5Score?.playerGameStats?.reviewed
+        !vicc5Score?.playerGameStats?.reviewed
     );
 
     if (reviewing) {
@@ -437,8 +437,8 @@ export const getPlayerScore = withFragments(
     };
   },
   {
-    so5Score: gql`
-      fragment getPlayerScore_so5Score on So5Score {
+    vicc5Score: gql`
+      fragment getPlayerScore_vicc5Score on Vicc5Score {
         id
         score
         playerGameStats {
@@ -451,7 +451,7 @@ export const getPlayerScore = withFragments(
           status
         }
       }
-    ` as TypedDocumentNode<getPlayerScore_so5Score>,
+    ` as TypedDocumentNode<getPlayerScore_vicc5Score>,
   }
 );
 
@@ -487,7 +487,7 @@ export const positionShortNames = defineMessages<GlobalPosition | Position>({
 });
 
 type AppearanceWithPosition = {
-  __typename: 'So5Appearance';
+  __typename: 'Vicc5Appearance';
   captain: boolean;
   id: string;
   card: {
@@ -515,15 +515,15 @@ export const getAppearancesByPosition = <T extends AppearanceWithPosition>(
 
 export const socialSharingMessages = defineMessages({
   lineup: {
-    id: 'SocialSharingSo5.lineup',
+    id: 'SocialSharingVicc5.lineup',
     defaultMessage: 'Check out that lineup',
   },
   myLineup: {
-    id: 'SocialSharingSo5.myLineup',
+    id: 'SocialSharingVicc5.myLineup',
     defaultMessage: 'Check out my lineup',
   },
   card: {
-    id: 'SocialSharingSo5.card',
+    id: 'SocialSharingVicc5.card',
     defaultMessage: 'Check out this card',
   },
 });
@@ -566,7 +566,7 @@ export const notStartedLineupSharingMessages = defineMessages({
 
 export const getLeaderboardInfo = withFragments(
   (
-    leaderboard: getLeaderboardInfo_so5Leaderboard
+    leaderboard: getLeaderboardInfo_vicc5Leaderboard
   ): {
     backgroundScarcity: ScarcityType;
     isTraining: boolean;
@@ -602,8 +602,8 @@ export const getLeaderboardInfo = withFragments(
     };
   },
   {
-    so5Leaderboard: gql`
-      fragment getLeaderboardInfo_so5Leaderboard on So5Leaderboard {
+    vicc5Leaderboard: gql`
+      fragment getLeaderboardInfo_vicc5Leaderboard on Vicc5Leaderboard {
         slug
         trainingCenter
         commonDraftCampaign {
@@ -615,10 +615,10 @@ export const getLeaderboardInfo = withFragments(
           prizePool
           prizePoolCurrency
         }
-        ...Lib_So5_so5Leaderboard
+        ...Lib_Vicc5_vicc5Leaderboard
       }
-      ${fragments.so5Leaderboard}
-    ` as TypedDocumentNode<getLeaderboardInfo_so5Leaderboard>,
+      ${fragments.vicc5Leaderboard}
+    ` as TypedDocumentNode<getLeaderboardInfo_vicc5Leaderboard>,
   }
 );
 
@@ -661,12 +661,12 @@ export const captainDialogMessages = defineMessages({
 export const generatePrivateUserGroupInviteLink = (
   joinSecret: string,
   userSlug?: string,
-  so5LeaderboardType?: string
+  vicc5LeaderboardType?: string
 ) => {
   let link =
     window.location.origin +
     generatePath(
-      so5LeaderboardType?.startsWith('FIRST_DIVISION_ENGLAND')
+      vicc5LeaderboardType?.startsWith('FIRST_DIVISION_ENGLAND')
         ? INVITE_EPL_USER_GROUP
         : INVITE_USER_GROUP,
       {
@@ -679,7 +679,7 @@ export const generatePrivateUserGroupInviteLink = (
   return link;
 };
 
-const TOURNAMENT_NAMES: { [so5LeaderboardTypePrefix: string]: string } = {
+const TOURNAMENT_NAMES: { [vicc5LeaderboardTypePrefix: string]: string } = {
   FIRST_DIVISION_FRANCE: 'Ligue 1',
   FIRST_DIVISION_GERMANY: 'Bundesliga',
   FIRST_DIVISION_ENGLAND: 'Premier League',
@@ -687,9 +687,9 @@ const TOURNAMENT_NAMES: { [so5LeaderboardTypePrefix: string]: string } = {
   FIRST_DIVISION_SPAIN: 'LaLiga',
 };
 
-const extractTournamentName = (so5LeaderboardType?: string) =>
+const extractTournamentName = (vicc5LeaderboardType?: string) =>
   Object.entries(TOURNAMENT_NAMES).find(([prefix]) =>
-    so5LeaderboardType?.startsWith(prefix)
+    vicc5LeaderboardType?.startsWith(prefix)
   )?.[1];
 
 const PrivateUserGroupInvitationMessages = defineMessages({
@@ -710,9 +710,9 @@ const PrivateUserGroupInvitationMessages = defineMessages({
 });
 
 export const generatePrivateUserGroupInvitationWording = (
-  so5LeaderboardType?: string
+  vicc5LeaderboardType?: string
 ) => {
-  const tournamentName = extractTournamentName(so5LeaderboardType); // only specific tournaments have their name interpolated
+  const tournamentName = extractTournamentName(vicc5LeaderboardType); // only specific tournaments have their name interpolated
 
   return {
     title: PrivateUserGroupInvitationMessages.inviteTitle,
@@ -795,7 +795,7 @@ export const sortLeaderboards = withFragments(
   },
   {
     leaderboard: gql`
-      fragment sortLeaderboards_leaderboard on So5Leaderboard {
+      fragment sortLeaderboards_leaderboard on Vicc5Leaderboard {
         slug
         mainRarityType
       }

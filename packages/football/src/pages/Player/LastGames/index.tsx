@@ -59,7 +59,7 @@ const LastGames = ({ player }: Props) => {
             score =>
               score && (
                 <Game key={score.id}>
-                  <PlayerGame so5Score={score} game={score.game} />
+                  <PlayerGame vicc5Score={score} game={score.game} />
                 </Game>
               )
           )}
@@ -73,9 +73,9 @@ LastGames.fragments = {
   player: gql`
     fragment LastGames_player on Player {
       slug
-      allGameStats: so5Scores(last: 5, lowCoverage: true) {
+      allGameStats: vicc5Scores(last: 5, lowCoverage: true) {
         id
-        ...PlayerGame_so5Score
+        ...PlayerGame_vicc5Score
         game {
           id
           ...PlayerGame_game
@@ -83,7 +83,7 @@ LastGames.fragments = {
       }
     }
     ${PlayerGame.fragments.game}
-    ${PlayerGame.fragments.so5Score}
+    ${PlayerGame.fragments.vicc5Score}
   ` as TypedDocumentNode<LastGames_player>,
 };
 

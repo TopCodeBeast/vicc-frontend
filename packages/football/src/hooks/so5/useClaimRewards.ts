@@ -14,12 +14,12 @@ const CLAIM_REWARDS_MUTATION = gql`
     claimRewards(input: $input) {
       currentUser {
         slug
-        unclaimedSo5Rewards {
+        unclaimedVicc5Rewards {
           slug
         }
         coinBalance
       }
-      so5Rewards {
+      vicc5Rewards {
         slug
         aasmState
         rewardCards {
@@ -30,9 +30,9 @@ const CLAIM_REWARDS_MUTATION = gql`
             visible
           }
         }
-        so5Fixture {
+        vicc5Fixture {
           slug
-          mySo5Rewards {
+          myVicc5Rewards {
             slug
             aasmState
           }
@@ -51,11 +51,11 @@ export default () => {
   const { showNotification } = useSnackNotificationContext();
 
   return [
-    async (so5RewardIds: string[]) => {
+    async (vicc5RewardIds: string[]) => {
       const result = await claim({
         variables: {
           input: {
-            so5RewardIds,
+            vicc5RewardIds,
           },
         },
       });

@@ -14,7 +14,7 @@ import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { SortAndFiltersType } from '@football/pages/Lobby/Components/CompetitionList/SortAndFilters';
 
-import { ComposeTeamReminderBanner_so5Fixture } from './__generated__/index.graphql';
+import { ComposeTeamReminderBanner_vicc5Fixture } from './__generated__/index.graphql';
 
 const Root = styled.div`
   display: grid;
@@ -48,10 +48,10 @@ const ButtonContainer = styled.div`
 `;
 
 type Props = {
-  so5Fixture?: ComposeTeamReminderBanner_so5Fixture | null;
+  vicc5Fixture?: ComposeTeamReminderBanner_vicc5Fixture | null;
 };
 
-const ComposeTeamReminderBanner = ({ so5Fixture }: Props) => {
+const ComposeTeamReminderBanner = ({ vicc5Fixture }: Props) => {
   const [, setSortAndFilters] = useLocalStorage<SortAndFiltersType>(
     STORAGE.lobby.sortFilterPreference,
     {
@@ -59,11 +59,11 @@ const ComposeTeamReminderBanner = ({ so5Fixture }: Props) => {
     }
   );
 
-  if (!so5Fixture) {
+  if (!vicc5Fixture) {
     return null;
   }
 
-  const { displayName } = so5Fixture;
+  const { displayName } = vicc5Fixture;
 
   return (
     <Root>
@@ -98,12 +98,12 @@ const ComposeTeamReminderBanner = ({ so5Fixture }: Props) => {
 };
 
 ComposeTeamReminderBanner.fragments = {
-  so5Fixture: gql`
-    fragment ComposeTeamReminderBanner_so5Fixture on So5Fixture {
+  vicc5Fixture: gql`
+    fragment ComposeTeamReminderBanner_vicc5Fixture on Vicc5Fixture {
       slug
       displayName
     }
-  ` as TypedDocumentNode<ComposeTeamReminderBanner_so5Fixture>,
+  ` as TypedDocumentNode<ComposeTeamReminderBanner_vicc5Fixture>,
 };
 
 export default ComposeTeamReminderBanner;

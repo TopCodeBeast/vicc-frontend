@@ -98,7 +98,7 @@ const COLLECTIONS_QUERY = gql`
         total
         common
       }
-      footballCardCollections(
+      cricketCardCollections(
         startedOnly: $startedOnly
         after: $after
         first: 10
@@ -168,9 +168,9 @@ export const Collections = ({ readOnly }: Props) => {
     }
   );
 
-  const collectionConnection = data?.user?.footballCardCollections;
+  const collectionConnection = data?.user?.cricketCardCollections;
   const previousCollectionConnection =
-    previousData?.user?.footballCardCollections;
+    previousData?.user?.cricketCardCollections;
   const pageInfo = collectionConnection?.pageInfo;
   const hasMore = pageInfo?.hasNextPage || false;
   const after = pageInfo?.endCursor;

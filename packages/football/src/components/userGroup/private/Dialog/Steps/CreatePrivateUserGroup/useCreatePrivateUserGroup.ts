@@ -1,6 +1,6 @@
 import { TypedDocumentNode, gql, useMutation } from '@apollo/client';
 
-import { createSo5UserGroupInput } from '@sorare/core/src/__generated__/globalTypes';
+import { createVicc5UserGroupInput } from '@sorare/core/src/__generated__/globalTypes';
 
 import {
   CreatePrivateUserGroup,
@@ -8,9 +8,9 @@ import {
 } from './__generated__/useCreatePrivateUserGroup.graphql';
 
 const CREATE_PRIVATE_USER_GROUP = gql`
-  mutation CreatePrivateUserGroup($input: createSo5UserGroupInput!) {
-    createSo5UserGroup(input: $input) {
-      so5UserGroup {
+  mutation CreatePrivateUserGroup($input: createVicc5UserGroupInput!) {
+    createVicc5UserGroup(input: $input) {
+      vicc5UserGroup {
         joinSecret
         description
         displayName
@@ -29,10 +29,10 @@ const CREATE_PRIVATE_USER_GROUP = gql`
 ` as TypedDocumentNode<CreatePrivateUserGroup, CreatePrivateUserGroupVariables>;
 
 export default () => {
-  const [createSo5UserGroup] = useMutation(CREATE_PRIVATE_USER_GROUP);
+  const [createVicc5UserGroup] = useMutation(CREATE_PRIVATE_USER_GROUP);
 
-  return async (input: createSo5UserGroupInput) =>
-    createSo5UserGroup({
+  return async (input: createVicc5UserGroupInput) =>
+    createVicc5UserGroup({
       variables: { input },
       refetchQueries: ['GetMyPrivateUserGroupsQuery'],
     });

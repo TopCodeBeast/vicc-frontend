@@ -13,8 +13,8 @@ import MoneyReward from '@football/pages/Lobby/CompetitionDetails/Rewards/MoneyR
 import RewardRange from '@football/pages/Lobby/CompetitionDetails/Rewards/RewardRange';
 
 import {
-  ScoreBasedRewards_so5Leaderboard,
-  ScoreBasedRewards_so5RewardConfig,
+  ScoreBasedRewards_vicc5Leaderboard,
+  ScoreBasedRewards_vicc5RewardConfig,
 } from './__generated__/index.graphql';
 
 const Header = styled.div`
@@ -40,17 +40,17 @@ const MyScore = styled(Text14)`
 `;
 
 type Props = {
-  conditions: ScoreBasedRewards_so5RewardConfig[];
+  conditions: ScoreBasedRewards_vicc5RewardConfig[];
   myScore?: number;
   myEligibleRewardScore?: number | null;
-  so5Leaderboard: ScoreBasedRewards_so5Leaderboard;
+  vicc5Leaderboard: ScoreBasedRewards_vicc5Leaderboard;
 };
 
 const ScoreBasedRewards = ({
   conditions,
   myScore,
   myEligibleRewardScore,
-  so5Leaderboard,
+  vicc5Leaderboard,
 }: Props) => {
   const conditionsSortByScore = [...conditions].sort(
     (a, b) => (b.score || 0) - (a.score || 0)
@@ -136,11 +136,11 @@ const ScoreBasedRewards = ({
                       <MoneyReward highlighted reward={condition} />
                     )}
                     {!!coinAmount && <CoinReward coins={coinAmount} />}
-                    {so5Leaderboard?.so5League &&
+                    {vicc5Leaderboard?.vicc5League &&
                       cards?.map(card => (
                         <CardReward
                           key={`${card.quality}-${card.rarity}`}
-                          slug={so5Leaderboard?.so5League.slug}
+                          slug={vicc5Leaderboard?.vicc5League.slug}
                           card={card}
                         />
                       ))}
@@ -156,28 +156,28 @@ const ScoreBasedRewards = ({
 };
 
 ScoreBasedRewards.fragments = {
-  so5Leaderboard: gql`
-    fragment ScoreBasedRewards_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment ScoreBasedRewards_vicc5Leaderboard on Vicc5Leaderboard {
       slug
-      so5League {
+      vicc5League {
         slug
       }
     }
-  ` as TypedDocumentNode<ScoreBasedRewards_so5Leaderboard>,
-  so5RewardConfig: gql`
-    fragment ScoreBasedRewards_so5RewardConfig on So5RewardConfig {
+  ` as TypedDocumentNode<ScoreBasedRewards_vicc5Leaderboard>,
+  vicc5RewardConfig: gql`
+    fragment ScoreBasedRewards_vicc5RewardConfig on Vicc5RewardConfig {
       ranks
       rankPct
       score
       coinAmount
-      ...MoneyReward_so5RewardConfig
+      ...MoneyReward_vicc5RewardConfig
       cards {
-        ...CardReward_so5RewardCardConfig
+        ...CardReward_vicc5RewardCardConfig
       }
     }
-    ${MoneyReward.fragments.so5RewardConfig}
-    ${CardReward.fragments.So5RewardCardConfig}
-  ` as TypedDocumentNode<ScoreBasedRewards_so5RewardConfig>,
+    ${MoneyReward.fragments.vicc5RewardConfig}
+    ${CardReward.fragments.Vicc5RewardCardConfig}
+  ` as TypedDocumentNode<ScoreBasedRewards_vicc5RewardConfig>,
 };
 
 export default ScoreBasedRewards;

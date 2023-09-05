@@ -44,7 +44,7 @@ import '@sorare/core/src/style/romieFontFaces.css';
 const HOME_DATA_QUERY = gql`
   query HomeDataQuery {
     football {
-      so5 {
+      vicc5 {
         onboardingCommonDraftCampaigns {
           slug
           displayName
@@ -54,9 +54,9 @@ const HOME_DATA_QUERY = gql`
             released
             logoUrl
           }
-          upcomingSo5Leaderboard {
+          upcomingVicc5Leaderboard {
             slug
-            so5LineupsCount
+            vicc5LineupsCount
           }
         }
       }
@@ -215,9 +215,9 @@ const FootballPublicHome = () => {
     onboardingCommonDraftCampaigns = [1, 2, 3, 4].map(id => ({
       displayName: '',
       competitions: [{ released: true, slug: id, logoUrl: '' }],
-      upcomingSo5Leaderboard: { so5LineupsCount: 0, slug: '' },
+      upcomingVicc5Leaderboard: { vicc5LineupsCount: 0, slug: '' },
     })),
-  } = data?.football.so5 || {};
+  } = data?.football.vicc5 || {};
   const sizes = Object.entries({
     sm: 600,
     md: 960,
@@ -235,7 +235,7 @@ const FootballPublicHome = () => {
   );
 
   const regularSignup =
-    !data?.football.so5.onboardingCommonDraftCampaigns?.length ||
+    !data?.football.vicc5.onboardingCommonDraftCampaigns?.length ||
     useDisableFootballOnboarding;
 
   return (
@@ -333,7 +333,7 @@ const FootballPublicHome = () => {
               <>
                 <List>
                   {onboardingCommonDraftCampaigns.map(
-                    ({ competitions, displayName, upcomingSo5Leaderboard }: any) => {
+                    ({ competitions, displayName, upcomingVicc5Leaderboard }: any) => {
                       const competition = competitions[0];
                       if (!competition) {
                         return null;
@@ -343,7 +343,7 @@ const FootballPublicHome = () => {
                           as={Link}
                           key={competition.slug}
                           to={generatePath(FOOTBALL_DRAFT, {
-                            slug: upcomingSo5Leaderboard?.slug,
+                            slug: upcomingVicc5Leaderboard?.slug,
                           })}
                         >
                           {competition.logoUrl ? (
@@ -373,7 +373,7 @@ const FootballPublicHome = () => {
                     one {<strong>{icon} #</strong> Manager entered}
                     other {<strong>{icon} #</strong> Managers entered}}`}
                                 values={{
-                                  nb: upcomingSo5Leaderboard?.so5LineupsCount,
+                                  nb: upcomingVicc5Leaderboard?.vicc5LineupsCount,
                                   icon: <FontAwesomeIcon icon={faUsers} />,
                                   strong: Bold,
                                 }}

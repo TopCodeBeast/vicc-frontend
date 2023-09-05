@@ -28,7 +28,7 @@ import { Football } from '@core/routing/MultiSportAppBar/Sport/Football';
 import { NBA } from '@core/routing/MultiSportAppBar/Sport/NBA';
 
 const switches = {
-  [Sport.FOOTBALL]: <Football />,
+  [Sport.CRICKET]: <Football />,
   [Sport.BASEBALL]: <Baseball />,
   [Sport.NBA]: <NBA />,
 };
@@ -147,7 +147,7 @@ export const ProfileDrawer = () => {
   const defaultSportPages = useDefaultSportPages();
 
   const options = Object.entries(switches).filter(
-    ([switchSport]) => switchSport !== Sport.FOOTBALL
+    ([switchSport]) => switchSport !== Sport.CRICKET
   );
 
   const walletContext = useWalletContext();
@@ -209,7 +209,7 @@ export const ProfileDrawer = () => {
               gap={4}
               label={
                 <Frame>
-                  {switches[Sport.FOOTBALL]}
+                  {switches[Sport.CRICKET]}
                   <StyledChevronDownBold $expanded={expanded} />
                 </Frame>
               }

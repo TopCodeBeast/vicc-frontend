@@ -2,7 +2,7 @@ import { TypedDocumentNode, gql } from '@apollo/client';
 import styled from 'styled-components';
 
 import { ActualReward } from './ActualReward';
-import { ActualRewards_so5Reward } from './__generated__/index.graphql';
+import { ActualRewards_vicc5Reward } from './__generated__/index.graphql';
 
 const RewardsList = styled.div`
   display: inline-flex;
@@ -14,7 +14,7 @@ const RewardsContainer = styled.div`
   gap: var(--unit);
   white-space: nowrap;
 `;
-type Props = { rewards: ActualRewards_so5Reward[] };
+type Props = { rewards: ActualRewards_vicc5Reward[] };
 const ActualRewards = ({ rewards }: Props) => {
   return (
     <RewardsList>
@@ -30,13 +30,13 @@ const ActualRewards = ({ rewards }: Props) => {
 };
 
 ActualRewards.fragments = {
-  so5Reward: gql`
-    fragment ActualRewards_so5Reward on So5Reward {
+  vicc5Reward: gql`
+    fragment ActualRewards_vicc5Reward on Vicc5Reward {
       slug
-      ...ActualReward_so5Reward
+      ...ActualReward_vicc5Reward
     }
-    ${ActualReward.fragments.so5Reward}
-  ` as TypedDocumentNode<ActualRewards_so5Reward>,
+    ${ActualReward.fragments.vicc5Reward}
+  ` as TypedDocumentNode<ActualRewards_vicc5Reward>,
 };
 
 export default ActualRewards;

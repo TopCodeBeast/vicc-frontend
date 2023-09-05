@@ -123,12 +123,12 @@ export const FILTERS = {
     title: filters.averageScore,
   },
   lastFiveAverageScore: {
-    attribute: 'so5.last_five_so5_average_score',
+    attribute: 'vicc5.last_five_vicc5_average_score',
     title: filters.lastFiveAverageScore,
     alias: 'L5',
   },
   lastFifteenAverageScore: {
-    attribute: 'so5.last_fifteen_so5_average_score',
+    attribute: 'vicc5.last_fifteen_vicc5_average_score',
     title: filters.lastFifteenAverageScore,
     alias: 'L15',
   },
@@ -137,11 +137,11 @@ export const FILTERS = {
     title: filters.appearances,
   },
   lastFiveAppearances: {
-    attribute: 'so5.last_five_so5_appearances',
+    attribute: 'vicc5.last_five_vicc5_appearances',
     title: filters.lastFiveAppearances,
   },
   lastFifteenAppearances: {
-    attribute: 'so5.last_fifteen_so5_appearances',
+    attribute: 'vicc5.last_fifteen_vicc5_appearances',
     title: filters.lastFifteenAppearances,
   },
   price: {

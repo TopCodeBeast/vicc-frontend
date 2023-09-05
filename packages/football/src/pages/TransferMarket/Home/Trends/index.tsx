@@ -21,7 +21,7 @@ import {
 const MARKET_TRENDS_QUERY = gql`
   query MarketTrendsQuery($timeframe: FeaturedPageDuration!) {
     tokens {
-      topSales(days: $timeframe, sport: FOOTBALL) {
+      topSales(days: $timeframe, sport: CRICKET) {
         id
         token {
           assetId
@@ -29,13 +29,13 @@ const MARKET_TRENDS_QUERY = gql`
         }
         ...TopSale_tokenOwner
       }
-      topGainers(days: $timeframe, sport: FOOTBALL) {
+      topGainers(days: $timeframe, sport: CRICKET) {
         footballPlayer {
           slug
           ...PlayerTrend_player
         }
       }
-      topVolume(days: $timeframe, sport: FOOTBALL) {
+      topVolume(days: $timeframe, sport: CRICKET) {
         footballPlayer {
           slug
           ...PlayerTrend_player

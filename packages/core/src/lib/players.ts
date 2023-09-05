@@ -212,17 +212,17 @@ export type PlayerScoreMode =
 
 export const getAverageScore = (
   mode: PlayerScoreMode,
-  so5Scores: { score: number | null }[],
-  lastFiveSo5AverageScore: number | null,
-  lastFifteenSo5AverageScore: number | null
+  vicc5Scores: { score: number | null }[],
+  lastFiveVicc5AverageScore: number | null,
+  lastFifteenVicc5AverageScore: number | null
 ) => {
   switch (mode) {
     case 'LATEST_SCORE':
-      return so5Scores[0]?.score;
+      return vicc5Scores[0]?.score;
     case 'AVERAGE_LAST_5_GAMES':
-      return lastFiveSo5AverageScore;
+      return lastFiveVicc5AverageScore;
     case 'AVERAGE_LAST_15_GAMES':
-      return lastFifteenSo5AverageScore;
+      return lastFifteenVicc5AverageScore;
     default:
       return 0;
   }
@@ -230,16 +230,16 @@ export const getAverageScore = (
 
 export const getSafeAverageScore = (
   mode: PlayerScoreMode,
-  so5Scores: { score: number | null }[],
-  lastFiveSo5AverageScore: number | null,
-  lastFifteenSo5AverageScore: number | null
+  vicc5Scores: { score: number | null }[],
+  lastFiveVicc5AverageScore: number | null,
+  lastFifteenVicc5AverageScore: number | null
 ) => {
   return (
     getAverageScore(
       mode,
-      so5Scores,
-      lastFiveSo5AverageScore,
-      lastFifteenSo5AverageScore
+      vicc5Scores,
+      lastFiveVicc5AverageScore,
+      lastFifteenVicc5AverageScore
     ) || 0
   );
 };
@@ -247,21 +247,21 @@ export const getSafeAverageScore = (
 export const getAppearancePercentage = (
   mode: PlayerScoreMode,
   player: {
-    lastFiveSo5Appearances: number | null;
-    lastFifteenSo5Appearances: number | null;
+    lastFiveVicc5Appearances: number | null;
+    lastFifteenVicc5Appearances: number | null;
   }
 ) => {
   switch (mode) {
     case 'AVERAGE_LAST_5_GAMES':
-      if (!player.lastFiveSo5Appearances) {
+      if (!player.lastFiveVicc5Appearances) {
         return 0;
       }
-      return ((player.lastFiveSo5Appearances * 100) / 5.0).toFixed(0);
+      return ((player.lastFiveVicc5Appearances * 100) / 5.0).toFixed(0);
     case 'AVERAGE_LAST_15_GAMES':
-      if (!player.lastFifteenSo5Appearances) {
+      if (!player.lastFifteenVicc5Appearances) {
         return 0;
       }
-      return ((player.lastFifteenSo5Appearances * 100) / 15.0).toFixed(0);
+      return ((player.lastFifteenVicc5Appearances * 100) / 15.0).toFixed(0);
     default:
       return 0;
   }

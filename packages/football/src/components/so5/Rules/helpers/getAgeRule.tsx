@@ -79,7 +79,7 @@ const getAgeRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetAgeRule on So5Leaderboard {
+      fragment GetAgeRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

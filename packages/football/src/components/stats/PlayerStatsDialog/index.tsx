@@ -11,7 +11,7 @@ import useTitle from '@football/components/stats/PlayerGameScorePage/useTitle';
 import {
   PlayerStatsDialog_player,
   PlayerStatsDialog_representativePlayer,
-  PlayerStatsDialog_so5Score,
+  PlayerStatsDialog_vicc5Score,
 } from './__generated__/index.graphql';
 
 type Props = {
@@ -25,7 +25,7 @@ type PlayerGameScorePageProps = React.ComponentProps<
 >;
 
 type LoadedContentProps = {
-  so5Score: PlayerGameScorePageProps['so5Score'];
+  vicc5Score: PlayerGameScorePageProps['vicc5Score'];
   player: PlayerGameScorePageProps['player'];
   team: PlayerGameScorePageProps['team'];
   representativePlayer?: PlayerGameScorePageProps['representativePlayer'];
@@ -60,10 +60,10 @@ const PlayerStatsDialogContents = (props: PlayerStatsDialogContentsProps) => {
       </Loading>
     );
   }
-  const { player, so5Score, team, representativePlayer } = props;
+  const { player, vicc5Score, team, representativePlayer } = props;
   return (
     <PlayerGameScorePage
-      so5Score={so5Score}
+      vicc5Score={vicc5Score}
       team={team}
       player={player}
       representativePlayer={representativePlayer}
@@ -92,13 +92,13 @@ export const PlayerStatsDialog = ({
 };
 
 PlayerStatsDialog.fragments = {
-  so5Score: gql`
-    fragment PlayerStatsDialog_so5Score on So5Score {
+  vicc5Score: gql`
+    fragment PlayerStatsDialog_vicc5Score on Vicc5Score {
       id
-      ...PlayerGameScorePage_so5Score
+      ...PlayerGameScorePage_vicc5Score
     }
-    ${PlayerGameScorePage.fragments.so5Score}
-  ` as TypedDocumentNode<PlayerStatsDialog_so5Score>,
+    ${PlayerGameScorePage.fragments.vicc5Score}
+  ` as TypedDocumentNode<PlayerStatsDialog_vicc5Score>,
   player: gql`
     fragment PlayerStatsDialog_player on Player {
       slug

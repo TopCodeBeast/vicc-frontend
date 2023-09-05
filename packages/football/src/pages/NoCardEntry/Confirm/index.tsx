@@ -5,7 +5,7 @@ import useQueryString from '@sorare/core/src/hooks/useQueryString';
 
 import Form from '@football/pages/NoCardEntry/Form';
 
-import useConfirmSo5NoCardLineup from './useConfirmSo5NoCardLineup';
+import useConfirmVicc5NoCardLineup from './useConfirmSo5NoCardLineup';
 
 const messages = defineMessages({
   title: {
@@ -16,14 +16,14 @@ const messages = defineMessages({
 });
 
 const Accept = () => {
-  const { so5LineupId } = useParams();
-  const so5LeaderboardId = useQueryString('so5_leaderboard_id');
-  const confirmLineup = useConfirmSo5NoCardLineup();
+  const { vicc5LineupId } = useParams();
+  const vicc5LeaderboardId = useQueryString('vicc5_leaderboard_id');
+  const confirmLineup = useConfirmVicc5NoCardLineup();
 
   const mutate = async () => {
     const { errors } = await confirmLineup({
-      so5NoCardLineupId: `So5NoCardLineup:${so5LineupId}`,
-      so5LeaderboardId: `So5Leaderboard:${so5LeaderboardId}`,
+      vicc5NoCardLineupId: `Vicc5NoCardLineup:${vicc5LineupId}`,
+      vicc5LeaderboardId: `Vicc5Leaderboard:${vicc5LeaderboardId}`,
     });
     return errors.length === 0;
   };

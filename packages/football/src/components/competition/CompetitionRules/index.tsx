@@ -11,7 +11,7 @@ import { LockedCompetitionAction } from '@football/components/competition/Locked
 // import { formatRules } from '@football/components/so5/Rules/formatRules';
 
 import RuleSection from './RuleSection';
-import { CompetitionRules_so5Leaderboard } from './__generated__/index.graphql';
+import { CompetitionRules_vicc5Leaderboard } from './__generated__/index.graphql';
 
 const Wrapper = styled.div`
   display: flex;
@@ -51,14 +51,14 @@ const DesktopLockedCompetitionAction = styled.div`
 `;
 
 type Props = {
-  so5Leaderboard: CompetitionRules_so5Leaderboard;
+  vicc5Leaderboard: CompetitionRules_vicc5Leaderboard;
 };
 
-const CompetitionRules = ({ so5Leaderboard }: Props) => {
+const CompetitionRules = ({ vicc5Leaderboard }: Props) => {
   /*const intl = useIntl();
 
-  const { description } = so5Leaderboard;
-  const formattedRules = formatRules(so5Leaderboard, [], intl);
+  const { description } = vicc5Leaderboard;
+  const formattedRules = formatRules(vicc5Leaderboard, [], intl);
 
   const ruleSections = groupBy(
     rule => rule.title?.id || rule.id,
@@ -78,7 +78,7 @@ const CompetitionRules = ({ so5Leaderboard }: Props) => {
       </div>
       <RulesSectionWrapper>
         <LockedCompetitionAction
-          so5Leaderboard={so5Leaderboard}
+          vicc5Leaderboard={vicc5Leaderboard}
           Wrapper={DesktopLockedCompetitionAction}
         />
         {Object.entries(ruleSections).map(([id, rules]) => {
@@ -86,11 +86,11 @@ const CompetitionRules = ({ so5Leaderboard }: Props) => {
             <RuleSection
               key={id}
               rules={rules}
-              so5Leaderboard={so5Leaderboard}
+              vicc5Leaderboard={vicc5Leaderboard}
             />
           );
         })}
-        <Eligibilities so5Leaderboard={so5Leaderboard} />
+        <Eligibilities vicc5Leaderboard={vicc5Leaderboard} />
       </RulesSectionWrapper>
     </Wrapper>
   );*/
@@ -99,20 +99,20 @@ const CompetitionRules = ({ so5Leaderboard }: Props) => {
 };
 
 /*CompetitionRules.fragments = {
-  so5Leaderboard: gql`
-    fragment CompetitionRules_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment CompetitionRules_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       description
-      ...formatRules_so5Leaderboard
-      ...Eligibilities_so5Leaderboard
-      ...RuleSection_so5Leaderboard
-      ...LockedCompetitionAction_so5Leaderboard
+      ...formatRules_vicc5Leaderboard
+      ...Eligibilities_vicc5Leaderboard
+      ...RuleSection_vicc5Leaderboard
+      ...LockedCompetitionAction_vicc5Leaderboard
     }
-    ${formatRules.fragments.so5Leaderboard}
-    ${Eligibilities.fragments.so5Leaderboard}
-    ${RuleSection.fragments.so5Leaderboard}
-    ${LockedCompetitionAction.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<CompetitionRules_so5Leaderboard>,
+    ${formatRules.fragments.vicc5Leaderboard}
+    ${Eligibilities.fragments.vicc5Leaderboard}
+    ${RuleSection.fragments.vicc5Leaderboard}
+    ${LockedCompetitionAction.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<CompetitionRules_vicc5Leaderboard>,
 };*/
 
 export default CompetitionRules;

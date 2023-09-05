@@ -37,17 +37,17 @@ import {
 const COMPETITION_DETAILS_DEFAULT_TAB_QUERY = gql`
   query CompetitionDetailsDefaultTabQuery($slug: String!) {
     football {
-      so5 {
-        so5Leaderboard(slug: $slug) {
+      vicc5 {
+        vicc5Leaderboard(slug: $slug) {
           slug
           title
           displayName
           description
-          so5LeaderboardType
+          vicc5LeaderboardType
           canCompose {
             ...MissingCardsMessage_validity
           }
-          so5League {
+          vicc5League {
             slug
             name
           }
@@ -57,16 +57,16 @@ const COMPETITION_DETAILS_DEFAULT_TAB_QUERY = gql`
           rewardsConfig {
             ...PrizePoolOverview_leaderboardRewardsConfig
           }
-          ...EngineConfiguration_so5Leaderboard
-          #...CompetitionRules_so5Leaderboard
+          ...EngineConfiguration_vicc5Leaderboard
+          #...CompetitionRules_vicc5Leaderboard
         }
       }
     }
   }
-  ${EngineConfiguration.fragments.so5Leaderboard}
+  ${EngineConfiguration.fragments.vicc5Leaderboard}
   ${PrizePoolOverview.fragments.leaderboardRewardsConfig}
   ${PrizePoolOverview.fragments.rewardsOverview}
-  #{CompetitionRules.fragments.so5Leaderboard}
+  #{CompetitionRules.fragments.vicc5Leaderboard}
   ${MissingCardsMessage.fragments.validity}
 ` as TypedDocumentNode<
   CompetitionDetailsDefaultTabQuery,
@@ -123,14 +123,14 @@ const CompetitionDetailsDefaultTab = () => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const so5Leaderboard = data?.football.so5.so5Leaderboard;
-  const hasSpecialRules = hasSpecialEngineConfiguration(so5Leaderboard);
+  const vicc5Leaderboard = data?.football.vicc5.vicc5Leaderboard;
+  const hasSpecialRules = hasSpecialEngineConfiguration(vicc5Leaderboard);
 
   const displaySemiProIncentive = useDisplaySemiProIncentive(
-    so5Leaderboard?.so5LeaderboardType
+    vicc5Leaderboard?.vicc5LeaderboardType
   );
 
-  if (!so5Leaderboard && loading) return <LoadingIndicator grow />;
+  if (!vicc5Leaderboard && loading) return <LoadingIndicator grow />;
 
   return (
     <Wrapper>
@@ -147,14 +147,14 @@ const CompetitionDetailsDefaultTab = () => {
         }
       >
         <PrizePoolOverview
-          rewardsConfig={so5Leaderboard?.rewardsConfig}
-          totalRewards={so5Leaderboard?.totalRewards}
+          rewardsConfig={vicc5Leaderboard?.rewardsConfig}
+          totalRewards={vicc5Leaderboard?.totalRewards}
           displaySemiProIncentive={displaySemiProIncentive}
-          so5LeaderboardSlug={so5Leaderboard?.slug}
+          vicc5LeaderboardSlug={vicc5Leaderboard?.slug}
         />
       </ManagerTaskTooltip>
 
-      {so5Leaderboard && (
+      {vicc5Leaderboard && (
         <ManagerTaskTooltip
           disable={LearnCompetitionsOnboardingStep.requirements !== step}
           name={LearnCompetitionsOnboardingStep.requirements}
@@ -164,7 +164,7 @@ const CompetitionDetailsDefaultTab = () => {
               tip={
                 <Text14 color="var(--c-yellow-800)">
                   <span>🌟 </span>
-                  <MissingCardsMessage validity={so5Leaderboard.canCompose} />
+                  <MissingCardsMessage validity={vicc5Leaderboard.canCompose} />
                 </Text14>
               }
               onClick={() => {
@@ -195,12 +195,12 @@ const CompetitionDetailsDefaultTab = () => {
             />
           }
         >
-          <CompetitionRules so5Leaderboard={so5Leaderboard} />
+          <CompetitionRules vicc5Leaderboard={vicc5Leaderboard} />
         </ManagerTaskTooltip>
       )}
-      {so5Leaderboard && hasSpecialRules && (
+      {vicc5Leaderboard && hasSpecialRules && (
         <DetailsSection title={messages.specialRules}>
-          <EngineConfiguration so5Leaderboard={so5Leaderboard} />
+          <EngineConfiguration vicc5Leaderboard={vicc5Leaderboard} />
         </DetailsSection>
       )}
     </Wrapper>

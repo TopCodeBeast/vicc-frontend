@@ -28,12 +28,12 @@ import ListItemAction from '@football/pages/Lobby/Components/CompetitionListActi
 import TableRow, { Areas } from './TableRow';
 import {
   CompetitionListTable_clubShopItem,
-  CompetitionListTable_so5Leaderboard,
+  CompetitionListTable_vicc5Leaderboard,
 } from './__generated__/index.graphql';
 
 type LeaderboardTeam = {
   lineupId: number;
-  leaderboard: CompetitionListTable_so5Leaderboard;
+  leaderboard: CompetitionListTable_vicc5Leaderboard;
   rowCta?: ReactNode;
 };
 
@@ -41,10 +41,10 @@ const findDraftedSemiPro = (
   leaderboardsSemiPro: LeaderboardTeam[],
   draftedLeaderboard: LeaderboardTeam
 ) => {
-  return leaderboardsSemiPro.find(({ leaderboard: { so5LeaderboardType } }) => {
-    const semiProType = so5LeaderboardType.replace('_SEMI_PRO', '');
+  return leaderboardsSemiPro.find(({ leaderboard: { vicc5LeaderboardType } }) => {
+    const semiProType = vicc5LeaderboardType.replace('_SEMI_PRO', '');
     const amateurType =
-      draftedLeaderboard?.leaderboard.so5LeaderboardType.replace(
+      draftedLeaderboard?.leaderboard.vicc5LeaderboardType.replace(
         '_AMATEUR',
         ''
       );
@@ -56,9 +56,9 @@ const findOpenedDraftedSemiPro = (
   leaderboardTeams: LeaderboardTeam[]
 ) => {
   return leaderboardsSemiPro.find(
-    ({ leaderboard: { so5LeaderboardType: semiProType } }) =>
+    ({ leaderboard: { vicc5LeaderboardType: semiProType } }) =>
       leaderboardTeams.find(
-        ({ leaderboard: { so5LeaderboardType: amateurType } }) => {
+        ({ leaderboard: { vicc5LeaderboardType: amateurType } }) => {
           return (
             amateurType.replace('_AMATEUR', '') ===
             semiProType.replace('_SEMI_PRO', '')
@@ -128,7 +128,7 @@ type Props = {
     id: string;
     descending: boolean;
   };
-  leaderboards: CompetitionListTable_so5Leaderboard[];
+  leaderboards: CompetitionListTable_vicc5Leaderboard[];
   extraTeamsCapItems: Nullable<CompetitionListTable_clubShopItem[]>;
   header: TableHeader;
 };
@@ -146,10 +146,10 @@ export const CompetitionListTable = ({
   const { step, setStep } = useManagerTaskContext();
   const leaderboardTeams = leaderboards.reduce<LeaderboardTeam[]>(
     (acc, leaderboard) => {
-      const { teamsCap, mySo5Lineups } = leaderboard;
+      const { teamsCap, myVicc5Lineups } = leaderboard;
       const rowsNbToDisplay =
-        mySo5Lineups.length + 1 < (teamsCap || 0)
-          ? mySo5Lineups.length + 1
+        myVicc5Lineups.length + 1 < (teamsCap || 0)
+          ? myVicc5Lineups.length + 1
           : teamsCap;
 
       const teams: LeaderboardTeam[] = new Array(rowsNbToDisplay)
@@ -164,7 +164,7 @@ export const CompetitionListTable = ({
       if (
         canBuyExtraTeams &&
         leaderboard.trainingCenter &&
-        mySo5Lineups.length === teamsCap
+        myVicc5Lineups.length === teamsCap
       ) {
         teams.push({
           leaderboard,
@@ -195,8 +195,8 @@ export const CompetitionListTable = ({
       commonDraftCampaign?.campaignType === 'ONBOARDING'
   );
   const leaderboardsSemiPro = leaderboardTeams.filter(
-    ({ leaderboard: { so5LeaderboardType } }) =>
-      /_SEMI_PRO$/.test(so5LeaderboardType)
+    ({ leaderboard: { vicc5LeaderboardType } }) =>
+      /_SEMI_PRO$/.test(vicc5LeaderboardType)
   );
   const draftedLeaderboardSemiPro =
     (draftedLeaderboard &&
@@ -251,7 +251,7 @@ export const CompetitionListTable = ({
               }}
             >
               <TableRow
-                so5Leaderboard={leaderboard}
+                vicc5Leaderboard={leaderboard}
                 onActionSuccess={refetch}
                 lineupId={lineupId}
                 rowCta={rowCta}
@@ -265,14 +265,14 @@ export const CompetitionListTable = ({
 };
 
 CompetitionListTable.fragments = {
-  so5Leaderboard: gql`
-    fragment CompetitionListTable_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment CompetitionListTable_vicc5Leaderboard on Vicc5Leaderboard {
       slug
-      so5LeaderboardType
-      ...TableRow_so5Leaderboard
+      vicc5LeaderboardType
+      ...TableRow_vicc5Leaderboard
     }
-    ${TableRow.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<CompetitionListTable_so5Leaderboard>,
+    ${TableRow.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<CompetitionListTable_vicc5Leaderboard>,
   clubShopItem: gql`
     fragment CompetitionListTable_clubShopItem on ClubShopItem {
       ... on ShopItemInterface {

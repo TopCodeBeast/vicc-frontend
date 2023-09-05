@@ -18,7 +18,7 @@ import { useShowBottomBarNavigation } from '@core/lib/featureFlags';
 import { navLabels } from '@core/lib/glossary';
 
 const sportsNavigation = {
-  [Sport.FOOTBALL]: [
+  [Sport.CRICKET]: [
     {
       id: 'home',
       icon: <FontAwesomeIcon icon={faHome} />,

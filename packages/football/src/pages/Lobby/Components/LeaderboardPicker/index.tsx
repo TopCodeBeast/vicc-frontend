@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { So5State } from '@sorare/core/src/__generated__/globalTypes';
+import { Vicc5State } from '@sorare/core/src/__generated__/globalTypes';
 import Checkbox from '@sorare/core/src/atoms/inputs/Checkbox';
 import Select from '@sorare/core/src/atoms/inputs/Select';
 import ScarcityBallPro from '@sorare/core/src/components/card/ScarcityBallPro';
@@ -47,26 +47,26 @@ const Filters = styled.div`
 `;
 
 const LOBBY_LEADERBOARD_PICKER_QUERY = gql`
-  query LobbyLeaderboardPickerQuery($type: So5State, $slug: String) {
+  query LobbyLeaderboardPickerQuery($type: Vicc5State, $slug: String) {
     football {
-      so5 {
-        so5Fixture(type: $type, slug: $slug) {
+      vicc5 {
+        vicc5Fixture(type: $type, slug: $slug) {
           slug
-          so5Leaderboards {
+          vicc5Leaderboards {
             slug
             rarityType
             displayName
-            universalSo5UserGroups {
+            universalVicc5UserGroups {
               slug
             }
           }
-          mySo5Lineups {
+          myVicc5Lineups {
             id
-            so5Leaderboard {
+            vicc5Leaderboard {
               slug
               rarityType
             }
-            so5Rankings {
+            vicc5Rankings {
               id
               score
             }
@@ -82,7 +82,7 @@ const LOBBY_LEADERBOARD_PICKER_QUERY = gql`
 
 interface Props {
   leaderboardSlug?: string;
-  type?: So5State;
+  type?: Vicc5State;
 }
 
 export const LeaderboardPicker = ({ type }: Props) => {
@@ -98,40 +98,40 @@ export const LeaderboardPicker = ({ type }: Props) => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const so5Fixture = data?.football.so5.so5Fixture;
+  const vicc5Fixture = data?.football.vicc5.vicc5Fixture;
   const redirectTo = useCallback(
     ({ rarity, leaderboard }: { rarity?: string; leaderboard?: string }) => {
-      if (!so5Fixture) return null;
+      if (!vicc5Fixture) return null;
 
-      const { mySo5Lineups, so5Leaderboards } = so5Fixture;
+      const { myVicc5Lineups, vicc5Leaderboards } = vicc5Fixture;
       if (
-        !so5Leaderboards?.length ||
-        so5Leaderboards?.find(
-          so5Leaderboard => so5Leaderboard.slug === leaderboard
+        !vicc5Leaderboards?.length ||
+        vicc5Leaderboards?.find(
+          vicc5Leaderboard => vicc5Leaderboard.slug === leaderboard
         )
       ) {
         return null;
       }
-      const bestLineups = [...(mySo5Lineups || [])].sort(
-        (a, b) => b.so5Rankings[0]?.score - a.so5Rankings[0]?.score
+      const bestLineups = [...(myVicc5Lineups || [])].sort(
+        (a, b) => b.vicc5Rankings[0]?.score - a.vicc5Rankings[0]?.score
       );
       const bestLineup = rarity
         ? bestLineups?.find(
-            ({ so5Leaderboard }) => so5Leaderboard?.rarityType === rarity
+            ({ vicc5Leaderboard }) => vicc5Leaderboard?.rarityType === rarity
           )
         : bestLineups?.[0];
       const defaultLineup = rarity
-        ? so5Leaderboards.find(
-            so5Leaderboard => so5Leaderboard?.rarityType === rarity
+        ? vicc5Leaderboards.find(
+            vicc5Leaderboard => vicc5Leaderboard?.rarityType === rarity
           )
-        : so5Leaderboards[0];
-      return bestLineup?.so5Leaderboard?.slug || defaultLineup?.slug;
+        : vicc5Leaderboards[0];
+      return bestLineup?.vicc5Leaderboard?.slug || defaultLineup?.slug;
     },
-    [so5Fixture]
+    [vicc5Fixture]
   );
-  const so5Leaderboards = so5Fixture?.so5Leaderboards;
+  const vicc5Leaderboards = vicc5Fixture?.vicc5Leaderboards;
   const rarities = useMemo(() => {
-    return so5Leaderboards?.reduce<
+    return vicc5Leaderboards?.reduce<
       | {
           [key: string]: {
             value: string;
@@ -150,7 +150,7 @@ export const LeaderboardPicker = ({ type }: Props) => {
       ];
       return previous;
     }, {});
-  }, [so5Leaderboards]);
+  }, [vicc5Leaderboards]);
 
   const rarityOptions = useMemo(() => {
     if (!rarities) {
@@ -169,11 +169,11 @@ export const LeaderboardPicker = ({ type }: Props) => {
     ({ value }) => value === leaderboardSlug
   );
 
-  const currentLeaderboard = so5Leaderboards?.find(
-    so5Leaderboard => so5Leaderboard.slug === leaderboardSlug
+  const currentLeaderboard = vicc5Leaderboards?.find(
+    vicc5Leaderboard => vicc5Leaderboard.slug === leaderboardSlug
   );
   const displayLeaderboardModeSelect =
-    !!currentLeaderboard?.universalSo5UserGroups?.length;
+    !!currentLeaderboard?.universalVicc5UserGroups?.length;
   if (!displayLeaderboardModeSelect && leaderboardMode !== 'matchday') {
     setLeaderboardMode('matchday');
   }
@@ -192,7 +192,7 @@ export const LeaderboardPicker = ({ type }: Props) => {
     navigate,
     redirectTo,
     leaderboardSlug,
-    so5Leaderboards,
+    vicc5Leaderboards,
     currentLeaderboard,
   ]);
 

@@ -121,7 +121,7 @@ const ShareButton = styled(Button)`
 `;
 
 export const SubmitSuccessDialog = () => {
-  const { so5Lineup, so5Leaderboard, lineup } = useComposeTeamContext();
+  const { vicc5Lineup, vicc5Leaderboard, lineup } = useComposeTeamContext();
   const isDesktop = useIsDesktop();
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -152,9 +152,9 @@ export const SubmitSuccessDialog = () => {
             />
           </Title2>
           <Subtitle>
-            <DivisionLogo so5Leaderboard={so5Leaderboard} />
+            <DivisionLogo vicc5Leaderboard={vicc5Leaderboard} />
             <Text16 bold color="var(--c-neutral-600)">
-              {so5Leaderboard.displayName}
+              {vicc5Leaderboard.displayName}
             </Text16>
           </Subtitle>
           <CardsWrapper>
@@ -171,9 +171,9 @@ export const SubmitSuccessDialog = () => {
                 );
               })}
             </Cards>
-            {so5Lineup.socialPictureUrls && (
+            {vicc5Lineup.socialPictureUrls && (
               <SocialShare
-                image={so5Lineup.socialPictureUrls}
+                image={vicc5Lineup.socialPictureUrls}
                 trackingEventName={socialShareEventName.SHARE_LINEUP}
                 trackingEventContext={socialShareEventContext.LEADERBOARD}
                 renderButton={({ onClick }) =>

@@ -10,16 +10,16 @@ import { useIntlContext } from '@sorare/core/src/contexts/intl';
 import { uniqueBy } from '@sorare/core/src/lib/arrays';
 
 import {
-  HeadlineRewards_so5Leaderboard,
-  HeadlineRewards_so5RewardConfig,
+  HeadlineRewards_vicc5Leaderboard,
+  HeadlineRewards_vicc5RewardConfig,
 } from './__generated__/index.graphql';
 
 type Props = {
-  leaderboard: HeadlineRewards_so5Leaderboard;
+  leaderboard: HeadlineRewards_vicc5Leaderboard;
 };
 
 const rewardFragment = gql`
-  fragment HeadlineRewards_so5RewardConfig on So5RewardConfig {
+  fragment HeadlineRewards_vicc5RewardConfig on Vicc5RewardConfig {
     score
     usdAmount
     ethAmount
@@ -28,7 +28,7 @@ const rewardFragment = gql`
       type
     }
   }
-` as TypedDocumentNode<HeadlineRewards_so5RewardConfig>;
+` as TypedDocumentNode<HeadlineRewards_vicc5RewardConfig>;
 
 const messages = defineMessages({
   threshold: {
@@ -38,7 +38,7 @@ const messages = defineMessages({
 });
 
 const isThreshold = (
-  reward: HeadlineRewards_so5RewardConfig,
+  reward: HeadlineRewards_vicc5RewardConfig,
   prizePoolKey: 'ethAmount' | 'usdAmount'
 ) => reward.score && reward.score > 0 && !!reward[prizePoolKey];
 
@@ -64,7 +64,7 @@ export const HeadlineRewards = ({ leaderboard }: Props) => {
     });
 
   const extractHighlightedRewards = (
-    reward: HeadlineRewards_so5RewardConfig
+    reward: HeadlineRewards_vicc5RewardConfig
   ) => {
     const highlightableRewards = [];
     (reward.experiences || []).forEach(
@@ -113,23 +113,23 @@ export const HeadlineRewards = ({ leaderboard }: Props) => {
 };
 
 HeadlineRewards.fragments = {
-  so5Leaderboard: gql`
-    fragment HeadlineRewards_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment HeadlineRewards_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       totalRewards {
         prizePoolCurrency
       }
       rewardsConfig {
         ranking {
-          ...HeadlineRewards_so5RewardConfig
+          ...HeadlineRewards_vicc5RewardConfig
         }
         conditional {
-          ...HeadlineRewards_so5RewardConfig
+          ...HeadlineRewards_vicc5RewardConfig
         }
       }
     }
     ${rewardFragment}
-  ` as TypedDocumentNode<HeadlineRewards_so5Leaderboard>,
+  ` as TypedDocumentNode<HeadlineRewards_vicc5Leaderboard>,
 };
 
 export default HeadlineRewards;

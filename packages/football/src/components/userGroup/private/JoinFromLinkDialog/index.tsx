@@ -62,7 +62,7 @@ const PrivateUserGroupJoinFromLinkDialog = ({ joinSecret }: Props) => {
     localStorage.removeItem(STORAGE.inviteCode);
   }
 
-  if (!(data?.football.so5.so5UserGroup && joinSecret)) {
+  if (!(data?.football.vicc5.vicc5UserGroup && joinSecret)) {
     return null;
   }
 
@@ -74,7 +74,7 @@ const PrivateUserGroupJoinFromLinkDialog = ({ joinSecret }: Props) => {
     joinDisabled,
     membershipsCount,
     myMembership,
-  } = data?.football.so5.so5UserGroup;
+  } = data?.football.vicc5.vicc5UserGroup;
   const alreadyJoined = !!myMembership;
 
   const getPrivateUserGroupJoinState = () => {
@@ -100,11 +100,11 @@ const PrivateUserGroupJoinFromLinkDialog = ({ joinSecret }: Props) => {
 
   const onJoin = async () => {
     const { data: joinData } = await joinPrivateUserGroup({ joinSecret });
-    const so5UserGroup = joinData?.joinSo5UserGroup?.so5UserGroup;
-    if (so5UserGroup) {
+    const vicc5UserGroup = joinData?.joinVicc5UserGroup?.vicc5UserGroup;
+    if (vicc5UserGroup) {
       navigate(
         generatePath(FOOTBALL_PRIVATE_LEAGUES_CREATED, {
-          slug: so5UserGroup?.slug,
+          slug: vicc5UserGroup?.slug,
           step: PrivateLeaguesStep.CONGRATS,
         }),
         { replace: true }

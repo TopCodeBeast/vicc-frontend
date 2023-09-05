@@ -17,8 +17,8 @@ import { CompetitionListTable } from '@football/pages/Lobby/Components/Competiti
 
 import {
   DateGroupedSection_clubShopItem,
-  DateGroupedSection_so5Fixture,
-  DateGroupedSection_so5Leaderboard,
+  DateGroupedSection_vicc5Fixture,
+  DateGroupedSection_vicc5Leaderboard,
 } from './__generated__/index.graphql';
 
 const FlexContainer = styled.div`
@@ -40,9 +40,9 @@ export const defaultSortAndFilters = {
 
 type Props = {
   startDate: string;
-  so5Fixture: DateGroupedSection_so5Fixture;
+  vicc5Fixture: DateGroupedSection_vicc5Fixture;
   leaderboardIndex: number;
-  so5Leaderboards: DateGroupedSection_so5Leaderboard[];
+  vicc5Leaderboards: DateGroupedSection_vicc5Leaderboard[];
   sortAndFilters: SortAndFiltersType;
   setSortAndFilters: Dispatch<SetStateAction<SortAndFiltersType>>;
   header: {
@@ -54,9 +54,9 @@ type Props = {
 };
 const DateGroupedSection = ({
   startDate,
-  so5Fixture,
+  vicc5Fixture,
   leaderboardIndex,
-  so5Leaderboards,
+  vicc5Leaderboards,
   sortAndFilters,
   extraTeamsCapItems,
   setSortAndFilters,
@@ -71,15 +71,15 @@ const DateGroupedSection = ({
   const sortedLeaderboards = useMemo(() => {
     const sortConfig = sortAndFilters?.sortBy?.[leaderboardIndex];
     if (!sortConfig) {
-      return so5Leaderboards;
+      return vicc5Leaderboards;
     }
     const { id: defaultId } = defaultSortAndFilters.sortBy[0];
     const sortColumnIndex = header.findIndex(
       ({ id }) => id === (sortConfig.id || defaultId)
     );
-    return so5Leaderboards
-      .map((leaderboard: DateGroupedSection_so5Leaderboard) => {
-        const { displayName, so5LineupsCount } = leaderboard;
+    return vicc5Leaderboards
+      .map((leaderboard: DateGroupedSection_vicc5Leaderboard) => {
+        const { displayName, vicc5LineupsCount } = leaderboard;
         const { weight: rankedScarcity, hasRewards } =
           getLeaderboardInfo(leaderboard);
         const cellValues = [
@@ -88,7 +88,7 @@ const DateGroupedSection = ({
           displayName,
           rankedScarcity,
           hasRewards || 0,
-          so5LineupsCount,
+          vicc5LineupsCount,
           undefined,
         ];
         return {
@@ -120,14 +120,14 @@ const DateGroupedSection = ({
         });
       })
       .map(({ leaderboard }) => leaderboard);
-  }, [sortAndFilters, leaderboardIndex, header, so5Leaderboards]);
+  }, [sortAndFilters, leaderboardIndex, header, vicc5Leaderboards]);
 
   const date = formatDate(startDate, {
     month: 'short',
     day: 'numeric',
   });
 
-  const { cutOffDate, shortDisplayName } = so5Fixture;
+  const { cutOffDate, shortDisplayName } = vicc5Fixture;
 
   return (
     <FlexColContainer key={startDate}>
@@ -184,29 +184,29 @@ const DateGroupedSection = ({
 };
 
 DateGroupedSection.fragments = {
-  so5Leaderboard: gql`
-    fragment DateGroupedSection_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment DateGroupedSection_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       displayName
       rarityType
-      so5LineupsCount
+      vicc5LineupsCount
       startDate
-      mySo5Lineups {
+      myVicc5Lineups {
         id
       }
-      ...getLeaderboardInfo_so5Leaderboard
-      ...CompetitionListTable_so5Leaderboard
+      ...getLeaderboardInfo_vicc5Leaderboard
+      ...CompetitionListTable_vicc5Leaderboard
     }
-    ${CompetitionListTable.fragments.so5Leaderboard}
-    ${getLeaderboardInfo.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<DateGroupedSection_so5Leaderboard>,
-  so5Fixture: gql`
-    fragment DateGroupedSection_so5Fixture on So5Fixture {
+    ${CompetitionListTable.fragments.vicc5Leaderboard}
+    ${getLeaderboardInfo.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<DateGroupedSection_vicc5Leaderboard>,
+  vicc5Fixture: gql`
+    fragment DateGroupedSection_vicc5Fixture on Vicc5Fixture {
       slug
       cutOffDate
       shortDisplayName
     }
-  ` as TypedDocumentNode<DateGroupedSection_so5Fixture>,
+  ` as TypedDocumentNode<DateGroupedSection_vicc5Fixture>,
   clubShopItem: gql`
     fragment DateGroupedSection_clubShopItem on ClubShopItem {
       ...CompetitionListTable_clubShopItem

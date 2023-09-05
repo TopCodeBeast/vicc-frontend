@@ -34,7 +34,7 @@ const CounterOfferBuilder = ({
   ];
 
   const counterOfferSport =
-    tokens.length > 0 ? tokens[0].sport : Sport.FOOTBALL;
+    tokens.length > 0 ? tokens[0].sport : Sport.CRICKET;
 
   const receiveAmount = toMonetaryAmount(previousOffer.senderSide.amounts);
   const receiveMarketFeesAmount =

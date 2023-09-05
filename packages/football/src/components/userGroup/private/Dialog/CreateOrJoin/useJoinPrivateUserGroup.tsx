@@ -1,6 +1,6 @@
 import { TypedDocumentNode, gql } from '@apollo/client';
 
-import { joinSo5UserGroupInput } from '@sorare/core/src/__generated__/globalTypes';
+import { joinVicc5UserGroupInput } from '@sorare/core/src/__generated__/globalTypes';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 
 import { fragments } from '@football/components/userGroup/private/Dialog/fragments';
@@ -11,9 +11,9 @@ import {
 } from './__generated__/useJoinPrivateUserGroup.graphql';
 
 const JOIN_PRIVATE_USER_GROUP_MUTATION = gql`
-  mutation JoinPrivateUserGroupMutation($input: joinSo5UserGroupInput!) {
-    joinSo5UserGroup(input: $input) {
-      so5UserGroup {
+  mutation JoinPrivateUserGroupMutation($input: joinVicc5UserGroupInput!) {
+    joinVicc5UserGroup(input: $input) {
+      vicc5UserGroup {
         slug
         administrator {
           slug
@@ -22,7 +22,7 @@ const JOIN_PRIVATE_USER_GROUP_MUTATION = gql`
         myMembership {
           createdAt
         }
-        ...so5UserGroup
+        ...vicc5UserGroup
       }
       errors {
         message
@@ -30,7 +30,7 @@ const JOIN_PRIVATE_USER_GROUP_MUTATION = gql`
       }
     }
   }
-  ${fragments.so5UserGroup}
+  ${fragments.vicc5UserGroup}
 ` as TypedDocumentNode<
   JoinPrivateUserGroupMutation,
   JoinPrivateUserGroupMutationVariables
@@ -41,7 +41,7 @@ const useJoinPrivateUserGroup = (showErrorsInForm?: boolean) => {
     showErrorsInForm,
   });
 
-  return async (input: joinSo5UserGroupInput) => {
+  return async (input: joinVicc5UserGroupInput) => {
     return mutate({
       variables: { input },
       refetchQueries: ['GetMyPrivateUserGroupsQuery'],

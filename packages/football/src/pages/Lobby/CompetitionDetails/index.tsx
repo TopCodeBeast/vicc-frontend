@@ -53,8 +53,8 @@ import {
   CompetitionDetailsQueryVariables,
 } from './__generated__/index.graphql';
 
-type CompetitionDetailsQuery_so5Leaderboard =
-  CompetitionDetailsQuery['football']['so5']['so5Leaderboard'];
+type CompetitionDetailsQuery_vicc5Leaderboard =
+  CompetitionDetailsQuery['football']['vicc5']['vicc5Leaderboard'];
 
 // const Team = lazy(async () => import('@football/pages/Lobby/CompetitionDetails/Team'));
 const Rewards = lazy(
@@ -191,43 +191,43 @@ const ShareLabel = styled.span`
 const COMPETITION_DETAILS_QUERY = gql`
   query CompetitionDetailsQuery($slug: String!) {
     football {
-      so5 {
-        so5Leaderboard(slug: $slug) {
+      vicc5 {
+        vicc5Leaderboard(slug: $slug) {
           slug
           rarityType
           teamsCap
           iconUrl
-          so5Fixture {
+          vicc5Fixture {
             slug
             startDate
             endDate
             aasmState
-            ...CompetitionDetailsTimeLeft_so5Fixture
+            ...CompetitionDetailsTimeLeft_vicc5Fixture
           }
-          mySo5Lineups {
+          myVicc5Lineups {
             id
             draft
             cancelledAt
             ...SocialShare_SocialPictures
-            ...getLineupDisplayName_so5Lineup
-            ...useLineupSharingAttributes_so5Lineup
+            ...getLineupDisplayName_vicc5Lineup
+            ...useLineupSharingAttributes_vicc5Lineup
           }
-          ...getLeaderboardInfo_so5Leaderboard
+          ...getLeaderboardInfo_vicc5Leaderboard
           ...TeamActions_lineup
-          ...DivisionLogo_so5Leaderboard
-          ...getLineupDisplayName_so5Leaderboard
+          ...DivisionLogo_vicc5Leaderboard
+          ...getLineupDisplayName_vicc5Leaderboard
         }
       }
     }
   }
   ${TeamActions.fragments.lineup}
   ${SocialShare.fragments.socialPictures}
-  ${getLeaderboardInfo.fragments.so5Leaderboard}
-  ${DivisionLogo.fragments.so5Leaderboard}
-  ${CompetitionDetailsTimeLeft.fragments.so5Fixture}
-  ${getLineupDisplayName.fragments.so5Lineup}
-  ${getLineupDisplayName.fragments.so5Leaderboard}
-  ${useLineupSharingAttributes.fragments.so5Lineup}
+  ${getLeaderboardInfo.fragments.vicc5Leaderboard}
+  ${DivisionLogo.fragments.vicc5Leaderboard}
+  ${CompetitionDetailsTimeLeft.fragments.vicc5Fixture}
+  ${getLineupDisplayName.fragments.vicc5Lineup}
+  ${getLineupDisplayName.fragments.vicc5Leaderboard}
+  ${useLineupSharingAttributes.fragments.vicc5Lineup}
 ` as TypedDocumentNode<
   CompetitionDetailsQuery,
   CompetitionDetailsQueryVariables
@@ -236,10 +236,10 @@ const COMPETITION_DETAILS_QUERY = gql`
 const ScarcityAndDate = ({
   leaderboard,
 }: {
-  leaderboard: CompetitionDetailsQuery_so5Leaderboard;
+  leaderboard: CompetitionDetailsQuery_vicc5Leaderboard;
 }) => {
   const { formatMessage, /*formatDateTimeRange*/ } = useIntlContext();
-  const { endDate, startDate } = leaderboard.so5Fixture;
+  const { endDate, startDate } = leaderboard.vicc5Fixture;
   const { scarcityMessageDescriptor } = getLeaderboardInfo(leaderboard);
   const formattedScarcity = formatMessage(scarcityMessageDescriptor);
   return (
@@ -301,27 +301,27 @@ export const CompetitionDetails = ({ closeButton }: Props) => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const { so5Leaderboard } = data?.football.so5 || {};
+  const { vicc5Leaderboard } = data?.football.vicc5 || {};
 
   const getCorrespondingLineup = () => {
     if (idFromQS) {
-      return so5Leaderboard?.mySo5Lineups.find(
+      return vicc5Leaderboard?.myVicc5Lineups.find(
         ({ id }) => idFromObject(id) === idFromQS
       );
     }
-    if (so5Leaderboard?.teamsCap && so5Leaderboard.teamsCap > 1) {
+    if (vicc5Leaderboard?.teamsCap && vicc5Leaderboard.teamsCap > 1) {
       return null;
     }
-    return so5Leaderboard?.mySo5Lineups[0];
+    return vicc5Leaderboard?.myVicc5Lineups[0];
   };
   const lineup = getCorrespondingLineup();
   const lineupSharingAttributes = useLineupSharingAttributes(lineup);
 
-  if (!so5Leaderboard) {
+  if (!vicc5Leaderboard) {
     return null;
   }
 
-  const { backgroundScarcity } = getLeaderboardInfo(so5Leaderboard);
+  const { backgroundScarcity } = getLeaderboardInfo(vicc5Leaderboard);
 
   const paths = {
     teams: FOOTBALL_COMPETITION_DETAILS_TEAM,
@@ -332,7 +332,7 @@ export const CompetitionDetails = ({ closeButton }: Props) => {
   };
 
   const getTeamBadge = () => {
-    if (lineup && so5Leaderboard?.canCompose.value) {
+    if (lineup && vicc5Leaderboard?.canCompose.value) {
       return formatMessage(messages[lineup?.draft ? 'draft' : 'joined']);
     }
     if (lineup?.cancelledAt) {
@@ -357,7 +357,7 @@ export const CompetitionDetails = ({ closeButton }: Props) => {
         competition,
       }),
       label: <span>{formatMessage(messages.leaderboard)}</span>,
-      hide: !isFixtureStarted(so5Leaderboard.so5Fixture),
+      hide: !isFixtureStarted(vicc5Leaderboard.vicc5Fixture),
       Component: Leaderboards,
     },*///TODO
     {
@@ -393,15 +393,15 @@ export const CompetitionDetails = ({ closeButton }: Props) => {
         <HeaderWrapper>
           <Titles>
             <CompetitionDetailsTimeLeft
-              so5Fixture={so5Leaderboard.so5Fixture}
+              vicc5Fixture={vicc5Leaderboard.vicc5Fixture}
             />
             <Informations>
-              <ScarcityAndDate leaderboard={so5Leaderboard} />
+              <ScarcityAndDate leaderboard={vicc5Leaderboard} />
               <DivisionLogoWrapper>
-                <DivisionLogo so5Leaderboard={so5Leaderboard} />
+                <DivisionLogo vicc5Leaderboard={vicc5Leaderboard} />
               </DivisionLogoWrapper>
 
-              <Title>{getLineupDisplayName(lineup, so5Leaderboard)}</Title>
+              <Title>{getLineupDisplayName(lineup, vicc5Leaderboard)}</Title>
             </Informations>
           </Titles>
           <Extras>
@@ -431,10 +431,10 @@ export const CompetitionDetails = ({ closeButton }: Props) => {
             badgeColor={lineup?.cancelledAt ? 'var(--c-red-600)' : undefined}
             replace
           />
-          {!isFixtureStarted(so5Leaderboard.so5Fixture) && isTablet && (
+          {!isFixtureStarted(vicc5Leaderboard.vicc5Fixture) && isTablet && (
             <TeamActionsWrapper>
               <TeamActions
-                so5Leaderboard={so5Leaderboard}
+                vicc5Leaderboard={vicc5Leaderboard}
                 lineupId={lineup?.id}
               />
             </TeamActionsWrapper>
@@ -456,13 +456,13 @@ export const CompetitionDetails = ({ closeButton }: Props) => {
           })}
         </RootRoutes>
       </Content>
-      {!isFixtureStarted(so5Leaderboard.so5Fixture) && !isTablet && (
+      {!isFixtureStarted(vicc5Leaderboard.vicc5Fixture) && !isTablet && (
         <>
           {bottomNavBarItems && !bgLocation ? (
             <Portal id="above-bottom-bar-portal">
               <TeamActionsWrapper>
                 <TeamActions
-                  so5Leaderboard={so5Leaderboard}
+                  vicc5Leaderboard={vicc5Leaderboard}
                   lineupId={lineup?.id}
                 />
               </TeamActionsWrapper>
@@ -470,7 +470,7 @@ export const CompetitionDetails = ({ closeButton }: Props) => {
           ) : (
             <TeamActionsWrapper>
               <TeamActions
-                so5Leaderboard={so5Leaderboard}
+                vicc5Leaderboard={vicc5Leaderboard}
                 lineupId={lineup?.id}
               />
             </TeamActionsWrapper>

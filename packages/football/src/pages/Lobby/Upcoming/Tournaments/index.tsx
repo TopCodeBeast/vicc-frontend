@@ -15,11 +15,11 @@ import {
 export const LOBBY_UPCOMING_TOURNAMENTS_QUERY = gql`
   query LobbyUpcomingTournamentsQuery {
     football {
-      so5 {
+      vicc5 {
         upcomingLeaderboards {
           slug
           gameWeek
-          ...CompetitionList_so5Leaderboard
+          ...CompetitionList_vicc5Leaderboard
         }
       }
       shopItems(first: 10, types: [EXTRA_TEAMS_CAP]) {
@@ -29,7 +29,7 @@ export const LOBBY_UPCOMING_TOURNAMENTS_QUERY = gql`
       }
     }
   }
-  ${CompetitionList.fragments.so5Leaderboard}
+  ${CompetitionList.fragments.vicc5Leaderboard}
   ${CompetitionList.fragments.clubShopItem}
 ` as TypedDocumentNode<
   LobbyUpcomingTournamentsQuery,
@@ -49,14 +49,14 @@ export const LobbyUpcomingTournaments = () => {
     }
   );
 
-  const so5Leaderboards = data?.football.so5.upcomingLeaderboards;
+  const vicc5Leaderboards = data?.football.vicc5.upcomingLeaderboards;
   const extraTeamsCapItems = data?.football.shopItems.nodes;
 
   const refetchCb = useCallback(() => {
     refetch();
   }, [refetch]);
 
-  if (!so5Leaderboards && loading) {
+  if (!vicc5Leaderboards && loading) {
     return (
       <Loading>
         <LoadingIndicator />
@@ -64,13 +64,13 @@ export const LobbyUpcomingTournaments = () => {
     );
   }
 
-  if (!so5Leaderboards) {
+  if (!vicc5Leaderboards) {
     return null;
   }
 
   return (
     <CompetitionList
-      so5Leaderboards={so5Leaderboards}
+      vicc5Leaderboards={vicc5Leaderboards}
       refetch={refetchCb}
       extraTeamsCapItems={extraTeamsCapItems}
     />

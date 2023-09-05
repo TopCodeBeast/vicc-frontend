@@ -75,18 +75,18 @@ const NextGame = ({ game }: { game: ProLayer_card['gameForLeague'] }) => {
 };
 
 const Score = ({
-  so5Score,
+  vicc5Score,
 }: {
-  so5Score: ProLayer_card['player']['so5Scores'][number];
+  vicc5Score: ProLayer_card['player']['vicc5Scores'][number];
 }) => {
   const { formatMessage } = useIntl();
 
-  if (so5Score?.score == null) {
+  if (vicc5Score?.score == null) {
     return (
       <span>{formatMessage(playerGameStatusLabels.did_not_play_short)}</span>
     );
   }
-  const { id, score } = so5Score;
+  const { id, score } = vicc5Score;
 
   return (
     <ScoreWrapper className={classnames({ negative: score < 0 })} key={id}>
@@ -96,13 +96,13 @@ const Score = ({
 };
 
 const Scores = ({
-  so5Scores,
+  vicc5Scores,
 }: {
-  so5Scores: ProLayer_card['player']['so5Scores'];
+  vicc5Scores: ProLayer_card['player']['vicc5Scores'];
 }) => {
   const { formatMessage } = useIntl();
 
-  if (!so5Scores) {
+  if (!vicc5Scores) {
     return (
       <ScoresWrapper>
         {formatMessage(playerGameStatusLabels.did_not_play_short)};
@@ -112,9 +112,9 @@ const Scores = ({
 
   return (
     <ScoresWrapper>
-      {so5Scores.map((score, index) => (
+      {vicc5Scores.map((score, index) => (
         // eslint-disable-next-line react/no-array-index-key
-        <Score so5Score={score} key={index} />
+        <Score vicc5Score={score} key={index} />
       ))}
     </ScoresWrapper>
   );
@@ -123,7 +123,7 @@ const Scores = ({
 export const ProLayer = ({ card }: Props) => {
   const {
     gameForLeague: game,
-    player: { so5Scores },
+    player: { vicc5Scores },
   } = card;
 
   return (
@@ -131,7 +131,7 @@ export const ProLayer = ({ card }: Props) => {
       <Text14 bold as="div">
         <NextGame game={game} />
       </Text14>
-      <Scores so5Scores={so5Scores} />
+      <Scores vicc5Scores={vicc5Scores} />
     </Root>
   );
 };
@@ -143,12 +143,12 @@ ProLayer.fragments = {
       assetId
       player {
         slug
-        so5Scores(last: 5) {
+        vicc5Scores(last: 5) {
           id
           score
         }
       }
-      gameForLeague(so5LeaderboardSlug: $so5LeaderboardSlug) {
+      gameForLeague(vicc5LeaderboardSlug: $vicc5LeaderboardSlug) {
         id
         status
         homeTeam {

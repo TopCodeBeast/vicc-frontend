@@ -1,6 +1,6 @@
 import { TypedDocumentNode, gql } from '@apollo/client';
 
-import { So5State } from '@sorare/core/src/__generated__/globalTypes';
+import { Vicc5State } from '@sorare/core/src/__generated__/globalTypes';
 import usePaginatedQuery from '@sorare/core/src/hooks/graphql/usePaginatedQuery';
 
 import { Lineup } from '@football/components/lineup/Lineup';
@@ -21,7 +21,7 @@ const LOBBY_UPCOMING_LINEUPS_QUERY = gql`
     $draft: Boolean
   ) {
     football {
-      so5 {
+      vicc5 {
         myUpcomingLineupsPaginated(
           after: $startCursor
           before: $endCursor
@@ -33,10 +33,10 @@ const LOBBY_UPCOMING_LINEUPS_QUERY = gql`
             cursor
             node {
               id
-              ...Lineup_so5Lineup
-              so5Leaderboard {
+              ...Lineup_vicc5Lineup
+              vicc5Leaderboard {
                 slug
-                ...Lineup_so5Leaderboard
+                ...Lineup_vicc5Leaderboard
               }
             }
           }
@@ -49,8 +49,8 @@ const LOBBY_UPCOMING_LINEUPS_QUERY = gql`
       }
     }
   }
-  ${Lineup.fragments.so5Lineup}
-  ${Lineup.fragments.so5Leaderboard}
+  ${Lineup.fragments.vicc5Lineup}
+  ${Lineup.fragments.vicc5Leaderboard}
 ` as TypedDocumentNode<
   LobbyUpcomingLineupsQuery,
   LobbyUpcomingLineupsQueryVariables
@@ -61,15 +61,15 @@ const LOBBY_LINEUPS_QUERY = gql`
     $startCursor: String
     $endCursor: String
     $slug: String
-    $type: So5State
+    $type: Vicc5State
     $draft: Boolean
     $limit: Int = 6
   ) {
     football {
-      so5 {
-        so5Fixture(type: $type, slug: $slug) {
+      vicc5 {
+        vicc5Fixture(type: $type, slug: $slug) {
           slug
-          mySo5LineupsPaginated(
+          myVicc5LineupsPaginated(
             after: $startCursor
             before: $endCursor
             first: $limit
@@ -79,10 +79,10 @@ const LOBBY_LINEUPS_QUERY = gql`
               cursor
               node {
                 id
-                ...Lineup_so5Lineup
-                so5Leaderboard {
+                ...Lineup_vicc5Lineup
+                vicc5Leaderboard {
                   slug
-                  ...Lineup_so5Leaderboard
+                  ...Lineup_vicc5Leaderboard
                 }
               }
             }
@@ -96,23 +96,23 @@ const LOBBY_LINEUPS_QUERY = gql`
       }
     }
   }
-  ${Lineup.fragments.so5Lineup}
-  ${Lineup.fragments.so5Leaderboard}
+  ${Lineup.fragments.vicc5Lineup}
+  ${Lineup.fragments.vicc5Leaderboard}
 ` as TypedDocumentNode<LobbyLineupsQuery, LobbyLineupsQueryVariables>;
 
 type Props = {
-  type: So5State | null;
+  type: Vicc5State | null;
   slug: string | null;
   endCursor?: string | null;
-  so5FixtureId?: string;
-  so5LeaderboardSlug?: string | null;
+  vicc5FixtureId?: string;
+  vicc5LeaderboardSlug?: string | null;
   withTraining?: boolean;
   draft?: boolean;
   limit?: number;
   startCursor: string;
 };
 const useGetTeams = (variables: Props) => {
-  const upcoming = variables.type === So5State.UPCOMING;
+  const upcoming = variables.type === Vicc5State.UPCOMING;
   const {
     data: upcomingData,
     loading: upcomingLoading,
@@ -122,7 +122,7 @@ const useGetTeams = (variables: Props) => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
     notifyOnNetworkStatusChange: true,
-    connection: 'So5LineupConnection',
+    connection: 'Vicc5LineupConnection',
     skip: !upcoming,
   });
 
@@ -131,17 +131,17 @@ const useGetTeams = (variables: Props) => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
     notifyOnNetworkStatusChange: true,
-    connection: 'So5LineupConnection',
+    connection: 'Vicc5LineupConnection',
     skip: upcoming,
   });
   return upcoming
     ? {
-        data: upcomingData?.football.so5.myUpcomingLineupsPaginated,
+        data: upcomingData?.football.vicc5.myUpcomingLineupsPaginated,
         loading: upcomingLoading,
         loadMore: upcomingLoadMore,
       }
     : {
-        data: data?.football.so5.so5Fixture?.mySo5LineupsPaginated,
+        data: data?.football.vicc5.vicc5Fixture?.myVicc5LineupsPaginated,
         loading,
         loadMore,
       };

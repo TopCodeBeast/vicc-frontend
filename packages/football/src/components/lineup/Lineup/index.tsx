@@ -36,8 +36,8 @@ import { RewardType } from '@football/lib/lineupRewards';
 import { LineupRewards } from './LineupRewards';
 import { LineupStatus } from './LineupStatus';
 import {
-  Lineup_so5Leaderboard,
-  Lineup_so5Lineup,
+  Lineup_vicc5Leaderboard,
+  Lineup_vicc5Lineup,
 } from './__generated__/index.graphql';
 
 const Wrapper = styled(LinkBox)`
@@ -96,7 +96,7 @@ const SemiProIncentive = styled.div`
   height: 32px;
 `;
 
-type Appearance = Lineup_so5Lineup['so5Appearances'][number];
+type Appearance = Lineup_vicc5Lineup['vicc5Appearances'][number];
 
 const isAppearance = (appearance: {
   card: { position: string };
@@ -106,8 +106,8 @@ const isAppearance = (appearance: {
 };
 
 export type Props = {
-  lineup?: Lineup_so5Lineup | null;
-  leaderboard: Lineup_so5Leaderboard;
+  lineup?: Lineup_vicc5Lineup | null;
+  leaderboard: Lineup_vicc5Leaderboard;
   displayScore?: boolean;
   rewardType?: RewardType;
   isLive?: boolean;
@@ -155,34 +155,34 @@ export const Lineup = ({
     }
   );
 
-  const { so5Fixture, so5LeaderboardType } = leaderboard;
+  const { vicc5Fixture, vicc5LeaderboardType } = leaderboard;
   const displaySemiProIncentive =
-    useDisplaySemiProIncentive(so5LeaderboardType);
-  const startDate = new Date(so5Fixture.startDate);
-  const endDate = new Date(so5Fixture.endDate);
+    useDisplaySemiProIncentive(vicc5LeaderboardType);
+  const startDate = new Date(vicc5Fixture.startDate);
+  const endDate = new Date(vicc5Fixture.endDate);
   const isLive = isPast(startDate) && isFuture(endDate);
 
-  const myRanking = lineup?.so5Rankings?.[0];
+  const myRanking = lineup?.vicc5Rankings?.[0];
   const score = myRanking?.score;
   const ranking = myRanking?.ranking;
 
-  const lineupsCount = leaderboard.so5LineupsCount;
+  const lineupsCount = leaderboard.vicc5LineupsCount;
 
   const locked = !leaderboard.canCompose.value;
   const players = lineup
     ? getSortedAppearances<Appearance | { card: { position: string } }>([
-        ...lineup.so5Appearances,
-        ...getMissingAppearances(lineup.so5Appearances),
+        ...lineup.vicc5Appearances,
+        ...getMissingAppearances(lineup.vicc5Appearances),
       ])
     : getMissingAppearances([]);
-  const [rankingReward] = lineup?.so5Rankings || [];
+  const [rankingReward] = lineup?.vicc5Rankings || [];
   const { totalRewards } = leaderboard;
 
   const getLineupStatus = () => {
     if (lineup) {
       return (
         <LineupStatus
-          so5Lineup={lineup}
+          vicc5Lineup={lineup}
           displayScore={displayScore}
           score={score}
         />
@@ -249,8 +249,8 @@ export const Lineup = ({
               key={appearance.id}
               appearance={appearance}
               onClick={
-                appearance.so5Score?.id
-                  ? () => setOpenPlayerGameScore(appearance.so5Score!.id)
+                appearance.vicc5Score?.id
+                  ? () => setOpenPlayerGameScore(appearance.vicc5Score!.id)
                   : undefined
               }
               isLive={isLive}
@@ -266,7 +266,7 @@ export const Lineup = ({
         })}
       </Cards>
       <LineupActions
-        so5Leaderboard={leaderboard}
+        vicc5Leaderboard={leaderboard}
         linkToCompetitionDetails={linkToCompetitionDetails}
         lineupId={lineup?.id}
         renderCta={renderCta}
@@ -286,7 +286,7 @@ export const Lineup = ({
         />
       )}
       <PlayerGameScoreDialog
-        so5ScoreId={idFromObject(openPlayerGameScore)!}
+        vicc5ScoreId={idFromObject(openPlayerGameScore)!}
         onClose={() => setOpenPlayerGameScore('')}
         open={!!openPlayerGameScore}
       />
@@ -295,44 +295,44 @@ export const Lineup = ({
 };
 
 Lineup.fragments = {
-  so5Lineup: gql`
-    fragment Lineup_so5Lineup on So5Lineup {
+  vicc5Lineup: gql`
+    fragment Lineup_vicc5Lineup on Vicc5Lineup {
       id
       name
       cancelledAt
-      so5Appearances {
+      vicc5Appearances {
         id
         card {
           assetId
           slug
           position: positionTyped
         }
-        so5Score {
+        vicc5Score {
           id
         }
-        ...PlayerCard_so5Appearance
+        ...PlayerCard_vicc5Appearance
       }
-      so5Rankings {
+      vicc5Rankings {
         id
         score
         ranking
-        ...LineupRewards_so5Ranking
+        ...LineupRewards_vicc5Ranking
       }
-      ...LineupHeader_so5Lineup
-      ...PlayerCardPlaceholder_so5Lineup
-      ...LineupStatus_so5Lineup
+      ...LineupHeader_vicc5Lineup
+      ...PlayerCardPlaceholder_vicc5Lineup
+      ...LineupStatus_vicc5Lineup
     }
-    ${LineupHeader.fragments.so5Lineup}
-    ${PlayerCard.fragments.so5Appearance}
-    ${LineupRewards.fragments.so5Ranking}
-    ${PlayerCardPlaceholder.fragments.so5Lineup}
-    ${LineupStatus.fragments.so5Lineup}
-  ` as TypedDocumentNode<Lineup_so5Lineup>,
-  so5Leaderboard: gql`
-    fragment Lineup_so5Leaderboard on So5Leaderboard {
+    ${LineupHeader.fragments.vicc5Lineup}
+    ${PlayerCard.fragments.vicc5Appearance}
+    ${LineupRewards.fragments.vicc5Ranking}
+    ${PlayerCardPlaceholder.fragments.vicc5Lineup}
+    ${LineupStatus.fragments.vicc5Lineup}
+  ` as TypedDocumentNode<Lineup_vicc5Lineup>,
+  vicc5Leaderboard: gql`
+    fragment Lineup_vicc5Leaderboard on Vicc5Leaderboard {
       slug
-      so5LineupsCount
-      so5LeaderboardType
+      vicc5LineupsCount
+      vicc5LeaderboardType
       totalRewards {
         ...LineupRewards_rewardsOverview
       }
@@ -343,18 +343,18 @@ Lineup.fragments = {
       canCompose {
         value
       }
-      so5Fixture {
+      vicc5Fixture {
         slug
         startDate
         endDate
       }
-      ...LineupHeader_so5Leaderboard
-      ...LineupActions_so5Leaderboard
-      ...PlayerCardPlaceholder_so5Leaderboard
+      ...LineupHeader_vicc5Leaderboard
+      ...LineupActions_vicc5Leaderboard
+      ...PlayerCardPlaceholder_vicc5Leaderboard
     }
-    ${LineupHeader.fragments.so5Leaderboard}
-    ${LineupActions.fragments.so5Leaderboard}
+    ${LineupHeader.fragments.vicc5Leaderboard}
+    ${LineupActions.fragments.vicc5Leaderboard}
     ${LineupRewards.fragments.rewardsOverview}
-    ${PlayerCardPlaceholder.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<Lineup_so5Leaderboard>,
+    ${PlayerCardPlaceholder.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<Lineup_vicc5Leaderboard>,
 };

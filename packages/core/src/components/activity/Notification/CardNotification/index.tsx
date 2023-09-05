@@ -51,7 +51,7 @@ export const CardNotification = ({ notification, ...rest }: Props) => {
     params: {
       slug: token?.slug || card?.slug,
     },
-    sport: token?.sport || Sport.FOOTBALL,
+    sport: token?.sport || Sport.CRICKET,
   });
 
   const title = messages[name as keyof typeof messages];

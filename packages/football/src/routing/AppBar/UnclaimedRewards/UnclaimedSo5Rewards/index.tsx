@@ -11,12 +11,12 @@ import { LOBBY_TABS, goToLobby } from '@sorare/core/src/constants/routes';
 import { CurrentUserQuery_currentUser } from '@sorare/core/src/contexts/currentUser/types';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
 
-type CurrentUserQuery_currentUser_unclaimedSo5Rewards =
-  CurrentUserQuery_currentUser['unclaimedSo5Rewards'][number];
+type CurrentUserQuery_currentUser_unclaimedVicc5Rewards =
+  CurrentUserQuery_currentUser['unclaimedVicc5Rewards'][number];
 
 interface Props {
-  so5FixtureSlug: string;
-  rewards: Array<CurrentUserQuery_currentUser_unclaimedSo5Rewards>;
+  vicc5FixtureSlug: string;
+  rewards: Array<CurrentUserQuery_currentUser_unclaimedVicc5Rewards>;
 }
 
 const UnclaimedReward = styled(MenuItem)`
@@ -33,10 +33,10 @@ const Info = styled.div`
   flex-direction: column;
 `;
 
-export const UnclaimedSo5Rewards = ({ so5FixtureSlug, rewards }: Props) => {
+export const UnclaimedVicc5Rewards = ({ vicc5FixtureSlug, rewards }: Props) => {
   const { formatDistanceToNow } = useIntlContext();
 
-  const to = goToLobby('past', LOBBY_TABS.MY_TEAMS, so5FixtureSlug);
+  const to = goToLobby('past', LOBBY_TABS.MY_TEAMS, vicc5FixtureSlug);
 
   return (
     <Link to={to}>
@@ -45,13 +45,13 @@ export const UnclaimedSo5Rewards = ({ so5FixtureSlug, rewards }: Props) => {
         <Info>
           <Text16 bold>
             <FormattedMessage
-              id="UnclaimedSo5Rewards.newReward"
+              id="UnclaimedVicc5Rewards.newReward"
               defaultMessage="{count, plural, one {# new reward} other {# new rewards}}"
               values={{ count: rewards.length }}
             />
           </Text16>
           <Caption color="var(--c-neutral-600)">
-            {formatDistanceToNow(parseISO(rewards[0].so5Fixture.endDate))}
+            {formatDistanceToNow(parseISO(rewards[0].vicc5Fixture.endDate))}
           </Caption>
         </Info>
       </UnclaimedReward>
@@ -59,4 +59,4 @@ export const UnclaimedSo5Rewards = ({ so5FixtureSlug, rewards }: Props) => {
   );
 };
 
-export default UnclaimedSo5Rewards;
+export default UnclaimedVicc5Rewards;

@@ -55,7 +55,7 @@ export const Content = styled.main`
 export const AppLayout = ({ children }: { children: ReactNode }) => {
   const { currentUser } = useCurrentUserContext();
   const isLoggedIn = useIsLoggedIn();
-  const { unclaimedSo5Rewards } = currentUser || {};
+  const { unclaimedVicc5Rewards } = currentUser || {};
   return (
     <Wrapper>
       {isLoggedIn && (
@@ -78,7 +78,7 @@ export const AppLayout = ({ children }: { children: ReactNode }) => {
               icon: currentUser && (
                 <Avatar user={currentUser} rounded variant="small" />
               ),
-              badge: unclaimedSo5Rewards?.length,
+              badge: unclaimedVicc5Rewards?.length,
             },
           ]}
         />

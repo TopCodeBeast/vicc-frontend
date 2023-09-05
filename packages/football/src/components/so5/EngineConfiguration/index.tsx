@@ -1,26 +1,26 @@
 import { TypedDocumentNode, gql } from '@apollo/client';
 import { FormattedMessage } from 'react-intl';
 
-import { EngineConfiguration_so5Leaderboard } from './__generated__/index.graphql';
+import { EngineConfiguration_vicc5Leaderboard } from './__generated__/index.graphql';
 
 export const hasSpecialEngineConfiguration = (
-  so5Leaderboard: EngineConfiguration_so5Leaderboard | undefined
+  vicc5Leaderboard: EngineConfiguration_vicc5Leaderboard | undefined
 ) => {
-  if (!so5Leaderboard?.engineConfiguration) return false;
-  const { xpMultiplier } = so5Leaderboard.engineConfiguration;
+  if (!vicc5Leaderboard?.engineConfiguration) return false;
+  const { xpMultiplier } = vicc5Leaderboard.engineConfiguration;
 
   return (xpMultiplier || 1) > 1;
 };
 
 type Props = {
-  so5Leaderboard?: EngineConfiguration_so5Leaderboard;
+  vicc5Leaderboard?: EngineConfiguration_vicc5Leaderboard;
 };
 
-const EngineConfiguration = ({ so5Leaderboard }: Props) => {
-  if (!hasSpecialEngineConfiguration(so5Leaderboard) || !so5Leaderboard)
+const EngineConfiguration = ({ vicc5Leaderboard }: Props) => {
+  if (!hasSpecialEngineConfiguration(vicc5Leaderboard) || !vicc5Leaderboard)
     return null;
 
-  const { engineConfiguration } = so5Leaderboard;
+  const { engineConfiguration } = vicc5Leaderboard;
 
   return (
     <div>
@@ -34,14 +34,14 @@ const EngineConfiguration = ({ so5Leaderboard }: Props) => {
 };
 
 EngineConfiguration.fragments = {
-  so5Leaderboard: gql`
-    fragment EngineConfiguration_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment EngineConfiguration_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       engineConfiguration {
         xpMultiplier
       }
     }
-  ` as TypedDocumentNode<EngineConfiguration_so5Leaderboard>,
+  ` as TypedDocumentNode<EngineConfiguration_vicc5Leaderboard>,
 };
 
 export default EngineConfiguration;

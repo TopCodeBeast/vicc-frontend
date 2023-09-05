@@ -66,13 +66,13 @@ const MATCH_VIEW_PLAYER_SCORE_QUERY = gql`
         slug
         displayName
         avatarPictureUrl: pictureUrl(derivative: "avatar")
-        so5Score(gameId: $id) {
-          ...DetailedScoreV4V5_so5Score
+        vicc5Score(gameId: $id) {
+          ...DetailedScoreV4V5_vicc5Score
         }
       }
     }
   }
-  ${DetailedScoreV4V5.fragments.so5Score}
+  ${DetailedScoreV4V5.fragments.vicc5Score}
 ` as TypedDocumentNode<
   MatchViewPlayerDetailsQuery,
   MatchViewPlayerDetailsQueryVariables
@@ -117,9 +117,9 @@ const PlayerDetails = ({ slug, gameId, onClose }: Props) => {
               </Link>
             </PlayerOverview>
             <DetailedScoreWrapper>
-              {currentSelectedPlayer.so5Score && (
+              {currentSelectedPlayer.vicc5Score && (
                 <DetailedScoreV4V5
-                  so5Score={currentSelectedPlayer.so5Score}
+                  vicc5Score={currentSelectedPlayer.vicc5Score}
                   withDetails
                 />
               )}

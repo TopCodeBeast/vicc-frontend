@@ -7,17 +7,17 @@ import {
   sportToJSON,
 } from '../../../events/shared/events';
 
-export const protobufPackage = 'events.so5.web';
+export const protobufPackage = 'events.vicc5.web';
 
 export interface CardInfo {
   cardSlug: string;
   domesticLeagueSlug: string;
-  lastFiveSo5Appearances: number;
-  lastFiveSo5AverageScore: number;
-  lastFifteenSo5Appearances: number;
-  lastFifteenSo5AverageScore: number;
-  lastFortySo5Appearances: number;
-  lastFortySo5AverageScore: number;
+  lastFiveVicc5Appearances: number;
+  lastFiveVicc5AverageScore: number;
+  lastFifteenVicc5Appearances: number;
+  lastFifteenVicc5AverageScore: number;
+  lastFortyVicc5Appearances: number;
+  lastFortyVicc5AverageScore: number;
   playerSlug: string;
   playerTier: string;
   tierVersion: number;
@@ -55,12 +55,12 @@ export interface ClickCard {
   /** CardInfo */
   cardSlug: string;
   domesticLeagueSlug: string;
-  lastFiveSo5Appearances: number;
-  lastFiveSo5AverageScore: number;
-  lastFifteenSo5Appearances: number;
-  lastFifteenSo5AverageScore: number;
-  lastFortySo5Appearances: number;
-  lastFortySo5AverageScore: number;
+  lastFiveVicc5Appearances: number;
+  lastFiveVicc5AverageScore: number;
+  lastFifteenVicc5Appearances: number;
+  lastFifteenVicc5AverageScore: number;
+  lastFortyVicc5Appearances: number;
+  lastFortyVicc5AverageScore: number;
   playerSlug: string;
   playerTier: string;
   tierVersion: number;
@@ -101,12 +101,12 @@ export interface ClickBid {
   /** CardInfo */
   cardSlug: string;
   domesticLeagueSlug: string;
-  lastFiveSo5Appearances: number;
-  lastFiveSo5AverageScore: number;
-  lastFifteenSo5Appearances: number;
-  lastFifteenSo5AverageScore: number;
-  lastFortySo5Appearances: number;
-  lastFortySo5AverageScore: number;
+  lastFiveVicc5Appearances: number;
+  lastFiveVicc5AverageScore: number;
+  lastFifteenVicc5Appearances: number;
+  lastFifteenVicc5AverageScore: number;
+  lastFortyVicc5Appearances: number;
+  lastFortyVicc5AverageScore: number;
   playerSlug: string;
   playerTier: string;
   tierVersion: number;
@@ -153,12 +153,12 @@ export interface ClickBuy {
   /** CardInfo */
   cardSlug: string;
   domesticLeagueSlug: string;
-  lastFiveSo5Appearances: number;
-  lastFiveSo5AverageScore: number;
-  lastFifteenSo5Appearances: number;
-  lastFifteenSo5AverageScore: number;
-  lastFortySo5Appearances: number;
-  lastFortySo5AverageScore: number;
+  lastFiveVicc5Appearances: number;
+  lastFiveVicc5AverageScore: number;
+  lastFifteenVicc5Appearances: number;
+  lastFifteenVicc5AverageScore: number;
+  lastFortyVicc5Appearances: number;
+  lastFortyVicc5AverageScore: number;
   playerSlug: string;
   playerTier: string;
   tierVersion: number;
@@ -196,12 +196,12 @@ export interface FavoriteCard {
   /** CardInfo */
   cardSlug: string;
   domesticLeagueSlug: string;
-  lastFiveSo5Appearances: number;
-  lastFiveSo5AverageScore: number;
-  lastFifteenSo5Appearances: number;
-  lastFifteenSo5AverageScore: number;
-  lastFortySo5Appearances: number;
-  lastFortySo5AverageScore: number;
+  lastFiveVicc5Appearances: number;
+  lastFiveVicc5AverageScore: number;
+  lastFifteenVicc5Appearances: number;
+  lastFifteenVicc5AverageScore: number;
+  lastFortyVicc5Appearances: number;
+  lastFortyVicc5AverageScore: number;
   playerSlug: string;
   playerTier: string;
   tierVersion: number;
@@ -235,12 +235,12 @@ export interface PlaceBid {
   /** CardInfo */
   cardSlug: string;
   domesticLeagueSlug: string;
-  lastFiveSo5Appearances: number;
-  lastFiveSo5AverageScore: number;
-  lastFifteenSo5Appearances: number;
-  lastFifteenSo5AverageScore: number;
-  lastFortySo5Appearances: number;
-  lastFortySo5AverageScore: number;
+  lastFiveVicc5Appearances: number;
+  lastFiveVicc5AverageScore: number;
+  lastFifteenVicc5Appearances: number;
+  lastFifteenVicc5AverageScore: number;
+  lastFortyVicc5Appearances: number;
+  lastFortyVicc5AverageScore: number;
   playerSlug: string;
   playerTier: string;
   tierVersion: number;
@@ -385,12 +385,12 @@ export interface ListCard {
   /** CardInfo */
   cardSlug: string;
   domesticLeagueSlug: string;
-  lastFiveSo5Appearances: number;
-  lastFiveSo5AverageScore: number;
-  lastFifteenSo5Appearances: number;
-  lastFifteenSo5AverageScore: number;
-  lastFortySo5Appearances: number;
-  lastFortySo5AverageScore: number;
+  lastFiveVicc5Appearances: number;
+  lastFiveVicc5AverageScore: number;
+  lastFifteenVicc5Appearances: number;
+  lastFifteenVicc5AverageScore: number;
+  lastFortyVicc5Appearances: number;
+  lastFortyVicc5AverageScore: number;
   playerSlug: string;
   playerTier: string;
   tierVersion: number;
@@ -412,12 +412,12 @@ export interface UnlistCard {
   /** CardInfo */
   cardSlug: string;
   domesticLeagueSlug: string;
-  lastFiveSo5Appearances: number;
-  lastFiveSo5AverageScore: number;
-  lastFifteenSo5Appearances: number;
-  lastFifteenSo5AverageScore: number;
-  lastFortySo5Appearances: number;
-  lastFortySo5AverageScore: number;
+  lastFiveVicc5Appearances: number;
+  lastFiveVicc5AverageScore: number;
+  lastFifteenVicc5Appearances: number;
+  lastFifteenVicc5AverageScore: number;
+  lastFortyVicc5Appearances: number;
+  lastFortyVicc5AverageScore: number;
   playerSlug: string;
   playerTier: string;
   tierVersion: number;
@@ -528,12 +528,12 @@ function createBaseCardInfo(): CardInfo {
   return {
     cardSlug: '',
     domesticLeagueSlug: '',
-    lastFiveSo5Appearances: 0,
-    lastFiveSo5AverageScore: 0,
-    lastFifteenSo5Appearances: 0,
-    lastFifteenSo5AverageScore: 0,
-    lastFortySo5Appearances: 0,
-    lastFortySo5AverageScore: 0,
+    lastFiveVicc5Appearances: 0,
+    lastFiveVicc5AverageScore: 0,
+    lastFifteenVicc5Appearances: 0,
+    lastFifteenVicc5AverageScore: 0,
+    lastFortyVicc5Appearances: 0,
+    lastFortyVicc5AverageScore: 0,
     playerSlug: '',
     playerTier: '',
     tierVersion: 0,
@@ -555,23 +555,23 @@ export const CardInfo = {
       domesticLeagueSlug: isSet(object.domestic_league_slug)
         ? String(object.domestic_league_slug)
         : '',
-      lastFiveSo5Appearances: isSet(object.last_five_so5_appearances)
-        ? Number(object.last_five_so5_appearances)
+      lastFiveVicc5Appearances: isSet(object.last_five_vicc5_appearances)
+        ? Number(object.last_five_vicc5_appearances)
         : 0,
-      lastFiveSo5AverageScore: isSet(object.last_five_so5_average_score)
-        ? Number(object.last_five_so5_average_score)
+      lastFiveVicc5AverageScore: isSet(object.last_five_vicc5_average_score)
+        ? Number(object.last_five_vicc5_average_score)
         : 0,
-      lastFifteenSo5Appearances: isSet(object.last_fifteen_so5_appearances)
-        ? Number(object.last_fifteen_so5_appearances)
+      lastFifteenVicc5Appearances: isSet(object.last_fifteen_vicc5_appearances)
+        ? Number(object.last_fifteen_vicc5_appearances)
         : 0,
-      lastFifteenSo5AverageScore: isSet(object.last_fifteen_so5_average_score)
-        ? Number(object.last_fifteen_so5_average_score)
+      lastFifteenVicc5AverageScore: isSet(object.last_fifteen_vicc5_average_score)
+        ? Number(object.last_fifteen_vicc5_average_score)
         : 0,
-      lastFortySo5Appearances: isSet(object.last_forty_so5_appearances)
-        ? Number(object.last_forty_so5_appearances)
+      lastFortyVicc5Appearances: isSet(object.last_forty_vicc5_appearances)
+        ? Number(object.last_forty_vicc5_appearances)
         : 0,
-      lastFortySo5AverageScore: isSet(object.last_forty_so5_average_score)
-        ? Number(object.last_forty_so5_average_score)
+      lastFortyVicc5AverageScore: isSet(object.last_forty_vicc5_average_score)
+        ? Number(object.last_forty_vicc5_average_score)
         : 0,
       playerSlug: isSet(object.player_slug) ? String(object.player_slug) : '',
       playerTier: isSet(object.player_tier) ? String(object.player_tier) : '',
@@ -596,24 +596,24 @@ export const CardInfo = {
     message.cardSlug !== undefined && (obj.card_slug = message.cardSlug);
     message.domesticLeagueSlug !== undefined &&
       (obj.domestic_league_slug = message.domesticLeagueSlug);
-    message.lastFiveSo5Appearances !== undefined &&
-      (obj.last_five_so5_appearances = Math.round(
-        message.lastFiveSo5Appearances
+    message.lastFiveVicc5Appearances !== undefined &&
+      (obj.last_five_vicc5_appearances = Math.round(
+        message.lastFiveVicc5Appearances
       ));
-    message.lastFiveSo5AverageScore !== undefined &&
-      (obj.last_five_so5_average_score = message.lastFiveSo5AverageScore);
-    message.lastFifteenSo5Appearances !== undefined &&
-      (obj.last_fifteen_so5_appearances = Math.round(
-        message.lastFifteenSo5Appearances
+    message.lastFiveVicc5AverageScore !== undefined &&
+      (obj.last_five_vicc5_average_score = message.lastFiveVicc5AverageScore);
+    message.lastFifteenVicc5Appearances !== undefined &&
+      (obj.last_fifteen_vicc5_appearances = Math.round(
+        message.lastFifteenVicc5Appearances
       ));
-    message.lastFifteenSo5AverageScore !== undefined &&
-      (obj.last_fifteen_so5_average_score = message.lastFifteenSo5AverageScore);
-    message.lastFortySo5Appearances !== undefined &&
-      (obj.last_forty_so5_appearances = Math.round(
-        message.lastFortySo5Appearances
+    message.lastFifteenVicc5AverageScore !== undefined &&
+      (obj.last_fifteen_vicc5_average_score = message.lastFifteenVicc5AverageScore);
+    message.lastFortyVicc5Appearances !== undefined &&
+      (obj.last_forty_vicc5_appearances = Math.round(
+        message.lastFortyVicc5Appearances
       ));
-    message.lastFortySo5AverageScore !== undefined &&
-      (obj.last_forty_so5_average_score = message.lastFortySo5AverageScore);
+    message.lastFortyVicc5AverageScore !== undefined &&
+      (obj.last_forty_vicc5_average_score = message.lastFortyVicc5AverageScore);
     message.playerSlug !== undefined && (obj.player_slug = message.playerSlug);
     message.playerTier !== undefined && (obj.player_tier = message.playerTier);
     message.tierVersion !== undefined &&
@@ -719,12 +719,12 @@ function createBaseClickCard(): ClickCard {
   return {
     cardSlug: '',
     domesticLeagueSlug: '',
-    lastFiveSo5Appearances: 0,
-    lastFiveSo5AverageScore: 0,
-    lastFifteenSo5Appearances: 0,
-    lastFifteenSo5AverageScore: 0,
-    lastFortySo5Appearances: 0,
-    lastFortySo5AverageScore: 0,
+    lastFiveVicc5Appearances: 0,
+    lastFiveVicc5AverageScore: 0,
+    lastFifteenVicc5Appearances: 0,
+    lastFifteenVicc5AverageScore: 0,
+    lastFortyVicc5Appearances: 0,
+    lastFortyVicc5AverageScore: 0,
     playerSlug: '',
     playerTier: '',
     tierVersion: 0,
@@ -748,23 +748,23 @@ export const ClickCard = {
       domesticLeagueSlug: isSet(object.domestic_league_slug)
         ? String(object.domestic_league_slug)
         : '',
-      lastFiveSo5Appearances: isSet(object.last_five_so5_appearances)
-        ? Number(object.last_five_so5_appearances)
+      lastFiveVicc5Appearances: isSet(object.last_five_vicc5_appearances)
+        ? Number(object.last_five_vicc5_appearances)
         : 0,
-      lastFiveSo5AverageScore: isSet(object.last_five_so5_average_score)
-        ? Number(object.last_five_so5_average_score)
+      lastFiveVicc5AverageScore: isSet(object.last_five_vicc5_average_score)
+        ? Number(object.last_five_vicc5_average_score)
         : 0,
-      lastFifteenSo5Appearances: isSet(object.last_fifteen_so5_appearances)
-        ? Number(object.last_fifteen_so5_appearances)
+      lastFifteenVicc5Appearances: isSet(object.last_fifteen_vicc5_appearances)
+        ? Number(object.last_fifteen_vicc5_appearances)
         : 0,
-      lastFifteenSo5AverageScore: isSet(object.last_fifteen_so5_average_score)
-        ? Number(object.last_fifteen_so5_average_score)
+      lastFifteenVicc5AverageScore: isSet(object.last_fifteen_vicc5_average_score)
+        ? Number(object.last_fifteen_vicc5_average_score)
         : 0,
-      lastFortySo5Appearances: isSet(object.last_forty_so5_appearances)
-        ? Number(object.last_forty_so5_appearances)
+      lastFortyVicc5Appearances: isSet(object.last_forty_vicc5_appearances)
+        ? Number(object.last_forty_vicc5_appearances)
         : 0,
-      lastFortySo5AverageScore: isSet(object.last_forty_so5_average_score)
-        ? Number(object.last_forty_so5_average_score)
+      lastFortyVicc5AverageScore: isSet(object.last_forty_vicc5_average_score)
+        ? Number(object.last_forty_vicc5_average_score)
         : 0,
       playerSlug: isSet(object.player_slug) ? String(object.player_slug) : '',
       playerTier: isSet(object.player_tier) ? String(object.player_tier) : '',
@@ -793,24 +793,24 @@ export const ClickCard = {
     message.cardSlug !== undefined && (obj.card_slug = message.cardSlug);
     message.domesticLeagueSlug !== undefined &&
       (obj.domestic_league_slug = message.domesticLeagueSlug);
-    message.lastFiveSo5Appearances !== undefined &&
-      (obj.last_five_so5_appearances = Math.round(
-        message.lastFiveSo5Appearances
+    message.lastFiveVicc5Appearances !== undefined &&
+      (obj.last_five_vicc5_appearances = Math.round(
+        message.lastFiveVicc5Appearances
       ));
-    message.lastFiveSo5AverageScore !== undefined &&
-      (obj.last_five_so5_average_score = message.lastFiveSo5AverageScore);
-    message.lastFifteenSo5Appearances !== undefined &&
-      (obj.last_fifteen_so5_appearances = Math.round(
-        message.lastFifteenSo5Appearances
+    message.lastFiveVicc5AverageScore !== undefined &&
+      (obj.last_five_vicc5_average_score = message.lastFiveVicc5AverageScore);
+    message.lastFifteenVicc5Appearances !== undefined &&
+      (obj.last_fifteen_vicc5_appearances = Math.round(
+        message.lastFifteenVicc5Appearances
       ));
-    message.lastFifteenSo5AverageScore !== undefined &&
-      (obj.last_fifteen_so5_average_score = message.lastFifteenSo5AverageScore);
-    message.lastFortySo5Appearances !== undefined &&
-      (obj.last_forty_so5_appearances = Math.round(
-        message.lastFortySo5Appearances
+    message.lastFifteenVicc5AverageScore !== undefined &&
+      (obj.last_fifteen_vicc5_average_score = message.lastFifteenVicc5AverageScore);
+    message.lastFortyVicc5Appearances !== undefined &&
+      (obj.last_forty_vicc5_appearances = Math.round(
+        message.lastFortyVicc5Appearances
       ));
-    message.lastFortySo5AverageScore !== undefined &&
-      (obj.last_forty_so5_average_score = message.lastFortySo5AverageScore);
+    message.lastFortyVicc5AverageScore !== undefined &&
+      (obj.last_forty_vicc5_average_score = message.lastFortyVicc5AverageScore);
     message.playerSlug !== undefined && (obj.player_slug = message.playerSlug);
     message.playerTier !== undefined && (obj.player_tier = message.playerTier);
     message.tierVersion !== undefined &&
@@ -932,12 +932,12 @@ function createBaseClickBid(): ClickBid {
     auctionId: '',
     cardSlug: '',
     domesticLeagueSlug: '',
-    lastFiveSo5Appearances: 0,
-    lastFiveSo5AverageScore: 0,
-    lastFifteenSo5Appearances: 0,
-    lastFifteenSo5AverageScore: 0,
-    lastFortySo5Appearances: 0,
-    lastFortySo5AverageScore: 0,
+    lastFiveVicc5Appearances: 0,
+    lastFiveVicc5AverageScore: 0,
+    lastFifteenVicc5Appearances: 0,
+    lastFifteenVicc5AverageScore: 0,
+    lastFortyVicc5Appearances: 0,
+    lastFortyVicc5AverageScore: 0,
     playerSlug: '',
     playerTier: '',
     tierVersion: 0,
@@ -965,23 +965,23 @@ export const ClickBid = {
       domesticLeagueSlug: isSet(object.domestic_league_slug)
         ? String(object.domestic_league_slug)
         : '',
-      lastFiveSo5Appearances: isSet(object.last_five_so5_appearances)
-        ? Number(object.last_five_so5_appearances)
+      lastFiveVicc5Appearances: isSet(object.last_five_vicc5_appearances)
+        ? Number(object.last_five_vicc5_appearances)
         : 0,
-      lastFiveSo5AverageScore: isSet(object.last_five_so5_average_score)
-        ? Number(object.last_five_so5_average_score)
+      lastFiveVicc5AverageScore: isSet(object.last_five_vicc5_average_score)
+        ? Number(object.last_five_vicc5_average_score)
         : 0,
-      lastFifteenSo5Appearances: isSet(object.last_fifteen_so5_appearances)
-        ? Number(object.last_fifteen_so5_appearances)
+      lastFifteenVicc5Appearances: isSet(object.last_fifteen_vicc5_appearances)
+        ? Number(object.last_fifteen_vicc5_appearances)
         : 0,
-      lastFifteenSo5AverageScore: isSet(object.last_fifteen_so5_average_score)
-        ? Number(object.last_fifteen_so5_average_score)
+      lastFifteenVicc5AverageScore: isSet(object.last_fifteen_vicc5_average_score)
+        ? Number(object.last_fifteen_vicc5_average_score)
         : 0,
-      lastFortySo5Appearances: isSet(object.last_forty_so5_appearances)
-        ? Number(object.last_forty_so5_appearances)
+      lastFortyVicc5Appearances: isSet(object.last_forty_vicc5_appearances)
+        ? Number(object.last_forty_vicc5_appearances)
         : 0,
-      lastFortySo5AverageScore: isSet(object.last_forty_so5_average_score)
-        ? Number(object.last_forty_so5_average_score)
+      lastFortyVicc5AverageScore: isSet(object.last_forty_vicc5_average_score)
+        ? Number(object.last_forty_vicc5_average_score)
         : 0,
       playerSlug: isSet(object.player_slug) ? String(object.player_slug) : '',
       playerTier: isSet(object.player_tier) ? String(object.player_tier) : '',
@@ -1014,24 +1014,24 @@ export const ClickBid = {
     message.cardSlug !== undefined && (obj.card_slug = message.cardSlug);
     message.domesticLeagueSlug !== undefined &&
       (obj.domestic_league_slug = message.domesticLeagueSlug);
-    message.lastFiveSo5Appearances !== undefined &&
-      (obj.last_five_so5_appearances = Math.round(
-        message.lastFiveSo5Appearances
+    message.lastFiveVicc5Appearances !== undefined &&
+      (obj.last_five_vicc5_appearances = Math.round(
+        message.lastFiveVicc5Appearances
       ));
-    message.lastFiveSo5AverageScore !== undefined &&
-      (obj.last_five_so5_average_score = message.lastFiveSo5AverageScore);
-    message.lastFifteenSo5Appearances !== undefined &&
-      (obj.last_fifteen_so5_appearances = Math.round(
-        message.lastFifteenSo5Appearances
+    message.lastFiveVicc5AverageScore !== undefined &&
+      (obj.last_five_vicc5_average_score = message.lastFiveVicc5AverageScore);
+    message.lastFifteenVicc5Appearances !== undefined &&
+      (obj.last_fifteen_vicc5_appearances = Math.round(
+        message.lastFifteenVicc5Appearances
       ));
-    message.lastFifteenSo5AverageScore !== undefined &&
-      (obj.last_fifteen_so5_average_score = message.lastFifteenSo5AverageScore);
-    message.lastFortySo5Appearances !== undefined &&
-      (obj.last_forty_so5_appearances = Math.round(
-        message.lastFortySo5Appearances
+    message.lastFifteenVicc5AverageScore !== undefined &&
+      (obj.last_fifteen_vicc5_average_score = message.lastFifteenVicc5AverageScore);
+    message.lastFortyVicc5Appearances !== undefined &&
+      (obj.last_forty_vicc5_appearances = Math.round(
+        message.lastFortyVicc5Appearances
       ));
-    message.lastFortySo5AverageScore !== undefined &&
-      (obj.last_forty_so5_average_score = message.lastFortySo5AverageScore);
+    message.lastFortyVicc5AverageScore !== undefined &&
+      (obj.last_forty_vicc5_average_score = message.lastFortyVicc5AverageScore);
     message.playerSlug !== undefined && (obj.player_slug = message.playerSlug);
     message.playerTier !== undefined && (obj.player_tier = message.playerTier);
     message.tierVersion !== undefined &&
@@ -1165,12 +1165,12 @@ function createBaseClickBuy(): ClickBuy {
     offerId: '',
     cardSlug: '',
     domesticLeagueSlug: '',
-    lastFiveSo5Appearances: 0,
-    lastFiveSo5AverageScore: 0,
-    lastFifteenSo5Appearances: 0,
-    lastFifteenSo5AverageScore: 0,
-    lastFortySo5Appearances: 0,
-    lastFortySo5AverageScore: 0,
+    lastFiveVicc5Appearances: 0,
+    lastFiveVicc5AverageScore: 0,
+    lastFifteenVicc5Appearances: 0,
+    lastFifteenVicc5AverageScore: 0,
+    lastFortyVicc5Appearances: 0,
+    lastFortyVicc5AverageScore: 0,
     playerSlug: '',
     playerTier: '',
     tierVersion: 0,
@@ -1197,23 +1197,23 @@ export const ClickBuy = {
       domesticLeagueSlug: isSet(object.domestic_league_slug)
         ? String(object.domestic_league_slug)
         : '',
-      lastFiveSo5Appearances: isSet(object.last_five_so5_appearances)
-        ? Number(object.last_five_so5_appearances)
+      lastFiveVicc5Appearances: isSet(object.last_five_vicc5_appearances)
+        ? Number(object.last_five_vicc5_appearances)
         : 0,
-      lastFiveSo5AverageScore: isSet(object.last_five_so5_average_score)
-        ? Number(object.last_five_so5_average_score)
+      lastFiveVicc5AverageScore: isSet(object.last_five_vicc5_average_score)
+        ? Number(object.last_five_vicc5_average_score)
         : 0,
-      lastFifteenSo5Appearances: isSet(object.last_fifteen_so5_appearances)
-        ? Number(object.last_fifteen_so5_appearances)
+      lastFifteenVicc5Appearances: isSet(object.last_fifteen_vicc5_appearances)
+        ? Number(object.last_fifteen_vicc5_appearances)
         : 0,
-      lastFifteenSo5AverageScore: isSet(object.last_fifteen_so5_average_score)
-        ? Number(object.last_fifteen_so5_average_score)
+      lastFifteenVicc5AverageScore: isSet(object.last_fifteen_vicc5_average_score)
+        ? Number(object.last_fifteen_vicc5_average_score)
         : 0,
-      lastFortySo5Appearances: isSet(object.last_forty_so5_appearances)
-        ? Number(object.last_forty_so5_appearances)
+      lastFortyVicc5Appearances: isSet(object.last_forty_vicc5_appearances)
+        ? Number(object.last_forty_vicc5_appearances)
         : 0,
-      lastFortySo5AverageScore: isSet(object.last_forty_so5_average_score)
-        ? Number(object.last_forty_so5_average_score)
+      lastFortyVicc5AverageScore: isSet(object.last_forty_vicc5_average_score)
+        ? Number(object.last_forty_vicc5_average_score)
         : 0,
       playerSlug: isSet(object.player_slug) ? String(object.player_slug) : '',
       playerTier: isSet(object.player_tier) ? String(object.player_tier) : '',
@@ -1245,24 +1245,24 @@ export const ClickBuy = {
     message.cardSlug !== undefined && (obj.card_slug = message.cardSlug);
     message.domesticLeagueSlug !== undefined &&
       (obj.domestic_league_slug = message.domesticLeagueSlug);
-    message.lastFiveSo5Appearances !== undefined &&
-      (obj.last_five_so5_appearances = Math.round(
-        message.lastFiveSo5Appearances
+    message.lastFiveVicc5Appearances !== undefined &&
+      (obj.last_five_vicc5_appearances = Math.round(
+        message.lastFiveVicc5Appearances
       ));
-    message.lastFiveSo5AverageScore !== undefined &&
-      (obj.last_five_so5_average_score = message.lastFiveSo5AverageScore);
-    message.lastFifteenSo5Appearances !== undefined &&
-      (obj.last_fifteen_so5_appearances = Math.round(
-        message.lastFifteenSo5Appearances
+    message.lastFiveVicc5AverageScore !== undefined &&
+      (obj.last_five_vicc5_average_score = message.lastFiveVicc5AverageScore);
+    message.lastFifteenVicc5Appearances !== undefined &&
+      (obj.last_fifteen_vicc5_appearances = Math.round(
+        message.lastFifteenVicc5Appearances
       ));
-    message.lastFifteenSo5AverageScore !== undefined &&
-      (obj.last_fifteen_so5_average_score = message.lastFifteenSo5AverageScore);
-    message.lastFortySo5Appearances !== undefined &&
-      (obj.last_forty_so5_appearances = Math.round(
-        message.lastFortySo5Appearances
+    message.lastFifteenVicc5AverageScore !== undefined &&
+      (obj.last_fifteen_vicc5_average_score = message.lastFifteenVicc5AverageScore);
+    message.lastFortyVicc5Appearances !== undefined &&
+      (obj.last_forty_vicc5_appearances = Math.round(
+        message.lastFortyVicc5Appearances
       ));
-    message.lastFortySo5AverageScore !== undefined &&
-      (obj.last_forty_so5_average_score = message.lastFortySo5AverageScore);
+    message.lastFortyVicc5AverageScore !== undefined &&
+      (obj.last_forty_vicc5_average_score = message.lastFortyVicc5AverageScore);
     message.playerSlug !== undefined && (obj.player_slug = message.playerSlug);
     message.playerTier !== undefined && (obj.player_tier = message.playerTier);
     message.tierVersion !== undefined &&
@@ -1365,12 +1365,12 @@ function createBaseFavoriteCard(): FavoriteCard {
   return {
     cardSlug: '',
     domesticLeagueSlug: '',
-    lastFiveSo5Appearances: 0,
-    lastFiveSo5AverageScore: 0,
-    lastFifteenSo5Appearances: 0,
-    lastFifteenSo5AverageScore: 0,
-    lastFortySo5Appearances: 0,
-    lastFortySo5AverageScore: 0,
+    lastFiveVicc5Appearances: 0,
+    lastFiveVicc5AverageScore: 0,
+    lastFifteenVicc5Appearances: 0,
+    lastFifteenVicc5AverageScore: 0,
+    lastFortyVicc5Appearances: 0,
+    lastFortyVicc5AverageScore: 0,
     playerSlug: '',
     playerTier: '',
     tierVersion: 0,
@@ -1394,23 +1394,23 @@ export const FavoriteCard = {
       domesticLeagueSlug: isSet(object.domestic_league_slug)
         ? String(object.domestic_league_slug)
         : '',
-      lastFiveSo5Appearances: isSet(object.last_five_so5_appearances)
-        ? Number(object.last_five_so5_appearances)
+      lastFiveVicc5Appearances: isSet(object.last_five_vicc5_appearances)
+        ? Number(object.last_five_vicc5_appearances)
         : 0,
-      lastFiveSo5AverageScore: isSet(object.last_five_so5_average_score)
-        ? Number(object.last_five_so5_average_score)
+      lastFiveVicc5AverageScore: isSet(object.last_five_vicc5_average_score)
+        ? Number(object.last_five_vicc5_average_score)
         : 0,
-      lastFifteenSo5Appearances: isSet(object.last_fifteen_so5_appearances)
-        ? Number(object.last_fifteen_so5_appearances)
+      lastFifteenVicc5Appearances: isSet(object.last_fifteen_vicc5_appearances)
+        ? Number(object.last_fifteen_vicc5_appearances)
         : 0,
-      lastFifteenSo5AverageScore: isSet(object.last_fifteen_so5_average_score)
-        ? Number(object.last_fifteen_so5_average_score)
+      lastFifteenVicc5AverageScore: isSet(object.last_fifteen_vicc5_average_score)
+        ? Number(object.last_fifteen_vicc5_average_score)
         : 0,
-      lastFortySo5Appearances: isSet(object.last_forty_so5_appearances)
-        ? Number(object.last_forty_so5_appearances)
+      lastFortyVicc5Appearances: isSet(object.last_forty_vicc5_appearances)
+        ? Number(object.last_forty_vicc5_appearances)
         : 0,
-      lastFortySo5AverageScore: isSet(object.last_forty_so5_average_score)
-        ? Number(object.last_forty_so5_average_score)
+      lastFortyVicc5AverageScore: isSet(object.last_forty_vicc5_average_score)
+        ? Number(object.last_forty_vicc5_average_score)
         : 0,
       playerSlug: isSet(object.player_slug) ? String(object.player_slug) : '',
       playerTier: isSet(object.player_tier) ? String(object.player_tier) : '',
@@ -1441,24 +1441,24 @@ export const FavoriteCard = {
     message.cardSlug !== undefined && (obj.card_slug = message.cardSlug);
     message.domesticLeagueSlug !== undefined &&
       (obj.domestic_league_slug = message.domesticLeagueSlug);
-    message.lastFiveSo5Appearances !== undefined &&
-      (obj.last_five_so5_appearances = Math.round(
-        message.lastFiveSo5Appearances
+    message.lastFiveVicc5Appearances !== undefined &&
+      (obj.last_five_vicc5_appearances = Math.round(
+        message.lastFiveVicc5Appearances
       ));
-    message.lastFiveSo5AverageScore !== undefined &&
-      (obj.last_five_so5_average_score = message.lastFiveSo5AverageScore);
-    message.lastFifteenSo5Appearances !== undefined &&
-      (obj.last_fifteen_so5_appearances = Math.round(
-        message.lastFifteenSo5Appearances
+    message.lastFiveVicc5AverageScore !== undefined &&
+      (obj.last_five_vicc5_average_score = message.lastFiveVicc5AverageScore);
+    message.lastFifteenVicc5Appearances !== undefined &&
+      (obj.last_fifteen_vicc5_appearances = Math.round(
+        message.lastFifteenVicc5Appearances
       ));
-    message.lastFifteenSo5AverageScore !== undefined &&
-      (obj.last_fifteen_so5_average_score = message.lastFifteenSo5AverageScore);
-    message.lastFortySo5Appearances !== undefined &&
-      (obj.last_forty_so5_appearances = Math.round(
-        message.lastFortySo5Appearances
+    message.lastFifteenVicc5AverageScore !== undefined &&
+      (obj.last_fifteen_vicc5_average_score = message.lastFifteenVicc5AverageScore);
+    message.lastFortyVicc5Appearances !== undefined &&
+      (obj.last_forty_vicc5_appearances = Math.round(
+        message.lastFortyVicc5Appearances
       ));
-    message.lastFortySo5AverageScore !== undefined &&
-      (obj.last_forty_so5_average_score = message.lastFortySo5AverageScore);
+    message.lastFortyVicc5AverageScore !== undefined &&
+      (obj.last_forty_vicc5_average_score = message.lastFortyVicc5AverageScore);
     message.playerSlug !== undefined && (obj.player_slug = message.playerSlug);
     message.playerTier !== undefined && (obj.player_tier = message.playerTier);
     message.tierVersion !== undefined &&
@@ -1554,12 +1554,12 @@ function createBasePlaceBid(): PlaceBid {
     auctionId: '',
     cardSlug: '',
     domesticLeagueSlug: '',
-    lastFiveSo5Appearances: 0,
-    lastFiveSo5AverageScore: 0,
-    lastFifteenSo5Appearances: 0,
-    lastFifteenSo5AverageScore: 0,
-    lastFortySo5Appearances: 0,
-    lastFortySo5AverageScore: 0,
+    lastFiveVicc5Appearances: 0,
+    lastFiveVicc5AverageScore: 0,
+    lastFifteenVicc5Appearances: 0,
+    lastFifteenVicc5AverageScore: 0,
+    lastFortyVicc5Appearances: 0,
+    lastFortyVicc5AverageScore: 0,
     playerSlug: '',
     playerTier: '',
     tierVersion: 0,
@@ -1588,23 +1588,23 @@ export const PlaceBid = {
       domesticLeagueSlug: isSet(object.domestic_league_slug)
         ? String(object.domestic_league_slug)
         : '',
-      lastFiveSo5Appearances: isSet(object.last_five_so5_appearances)
-        ? Number(object.last_five_so5_appearances)
+      lastFiveVicc5Appearances: isSet(object.last_five_vicc5_appearances)
+        ? Number(object.last_five_vicc5_appearances)
         : 0,
-      lastFiveSo5AverageScore: isSet(object.last_five_so5_average_score)
-        ? Number(object.last_five_so5_average_score)
+      lastFiveVicc5AverageScore: isSet(object.last_five_vicc5_average_score)
+        ? Number(object.last_five_vicc5_average_score)
         : 0,
-      lastFifteenSo5Appearances: isSet(object.last_fifteen_so5_appearances)
-        ? Number(object.last_fifteen_so5_appearances)
+      lastFifteenVicc5Appearances: isSet(object.last_fifteen_vicc5_appearances)
+        ? Number(object.last_fifteen_vicc5_appearances)
         : 0,
-      lastFifteenSo5AverageScore: isSet(object.last_fifteen_so5_average_score)
-        ? Number(object.last_fifteen_so5_average_score)
+      lastFifteenVicc5AverageScore: isSet(object.last_fifteen_vicc5_average_score)
+        ? Number(object.last_fifteen_vicc5_average_score)
         : 0,
-      lastFortySo5Appearances: isSet(object.last_forty_so5_appearances)
-        ? Number(object.last_forty_so5_appearances)
+      lastFortyVicc5Appearances: isSet(object.last_forty_vicc5_appearances)
+        ? Number(object.last_forty_vicc5_appearances)
         : 0,
-      lastFortySo5AverageScore: isSet(object.last_forty_so5_average_score)
-        ? Number(object.last_forty_so5_average_score)
+      lastFortyVicc5AverageScore: isSet(object.last_forty_vicc5_average_score)
+        ? Number(object.last_forty_vicc5_average_score)
         : 0,
       playerSlug: isSet(object.player_slug) ? String(object.player_slug) : '',
       playerTier: isSet(object.player_tier) ? String(object.player_tier) : '',
@@ -1640,24 +1640,24 @@ export const PlaceBid = {
     message.cardSlug !== undefined && (obj.card_slug = message.cardSlug);
     message.domesticLeagueSlug !== undefined &&
       (obj.domestic_league_slug = message.domesticLeagueSlug);
-    message.lastFiveSo5Appearances !== undefined &&
-      (obj.last_five_so5_appearances = Math.round(
-        message.lastFiveSo5Appearances
+    message.lastFiveVicc5Appearances !== undefined &&
+      (obj.last_five_vicc5_appearances = Math.round(
+        message.lastFiveVicc5Appearances
       ));
-    message.lastFiveSo5AverageScore !== undefined &&
-      (obj.last_five_so5_average_score = message.lastFiveSo5AverageScore);
-    message.lastFifteenSo5Appearances !== undefined &&
-      (obj.last_fifteen_so5_appearances = Math.round(
-        message.lastFifteenSo5Appearances
+    message.lastFiveVicc5AverageScore !== undefined &&
+      (obj.last_five_vicc5_average_score = message.lastFiveVicc5AverageScore);
+    message.lastFifteenVicc5Appearances !== undefined &&
+      (obj.last_fifteen_vicc5_appearances = Math.round(
+        message.lastFifteenVicc5Appearances
       ));
-    message.lastFifteenSo5AverageScore !== undefined &&
-      (obj.last_fifteen_so5_average_score = message.lastFifteenSo5AverageScore);
-    message.lastFortySo5Appearances !== undefined &&
-      (obj.last_forty_so5_appearances = Math.round(
-        message.lastFortySo5Appearances
+    message.lastFifteenVicc5AverageScore !== undefined &&
+      (obj.last_fifteen_vicc5_average_score = message.lastFifteenVicc5AverageScore);
+    message.lastFortyVicc5Appearances !== undefined &&
+      (obj.last_forty_vicc5_appearances = Math.round(
+        message.lastFortyVicc5Appearances
       ));
-    message.lastFortySo5AverageScore !== undefined &&
-      (obj.last_forty_so5_average_score = message.lastFortySo5AverageScore);
+    message.lastFortyVicc5AverageScore !== undefined &&
+      (obj.last_forty_vicc5_average_score = message.lastFortyVicc5AverageScore);
     message.playerSlug !== undefined && (obj.player_slug = message.playerSlug);
     message.playerTier !== undefined && (obj.player_tier = message.playerTier);
     message.tierVersion !== undefined &&
@@ -2231,12 +2231,12 @@ function createBaseListCard(): ListCard {
   return {
     cardSlug: '',
     domesticLeagueSlug: '',
-    lastFiveSo5Appearances: 0,
-    lastFiveSo5AverageScore: 0,
-    lastFifteenSo5Appearances: 0,
-    lastFifteenSo5AverageScore: 0,
-    lastFortySo5Appearances: 0,
-    lastFortySo5AverageScore: 0,
+    lastFiveVicc5Appearances: 0,
+    lastFiveVicc5AverageScore: 0,
+    lastFifteenVicc5Appearances: 0,
+    lastFifteenVicc5AverageScore: 0,
+    lastFortyVicc5Appearances: 0,
+    lastFortyVicc5AverageScore: 0,
     playerSlug: '',
     playerTier: '',
     tierVersion: 0,
@@ -2262,23 +2262,23 @@ export const ListCard = {
       domesticLeagueSlug: isSet(object.domestic_league_slug)
         ? String(object.domestic_league_slug)
         : '',
-      lastFiveSo5Appearances: isSet(object.last_five_so5_appearances)
-        ? Number(object.last_five_so5_appearances)
+      lastFiveVicc5Appearances: isSet(object.last_five_vicc5_appearances)
+        ? Number(object.last_five_vicc5_appearances)
         : 0,
-      lastFiveSo5AverageScore: isSet(object.last_five_so5_average_score)
-        ? Number(object.last_five_so5_average_score)
+      lastFiveVicc5AverageScore: isSet(object.last_five_vicc5_average_score)
+        ? Number(object.last_five_vicc5_average_score)
         : 0,
-      lastFifteenSo5Appearances: isSet(object.last_fifteen_so5_appearances)
-        ? Number(object.last_fifteen_so5_appearances)
+      lastFifteenVicc5Appearances: isSet(object.last_fifteen_vicc5_appearances)
+        ? Number(object.last_fifteen_vicc5_appearances)
         : 0,
-      lastFifteenSo5AverageScore: isSet(object.last_fifteen_so5_average_score)
-        ? Number(object.last_fifteen_so5_average_score)
+      lastFifteenVicc5AverageScore: isSet(object.last_fifteen_vicc5_average_score)
+        ? Number(object.last_fifteen_vicc5_average_score)
         : 0,
-      lastFortySo5Appearances: isSet(object.last_forty_so5_appearances)
-        ? Number(object.last_forty_so5_appearances)
+      lastFortyVicc5Appearances: isSet(object.last_forty_vicc5_appearances)
+        ? Number(object.last_forty_vicc5_appearances)
         : 0,
-      lastFortySo5AverageScore: isSet(object.last_forty_so5_average_score)
-        ? Number(object.last_forty_so5_average_score)
+      lastFortyVicc5AverageScore: isSet(object.last_forty_vicc5_average_score)
+        ? Number(object.last_forty_vicc5_average_score)
         : 0,
       playerSlug: isSet(object.player_slug) ? String(object.player_slug) : '',
       playerTier: isSet(object.player_tier) ? String(object.player_tier) : '',
@@ -2309,24 +2309,24 @@ export const ListCard = {
     message.cardSlug !== undefined && (obj.card_slug = message.cardSlug);
     message.domesticLeagueSlug !== undefined &&
       (obj.domestic_league_slug = message.domesticLeagueSlug);
-    message.lastFiveSo5Appearances !== undefined &&
-      (obj.last_five_so5_appearances = Math.round(
-        message.lastFiveSo5Appearances
+    message.lastFiveVicc5Appearances !== undefined &&
+      (obj.last_five_vicc5_appearances = Math.round(
+        message.lastFiveVicc5Appearances
       ));
-    message.lastFiveSo5AverageScore !== undefined &&
-      (obj.last_five_so5_average_score = message.lastFiveSo5AverageScore);
-    message.lastFifteenSo5Appearances !== undefined &&
-      (obj.last_fifteen_so5_appearances = Math.round(
-        message.lastFifteenSo5Appearances
+    message.lastFiveVicc5AverageScore !== undefined &&
+      (obj.last_five_vicc5_average_score = message.lastFiveVicc5AverageScore);
+    message.lastFifteenVicc5Appearances !== undefined &&
+      (obj.last_fifteen_vicc5_appearances = Math.round(
+        message.lastFifteenVicc5Appearances
       ));
-    message.lastFifteenSo5AverageScore !== undefined &&
-      (obj.last_fifteen_so5_average_score = message.lastFifteenSo5AverageScore);
-    message.lastFortySo5Appearances !== undefined &&
-      (obj.last_forty_so5_appearances = Math.round(
-        message.lastFortySo5Appearances
+    message.lastFifteenVicc5AverageScore !== undefined &&
+      (obj.last_fifteen_vicc5_average_score = message.lastFifteenVicc5AverageScore);
+    message.lastFortyVicc5Appearances !== undefined &&
+      (obj.last_forty_vicc5_appearances = Math.round(
+        message.lastFortyVicc5Appearances
       ));
-    message.lastFortySo5AverageScore !== undefined &&
-      (obj.last_forty_so5_average_score = message.lastFortySo5AverageScore);
+    message.lastFortyVicc5AverageScore !== undefined &&
+      (obj.last_forty_vicc5_average_score = message.lastFortyVicc5AverageScore);
     message.playerSlug !== undefined && (obj.player_slug = message.playerSlug);
     message.playerTier !== undefined && (obj.player_tier = message.playerTier);
     message.tierVersion !== undefined &&
@@ -2358,12 +2358,12 @@ function createBaseUnlistCard(): UnlistCard {
   return {
     cardSlug: '',
     domesticLeagueSlug: '',
-    lastFiveSo5Appearances: 0,
-    lastFiveSo5AverageScore: 0,
-    lastFifteenSo5Appearances: 0,
-    lastFifteenSo5AverageScore: 0,
-    lastFortySo5Appearances: 0,
-    lastFortySo5AverageScore: 0,
+    lastFiveVicc5Appearances: 0,
+    lastFiveVicc5AverageScore: 0,
+    lastFifteenVicc5Appearances: 0,
+    lastFifteenVicc5AverageScore: 0,
+    lastFortyVicc5Appearances: 0,
+    lastFortyVicc5AverageScore: 0,
     playerSlug: '',
     playerTier: '',
     tierVersion: 0,
@@ -2389,23 +2389,23 @@ export const UnlistCard = {
       domesticLeagueSlug: isSet(object.domestic_league_slug)
         ? String(object.domestic_league_slug)
         : '',
-      lastFiveSo5Appearances: isSet(object.last_five_so5_appearances)
-        ? Number(object.last_five_so5_appearances)
+      lastFiveVicc5Appearances: isSet(object.last_five_vicc5_appearances)
+        ? Number(object.last_five_vicc5_appearances)
         : 0,
-      lastFiveSo5AverageScore: isSet(object.last_five_so5_average_score)
-        ? Number(object.last_five_so5_average_score)
+      lastFiveVicc5AverageScore: isSet(object.last_five_vicc5_average_score)
+        ? Number(object.last_five_vicc5_average_score)
         : 0,
-      lastFifteenSo5Appearances: isSet(object.last_fifteen_so5_appearances)
-        ? Number(object.last_fifteen_so5_appearances)
+      lastFifteenVicc5Appearances: isSet(object.last_fifteen_vicc5_appearances)
+        ? Number(object.last_fifteen_vicc5_appearances)
         : 0,
-      lastFifteenSo5AverageScore: isSet(object.last_fifteen_so5_average_score)
-        ? Number(object.last_fifteen_so5_average_score)
+      lastFifteenVicc5AverageScore: isSet(object.last_fifteen_vicc5_average_score)
+        ? Number(object.last_fifteen_vicc5_average_score)
         : 0,
-      lastFortySo5Appearances: isSet(object.last_forty_so5_appearances)
-        ? Number(object.last_forty_so5_appearances)
+      lastFortyVicc5Appearances: isSet(object.last_forty_vicc5_appearances)
+        ? Number(object.last_forty_vicc5_appearances)
         : 0,
-      lastFortySo5AverageScore: isSet(object.last_forty_so5_average_score)
-        ? Number(object.last_forty_so5_average_score)
+      lastFortyVicc5AverageScore: isSet(object.last_forty_vicc5_average_score)
+        ? Number(object.last_forty_vicc5_average_score)
         : 0,
       playerSlug: isSet(object.player_slug) ? String(object.player_slug) : '',
       playerTier: isSet(object.player_tier) ? String(object.player_tier) : '',
@@ -2440,24 +2440,24 @@ export const UnlistCard = {
     message.cardSlug !== undefined && (obj.card_slug = message.cardSlug);
     message.domesticLeagueSlug !== undefined &&
       (obj.domestic_league_slug = message.domesticLeagueSlug);
-    message.lastFiveSo5Appearances !== undefined &&
-      (obj.last_five_so5_appearances = Math.round(
-        message.lastFiveSo5Appearances
+    message.lastFiveVicc5Appearances !== undefined &&
+      (obj.last_five_vicc5_appearances = Math.round(
+        message.lastFiveVicc5Appearances
       ));
-    message.lastFiveSo5AverageScore !== undefined &&
-      (obj.last_five_so5_average_score = message.lastFiveSo5AverageScore);
-    message.lastFifteenSo5Appearances !== undefined &&
-      (obj.last_fifteen_so5_appearances = Math.round(
-        message.lastFifteenSo5Appearances
+    message.lastFiveVicc5AverageScore !== undefined &&
+      (obj.last_five_vicc5_average_score = message.lastFiveVicc5AverageScore);
+    message.lastFifteenVicc5Appearances !== undefined &&
+      (obj.last_fifteen_vicc5_appearances = Math.round(
+        message.lastFifteenVicc5Appearances
       ));
-    message.lastFifteenSo5AverageScore !== undefined &&
-      (obj.last_fifteen_so5_average_score = message.lastFifteenSo5AverageScore);
-    message.lastFortySo5Appearances !== undefined &&
-      (obj.last_forty_so5_appearances = Math.round(
-        message.lastFortySo5Appearances
+    message.lastFifteenVicc5AverageScore !== undefined &&
+      (obj.last_fifteen_vicc5_average_score = message.lastFifteenVicc5AverageScore);
+    message.lastFortyVicc5Appearances !== undefined &&
+      (obj.last_forty_vicc5_appearances = Math.round(
+        message.lastFortyVicc5Appearances
       ));
-    message.lastFortySo5AverageScore !== undefined &&
-      (obj.last_forty_so5_average_score = message.lastFortySo5AverageScore);
+    message.lastFortyVicc5AverageScore !== undefined &&
+      (obj.last_forty_vicc5_average_score = message.lastFortyVicc5AverageScore);
     message.playerSlug !== undefined && (obj.player_slug = message.playerSlug);
     message.playerTier !== undefined && (obj.player_tier = message.playerTier);
     message.tierVersion !== undefined &&

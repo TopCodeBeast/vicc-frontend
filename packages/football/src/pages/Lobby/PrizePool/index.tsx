@@ -6,7 +6,7 @@ import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { So5LeaderboardRarity } from '@sorare/core/src/__generated__/globalTypes';
+import { Vicc5LeaderboardRarity } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import Body from '@sorare/core/src/atoms/layout/Body';
 import Container from '@sorare/core/src/atoms/layout/Container';
@@ -86,10 +86,10 @@ const Leaderboards = styled.div`
 export const LOBBY_PRIZE_POOL_QUERY = gql`
   query LobbyPrizePoolQuery(
     $cursor: String
-    $rarities: [So5LeaderboardRarity!]
+    $rarities: [Vicc5LeaderboardRarity!]
   ) {
     football {
-      so5 {
+      vicc5 {
         futureLeaderboardsPaginated(
           after: $cursor
           first: 50
@@ -98,11 +98,11 @@ export const LOBBY_PRIZE_POOL_QUERY = gql`
           nodes {
             slug
             startDate
-            so5Fixture {
+            vicc5Fixture {
               slug
               shortDisplayName
             }
-            ...LeaderboardRow_so5Leaderboard
+            ...LeaderboardRow_vicc5Leaderboard
           }
           pageInfo {
             endCursor
@@ -112,42 +112,42 @@ export const LOBBY_PRIZE_POOL_QUERY = gql`
       }
     }
   }
-  ${LeaderboardRow.fragments.so5Leaderboard}
+  ${LeaderboardRow.fragments.vicc5Leaderboard}
 ` as TypedDocumentNode<LobbyPrizePoolQuery, LobbyPrizePoolQueryVariables>;
 
 export const PrizePool = () => {
-  const [rarities, setRarities] = useState<So5LeaderboardRarity[]>([]);
+  const [rarities, setRarities] = useState<Vicc5LeaderboardRarity[]>([]);
   const { data, loading, loadMore } = usePaginatedQuery(
     LOBBY_PRIZE_POOL_QUERY,
     {
       variables: { rarities },
       nextFetchPolicy: 'cache-first',
       fetchPolicy: 'cache-and-network',
-      connection: 'So5LeaderboardConnection',
+      connection: 'Vicc5LeaderboardConnection',
     }
   );
 
-  const so5Leaderboards = data?.football.so5.futureLeaderboardsPaginated.nodes;
-  const groupedSo5Leaderboards = useMemo(
+  const vicc5Leaderboards = data?.football.vicc5.futureLeaderboardsPaginated.nodes;
+  const groupedVicc5Leaderboards = useMemo(
     () =>
       sortBy(
         element => element[0],
         Object.entries(
-          groupBy(({ startDate }) => startDate, so5Leaderboards || [])
+          groupBy(({ startDate }) => startDate, vicc5Leaderboards || [])
         )
       ),
-    [so5Leaderboards]
+    [vicc5Leaderboards]
   );
 
   const { InfiniteScrollLoader } = useInfiniteScroll(
     useCallback(() => {
       loadMore(false, {
         cursor:
-          data?.football.so5.futureLeaderboardsPaginated?.pageInfo.endCursor,
+          data?.football.vicc5.futureLeaderboardsPaginated?.pageInfo.endCursor,
       });
-    }, [data?.football.so5.futureLeaderboardsPaginated, loadMore]),
+    }, [data?.football.vicc5.futureLeaderboardsPaginated, loadMore]),
     Boolean(
-      data?.football.so5.futureLeaderboardsPaginated?.pageInfo?.hasNextPage
+      data?.football.vicc5.futureLeaderboardsPaginated?.pageInfo?.hasNextPage
     ),
     loading
   );
@@ -188,7 +188,7 @@ export const PrizePool = () => {
         ) : (
           <>
             <PrizePoolContainer>
-              {groupedSo5Leaderboards.map(([startDate, leaderboards]) => (
+              {groupedVicc5Leaderboards.map(([startDate, leaderboards]) => (
                 <Fragment key={startDate}>
                   <FlexContainer>
                     <Text20 bold color="var(--c-neutral-600)">
@@ -198,9 +198,9 @@ export const PrizePool = () => {
                         day="numeric"
                       />
                     </Text20>
-                    {leaderboards[0]?.so5Fixture && (
+                    {leaderboards[0]?.vicc5Fixture && (
                       <Text16 bold color="var(--c-neutral-500)">
-                        {leaderboards[0].so5Fixture.shortDisplayName}
+                        {leaderboards[0].vicc5Fixture.shortDisplayName}
                       </Text16>
                     )}
                   </FlexContainer>
@@ -208,7 +208,7 @@ export const PrizePool = () => {
                     {leaderboards.map(leaderboard => (
                       <LeaderboardRow
                         key={leaderboard.slug}
-                        so5Leaderboard={leaderboard}
+                        vicc5Leaderboard={leaderboard}
                       />
                     ))}
                   </Leaderboards>

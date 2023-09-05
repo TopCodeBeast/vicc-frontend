@@ -107,12 +107,12 @@ export const GET_MY_PRIVATE_USER_GROUPS_QUERY = gql`
     $after: String
   ) {
     football {
-      so5 {
-        mySo5UserGroups(first: 8) @include(if: $enableLongFormatCompetition) {
+      vicc5 {
+        myVicc5UserGroups(first: 8) @include(if: $enableLongFormatCompetition) {
           nodes {
             slug
             id
-            ...PrivateUserGroup_so5UserGroup
+            ...PrivateUserGroup_vicc5UserGroup
           }
           pageInfo {
             endCursor
@@ -120,12 +120,12 @@ export const GET_MY_PRIVATE_USER_GROUPS_QUERY = gql`
           }
           totalCount
         }
-        universalSo5UserGroups(first: 8)
+        universalVicc5UserGroups(first: 8)
           @include(if: $enableLongFormatCompetition) {
           nodes {
             slug
             id
-            ...PublicUserGroup_so5UserGroup
+            ...PublicUserGroup_vicc5UserGroup
           }
           pageInfo {
             endCursor
@@ -133,12 +133,12 @@ export const GET_MY_PRIVATE_USER_GROUPS_QUERY = gql`
           }
           totalCount
         }
-        paginatedMySo5UserGroups: mySo5UserGroups(after: $after, first: 8)
+        paginatedMyVicc5UserGroups: myVicc5UserGroups(after: $after, first: 8)
           @skip(if: $enableLongFormatCompetition) {
           nodes {
             slug
             id
-            ...PrivateUserGroup_so5UserGroup
+            ...PrivateUserGroup_vicc5UserGroup
           }
           pageInfo {
             endCursor
@@ -149,8 +149,8 @@ export const GET_MY_PRIVATE_USER_GROUPS_QUERY = gql`
       }
     }
   }
-  ${PrivateUserGroup.fragments.so5UserGroup}
-  ${PublicUserGroup.fragments.so5UserGroup}
+  ${PrivateUserGroup.fragments.vicc5UserGroup}
+  ${PublicUserGroup.fragments.vicc5UserGroup}
 ` as TypedDocumentNode<
   GetMyPrivateUserGroupsQuery,
   GetMyPrivateUserGroupsQueryVariables
@@ -170,7 +170,7 @@ const UserGroupsList = ({ showDialog }: Props) => {
     GetMyPrivateUserGroupsQuery,
     GetMyPrivateUserGroupsQueryVariables
   >(GET_MY_PRIVATE_USER_GROUPS_QUERY, {
-    connection: 'So5UserGroupConnection',
+    connection: 'Vicc5UserGroupConnection',
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network',
     nextFetchPolicy: 'cache-first',
@@ -180,12 +180,12 @@ const UserGroupsList = ({ showDialog }: Props) => {
   });
 
   const after =
-    data?.football.so5.paginatedMySo5UserGroups?.pageInfo?.endCursor;
+    data?.football.vicc5.paginatedMyVicc5UserGroups?.pageInfo?.endCursor;
   const { InfiniteScrollLoader } = useInfiniteScroll(
     useCallback(() => {
       loadMore(false, { after, enableLongFormatCompetition });
     }, [loadMore, after, enableLongFormatCompetition]),
-    Boolean(data?.football.so5.paginatedMySo5UserGroups?.pageInfo?.hasNextPage),
+    Boolean(data?.football.vicc5.paginatedMyVicc5UserGroups?.pageInfo?.hasNextPage),
     loading
   );
 
@@ -198,17 +198,17 @@ const UserGroupsList = ({ showDialog }: Props) => {
     });
   };
 
-  const privateUserGroups = data?.football.so5.mySo5UserGroups?.nodes || [];
+  const privateUserGroups = data?.football.vicc5.myVicc5UserGroups?.nodes || [];
   const publicUserGroups =
-    data?.football.so5.universalSo5UserGroups?.nodes || [];
+    data?.football.vicc5.universalVicc5UserGroups?.nodes || [];
   const paginatedPrivateUserGroups =
-    data?.football.so5.paginatedMySo5UserGroups?.nodes || [];
+    data?.football.vicc5.paginatedMyVicc5UserGroups?.nodes || [];
   const privateUserGroupsTotal =
-    data?.football.so5.mySo5UserGroups?.totalCount || 0;
+    data?.football.vicc5.myVicc5UserGroups?.totalCount || 0;
   const paginatedPrivateUserGroupsTotal =
-    data?.football.so5.paginatedMySo5UserGroups?.totalCount || 0;
+    data?.football.vicc5.paginatedMyVicc5UserGroups?.totalCount || 0;
   const publicUserGroupsTotal =
-    data?.football.so5.universalSo5UserGroups?.totalCount || 0;
+    data?.football.vicc5.universalVicc5UserGroups?.totalCount || 0;
 
   return (
     <Root>
@@ -339,10 +339,10 @@ const UserGroupsList = ({ showDialog }: Props) => {
                 <Groups>
                   {[...publicUserGroups]
                     .sort((a, b) => (b.myMembership ? 1 : -1))
-                    .map(so5UserGroup => (
+                    .map(vicc5UserGroup => (
                       <PublicUserGroup
-                        key={so5UserGroup.slug}
-                        so5UserGroup={so5UserGroup}
+                        key={vicc5UserGroup.slug}
+                        vicc5UserGroup={vicc5UserGroup}
                       />
                     ))}
                 </Groups>

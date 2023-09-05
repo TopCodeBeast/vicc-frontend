@@ -82,7 +82,7 @@ const BannerHalfContent = ({ sport }: { sport: Sport }) => {
         <StarBall color="currentColor" />
         <SorareLogo variant="currentColor" />
       </LogoContainer>
-      {sport === Sport.FOOTBALL && <YourLegacyStartsNow />}
+      {sport === Sport.CRICKET && <YourLegacyStartsNow />}
       {sport === Sport.BASEBALL && <TheNextEraIsYours />}
       {sport === Sport.NBA && <WhereDynastyNeverDies />}
     </BannerContentItem>

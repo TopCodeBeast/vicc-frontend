@@ -9,15 +9,15 @@ import PlayerGameScoreDialog from '@football/components/stats/PlayerGameScoreDia
 
 import {
   ViewAllDetailedScore_player,
-  ViewAllDetailedScore_so5Score,
+  ViewAllDetailedScore_vicc5Score,
 } from './__generated__/index.graphql';
 
 type Props = {
-  so5Score: ViewAllDetailedScore_so5Score;
+  vicc5Score: ViewAllDetailedScore_vicc5Score;
   player?: ViewAllDetailedScore_player;
 };
 
-export const ViewAllDetailedScore = ({ so5Score, player }: Props) => {
+export const ViewAllDetailedScore = ({ vicc5Score, player }: Props) => {
   const [open, toggleOpen] = useToggle(false);
 
   return (
@@ -31,7 +31,7 @@ export const ViewAllDetailedScore = ({ so5Score, player }: Props) => {
         </Text16>
       </ButtonBase>
       <PlayerGameScoreDialog
-        so5ScoreId={so5Score.id}
+        vicc5ScoreId={vicc5Score.id}
         player={player}
         onClose={toggleOpen}
         open={open}
@@ -41,11 +41,11 @@ export const ViewAllDetailedScore = ({ so5Score, player }: Props) => {
 };
 
 ViewAllDetailedScore.fragments = {
-  so5Score: gql`
-    fragment ViewAllDetailedScore_so5Score on So5Score {
+  vicc5Score: gql`
+    fragment ViewAllDetailedScore_vicc5Score on Vicc5Score {
       id
     }
-  ` as TypedDocumentNode<ViewAllDetailedScore_so5Score>,
+  ` as TypedDocumentNode<ViewAllDetailedScore_vicc5Score>,
   player: gql`
     fragment ViewAllDetailedScore_player on Player {
       slug

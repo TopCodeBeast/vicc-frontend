@@ -70,7 +70,7 @@ const NewSaleDialog = ({ token, onClose, open, initialAmount }: Props) => {
       title={messages.title}
       description={
         // Football cards follow list or play rule and have dedicated warnings
-        token.sport !== Sport.FOOTBALL && (
+        token.sport !== Sport.CRICKET && (
           <Caption color="var(--c-neutral-600)">
             <FormattedMessage {...messages.description} />
           </Caption>

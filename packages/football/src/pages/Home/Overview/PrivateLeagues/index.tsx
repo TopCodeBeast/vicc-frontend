@@ -23,7 +23,7 @@ import { homeLabels } from '@football/lib/home';
 import { sortLeaderboardsByTournamentType } from '@football/lib/so5';
 
 import { PrivateLeagueBlock } from './PrivateLeagueBlock';
-import { PrivateLeagues_so5 } from './__generated__/index.graphql';
+import { PrivateLeagues_vicc5 } from './__generated__/index.graphql';
 
 const EmptyWrapper = styled(LinkBox)`
   background: var(--c-neutral-200);
@@ -47,26 +47,26 @@ const IconButtonWrapper = styled(LinkOverlay)`
 `;
 
 type Props = {
-  so5?: PrivateLeagues_so5;
+  vicc5?: PrivateLeagues_vicc5;
   loading: boolean;
 };
 
-export const PrivateLeagues = ({ so5, loading }: Props) => {
-  const userGroups = so5?.mySo5UserGroups.nodes;
-  const { totalCount } = so5?.mySo5UserGroups || {};
+export const PrivateLeagues = ({ vicc5, loading }: Props) => {
+  const userGroups = vicc5?.myVicc5UserGroups.nodes;
+  const { totalCount } = vicc5?.myVicc5UserGroups || {};
 
   const groupedByTournamentsGroups = useMemo(
     () =>
       userGroups
         ? Object.values(
             groupBy(
-              node => node.so5TournamentType.so5LeaderboardType,
+              node => node.vicc5TournamentType.vicc5LeaderboardType,
               userGroups
             )
           ).sort((a, b) => {
             return sortLeaderboardsByTournamentType(
-              a[0].so5TournamentType.so5LeaderboardType,
-              b[0].so5TournamentType.so5LeaderboardType
+              a[0].vicc5TournamentType.vicc5LeaderboardType,
+              b[0].vicc5TournamentType.vicc5LeaderboardType
             );
           })
         : [],
@@ -148,14 +148,14 @@ export const PrivateLeagues = ({ so5, loading }: Props) => {
 };
 
 PrivateLeagues.fragments = {
-  so5: gql`
-    fragment PrivateLeagues_so5 on So5Root {
-      mySo5UserGroups(first: 20, statuses: [STARTED, TO_START]) {
+  vicc5: gql`
+    fragment PrivateLeagues_vicc5 on Vicc5Root {
+      myVicc5UserGroups(first: 20, statuses: [STARTED, TO_START]) {
         nodes {
           slug
-          so5TournamentType {
+          vicc5TournamentType {
             id
-            so5LeaderboardType
+            vicc5LeaderboardType
           }
           ...PrivateLeagueBlock_userGroup
         }
@@ -163,5 +163,5 @@ PrivateLeagues.fragments = {
       }
     }
     ${PrivateLeagueBlock.fragments.userGroup}
-  ` as TypedDocumentNode<PrivateLeagues_so5>,
+  ` as TypedDocumentNode<PrivateLeagues_vicc5>,
 };

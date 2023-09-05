@@ -38,7 +38,7 @@ const getCompetitionsRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetInternationalCompetitionsRule on So5Leaderboard {
+      fragment GetInternationalCompetitionsRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

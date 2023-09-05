@@ -135,7 +135,7 @@ export const OwnYourGame = () => {
   const defaultSportPages = useDefaultSportPages();
 
   const cta = currentUser
-    ? { to: defaultSportPages[Sport.FOOTBALL] }
+    ? { to: defaultSportPages[Sport.CRICKET] }
     : { onClick: signIn };
 
   const animatedCards = useMemo(() => {

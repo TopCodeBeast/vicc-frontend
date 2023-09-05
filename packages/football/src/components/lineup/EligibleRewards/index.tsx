@@ -104,7 +104,7 @@ export const EligibleRewards = ({ rewards }: Props) => {
 
 EligibleRewards.fragments = {
   rewardConfig: gql`
-    fragment EligibleRewards_rewardConfig on So5RewardConfig {
+    fragment EligibleRewards_rewardConfig on Vicc5RewardConfig {
       cards {
         quality
         rarity

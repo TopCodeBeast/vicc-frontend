@@ -5,23 +5,23 @@ import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNoti
 import { formatGqlErrors } from '@sorare/core/src/gql';
 
 import {
-  DeleteUserSo5LineupsMutation,
-  DeleteUserSo5LineupsMutationVariables,
+  DeleteUserVicc5LineupsMutation,
+  DeleteUserVicc5LineupsMutationVariables,
 } from './__generated__/useDeleteLineups.graphql';
 
 const DELETE_USER_SO5_LINEUPS_MUTATION = gql`
-  mutation DeleteUserSo5LineupsMutation($input: deleteUserSo5LineupsInput!) {
-    deleteUserSo5Lineups(input: $input) {
+  mutation DeleteUserVicc5LineupsMutation($input: deleteUserVicc5LineupsInput!) {
+    deleteUserVicc5Lineups(input: $input) {
       currentUser {
         slug
         blockchainCardsInLineups
       }
-      so5Fixture {
+      vicc5Fixture {
         slug
-        so5Leaderboards {
+        vicc5Leaderboards {
           slug
-          so5LineupsCount
-          mySo5Lineups {
+          vicc5LineupsCount
+          myVicc5Lineups {
             id
             name
           }
@@ -35,20 +35,20 @@ const DELETE_USER_SO5_LINEUPS_MUTATION = gql`
     }
   }
 ` as TypedDocumentNode<
-  DeleteUserSo5LineupsMutation,
-  DeleteUserSo5LineupsMutationVariables
+  DeleteUserVicc5LineupsMutation,
+  DeleteUserVicc5LineupsMutationVariables
 >;
 
 export default () => {
-  const [deleteSo5Lineups] = useMutation(DELETE_USER_SO5_LINEUPS_MUTATION);
+  const [deleteVicc5Lineups] = useMutation(DELETE_USER_SO5_LINEUPS_MUTATION);
   const { showNotification } = useSnackNotificationContext();
 
   return useCallback(
-    async (so5LeagueIds: string[], lineupIds?: string[]) => {
-      const result = await deleteSo5Lineups({
+    async (vicc5LeagueIds: string[], lineupIds?: string[]) => {
+      const result = await deleteVicc5Lineups({
         variables: {
           input: {
-            so5LeagueIds,
+            vicc5LeagueIds,
           },
         },
         update: cache => {
@@ -56,7 +56,7 @@ export default () => {
             lineupIds.forEach(lineupId => {
               cache.evict({
                 id: cache.identify({
-                  __typename: 'So5Lineup',
+                  __typename: 'Vicc5Lineup',
                   id: lineupId,
                 }),
               });
@@ -66,15 +66,15 @@ export default () => {
         },
       });
 
-      const errors = result.data?.deleteUserSo5Lineups?.errors || [];
+      const errors = result.data?.deleteUserVicc5Lineups?.errors || [];
 
       if (errors.length) {
         showNotification('errors', { errors: formatGqlErrors(errors) });
         return errors;
       }
-      showNotification('so5LineupsDelete');
+      showNotification('vicc5LineupsDelete');
       return null;
     },
-    [deleteSo5Lineups, showNotification]
+    [deleteVicc5Lineups, showNotification]
   );
 };

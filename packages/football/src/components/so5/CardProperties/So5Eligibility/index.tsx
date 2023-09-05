@@ -10,11 +10,11 @@ import TooltipContent from '@football/components/so5/CardProperties/TooltipConte
 
 const titleMessages = defineMessages({
   partial: {
-    id: 'So5Eligibility.partial',
+    id: 'Vicc5Eligibility.partial',
     defaultMessage: 'SO5 Partially eligible',
   },
   ineligible: {
-    id: 'So5Eligibility.ineligible',
+    id: 'Vicc5Eligibility.ineligible',
     defaultMessage: 'SO5 Ineligible',
   },
 });
@@ -46,7 +46,7 @@ type Props = {
   description: MessageDescriptor;
 };
 
-export const So5Eligibility = ({ description, partial }: Props) => {
+export const Vicc5Eligibility = ({ description, partial }: Props) => {
   const { formatMessage } = useIntl();
   const title = partial ? titleMessages.partial : titleMessages.ineligible;
 
@@ -63,4 +63,4 @@ export const So5Eligibility = ({ description, partial }: Props) => {
   );
 };
 
-export default So5Eligibility;
+export default Vicc5Eligibility;

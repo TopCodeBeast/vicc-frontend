@@ -13,12 +13,12 @@ import {
 import ClubShield from '@football/components/user/ClubShield';
 
 import {
-  Row_so5UserGroupMembership,
+  Row_vicc5UserGroupMembership,
   Row_user,
 } from './__generated__/index.graphql';
 
-type Row_so5UserGroupMembership_liveSo5Ranking = NonNullable<
-  Row_so5UserGroupMembership['liveSo5Ranking']
+type Row_vicc5UserGroupMembership_liveVicc5Ranking = NonNullable<
+  Row_vicc5UserGroupMembership['liveVicc5Ranking']
 >;
 
 const Root = styled.button.attrs(({ $highlight }: { $highlight: boolean }) => ({
@@ -144,25 +144,25 @@ type Props = {
     ranking: number;
     score: number;
     liveScore: number;
-    liveSo5Ranking: Row_so5UserGroupMembership_liveSo5Ranking | null;
+    liveVicc5Ranking: Row_vicc5UserGroupMembership_liveVicc5Ranking | null;
     user: Row_user;
   };
   highlight: boolean;
   onClick: (
-    liveRanking?: Row_so5UserGroupMembership_liveSo5Ranking | null
+    liveRanking?: Row_vicc5UserGroupMembership_liveVicc5Ranking | null
   ) => void;
 };
 const Row = ({ manager, highlight, onClick }: Props) => {
-  const { ranking, score, liveScore, liveSo5Ranking, user } = manager;
+  const { ranking, score, liveScore, liveVicc5Ranking, user } = manager;
   const { formatNumber } = useIntlContext();
 
   return (
     <Root
       $highlight={highlight}
       type="button"
-      onClick={() => onClick(liveSo5Ranking)}
+      onClick={() => onClick(liveVicc5Ranking)}
       style={{
-        cursor: liveSo5Ranking ? 'pointer' : 'normal',
+        cursor: liveVicc5Ranking ? 'pointer' : 'normal',
       }}
     >
       <>
@@ -214,20 +214,20 @@ Row.fragments = {
     ${Avatar.fragments.publicUserInfoInterface}
     ${ClubShield.fragments.userProfile}
   ` as TypedDocumentNode<Row_user>,
-  so5UserGroupMembership: gql`
-    fragment Row_so5UserGroupMembership on So5UserGroupMembership {
+  vicc5UserGroupMembership: gql`
+    fragment Row_vicc5UserGroupMembership on Vicc5UserGroupMembership {
       id
       ranking
       score
-      liveSo5Ranking {
+      liveVicc5Ranking {
         id
         score
-        so5Lineup {
+        vicc5Lineup {
           id
         }
       }
     }
-  ` as TypedDocumentNode<Row_so5UserGroupMembership>,
+  ` as TypedDocumentNode<Row_vicc5UserGroupMembership>,
 };
 
 export default Row;

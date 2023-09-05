@@ -44,16 +44,16 @@ const StyledGame = styled(Game)`
 const COMPETITION_DETAILS_MATCHES_TAB_QUERY = gql`
   query CompetitionDetailsMatchesTabQuery($leaderboardSlug: String!) {
     football {
-      so5 {
-        so5Leaderboard(slug: $leaderboardSlug) {
+      vicc5 {
+        vicc5Leaderboard(slug: $leaderboardSlug) {
           slug
           title
-          so5League {
+          vicc5League {
             slug
             games {
               ...CompetitionDetailsMatchesTabQuery_game
             }
-            mySo5Games {
+            myVicc5Games {
               ...CompetitionDetailsMatchesTabQuery_game
             }
           }
@@ -78,7 +78,7 @@ const COMPETITION_DETAILS_MATCHES_TAB_QUERY = gql`
       slug
       displayName
     }
-    ...So5Game_game
+    ...Vicc5Game_game
   }
   fragment CompetitionDetailsMatchesTabQuery_team on TeamInterface {
     slug
@@ -151,13 +151,13 @@ const CompetitionDetailsMatchesTab = () => {
   });
 
   const matches = useMemo(() => {
-    const { mySo5Games = [], games = [] } =
-      data?.football.so5.so5Leaderboard?.so5League || {};
+    const { myVicc5Games = [], games = [] } =
+      data?.football.vicc5.vicc5Leaderboard?.vicc5League || {};
     return {
       [TAB.ALL]: formatMatches(games),
-      [TAB.MINE]: formatMatches(mySo5Games),
+      [TAB.MINE]: formatMatches(myVicc5Games),
     };
-  }, [data?.football.so5.so5Leaderboard?.so5League]);
+  }, [data?.football.vicc5.vicc5Leaderboard?.vicc5League]);
 
   const [displayed, loadMore, hasMoreMatches] = useLoadMore(
     matches[currentTab],

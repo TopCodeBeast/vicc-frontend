@@ -164,32 +164,32 @@ export const notifications = defineMessages({
     id: 'OfferBuilder.successNotification',
     defaultMessage: 'Offer has been sent to {nickname}',
   },
-  so5FixtureDelete: {
-    id: 'So5Fixture.deleteNotification',
+  vicc5FixtureDelete: {
+    id: 'Vicc5Fixture.deleteNotification',
     defaultMessage: 'Your team has been deleted!',
   },
-  so5LineupsConfirm: {
-    id: 'So5Fixture.confirmLineupsNotification',
+  vicc5LineupsConfirm: {
+    id: 'Vicc5Fixture.confirmLineupsNotification',
     defaultMessage: 'Your teams have been confirmed',
   },
-  so5LineupsDelete: {
-    id: 'So5Fixture.deleteLineupsNotification',
+  vicc5LineupsDelete: {
+    id: 'Vicc5Fixture.deleteLineupsNotification',
     defaultMessage: 'Your teams have been deleted!',
   },
-  so5RemovedUserFromGroup: {
-    id: 'So5UserGroup.RemovedNotification',
+  vicc5RemovedUserFromGroup: {
+    id: 'Vicc5UserGroup.RemovedNotification',
     defaultMessage: 'You removed {user} from {group} League!',
   },
-  so5RemovedSelfFromGroup: {
-    id: 'So5UserGroup.RemovedSelfNotification',
+  vicc5RemovedSelfFromGroup: {
+    id: 'Vicc5UserGroup.RemovedSelfNotification',
     defaultMessage: "You left {group}'s League!",
   },
-  so5UserGroupDeleted: {
-    id: 'So5UserGroup.Deleted',
+  vicc5UserGroupDeleted: {
+    id: 'Vicc5UserGroup.Deleted',
     defaultMessage: 'Your League has been deleted!',
   },
-  so5UserGroupUpdated: {
-    id: 'So5UserGroup.Updated',
+  vicc5UserGroupUpdated: {
+    id: 'Vicc5UserGroup.Updated',
     defaultMessage: 'Your League has been updated!',
   },
   buyFieldCard: {

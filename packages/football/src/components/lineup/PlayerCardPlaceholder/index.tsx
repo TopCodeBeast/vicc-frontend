@@ -18,8 +18,8 @@ import { CardPlaceholder } from '@football/components/lineup/CardPlaceholder';
 import { CardFooter } from '@football/components/lineup/PlayerCard';
 
 import {
-  PlayerCardPlaceholder_so5Leaderboard,
-  PlayerCardPlaceholder_so5Lineup,
+  PlayerCardPlaceholder_vicc5Leaderboard,
+  PlayerCardPlaceholder_vicc5Lineup,
 } from './__generated__/index.graphql';
 
 const Wrapper = styled(LinkOther)`
@@ -36,8 +36,8 @@ const Wrapper = styled(LinkOther)`
 type Props = {
   position: number;
   onUnlockCtaClick?: () => void;
-  lineup?: PlayerCardPlaceholder_so5Lineup | null;
-  leaderboard: PlayerCardPlaceholder_so5Leaderboard;
+  lineup?: PlayerCardPlaceholder_vicc5Lineup | null;
+  leaderboard: PlayerCardPlaceholder_vicc5Leaderboard;
 };
 
 const CARD_DISPLAY_ORDER_BY_RARITY = [
@@ -115,8 +115,8 @@ const PlayerCardPlaceholder = ({ position, lineup, leaderboard }: Props) => {
       return generatePath(FOOTBALL_DRAFT, { slug: leaderboard.slug });
     }
     return getComposeTeamRoute({
-      so5LeaderboardSlug: leaderboard.slug,
-      so5LineupId: idFromObject(lineup?.id),
+      vicc5LeaderboardSlug: leaderboard.slug,
+      vicc5LineupId: idFromObject(lineup?.id),
     });
   };
 
@@ -141,13 +141,13 @@ const PlayerCardPlaceholder = ({ position, lineup, leaderboard }: Props) => {
 };
 
 PlayerCardPlaceholder.fragments = {
-  so5Lineup: gql`
-    fragment PlayerCardPlaceholder_so5Lineup on So5Lineup {
+  vicc5Lineup: gql`
+    fragment PlayerCardPlaceholder_vicc5Lineup on Vicc5Lineup {
       id
     }
-  ` as TypedDocumentNode<PlayerCardPlaceholder_so5Lineup>,
-  so5Leaderboard: gql`
-    fragment PlayerCardPlaceholder_so5Leaderboard on So5Leaderboard {
+  ` as TypedDocumentNode<PlayerCardPlaceholder_vicc5Lineup>,
+  vicc5Leaderboard: gql`
+    fragment PlayerCardPlaceholder_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       commonDraftCampaign {
         slug
@@ -182,7 +182,7 @@ PlayerCardPlaceholder.fragments = {
         }
       }
     }
-  ` as TypedDocumentNode<PlayerCardPlaceholder_so5Leaderboard>,
+  ` as TypedDocumentNode<PlayerCardPlaceholder_vicc5Leaderboard>,
 };
 
 export default PlayerCardPlaceholder;

@@ -38,7 +38,7 @@ import getLineupDisplayName from '@football/lib/lineup/getLineupDisplayName';
 import { getLeaderboardInfo } from '@football/lib/so5';
 import CompetitionListActions from '@football/pages/Lobby/Components/CompetitionListActions';
 
-import { TableRow_so5Leaderboard } from './__generated__/index.graphql';
+import { TableRow_vicc5Leaderboard } from './__generated__/index.graphql';
 
 const DivisionCell = styled(Cell)`
   --size: 100%;
@@ -151,24 +151,24 @@ export enum Areas {
 }
 
 type Props = {
-  so5Leaderboard: TableRow_so5Leaderboard;
+  vicc5Leaderboard: TableRow_vicc5Leaderboard;
   onActionSuccess: () => void;
   lineupId: number;
   rowCta: ReactNode;
 };
 
 const TableRow = ({
-  so5Leaderboard,
+  vicc5Leaderboard,
   onActionSuccess,
   lineupId,
   rowCta,
 }: Props) => {
-  const { totalRewards, mySo5Lineups, so5LineupsCount } = so5Leaderboard;
+  const { totalRewards, myVicc5Lineups, vicc5LineupsCount } = vicc5Leaderboard;
   const { scarcityMessageDescriptor, hasRewards } =
-    getLeaderboardInfo(so5Leaderboard);
+    getLeaderboardInfo(vicc5Leaderboard);
   const track = useFootballEvents();
 
-  const correspondingLineup = mySo5Lineups[lineupId];
+  const correspondingLineup = myVicc5Lineups[lineupId];
   const joined = !correspondingLineup?.draft;
   const competitionDetailsQueryParams = correspondingLineup
     ? `?${qs.stringify({ id: idFromObject(correspondingLineup.id) })}`
@@ -178,7 +178,7 @@ const TableRow = ({
     FOOTBALL_COMPETITION_DETAILS,
     {
       tab: correspondingLineup ? 'team' : 'details',
-      competition: so5Leaderboard.slug,
+      competition: vicc5Leaderboard.slug,
     }
   )}${competitionDetailsQueryParams}`;
 
@@ -249,18 +249,18 @@ const TableRow = ({
       to={linkToCompetitionDetails}
       onClick={() => {
         track('Click Competition', {
-          leaderboardSlug: so5Leaderboard.slug,
-          leaderboardName: so5Leaderboard.displayName,
+          leaderboardSlug: vicc5Leaderboard.slug,
+          leaderboardName: vicc5Leaderboard.displayName,
         });
       }}
     >
       <LeaderboardNameWrapper bold>
         <LeaderboardName>
-          {getLineupDisplayName(correspondingLineup, so5Leaderboard)}
+          {getLineupDisplayName(correspondingLineup, vicc5Leaderboard)}
         </LeaderboardName>
-        {!!so5Leaderboard.description && (
+        {!!vicc5Leaderboard.description && (
           <TooltipWrapper>
-            <LinkOther as={Tooltip} title={so5Leaderboard.description}>
+            <LinkOther as={Tooltip} title={vicc5Leaderboard.description}>
               <small>
                 <Info />
               </small>
@@ -271,11 +271,11 @@ const TableRow = ({
     </LinkOverlay>
   );
   return (
-    <Line key={so5Leaderboard.slug}>
+    <Line key={vicc5Leaderboard.slug}>
       <StatusCell area={Areas.status}>{getStatus()}</StatusCell>
 
       <DivisionCell area={Areas.logo}>
-        <DivisionLogo so5Leaderboard={so5Leaderboard} />
+        <DivisionLogo vicc5Leaderboard={vicc5Leaderboard} />
       </DivisionCell>
       <Cell hideOnDesktop area={Areas.nameAndScarcity}>
         <NameAndScarcityWrapper>
@@ -299,7 +299,7 @@ const TableRow = ({
             <Participants>
               <UserGrey />
               <Text14 color="var(--c-neutral-600)" as="span">
-                <FormattedNumber value={so5LineupsCount} notation="standard" />
+                <FormattedNumber value={vicc5LineupsCount} notation="standard" />
               </Text14>
             </Participants>
             <svg width="4" viewBox="0 0 8 8">
@@ -311,7 +311,7 @@ const TableRow = ({
           <CellLink
             as={Link}
             to={`${generatePath(FOOTBALL_COMPETITION_DETAILS_REWARDS, {
-              competition: so5Leaderboard.slug,
+              competition: vicc5Leaderboard.slug,
             })}${competitionDetailsQueryParams}`}
           >
             {rewards}
@@ -323,7 +323,7 @@ const TableRow = ({
           <CellLink
             as={Link}
             to={`${generatePath(FOOTBALL_COMPETITION_DETAILS_REWARDS, {
-              competition: so5Leaderboard.slug,
+              competition: vicc5Leaderboard.slug,
             })}${competitionDetailsQueryParams}`}
           >
             {rewards}
@@ -335,7 +335,7 @@ const TableRow = ({
           <Participants>
             <UserGrey />
             <Text14 color="var(--c-neutral-600)" as="span">
-              <FormattedNumber value={so5LineupsCount} notation="standard" />
+              <FormattedNumber value={vicc5LineupsCount} notation="standard" />
             </Text14>
           </Participants>
         )}
@@ -343,22 +343,22 @@ const TableRow = ({
       <Cell area={Areas.cta}>
         {rowCta ?? (
           <CompetitionListActions
-            so5Leaderboard={so5Leaderboard}
+            vicc5Leaderboard={vicc5Leaderboard}
             onActionSuccess={onActionSuccess}
             lineupId={lineupId}
             linkToCompetitionDetails={linkToCompetitionDetails}
           />
         )}
       </Cell>
-      {so5Leaderboard && (
+      {vicc5Leaderboard && (
         <Prize area={Areas.prize}>
           <HeadlineWrapper
             as={Link}
             to={`${generatePath(FOOTBALL_COMPETITION_DETAILS_REWARDS, {
-              competition: so5Leaderboard.slug,
+              competition: vicc5Leaderboard.slug,
             })}${competitionDetailsQueryParams}`}
           >
-            <HeadlineRewards leaderboard={so5Leaderboard} />
+            <HeadlineRewards leaderboard={vicc5Leaderboard} />
           </HeadlineWrapper>
         </Prize>
       )}
@@ -367,35 +367,35 @@ const TableRow = ({
 };
 
 TableRow.fragments = {
-  so5Leaderboard: gql`
-    fragment TableRow_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment TableRow_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       description
-      so5LineupsCount
+      vicc5LineupsCount
       startDate
-      mySo5Lineups {
+      myVicc5Lineups {
         id
         draft
         name
-        ...getLineupDisplayName_so5Lineup
+        ...getLineupDisplayName_vicc5Lineup
       }
       totalRewards {
         ...Rewards_rewardsOverview
       }
-      ...getLeaderboardInfo_so5Leaderboard
-      ...DivisionLogo_so5Leaderboard
-      ...CompetitionListActions_so5Leaderboard
-      ...HeadlineRewards_so5Leaderboard
-      ...getLineupDisplayName_so5Leaderboard
+      ...getLeaderboardInfo_vicc5Leaderboard
+      ...DivisionLogo_vicc5Leaderboard
+      ...CompetitionListActions_vicc5Leaderboard
+      ...HeadlineRewards_vicc5Leaderboard
+      ...getLineupDisplayName_vicc5Leaderboard
     }
-    ${DivisionLogo.fragments.so5Leaderboard}
-    ${CompetitionListActions.fragments.so5Leaderboard}
-    ${getLeaderboardInfo.fragments.so5Leaderboard}
-    ${HeadlineRewards.fragments.so5Leaderboard}
+    ${DivisionLogo.fragments.vicc5Leaderboard}
+    ${CompetitionListActions.fragments.vicc5Leaderboard}
+    ${getLeaderboardInfo.fragments.vicc5Leaderboard}
+    ${HeadlineRewards.fragments.vicc5Leaderboard}
     ${Rewards.fragments.reward}
-    ${getLineupDisplayName.fragments.so5Leaderboard}
-    ${getLineupDisplayName.fragments.so5Lineup}
-  ` as TypedDocumentNode<TableRow_so5Leaderboard>,
+    ${getLineupDisplayName.fragments.vicc5Leaderboard}
+    ${getLineupDisplayName.fragments.vicc5Lineup}
+  ` as TypedDocumentNode<TableRow_vicc5Leaderboard>,
 };
 
 export default TableRow;

@@ -11,7 +11,7 @@ import MenuIconButton from '@sorare/core/src/routing/MultiSportAppBar/MenuIconBu
 
 import UnclaimedActionRewards from './UnclaimedActionRewards';
 import UnclaimedReferralRewards from './UnclaimedReferralRewards';
-import UnclaimedSo5Rewards from './UnclaimedSo5Rewards';
+import UnclaimedVicc5Rewards from './UnclaimedSo5Rewards';
 
 const buzz = keyframes`
   1% {
@@ -55,16 +55,16 @@ const StyledMenu = styled.div`
   min-width: 288px;
 `;
 
-type UnclaimedSo5Rewards_reward =
-  CurrentUserQuery_currentUser['unclaimedSo5Rewards'][number];
+type UnclaimedVicc5Rewards_reward =
+  CurrentUserQuery_currentUser['unclaimedVicc5Rewards'][number];
 
-const mergeCoinRewards = (rewards: UnclaimedSo5Rewards_reward[]) => {
+const mergeCoinRewards = (rewards: UnclaimedVicc5Rewards_reward[]) => {
   if (!rewards.length) {
     return [];
   }
 
   let totalCoinAmount = 0;
-  const otherRewards: UnclaimedSo5Rewards_reward[] = [];
+  const otherRewards: UnclaimedVicc5Rewards_reward[] = [];
   rewards.forEach(r => {
     if (r.coinAmount > 0) {
       totalCoinAmount += r.coinAmount;
@@ -89,16 +89,16 @@ export const UnclaimedRewards = () => {
   }
 
   const {
-    unclaimedSo5Rewards,
+    unclaimedVicc5Rewards,
     unclaimedReferralRewardsCount,
     unclaimedActionRewards,
   } = currentUser;
 
-  const hasUnclaimedSo5Rewards = unclaimedSo5Rewards.length > 0;
+  const hasUnclaimedVicc5Rewards = unclaimedVicc5Rewards.length > 0;
   const hasUnclaimedReferralRewards = unclaimedReferralRewardsCount > 0;
   const hasUnclaimedActionRewards = unclaimedActionRewards.length > 0;
   const hasRewards =
-    hasUnclaimedSo5Rewards ||
+    hasUnclaimedVicc5Rewards ||
     hasUnclaimedReferralRewards ||
     hasUnclaimedActionRewards;
 
@@ -106,13 +106,13 @@ export const UnclaimedRewards = () => {
     return null;
   }
 
-  const rewardsByFixture = groupBy(r => r.so5Fixture.slug, unclaimedSo5Rewards);
+  const rewardsByFixture = groupBy(r => r.vicc5Fixture.slug, unclaimedVicc5Rewards);
 
   const rewardsByFixtureWithMergedCoins = Object.values(rewardsByFixture).map(
     rewards => mergeCoinRewards(rewards)
   );
 
-  const unclaimedSo5RewardsLength = rewardsByFixtureWithMergedCoins.reduce(
+  const unclaimedVicc5RewardsLength = rewardsByFixtureWithMergedCoins.reduce(
     (sum, rewards) => {
       return sum + rewards.length;
     },
@@ -120,17 +120,17 @@ export const UnclaimedRewards = () => {
   );
 
   const badgeCount =
-    unclaimedSo5RewardsLength +
+    unclaimedVicc5RewardsLength +
     unclaimedReferralRewardsCount +
     unclaimedActionRewards.length;
 
-  const unclaimedSo5RewardsToRender = rewardsByFixtureWithMergedCoins.map(
+  const unclaimedVicc5RewardsToRender = rewardsByFixtureWithMergedCoins.map(
     rewards => {
-      const so5FixtureSlug = rewards[0].so5Fixture.slug;
+      const vicc5FixtureSlug = rewards[0].vicc5Fixture.slug;
       return (
-        <UnclaimedSo5Rewards
-          key={so5FixtureSlug}
-          so5FixtureSlug={so5FixtureSlug}
+        <UnclaimedVicc5Rewards
+          key={vicc5FixtureSlug}
+          vicc5FixtureSlug={vicc5FixtureSlug}
           rewards={rewards}
         />
       );
@@ -163,7 +163,7 @@ export const UnclaimedRewards = () => {
         className="light-theme"
       >
         <StyledMenu>
-          {unclaimedSo5RewardsToRender}
+          {unclaimedVicc5RewardsToRender}
           {hasUnclaimedReferralRewards && (
             <UnclaimedReferralRewards count={unclaimedReferralRewardsCount} />
           )}

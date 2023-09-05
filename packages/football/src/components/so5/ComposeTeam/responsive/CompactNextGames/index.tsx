@@ -1,14 +1,14 @@
 import { TypedDocumentNode, gql } from '@apollo/client';
 
 import GameCompactInfo from '@football/components/composeTeam/GameCompactInfo';
-import { ContextProvider_so5Lineup } from '@football/components/so5/ComposeTeam/ContextProvider/__generated__/index.graphql';
+import { ContextProvider_vicc5Lineup } from '@football/components/so5/ComposeTeam/ContextProvider/__generated__/index.graphql';
 
 import { CompactNextGames_card } from './__generated__/index.graphql';
 
 type Props = {
   card:
     | CompactNextGames_card
-    | ContextProvider_so5Lineup['so5Appearances'][number]['card'];
+    | ContextProvider_vicc5Lineup['vicc5Appearances'][number]['card'];
 };
 
 export const CompactNextGames = ({ card }: Props) => {
@@ -35,7 +35,7 @@ CompactNextGames.fragments = {
         activeClub {
           slug
         }
-        gamesForLeaderboard(so5LeaderboardSlug: $so5LeaderboardSlug) {
+        gamesForLeaderboard(vicc5LeaderboardSlug: $vicc5LeaderboardSlug) {
           id
           ...GameCompactInfo_game
         }

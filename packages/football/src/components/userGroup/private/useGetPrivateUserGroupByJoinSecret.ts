@@ -10,14 +10,14 @@ import {
 const GET_PRIVATE_USER_GROUP_QUERY = gql`
   query GetPrivateUserGroupByJoinSecretQuery($joinSecret: String!) {
     football {
-      so5 {
-        so5UserGroup(joinSecret: $joinSecret) {
+      vicc5 {
+        vicc5UserGroup(joinSecret: $joinSecret) {
           id
           slug
           displayName
           joinDisabled
           membershipsCount
-          upcomingSo5Leaderboard {
+          upcomingVicc5Leaderboard {
             slug
             commonDraftCampaign {
               slug
@@ -35,9 +35,9 @@ const GET_PRIVATE_USER_GROUP_QUERY = gql`
           myMembership {
             createdAt
           }
-          so5TournamentType {
+          vicc5TournamentType {
             id
-            so5LeaderboardType
+            vicc5LeaderboardType
           }
         }
       }

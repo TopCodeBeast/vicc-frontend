@@ -19,7 +19,7 @@ const galleryPathFactories: Readonly<{
 }> = {
   [Sport.BASEBALL]: slug => generatePath(MLB_USER_GALLERY, { slug }),
   [Sport.NBA]: slug => generatePath(NBA_USER_GALLERY, { slug }),
-  [Sport.FOOTBALL]: slug => generatePath(FOOTBALL_USER_GALLERY, { slug }),
+  [Sport.CRICKET]: slug => generatePath(FOOTBALL_USER_GALLERY, { slug }),
 };
 
 export const galleryPathFromSport = (slug: string, sport: Sport) => {

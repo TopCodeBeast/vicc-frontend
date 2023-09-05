@@ -103,10 +103,10 @@ const CreateOrJoin = ({ next }: Props) => {
   const onJoinSuccess = (
     result: GraphQLResult & { data?: JoinPrivateUserGroupMutation }
   ) => {
-    const group = result?.data?.joinSo5UserGroup;
-    const slug = group?.so5UserGroup?.slug;
+    const group = result?.data?.joinVicc5UserGroup;
+    const slug = group?.vicc5UserGroup?.slug;
 
-    if (alreadyJoinedUserGroup(group?.so5UserGroup?.myMembership?.createdAt)) {
+    if (alreadyJoinedUserGroup(group?.vicc5UserGroup?.myMembership?.createdAt)) {
       navigate(
         generatePath(FOOTBALL_PRIVATE_LEAGUES_DETAILS, {
           slug,
@@ -144,7 +144,7 @@ const CreateOrJoin = ({ next }: Props) => {
               />
             </Title>
 
-            {!data?.football.so5.eligibleTournamentTypesForSo5UserGroups
+            {!data?.football.vicc5.eligibleTournamentTypesForVicc5UserGroups
               .length ? (
               <Text16>
                 <FormattedMessage

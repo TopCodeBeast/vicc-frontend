@@ -22,10 +22,10 @@ const playerFragment = gql`
 export const PLAYER_GAME_SCORE_DIALOG_QUERY = gql`
   query PlayerGameScoreDialogQuery($id: ID!) {
     football {
-      so5 {
-        so5Score(id: $id) {
+      vicc5 {
+        vicc5Score(id: $id) {
           id
-          ...PlayerStatsDialog_so5Score
+          ...PlayerStatsDialog_vicc5Score
           player {
             slug
             ...PlayerGameScoreDialogQuery_player
@@ -34,7 +34,7 @@ export const PLAYER_GAME_SCORE_DIALOG_QUERY = gql`
             id
             game {
               id
-              so5Fixture {
+              vicc5Fixture {
                 slug
                 gameWeek
               }
@@ -54,7 +54,7 @@ export const PLAYER_GAME_SCORE_DIALOG_QUERY = gql`
       }
     }
   }
-  ${PlayerStatsDialog.fragments.so5Score}
+  ${PlayerStatsDialog.fragments.vicc5Score}
   ${playerFragment}
   ${PlayerStatsDialog.fragments.representativePlayer}
 ` as TypedDocumentNode<
@@ -65,35 +65,35 @@ export const PLAYER_GAME_SCORE_DIALOG_QUERY = gql`
 type Props = {
   open: boolean;
   onClose: () => void;
-  so5ScoreId: string;
+  vicc5ScoreId: string;
   player?: PlayerGameScoreDialogQuery_player;
 };
 
 export const PlayerGameScoreDialog = ({
   onClose,
   open,
-  so5ScoreId,
+  vicc5ScoreId,
   player: effectivePlayer,
 }: Props) => {
   const { data, loading } = useQuery(PLAYER_GAME_SCORE_DIALOG_QUERY, {
-    variables: { id: idFromObject(so5ScoreId)! },
+    variables: { id: idFromObject(vicc5ScoreId)! },
     skip: !open,
   });
 
   if (data) {
-    const { so5Score } = data.football.so5;
-    const gameWeek = so5Score.playerGameStats.game.so5Fixture?.gameWeek;
+    const { vicc5Score } = data.football.vicc5;
+    const gameWeek = vicc5Score.playerGameStats.game.vicc5Fixture?.gameWeek;
     const {
       player,
       playerGameStats: { player: representativePlayer },
-    } = so5Score;
-    const teamName = so5Score.playerGameStats.team.name;
+    } = vicc5Score;
+    const teamName = vicc5Score.playerGameStats.team.name;
 
     return (
       <PlayerStatsDialog
         open={open}
         onClose={onClose}
-        so5Score={so5Score}
+        vicc5Score={vicc5Score}
         player={effectivePlayer || player}
         representativePlayer={representativePlayer}
         team={teamName}

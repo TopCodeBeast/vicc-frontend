@@ -21,7 +21,7 @@ const Root = styled.span`
 
 export type StatusRowProps = {
   date: string;
-  so5Fixture?: { shortDisplayName: string } | null;
+  vicc5Fixture?: { shortDisplayName: string } | null;
   competitionName?: string;
   status: GameEventStatus;
   coverageStatus?: GameCoverageStatus;
@@ -32,7 +32,7 @@ export type StatusRowProps = {
 
 export const StatusRow = ({
   date,
-  so5Fixture,
+  vicc5Fixture,
   competitionName,
   status,
   minute = 0,
@@ -56,11 +56,11 @@ export const StatusRow = ({
                   <span>{minute}&lsquo;</span>
                 </>
               )}
-              {so5Fixture?.shortDisplayName && (
+              {vicc5Fixture?.shortDisplayName && (
                 <>
                   <span>-</span>
                   <Caption>
-                    <strong>{so5Fixture.shortDisplayName}</strong>
+                    <strong>{vicc5Fixture.shortDisplayName}</strong>
                   </Caption>
                 </>
               )}

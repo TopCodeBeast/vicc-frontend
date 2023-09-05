@@ -105,7 +105,7 @@ const GenericNotice = ({
 };
 
 const SportIcon = ({ sport }: { sport: Sport }) => {
-  if (sport === Sport.FOOTBALL) return <Ball />;
+  if (sport === Sport.CRICKET) return <Ball />;
   if (sport === Sport.NBA) return <NBABall />;
   return <MLBBall />;
 };
@@ -131,11 +131,11 @@ export const Notice = () => {
   } = useFeatureFlags();
   const [selectedSport, setSelectedSport] = useState(
     sport === Sport.BASEBALL && !useNewMlbReferralProgram
-      ? Sport.FOOTBALL
+      ? Sport.CRICKET
       : sport
   );
 
-  const sports = [Sport.FOOTBALL, Sport.NBA];
+  const sports = [Sport.CRICKET, Sport.NBA];
   if (useNewMlbReferralProgram) sports.push(Sport.BASEBALL);
 
   return (
@@ -154,7 +154,7 @@ export const Notice = () => {
         </TabBar>
       </Header>
       {selectedSport &&
-        [Sport.FOOTBALL, Sport.BASEBALL].includes(selectedSport) && (
+        [Sport.CRICKET, Sport.BASEBALL].includes(selectedSport) && (
           <MilestonesNotice sport={selectedSport} />
         )}
       {selectedSport === Sport.NBA && <GenericNotice sport={selectedSport} />}

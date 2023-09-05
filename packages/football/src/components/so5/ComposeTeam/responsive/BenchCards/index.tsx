@@ -18,7 +18,7 @@ import { positionNames } from '@sorare/core/src/lib/players';
 import Context from '@football/components/so5/ComposeTeam/Context';
 import BenchCardRow from '@football/components/so5/ComposeTeam/responsive/BenchCardRow';
 import useShortcut from '@football/hooks/useShortcut';
-import { Position as So5Position } from '@football/lib/so5';
+import { Position as Vicc5Position } from '@football/lib/so5';
 
 import {
   BenchCardsQuery,
@@ -37,7 +37,7 @@ const cardFragment = gql`
 
 export const BENCH_CARDS_QUERY = gql`
   query BenchCardsQuery(
-    $so5LeaderboardSlug: String!
+    $vicc5LeaderboardSlug: String!
     $query: String
     $includeUsed: Boolean
     $includeNoGame: Boolean
@@ -46,16 +46,16 @@ export const BENCH_CARDS_QUERY = gql`
     $after: String
     $rarities: [Rarity!]!
     $sortType: EligibleCardsSort
-    $so5LineupId: String
+    $vicc5LineupId: String
     $statsView: Boolean!
-    $lastFifteenSo5AverageScore: RangeInput
+    $lastFifteenVicc5AverageScore: RangeInput
     $deckId: String
   ) {
     football {
-      so5 {
-        so5Leaderboard(slug: $so5LeaderboardSlug) {
+      vicc5 {
+        vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
-          so5League {
+          vicc5League {
             slug
             name
           }
@@ -69,8 +69,8 @@ export const BENCH_CARDS_QUERY = gql`
             rarities: $rarities
             first: 10
             sortType: $sortType
-            so5LineupId: $so5LineupId
-            lastFifteenSo5AverageScore: $lastFifteenSo5AverageScore
+            vicc5LineupId: $vicc5LineupId
+            lastFifteenVicc5AverageScore: $lastFifteenVicc5AverageScore
             deckId: $deckId
           ) {
             nodes {
@@ -107,7 +107,7 @@ const Empty = styled(Text16)`
   flex-grow: 1;
 `;
 
-const EmptyBench = ({ activePosition }: { activePosition: So5Position }) => {
+const EmptyBench = ({ activePosition }: { activePosition: Vicc5Position }) => {
   const { formatMessage } = useIntl();
   return (
     <Empty color="var(--c-neutral-1000)" bold>
@@ -133,7 +133,7 @@ export const BenchCards = () => {
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const {
     lineup,
-    so5Leaderboard,
+    vicc5Leaderboard,
     addCard,
     activePosition,
     filters,
@@ -142,7 +142,7 @@ export const BenchCards = () => {
     search,
     cardsScarcities,
     displayedAverageScore,
-    so5Lineup,
+    vicc5Lineup,
     customListFilter,
   } = useContext(Context)!;
   const {
@@ -150,7 +150,7 @@ export const BenchCards = () => {
   } = useFeatureFlags();
   const variables = useMemo(
     () => ({
-      so5LeaderboardSlug: so5Leaderboard.slug,
+      vicc5LeaderboardSlug: vicc5Leaderboard.slug,
       selectedCards: Object.values(lineup)
         .map(a => a.card)
         .filter(Boolean)
@@ -158,11 +158,11 @@ export const BenchCards = () => {
       query: search,
       includeUsed: filters.includeUsedCards,
       includeNoGame: filters.includeNoGameCards,
-      lastFifteenSo5AverageScore: filters.lastFifteenSo5AverageScore,
+      lastFifteenVicc5AverageScore: filters.lastFifteenVicc5AverageScore,
       position:
         activePosition === 'Extra Player' ? null : (activePosition as Position),
       rarities: cardsScarcities as Rarity[],
-      so5LineupId: idFromObject(so5Lineup.id),
+      vicc5LineupId: idFromObject(vicc5Lineup.id),
       sortType: {
         direction: SortingOption.DESC,
         type: displayedAverageScore,
@@ -171,14 +171,14 @@ export const BenchCards = () => {
       deckId: customListFilter,
     }),
     [
-      so5Leaderboard.slug,
+      vicc5Leaderboard.slug,
       lineup,
       search,
       filters,
       activePosition,
       cardsScarcities,
       displayedAverageScore,
-      so5Lineup,
+      vicc5Lineup,
       statsView,
       customListFilter,
     ]
@@ -190,7 +190,7 @@ export const BenchCards = () => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const cards = data?.football.so5.so5Leaderboard.myEligibleCards.nodes || [];
+  const cards = data?.football.vicc5.vicc5Leaderboard.myEligibleCards.nodes || [];
   const currentCard = lineup[activePosition].card && {
     ...lineup[activePosition].card!,
   };
@@ -220,22 +220,22 @@ export const BenchCards = () => {
       loadMore(false, {
         ...variables,
         after:
-          data?.football.so5.so5Leaderboard.myEligibleCards.pageInfo.endCursor,
+          data?.football.vicc5.vicc5Leaderboard.myEligibleCards.pageInfo.endCursor,
       });
     }, [
       loadMore,
       variables,
-      data?.football.so5.so5Leaderboard.myEligibleCards.pageInfo.endCursor,
+      data?.football.vicc5.vicc5Leaderboard.myEligibleCards.pageInfo.endCursor,
     ]),
     Boolean(
-      data?.football.so5.so5Leaderboard.myEligibleCards.pageInfo.hasNextPage
+      data?.football.vicc5.vicc5Leaderboard.myEligibleCards.pageInfo.hasNextPage
     ),
     loading
   );
 
   useEffect(() => {
     if (
-      data?.football.so5.so5Leaderboard.myEligibleCards.nodes.length === 0 &&
+      data?.football.vicc5.vicc5Leaderboard.myEligibleCards.nodes.length === 0 &&
       !loading &&
       !filters.includeNoGameCards
     ) {

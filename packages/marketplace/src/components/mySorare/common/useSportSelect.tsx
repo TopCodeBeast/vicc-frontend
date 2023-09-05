@@ -11,8 +11,8 @@ import { sportsLabelsMessages } from '@sorare/core/src/lib/glossary';
 import { SportSelectType } from './types';
 
 const SportSelectValue = {
-  [SportSelectType.ALL_SPORTS]: [Sport.FOOTBALL, Sport.BASEBALL, Sport.NBA],
-  [SportSelectType.FOOTBALL]: [Sport.FOOTBALL],
+  [SportSelectType.ALL_SPORTS]: [Sport.CRICKET, Sport.BASEBALL, Sport.NBA],
+  [SportSelectType.FOOTBALL]: [Sport.CRICKET],
   [SportSelectType.BASEBALL]: [Sport.BASEBALL],
   [SportSelectType.NBA]: [Sport.NBA],
 };

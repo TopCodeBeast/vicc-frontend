@@ -21,15 +21,15 @@ import RangeSlider from '../../search/RangeSlider';
 const AppearancesTitle = () => {
   const { indexUiState } = useInstantSearch();
 
-  const so5L5App = indexUiState.range?.[FILTERS.lastFiveAppearances.attribute];
-  const so5L15App =
+  const vicc5L5App = indexUiState.range?.[FILTERS.lastFiveAppearances.attribute];
+  const vicc5L15App =
     indexUiState.range?.[FILTERS.lastFifteenAppearances.attribute];
 
   const selected =
-    (so5L5App && so5L5App !== `${APPEARANCES_MIN}:${APPEARANCES_5_MAX}`
+    (vicc5L5App && vicc5L5App !== `${APPEARANCES_MIN}:${APPEARANCES_5_MAX}`
       ? 1
       : 0) +
-    (so5L15App && so5L15App !== `${APPEARANCES_MIN}:${APPEARANCES_15_MAX}`
+    (vicc5L15App && vicc5L15App !== `${APPEARANCES_MIN}:${APPEARANCES_15_MAX}`
       ? 1
       : 0);
 

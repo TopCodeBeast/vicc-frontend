@@ -7,7 +7,7 @@ import {
 } from 'react-intl';
 import styled from 'styled-components';
 
-import { So5State } from '@sorare/core/src/__generated__/globalTypes';
+import { Vicc5State } from '@sorare/core/src/__generated__/globalTypes';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Empty } from '@sorare/core/src/components/cards/Empty';
 import { useIntlContext } from '@sorare/core/src/contexts/intl';
@@ -24,7 +24,7 @@ import { getRewardType } from '@football/lib/lineupRewards';
 import { ShowMoreButton } from '@football/pages/Lobby/Components/ShowMoreButton';
 import useGetRecommendedLeaderboard from '@football/pages/useGetRecommendedLeaderboard';
 
-import { Teams_so5Fixture } from './__generated__/index.graphql';
+import { Teams_vicc5Fixture } from './__generated__/index.graphql';
 import useGetTeams from './useGetTeams';
 
 const Root = styled.div`
@@ -64,24 +64,24 @@ const lineupPaginationBaseLimit = 6;
 type Props = {
   emptyDescription?: MessageDescriptor;
   queryVariables: {
-    type: So5State | null;
+    type: Vicc5State | null;
     slug: string | null;
     endCursor?: string | null;
-    so5FixtureId?: string | undefined;
-    so5LeaderboardSlug?: string | null;
+    vicc5FixtureId?: string | undefined;
+    vicc5LeaderboardSlug?: string | null;
     withTraining?: boolean;
     draft?: boolean;
     limit?: number | null;
   };
   showRecommendedLeaderboard?: boolean;
-  so5Fixture?: Teams_so5Fixture | null;
+  vicc5Fixture?: Teams_vicc5Fixture | null;
 };
 
 export const Teams = ({
   emptyDescription,
   queryVariables,
   showRecommendedLeaderboard,
-  so5Fixture,
+  vicc5Fixture,
 }: Props) => {
   const { formatMessage } = useIntlContext();
 
@@ -170,13 +170,13 @@ export const Teams = ({
           )}
           {lineupsToShow?.map(
             lineup =>
-              lineup?.so5Leaderboard && (
+              lineup?.vicc5Leaderboard && (
                 <Lineup
                   key={lineup.id}
-                  leaderboard={lineup.so5Leaderboard}
+                  leaderboard={lineup.vicc5Leaderboard}
                   lineup={lineup}
                   displayScore={queryVariables.type !== 'UPCOMING'}
-                  rewardType={getRewardType(so5Fixture)}
+                  rewardType={getRewardType(vicc5Fixture)}
                 />
               )
           )}
@@ -214,13 +214,13 @@ export const Teams = ({
   );
 };
 Teams.fragments = {
-  so5Fixture: gql`
-    fragment Teams_so5Fixture on So5Fixture {
+  vicc5Fixture: gql`
+    fragment Teams_vicc5Fixture on Vicc5Fixture {
       slug
-      ...getRewardType_so5Fixture
+      ...getRewardType_vicc5Fixture
     }
-    ${getRewardType.fragments.so5Fixture}
-  ` as TypedDocumentNode<Teams_so5Fixture>,
+    ${getRewardType.fragments.vicc5Fixture}
+  ` as TypedDocumentNode<Teams_vicc5Fixture>,
 };
 
 export default Teams;

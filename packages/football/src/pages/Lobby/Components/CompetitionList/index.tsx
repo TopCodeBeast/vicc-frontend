@@ -29,7 +29,7 @@ import DateGroupedSection, {
 import { SortAndFilters, SortAndFiltersType } from './SortAndFilters';
 import {
   CompetitionList_clubShopItem,
-  CompetitionList_so5Leaderboard,
+  CompetitionList_vicc5Leaderboard,
 } from './__generated__/index.graphql';
 
 type CurrentUserQuery_currentUser_cardCounts =
@@ -63,7 +63,7 @@ const getAvailableKickoffsRarity = (
 };
 
 type Props = {
-  so5Leaderboards: CompetitionList_so5Leaderboard[];
+  vicc5Leaderboards: CompetitionList_vicc5Leaderboard[];
   extraTeamsCapItems: Nullable<CompetitionList_clubShopItem[]>;
   refetch: () => void;
 };
@@ -84,16 +84,16 @@ const messages = defineMessages({
 });
 
 export const CompetitionList = ({
-  so5Leaderboards,
+  vicc5Leaderboards,
   extraTeamsCapItems,
   refetch,
 }: Props) => {
   const { formatMessage } = useIntl();
   const { currentUser } = useCurrentUserContext();
 
-  const displayComposeTeamCongrats = so5Leaderboards.some(
-    ({ commonDraftCampaign, mySo5Lineups }) =>
-      !!mySo5Lineups.length &&
+  const displayComposeTeamCongrats = vicc5Leaderboards.some(
+    ({ commonDraftCampaign, myVicc5Lineups }) =>
+      !!myVicc5Lineups.length &&
       commonDraftCampaign?.slug === 'global_cup_group_phase'
   );
 
@@ -132,10 +132,10 @@ export const CompetitionList = ({
 
   const filteredLeaderboards = useMemo(() => {
     if (!sortAndFilters?.filter) {
-      return so5Leaderboards;
+      return vicc5Leaderboards;
     }
 
-    return so5Leaderboards.filter(leaderboard => {
+    return vicc5Leaderboards.filter(leaderboard => {
       const { backgroundScarcity } = getLeaderboardInfo(leaderboard);
       const { cardsCountOfCurrentUser } = leaderboard?.rules || {};
       const { showRecommended, scarcity = 'all' } = sortAndFilters.filter!;
@@ -161,7 +161,7 @@ export const CompetitionList = ({
 
       return availableKickoff && filteredByScarcity;
     });
-  }, [currentUser?.cardCounts, so5Leaderboards, sortAndFilters.filter]);
+  }, [currentUser?.cardCounts, vicc5Leaderboards, sortAndFilters.filter]);
 
   const groupedLeaderboardsEntries = useMemo(
     () =>
@@ -180,7 +180,7 @@ export const CompetitionList = ({
         el => RANKED_SCARCITY[el as RankedScarcity],
         Array.from(
           new Set(
-            so5Leaderboards
+            vicc5Leaderboards
               .map(
                 sl =>
                   scarcities.includes(sl.rarityType as ScarcityType) &&
@@ -190,7 +190,7 @@ export const CompetitionList = ({
           )
         )
       ),
-    [so5Leaderboards]
+    [vicc5Leaderboards]
   );
 
   return (
@@ -210,9 +210,9 @@ export const CompetitionList = ({
         return (
           <DateGroupedSection
             key={startDate}
-            so5Fixture={leaderboards[0].so5Fixture}
+            vicc5Fixture={leaderboards[0].vicc5Fixture}
             leaderboardIndex={i}
-            so5Leaderboards={leaderboards}
+            vicc5Leaderboards={leaderboards}
             sortAndFilters={sortAndFilters}
             setSortAndFilters={setSortAndFilters}
             startDate={startDate}
@@ -235,13 +235,13 @@ export const CompetitionList = ({
 };
 
 CompetitionList.fragments = {
-  so5Leaderboard: gql`
-    fragment CompetitionList_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment CompetitionList_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       hasFeaturedStarterPacks
-      so5Fixture {
+      vicc5Fixture {
         slug
-        ...DateGroupedSection_so5Fixture
+        ...DateGroupedSection_vicc5Fixture
       }
       rules {
         id
@@ -250,13 +250,13 @@ CompetitionList.fragments = {
           scarcity
         }
       }
-      ...DateGroupedSection_so5Leaderboard
-      ...getLeaderboardInfo_so5Leaderboard
+      ...DateGroupedSection_vicc5Leaderboard
+      ...getLeaderboardInfo_vicc5Leaderboard
     }
-    ${DateGroupedSection.fragments.so5Leaderboard}
-    ${DateGroupedSection.fragments.so5Fixture}
-    ${getLeaderboardInfo.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<CompetitionList_so5Leaderboard>,
+    ${DateGroupedSection.fragments.vicc5Leaderboard}
+    ${DateGroupedSection.fragments.vicc5Fixture}
+    ${getLeaderboardInfo.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<CompetitionList_vicc5Leaderboard>,
   clubShopItem: gql`
     fragment CompetitionList_clubShopItem on ClubShopItem {
       ...DateGroupedSection_clubShopItem

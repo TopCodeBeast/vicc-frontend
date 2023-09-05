@@ -23,7 +23,7 @@ import { useFootballEvents } from '@football/lib/events';
 import getLineupActions from '@football/lib/lineup/getLineupActions';
 import { LeaderboardAction } from '@football/types/leaderboard';
 
-import { LineupActions_so5Leaderboard } from './__generated__/index.graphql';
+import { LineupActions_vicc5Leaderboard } from './__generated__/index.graphql';
 
 const Root = styled.div`
   display: flex;
@@ -39,14 +39,14 @@ const Root = styled.div`
 `;
 
 export type Props = {
-  so5Leaderboard: LineupActions_so5Leaderboard;
+  vicc5Leaderboard: LineupActions_vicc5Leaderboard;
   linkToCompetitionDetails: string;
   lineupId?: string;
   renderCta?: () => React.JSX.Element;
 };
 
 const LineupActions = ({
-  so5Leaderboard,
+  vicc5Leaderboard,
   linkToCompetitionDetails,
   lineupId,
   renderCta,
@@ -59,13 +59,13 @@ const LineupActions = ({
   }
 
   const lineup =
-    so5Leaderboard.mySo5Lineups.find(({ id }) => id === lineupId) ||
-    so5Leaderboard.mySo5Lineups[0];
+    vicc5Leaderboard.myVicc5Lineups.find(({ id }) => id === lineupId) ||
+    vicc5Leaderboard.myVicc5Lineups[0];
 
-  const { availableActions } = getLineupActions(lineup, so5Leaderboard);
+  const { availableActions } = getLineupActions(lineup, vicc5Leaderboard);
 
   const draftUrl = generatePath(FOOTBALL_DRAFT, {
-    slug: so5Leaderboard.slug,
+    slug: vicc5Leaderboard.slug,
   });
 
   const actions = {
@@ -88,7 +88,7 @@ const LineupActions = ({
       <LineupActionButton
         as={Link}
         to={generatePath(FOOTBALL_LOBBY_UPCOMING_SWAP, {
-          leaderboardSlug: so5Leaderboard.slug,
+          leaderboardSlug: vicc5Leaderboard.slug,
         })}
         onClick={() => {
           track('Click Swap', {
@@ -104,8 +104,8 @@ const LineupActions = ({
       <LineupActionButton
         as={Link}
         to={getComposeTeamRoute({
-          so5LeaderboardSlug: so5Leaderboard.slug,
-          so5LineupId: idFromObject(lineup?.id),
+          vicc5LeaderboardSlug: vicc5Leaderboard.slug,
+          vicc5LineupId: idFromObject(lineup?.id),
         })}
         onClick={() => {
           track('Click Edit Lineup', {
@@ -121,7 +121,7 @@ const LineupActions = ({
         className="primary"
         as={Link}
         to={getComposeTeamRoute({
-          so5LeaderboardSlug: so5Leaderboard.slug,
+          vicc5LeaderboardSlug: vicc5Leaderboard.slug,
         })}
         onClick={() => {
           track('Click Compose Lineup', {
@@ -138,8 +138,8 @@ const LineupActions = ({
         to={linkToCompetitionDetails}
         onClick={() => {
           footballTrack('Click Competition', {
-            leaderboardSlug: so5Leaderboard.slug,
-            leaderboardName: so5Leaderboard.displayName,
+            leaderboardSlug: vicc5Leaderboard.slug,
+            leaderboardName: vicc5Leaderboard.displayName,
           });
         }}
       >
@@ -165,19 +165,19 @@ const LineupActions = ({
 };
 
 LineupActions.fragments = {
-  so5Leaderboard: gql`
-    fragment LineupActions_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment LineupActions_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       displayName
-      mySo5Lineups {
+      myVicc5Lineups {
         id
-        ...getLineupActions_so5Lineup
+        ...getLineupActions_vicc5Lineup
       }
-      ...getLineupActions_so5Leaderboard
+      ...getLineupActions_vicc5Leaderboard
     }
-    ${getLineupActions.fragments.so5Lineup}
-    ${getLineupActions.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<LineupActions_so5Leaderboard>,
+    ${getLineupActions.fragments.vicc5Lineup}
+    ${getLineupActions.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<LineupActions_vicc5Leaderboard>,
 };
 
 export default LineupActions;

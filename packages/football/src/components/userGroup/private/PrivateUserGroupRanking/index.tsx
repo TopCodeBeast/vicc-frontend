@@ -73,8 +73,8 @@ const PrivateUserGroupRanking = ({
 export default PrivateUserGroupRanking;
 
 PrivateUserGroupRanking.fragments = {
-  so5UserGroup: gql`
-    fragment PrivateUserGroupRanking_userGroup on So5UserGroup {
+  vicc5UserGroup: gql`
+    fragment PrivateUserGroupRanking_userGroup on Vicc5UserGroup {
       slug
       membershipsCount
       myMembership {

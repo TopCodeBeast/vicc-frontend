@@ -4,7 +4,7 @@ import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { So5State } from '@sorare/core/src/__generated__/globalTypes';
+import { Vicc5State } from '@sorare/core/src/__generated__/globalTypes';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import { Empty } from '@sorare/core/src/components/cards/Empty';
 import useQuery from '@sorare/core/src/hooks/graphql/useQuery';
@@ -23,10 +23,10 @@ import {
   LobbyMyPlayersQueryVariables,
 } from './__generated__/index.graphql';
 
-type LobbyMyPlayersQuery_so5_so5Fixture_mySo5Lineups_so5Appearances =
+type LobbyMyPlayersQuery_vicc5_vicc5Fixture_myVicc5Lineups_vicc5Appearances =
   NonNullable<
-    LobbyMyPlayersQuery['football']['so5']['so5Fixture']
-  >['mySo5Lineups'][number]['so5Appearances'][number];
+    LobbyMyPlayersQuery['football']['vicc5']['vicc5Fixture']
+  >['myVicc5Lineups'][number]['vicc5Appearances'][number];
 
 const Root = styled.section`
   display: grid;
@@ -60,26 +60,26 @@ const messages = defineMessages({
 });
 
 const LOBBY_MY_PLAYERS_QUERY = gql`
-  query LobbyMyPlayersQuery($type: So5State, $slug: String) {
+  query LobbyMyPlayersQuery($type: Vicc5State, $slug: String) {
     football {
-      so5 {
-        so5Fixture(type: $type, slug: $slug) {
+      vicc5 {
+        vicc5Fixture(type: $type, slug: $slug) {
           slug
-          mySo5Lineups {
+          myVicc5Lineups {
             id
-            so5Appearances {
+            vicc5Appearances {
               id
-              ...LobbyPlayer_so5Appearance
+              ...LobbyPlayer_vicc5Appearance
             }
           }
         }
       }
     }
   }
-  ${Player.fragments.so5Appearance}
+  ${Player.fragments.vicc5Appearance}
 ` as TypedDocumentNode<LobbyMyPlayersQuery, LobbyMyPlayersQueryVariables>;
 
-export const MyPlayers = ({ type }: { type: So5State }) => {
+export const MyPlayers = ({ type }: { type: Vicc5State }) => {
   const { formatMessage } = useIntl();
   const { slug } = useParams();
   const { data, loading } = useQuery(LOBBY_MY_PLAYERS_QUERY, {
@@ -88,19 +88,19 @@ export const MyPlayers = ({ type }: { type: So5State }) => {
     fetchPolicy: 'cache-and-network',
   });
   const players = useMemo(() => {
-    const lineups = data?.football.so5.so5Fixture?.mySo5Lineups;
-    const myPlayers: LobbyMyPlayersQuery_so5_so5Fixture_mySo5Lineups_so5Appearances[] =
+    const lineups = data?.football.vicc5.vicc5Fixture?.myVicc5Lineups;
+    const myPlayers: LobbyMyPlayersQuery_vicc5_vicc5Fixture_myVicc5Lineups_vicc5Appearances[] =
       [];
     if (!lineups) {
       return myPlayers;
     }
-    lineups.forEach(({ so5Appearances }) => {
+    lineups.forEach(({ vicc5Appearances }) => {
       myPlayers.push(
-        ...so5Appearances.filter(({ so5Score }) => so5Score?.game)
+        ...vicc5Appearances.filter(({ vicc5Score }) => vicc5Score?.game)
       );
     });
     return myPlayers;
-  }, [data?.football.so5.so5Fixture?.mySo5Lineups]);
+  }, [data?.football.vicc5.vicc5Fixture?.myVicc5Lineups]);
 
   const [displayed, loadMore, hasMoreMatches] = useLoadMore(players, 6);
 

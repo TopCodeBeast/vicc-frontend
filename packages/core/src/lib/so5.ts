@@ -1,27 +1,27 @@
 import { TypedDocumentNode, gql } from '@apollo/client';
 
-import { formatLineupDisplayName_so5Lineup } from './__generated__/so5.graphql';
+import { formatLineupDisplayName_vicc5Lineup } from './__generated__/so5.graphql';
 import { withFragments } from './gql';
 
 export const formatLineupDisplayName = withFragments(
-  (so5Lineup: formatLineupDisplayName_so5Lineup) => {
-    const { name, so5Leaderboard } = so5Lineup;
+  (vicc5Lineup: formatLineupDisplayName_vicc5Lineup) => {
+    const { name, vicc5Leaderboard } = vicc5Lineup;
 
-    const { displayName, trainingCenter } = so5Leaderboard || {};
+    const { displayName, trainingCenter } = vicc5Leaderboard || {};
 
     return [displayName, trainingCenter && name].filter(Boolean).join(' ');
   },
   {
-    so5Lineup: gql`
-      fragment formatLineupDisplayName_so5Lineup on So5Lineup {
+    vicc5Lineup: gql`
+      fragment formatLineupDisplayName_vicc5Lineup on Vicc5Lineup {
         id
         name
-        so5Leaderboard {
+        vicc5Leaderboard {
           slug
           displayName
           trainingCenter
         }
       }
-    ` as TypedDocumentNode<formatLineupDisplayName_so5Lineup>,
+    ` as TypedDocumentNode<formatLineupDisplayName_vicc5Lineup>,
   }
 );

@@ -34,9 +34,9 @@ const INPUT_ID = 'newUserGroupTournament';
 
 export const TournamentInput = ({ tournaments }: Props) => {
   const { formatMessage } = useIntl();
-  const options = tournaments.map(({ so5LeaderboardType, displayName }) => {
+  const options = tournaments.map(({ vicc5LeaderboardType, displayName }) => {
     return {
-      value: so5LeaderboardType,
+      value: vicc5LeaderboardType,
       label: displayName,
     };
   });
@@ -44,7 +44,7 @@ export const TournamentInput = ({ tournaments }: Props) => {
   return (
     <FieldWrapper>
       <Select
-        name="so5LeaderboardType"
+        name="vicc5LeaderboardType"
         id={INPUT_ID}
         options={options}
         initialValue={options[0]}
@@ -68,10 +68,10 @@ export const TournamentInput = ({ tournaments }: Props) => {
 
 TournamentInput.fragments = {
   tournaments: gql`
-    fragment TournamentInput_tournaments on So5Tournament {
+    fragment TournamentInput_tournaments on Vicc5Tournament {
       id
       displayName
-      so5LeaderboardType
+      vicc5LeaderboardType
     }
   ` as TypedDocumentNode<TournamentInput_tournaments>,
 };

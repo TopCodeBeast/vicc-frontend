@@ -1,18 +1,18 @@
 import { TypedDocumentNode, gql } from '@apollo/client';
 
-import { confirmSo5NoCardLineupInput } from '@sorare/core/src/__generated__/globalTypes';
+import { confirmVicc5NoCardLineupInput } from '@sorare/core/src/__generated__/globalTypes';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
 
 import {
-  ConfirmSo5NoCardLineupMutation,
-  ConfirmSo5NoCardLineupMutationVariables,
+  ConfirmVicc5NoCardLineupMutation,
+  ConfirmVicc5NoCardLineupMutationVariables,
 } from './__generated__/useConfirmSo5NoCardLineup.graphql';
 
 const CONFIRM_NO_CARD_LINEUP_MUTATION = gql`
-  mutation ConfirmSo5NoCardLineupMutation(
-    $input: confirmSo5NoCardLineupInput!
+  mutation ConfirmVicc5NoCardLineupMutation(
+    $input: confirmVicc5NoCardLineupInput!
   ) {
-    confirmSo5NoCardLineup(input: $input) {
+    confirmVicc5NoCardLineup(input: $input) {
       currentUser {
         slug
       }
@@ -24,17 +24,17 @@ const CONFIRM_NO_CARD_LINEUP_MUTATION = gql`
     }
   }
 ` as TypedDocumentNode<
-  ConfirmSo5NoCardLineupMutation,
-  ConfirmSo5NoCardLineupMutationVariables
+  ConfirmVicc5NoCardLineupMutation,
+  ConfirmVicc5NoCardLineupMutationVariables
 >;
 
-const useConfirmSo5NoCardLineup = () => {
+const useConfirmVicc5NoCardLineup = () => {
   const [mutate] = useMutation(CONFIRM_NO_CARD_LINEUP_MUTATION, {
     showErrorsInForm: true,
   });
 
-  return async (input: confirmSo5NoCardLineupInput) =>
+  return async (input: confirmVicc5NoCardLineupInput) =>
     mutate({ variables: { input } });
 };
 
-export default useConfirmSo5NoCardLineup;
+export default useConfirmVicc5NoCardLineup;

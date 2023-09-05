@@ -18,7 +18,7 @@ import { useReferralReward_referralReward } from './__generated__/useReferralRew
 import { useBaseballQuery } from './graphql/baseball';
 
 const referralRewardsQueryBySport = {
-  [Sport.FOOTBALL]: undefined,
+  [Sport.CRICKET]: undefined,
 };
 
 const DiscountCardBack = styled.img`
@@ -36,10 +36,10 @@ const isFootballCardReward = (
   reward: useReferralReward_referralReward | null
 ): reward is useReferralReward_referralReward & {
   token: NonNullable<
-    useReferralReward_referralReward['token'] & { sport: Sport.FOOTBALL }
+    useReferralReward_referralReward['token'] & { sport: Sport.CRICKET }
   >;
 } => {
-  return reward?.token?.sport === Sport.FOOTBALL;
+  return reward?.token?.sport === Sport.CRICKET;
 };
 
 const isUsSportCardReward = (

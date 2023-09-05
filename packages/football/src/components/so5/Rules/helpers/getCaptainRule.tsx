@@ -133,7 +133,7 @@ const getCaptainRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetCaptainRule on So5Leaderboard {
+      fragment GetCaptainRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

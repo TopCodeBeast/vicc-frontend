@@ -11,7 +11,7 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { So5State } from '@sorare/core/src/__generated__/globalTypes';
+import { Vicc5State } from '@sorare/core/src/__generated__/globalTypes';
 import { Container } from '@sorare/core/src/atoms/container';
 import { Flag } from '@sorare/core/src/atoms/icons/Flag';
 import { Jersey } from '@sorare/core/src/atoms/icons/Jersey';
@@ -59,26 +59,26 @@ const tabs = defineMessages({
 });
 
 const LOBBY_PAST_QUERY = gql`
-  query LobbyPastQuery($slug: String, $type: So5State) {
+  query LobbyPastQuery($slug: String, $type: Vicc5State) {
     football {
-      so5 {
-        so5Fixture(slug: $slug, type: $type) {
+      vicc5 {
+        vicc5Fixture(slug: $slug, type: $type) {
           slug
           aasmState
-          totalLineups: mySo5LineupsCount(draft: false)
-          mySo5Rewards {
+          totalLineups: myVicc5LineupsCount(draft: false)
+          myVicc5Rewards {
             slug
-            ...RewardsBanner_so5Reward
+            ...RewardsBanner_vicc5Reward
           }
-          ...Lobby_Layout_so5Fixture
-          ...Teams_so5Fixture
+          ...Lobby_Layout_vicc5Fixture
+          ...Teams_vicc5Fixture
         }
       }
     }
   }
-  ${Layout.fragments.so5Fixture}
-  ${RewardsBanner.fragments.so5Reward}
-  ${Teams.fragments.so5Fixture}
+  ${Layout.fragments.vicc5Fixture}
+  ${RewardsBanner.fragments.vicc5Reward}
+  ${Teams.fragments.vicc5Fixture}
 ` as TypedDocumentNode<LobbyPastQuery, LobbyPastQueryVariables>;
 
 const StyledRewardsBanner = styled.div`
@@ -100,7 +100,7 @@ export const LobbyPast = () => {
   const slugAndType = useMemo(
     () => ({
       slug: slug !== 'past' && slug ? slug : null,
-      type: slug === 'past' ? So5State.PAST : null,
+      type: slug === 'past' ? Vicc5State.PAST : null,
     }),
     [slug]
   );
@@ -109,13 +109,13 @@ export const LobbyPast = () => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const so5Fixture = data?.football.so5.so5Fixture || undefined;
-  const rewardsLeftToBeClaimed = so5Fixture?.mySo5Rewards.some(
+  const vicc5Fixture = data?.football.vicc5.vicc5Fixture || undefined;
+  const rewardsLeftToBeClaimed = vicc5Fixture?.myVicc5Rewards.some(
     ({ aasmState }) => aasmState !== 'claimed'
   );
 
-  if (so5Fixture) {
-    if (isFixtureLive(so5Fixture)) {
+  if (vicc5Fixture) {
+    if (isFixtureLive(vicc5Fixture)) {
       return (
         <Navigate
           to={generatePath(FOOTBALL_LOBBY_LIVE, { tab: 'my-teams' })}
@@ -123,7 +123,7 @@ export const LobbyPast = () => {
         />
       );
     }
-    if (isFixtureOpened(so5Fixture)) {
+    if (isFixtureOpened(vicc5Fixture)) {
       return (
         <Navigate
           to={generatePath(FOOTBALL_LOBBY_UPCOMING, { tab: '' })}
@@ -134,18 +134,18 @@ export const LobbyPast = () => {
   }
 
   return (
-    <Layout so5Fixture={so5Fixture}>
+    <Layout vicc5Fixture={vicc5Fixture}>
       <Container>
         <div>
           <StyledRewardsBanner
             className={classnames({ active: rewardsLeftToBeClaimed })}
           >
-            {so5Fixture?.mySo5Rewards && so5Fixture.mySo5Rewards.length > 0 && (
+            {vicc5Fixture?.myVicc5Rewards && vicc5Fixture.myVicc5Rewards.length > 0 && (
               <RewardsBanner
-                rewards={so5Fixture.mySo5Rewards}
+                rewards={vicc5Fixture.myVicc5Rewards}
                 // necessary to force remount between lobby gameweeks change
                 // & reset the rewards banner to its initial state
-                key={so5Fixture.slug}
+                key={vicc5Fixture.slug}
               />
             )}
           </StyledRewardsBanner>
@@ -156,7 +156,7 @@ export const LobbyPast = () => {
                 to: goToLobby('past', LOBBY_TABS.MY_TEAMS, slug),
                 label: formatMessage(tabs.myTeams),
                 icon: <Jersey />,
-                badge: so5Fixture?.totalLineups,
+                badge: vicc5Fixture?.totalLineups,
               },
               {
                 to: goToLobby('past', LOBBY_TABS.MY_PLAYERS, slug),
@@ -176,11 +176,11 @@ export const LobbyPast = () => {
             <Routes location={bgLocation}>
               <Route
                 path={LOBBY_TABS.MY_PLAYERS}
-                element={<MyPlayers type={So5State.PAST} />}
+                element={<MyPlayers type={Vicc5State.PAST} />}
               />
               <Route
                 path={`${LOBBY_TABS.LEADERBOARD}/*`}
-                element={<LeaderboardPicker type={So5State.PAST} />}
+                element={<LeaderboardPicker type={Vicc5State.PAST} />}
               >
                 {/** render null as it's only for routing redirection */}
                 <Route path=":leaderboardSlug" element={null} />
@@ -193,7 +193,7 @@ export const LobbyPast = () => {
                       ...slugAndType,
                       draft: false,
                     }}
-                    so5Fixture={so5Fixture}
+                    vicc5Fixture={vicc5Fixture}
                   />
                 }
               />

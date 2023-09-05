@@ -63,7 +63,7 @@ const getSumOfAverageScoresRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetSumOfAverageScoresRule on So5Leaderboard {
+      fragment GetSumOfAverageScoresRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

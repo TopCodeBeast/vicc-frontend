@@ -10,7 +10,7 @@ import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import { isFixtureClosed } from '@football/lib/so5';
 
-import { CompetitionDetailsTimeLeft_so5Fixture } from './__generated__/index.graphql';
+import { CompetitionDetailsTimeLeft_vicc5Fixture } from './__generated__/index.graphql';
 
 const Wrapper = styled.div`
   display: none;
@@ -22,9 +22,9 @@ const Wrapper = styled.div`
   }
 `;
 
-const getLabel = (so5Fixture: CompetitionDetailsTimeLeft_so5Fixture) => {
-  const startDate = parseISO(so5Fixture.cutOffDate);
-  const endDate = parseISO(so5Fixture.endDate);
+const getLabel = (vicc5Fixture: CompetitionDetailsTimeLeft_vicc5Fixture) => {
+  const startDate = parseISO(vicc5Fixture.cutOffDate);
+  const endDate = parseISO(vicc5Fixture.endDate);
 
   if (isPast(endDate)) {
     return <FormattedMessage {...fantasy.ended} />;
@@ -48,10 +48,10 @@ const getLabel = (so5Fixture: CompetitionDetailsTimeLeft_so5Fixture) => {
   );
 };
 
-type Props = { so5Fixture: CompetitionDetailsTimeLeft_so5Fixture };
+type Props = { vicc5Fixture: CompetitionDetailsTimeLeft_vicc5Fixture };
 
-export const CompetitionDetailsTimeLeft = ({ so5Fixture }: Props) => {
-  if (isFixtureClosed(so5Fixture)) {
+export const CompetitionDetailsTimeLeft = ({ vicc5Fixture }: Props) => {
+  if (isFixtureClosed(vicc5Fixture)) {
     return null;
   }
 
@@ -63,19 +63,19 @@ export const CompetitionDetailsTimeLeft = ({ so5Fixture }: Props) => {
           background: 'var(--c-static-neutral-800)',
         }}
         size="smaller"
-        label={getLabel(so5Fixture)}
+        label={getLabel(vicc5Fixture)}
       />
     </Wrapper>
   );
 };
 
 CompetitionDetailsTimeLeft.fragments = {
-  so5Fixture: gql`
-    fragment CompetitionDetailsTimeLeft_so5Fixture on So5Fixture {
+  vicc5Fixture: gql`
+    fragment CompetitionDetailsTimeLeft_vicc5Fixture on Vicc5Fixture {
       slug
       endDate
       aasmState
       cutOffDate
     }
-  ` as TypedDocumentNode<CompetitionDetailsTimeLeft_so5Fixture>,
+  ` as TypedDocumentNode<CompetitionDetailsTimeLeft_vicc5Fixture>,
 };

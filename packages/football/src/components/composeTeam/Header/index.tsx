@@ -14,8 +14,8 @@ import DivisionLogo from '@football/components/so5/DivisionLogo';
 import getLineupDisplayName from '@football/lib/lineup/getLineupDisplayName';
 
 import {
-  ComposeTeamDraftHeader_so5Leaderboard,
-  ComposeTeamDraftHeader_so5Lineup,
+  ComposeTeamDraftHeader_vicc5Leaderboard,
+  ComposeTeamDraftHeader_vicc5Lineup,
 } from './__generated__/index.graphql';
 
 const Root = styled.div`
@@ -87,35 +87,35 @@ const Period = ({ start, end }: { start: string; end: string }) => {
 };
 
 type Props = {
-  so5Leaderboard?: ComposeTeamDraftHeader_so5Leaderboard;
-  so5Lineup: Nullable<ComposeTeamDraftHeader_so5Lineup>;
+  vicc5Leaderboard?: ComposeTeamDraftHeader_vicc5Leaderboard;
+  vicc5Lineup: Nullable<ComposeTeamDraftHeader_vicc5Lineup>;
   Back: FC<React.PropsWithChildren<unknown>>;
   renderExtra?: (props: FC<React.PropsWithChildren<unknown>>) => ReactNode;
 };
-const Header = ({ so5Leaderboard, so5Lineup, Back, renderExtra }: Props) => {
+const Header = ({ vicc5Leaderboard, vicc5Lineup, Back, renderExtra }: Props) => {
   const { formatMessage } = useIntl();
-  if (!so5Leaderboard) {
+  if (!vicc5Leaderboard) {
     return null;
   }
   return (
     <Root>
       <Logo>
-        <DivisionLogo so5Leaderboard={so5Leaderboard} tag />
+        <DivisionLogo vicc5Leaderboard={vicc5Leaderboard} tag />
         <div>
           <Subtitle>
-            {scarcityMessages[so5Leaderboard.rarityType as ScarcityType] && (
+            {scarcityMessages[vicc5Leaderboard.rarityType as ScarcityType] && (
               <FormattedMessage
-                {...scarcityMessages[so5Leaderboard.rarityType as ScarcityType]}
+                {...scarcityMessages[vicc5Leaderboard.rarityType as ScarcityType]}
               />
             )}
             <span>•</span>
             <Period
-              start={so5Leaderboard.so5Fixture.startDate}
-              end={so5Leaderboard.so5Fixture.endDate}
+              start={vicc5Leaderboard.vicc5Fixture.startDate}
+              end={vicc5Leaderboard.vicc5Fixture.endDate}
             />
           </Subtitle>
           <CompetitionName>
-            <Title3>{getLineupDisplayName(so5Lineup, so5Leaderboard)}</Title3>
+            <Title3>{getLineupDisplayName(vicc5Lineup, vicc5Leaderboard)}</Title3>
             <ExtraWrapper>{renderExtra?.(Extra)}</ExtraWrapper>
           </CompetitionName>
         </div>
@@ -137,27 +137,27 @@ const Header = ({ so5Leaderboard, so5Lineup, Back, renderExtra }: Props) => {
 export default Header;
 
 Header.fragments = {
-  so5Leaderboard: gql`
-    fragment ComposeTeamDraftHeader_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment ComposeTeamDraftHeader_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       displayName
       rarityType
-      so5Fixture {
+      vicc5Fixture {
         slug
         startDate
         endDate
       }
-      ...DivisionLogo_so5Leaderboard
-      ...getLineupDisplayName_so5Leaderboard
+      ...DivisionLogo_vicc5Leaderboard
+      ...getLineupDisplayName_vicc5Leaderboard
     }
-    ${DivisionLogo.fragments.so5Leaderboard}
-    ${getLineupDisplayName.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<ComposeTeamDraftHeader_so5Leaderboard>,
-  so5Lineup: gql`
-    fragment ComposeTeamDraftHeader_so5Lineup on So5Lineup {
+    ${DivisionLogo.fragments.vicc5Leaderboard}
+    ${getLineupDisplayName.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<ComposeTeamDraftHeader_vicc5Leaderboard>,
+  vicc5Lineup: gql`
+    fragment ComposeTeamDraftHeader_vicc5Lineup on Vicc5Lineup {
       id
-      ...getLineupDisplayName_so5Lineup
+      ...getLineupDisplayName_vicc5Lineup
     }
-    ${getLineupDisplayName.fragments.so5Lineup}
-  ` as TypedDocumentNode<ComposeTeamDraftHeader_so5Lineup>,
+    ${getLineupDisplayName.fragments.vicc5Lineup}
+  ` as TypedDocumentNode<ComposeTeamDraftHeader_vicc5Lineup>,
 };

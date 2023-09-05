@@ -34,7 +34,7 @@ import { DumbBanner } from '@football/components/rewards/DumbBanner';
 import NoCardEntry from '@football/components/so5/NoCardEntry';
 import { sortLeaderboards, sortLeaderboardsByTournamentType } from '@football/lib/so5';
 
-import { UpcomingFixture_so5Leaderboard } from './__generated__/index.graphql';
+import { UpcomingFixture_vicc5Leaderboard } from './__generated__/index.graphql';
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -62,17 +62,17 @@ const WarningIconWrapper = styled.div`
 
 type Props = {
   index: number;
-  so5Leaderboards: UpcomingFixture_so5Leaderboard[];
+  vicc5Leaderboards: UpcomingFixture_vicc5Leaderboard[];
   loading: boolean;
   isLast: boolean;
   discoverElement?: ReactNode;
 };
 
-type So5Lineup = UpcomingFixture_so5Leaderboard['mySo5Lineups'][number];
+type Vicc5Lineup = UpcomingFixture_vicc5Leaderboard['myVicc5Lineups'][number];
 
 const sortByExistingLineup = (
-  l1: Nullable<So5Lineup>,
-  l2: Nullable<So5Lineup>
+  l1: Nullable<Vicc5Lineup>,
+  l2: Nullable<Vicc5Lineup>
 ) => {
   if (l1 && !l2) {
     return -1;
@@ -84,8 +84,8 @@ const sortByExistingLineup = (
 };
 
 const sortByConfirmedLineup = (
-  l1: Nullable<So5Lineup>,
-  l2: Nullable<So5Lineup>
+  l1: Nullable<Vicc5Lineup>,
+  l2: Nullable<Vicc5Lineup>
 ) => {
   if (l1?.draft && !l2?.draft) {
     return -1;
@@ -97,15 +97,15 @@ const sortByConfirmedLineup = (
 };
 
 const sortByDivision = (
-  l1: UpcomingFixture_so5Leaderboard,
-  l2: UpcomingFixture_so5Leaderboard
+  l1: UpcomingFixture_vicc5Leaderboard,
+  l2: UpcomingFixture_vicc5Leaderboard
 ) => {
   return l1.division - l2.division;
 };
 
 export const UpcomingFixture = ({
   index,
-  so5Leaderboards,
+  vicc5Leaderboards,
   loading,
   isLast,
   discoverElement,
@@ -116,9 +116,9 @@ export const UpcomingFixture = ({
   const navigate = useNavigate();
   const { task, setStep } = useManagerTaskContext();
   const sortedLeaderboards = useMemo(() => {
-    return so5Leaderboards?.sort((l1, l2) => {
-      const lineup1 = l1.mySo5Lineups[0];
-      const lineup2 = l2.mySo5Lineups[0];
+    return vicc5Leaderboards?.sort((l1, l2) => {
+      const lineup1 = l1.myVicc5Lineups[0];
+      const lineup2 = l2.myVicc5Lineups[0];
       return (
         sortByExistingLineup(lineup1, lineup2) ||
         sortByConfirmedLineup(lineup1, lineup2) ||
@@ -130,26 +130,26 @@ export const UpcomingFixture = ({
         sortLeaderboards(l1, l2)
       );
     });
-  }, [so5Leaderboards]);
+  }, [vicc5Leaderboards]);
 
   const displayedLeaderboards = sortedLeaderboards?.slice(0, 3);
   const displayedItemsCount = displayedLeaderboards?.length;
 
-  const so5Fixture = so5Leaderboards?.[0]?.so5Fixture;
+  const vicc5Fixture = vicc5Leaderboards?.[0]?.vicc5Fixture;
 
   const gameWeek = displayedLeaderboards?.[0]?.gameWeek;
 
-  const hasConfirmedLineup = so5Leaderboards.some(leaderboard =>
-    leaderboard.mySo5Lineups.some(lineup => !lineup?.draft)
+  const hasConfirmedLineup = vicc5Leaderboards.some(leaderboard =>
+    leaderboard.myVicc5Lineups.some(lineup => !lineup?.draft)
   );
 
   return (
     <HomeBlockWithTimeline
-      fixtureShortDisplayName={so5Fixture?.shortDisplayName}
+      fixtureShortDisplayName={vicc5Fixture?.shortDisplayName}
       gameWeek={gameWeek}
       type="upcoming"
       isLast={isLast}
-      title={<GameWeekTitle so5Fixture={so5Fixture} type="upcoming" />}
+      title={<GameWeekTitle vicc5Fixture={vicc5Fixture} type="upcoming" />}
       loading={loading}
       action={
         <ManagerTaskTooltip
@@ -180,7 +180,7 @@ export const UpcomingFixture = ({
             <Lineup
               key={leaderboard.slug}
               leaderboard={leaderboard}
-              lineup={leaderboard.mySo5Lineups[0]}
+              lineup={leaderboard.myVicc5Lineups[0]}
               hideGameWeekInfo
             />
           ))}
@@ -201,9 +201,9 @@ export const UpcomingFixture = ({
               hasConfirmedLineup && (
                 <DescriptionRow>
                   <FontAwesomeIcon icon={faClock} size="sm" />
-                  {so5Fixture.endDate &&
-                  isFuture(new Date(so5Fixture.endDate)) ? (
-                    <TimeLeft time={new Date(so5Fixture.endDate)} />
+                  {vicc5Fixture.endDate &&
+                  isFuture(new Date(vicc5Fixture.endDate)) ? (
+                    <TimeLeft time={new Date(vicc5Fixture.endDate)} />
                   ) : undefined}
                 </DescriptionRow>
               )
@@ -244,36 +244,36 @@ export const UpcomingFixture = ({
 };
 
 UpcomingFixture.fragments = {
-  so5Leaderboard: gql`
-    fragment UpcomingFixture_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment UpcomingFixture_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       rarityType
       gameWeek
       tournamentType
       division
-      so5Fixture {
+      vicc5Fixture {
         slug
         id
         cutOffDate
         displayName
         shortDisplayName
         endDate
-        ...GameWeekTitle_so5Fixture
+        ...GameWeekTitle_vicc5Fixture
       }
       commonDraftCampaign {
         slug
         status
       }
-      mySo5Lineups {
+      myVicc5Lineups {
         id
-        ...Lineup_so5Lineup
+        ...Lineup_vicc5Lineup
       }
-      ...Lineup_so5Leaderboard
+      ...Lineup_vicc5Leaderboard
       ...sortLeaderboards_leaderboard
     }
-    ${Lineup.fragments.so5Lineup}
-    ${Lineup.fragments.so5Leaderboard}
+    ${Lineup.fragments.vicc5Lineup}
+    ${Lineup.fragments.vicc5Leaderboard}
     ${sortLeaderboards.fragments.leaderboard}
-    ${GameWeekTitle.fragments.so5Fixture}
-  ` as TypedDocumentNode<UpcomingFixture_so5Leaderboard>,
+    ${GameWeekTitle.fragments.vicc5Fixture}
+  ` as TypedDocumentNode<UpcomingFixture_vicc5Leaderboard>,
 };

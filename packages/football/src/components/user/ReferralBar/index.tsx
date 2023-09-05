@@ -65,7 +65,7 @@ const REFERRAL_BAR_QUERY = gql`
         aasmState
         expirationDate
         footballCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
-          sport: FOOTBALL
+          sport: CRICKET
         )
         nbaCardsAuctionCount: refereeSportCardsBoughtFromPrimaryMarketCount(
           sport: NBA
@@ -205,7 +205,7 @@ const InProgressReferralRewardHeader = ({
     referralAsReferee.footballCardsAuctionCount >=
       CARDS_REQUIREMENTS_BY_SPORT[Sport.NBA] ||
     referralAsReferee.nbaCardsAuctionCount >=
-      CARDS_REQUIREMENTS_BY_SPORT[Sport.FOOTBALL];
+      CARDS_REQUIREMENTS_BY_SPORT[Sport.CRICKET];
   return (
     <>
       <Header>
@@ -253,7 +253,7 @@ const InProgressReferralRewardHeader = ({
       </Header>
       <Progression
         icon={<Ball />}
-        max={campaignCardCount || CARDS_REQUIREMENTS_BY_SPORT[Sport.FOOTBALL]}
+        max={campaignCardCount || CARDS_REQUIREMENTS_BY_SPORT[Sport.CRICKET]}
         count={referralAsReferee.footballCardsAuctionCount}
       />
       <Progression

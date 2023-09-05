@@ -18,7 +18,7 @@ import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 import { qualityNames } from '@sorare/core/src/lib/players';
 import { ScarcityType } from '@sorare/core/src/lib/scarcity';
 
-import { ActualReward_so5Reward } from './__generated__/index.graphql';
+import { ActualReward_vicc5Reward } from './__generated__/index.graphql';
 
 const Wrapper = styled.div`
   display: flex;
@@ -45,7 +45,7 @@ const CardRewardWrapper = styled.div`
 `;
 
 type Props = {
-  reward: ActualReward_so5Reward;
+  reward: ActualReward_vicc5Reward;
 };
 
 export const ActualReward = ({ reward }: Props) => {
@@ -100,8 +100,8 @@ export const ActualReward = ({ reward }: Props) => {
 };
 
 ActualReward.fragments = {
-  so5Reward: gql`
-    fragment ActualReward_so5Reward on So5Reward {
+  vicc5Reward: gql`
+    fragment ActualReward_vicc5Reward on Vicc5Reward {
       slug
       amount {
         ...MonetaryAmountFragment_monetaryAmount
@@ -123,5 +123,5 @@ ActualReward.fragments = {
       }
     }
     ${monetaryAmountFragment}
-  ` as TypedDocumentNode<ActualReward_so5Reward>,
+  ` as TypedDocumentNode<ActualReward_vicc5Reward>,
 };

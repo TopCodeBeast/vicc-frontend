@@ -13,7 +13,7 @@ import { Text14, Text16, Title4 } from '@sorare/core/src/atoms/typography';
 import TimeLeft from '@sorare/core/src/contexts/ticker/TimeLeft';
 import { Color } from '@sorare/core/src/style/types';
 
-import { GameWeekTitle_so5Fixture } from './__generated__/index.graphql';
+import { GameWeekTitle_vicc5Fixture } from './__generated__/index.graphql';
 
 const Wrapper = styled.div`
   display: flex;
@@ -76,24 +76,24 @@ const statusLabels: Record<string, NewType> = {
 };
 
 type Props = {
-  so5Fixture: Nullable<GameWeekTitle_so5Fixture>;
+  vicc5Fixture: Nullable<GameWeekTitle_vicc5Fixture>;
   type: 'past' | 'live' | 'upcoming';
 };
 
-export const GameWeekTitle = ({ so5Fixture, type }: Props) => {
+export const GameWeekTitle = ({ vicc5Fixture, type }: Props) => {
   const statusLabel = statusLabels[type];
   return (
     <Wrapper>
-      {so5Fixture && (
+      {vicc5Fixture && (
         <Title>
           <FormattedDate
-            value={new Date(so5Fixture.cutOffDate)}
+            value={new Date(vicc5Fixture.cutOffDate)}
             month="short"
             day="2-digit"
           />{' '}
           -{' '}
           <FormattedDate
-            value={new Date(so5Fixture.endDate)}
+            value={new Date(vicc5Fixture.endDate)}
             month="short"
             day="2-digit"
           />
@@ -103,10 +103,10 @@ export const GameWeekTitle = ({ so5Fixture, type }: Props) => {
         <Text16 color={statusLabel.color} bold>
           <FormattedMessage {...statusLabel.label} />
         </Text16>
-        {type === 'upcoming' && so5Fixture?.cutOffDate && (
+        {type === 'upcoming' && vicc5Fixture?.cutOffDate && (
           <TimeLeftWrapper as="div">
             <FontAwesomeIcon icon={faClock} />
-            <TimeLeft time={new Date(so5Fixture?.cutOffDate)} />
+            <TimeLeft time={new Date(vicc5Fixture?.cutOffDate)} />
           </TimeLeftWrapper>
         )}
       </Subtitle>
@@ -115,11 +115,11 @@ export const GameWeekTitle = ({ so5Fixture, type }: Props) => {
 };
 
 GameWeekTitle.fragments = {
-  so5Fixture: gql`
-    fragment GameWeekTitle_so5Fixture on So5Fixture {
+  vicc5Fixture: gql`
+    fragment GameWeekTitle_vicc5Fixture on Vicc5Fixture {
       slug
       cutOffDate
       endDate
     }
-  ` as TypedDocumentNode<GameWeekTitle_so5Fixture>,
+  ` as TypedDocumentNode<GameWeekTitle_vicc5Fixture>,
 };

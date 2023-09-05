@@ -4,7 +4,7 @@ import { FormattedMessage, defineMessages } from 'react-intl';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { So5State } from '@sorare/core/src/__generated__/globalTypes';
+import { Vicc5State } from '@sorare/core/src/__generated__/globalTypes';
 import Button from '@sorare/core/src/atoms/buttons/Button';
 import LoadingIndicator from '@sorare/core/src/atoms/loader/LoadingIndicator';
 import StyledSecondaryTabs from '@sorare/core/src/atoms/navigation/StyledSecondaryTabs';
@@ -85,7 +85,7 @@ const messages = defineMessages({
 export const UPCOMING_TEAMS_SETUP_QUERY = gql`
   query UpcomingTeamsSetupQuery {
     football {
-      so5 {
+      vicc5 {
         lineups: myUpcomingLineupsPaginated {
           totalCount
         }
@@ -96,10 +96,10 @@ export const UPCOMING_TEAMS_SETUP_QUERY = gql`
           slug
           teamsCap
           trainingCenter
-          mySo5Lineups {
+          myVicc5Lineups {
             id
           }
-          so5League {
+          vicc5League {
             id
             slug
           }
@@ -127,7 +127,7 @@ export const LobbyUpcomingTeams = () => {
     fetchPolicy: 'cache-and-network',
   });
 
-  const { lineups, drafts, upcomingLeaderboards } = data?.football.so5 || {};
+  const { lineups, drafts, upcomingLeaderboards } = data?.football.vicc5 || {};
   const totalLineups = lineups?.totalCount || 0;
   const totalDrafts = drafts?.totalCount || 0;
 
@@ -140,12 +140,12 @@ export const LobbyUpcomingTeams = () => {
       setLoadingState(actionType);
       if (upcomingLeaderboards) {
         const lineupIds =
-          upcomingLeaderboards.flatMap(({ mySo5Lineups }) =>
-            mySo5Lineups.map(({ id }) => id)
+          upcomingLeaderboards.flatMap(({ myVicc5Lineups }) =>
+            myVicc5Lineups.map(({ id }) => id)
           ) || [];
         if (actionType === 'delete') {
           await deleteLineups(
-            upcomingLeaderboards.map(({ so5League }) => so5League.id),
+            upcomingLeaderboards.map(({ vicc5League }) => vicc5League.id),
             lineupIds
           );
         } else {
@@ -280,7 +280,7 @@ export const LobbyUpcomingTeams = () => {
       <Teams
         emptyDescription={messages.emptyDescription}
         queryVariables={{
-          type: So5State.UPCOMING,
+          type: Vicc5State.UPCOMING,
           slug: null,
           draft: isOnDraft,
         }}

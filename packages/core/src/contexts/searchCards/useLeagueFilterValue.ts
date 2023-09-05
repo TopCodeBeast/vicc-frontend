@@ -2,10 +2,10 @@ import { useConfigContext } from '@core/contexts/config';
 
 export default (leagueFilter: string | undefined) => {
   const {
-    so5: { so5LeaguesAlgoliaFilters },
+    vicc5: { vicc5LeaguesAlgoliaFilters },
   } = useConfigContext();
 
   if (!leagueFilter) return null;
 
-  return so5LeaguesAlgoliaFilters[leagueFilter];
+  return vicc5LeaguesAlgoliaFilters[leagueFilter];
 };

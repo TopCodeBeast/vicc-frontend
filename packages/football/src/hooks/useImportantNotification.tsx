@@ -10,7 +10,7 @@ export const useImportantNotification = () => {
   const importantNotification = useMemo(() => {
     if (notifications.length) {
       return notifications
-        .filter(n => n && !n.read && n.sport === Sport.FOOTBALL)
+        .filter(n => n && !n.read && n.sport === Sport.CRICKET)
         .find(n => n && importantNotifications.includes(n.name));
     }
     return null;

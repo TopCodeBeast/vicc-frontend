@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { LiveFixture } from './LiveFixture';
 import { PastFixture } from './PastFixture';
 import { UpcomingFixtures } from './UpcomingFixtures';
-import { TournamentsTimeline_so5 } from './__generated__/index.graphql';
+import { TournamentsTimeline_vicc5 } from './__generated__/index.graphql';
 
 const Wrapper = styled.div`
   display: flex;
@@ -12,29 +12,29 @@ const Wrapper = styled.div`
   color: var(--c-neutral-1000);
 `;
 type Props = {
-  so5: Nullable<TournamentsTimeline_so5>;
+  vicc5: Nullable<TournamentsTimeline_vicc5>;
   loading: boolean;
 };
 
-export const TournamentsTimeline = ({ so5, loading }: Props) => {
+export const TournamentsTimeline = ({ vicc5, loading }: Props) => {
   return (
     <Wrapper>
-      <PastFixture so5={so5} loading={loading} />
-      <LiveFixture so5={so5} loading={loading} />
-      <UpcomingFixtures so5={so5} loading={loading} />
+      <PastFixture vicc5={vicc5} loading={loading} />
+      <LiveFixture vicc5={vicc5} loading={loading} />
+      <UpcomingFixtures vicc5={vicc5} loading={loading} />
     </Wrapper>
   );
 };
 
 TournamentsTimeline.fragments = {
-  so5: gql`
-    fragment TournamentsTimeline_so5 on So5Root {
-      ...PastFixture_so5
-      ...LiveFixture_so5
-      ...UpcomingFixtures_so5
+  vicc5: gql`
+    fragment TournamentsTimeline_vicc5 on Vicc5Root {
+      ...PastFixture_vicc5
+      ...LiveFixture_vicc5
+      ...UpcomingFixtures_vicc5
     }
-    ${PastFixture.fragments.so5}
-    ${LiveFixture.fragments.so5}
-    ${UpcomingFixtures.fragments.so5}
-  ` as TypedDocumentNode<TournamentsTimeline_so5>,
+    ${PastFixture.fragments.vicc5}
+    ${LiveFixture.fragments.vicc5}
+    ${UpcomingFixtures.fragments.vicc5}
+  ` as TypedDocumentNode<TournamentsTimeline_vicc5>,
 };

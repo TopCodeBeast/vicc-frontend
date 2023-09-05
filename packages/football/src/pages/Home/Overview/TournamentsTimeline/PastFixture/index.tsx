@@ -16,7 +16,7 @@ import { EligibleRewardsBanner } from '@football/components/rewards/EligibleRewa
 import { getRewardType } from '@football/lib/lineupRewards';
 import { isFixtureClosed } from '@football/lib/so5';
 
-import { PastFixture_so5 } from './__generated__/index.graphql';
+import { PastFixture_vicc5 } from './__generated__/index.graphql';
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -25,24 +25,24 @@ const ContentWrapper = styled.div`
 `;
 
 type Props = {
-  so5: Nullable<PastFixture_so5>;
+  vicc5: Nullable<PastFixture_vicc5>;
   loading: boolean;
 };
-export const PastFixture = ({ so5, loading }: Props) => {
-  const so5Fixture = so5?.pastFixture;
-  const { edges } = so5Fixture?.mySo5LineupsPaginated || {};
+export const PastFixture = ({ vicc5, loading }: Props) => {
+  const vicc5Fixture = vicc5?.pastFixture;
+  const { edges } = vicc5Fixture?.myVicc5LineupsPaginated || {};
   const lineups =
-    edges?.map(edge => edge.node).filter(lineup => lineup?.so5Leaderboard) ||
+    edges?.map(edge => edge.node).filter(lineup => lineup?.vicc5Leaderboard) ||
     [];
-  const lineupsCount = so5Fixture?.mySo5LineupsCount;
+  const lineupsCount = vicc5Fixture?.myVicc5LineupsCount;
   const [isDisplayedOnce, setIsDisplayedOnce] = useState(false);
 
   if (!lineups.length && !loading) {
     return null;
   }
 
-  const unclaimedRewards = so5Fixture && hasUnclaimedRewards(so5Fixture);
-  const fixtureClosed = so5Fixture && isFixtureClosed(so5Fixture);
+  const unclaimedRewards = vicc5Fixture && hasUnclaimedRewards(vicc5Fixture);
+  const fixtureClosed = vicc5Fixture && isFixtureClosed(vicc5Fixture);
 
   const shouldBeDisplayed = !unclaimedRewards && fixtureClosed;
 
@@ -62,23 +62,23 @@ export const PastFixture = ({ so5, loading }: Props) => {
       return (
         <EligibleRewardsBanner
           rewardConfigs={lineups.flatMap(lineup =>
-            lineup.so5Rankings.flatMap(ranking => ranking.eligibleRewards)
+            lineup.vicc5Rankings.flatMap(ranking => ranking.eligibleRewards)
           )}
-          rewardsDeliveryDate={so5Fixture?.rewardsDeliveryDate}
+          rewardsDeliveryDate={vicc5Fixture?.rewardsDeliveryDate}
         />
       );
     }
-    if (so5Fixture?.mySo5Rewards) {
-      return <RewardsBanner rewards={so5Fixture?.mySo5Rewards} />;
+    if (vicc5Fixture?.myVicc5Rewards) {
+      return <RewardsBanner rewards={vicc5Fixture?.myVicc5Rewards} />;
     }
     return null;
   };
 
   return (
     <HomeBlockWithTimeline
-      gameWeek={so5Fixture?.gameWeek}
-      fixtureShortDisplayName={so5Fixture?.shortDisplayName}
-      title={<GameWeekTitle so5Fixture={so5Fixture} type="past" />}
+      gameWeek={vicc5Fixture?.gameWeek}
+      fixtureShortDisplayName={vicc5Fixture?.shortDisplayName}
+      title={<GameWeekTitle vicc5Fixture={vicc5Fixture} type="past" />}
       type="past"
       loading={loading}
       action={
@@ -88,7 +88,7 @@ export const PastFixture = ({ so5, loading }: Props) => {
             context="Past"
             to={generatePath(FOOTBALL_LOBBY_PAST, {
               tab: 'my-teams',
-              slug: so5Fixture?.slug,
+              slug: vicc5Fixture?.slug,
             })}
           />
         )
@@ -98,12 +98,12 @@ export const PastFixture = ({ so5, loading }: Props) => {
         <ItemRows itemsCount={lineups.length} loading={loading}>
           {lineups.map(
             lineup =>
-              lineup?.so5Leaderboard && (
+              lineup?.vicc5Leaderboard && (
                 <Lineup
                   key={lineup.id}
-                  leaderboard={lineup.so5Leaderboard}
+                  leaderboard={lineup.vicc5Leaderboard}
                   lineup={lineup}
-                  rewardType={getRewardType(so5Fixture)}
+                  rewardType={getRewardType(vicc5Fixture)}
                   displayScore
                   hideGameWeekInfo
                 />
@@ -117,26 +117,26 @@ export const PastFixture = ({ so5, loading }: Props) => {
 };
 
 PastFixture.fragments = {
-  so5: gql`
-    fragment PastFixture_so5 on So5Root {
-      pastFixture: so5Fixture(type: PAST) {
+  vicc5: gql`
+    fragment PastFixture_vicc5 on Vicc5Root {
+      pastFixture: vicc5Fixture(type: PAST) {
         slug
         aasmState
         gameWeek
         shortDisplayName
         rewardsDeliveryDate
-        ...GameWeekTitle_so5Fixture
-        mySo5LineupsCount(training: false)
-        mySo5LineupsPaginated(first: 3, withTraining: false) {
+        ...GameWeekTitle_vicc5Fixture
+        myVicc5LineupsCount(training: false)
+        myVicc5LineupsPaginated(first: 3, withTraining: false) {
           edges {
             node {
               id
-              ...Lineup_so5Lineup
-              so5Leaderboard {
+              ...Lineup_vicc5Lineup
+              vicc5Leaderboard {
                 slug
-                ...Lineup_so5Leaderboard
+                ...Lineup_vicc5Leaderboard
               }
-              so5Rankings {
+              vicc5Rankings {
                 id
                 eligibleRewards {
                   ...EligibleRewards_rewardConfig
@@ -146,20 +146,20 @@ PastFixture.fragments = {
             }
           }
         }
-        ...getRewardType_so5Fixture
-        mySo5Rewards {
+        ...getRewardType_vicc5Fixture
+        myVicc5Rewards {
           slug
-          ...RewardsBanner_so5Reward
+          ...RewardsBanner_vicc5Reward
         }
-        ...hasUnclaimedRewards_so5Fixture
+        ...hasUnclaimedRewards_vicc5Fixture
       }
     }
-    ${getRewardType.fragments.so5Fixture}
-    ${Lineup.fragments.so5Leaderboard}
-    ${Lineup.fragments.so5Lineup}
-    ${GameWeekTitle.fragments.so5Fixture}
-    ${RewardsBanner.fragments.so5Reward}
-    ${hasUnclaimedRewards.fragments.so5Fixture}
+    ${getRewardType.fragments.vicc5Fixture}
+    ${Lineup.fragments.vicc5Leaderboard}
+    ${Lineup.fragments.vicc5Lineup}
+    ${GameWeekTitle.fragments.vicc5Fixture}
+    ${RewardsBanner.fragments.vicc5Reward}
+    ${hasUnclaimedRewards.fragments.vicc5Fixture}
     ${EligibleRewardsBanner.fragments.rewardConfig}
-  ` as TypedDocumentNode<PastFixture_so5>,
+  ` as TypedDocumentNode<PastFixture_vicc5>,
 };

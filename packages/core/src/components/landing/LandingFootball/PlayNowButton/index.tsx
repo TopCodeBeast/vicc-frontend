@@ -16,7 +16,7 @@ const PlayNowButton = (props: Props) => {
 
   const trackClickPlayNow = useCallback(() => {
     track('Click Play Now', {
-      sport: Sport.FOOTBALL,
+      sport: Sport.CRICKET,
     });
   }, [track]);
 

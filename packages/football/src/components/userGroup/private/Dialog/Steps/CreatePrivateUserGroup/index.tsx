@@ -6,8 +6,8 @@ import { generatePath, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
-  So5LeaderboardType,
-  So5UserGroup,
+  Vicc5LeaderboardType,
+  Vicc5UserGroup,
 } from '@sorare/core/src/__generated__/globalTypes';
 import {
   GraphQLResult,
@@ -28,8 +28,8 @@ import TournamentInput from '@football/components/userGroup/form/TournamentInput
 import { ELIGIBLE_TOURNAMENTS_FOR_PRIVATE_USER_GROUP_QUERY } from '@football/components/userGroup/private/Dialog/Steps/queries';
 
 import {
-  So5UpcomingFixtureQuery,
-  So5UpcomingFixtureQueryVariables,
+  Vicc5UpcomingFixtureQuery,
+  Vicc5UpcomingFixtureQueryVariables,
 } from './__generated__/index.graphql';
 import useCreatePrivateUserGroup from './useCreatePrivateUserGroup';
 
@@ -48,10 +48,10 @@ const ButtonWrapper = styled.div`
 `;
 
 const UPCOMING_FIXTURES_QUERY = gql`
-  query So5UpcomingFixtureQuery {
+  query Vicc5UpcomingFixtureQuery {
     football {
-      so5 {
-        so5Fixture(type: UPCOMING) {
+      vicc5 {
+        vicc5Fixture(type: UPCOMING) {
           slug
           ...ScoringPeriodInput_upcomingFixture
         }
@@ -60,8 +60,8 @@ const UPCOMING_FIXTURES_QUERY = gql`
   }
   ${ScoringPeriodInput.fragments.upcomingFixture}
 ` as TypedDocumentNode<
-  So5UpcomingFixtureQuery,
-  So5UpcomingFixtureQueryVariables
+  Vicc5UpcomingFixtureQuery,
+  Vicc5UpcomingFixtureQueryVariables
 >;
 
 export const CreatePrivateUserGroup = () => {
@@ -72,12 +72,12 @@ export const CreatePrivateUserGroup = () => {
   const { data: eligibleTournamentsData, loading: tournamentsLoading } =
     useQuery(ELIGIBLE_TOURNAMENTS_FOR_PRIVATE_USER_GROUP_QUERY);
   const tournaments =
-    eligibleTournamentsData?.football.so5
-      .eligibleTournamentTypesForSo5UserGroups;
+    eligibleTournamentsData?.football.vicc5
+      .eligibleTournamentTypesForVicc5UserGroups;
 
   const { data: upcomingFixtureData, loading: upcomingFixtureLoading } =
     useQuery(UPCOMING_FIXTURES_QUERY);
-  const upcomingFixture = upcomingFixtureData?.football.so5.so5Fixture;
+  const upcomingFixture = upcomingFixtureData?.football.vicc5.vicc5Fixture;
 
   const onSelectNewSkin = (id: string) => setLogoId(id);
 
@@ -85,13 +85,13 @@ export const CreatePrivateUserGroup = () => {
     {
       displayName,
       description,
-      so5LeaderboardType,
+      vicc5LeaderboardType,
       startGameWeek,
       endGameWeek,
     }: {
       displayName: string;
       description: string;
-      so5LeaderboardType: So5LeaderboardType;
+      vicc5LeaderboardType: Vicc5LeaderboardType;
       startGameWeek: string;
       endGameWeek: string;
     },
@@ -100,21 +100,21 @@ export const CreatePrivateUserGroup = () => {
     const { data } = await createPrivateUG({
       displayName,
       description,
-      so5LeaderboardType,
+      vicc5LeaderboardType,
       logoId,
       startGameWeek: +startGameWeek,
       endGameWeek: endGameWeek === '' ? undefined : +endGameWeek,
     });
 
-    if (data?.createSo5UserGroup) {
-      onResult(data?.createSo5UserGroup);
+    if (data?.createVicc5UserGroup) {
+      onResult(data?.createVicc5UserGroup);
     }
   };
 
   const onSuccess = (
-    result: GraphQLResult & { so5UserGroup?: So5UserGroup }
+    result: GraphQLResult & { vicc5UserGroup?: Vicc5UserGroup }
   ) => {
-    const slug = result?.so5UserGroup?.slug;
+    const slug = result?.vicc5UserGroup?.slug;
     if (slug) {
       navigate(
         generatePath(FOOTBALL_PRIVATE_LEAGUES_CREATED, {

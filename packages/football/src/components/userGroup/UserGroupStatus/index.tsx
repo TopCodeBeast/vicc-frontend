@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 import { Caption } from '@sorare/core/src/atoms/typography';
 
-import { UserGroupStatus_so5UserGroup } from './__generated__/index.graphql';
+import { UserGroupStatus_vicc5UserGroup } from './__generated__/index.graphql';
 
 const Root = styled.div`
   width: auto;
@@ -58,14 +58,14 @@ const Status = ({ status }: StatusProps) => {
 };
 
 type Props = {
-  so5UserGroup: UserGroupStatus_so5UserGroup;
+  vicc5UserGroup: UserGroupStatus_vicc5UserGroup;
 };
-export const UserGroupStatus = ({ so5UserGroup }: Props) => {
+export const UserGroupStatus = ({ vicc5UserGroup }: Props) => {
   let status = Statuses.LOCKED;
 
-  if (so5UserGroup.myMembership) {
+  if (vicc5UserGroup.myMembership) {
     status = Statuses.JOINED;
-  } else if (so5UserGroup.upcomingSo5Leaderboard?.canCompose.value) {
+  } else if (vicc5UserGroup.upcomingVicc5Leaderboard?.canCompose.value) {
     status = Statuses.JOIN;
   }
 
@@ -79,11 +79,11 @@ export const UserGroupStatus = ({ so5UserGroup }: Props) => {
 };
 
 UserGroupStatus.fragments = {
-  so5UserGroup: gql`
-    fragment UserGroupStatus_so5UserGroup on So5UserGroup {
+  vicc5UserGroup: gql`
+    fragment UserGroupStatus_vicc5UserGroup on Vicc5UserGroup {
       id
       status
-      upcomingSo5Leaderboard {
+      upcomingVicc5Leaderboard {
         slug
         canCompose {
           value
@@ -93,7 +93,7 @@ UserGroupStatus.fragments = {
         id
       }
     }
-  ` as TypedDocumentNode<UserGroupStatus_so5UserGroup>,
+  ` as TypedDocumentNode<UserGroupStatus_vicc5UserGroup>,
 };
 
 export default UserGroupStatus;

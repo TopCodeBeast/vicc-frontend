@@ -35,7 +35,7 @@ const getNationalitiesRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetNationalitiesRule on So5Leaderboard {
+      fragment GetNationalitiesRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id

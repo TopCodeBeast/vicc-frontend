@@ -18,9 +18,9 @@ import AppearancePower from '@football/components/so5/ComposeTeam/responsive/App
 import LineupCard from '@football/components/so5/ComposeTeam/responsive/LineupCard';
 import { EditableAppearance, Position, hasBonuses } from '@football/lib/so5';
 
-import { Appearance_so5Appearance } from './__generated__/index.graphql';
+import { Appearance_vicc5Appearance } from './__generated__/index.graphql';
 
-type Appearance_so5Appearance_card = Appearance_so5Appearance['card'];
+type Appearance_vicc5Appearance_card = Appearance_vicc5Appearance['card'];
 
 const Wrapper = styled.div`
   position: relative;
@@ -51,7 +51,7 @@ const Limit = styled(Text14)`
 
 type Props = {
   index: number;
-  item: EditableAppearance<Appearance_so5Appearance_card>;
+  item: EditableAppearance<Appearance_vicc5Appearance_card>;
   position: Position;
   scrollTo?: (ref: RefObject<HTMLDivElement>) => void;
   onSelect?: () => void;
@@ -64,7 +64,7 @@ const Appearance = (props: Props) => {
     rules,
     setActivePosition,
     activePosition,
-    so5Leaderboard,
+    vicc5Leaderboard,
   } = useContext(Context)!;
   const { captain, displayedAverageScore, isCappedMode } = useContext(Context)!;
 
@@ -108,21 +108,21 @@ const Appearance = (props: Props) => {
             score={
               card?.[
                 displayedAverageScore ===
-                AveragePlayerScore.LAST_FIVE_SO5_AVERAGE_SCORE
-                  ? 'lastFiveSo5AverageScore'
-                  : 'lastFifteenSo5AverageScore'
+                AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE
+                  ? 'lastFiveVicc5AverageScore'
+                  : 'lastFifteenVicc5AverageScore'
               ]
             }
             withTooltip
             size="smaller"
             scoreMode={
               displayedAverageScore ===
-              AveragePlayerScore.LAST_FIVE_SO5_AVERAGE_SCORE
+              AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE
                 ? 'AVERAGE_LAST_5_GAMES'
                 : 'AVERAGE_LAST_15_GAMES'
             }
           />
-          {(hasBonuses(so5Leaderboard) || isCaptain) && (
+          {(hasBonuses(vicc5Leaderboard) || isCaptain) && (
             <AppearancePower
               position={position}
               card={card}
@@ -150,24 +150,24 @@ const Appearance = (props: Props) => {
 const Memoized = memo(Appearance);
 
 Memoized.fragments = {
-  so5_appearance: gql`
-    fragment Appearance_so5Appearance on So5Appearance {
-      ...LineupCard_so5Appearance
+  vicc5_appearance: gql`
+    fragment Appearance_vicc5Appearance on Vicc5Appearance {
+      ...LineupCard_vicc5Appearance
       id
       captain
       card {
         assetId
         slug
-        lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_SO5_AVERAGE_SCORE)
-        lastFifteenSo5AverageScore: averageScore(
-          type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
+        lastFiveVicc5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
+        lastFifteenVicc5AverageScore: averageScore(
+          type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
         )
         ...AppearancePower_card
       }
     }
-    ${LineupCard.fragments.so5_appearance}
+    ${LineupCard.fragments.vicc5_appearance}
     ${AppearancePower.fragments.card}
-  ` as TypedDocumentNode<Appearance_so5Appearance>,
+  ` as TypedDocumentNode<Appearance_vicc5Appearance>,
 };
 
 export default Memoized;

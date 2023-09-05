@@ -41,7 +41,7 @@ const AppBarProvider = ({ children }: Props) => {
     } else if (isNBAPage) {
       setSportContext(Sport.NBA);
     } else if (!sharedPage) {
-      setSportContext(Sport.FOOTBALL);
+      setSportContext(Sport.CRICKET);
     } else if (isLandingPage) {
       setSportContext(null);
     }

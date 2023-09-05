@@ -18,10 +18,10 @@ import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 import defaultBanner from '@football/assets/club/banner_none.jpg';
 import ClubShield from '@football/components/user/ClubShield';
 
-import { Row_so5Ranking } from './__generated__/index.graphql';
+import { Row_vicc5Ranking } from './__generated__/index.graphql';
 
 type Props = {
-  manager: Row_so5Ranking;
+  manager: Row_vicc5Ranking;
   highlight: boolean;
   onClick: (id: string) => void;
 };
@@ -92,8 +92,8 @@ const Score = styled(Text18)`
 `;
 
 const Row = ({ manager, highlight, onClick }: Props) => {
-  const { id, ranking, score, so5Lineup } = manager;
-  const { user, cancelledAt } = so5Lineup;
+  const { id, ranking, score, vicc5Lineup } = manager;
+  const { user, cancelledAt } = vicc5Lineup;
   const { clubBanner } = user.profile;
 
   const isCancelled = !!cancelledAt;
@@ -138,12 +138,12 @@ const Row = ({ manager, highlight, onClick }: Props) => {
 };
 
 Row.fragments = {
-  so5Ranking: gql`
-    fragment Row_so5Ranking on So5Ranking {
+  vicc5Ranking: gql`
+    fragment Row_vicc5Ranking on Vicc5Ranking {
       id
       ranking
       score
-      so5Lineup {
+      vicc5Lineup {
         id
         cancelledAt
         user {
@@ -164,7 +164,7 @@ Row.fragments = {
     }
     ${ActiveUserAvatar.fragments.user}
     ${ClubShield.fragments.userProfile}
-  ` as TypedDocumentNode<Row_so5Ranking>,
+  ` as TypedDocumentNode<Row_vicc5Ranking>,
 };
 
 export default Row;

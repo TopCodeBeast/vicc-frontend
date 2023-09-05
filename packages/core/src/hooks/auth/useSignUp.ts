@@ -96,9 +96,9 @@ function useSignUp() {
       email: string;
       passwordHash: string;
       certified: string;
-      sorareAddress?: string;
-      sorarePrivateKey?: SorarePrivateKeyAttributes;
-      sorarePrivateKeyBackup?: string;
+      viccAddress?: string;
+      viccPrivateKey?: SorarePrivateKeyAttributes;
+      viccPrivateKeyBackup?: string;
       agreedToReceiveOffersFromPartners: boolean;
       acceptTerms: boolean;
       acceptAgeLimit: boolean;

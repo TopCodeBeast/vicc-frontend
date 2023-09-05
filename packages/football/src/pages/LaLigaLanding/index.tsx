@@ -330,7 +330,7 @@ const LaLigaLanding = () => {
           </BlackBackground>
         </PageBackground>
         <Baseline dark />
-        <BannerWrapper sport={Sport.FOOTBALL}>
+        <BannerWrapper sport={Sport.CRICKET}>
           <BannerContent>
             <ChooseYourSportContent hideDescription />
           </BannerContent>

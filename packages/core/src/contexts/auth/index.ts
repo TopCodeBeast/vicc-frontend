@@ -10,10 +10,10 @@ export interface UpdateUserAttributes {
   email?: string;
   passwordHash?: string;
   currentPasswordHash?: string;
-  sorarePrivateKey?: EncryptedPrivateKey;
+  viccPrivateKey?: EncryptedPrivateKey;
   nickname?: string;
-  sorareAddress?: string;
-  sorarePrivateKeyBackup?: string;
+  viccAddress?: string;
+  viccPrivateKeyBackup?: string;
   starkKey?: string;
   recaptchaToken?: string;
   recaptchaTokenV2?: string;

@@ -2,7 +2,7 @@ import { TypedDocumentNode, gql } from '@apollo/client';
 import classnames from 'classnames';
 import styled from 'styled-components';
 
-import { DivisionLogo_so5Leaderboard } from './__generated__/index.graphql';
+import { DivisionLogo_vicc5Leaderboard } from './__generated__/index.graphql';
 import Weekly from './assets/Weekly';
 
 const Root = styled.div`
@@ -21,16 +21,16 @@ const Root = styled.div`
 `;
 
 export type Props = {
-  so5Leaderboard: DivisionLogo_so5Leaderboard;
+  vicc5Leaderboard: DivisionLogo_vicc5Leaderboard;
   tag?: boolean;
 };
 
-export const DivisionLogo = ({ so5Leaderboard, tag }: Props) => {
-  if (so5Leaderboard.iconUrl || so5Leaderboard.svgLogoUrl)
+export const DivisionLogo = ({ vicc5Leaderboard, tag }: Props) => {
+  if (vicc5Leaderboard.iconUrl || vicc5Leaderboard.svgLogoUrl)
     return (
       <Root
         as="img"
-        src={so5Leaderboard.iconUrl || so5Leaderboard.svgLogoUrl}
+        src={vicc5Leaderboard.iconUrl || vicc5Leaderboard.svgLogoUrl}
         className={classnames({ tag })}
       />
     );
@@ -43,13 +43,13 @@ export const DivisionLogo = ({ so5Leaderboard, tag }: Props) => {
 };
 
 DivisionLogo.fragments = {
-  so5Leaderboard: gql`
-    fragment DivisionLogo_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment DivisionLogo_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       iconUrl
       svgLogoUrl
     }
-  ` as TypedDocumentNode<DivisionLogo_so5Leaderboard>,
+  ` as TypedDocumentNode<DivisionLogo_vicc5Leaderboard>,
 };
 
 export default DivisionLogo;

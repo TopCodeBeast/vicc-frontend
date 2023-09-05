@@ -11,7 +11,7 @@ const QUERY = gql`
   query NoCardRoute {
     config {
       id
-      so5 {
+      vicc5 {
         id
         noCardRoute {
           id
@@ -30,7 +30,7 @@ export default () => {
   });
 
   return {
-    noCardRoute: data?.config?.so5?.noCardRoute || {
+    noCardRoute: data?.config?.vicc5?.noCardRoute || {
       nextOpenDate: '',
       nextCloseDate: '',
     },

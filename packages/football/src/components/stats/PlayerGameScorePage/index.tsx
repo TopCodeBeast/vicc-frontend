@@ -18,7 +18,7 @@ import { getPlayerScore } from '@football/lib/so5';
 import {
   PlayerGameScorePage_player,
   PlayerGameScorePage_representativePlayer,
-  PlayerGameScorePage_so5Score,
+  PlayerGameScorePage_vicc5Score,
 } from './__generated__/index.graphql';
 
 type SharedPlayerProps = {
@@ -26,7 +26,7 @@ type SharedPlayerProps = {
 };
 
 type SharedProps = SharedPlayerProps & {
-  so5Score?: PlayerGameScorePage_so5Score;
+  vicc5Score?: PlayerGameScorePage_vicc5Score;
   team: string;
 };
 
@@ -127,27 +127,27 @@ const PlayerBlock = ({
 };
 
 const ScoreBlock = ({
-  so5Score,
+  vicc5Score,
 }: {
-  so5Score?: PlayerGameScorePage_so5Score;
+  vicc5Score?: PlayerGameScorePage_vicc5Score;
 }) => {
-  const { score, status } = getPlayerScore(so5Score);
+  const { score, status } = getPlayerScore(vicc5Score);
 
   return <PlayerScore score={score} status={status} showReviewing />;
 };
 
 const PlayerGameScorePage = ({
-  so5Score,
+  vicc5Score,
   team,
   ...otherProps
 }: Props & SharedProps) => {
   return (
     <Root>
       <PlayerBlock {...otherProps} team={team}>
-        <ScoreBlock so5Score={so5Score} />
+        <ScoreBlock vicc5Score={vicc5Score} />
       </PlayerBlock>
-      {so5Score ? (
-        <AppearanceDetails so5Score={so5Score} withDetails />
+      {vicc5Score ? (
+        <AppearanceDetails vicc5Score={vicc5Score} withDetails />
       ) : (
         <Blockquote>
           <FormattedMessage
@@ -161,15 +161,15 @@ const PlayerGameScorePage = ({
 };
 
 PlayerGameScorePage.fragments = {
-  so5Score: gql`
-    fragment PlayerGameScorePage_so5Score on So5Score {
+  vicc5Score: gql`
+    fragment PlayerGameScorePage_vicc5Score on Vicc5Score {
       id
-      ...AppearanceDetails_so5Score
-      ...getPlayerScore_so5Score
+      ...AppearanceDetails_vicc5Score
+      ...getPlayerScore_vicc5Score
     }
-    ${AppearanceDetails.fragments.so5Score}
-    ${getPlayerScore.fragments.so5Score}
-  ` as TypedDocumentNode<PlayerGameScorePage_so5Score>,
+    ${AppearanceDetails.fragments.vicc5Score}
+    ${getPlayerScore.fragments.vicc5Score}
+  ` as TypedDocumentNode<PlayerGameScorePage_vicc5Score>,
   player: gql`
     fragment PlayerGameScorePage_player on Player {
       slug

@@ -47,7 +47,7 @@ export const BlockchainProvider = ({ children }: Props) => {
   const [ethereum, setEthereum] = useState<EthereumManagers | undefined>(
     undefined
   );
-  const sorareAddress = currentUser?.sorareAddress;
+  const viccAddress = currentUser?.viccAddress;
 
   const refresh = useCallback(
     async (ethereumInstance?: EthereumManagers) => {
@@ -58,7 +58,7 @@ export const BlockchainProvider = ({ children }: Props) => {
         if (ethAccount) {
           const [ethBalance, bankMapping] = await Promise.all([
             ethereumInstance.accountManager.getEthAccountBalance(ethAccount),
-            ethereumInstance.bankManager.getMapping(sorareAddress!),
+            ethereumInstance.bankManager.getMapping(viccAddress!),
           ]);
 
           const data = {
@@ -76,7 +76,7 @@ export const BlockchainProvider = ({ children }: Props) => {
       }
       setLoading(false);
     },
-    [currentUser, sorareAddress, ethereumAccountHandlers]
+    [currentUser, viccAddress, ethereumAccountHandlers]
   );
 
   const addEthereumAccountHandler = useCallback(
@@ -175,7 +175,7 @@ export const BlockchainProvider = ({ children }: Props) => {
     });
     const result = await ethereumInstance.bankManager.withdrawETH(
       ethAccount!,
-      sorareAddress!,
+      viccAddress!,
       amountInWei,
       nonce,
       signature
@@ -197,7 +197,7 @@ export const BlockchainProvider = ({ children }: Props) => {
       ethereum: ethereumInstance,
       ethBalance,
     } = await getAccountData();
-    if (!ethAccount || !sorareAddress) {
+    if (!ethAccount || !viccAddress) {
       throw new Error('Unexpected error');
     }
     if (!ethBalance || new Big(ethBalance).eq(0)) {
@@ -206,7 +206,7 @@ export const BlockchainProvider = ({ children }: Props) => {
       });
     }
     return ethereumInstance.cardManager
-      .transfer(ethAccount, sorareAddress, cardId)
+      .transfer(ethAccount, viccAddress, cardId)
       .catch(err => ({ err: [err.toString()] }));
   };
 

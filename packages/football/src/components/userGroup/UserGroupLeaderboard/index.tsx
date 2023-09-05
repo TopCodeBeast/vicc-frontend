@@ -2,24 +2,24 @@ import { TypedDocumentNode, gql } from '@apollo/client';
 import { useMemo, useState } from 'react';
 
 import { Leaderboard as BaseLeaderboard } from '@football/components/so5/Leaderboard/index';
-import So5LineupDetails from '@football/components/so5/So5LineupDetails';
+import Vicc5LineupDetails from '@football/components/so5/So5LineupDetails';
 
 import LeaderboardHeader from './Header';
 import Row from './Row';
 import {
   Leaderboard_membership,
-  Leaderboard_so5Memberships,
+  Leaderboard_vicc5Memberships,
 } from './__generated__/index.graphql';
 
 const toRanking = (membership: Membership) => ({
   ...membership,
   id: membership.user.id,
-  liveScore: membership.liveSo5Ranking?.score || 0,
+  liveScore: membership.liveVicc5Ranking?.score || 0,
 });
 
-type MyMembership = Leaderboard_so5Memberships['myMembership'];
+type MyMembership = Leaderboard_vicc5Memberships['myMembership'];
 type Membership =
-  Leaderboard_so5Memberships['membershipsPaginated']['memberships'][number];
+  Leaderboard_vicc5Memberships['membershipsPaginated']['memberships'][number];
 type Props = {
   myMembership?: MyMembership | null;
   memberships?: Membership[];
@@ -38,7 +38,7 @@ const UserGroupLeaderboard = ({ myMembership, memberships }: Props) => {
       <BaseLeaderboard
         Row={Row as any}
         onRowClick={manager => {
-          const liveRankingId = manager?.liveSo5Ranking?.id;
+          const liveRankingId = manager?.liveVicc5Ranking?.id;
           if (liveRankingId) {
             setRankingId(liveRankingId);
           }
@@ -47,8 +47,8 @@ const UserGroupLeaderboard = ({ myMembership, memberships }: Props) => {
         myRanking={myRanking}
         isMe={ranking => ranking?.user?.id === myRanking?.id}
       />
-      <So5LineupDetails
-        so5RankingId={rankingId}
+      <Vicc5LineupDetails
+        vicc5RankingId={rankingId}
         onClose={() => setRankingId(null)}
       />
     </div>
@@ -56,14 +56,14 @@ const UserGroupLeaderboard = ({ myMembership, memberships }: Props) => {
 };
 
 const membershipFragment = gql`
-  fragment Leaderboard_membership on So5UserGroupMembership {
+  fragment Leaderboard_membership on Vicc5UserGroupMembership {
     id
     score
-    liveSo5Ranking {
+    liveVicc5Ranking {
       id
       score
     }
-    ...Row_so5UserGroupMembership
+    ...Row_vicc5UserGroupMembership
     ranking
     user {
       slug
@@ -72,12 +72,12 @@ const membershipFragment = gql`
     }
   }
   ${Row.fragments.user}
-  ${Row.fragments.so5UserGroupMembership}
+  ${Row.fragments.vicc5UserGroupMembership}
 ` as TypedDocumentNode<Leaderboard_membership>;
 
 UserGroupLeaderboard.fragments = {
-  so5Memberships: gql`
-    fragment Leaderboard_so5Memberships on So5UserGroup {
+  vicc5Memberships: gql`
+    fragment Leaderboard_vicc5Memberships on Vicc5UserGroup {
       slug
       myMembership {
         id
@@ -94,7 +94,7 @@ UserGroupLeaderboard.fragments = {
       }
     }
     ${membershipFragment}
-  ` as TypedDocumentNode<Leaderboard_so5Memberships>,
+  ` as TypedDocumentNode<Leaderboard_vicc5Memberships>,
 };
 
 export default UserGroupLeaderboard;

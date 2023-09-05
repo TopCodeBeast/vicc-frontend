@@ -10,12 +10,12 @@ import { GameEventStatus, getPlayerScore } from '@football/lib/so5';
 
 import {
   PlayerGame_game,
-  PlayerGame_so5Score,
+  PlayerGame_vicc5Score,
 } from './__generated__/index.graphql';
 
 type PlayerGameProps = {
   game: PlayerGame_game;
-  so5Score: PlayerGame_so5Score | null;
+  vicc5Score: PlayerGame_vicc5Score | null;
 };
 
 const Score = styled.span`
@@ -33,9 +33,9 @@ const StyledGame = styled(Game)`
 `;
 
 export const PlayerGame = (props: PlayerGameProps) => {
-  const { so5Score, game } = props;
+  const { vicc5Score, game } = props;
   const { coverageStatus, status } = game;
-  const { score, status: scoreStatus } = getPlayerScore(so5Score);
+  const { score, status: scoreStatus } = getPlayerScore(vicc5Score);
 
   const showScore = [
     GameEventStatus.PLAYING,
@@ -69,23 +69,23 @@ PlayerGame.fragments = {
     fragment PlayerGame_game on Game {
       id
       coverageStatus
-      ...So5Game_game
-      ...So5Game_gameWeek
-      ...So5Game_competitionName
+      ...Vicc5Game_game
+      ...Vicc5Game_gameWeek
+      ...Vicc5Game_competitionName
     }
     ${Game.fragments.game}
     ${Game.fragments.gameWeek}
     ${Game.fragments.competitionName}
   ` as TypedDocumentNode<PlayerGame_game>,
-  so5Score: gql`
-    fragment PlayerGame_so5Score on So5Score {
+  vicc5Score: gql`
+    fragment PlayerGame_vicc5Score on Vicc5Score {
       id
       score
       scoringVersion
-      ...getPlayerScore_so5Score
+      ...getPlayerScore_vicc5Score
     }
-    ${getPlayerScore.fragments.so5Score}
-  ` as TypedDocumentNode<PlayerGame_so5Score>,
+    ${getPlayerScore.fragments.vicc5Score}
+  ` as TypedDocumentNode<PlayerGame_vicc5Score>,
 };
 
 export default PlayerGame;

@@ -25,7 +25,7 @@ import coach_2 from '@football/assets/home/tasks/coach-2.png';
 import coach from '@football/assets/home/tasks/coach.png';
 import scout from '@football/assets/home/tasks/scout.png';
 
-import { FootballManagerTask_so5Leaderboard } from './__generated__/index.graphql';
+import { FootballManagerTask_vicc5Leaderboard } from './__generated__/index.graphql';
 
 const messages = defineMessages({
   desktopComposeTeamAmateur: {
@@ -111,8 +111,8 @@ export const tasksData: {
         };
         image: any;
         getLink?: (args: {
-          leaderboards: Nullable<FootballManagerTask_so5Leaderboard[]>;
-          so5LeaguesAlgoliaFilters: Record<string, string>;
+          leaderboards: Nullable<FootballManagerTask_vicc5Leaderboard[]>;
+          vicc5LeaguesAlgoliaFilters: Record<string, string>;
         }) => string;
         onClick?: (args: {
           openAddFunds: () => void;
@@ -130,7 +130,7 @@ export const tasksData: {
     image: coach,
     getLink: ({ leaderboards }) => {
       const amateurLeaderboards = leaderboards?.filter(l =>
-        l.so5LeaderboardType.includes('_AMATEUR')
+        l.vicc5LeaderboardType.includes('_AMATEUR')
       );
       if (!amateurLeaderboards?.length) {
         return FOOTBALL_LOBBY;
@@ -138,11 +138,11 @@ export const tasksData: {
       const unRegisteredOrUnConfirmedLeaderboard = amateurLeaderboards?.find(
         l =>
           l.commonDraftCampaign?.status !== CommonDraftCampaignStatus.OPEN &&
-          (!l.mySo5Lineups.length || l.mySo5Lineups[0].draft)
+          (!l.myVicc5Lineups.length || l.myVicc5Lineups[0].draft)
       );
       if (unRegisteredOrUnConfirmedLeaderboard) {
         return getComposeTeamRoute({
-          so5LeaderboardSlug: unRegisteredOrUnConfirmedLeaderboard.slug,
+          vicc5LeaderboardSlug: unRegisteredOrUnConfirmedLeaderboard.slug,
         });
       }
 
@@ -188,7 +188,7 @@ export const tasksData: {
     desktopDescription: messages.mobileBuyCard,
     mobileDescription: messages.mobileBuyCard,
     image: buyer,
-    getLink: ({ leaderboards, so5LeaguesAlgoliaFilters }) => {
+    getLink: ({ leaderboards, vicc5LeaguesAlgoliaFilters }) => {
       const leaderboardsWithDraft = leaderboards?.filter(
         l => l.commonDraftCampaign?.status !== CommonDraftCampaignStatus.OPEN
       );
@@ -197,8 +197,8 @@ export const tasksData: {
         // only filter in marketplace by league if one league drafted
         // otherwise display all cards
         leaderboardsWithDraft?.length === 1
-          ? Object.keys(so5LeaguesAlgoliaFilters).find(leagueSlug =>
-              leaderboardsWithDraft[0].so5League.displayName.includes(
+          ? Object.keys(vicc5LeaguesAlgoliaFilters).find(leagueSlug =>
+              leaderboardsWithDraft[0].vicc5League.displayName.includes(
                 leagueSlug
               )
             )
@@ -215,7 +215,7 @@ export const tasksData: {
     image: coach_2,
     getLink: ({ leaderboards }) => {
       const amateurLeaderboards = leaderboards?.filter(l =>
-        l.so5LeaderboardType.includes('_AMATEUR')
+        l.vicc5LeaderboardType.includes('_AMATEUR')
       );
       const draftedAmateurLeaderboard = amateurLeaderboards?.find(
         l =>
@@ -226,8 +226,8 @@ export const tasksData: {
         l =>
           draftedAmateurLeaderboard &&
           l.division === 2 &&
-          l.so5LeaderboardType.startsWith(
-            draftedAmateurLeaderboard.so5LeaderboardType.replace('_AMATEUR', '')
+          l.vicc5LeaderboardType.startsWith(
+            draftedAmateurLeaderboard.vicc5LeaderboardType.replace('_AMATEUR', '')
           )
       );
       if (correspondingSemiProLeaderboard) {

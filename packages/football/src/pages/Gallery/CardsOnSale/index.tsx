@@ -82,7 +82,7 @@ const InstantCardsOnSale = ({ user }: Props) => {
       indexes={['Newly Listed']}
       analyticsTags={['CardOnSale']}
       defaultHitsPerPage={5}
-      sport={Sport.FOOTBALL}
+      sport={Sport.CRICKET}
       defaultFilters={filters}
     >
       <CardsOnSale />

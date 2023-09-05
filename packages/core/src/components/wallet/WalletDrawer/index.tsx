@@ -259,7 +259,7 @@ export const WalletDrawer = () => {
 
   if (!currentUser) return null;
 
-  const { sorareAddress, starkKey } = currentUser;
+  const { viccAddress, starkKey } = currentUser;
 
   const handleClick = () => {
     setCurrentTab(WalletTab.SETTINGS);
@@ -273,7 +273,7 @@ export const WalletDrawer = () => {
 
   const closeDrawer = () => {
     // Prevent the user from closing the Wallet as long as his sorare address and stark key are not setup
-    if (sorareAddress !== nullAddress && starkKey) {
+    if (viccAddress !== nullAddress && starkKey) {
       if (walletIsLocked) cancelPromptUnlockScreen();
       ethereumAccountHandlers.forEach(h => h.reject('Access denied'));
       closeWalletAndDrawer();

@@ -73,18 +73,18 @@ export const CardPage = ({ inDialog }: Props) => {
         false,
         {
           slug: slug!,
-          scoreCursor: data?.football.card?.allSo5Scores?.pageInfo.endCursor,
+          scoreCursor: data?.football.card?.allVicc5Scores?.pageInfo.endCursor,
           first: scoresLimit,
         },
-        'So5ScoreConnection'
+        'Vicc5ScoreConnection'
       );
     }, [
-      data?.football.card.allSo5Scores.pageInfo.endCursor,
+      data?.football.card.allVicc5Scores.pageInfo.endCursor,
       slug,
       scoresLimit,
       loadMoreBids,
     ]),
-    !!data?.football.card?.allSo5Scores?.pageInfo.hasNextPage,
+    !!data?.football.card?.allVicc5Scores?.pageInfo.hasNextPage,
     loading
   );
 

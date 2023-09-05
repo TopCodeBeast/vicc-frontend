@@ -14,7 +14,7 @@ import useScreenSize from '@sorare/core/src/hooks/device/useScreenSize';
 import Context from '@football/components/so5/ComposeTeam/Context';
 import Rules, { hasRules } from '@football/components/so5/Rules';
 
-import { ComposeLineupTitle_so5Leaderboard } from './__generated__/index.graphql';
+import { ComposeLineupTitle_vicc5Leaderboard } from './__generated__/index.graphql';
 
 const StyledTooltip = styled.div`
   padding: 0;
@@ -40,8 +40,8 @@ const Requirements = styled(Text14)`
 `;
 
 export const Title = () => {
-  const { so5Leaderboard, errors } = useContext(Context)!;
-  const { displayedRules } = so5Leaderboard;
+  const { vicc5Leaderboard, errors } = useContext(Context)!;
+  const { displayedRules } = vicc5Leaderboard;
   const hasRequirements = hasRules(displayedRules);
   const [openTooltip, setOpenTooltip] = useState(false);
   const { up: isTablet } = useScreenSize('tablet');
@@ -73,7 +73,7 @@ export const Title = () => {
           open={openTooltip}
           title={
             <StyledTooltip>
-              <Rules so5Leaderboard={so5Leaderboard} errors={errors} />
+              <Rules vicc5Leaderboard={vicc5Leaderboard} errors={errors} />
             </StyledTooltip>
           }
         >
@@ -103,13 +103,13 @@ export const Title = () => {
 };
 
 Title.fragments = {
-  so5Leaderboard: gql`
-    fragment ComposeLineupTitle_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment ComposeLineupTitle_vicc5Leaderboard on Vicc5Leaderboard {
       slug
-      #...Rules_so5Leaderboard
+      #...Rules_vicc5Leaderboard
     }
-    #{Rules.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<ComposeLineupTitle_so5Leaderboard>,
+    #{Rules.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<ComposeLineupTitle_vicc5Leaderboard>,
 };
 
 export default Title;

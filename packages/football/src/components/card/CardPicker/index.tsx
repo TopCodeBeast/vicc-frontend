@@ -167,7 +167,7 @@ export const CardPickerDialog = ({
           defaultFilters={[
             visibleCardFilter,
             userIdFilter,
-            sportFilter(Sport.FOOTBALL),
+            sportFilter(Sport.CRICKET),
             ...excluding.map(slug => `NOT objectID:${slug}`),
             ...(filters || []),
           ]}

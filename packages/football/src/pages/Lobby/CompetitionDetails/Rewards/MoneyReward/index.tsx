@@ -23,7 +23,7 @@ import {
   RewardRow,
 } from '@football/pages/Lobby/CompetitionDetails/Rewards/RewardRow';
 
-import { MoneyReward_so5RewardConfig } from './__generated__/index.graphql';
+import { MoneyReward_vicc5RewardConfig } from './__generated__/index.graphql';
 
 const AmountContainer = styled.div`
   display: flex;
@@ -44,7 +44,7 @@ const MinimumFiatGuaranteed = styled.div`
 `;
 
 type Props = {
-  reward: MoneyReward_so5RewardConfig;
+  reward: MoneyReward_vicc5RewardConfig;
   highlighted?: boolean;
 };
 const MoneyReward = ({
@@ -170,13 +170,13 @@ const MoneyReward = ({
 };
 
 MoneyReward.fragments = {
-  so5RewardConfig: gql`
-    fragment MoneyReward_so5RewardConfig on So5RewardConfig {
+  vicc5RewardConfig: gql`
+    fragment MoneyReward_vicc5RewardConfig on Vicc5RewardConfig {
       ethAmount
       usdAmount
       minimumGuaranteedUsdAmount
     }
-  ` as TypedDocumentNode<MoneyReward_so5RewardConfig>,
+  ` as TypedDocumentNode<MoneyReward_vicc5RewardConfig>,
 };
 
 export default MoneyReward;

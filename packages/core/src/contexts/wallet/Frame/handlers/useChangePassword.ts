@@ -20,7 +20,7 @@ export default () => {
           const { errors } = await updateUser({
             currentPasswordHash,
             passwordHash,
-            sorarePrivateKey: userPrivateKey,
+            viccPrivateKey: userPrivateKey,
           });
 
           if (errors) return { error: formatUpdateUserErrors(errors) };

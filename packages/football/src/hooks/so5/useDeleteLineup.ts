@@ -4,21 +4,21 @@ import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNoti
 import { formatGqlErrors } from '@sorare/core/src/gql';
 
 import {
-  DeleteSo5LineupMutation,
-  DeleteSo5LineupMutationVariables,
+  DeleteVicc5LineupMutation,
+  DeleteVicc5LineupMutationVariables,
 } from './__generated__/useDeleteLineup.graphql';
 
 const DELETE_SO5_LINEUP_MUTATION = gql`
-  mutation DeleteSo5LineupMutation($input: deleteSo5LineupInput!) {
-    deleteSo5Lineup(input: $input) {
+  mutation DeleteVicc5LineupMutation($input: deleteVicc5LineupInput!) {
+    deleteVicc5Lineup(input: $input) {
       currentUser {
         slug
         blockchainCardsInLineups
       }
-      so5Leaderboard {
+      vicc5Leaderboard {
         slug
-        so5LineupsCount
-        mySo5Lineups {
+        vicc5LineupsCount
+        myVicc5Lineups {
           id
           name
           draft
@@ -32,17 +32,17 @@ const DELETE_SO5_LINEUP_MUTATION = gql`
     }
   }
 ` as TypedDocumentNode<
-  DeleteSo5LineupMutation,
-  DeleteSo5LineupMutationVariables
+  DeleteVicc5LineupMutation,
+  DeleteVicc5LineupMutationVariables
 >;
 
 export default () => {
-  const [deleteSo5Lineup] = useMutation(DELETE_SO5_LINEUP_MUTATION, {
+  const [deleteVicc5Lineup] = useMutation(DELETE_SO5_LINEUP_MUTATION, {
     update(cache, context, { variables }) {
-      if (variables?.input.so5LineupId) {
+      if (variables?.input.vicc5LineupId) {
         const lineupCacheId = cache.identify({
-          __typename: 'So5Lineup',
-          id: variables?.input.so5LineupId,
+          __typename: 'Vicc5Lineup',
+          id: variables?.input.vicc5LineupId,
         });
 
         cache.evict({
@@ -53,22 +53,22 @@ export default () => {
   });
   const { showNotification } = useSnackNotificationContext();
 
-  return async (so5LineupId: string) => {
-    const result = await deleteSo5Lineup({
+  return async (vicc5LineupId: string) => {
+    const result = await deleteVicc5Lineup({
       variables: {
         input: {
-          so5LineupId,
+          vicc5LineupId,
         },
       },
     });
 
-    const errors = result.data?.deleteSo5Lineup?.errors || [];
+    const errors = result.data?.deleteVicc5Lineup?.errors || [];
 
     if (errors.length) {
       showNotification('errors', { errors: formatGqlErrors(errors) });
       return errors;
     }
-    showNotification('so5FixtureDelete');
+    showNotification('vicc5FixtureDelete');
     return null;
   };
 };

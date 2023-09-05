@@ -43,13 +43,13 @@ export interface CardHit extends BaseHit {
 
 const AlgoliaSportsMappings: Readonly<{ [key in AlgoliaSport]: Sport }> = {
   nba: Sport.NBA,
-  football: Sport.FOOTBALL,
+  football: Sport.CRICKET,
   baseball: Sport.BASEBALL,
 };
 
 const SportsMappings: Readonly<{ [key in Sport]: AlgoliaSport }> = {
   [Sport.NBA]: 'nba',
-  [Sport.FOOTBALL]: 'football',
+  [Sport.CRICKET]: 'football',
   [Sport.BASEBALL]: 'baseball',
 };
 
@@ -113,7 +113,7 @@ export const convertUserHit = (
   slug: string;
   id: string;
   nickname: string;
-  sorareAddress: string;
+  viccAddress: string;
   suspended: boolean;
   profile: {
     __typename: 'UserProfile';
@@ -126,7 +126,7 @@ export const convertUserHit = (
   id: hit.id,
   slug: hit.objectID,
   nickname: hit.nickname,
-  sorareAddress: hit.sorare_address_hex,
+  viccAddress: hit.sorare_address_hex,
   suspended: false,
   profile: {
     __typename: 'UserProfile',
@@ -139,13 +139,13 @@ export const convertUserHit = (
 export const algoliaCardObjectIdPrefix: { [key in Sport]: string } = {
   [Sport.BASEBALL]: 'baseball-assetId',
   [Sport.NBA]: 'baseball-assetId',
-  [Sport.FOOTBALL]: '',
+  [Sport.CRICKET]: '',
 };
 
 export const algoliaCommonCardObjectIdPrefix: { [key in Sport]: string } = {
   [Sport.BASEBALL]: 'baseball-cardId',
   [Sport.NBA]: 'baseball-cardId',
-  [Sport.FOOTBALL]: '',
+  [Sport.CRICKET]: '',
 };
 
 export type MarketplaceHit = {
@@ -162,7 +162,7 @@ export const buildAlgoliaObjectId = (card: {
   assetId: string;
   sport: Sport;
 }) => {
-  if (card.sport === Sport.FOOTBALL) return card.slug;
+  if (card.sport === Sport.CRICKET) return card.slug;
   return `${algoliaCardObjectIdPrefix[card.sport]}:${card.assetId}`;
 };
 
@@ -203,7 +203,7 @@ export const convertCardHitToToken = (
   collection: Collection;
   sport: Sport;
   metadata: {
-    __typename: 'TokenBaseballMetadata' | 'TokenFootballMetadata';
+    __typename: 'TokenBaseballMetadata' | 'TokenCricketMetadata';
     id: string;
     playerDisplayName: string;
     playerSlug: string;
@@ -228,7 +228,7 @@ export const convertCardHitToToken = (
   walletStatus: hit.wallet_status as WalletStatus,
   pictureUrl: hit.picture_url,
   metadata: {
-    __typename: 'TokenFootballMetadata',
+    __typename: 'TokenCricketMetadata',
     id: hit.sport === 'baseball' ? idFromObject(hit.objectID)! : hit.objectID, // TODO: replace with `assetId` when ready
     playerDisplayName: hit.player.display_name,
     playerSlug: hit.player.slug,
@@ -241,7 +241,7 @@ export const convertCardHitToToken = (
     slug: hit.user?.slug,
   },
   singleCivilYear: false,
-  sport: AlgoliaSportsMappings[hit.sport] || Sport.FOOTBALL,
+  sport: AlgoliaSportsMappings[hit.sport] || Sport.CRICKET,
   collection: FakeCollectionMappings[hit.sport] || Collection.FOOTBALL, // this assertion is factually wrong but that's a separate concern
 });
 

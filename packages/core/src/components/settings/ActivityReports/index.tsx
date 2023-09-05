@@ -28,7 +28,7 @@ const FOOTBALL_ACTIVITY_QUERY = gql`
   query CurrentUserActivityReportQuery {
     currentUser {
       slug
-      footballLast30DaysLineupsCount
+      cricketLast30DaysLineupsCount
     }
   }
 ` as TypedDocumentNode<
@@ -46,8 +46,8 @@ const ActivityReports = ({ usSportsActivityReports }: Props) => {
   if (!currentUser) {
     return null;
   }
-  const footballLast30DaysLineupsCount =
-    data?.currentUser?.footballLast30DaysLineupsCount;
+  const cricketLast30DaysLineupsCount =
+    data?.currentUser?.cricketLast30DaysLineupsCount;
 
   return (
     <SettingsSection {...messages}>
@@ -55,11 +55,11 @@ const ActivityReports = ({ usSportsActivityReports }: Props) => {
         <Text16>
           <FormattedMessage
             id="setting.activityReports.football"
-            defaultMessage="Football: {footballLast30DaysLineupsCount}"
+            defaultMessage="Football: {cricketLast30DaysLineupsCount}"
             values={{
-              footballLast30DaysLineupsCount: loading
+              cricketLast30DaysLineupsCount: loading
                 ? '...'
-                : footballLast30DaysLineupsCount,
+                : cricketLast30DaysLineupsCount,
             }}
           />
         </Text16>

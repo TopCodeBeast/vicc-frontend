@@ -25,7 +25,7 @@ import { isFixtureLive, isFixtureOpened } from '@football/lib/so5';
 import GameWeekDropdown from '@football/pages/Lobby/Components/GameWeekDropdown';
 import { TopPlayers } from '@football/pages/Lobby/Components/TopPlayer';
 
-import { Lobby_Layout_so5Fixture } from './__generated__/index.graphql';
+import { Lobby_Layout_vicc5Fixture } from './__generated__/index.graphql';
 
 const StyledBody = styled(Body)`
   display: flex;
@@ -73,15 +73,15 @@ const StyledTabs = styled(Tabs)`
 
 interface Props {
   children: React.ReactElement;
-  so5Fixture?: Lobby_Layout_so5Fixture & { transient?: boolean };
+  vicc5Fixture?: Lobby_Layout_vicc5Fixture & { transient?: boolean };
   hidePlayers?: boolean;
 }
 
 export const Layout = ({
   children,
   // Default with non breakable space to avoid glitches
-  so5Fixture = {
-    __typename: 'So5Fixture',
+  vicc5Fixture = {
+    __typename: 'Vicc5Fixture',
     gameWeek: 0,
     slug: '',
     startDate: UNBREAKABLE_SPACE,
@@ -94,8 +94,8 @@ export const Layout = ({
   hidePlayers,
 }: Props) => {
   const { formatMessage } = useIntlContext();
-  const isUpcoming = isFixtureOpened(so5Fixture);
-  const isLive = isFixtureLive(so5Fixture);
+  const isUpcoming = isFixtureOpened(vicc5Fixture);
+  const isLive = isFixtureLive(vicc5Fixture);
   const TabsItems = [
     {
       to: goToLobby('past'),
@@ -145,10 +145,10 @@ export const Layout = ({
                     defaultMessage="Lobby"
                   />
                 </Title2>
-                {!so5Fixture.transient && !isUpcoming ? (
+                {!vicc5Fixture.transient && !isUpcoming ? (
                   <GameWeekDropdown
-                    defaultFixture={so5Fixture}
-                    enabled={!so5Fixture.transient && !isLive}
+                    defaultFixture={vicc5Fixture}
+                    enabled={!vicc5Fixture.transient && !isLive}
                   />
                 ) : (
                   <Text16 bold>
@@ -165,19 +165,19 @@ export const Layout = ({
         </Wrapper>
       </Portal>
       {children}
-      {!hidePlayers && so5Fixture?.slug && (
-        <TopPlayers so5Fixture={so5Fixture} />
+      {!hidePlayers && vicc5Fixture?.slug && (
+        <TopPlayers vicc5Fixture={vicc5Fixture} />
       )}
     </StyledBody>
   );
 };
 
 Layout.fragments = {
-  so5Fixture: gql`
-    fragment Lobby_Layout_so5Fixture on So5Fixture {
+  vicc5Fixture: gql`
+    fragment Lobby_Layout_vicc5Fixture on Vicc5Fixture {
       slug
-      ...Lobby_GameWeekDropdownHeader_so5Fixture
+      ...Lobby_GameWeekDropdownHeader_vicc5Fixture
     }
-    ${GameWeekDropdown.fragments.so5Fixture}
-  ` as TypedDocumentNode<Lobby_Layout_so5Fixture>,
+    ${GameWeekDropdown.fragments.vicc5Fixture}
+  ` as TypedDocumentNode<Lobby_Layout_vicc5Fixture>,
 };

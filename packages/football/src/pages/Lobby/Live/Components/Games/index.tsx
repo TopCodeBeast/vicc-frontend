@@ -84,17 +84,17 @@ const subscription = gql`
 const GAMES_QUERY = gql`
   query GamesQuery {
     football {
-      so5 {
-        so5Fixture(type: LIVE) {
+      vicc5 {
+        vicc5Fixture(type: LIVE) {
           slug
           games {
             id
             status
-            ...So5Game_game
+            ...Vicc5Game_game
           }
-          mySo5Games {
+          myVicc5Games {
             id
-            ...So5Game_game
+            ...Vicc5Game_game
           }
         }
       }
@@ -132,21 +132,21 @@ export const Games = () => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const { so5Fixture } = data?.football.so5 || {};
+  const { vicc5Fixture } = data?.football.vicc5 || {};
   const parseSearch = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
   });
   const games = {
     [TAB.MINE]: sortBy(
       g => STATUS[g.status as GameEventStatus],
-      [...(so5Fixture?.mySo5Games || [])].filter(
+      [...(vicc5Fixture?.myVicc5Games || [])].filter(
         g => gameStatusMessages[g.status]
       )
     ),
     [TAB.ALL]: sortBy(
       g => STATUS[g.status as GameEventStatus],
       [
-        ...(so5Fixture?.games?.filter(g => gameStatusMessages[g.status]) ||
+        ...(vicc5Fixture?.games?.filter(g => gameStatusMessages[g.status]) ||
           Array(PAGE_SIZE)
             .fill('')
             .map((_, i) => placeholderGame(`${i + 1}`))),

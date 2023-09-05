@@ -140,11 +140,11 @@ type Props = {
 };
 const Player = ({ player, gameDuration }: Props) => {
   const { formatMessage } = useIntl();
-  if (!player?.so5Score) {
+  if (!player?.vicc5Score) {
     return null;
   }
 
-  const { playerGameStats, score } = player.so5Score;
+  const { playerGameStats, score } = player.vicc5Score;
   // The gameDuration var is containing the game duration INCLUDING extra time (we don't want it)
   let roundedGameDuration = gameDuration;
   if (roundedGameDuration > 120) {
@@ -160,15 +160,15 @@ const Player = ({ player, gameDuration }: Props) => {
   const playerYellowCards = playerGameStats.yellowCard || 0;
   const playerRedCards = playerGameStats.redCard || 0;
 
-  const penaltiesConceded = player.so5Score.negativeDecisiveStats.find(
+  const penaltiesConceded = player.vicc5Score.negativeDecisiveStats.find(
     statItem => statItem.stat === 'penalty_conceded'
   );
 
-  const penaltiesWon = player.so5Score.positiveDecisiveStats.find(
+  const penaltiesWon = player.vicc5Score.positiveDecisiveStats.find(
     statItem => statItem.stat === 'assist_penalty_won'
   );
 
-  const penaltiesSaved = player.so5Score.positiveDecisiveStats.find(
+  const penaltiesSaved = player.vicc5Score.positiveDecisiveStats.find(
     statItem => statItem.stat === 'penalty_save'
   );
 
@@ -295,7 +295,7 @@ Player.fragments = {
       firstName
       lastName
       pictureUrl(derivative: "avatar")
-      so5Score(gameId: $id) {
+      vicc5Score(gameId: $id) {
         id
         score
         negativeDecisiveStats {

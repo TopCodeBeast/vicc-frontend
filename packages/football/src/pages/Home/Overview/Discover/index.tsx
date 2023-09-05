@@ -168,14 +168,14 @@ export const Discover = ({
 
 Discover.fragments = {
   leaderboard: gql`
-    fragment Discover_leaderboard on So5Leaderboard {
+    fragment Discover_leaderboard on Vicc5Leaderboard {
       slug
       mainRarityType
       division
-      so5LeaderboardType
+      vicc5LeaderboardType
       tournamentType
-      ...Lineup_so5Leaderboard
+      ...Lineup_vicc5Leaderboard
     }
-    ${Lineup.fragments.so5Leaderboard}
+    ${Lineup.fragments.vicc5Leaderboard}
   ` as TypedDocumentNode<Discover_leaderboard>,
 };

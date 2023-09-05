@@ -30,8 +30,8 @@ import getLineupActions from '@football/lib/lineup/getLineupActions';
 import { LeaderboardAction } from '@football/types/leaderboard';
 
 import {
-  DropdownActions_so5Leaderboard,
-  DropdownActions_so5Lineup,
+  DropdownActions_vicc5Leaderboard,
+  DropdownActions_vicc5Lineup,
 } from './__generated__/index.graphql';
 
 const DeleteItem = styled(Item)`
@@ -41,38 +41,38 @@ const DeleteItem = styled(Item)`
 `;
 
 type Props = {
-  so5Lineup: DropdownActions_so5Lineup | null | undefined;
-  so5Leaderboard: DropdownActions_so5Leaderboard;
+  vicc5Lineup: DropdownActions_vicc5Lineup | null | undefined;
+  vicc5Leaderboard: DropdownActions_vicc5Leaderboard;
   onActionSuccess?: () => void;
 };
 const DropdownActions = ({
-  so5Lineup,
-  so5Leaderboard,
+  vicc5Lineup,
+  vicc5Leaderboard,
   onActionSuccess,
 }: Props) => {
   const [loading, setLoading] = useState(false);
   const confirmLineup = useConfirmLineups();
   const deleteLineup = useDeleteLineup();
-  const lineupSharingAttributes = useLineupSharingAttributes(so5Lineup);
+  const lineupSharingAttributes = useLineupSharingAttributes(vicc5Lineup);
 
-  const { availableActions } = getLineupActions(so5Lineup, so5Leaderboard);
+  const { availableActions } = getLineupActions(vicc5Lineup, vicc5Leaderboard);
 
   const onConfirm = async () => {
-    if (!so5Lineup) {
+    if (!vicc5Lineup) {
       return;
     }
     setLoading(true);
-    await confirmLineup([so5Lineup.id]);
+    await confirmLineup([vicc5Lineup.id]);
     setLoading(false);
     onActionSuccess?.();
   };
 
   const onDelete = async () => {
-    if (!so5Lineup) {
+    if (!vicc5Lineup) {
       return;
     }
     setLoading(true);
-    await deleteLineup(so5Lineup.id);
+    await deleteLineup(vicc5Lineup.id);
     setLoading(false);
     onActionSuccess?.();
   };
@@ -85,10 +85,10 @@ const DropdownActions = ({
         <IconButton disableDebounce color="white" icon={faEllipsis} small />
       }
     >
-      {so5Lineup?.socialPictureUrls &&
+      {vicc5Lineup?.socialPictureUrls &&
         (({ closeDropdown }) => (
           <SocialShare
-            image={so5Lineup.socialPictureUrls}
+            image={vicc5Lineup.socialPictureUrls}
             trackingEventName={socialShareEventName.SHARE_LINEUP}
             trackingEventContext={socialShareEventContext.LEADERBOARD}
             renderButton={({ onClick, Icon }) =>
@@ -158,27 +158,27 @@ const DropdownActions = ({
 };
 
 DropdownActions.fragments = {
-  so5Lineup: gql`
-    fragment DropdownActions_so5Lineup on So5Lineup {
+  vicc5Lineup: gql`
+    fragment DropdownActions_vicc5Lineup on Vicc5Lineup {
       id
       socialPictureUrls {
         post
       }
-      ...getLineupActions_so5Lineup
+      ...getLineupActions_vicc5Lineup
       ...SocialShare_SocialPictures
-      ...useLineupSharingAttributes_so5Lineup
+      ...useLineupSharingAttributes_vicc5Lineup
     }
-    ${getLineupActions.fragments.so5Lineup}
+    ${getLineupActions.fragments.vicc5Lineup}
     ${SocialShare.fragments.socialPictures}
-    ${useLineupSharingAttributes.fragments.so5Lineup}
-  ` as TypedDocumentNode<DropdownActions_so5Lineup>,
-  so5Leaderboard: gql`
-    fragment DropdownActions_so5Leaderboard on So5Leaderboard {
+    ${useLineupSharingAttributes.fragments.vicc5Lineup}
+  ` as TypedDocumentNode<DropdownActions_vicc5Lineup>,
+  vicc5Leaderboard: gql`
+    fragment DropdownActions_vicc5Leaderboard on Vicc5Leaderboard {
       slug
-      ...getLineupActions_so5Leaderboard
+      ...getLineupActions_vicc5Leaderboard
     }
-    ${getLineupActions.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<DropdownActions_so5Leaderboard>,
+    ${getLineupActions.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<DropdownActions_vicc5Leaderboard>,
 };
 
 export default DropdownActions;

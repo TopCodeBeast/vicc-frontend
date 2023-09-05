@@ -105,6 +105,6 @@ export type FootballEventTypes = {
 
 export const useFootballEvents = generateUseEvents<FootballEventTypes>({
   defaultProperties: {
-    sport: sportToJSON(Sport.FOOTBALL),
+    sport: sportToJSON(Sport.CRICKET),
   },
 });

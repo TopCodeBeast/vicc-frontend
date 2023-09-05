@@ -45,7 +45,7 @@ const messages = defineMessages({
 const SubscribableTypeBySport: {
   [sport in Sport]: SubscribableType[];
 } = {
-  [Sport.FOOTBALL]: [
+  [Sport.CRICKET]: [
     SubscribableType.PLAYER,
     SubscribableType.TEAM,
     SubscribableType.COUNTRY,

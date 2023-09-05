@@ -226,13 +226,13 @@ CardBonus.fragments = {
       slug
       assetId
       rarity
-      power(so5LeaderboardSlug: $so5LeaderboardSlug)
+      power(vicc5LeaderboardSlug: $vicc5LeaderboardSlug)
       powerMalusAfterTransfer
       grade
       season {
         startYear
       }
-      powerBreakdown(so5LeaderboardSlug: $so5LeaderboardSlug) {
+      powerBreakdown(vicc5LeaderboardSlug: $vicc5LeaderboardSlug) {
         season
         xp
         scarcity

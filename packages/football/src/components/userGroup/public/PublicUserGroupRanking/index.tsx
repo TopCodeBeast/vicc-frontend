@@ -9,7 +9,7 @@ import Bold from '@sorare/core/src/atoms/typography/Bold';
 
 import { Rewards } from '@football/components/lineup/Rewards';
 
-import { PublicUserGroupRanking_so5UserGroup } from './__generated__/index.graphql';
+import { PublicUserGroupRanking_vicc5UserGroup } from './__generated__/index.graphql';
 
 const Root = styled.div`
   width: 100%;
@@ -30,11 +30,11 @@ const RewardsContainer = styled.div`
 `;
 
 type Props = {
-  so5UserGroup: PublicUserGroupRanking_so5UserGroup;
+  vicc5UserGroup: PublicUserGroupRanking_vicc5UserGroup;
   hideRewards?: boolean;
 };
-const PublicUserGroupRanking = ({ so5UserGroup, hideRewards }: Props) => {
-  if (!so5UserGroup) {
+const PublicUserGroupRanking = ({ vicc5UserGroup, hideRewards }: Props) => {
+  if (!vicc5UserGroup) {
     return null;
   }
 
@@ -52,8 +52,8 @@ const PublicUserGroupRanking = ({ so5UserGroup, hideRewards }: Props) => {
             defaultMessage="<b>{myRank}</b>/{ranksCount}"
             values={{
               b: Bold,
-              myRank: so5UserGroup.myMembership?.ranking || '-',
-              ranksCount: so5UserGroup.membershipsCount,
+              myRank: vicc5UserGroup.myMembership?.ranking || '-',
+              ranksCount: vicc5UserGroup.membershipsCount,
             }}
           />
         </Text14>
@@ -61,7 +61,7 @@ const PublicUserGroupRanking = ({ so5UserGroup, hideRewards }: Props) => {
       {!hideRewards && (
         <RewardsContainer className="hiddenScrollbars">
           <Rewards
-            rewards={so5UserGroup.totalRewards}
+            rewards={vicc5UserGroup.totalRewards}
             hideExperienceDescription
           />
         </RewardsContainer>
@@ -71,8 +71,8 @@ const PublicUserGroupRanking = ({ so5UserGroup, hideRewards }: Props) => {
 };
 
 PublicUserGroupRanking.fragments = {
-  so5UserGroup: gql`
-    fragment PublicUserGroupRanking_so5UserGroup on So5UserGroup {
+  vicc5UserGroup: gql`
+    fragment PublicUserGroupRanking_vicc5UserGroup on Vicc5UserGroup {
       id
       membershipsCount
       totalRewards {
@@ -84,7 +84,7 @@ PublicUserGroupRanking.fragments = {
       }
     }
     ${Rewards.fragments.reward}
-  ` as TypedDocumentNode<PublicUserGroupRanking_so5UserGroup>,
+  ` as TypedDocumentNode<PublicUserGroupRanking_vicc5UserGroup>,
 };
 
 export default PublicUserGroupRanking;

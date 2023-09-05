@@ -30,10 +30,10 @@ export default () => {
     const doPrompt = async () => {
       if (
         currentUser?.email &&
-        (!currentUser.sorareAddress ||
-          currentUser.sorareAddress === nullAddress ||
+        (!currentUser.viccAddress ||
+          currentUser.viccAddress === nullAddress ||
           (!currentUser.starkKey &&
-            currentUser.sorarePrivateKey &&
+            currentUser.viccPrivateKey &&
             !reset_password_token))
       ) {
         setCurrentTab(WalletTab.GENERATE_KEYS);
@@ -60,9 +60,9 @@ export default () => {
             ? { wallet }
             : {
                 starkKey,
-                sorareAddress: address,
-                sorarePrivateKey: userPrivateKey,
-                sorarePrivateKeyBackup: userPrivateKeyBackup,
+                viccAddress: address,
+                viccPrivateKey: userPrivateKey,
+                viccPrivateKeyBackup: userPrivateKeyBackup,
               };
 
           const { errors } = await updateUser({
@@ -81,8 +81,8 @@ export default () => {
     return () => {};
   }, [
     currentUser?.email,
-    currentUser?.sorareAddress,
-    currentUser?.sorarePrivateKey,
+    currentUser?.viccAddress,
+    currentUser?.viccPrivateKey,
     currentUser?.starkKey,
     prompt,
     registerHandler,

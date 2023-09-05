@@ -648,7 +648,7 @@ export const userAttributes = defineMessages({
 });
 
 export const sportsLabelsMessages = defineMessages({
-  [Sport.FOOTBALL]: {
+  [Sport.CRICKET]: {
     id: 'sport.football',
     defaultMessage: 'Football',
   },
@@ -676,7 +676,7 @@ export const fantasy = defineMessages({
     defaultMessage: 'Captain',
   },
   computed: {
-    id: 'so5.waiting',
+    id: 'vicc5.waiting',
     defaultMessage: 'Waiting',
   },
   confirmDelete: {
@@ -691,11 +691,11 @@ export const fantasy = defineMessages({
     defaultMessage: 'Lineups',
   },
   live: {
-    id: 'so5.live',
+    id: 'vicc5.live',
     defaultMessage: 'Live',
   },
   past: {
-    id: 'so5.past',
+    id: 'vicc5.past',
     defaultMessage: 'Past',
   },
   gameWeek: {
@@ -751,7 +751,7 @@ export const fantasy = defineMessages({
     defaultMessage: 'Total',
   },
   upcoming: {
-    id: 'so5.upcoming',
+    id: 'vicc5.upcoming',
     defaultMessage: 'Upcoming',
   },
   gw: {
@@ -1059,45 +1059,45 @@ export const playerUnavailability = defineMessages({
 
 export const playerGameStatusLabels = defineMessages({
   did_not_play_short: {
-    id: 'So5Stat.did_not_play_short',
+    id: 'Vicc5Stat.did_not_play_short',
     defaultMessage: 'DNP',
   },
   no_game_short: {
-    id: 'So5Stat.no_game_short',
+    id: 'Vicc5Stat.no_game_short',
     defaultMessage: 'NG',
   },
   did_not_play: {
-    id: 'So5Stat.did_not_play',
+    id: 'Vicc5Stat.did_not_play',
     defaultMessage: 'Did not play',
   },
   no_game: {
-    id: 'So5Stat.no_game',
+    id: 'Vicc5Stat.no_game',
     defaultMessage: 'No game (NG)',
   },
   not_covered: {
-    id: 'So5Stat.not_covered',
+    id: 'Vicc5Stat.not_covered',
     defaultMessage: 'Not Covered',
   },
   uncertain_coverage: {
-    id: 'So5Stat.uncertain_coverage',
+    id: 'Vicc5Stat.uncertain_coverage',
     defaultMessage: 'Delayed Coverage',
   },
   uncertain_coverage_detail: {
-    id: 'So5Stat.uncertain_coverage_detail',
+    id: 'Vicc5Stat.uncertain_coverage_detail',
     defaultMessage:
       'Full player data (All-Around scores + Decisive Scores) for this game will not be provided in real-time. It should update within 48 hours after full-time. However, if full player stats are not provided by our data partner before we finalise scoring at the end of the Game Week, only decisive stats will be scored.',
   },
   low_coverage: {
-    id: 'So5Stat.low_coverage',
+    id: 'Vicc5Stat.low_coverage',
     defaultMessage: 'Low Coverage',
   },
   low_coverage_detail: {
-    id: 'So5Stat.low_coverage_detail',
+    id: 'Vicc5Stat.low_coverage_detail',
     defaultMessage:
       'Only Decisive Actions (eg goals, assists) will be scored for this game.',
   },
   pending: {
-    id: 'So5Stat.pending',
+    id: 'Vicc5Stat.pending',
     defaultMessage: 'Pending',
   },
 });

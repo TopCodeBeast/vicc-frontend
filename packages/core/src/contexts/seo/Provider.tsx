@@ -23,13 +23,13 @@ interface Props {
 const sportTitles = {
   [Sport.BASEBALL]: baseballMetadatas.default.title,
   [Sport.NBA]: nbaMetadatas.default.title,
-  [Sport.FOOTBALL]: footballMetadatas.default.title,
+  [Sport.CRICKET]: footballMetadatas.default.title,
 };
 
 const sportDescriptions = {
   [Sport.BASEBALL]: baseballMetadatas.default.description,
   [Sport.NBA]: nbaMetadatas.default.description,
-  [Sport.FOOTBALL]: footballMetadatas.default.description,
+  [Sport.CRICKET]: footballMetadatas.default.description,
 };
 
 const defaultImage = `${FRONTEND_ASSET_HOST}/meta/social-picture-2022.png`;
@@ -89,7 +89,7 @@ const SeoProvider = ({ children }: Props) => {
   const isMlbPage = useIsMlbPage();
   const isNBAPage = useIsNBAPage();
 
-  let currentSport = Sport.FOOTBALL;
+  let currentSport = Sport.CRICKET;
   if (isMlbPage) currentSport = Sport.BASEBALL;
   if (isNBAPage) currentSport = Sport.NBA;
 

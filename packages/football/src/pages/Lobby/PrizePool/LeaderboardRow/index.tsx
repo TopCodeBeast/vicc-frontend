@@ -11,7 +11,7 @@ import { tabletAndAbove } from '@sorare/core/src/style/mediaQuery';
 import { getLeaderboardInfo } from '@football/lib/so5';
 
 import Rewards from './Rewards';
-import { LeaderboardRow_so5Leaderboard } from './__generated__/index.graphql';
+import { LeaderboardRow_vicc5Leaderboard } from './__generated__/index.graphql';
 
 export enum Areas {
   logo = 'logo',
@@ -79,29 +79,29 @@ const LeaderboardRewards = styled.div`
 `;
 
 type Props = {
-  so5Leaderboard: LeaderboardRow_so5Leaderboard;
+  vicc5Leaderboard: LeaderboardRow_vicc5Leaderboard;
 };
-const LeaderboardRow = ({ so5Leaderboard }: Props) => {
+const LeaderboardRow = ({ vicc5Leaderboard }: Props) => {
   const { formatMessage } = useIntl();
-  const { scarcityMessageDescriptor } = getLeaderboardInfo(so5Leaderboard);
+  const { scarcityMessageDescriptor } = getLeaderboardInfo(vicc5Leaderboard);
   const to = generatePath(FOOTBALL_COMPETITION_DETAILS_REWARDS, {
-    competition: so5Leaderboard.slug,
+    competition: vicc5Leaderboard.slug,
   });
 
   const rewards = [
-    ...(so5Leaderboard.rewardsConfig.ranking || []),
-    ...(so5Leaderboard.rewardsConfig.conditional || []),
+    ...(vicc5Leaderboard.rewardsConfig.ranking || []),
+    ...(vicc5Leaderboard.rewardsConfig.conditional || []),
   ];
 
   return (
-    <Root key={so5Leaderboard.slug} to={to}>
+    <Root key={vicc5Leaderboard.slug} to={to}>
       <LeaderboardLogo>
         <Logo
-          src={so5Leaderboard.svgLogoUrl}
-          alt={so5Leaderboard.displayName}
+          src={vicc5Leaderboard.svgLogoUrl}
+          alt={vicc5Leaderboard.displayName}
         />
       </LeaderboardLogo>
-      <LeaderboardName>{so5Leaderboard.displayName}</LeaderboardName>
+      <LeaderboardName>{vicc5Leaderboard.displayName}</LeaderboardName>
       <LeaderboardRarity>
         <Text16 color="var(--c-neutral-600)">
           {formatMessage(scarcityMessageDescriptor)}
@@ -117,8 +117,8 @@ const LeaderboardRow = ({ so5Leaderboard }: Props) => {
 };
 
 LeaderboardRow.fragments = {
-  so5Leaderboard: gql`
-    fragment LeaderboardRow_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment LeaderboardRow_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       displayName
       rarityType
@@ -126,18 +126,18 @@ LeaderboardRow.fragments = {
       rewardsConfig {
         ranking {
           score
-          ...Rewards_so5RewardConfig
+          ...Rewards_vicc5RewardConfig
         }
         conditional {
           score
-          ...Rewards_so5RewardConfig
+          ...Rewards_vicc5RewardConfig
         }
       }
-      ...getLeaderboardInfo_so5Leaderboard
+      ...getLeaderboardInfo_vicc5Leaderboard
     }
-    ${Rewards.fragments.so5RewardConfig}
-    ${getLeaderboardInfo.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<LeaderboardRow_so5Leaderboard>,
+    ${Rewards.fragments.vicc5RewardConfig}
+    ${getLeaderboardInfo.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<LeaderboardRow_vicc5Leaderboard>,
 };
 
 export default LeaderboardRow;

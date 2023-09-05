@@ -36,7 +36,7 @@ export const CARD_BORDER_RADIUS = getCardBorderRadiusWithOffsets();
 export interface TokenWithUser extends Token {
   owner: {
     user: {
-      sorareAddress: string;
+      viccAddress: string;
       slug: string;
     };
   };
@@ -61,7 +61,7 @@ export interface Card extends GqlType {
 export function isTokenWithUser(card: {
   __typename: 'Token';
 }): card is TokenWithUser {
-  return (card as TokenWithUser).owner?.user?.sorareAddress !== null;
+  return (card as TokenWithUser).owner?.user?.viccAddress !== null;
 }
 
 export const blockchainRarities = [
@@ -130,7 +130,7 @@ export const isBlockchainScarcity = (
 export const editionsByRarity: {
   [sport in Sport]: { [scarcity: string]: number };
 } = {
-  [Sport.FOOTBALL]: {
+  [Sport.CRICKET]: {
     unique: 1,
     super_rare: 10,
     rare: 100,
@@ -178,7 +178,7 @@ export const highestAvailableScarcity = (
 };
 
 export const getEditionsByRarity = (sport?: Sport) =>
-  (sport && editionsByRarity[sport]) || editionsByRarity[Sport.FOOTBALL];
+  (sport && editionsByRarity[sport]) || editionsByRarity[Sport.CRICKET];
 
 export const getHumanReadableScarcity = (card: {
   rarity: string;

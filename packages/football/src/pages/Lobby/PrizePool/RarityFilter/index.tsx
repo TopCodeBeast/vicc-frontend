@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 
-import { So5LeaderboardRarity } from '@sorare/core/src/__generated__/globalTypes';
+import { Vicc5LeaderboardRarity } from '@sorare/core/src/__generated__/globalTypes';
 import CheckboxGroup from '@sorare/core/src/atoms/inputs/CheckboxGroup';
 import FilterInDropdown from '@sorare/core/src/components/FilterInDropdown';
 import ScarcityBall, {
@@ -9,13 +9,13 @@ import ScarcityBall, {
 } from '@sorare/core/src/components/card/ScarcityBall';
 
 type Props = {
-  values: So5LeaderboardRarity[];
-  onChange: React.Dispatch<React.SetStateAction<So5LeaderboardRarity[]>>;
+  values: Vicc5LeaderboardRarity[];
+  onChange: React.Dispatch<React.SetStateAction<Vicc5LeaderboardRarity[]>>;
 };
 const RarityFilter = ({ values, onChange }: Props) => {
-  const options = Object.keys(So5LeaderboardRarity).reduce<
+  const options = Object.keys(Vicc5LeaderboardRarity).reduce<
     {
-      value: So5LeaderboardRarity;
+      value: Vicc5LeaderboardRarity;
       label: React.JSX.Element;
     }[]
   >((array, rarity) => {
@@ -23,7 +23,7 @@ const RarityFilter = ({ values, onChange }: Props) => {
     if (supportedScarcities.includes(lowerCaseRarity)) {
       array.push({
         label: <ScarcityBall scarcity={lowerCaseRarity} />,
-        value: rarity as So5LeaderboardRarity,
+        value: rarity as Vicc5LeaderboardRarity,
       });
     }
     return array;

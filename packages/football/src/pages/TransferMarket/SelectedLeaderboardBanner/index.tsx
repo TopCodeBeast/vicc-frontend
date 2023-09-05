@@ -68,19 +68,19 @@ const StyledButton = styled(Button)`
 const MARKET_LEADERBOARD_QUERY = gql`
   query MarketLeaderboardQuery($slug: String!) {
     football {
-      so5 {
-        so5Leaderboard(slug: $slug) {
+      vicc5 {
+        vicc5Leaderboard(slug: $slug) {
           slug
           displayName
           canCompose {
             ...MissingCardsMessage_validity
           }
-          ...DivisionLogo_so5Leaderboard
+          ...DivisionLogo_vicc5Leaderboard
         }
       }
     }
   }
-  ${DivisionLogo.fragments.so5Leaderboard}
+  ${DivisionLogo.fragments.vicc5Leaderboard}
   ${MissingCardsMessage.fragments.validity}
 ` as TypedDocumentNode<MarketLeaderboardQuery, MarketLeaderboardQueryVariables>;
 
@@ -96,20 +96,20 @@ export const SelectedLeaderboardBanner = () => {
 
   if (!data) return null;
 
-  const { so5Leaderboard } = data.football.so5;
+  const { vicc5Leaderboard } = data.football.vicc5;
   return (
     <StyledLink
       to={generatePathWithSearch(FOOTBALL_COMPETITION_DETAILS, {
-        competition: so5Leaderboard.slug,
+        competition: vicc5Leaderboard.slug,
         tab: 'details',
       })}
     >
       <DivisionLogoWrapper>
-        <DivisionLogo so5Leaderboard={so5Leaderboard} />
+        <DivisionLogo vicc5Leaderboard={vicc5Leaderboard} />
       </DivisionLogoWrapper>
-      <Overline>{so5Leaderboard.displayName}</Overline>
+      <Overline>{vicc5Leaderboard.displayName}</Overline>
       <Title>
-        <MissingCardsMessage validity={so5Leaderboard.canCompose} />
+        <MissingCardsMessage validity={vicc5Leaderboard.canCompose} />
       </Title>
       <StyledButton component="div" color="white" medium>
         <FormattedMessage

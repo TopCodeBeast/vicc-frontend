@@ -27,7 +27,7 @@ import { LockedCompetitionAction } from '@football/components/competition/Locked
 import useConfirmLineups from '@football/hooks/so5/useConfirmLineups';
 import useDeleteLineup from '@football/hooks/so5/useDeleteLineup';
 
-import { Lobby_LineupActions_so5Leaderboard } from './__generated__/index.graphql';
+import { Lobby_LineupActions_vicc5Leaderboard } from './__generated__/index.graphql';
 
 const Root = styled.aside`
   display: flex;
@@ -54,14 +54,14 @@ const MobileLockedCompetitionAction = styled.div`
 `;
 
 type Props = {
-  so5Leaderboard: Lobby_LineupActions_so5Leaderboard;
+  vicc5Leaderboard: Lobby_LineupActions_vicc5Leaderboard;
   onDelete?: (id: string) => void;
   onConfirm?: (id: string) => void;
   lineupId?: string;
 };
 
 const LineupActions = ({
-  so5Leaderboard,
+  vicc5Leaderboard,
   onDelete,
   onConfirm,
   lineupId,
@@ -98,24 +98,24 @@ const LineupActions = ({
   );
   const track = useEvents();
 
-  if (!so5Leaderboard) {
+  if (!vicc5Leaderboard) {
     return null;
   }
 
-  const { mySo5Lineups, teamsCap } = so5Leaderboard;
+  const { myVicc5Lineups, teamsCap } = vicc5Leaderboard;
   const lineup =
-    mySo5Lineups.find(({ id }) => id === lineupId) || mySo5Lineups[0];
-  const { canCompose } = so5Leaderboard;
-  const draftUrl = generatePath(FOOTBALL_DRAFT, { slug: so5Leaderboard.slug });
+    myVicc5Lineups.find(({ id }) => id === lineupId) || myVicc5Lineups[0];
+  const { canCompose } = vicc5Leaderboard;
+  const draftUrl = generatePath(FOOTBALL_DRAFT, { slug: vicc5Leaderboard.slug });
 
   const showRedraft =
-    so5Leaderboard.commonDraftCampaign?.status ===
+    vicc5Leaderboard.commonDraftCampaign?.status ===
     CommonDraftCampaignStatus.REDRAFTABLE;
   const showSwap =
-    so5Leaderboard.commonDraftCampaign?.status ===
+    vicc5Leaderboard.commonDraftCampaign?.status ===
     CommonDraftCampaignStatus.SWAPPABLE;
   const showDraft =
-    so5Leaderboard.commonDraftCampaign?.status ===
+    vicc5Leaderboard.commonDraftCampaign?.status ===
     CommonDraftCampaignStatus.OPEN;
 
   const showUnlock =
@@ -123,14 +123,14 @@ const LineupActions = ({
   const showEdit = !showUnlock && !!lineup;
   const showDelete = !!lineup;
   const showConfirm = !showUnlock && lineup?.confirmable && lineup?.draft;
-  const capHit = mySo5Lineups.length === teamsCap;
+  const capHit = myVicc5Lineups.length === teamsCap;
   const showCompose = !showUnlock && !(showDraft || showEdit || capHit);
 
   return (
     <Root>
       {showUnlock && (
         <LockedCompetitionAction
-          so5Leaderboard={so5Leaderboard}
+          vicc5Leaderboard={vicc5Leaderboard}
           Wrapper={MobileLockedCompetitionAction}
         />
       )}
@@ -141,7 +141,7 @@ const LineupActions = ({
               context: getInteractionContext(),
             });
           }}
-          so5Leaderboard={so5Leaderboard}
+          vicc5Leaderboard={vicc5Leaderboard}
         />
       )}
       {showRedraft && (
@@ -164,8 +164,8 @@ const LineupActions = ({
             });
           }}
           editUrl={getComposeTeamRoute({
-            so5LeaderboardSlug: so5Leaderboard.slug,
-            so5LineupId: idFromObject(lineup?.id),
+            vicc5LeaderboardSlug: vicc5Leaderboard.slug,
+            vicc5LineupId: idFromObject(lineup?.id),
           })}
         />
       )}
@@ -185,7 +185,7 @@ const LineupActions = ({
             });
           }}
           url={getComposeTeamRoute({
-            so5LeaderboardSlug: so5Leaderboard.slug,
+            vicc5LeaderboardSlug: vicc5Leaderboard.slug,
           })}
         />
       )}
@@ -194,8 +194,8 @@ const LineupActions = ({
 };
 
 LineupActions.fragments = {
-  so5Leaderboard: gql`
-    fragment Lobby_LineupActions_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment Lobby_LineupActions_vicc5Leaderboard on Vicc5Leaderboard {
       id
       slug
       rarityType
@@ -206,20 +206,20 @@ LineupActions.fragments = {
         status
         campaignType
       }
-      ...SwapCta_so5Leaderboard
+      ...SwapCta_vicc5Leaderboard
       canCompose {
         value
       }
-      mySo5Lineups {
+      myVicc5Lineups {
         id
         draft
         confirmable
       }
-      ...LockedCompetitionAction_so5Leaderboard
+      ...LockedCompetitionAction_vicc5Leaderboard
     }
-    ${SwapCta.fragments.so5Leaderboard}
-    ${LockedCompetitionAction.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<Lobby_LineupActions_so5Leaderboard>,
+    ${SwapCta.fragments.vicc5Leaderboard}
+    ${LockedCompetitionAction.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<Lobby_LineupActions_vicc5Leaderboard>,
 };
 
 export default LineupActions;

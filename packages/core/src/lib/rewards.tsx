@@ -7,33 +7,33 @@ import {
 } from '__generated__/globalTypes';
 
 import {
-  hasEligibleRewards_so5RewardConfig,
+  hasEligibleRewards_vicc5RewardConfig,
   hasRewards_rewardsOverview,
-  hasUnclaimedRewards_so5Fixture,
+  hasUnclaimedRewards_vicc5Fixture,
 } from './__generated__/rewards.graphql';
 import { withFragments } from './gql';
 
 export const hasUnclaimedRewards = withFragments(
-  (so5Fixture: hasUnclaimedRewards_so5Fixture) => {
-    return so5Fixture.mySo5Rewards.some(r => r.aasmState !== 'claimed');
+  (vicc5Fixture: hasUnclaimedRewards_vicc5Fixture) => {
+    return vicc5Fixture.myVicc5Rewards.some(r => r.aasmState !== 'claimed');
   },
   {
-    so5Fixture: gql`
-      fragment hasUnclaimedRewards_so5Fixture on So5Fixture {
+    vicc5Fixture: gql`
+      fragment hasUnclaimedRewards_vicc5Fixture on Vicc5Fixture {
         slug
-        mySo5Rewards {
+        myVicc5Rewards {
           slug
           aasmState
         }
       }
-    ` as TypedDocumentNode<hasUnclaimedRewards_so5Fixture>,
+    ` as TypedDocumentNode<hasUnclaimedRewards_vicc5Fixture>,
   }
 );
 
-export const getUnclaimedRewards = (so5Fixture: {
-  mySo5Rewards: { aasmState: string }[];
+export const getUnclaimedRewards = (vicc5Fixture: {
+  myVicc5Rewards: { aasmState: string }[];
 }) => {
-  return so5Fixture.mySo5Rewards.filter(r => r.aasmState === 'ready');
+  return vicc5Fixture.myVicc5Rewards.filter(r => r.aasmState === 'ready');
 };
 
 export const hasRewards = withFragments(
@@ -58,7 +58,7 @@ export const hasRewards = withFragments(
 );
 
 export const hasEligibleRewards = withFragments(
-  (rewards: hasEligibleRewards_so5RewardConfig | undefined) => {
+  (rewards: hasEligibleRewards_vicc5RewardConfig | undefined) => {
     if (!rewards) {
       return false;
     }
@@ -72,7 +72,7 @@ export const hasEligibleRewards = withFragments(
   },
   {
     rewardConfig: gql`
-      fragment hasEligibleRewards_so5RewardConfig on So5RewardConfig {
+      fragment hasEligibleRewards_vicc5RewardConfig on Vicc5RewardConfig {
         cards {
           quality
           rarity
@@ -84,7 +84,7 @@ export const hasEligibleRewards = withFragments(
         usdAmount
         coinAmount
       }
-    ` as TypedDocumentNode<hasEligibleRewards_so5RewardConfig>,
+    ` as TypedDocumentNode<hasEligibleRewards_vicc5RewardConfig>,
   }
 );
 

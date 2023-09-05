@@ -32,8 +32,8 @@ import useShortcut from '@football/hooks/useShortcut';
 import { getTitleMessage } from '@football/lib/composeLineup';
 
 import {
-  ComposeLineup_so5Leaderboard,
-  ComposeLineup_so5Lineup,
+  ComposeLineup_vicc5Leaderboard,
+  ComposeLineup_vicc5Lineup,
 } from './__generated__/index.graphql';
 
 const PlayerScoreWrapper = styled.div`
@@ -47,8 +47,8 @@ const PlayerScoreWrapper = styled.div`
 
 const ComposeLineup = () => {
   const {
-    so5Leaderboard,
-    so5Lineup,
+    vicc5Leaderboard,
+    vicc5Lineup,
     lineup,
     setActivePosition,
     activePosition,
@@ -77,7 +77,7 @@ const ComposeLineup = () => {
   const totalFifteenAverageScore = useMemo(
     () =>
       Object.values(lineup).reduce((acc, cur) => {
-        return (cur.card?.lastFifteenSo5AverageScore || 0) + acc;
+        return (cur.card?.lastFifteenVicc5AverageScore || 0) + acc;
       }, 0),
     [lineup]
   );
@@ -88,7 +88,7 @@ const ComposeLineup = () => {
   useShortcut('4', () => setActivePosition(lineupPositions[0]));
   useShortcut('5', () => setActivePosition(lineupPositions[2]));
 
-  const fifteenGameAverageTotalLimit = so5Leaderboard.rules?.sumOfAverageScores;
+  const fifteenGameAverageTotalLimit = vicc5Leaderboard.rules?.sumOfAverageScores;
   const isCaptainStep = lineupComplete && needCaptain && !captain;
   const isConfirmStep = lineupComplete && !isCaptainStep;
   const titleMessage = getTitleMessage(isCaptainStep, isConfirmStep, isEdit);
@@ -96,7 +96,7 @@ const ComposeLineup = () => {
     ({ card }) => card?.slug === playerDetails?.card?.slug
   );
   const stall =
-    !!so5Leaderboard.commonDraftCampaign?.slug &&
+    !!vicc5Leaderboard.commonDraftCampaign?.slug &&
     !sawDialog(LIFECYCLE.sawComposeOnboarding);
   const onCardSelect = (position: LineupPosition) => {
     setIsEdit(false);
@@ -125,23 +125,23 @@ const ComposeLineup = () => {
               position={position as LineupPosition}
             />
           )}
-          {typeof card?.lastFifteenSo5AverageScore === 'number' && (
+          {typeof card?.lastFifteenVicc5AverageScore === 'number' && (
             <PlayerScoreWrapper>
               <AverageScore
                 capped={isCappedMode}
                 score={
                   card?.[
                     displayedAverageScore ===
-                    AveragePlayerScore.LAST_FIVE_SO5_AVERAGE_SCORE
-                      ? 'lastFiveSo5AverageScore'
-                      : 'lastFifteenSo5AverageScore'
+                    AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE
+                      ? 'lastFiveVicc5AverageScore'
+                      : 'lastFifteenVicc5AverageScore'
                   ]
                 }
                 withTooltip
                 size="smaller"
                 scoreMode={
                   displayedAverageScore ===
-                  AveragePlayerScore.LAST_FIVE_SO5_AVERAGE_SCORE
+                  AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE
                     ? 'AVERAGE_LAST_5_GAMES'
                     : 'AVERAGE_LAST_15_GAMES'
                 }
@@ -156,12 +156,12 @@ const ComposeLineup = () => {
   return (
     <>
       <DumbComposeTeam
-        disableAnimation={so5Leaderboard.trainingCenter || !isCreateMode}
+        disableAnimation={vicc5Leaderboard.trainingCenter || !isCreateMode}
         stall={stall}
         header={
           <Header
-            so5Leaderboard={so5Leaderboard}
-            so5Lineup={so5Lineup}
+            vicc5Leaderboard={vicc5Leaderboard}
+            vicc5Lineup={vicc5Lineup}
             Back={({ children }) => (
               <button type="button" onClick={onClose}>
                 {children}
@@ -212,7 +212,7 @@ const ComposeLineup = () => {
                       }}
                     >
                       <FormattedMessage
-                        id="So5.ComposeTeam.Compose"
+                        id="Vicc5.ComposeTeam.Compose"
                         defaultMessage="Compose your lineup"
                       />
                     </Confirm>
@@ -322,12 +322,12 @@ const ComposeLineup = () => {
       />
       <OneTimeDialog
         dialogId={LIFECYCLE.sawComposeOnboarding}
-        show={!!so5Leaderboard.commonDraftCampaign?.slug}
+        show={!!vicc5Leaderboard.commonDraftCampaign?.slug}
       >
         {({ onClose: onDialogClose, open }) => (
           <ComposeOnboarding
             isOpen={open}
-            competition={so5Leaderboard.commonDraftCampaign?.competitions[0]}
+            competition={vicc5Leaderboard.commonDraftCampaign?.competitions[0]}
             onClose={onDialogClose}
           />
         )}
@@ -339,15 +339,15 @@ const ComposeLineup = () => {
 };
 
 ComposeLineup.fragments = {
-  so5Leaderboard: gql`
-    fragment ComposeLineup_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment ComposeLineup_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       rules {
         id
         sumOfAverageScores
       }
       trainingCenter
-      so5League {
+      vicc5League {
         slug
         name
       }
@@ -359,17 +359,17 @@ ComposeLineup.fragments = {
           ...ComposeOnboarding_competition
         }
       }
-      ...ComposeTeamDraftHeader_so5Leaderboard
+      ...ComposeTeamDraftHeader_vicc5Leaderboard
     }
-    ${Header.fragments.so5Leaderboard}
+    ${Header.fragments.vicc5Leaderboard}
     ${ComposeOnboarding.fragments.competition}
-  ` as TypedDocumentNode<ComposeLineup_so5Leaderboard>,
-  so5Lineup: gql`
-    fragment ComposeLineup_so5Lineup on So5Lineup {
+  ` as TypedDocumentNode<ComposeLineup_vicc5Leaderboard>,
+  vicc5Lineup: gql`
+    fragment ComposeLineup_vicc5Lineup on Vicc5Lineup {
       id
-      so5Appearances {
+      vicc5Appearances {
         id
-        ...Appearance_so5Appearance
+        ...Appearance_vicc5Appearance
         card {
           slug
           assetId
@@ -377,9 +377,9 @@ ComposeLineup.fragments = {
         }
       }
     }
-    ${Appearance.fragments.so5_appearance}
+    ${Appearance.fragments.vicc5_appearance}
     ${BenchCards.fragments.card}
-  ` as TypedDocumentNode<ComposeLineup_so5Lineup>,
+  ` as TypedDocumentNode<ComposeLineup_vicc5Lineup>,
 };
 
 export default ComposeLineup;

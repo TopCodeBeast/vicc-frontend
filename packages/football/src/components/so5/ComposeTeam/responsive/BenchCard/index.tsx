@@ -12,17 +12,17 @@ import AverageScore from '@football/components/so5/AverageScore';
 import CardBonus from '@football/components/so5/CardProperties/CardBonus';
 import Context from '@football/components/so5/ComposeTeam/Context';
 import { cardFragment } from '@football/components/so5/ComposeTeam/ContextProvider';
-import { ContextProvider_so5Lineup } from '@football/components/so5/ComposeTeam/ContextProvider/__generated__/index.graphql';
+import { ContextProvider_vicc5Lineup } from '@football/components/so5/ComposeTeam/ContextProvider/__generated__/index.graphql';
 import { CompactNextGames } from '@football/components/so5/ComposeTeam/responsive/CompactNextGames';
 import { hasBonuses, positionShortNames } from '@football/lib/so5';
 
 import { BenchCard_card } from './__generated__/index.graphql';
 
-type ContextProvider_so5Lineup_so5Appearances_card =
-  ContextProvider_so5Lineup['so5Appearances'][number]['card'];
+type ContextProvider_vicc5Lineup_vicc5Appearances_card =
+  ContextProvider_vicc5Lineup['vicc5Appearances'][number]['card'];
 
 interface Props {
-  card: BenchCard_card | ContextProvider_so5Lineup_so5Appearances_card;
+  card: BenchCard_card | ContextProvider_vicc5Lineup_vicc5Appearances_card;
   children?: ReactNode;
   showBonus?: boolean;
 }
@@ -70,7 +70,7 @@ const Properties = styled.div`
 export const BenchCard = (props: Props) => {
   const { card, children, showBonus } = props;
 
-  const { displayedAverageScore, so5Leaderboard, isCappedMode } =
+  const { displayedAverageScore, vicc5Leaderboard, isCappedMode } =
     useContext(Context)!;
   return (
     <Root>
@@ -82,27 +82,27 @@ export const BenchCard = (props: Props) => {
           <Properties>
             <>
               {displayedAverageScore ===
-                AveragePlayerScore.LAST_FIFTEEN_SO5_AVERAGE_SCORE && (
+                AveragePlayerScore.LAST_FIFTEEN_VICC5_AVERAGE_SCORE && (
                 <AverageScore
                   capped={isCappedMode}
                   size="smaller"
-                  score={card.lastFifteenSo5AverageScore}
+                  score={card.lastFifteenVicc5AverageScore}
                   withTooltip
                   scoreMode="AVERAGE_LAST_15_GAMES"
                 />
               )}
               {displayedAverageScore ===
-                AveragePlayerScore.LAST_FIVE_SO5_AVERAGE_SCORE && (
+                AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE && (
                 <AverageScore
                   capped={isCappedMode}
                   size="smaller"
-                  score={card.lastFiveSo5AverageScore}
+                  score={card.lastFiveVicc5AverageScore}
                   withTooltip
                   scoreMode="AVERAGE_LAST_5_GAMES"
                 />
               )}
             </>
-            {hasBonuses(so5Leaderboard) && (
+            {hasBonuses(vicc5Leaderboard) && (
               <CardBonus card={card} showBonus={showBonus} />
             )}
             <PlayerCurrentUnavailabilityBadge player={card.player} />
@@ -131,9 +131,9 @@ BenchCard.fragments = {
       rarity
       pictureUrl: pictureUrl(derivative: "tinified")
       position: positionTyped
-      lastFiveSo5AverageScore: averageScore(type: LAST_FIVE_SO5_AVERAGE_SCORE)
-      lastFifteenSo5AverageScore: averageScore(
-        type: LAST_FIFTEEN_SO5_AVERAGE_SCORE
+      lastFiveVicc5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
+      lastFifteenVicc5AverageScore: averageScore(
+        type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
       )
       player {
         slug

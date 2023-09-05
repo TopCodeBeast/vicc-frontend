@@ -10,7 +10,7 @@ import {
 const FETCH_ENCRYPTED_PRIVATE_KEY_MUTATION = gql`
   mutation FetchEncryptedPrivateKey($input: fetchEncryptedPrivateKeyInput!) {
     fetchEncryptedPrivateKey(input: $input) {
-      sorarePrivateKey {
+      viccPrivateKey {
         encryptedPrivateKey
         iv
         salt

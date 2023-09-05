@@ -2,15 +2,15 @@ import { TypedDocumentNode } from '@apollo/client';
 import { gql } from '@apollo/client/core';
 
 import ComposeLineup from './ComposeLineup';
-import ContextProvider, { So5ComposeLineupProps } from './ContextProvider';
+import ContextProvider, { Vicc5ComposeLineupProps } from './ContextProvider';
 import {
-  ComposeTeamComponent_so5Leaderboard,
-  ComposeTeamComponent_so5Lineup,
+  ComposeTeamComponent_vicc5Leaderboard,
+  ComposeTeamComponent_vicc5Lineup,
 } from './__generated__/index.graphql';
 
-export interface Props extends So5ComposeLineupProps {
-  so5Leaderboard: ComposeTeamComponent_so5Leaderboard;
-  so5Lineup: ComposeTeamComponent_so5Lineup;
+export interface Props extends Vicc5ComposeLineupProps {
+  vicc5Leaderboard: ComposeTeamComponent_vicc5Leaderboard;
+  vicc5Lineup: ComposeTeamComponent_vicc5Lineup;
 }
 
 const ComposeTeam = (props: Props) => (
@@ -20,25 +20,25 @@ const ComposeTeam = (props: Props) => (
 );
 
 ComposeTeam.fragments = {
-  so5Leaderboard: gql`
-    fragment ComposeTeamComponent_so5Leaderboard on So5Leaderboard {
+  vicc5Leaderboard: gql`
+    fragment ComposeTeamComponent_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       id
-      ...ContextProvider_so5Leaderboard
-      ...ComposeLineup_so5Leaderboard
+      ...ContextProvider_vicc5Leaderboard
+      ...ComposeLineup_vicc5Leaderboard
     }
-    ${ContextProvider.fragments.so5Leaderboard}
-    ${ComposeLineup.fragments.so5Leaderboard}
-  ` as TypedDocumentNode<ComposeTeamComponent_so5Leaderboard>,
-  so5Lineup: gql`
-    fragment ComposeTeamComponent_so5Lineup on So5Lineup {
+    ${ContextProvider.fragments.vicc5Leaderboard}
+    ${ComposeLineup.fragments.vicc5Leaderboard}
+  ` as TypedDocumentNode<ComposeTeamComponent_vicc5Leaderboard>,
+  vicc5Lineup: gql`
+    fragment ComposeTeamComponent_vicc5Lineup on Vicc5Lineup {
       id
-      ...ContextProvider_so5Lineup
-      ...ComposeLineup_so5Lineup
+      ...ContextProvider_vicc5Lineup
+      ...ComposeLineup_vicc5Lineup
     }
-    ${ContextProvider.fragments.so5Lineup}
-    ${ComposeLineup.fragments.so5Lineup}
-  ` as TypedDocumentNode<ComposeTeamComponent_so5Lineup>,
+    ${ContextProvider.fragments.vicc5Lineup}
+    ${ComposeLineup.fragments.vicc5Lineup}
+  ` as TypedDocumentNode<ComposeTeamComponent_vicc5Lineup>,
 };
 
 export default ComposeTeam;

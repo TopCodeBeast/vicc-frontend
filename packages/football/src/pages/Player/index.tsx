@@ -53,7 +53,7 @@ const PlayerPage = () => {
       first: scoresLimit,
     },
     skip: !slug,
-    connection: 'So5ScoreConnection',
+    connection: 'Vicc5ScoreConnection',
   });
 
   const { InfiniteScrollLoader } = useInfiniteScroll(
@@ -61,7 +61,7 @@ const PlayerPage = () => {
       loadMore(false, {
         slug: slug!,
         position: selectedPosition,
-        after: data?.football.player.allSo5Scores.pageInfo.endCursor,
+        after: data?.football.player.allVicc5Scores.pageInfo.endCursor,
         first: scoresLimit,
       });
     }, [
@@ -69,9 +69,9 @@ const PlayerPage = () => {
       slug,
       scoresLimit,
       loadMore,
-      data?.football.player.allSo5Scores.pageInfo.endCursor,
+      data?.football.player.allVicc5Scores.pageInfo.endCursor,
     ]),
-    data?.football.player.allSo5Scores.pageInfo.hasNextPage || false,
+    data?.football.player.allVicc5Scores.pageInfo.hasNextPage || false,
     loading
   );
 

@@ -7,7 +7,7 @@ import { Errors } from '@football/components/so5/ComposeTeam/Context';
 import { getErrorFrom } from '@football/components/so5/Rules/formatRules';
 import { ELIGIBILITY_RULES } from '@football/lib/so5';
 
-import { formatEligibilityRules_so5Leaderboard } from './__generated__/formatEligibilityRules.graphql';
+import { formatEligibilityRules_vicc5Leaderboard } from './__generated__/formatEligibilityRules.graphql';
 import { GetCardsCountOfCurrentUserRule } from './helpers/__generated__/getCardsCountOfCurrentUserRule.graphql';
 import getCardsCountOfCurrentUserRule from './helpers/getCardsCountOfCurrentUserRule';
 
@@ -40,12 +40,12 @@ export const formatEligibilityRules = withFragments(
     );
   },
   {
-    so5Leaderboard: gql`
-      fragment formatEligibilityRules_so5Leaderboard on So5Leaderboard {
+    vicc5Leaderboard: gql`
+      fragment formatEligibilityRules_vicc5Leaderboard on Vicc5Leaderboard {
         slug
         ...GetCardsCountOfCurrentUserRule
       }
       ${getCardsCountOfCurrentUserRule.fragments.rule}
-    ` as TypedDocumentNode<formatEligibilityRules_so5Leaderboard>,
+    ` as TypedDocumentNode<formatEligibilityRules_vicc5Leaderboard>,
   }
 );

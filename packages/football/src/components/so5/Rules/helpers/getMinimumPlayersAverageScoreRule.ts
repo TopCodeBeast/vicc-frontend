@@ -38,7 +38,7 @@ const getAverageScoreRule = withFragments(
         min,
         max,
         games:
-          averageType === AveragePlayerScore.LAST_FIVE_SO5_AVERAGE_SCORE
+          averageType === AveragePlayerScore.LAST_FIVE_VICC5_AVERAGE_SCORE
             ? 5
             : 15,
         condition,
@@ -47,7 +47,7 @@ const getAverageScoreRule = withFragments(
   },
   {
     rule: gql`
-      fragment GetMinimumPlayersAverageScoreRule on So5Leaderboard {
+      fragment GetMinimumPlayersAverageScoreRule on Vicc5Leaderboard {
         slug
         displayedRules {
           id
