@@ -180,12 +180,12 @@ const UserGroupsList = ({ showDialog }: Props) => {
   });
 
   const after =
-    data?.football.vicc5.paginatedMyVicc5UserGroups?.pageInfo?.endCursor;
+    data?.vicc5.paginatedMyVicc5UserGroups?.pageInfo?.endCursor;
   const { InfiniteScrollLoader } = useInfiniteScroll(
     useCallback(() => {
       loadMore(false, { after, enableLongFormatCompetition });
     }, [loadMore, after, enableLongFormatCompetition]),
-    Boolean(data?.football.vicc5.paginatedMyVicc5UserGroups?.pageInfo?.hasNextPage),
+    Boolean(data?.vicc5.paginatedMyVicc5UserGroups?.pageInfo?.hasNextPage),
     loading
   );
 
@@ -198,17 +198,17 @@ const UserGroupsList = ({ showDialog }: Props) => {
     });
   };
 
-  const privateUserGroups = data?.football.vicc5.myVicc5UserGroups?.nodes || [];
+  const privateUserGroups = data?.vicc5.myVicc5UserGroups?.nodes || [];
   const publicUserGroups =
-    data?.football.vicc5.universalVicc5UserGroups?.nodes || [];
+    data?.vicc5.universalVicc5UserGroups?.nodes || [];
   const paginatedPrivateUserGroups =
-    data?.football.vicc5.paginatedMyVicc5UserGroups?.nodes || [];
+    data?.vicc5.paginatedMyVicc5UserGroups?.nodes || [];
   const privateUserGroupsTotal =
-    data?.football.vicc5.myVicc5UserGroups?.totalCount || 0;
+    data?.vicc5.myVicc5UserGroups?.totalCount || 0;
   const paginatedPrivateUserGroupsTotal =
-    data?.football.vicc5.paginatedMyVicc5UserGroups?.totalCount || 0;
+    data?.vicc5.paginatedMyVicc5UserGroups?.totalCount || 0;
   const publicUserGroupsTotal =
-    data?.football.vicc5.universalVicc5UserGroups?.totalCount || 0;
+    data?.vicc5.universalVicc5UserGroups?.totalCount || 0;
 
   return (
     <Root>

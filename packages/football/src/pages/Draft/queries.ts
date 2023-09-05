@@ -130,7 +130,7 @@ export const useDraftQuery = (variables: DraftQueryVariables) => {
     fetchPolicy: 'cache-first',
   });
   const { nodes: availablePlayers = [], pageInfo } =
-    data?.football.vicc5.vicc5Leaderboard.commonDraftCampaign?.availablePlayers ||
+    data?.vicc5.vicc5Leaderboard.commonDraftCampaign?.availablePlayers ||
     {};
 
   return { data: { availablePlayers, pageInfo }, loading, loadMore };
@@ -178,7 +178,7 @@ export const useAutoFillQuery = ({
       variables: { vicc5LeaderboardSlug },
       onCompleted: autoFillData => {
         const { autoPick } =
-          autoFillData?.football.vicc5.vicc5Leaderboard.commonDraftCampaign || {};
+          autoFillData?.vicc5.vicc5Leaderboard.commonDraftCampaign || {};
         if (autoPick && onCompleted) {
           onCompleted(autoPick);
         }

@@ -132,7 +132,7 @@ export const Games = () => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const { vicc5Fixture } = data?.football.vicc5 || {};
+  const { vicc5Fixture } = data?.vicc5 || {};
   const parseSearch = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
   });

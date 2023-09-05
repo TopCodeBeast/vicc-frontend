@@ -73,40 +73,40 @@ export const CardPage = ({ inDialog }: Props) => {
         false,
         {
           slug: slug!,
-          scoreCursor: data?.football.card?.allVicc5Scores?.pageInfo.endCursor,
+          scoreCursor: data?.card?.allVicc5Scores?.pageInfo.endCursor,
           first: scoresLimit,
         },
         'Vicc5ScoreConnection'
       );
     }, [
-      data?.football.card.allVicc5Scores.pageInfo.endCursor,
+      data?.card.allVicc5Scores.pageInfo.endCursor,
       slug,
       scoresLimit,
       loadMoreBids,
     ]),
-    !!data?.football.card?.allVicc5Scores?.pageInfo.hasNextPage,
+    !!data?.card?.allVicc5Scores?.pageInfo.hasNextPage,
     loading
   );
 
   useTitleAndDescription(
     metadatas.card.title,
     metadatas.card.description,
-    !!data?.football.card && {
-      display_name: data.football.card.player.displayName,
-      scarcity: scarcityNames[data.football.card.rarity],
+    !!data?.card && {
+      display_name: data.card.player.displayName,
+      scarcity: scarcityNames[data.card.rarity],
       season: format(
         {
-          startYear: data.football.card.season.startYear,
+          startYear: data.card.season.startYear,
         },
-        { singleCivilYear: data.football.card.singleCivilYear }
+        { singleCivilYear: data.card.singleCivilYear }
       ),
     }
   );
 
   return (
     <CardPageContent
-      slug={data?.football.card ? data.football.card.slug : ''}
-      card={data?.football.card}
+      slug={data?.card ? data.card.slug : ''}
+      card={data?.card}
       loading={loading}
       loadMoreBids={loadMoreBids}
       InfiniteScrollLoader={<InfiniteScrollLoader />}

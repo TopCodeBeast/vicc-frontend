@@ -125,7 +125,7 @@ const WithLiveCardsOnSale = ({
   );
 
   const { draftedPlayers } =
-    leaderboardData?.football.vicc5.vicc5Leaderboard?.commonDraftCampaign || {};
+    leaderboardData?.vicc5.vicc5Leaderboard?.commonDraftCampaign || {};
   const bestDraftedPlayers = useMemo(
     () => getBestPlayers(draftedPlayers || []),
     [draftedPlayers]

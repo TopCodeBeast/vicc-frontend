@@ -51,7 +51,7 @@ const useGetRecommendedLeaderboard = ({
     return {};
   }
 
-  const leaderboards = data?.football.vicc5.upcomingLeaderboards;
+  const leaderboards = data?.vicc5.upcomingLeaderboards;
 
   const draftedLeaderboards =
     leaderboards?.filter(

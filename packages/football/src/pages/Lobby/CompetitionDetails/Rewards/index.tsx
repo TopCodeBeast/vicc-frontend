@@ -165,7 +165,7 @@ const CompetitionDetailsRewardsTab = () => {
   const [leaderboardMode, setLeaderboardMode] =
     useLocalStorage<LeaderboardModes>(STORAGE.leaderboardMode, 'matchday');
 
-  const vicc5Leaderboard = data?.football.vicc5.vicc5Leaderboard;
+  const vicc5Leaderboard = data?.vicc5.vicc5Leaderboard;
   const vicc5League = vicc5Leaderboard?.vicc5League;
   const universalVicc5UserGroup = vicc5Leaderboard?.universalVicc5UserGroups?.[0];
 

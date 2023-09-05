@@ -278,7 +278,7 @@ const GameWeekDropdown = ({
     fetchPolicy: 'cache-and-network',
     skip: !enabled,
   });
-  const vicc5Fixtures = data?.football.vicc5.vicc5Fixtures;
+  const vicc5Fixtures = data?.vicc5.vicc5Fixtures;
   const endCursor = vicc5Fixtures?.pageInfo?.endCursor;
   const hasMore = Boolean(vicc5Fixtures?.pageInfo.hasNextPage);
   const latestGameWeek = vicc5Fixtures?.nodes[0]?.gameWeek;
@@ -289,11 +289,11 @@ const GameWeekDropdown = ({
   }, [endCursor, loadMore]);
 
   const parseOptions = useCallback<() => GroupBase[]>(() => {
-    if (!data?.football.vicc5.vicc5Fixtures?.nodes) {
+    if (!data?.vicc5.vicc5Fixtures?.nodes) {
       return [];
     }
     optionsBySlug.current = groupNodesBySlug(
-      data.football.vicc5.vicc5Fixtures.nodes
+      data.vicc5.vicc5Fixtures.nodes
     );
     return groupOptionsByYear(optionsBySlug.current);
   }, [data, optionsBySlug]);

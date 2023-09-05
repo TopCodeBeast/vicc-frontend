@@ -224,7 +224,7 @@ export const FeaturedSportFootball = ({
       <CardContent>
         <LinkOverlay as={Link} to={defaultSportPages[Sport.CRICKET]}>
           <Title>
-            <FormattedMessage {...sportsLabelsMessages.FOOTBALL} />
+            <FormattedMessage {...sportsLabelsMessages.CRICKET} />
           </Title>
         </LinkOverlay>
         {!hideDescription && (

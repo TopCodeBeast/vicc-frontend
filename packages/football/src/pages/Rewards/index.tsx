@@ -166,24 +166,24 @@ export const Rewards = () => {
 
   const vicc5LeagueSlugs = useMemo(
     () =>
-      (data?.football.vicc5.vicc5League?.vicc5Fixture.vicc5Leagues || []).reduce<{
+      (data?.vicc5.vicc5League?.vicc5Fixture.vicc5Leagues || []).reduce<{
         [key: string]: string;
       }>((sum, cur) => {
         sum[cur.displayName] = cur.slug;
 
         return sum;
       }, {}),
-    [data?.football.vicc5.vicc5League?.vicc5Fixture.vicc5Leagues]
+    [data?.vicc5.vicc5League?.vicc5Fixture.vicc5Leagues]
   );
   const rewardedRarities = useMemo(
     () =>
-      data?.football.vicc5.vicc5League?.rewardedRarities?.reduce<{
+      data?.vicc5.vicc5League?.rewardedRarities?.reduce<{
         [key: string]: string;
       }>((sum, slug) => {
         sum[scarcityNames[slug]] = slug;
         return sum;
       }, {}) || {},
-    [data?.football.vicc5.vicc5League?.rewardedRarities]
+    [data?.vicc5.vicc5League?.rewardedRarities]
   );
 
   const onSelect = useCallback(
@@ -206,10 +206,10 @@ export const Rewards = () => {
   const schema = useMemo(
     () =>
       buildSchema(
-        (data?.football.vicc5.vicc5League?.vicc5Fixture.vicc5Leagues || []) as any,
+        (data?.vicc5.vicc5League?.vicc5Fixture.vicc5Leagues || []) as any,
         Object.keys(rewardedRarities)
       ),
-    [data?.football.vicc5.vicc5League?.vicc5Fixture.vicc5Leagues, rewardedRarities]
+    [data?.vicc5.vicc5League?.vicc5Fixture.vicc5Leagues, rewardedRarities]
   );
 
   if ((!data && loading) || !rarity || !quality || !vicc5LeagueSlug)
@@ -217,7 +217,7 @@ export const Rewards = () => {
 
   if (!data) return null;
 
-  const { vicc5League } = data.football.vicc5;
+  const { vicc5League } = data.vicc5;
   const { vicc5Fixture, rewardPool, rewardPoolComputedAt } = vicc5League;
 
   const selected: [string, string, string] = [

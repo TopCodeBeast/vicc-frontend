@@ -26,15 +26,32 @@ def remove_football(text):
     startIndex = 0
     while startIndex >= 0:
         startIndex = text.find(search, startIndex)
-        if startIndex >= 0:
+        if startIndex >= 0 and text[startIndex-1] != '#':
             endIndex = text.find("\n    }", startIndex)
             if endIndex >= 0:
                 text = text[:endIndex + 5] + "#}" + text[endIndex + 6:]
                 text = text[:startIndex] + '#' + search + text[startIndex + len(search):]
+        
+        if startIndex >= 0:
             startIndex += len(search)
 
     return text
 
+def remove_football_type(text):
+    search = "football: { __typename: 'FootballRoot', "
+    startIndex = 0
+    while startIndex >= 0:
+        startIndex = text.find(search, startIndex)
+        if startIndex >= 0:
+            endIndex = text.find("};", startIndex)
+            if endIndex >= 0:
+                text = text[:endIndex] + text[endIndex+1:]
+                text = text[:startIndex] + text[startIndex + len(search):]
+
+        if startIndex >= 0:
+            startIndex += len(search)
+
+    return text
 
 def updateTypes(filePath):
     print(filePath)
@@ -59,11 +76,19 @@ def updateTypes(filePath):
     code = code.replace("FOOTBALL = 'FOOTBALL'", "CRICKET = 'CRICKET'")
     code = code.replace("sports: [FOOTBALL, NBA, BASEBALL]", "sports: [CRICKET, NBA, BASEBALL]")
     code = code.replace("Sport.FOOTBALL", "Sport.CRICKET")
+    code = code.replace(".FOOTBALL", ".CRICKET")
     code = code.replace("footballTokensAddress", "cricketTokensAddress")
     code = code.replace("footballCardCollections", "cricketCardCollections")
     code = code.replace("footballProfile", "cricketProfile")
     code = code.replace("footballLast30DaysLineupsCount", "cricketLast30DaysLineupsCount")
     code = code.replace("footballNationalSeriesTokensAddress", "cricketNationalSeriesTokensAddress")
+    code = code.replace("?.football.", "?.")
+    code = code.replace("data.football", "data")
+    code = code.replace("formationData.football", "formationData")
+    code = code.replace("starterBundleData.football", "starterBundleData")
+    code = code.replace("counts.football", "counts")
+    code = code.replace("playerDetailsData.football", "playerDetailsData")
+    code = code.replace("starterBundleData.football", "starterBundleData")
 
     startIndex = 0
     while True:
@@ -74,12 +99,16 @@ def updateTypes(filePath):
         startIndex = code.index("'", code.index("'", endIndex) + 1)
 
     code = remove_football(code)
+
+    if filePath.endswith(".graphql.ts"):
+        code = remove_football_type(code)
     
     if code != text:
         with open(filePath, 'w+', encoding='utf-8') as fp:
             fp.write(code)
 
 if __name__ == '__main__':
+    # updateTypes("./a.graphql.ts")
     src = './packages'
     for path, subdirs, files in os.walk(src):
         for name in files:

@@ -49,8 +49,8 @@ export const LobbyUpcomingTournaments = () => {
     }
   );
 
-  const vicc5Leaderboards = data?.football.vicc5.upcomingLeaderboards;
-  const extraTeamsCapItems = data?.football.shopItems.nodes;
+  const vicc5Leaderboards = data?.vicc5.upcomingLeaderboards;
+  const extraTeamsCapItems = data?.shopItems.nodes;
 
   const refetchCb = useCallback(() => {
     refetch();

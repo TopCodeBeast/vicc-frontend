@@ -49,7 +49,7 @@ const CardPropertiesByAssetId = ({ assetId }: Props) => {
 
   if (loading || !data) return null;
 
-  const card = data.football.cardByAssetId;
+  const card = data.cardByAssetId;
   return <CardProperties card={card} />;
 };
 

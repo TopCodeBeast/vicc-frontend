@@ -130,7 +130,7 @@ export const BundledAuctionPage = () => {
   if (loading || loadingCards) return <LoadingIndicator fullHeight />;
 
   const auction = data?.tokens.auction;
-  const cards = dataCards?.football.cards;
+  const cards = dataCards?.cards;
 
   if (!auction || !cards) return null;
 

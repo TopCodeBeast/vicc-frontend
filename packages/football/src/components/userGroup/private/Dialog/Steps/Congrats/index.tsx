@@ -138,9 +138,7 @@ export const Congrats = ({ slug, redirectToManagerHome }: Props) => {
     return null;
   }
   const {
-    football: {
-      vicc5: { vicc5UserGroup },
-    },
+    vicc5: { vicc5UserGroup },
   } = data;
 
   const {

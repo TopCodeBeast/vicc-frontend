@@ -30,7 +30,7 @@ export function getUtmTermFromSport(sport?: Sport): UTM_TERMS {
       return UTM_TERMS.NBA;
     default:
     case Sport.CRICKET:
-      return UTM_TERMS.FOOTBALL;
+      return UTM_TERMS.CRICKET;
   }
 }
 

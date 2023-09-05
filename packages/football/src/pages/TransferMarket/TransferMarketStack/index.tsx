@@ -78,7 +78,7 @@ const TransferMarketStack = () => {
   }
 
   if (
-    !data?.football.player ||
+    !data?.player ||
     !rarity ||
     !Object.keys(Rarity).includes(rarity)
   ) {
@@ -108,11 +108,11 @@ const TransferMarketStack = () => {
         removeEndedSingleSaleOffers
         topic={{
           type: 'stack',
-          label: data.football.player.displayName,
+          label: data.player.displayName,
         }}
         title={
           <MarketStackTitle
-            player={data.football.player}
+            player={data.player}
             rarity={rarity as Rarity}
             sport={Sport.CRICKET}
           />

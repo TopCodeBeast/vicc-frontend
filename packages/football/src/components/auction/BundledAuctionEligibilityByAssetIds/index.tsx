@@ -52,9 +52,7 @@ const BundledAuctionEligibilityByAssetIds = ({ tokens }: Props) => {
 
   if (loading || !data) return null;
 
-  const {
-    football: { cards },
-  } = data;
+  const { cards } = data;
   return <ItemEligibility cards={cards} />;
 };
 

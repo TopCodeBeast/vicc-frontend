@@ -101,7 +101,7 @@ const MatchView = ({ id, desktop }: Props) => {
     if (formationData) {
       track('Open Match View', {
         gameId,
-        gameStatus: formationData.football.game.status,
+        gameStatus: formationData.game.status,
         deviceType: `web_${desktop ? 'desktop' : 'mobile'}`,
       });
     }
@@ -114,7 +114,7 @@ const MatchView = ({ id, desktop }: Props) => {
       </LoaderContainer>
     );
   }
-  const { game } = formationData.football;
+  const { game } = formationData;
 
   const onPlayerDetailsClick = (playerSlug?: string) => {
     if (isPlayerDetailsOpen && selectedPlayerSlug === playerSlug) {

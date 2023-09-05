@@ -72,12 +72,12 @@ export const CreatePrivateUserGroup = () => {
   const { data: eligibleTournamentsData, loading: tournamentsLoading } =
     useQuery(ELIGIBLE_TOURNAMENTS_FOR_PRIVATE_USER_GROUP_QUERY);
   const tournaments =
-    eligibleTournamentsData?.football.vicc5
+    eligibleTournamentsData?.vicc5
       .eligibleTournamentTypesForVicc5UserGroups;
 
   const { data: upcomingFixtureData, loading: upcomingFixtureLoading } =
     useQuery(UPCOMING_FIXTURES_QUERY);
-  const upcomingFixture = upcomingFixtureData?.football.vicc5.vicc5Fixture;
+  const upcomingFixture = upcomingFixtureData?.vicc5.vicc5Fixture;
 
   const onSelectNewSkin = (id: string) => setLogoId(id);
 

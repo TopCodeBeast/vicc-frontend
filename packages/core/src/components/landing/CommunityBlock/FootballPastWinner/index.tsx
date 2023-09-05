@@ -95,7 +95,7 @@ type Props = {
 export const FootballPastWinner = ({ leaderboardSlug }: Props) => {
   const { data: slugData } = useQuery(FOOTBALL_PAST_LEADERBOARD_SLUG_QUERY);
   const lastLeaderboard =
-    slugData?.football.vicc5.vicc5Fixture?.vicc5Leaderboards.find(leaderboard =>
+    slugData?.vicc5.vicc5Fixture?.vicc5Leaderboards.find(leaderboard =>
       leaderboard.slug.includes(leaderboardSlug)
     );
 
@@ -105,7 +105,7 @@ export const FootballPastWinner = ({ leaderboardSlug }: Props) => {
   });
 
   const leaderboardDataSimplified =
-    leaderboardData?.football.vicc5.vicc5Leaderboard;
+    leaderboardData?.vicc5.vicc5Leaderboard;
 
   const lineupId =
     leaderboardDataSimplified?.vicc5Rankings.nodes[0]?.vicc5Lineup?.id;
@@ -115,7 +115,7 @@ export const FootballPastWinner = ({ leaderboardSlug }: Props) => {
     variables: { lineupId: idFromObject(lineupId)! },
   });
 
-  const lineupDataSimplified = lineupData?.football.vicc5.vicc5Lineup;
+  const lineupDataSimplified = lineupData?.vicc5.vicc5Lineup;
 
   if (!lineupDataSimplified || !leaderboardDataSimplified?.vicc5LineupsCount)
     return null;

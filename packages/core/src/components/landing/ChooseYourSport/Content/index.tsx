@@ -92,7 +92,7 @@ export const ChooseYourSportContent = ({
               scrollToElement(document.getElementById('football'));
             }}
           >
-            <FormattedMessage {...sportsLabelsMessages.FOOTBALL} />
+            <FormattedMessage {...sportsLabelsMessages.CRICKET} />
           </NavButton>
           {!hideNBA ? (
             <NavButton

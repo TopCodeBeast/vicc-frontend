@@ -123,7 +123,7 @@ const CompetitionDetailsDefaultTab = () => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const vicc5Leaderboard = data?.football.vicc5.vicc5Leaderboard;
+  const vicc5Leaderboard = data?.vicc5.vicc5Leaderboard;
   const hasSpecialRules = hasSpecialEngineConfiguration(vicc5Leaderboard);
 
   const displaySemiProIncentive = useDisplaySemiProIncentive(

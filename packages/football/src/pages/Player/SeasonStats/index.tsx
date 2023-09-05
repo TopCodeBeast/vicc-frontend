@@ -85,7 +85,7 @@ const SeasonStats = ({ playerSlug, seasonStartYear }: Props) => {
     substituteIn,
     substituteOut,
     yellowCards,
-  } = data?.football.player.stats || emptyValues;
+  } = data?.player.stats || emptyValues;
 
   const renderIcon = (icon: FontAwesomeIconProps['icon']) => (
     <FontAwesomeIcon icon={icon} />

@@ -124,7 +124,7 @@ export const ComposeTeam = ({ vicc5LeaderboardSlug, vicc5LineupId }: Props) => {
     return <Navigate to={isReorgApp ? FOOTBALL_PLAY_WEEKLY : FOOTBALL_LOBBY} />;
   }
 
-  const { vicc5Leaderboard } = data.football.vicc5;
+  const { vicc5Leaderboard } = data.vicc5;
   const { vicc5Lineup, vicc5League } = vicc5Leaderboard || {};
 
   const handleSubmitSuccess = (captainPictureUrl?: string) => {
@@ -172,7 +172,7 @@ const ComposeTeamOrRedirect = () => {
     }
   );
 
-  const { vicc5Leaderboard } = leaderboardData?.football.vicc5 || {};
+  const { vicc5Leaderboard } = leaderboardData?.vicc5 || {};
   const { vicc5Fixture, trainingCenter } = vicc5Leaderboard || {};
   const { myVicc5LineupsPaginated } = vicc5Fixture || {};
   const firstValidLineupId = idFromObject(

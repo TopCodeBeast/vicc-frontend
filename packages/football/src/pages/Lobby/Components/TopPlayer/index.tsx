@@ -185,7 +185,7 @@ export const TopPlayers = ({ vicc5Fixture }: Props) => {
       skip: !vicc5Fixture?.slug,
     }
   );
-  const fixture = data?.football.vicc5.vicc5Fixture;
+  const fixture = data?.vicc5.vicc5Fixture;
   const hasScores = !!fixture?.orderedVicc5Scores.find(
     ({ vicc5Scores }) => vicc5Scores.length
   );

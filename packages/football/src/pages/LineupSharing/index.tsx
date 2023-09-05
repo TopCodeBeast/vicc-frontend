@@ -209,9 +209,9 @@ const LineupSharing = () => {
   useEffect(() => {
     if (data) {
       const img =
-        data.football.vicc5.vicc5Lineup.socialPictureUrls?.post ||
-        data.football.vicc5.vicc5Lineup.socialPictureUrls?.square ||
-        data.football.vicc5.vicc5Lineup.socialPictureUrls?.story ||
+        data.vicc5.vicc5Lineup.socialPictureUrls?.post ||
+        data.vicc5.vicc5Lineup.socialPictureUrls?.square ||
+        data.vicc5.vicc5Lineup.socialPictureUrls?.story ||
         undefined;
 
       setPageMetadata(
@@ -220,14 +220,14 @@ const LineupSharing = () => {
             id: 'LineUpSharing.title',
             defaultMessage: "{nickname}'s Lineup",
           },
-          { nickname: data.football.vicc5.vicc5Lineup.user?.nickname }
+          { nickname: data.vicc5.vicc5Lineup.user?.nickname }
         ),
         { img }
       );
-      if (data.football.vicc5.vicc5Lineup.vicc5Leaderboard) {
+      if (data.vicc5.vicc5Lineup.vicc5Leaderboard) {
         track('View Shared Lineup', {
-          lineup: data?.football.vicc5.vicc5Lineup.id,
-          competition: data.football.vicc5.vicc5Lineup.vicc5Leaderboard.displayName,
+          lineup: data?.vicc5.vicc5Lineup.id,
+          competition: data.vicc5.vicc5Lineup.vicc5Leaderboard.displayName,
         });
       }
     }
@@ -243,7 +243,7 @@ const LineupSharing = () => {
   if (!data) return null;
 
   const { vicc5Appearances, vicc5Leaderboard, vicc5Fixture, user } =
-    data.football.vicc5.vicc5Lineup;
+    data.vicc5.vicc5Lineup;
   const lineup = getAppearancesByPosition(vicc5Appearances);
 
   return (

@@ -247,7 +247,7 @@ export const CardPage = (props: Props) => {
                   context="card_page"
                   token={{
                     slug: card.slug,
-                    collection: token?.collection || Collection.FOOTBALL,
+                    collection: token?.collection || Collection.CRICKET,
                     metadata: {
                       rarity: token?.metadata.rarity || Rarity.limited,
                       playerSlug: card.player.slug,

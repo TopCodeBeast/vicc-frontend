@@ -76,7 +76,7 @@ export const StarterBundlePage = () => {
   if (starterBundleLoading || starterBundleData === undefined) {
     return <LoadingIndicator fullHeight />;
   }
-  const { cards } = starterBundleData.football;
+  const { cards } = starterBundleData;
 
   const cardsBySlug: {
     [key: string]: StarterBundlePageQuery_cards;

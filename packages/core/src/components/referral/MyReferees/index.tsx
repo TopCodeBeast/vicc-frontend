@@ -87,7 +87,7 @@ export const MyReferees = () => {
               showBreakdownTooltip ? (
                 <div>
                   <div>
-                    <FormattedMessage {...sportsLabelsMessages.FOOTBALL} />:{' '}
+                    <FormattedMessage {...sportsLabelsMessages.CRICKET} />:{' '}
                     {currentUser.footballReferralsCompleted.totalCount}
                   </div>
                   <div>

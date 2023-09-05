@@ -29,13 +29,13 @@ export default (onlyType?: IncludeOnlyFilter) => {
       // objectID is only football for football
       ...(showCards
         ? cardsForSport
-            .filter(c => c.subscribableType === favoriteCardType.FOOTBALL)
+            .filter(c => c.subscribableType === favoriteCardType.CRICKET)
             .map(c => `objectID:${c.subscribableSlug}`)
         : []),
       // for other sports we use the slug
       ...(showCards
         ? cardsForSport
-            .filter(c => c.subscribableType !== favoriteCardType.FOOTBALL)
+            .filter(c => c.subscribableType !== favoriteCardType.CRICKET)
             .map(c => `slug:${c.subscribableSlug}`)
         : []),
       // any sport

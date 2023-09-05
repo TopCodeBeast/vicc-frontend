@@ -211,10 +211,10 @@ const LoggedOutAppBar = () => {
           href={FOOTBALL_PATH}
           style={{ '--logo-width': '20px' }}
         >
-          {formatMessage(sportsLabelsMessages.FOOTBALL)}
+          {formatMessage(sportsLabelsMessages.CRICKET)}
           <img
             src={footballLogo}
-            alt={formatMessage(sportsLabelsMessages.FOOTBALL)}
+            alt={formatMessage(sportsLabelsMessages.CRICKET)}
           />
         </LinkOther>
 

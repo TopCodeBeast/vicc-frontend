@@ -301,7 +301,7 @@ export const CompetitionDetails = ({ closeButton }: Props) => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const { vicc5Leaderboard } = data?.football.vicc5 || {};
+  const { vicc5Leaderboard } = data?.vicc5 || {};
 
   const getCorrespondingLineup = () => {
     if (idFromQS) {

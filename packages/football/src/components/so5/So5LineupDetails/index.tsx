@@ -131,7 +131,7 @@ export const Vicc5LineupDetails = (props: Props) => {
     return null;
   }
 
-  const { vicc5Ranking } = data.football.vicc5;
+  const { vicc5Ranking } = data.vicc5;
   const { ranking, score, vicc5Leaderboard, vicc5Lineup } = vicc5Ranking;
   const { cancelledAt, vicc5Appearances, user } = vicc5Lineup;
 

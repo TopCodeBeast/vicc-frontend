@@ -88,7 +88,7 @@ export const MyPlayers = ({ type }: { type: Vicc5State }) => {
     fetchPolicy: 'cache-and-network',
   });
   const players = useMemo(() => {
-    const lineups = data?.football.vicc5.vicc5Fixture?.myVicc5Lineups;
+    const lineups = data?.vicc5.vicc5Fixture?.myVicc5Lineups;
     const myPlayers: LobbyMyPlayersQuery_vicc5_vicc5Fixture_myVicc5Lineups_vicc5Appearances[] =
       [];
     if (!lineups) {
@@ -100,7 +100,7 @@ export const MyPlayers = ({ type }: { type: Vicc5State }) => {
       );
     });
     return myPlayers;
-  }, [data?.football.vicc5.vicc5Fixture?.myVicc5Lineups]);
+  }, [data?.vicc5.vicc5Fixture?.myVicc5Lineups]);
 
   const [displayed, loadMore, hasMoreMatches] = useLoadMore(players, 6);
 

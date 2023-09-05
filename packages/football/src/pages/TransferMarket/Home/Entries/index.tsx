@@ -105,7 +105,7 @@ export const Entries = () => {
             : messages.mobileAuctionsDescription
         }
         countMessage={messages.primarySecondaryCount}
-        count={counts.football.auctionsCount}
+        count={counts.auctionsCount}
         mobileImage={<img src={auctionsMobile} alt="Auctions" />}
         desktopImage={<img src={auctionsDesktop} alt="Auctions" />}
       />
@@ -118,7 +118,7 @@ export const Entries = () => {
             : messages.mobileStarterPacksDescription
         }
         countMessage={messages.starterPacksCount}
-        count={counts.football.starterPacksCount}
+        count={counts.starterPacksCount}
         mobileImage={<img src={starterPacksMobile} alt="Starter Packs" />}
         desktopImage={<img src={starterPacksDesktop} alt="Starter Packs" />}
       />
@@ -145,7 +145,7 @@ export const Entries = () => {
               : messages.mobileManagerSalesDescription
           }
           countMessage={messages.primarySecondaryCount}
-          count={counts.football.managerSalesCount}
+          count={counts.managerSalesCount}
           mobileImage={<img src={managerSalesMobile} alt="Manager Sales" />}
           desktopImage={<img src={managerSalesDesktop} alt="Manager Sales" />}
         />

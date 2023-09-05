@@ -49,9 +49,7 @@ export const CustomStarterBundlePreview = ({ assetIds, to }: Props) => {
 
   if (!data || loading) return <LoadingStarterBundlePreview light />;
 
-  const {
-    football: { cards },
-  } = data;
+  const { cards } = data;
 
   return (
     <>

@@ -60,9 +60,9 @@ export const Overview = () => {
     nextFetchPolicy: 'cache-and-network',
     fetchPolicy: 'cache-and-network',
   });
-  const leaderboards = data?.football.vicc5.upcomingLeaderboards;
+  const leaderboards = data?.vicc5.upcomingLeaderboards;
   const user = data?.currentUser;
-  const vicc5 = data?.football.vicc5;
+  const vicc5 = data?.vicc5;
 
   const contentUnits = !disableHomeContentUnits && (
     <ContentUnits

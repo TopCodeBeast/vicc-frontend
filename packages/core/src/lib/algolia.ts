@@ -57,7 +57,7 @@ const FakeCollectionMappings: Readonly<{ [key in AlgoliaSport]: Collection }> =
   {
     nba: Collection.NBA,
     baseball: Collection.BASEBALL,
-    football: Collection.FOOTBALL,
+    football: Collection.CRICKET,
   };
 
 export interface SaleHit {
@@ -242,7 +242,7 @@ export const convertCardHitToToken = (
   },
   singleCivilYear: false,
   sport: AlgoliaSportsMappings[hit.sport] || Sport.CRICKET,
-  collection: FakeCollectionMappings[hit.sport] || Collection.FOOTBALL, // this assertion is factually wrong but that's a separate concern
+  collection: FakeCollectionMappings[hit.sport] || Collection.CRICKET, // this assertion is factually wrong but that's a separate concern
 });
 
 export const tokenHitFragment = gql`

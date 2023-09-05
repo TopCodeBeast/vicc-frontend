@@ -152,12 +152,12 @@ const CompetitionDetailsMatchesTab = () => {
 
   const matches = useMemo(() => {
     const { myVicc5Games = [], games = [] } =
-      data?.football.vicc5.vicc5Leaderboard?.vicc5League || {};
+      data?.vicc5.vicc5Leaderboard?.vicc5League || {};
     return {
       [TAB.ALL]: formatMatches(games),
       [TAB.MINE]: formatMatches(myVicc5Games),
     };
-  }, [data?.football.vicc5.vicc5Leaderboard?.vicc5League]);
+  }, [data?.vicc5.vicc5Leaderboard?.vicc5League]);
 
   const [displayed, loadMore, hasMoreMatches] = useLoadMore(
     matches[currentTab],

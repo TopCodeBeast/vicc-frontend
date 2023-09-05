@@ -50,9 +50,9 @@ const CardsOnSale = () => {
     skip: searchResults?.hits?.length === 0,
   });
 
-  if (!data || data.football.cards.length === 0) return null;
+  if (!data || data.cards.length === 0) return null;
 
-  const cardsBySlug = groupBy(c => c!.slug, data.football.cards);
+  const cardsBySlug = groupBy(c => c!.slug, data.cards);
 
   return (
     <Section>

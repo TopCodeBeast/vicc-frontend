@@ -61,7 +61,7 @@ const PlayerPage = () => {
       loadMore(false, {
         slug: slug!,
         position: selectedPosition,
-        after: data?.football.player.allVicc5Scores.pageInfo.endCursor,
+        after: data?.player.allVicc5Scores.pageInfo.endCursor,
         first: scoresLimit,
       });
     }, [
@@ -69,24 +69,24 @@ const PlayerPage = () => {
       slug,
       scoresLimit,
       loadMore,
-      data?.football.player.allVicc5Scores.pageInfo.endCursor,
+      data?.player.allVicc5Scores.pageInfo.endCursor,
     ]),
-    data?.football.player.allVicc5Scores.pageInfo.hasNextPage || false,
+    data?.player.allVicc5Scores.pageInfo.hasNextPage || false,
     loading
   );
 
   useTitleAndDescription(
     metadatas.player.title,
     metadatas.player.description,
-    data?.football.player
-      ? { display_name: data.football.player.displayName }
+    data?.player
+      ? { display_name: data.player.displayName }
       : false
   );
 
   if (loading && !data) return <LoadingIndicator />;
   if (!data) return null;
 
-  const { player } = data.football;
+  const { player } = data;
 
   if (!selectedPosition) setPosition(player.position);
 

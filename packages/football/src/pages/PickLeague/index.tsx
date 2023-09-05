@@ -161,7 +161,7 @@ export const PickLeague = ({ preloads, allowClosing }: Props) => {
     }
   };
 
-  const { onboardingCompetitions } = data?.football.vicc5 || {};
+  const { onboardingCompetitions } = data?.vicc5 || {};
 
   const shouldSkipOnboarding =
     useDisableFootballOnboarding ||

@@ -47,7 +47,7 @@ const CardTeamsByAssetId = ({ assetId }: Props) => {
 
   if (loading || !data) return null;
 
-  const { cardByAssetId } = data.football;
+  const { cardByAssetId } = data;
   return <CardTeams card={cardByAssetId} />;
 };
 

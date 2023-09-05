@@ -32,11 +32,9 @@ export default () => {
   return {
     counts: data?.config?.counts || {
       usersCount: 0,
-      football: {
-        starterPacksCount: 0,
-        managerSalesCount: 0,
-        auctionsCount: 0,
-      },
+      starterPacksCount: 0,
+      managerSalesCount: 0,
+      auctionsCount: 0,
     },
     loading,
   };

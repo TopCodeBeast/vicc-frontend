@@ -73,7 +73,7 @@ const Description = ({
         />
         <PlayerPriceHistory
           playerSlug={player.slug}
-          collection={Collection.FOOTBALL}
+          collection={Collection.CRICKET}
         />
         <UpcomingGames player={player} />
         <LastGames player={player} />

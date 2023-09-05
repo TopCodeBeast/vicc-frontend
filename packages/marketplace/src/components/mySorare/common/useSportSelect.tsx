@@ -12,7 +12,7 @@ import { SportSelectType } from './types';
 
 const SportSelectValue = {
   [SportSelectType.ALL_SPORTS]: [Sport.CRICKET, Sport.BASEBALL, Sport.NBA],
-  [SportSelectType.FOOTBALL]: [Sport.CRICKET],
+  [SportSelectType.CRICKET]: [Sport.CRICKET],
   [SportSelectType.BASEBALL]: [Sport.BASEBALL],
   [SportSelectType.NBA]: [Sport.NBA],
 };
@@ -22,7 +22,7 @@ const messages = {
     id: 'MySorare.sportSelect.all',
     defaultMessage: 'All Sports',
   }),
-  [SportSelectType.FOOTBALL]: sportsLabelsMessages.FOOTBALL,
+  [SportSelectType.CRICKET]: sportsLabelsMessages.CRICKET,
   [SportSelectType.BASEBALL]: sportsLabelsMessages.BASEBALL,
   [SportSelectType.NBA]: sportsLabelsMessages.NBA,
 };

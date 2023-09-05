@@ -666,14 +666,14 @@ const DraftOrRedirect = () => {
         <LoadingIndicator fullScreen />
       </div>
     );
-  if (!slug || !data?.football.vicc5.vicc5Leaderboard.commonDraftCampaign) {
+  if (!slug || !data?.vicc5.vicc5Leaderboard.commonDraftCampaign) {
     return <Navigate to={LANDING} />;
   }
 
   return (
     <Draft
       vicc5LeaderboardSlug={slug}
-      commonDraftCampaign={data.football.vicc5.vicc5Leaderboard.commonDraftCampaign}
+      commonDraftCampaign={data.vicc5.vicc5Leaderboard.commonDraftCampaign}
     />
   );
 };

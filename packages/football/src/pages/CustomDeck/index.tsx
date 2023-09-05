@@ -198,9 +198,7 @@ export const CustomDeck = () => {
 
   if (!data || !items) return null;
 
-  const {
-    football: { customDeck },
-  } = data;
+  const { customDeck } = data;
   const { slug, name, deckCards, deckCardsCount, user, visible } = customDeck;
   const readOnly = user?.slug !== currentUser?.slug;
 

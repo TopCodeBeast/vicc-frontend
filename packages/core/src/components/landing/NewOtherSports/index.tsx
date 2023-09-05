@@ -21,7 +21,7 @@ const messages = defineMessages({
     id: 'Landing.NewOtherSports.mlb',
     defaultMessage: 'Featuring all 30 MLB officially licensed clubs',
   },
-  football: {
+  cricket: {
     id: 'Landing.NewOtherSports.football',
     defaultMessage: 'Featuring over 300 officially licensed football clubs',
   },

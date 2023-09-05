@@ -126,15 +126,15 @@ const LicensedPartners = () => {
   useEffect(() => {
     setTimeout(() => {
       setDisplayedCount(
-        (data?.football.clubsReady.length || 0)
+        (data?.clubsReady.length || 0)
       );
     }, 0);
-  }, [data?.football.clubsReady.length]);
+  }, [data?.clubsReady.length]);
   return (
     <MarketingPage>
       <MultiSportAppBar />
       <PartnersList
-        footballClubs={data?.football.clubsReady}
+        footballClubs={data?.clubsReady}
         sport={sport}
         tab={tab}
         loading={loading}
