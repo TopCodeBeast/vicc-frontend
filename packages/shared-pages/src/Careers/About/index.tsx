@@ -21,7 +21,7 @@ export const About = () => (
             officially licensed digital player cards against fellow sports fans
             around the world to win big{' '}
             <a
-              href="https://twitter.com/sorare/status/1591125269884305409"
+              href="https://twitter.com/vicc/status/1591125269884305409"
               target="_blank"
               rel="noreferrer"
             >

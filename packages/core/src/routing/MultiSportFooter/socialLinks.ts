@@ -37,14 +37,14 @@ const SocialLinksConfig: SocialLinkProps[] = [
         label: '@Vicc',
         link: TWITTER_URL,
       },
-      {
+      /*{
         label: '@ViccMLB',
         link: MLB_TWITTER_URL,
       },
       {
         label: '@ViccNBA',
         link: NBA_TWITTER_URL,
-      },
+      },*/
       {
         label: '@ViccSupport',
         link: SUPPORT_TWITTER_URL,
@@ -59,14 +59,14 @@ const SocialLinksConfig: SocialLinkProps[] = [
         label: '@Vicc',
         link: FACEBOOK_URL,
       },
-      {
+      /*{
         label: '@ViccMLB',
         link: MLB_FACEBOOK_URL,
       },
       {
         label: '@ViccNBA',
         link: NBA_FACEBOOK_URL,
-      },
+      },*/
     ],
   },
   {
@@ -77,14 +77,14 @@ const SocialLinksConfig: SocialLinkProps[] = [
         label: '@Vicc',
         link: INSTAGRAM_URL,
       },
-      {
+      /*{
         label: '@ViccMLB',
         link: MLB_INSTAGRAM_URL,
       },
       {
         label: '@ViccNBA',
         link: NBA_INSTAGRAM_URL,
-      },
+      },*/
     ],
   },
   {
@@ -92,17 +92,17 @@ const SocialLinksConfig: SocialLinkProps[] = [
     social: 'discord',
     links: [
       {
-        label: 'Vicc: Football',
+        label: 'Vicc: Cricket',
         link: DISCORD_INVITATION_URL,
       },
-      {
+      /*{
         label: 'Vicc: MLB',
         link: MLB_DISCORD_INVITATION_URL,
       },
       {
         label: 'Vicc: NBA',
         link: NBA_DISCORD_INVITATION_URL,
-      },
+      },*/
     ],
   },
   {

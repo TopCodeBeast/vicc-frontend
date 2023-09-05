@@ -25,17 +25,17 @@ const messages = defineMessages({
     defaultMessage:
       "Scout players and use Vicc's Marketplace to buy or trade for their digital cards. Keep improving your team, week over week and season over season.",
   },
-  mlbMarket: {
+  /*mlbMarket: {
     id: 'Landing.Experience.MarketDialog.mlbMarket',
     defaultMessage: 'MLB Marketplace',
   },
   NBAMarket: {
     id: 'Landing.Experience.MarketDialog.NBAMarket',
     defaultMessage: 'NBA Marketplace',
-  },
-  FootballMarket: {
-    id: 'Landing.Experience.MarketDialog.FootballMarket',
-    defaultMessage: 'Football Marketplace',
+  },*/
+  CricketMarket: {
+    id: 'Landing.Experience.MarketDialog.CricketMarket',
+    defaultMessage: 'Cricket Marketplace',
   },
 });
 
@@ -91,17 +91,17 @@ export const MarketPlaceDialog = ({ open, onClose }: Props) => {
         </span>
         <ButtonsWrapper>
           <Item href={FOOTBALL_MARKET}>
-            <Text16>{formatMessage(messages.FootballMarket)}</Text16>
+            <Text16>{formatMessage(messages.CricketMarket)}</Text16>
             <Image src={footballLogo} width={56} alt="" />
           </Item>
-          <Item href={NBA_PRIMARY_MARKET}>
+          {/* <Item href={NBA_PRIMARY_MARKET}>
             <Text16>{formatMessage(messages.NBAMarket)}</Text16>
             <Image src={nbaLogo} height={64} alt="" />
           </Item>
           <Item href={MLB_PRIMARY_MARKET}>
             <Text16>{formatMessage(messages.mlbMarket)}</Text16>
             <Image src={mlbLogo} width={64} alt="" />
-          </Item>
+          </Item> */}
         </ButtonsWrapper>
       </Wrapper>
     </Dialog>

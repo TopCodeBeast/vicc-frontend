@@ -512,18 +512,18 @@ export const navLabels = defineMessages({
     id: 'Nav.collections',
     defaultMessage: 'Collections',
   },
-  footballMarket: {
-    id: 'Footer.footballMarket',
-    defaultMessage: 'Vicc: Football Market',
+  cricketMarket: {
+    id: 'Footer.cricketMarket',
+    defaultMessage: 'Vicc: Cricket Market',
   },
-  mlbMarket: {
+  /*mlbMarket: {
     id: 'Footer.mlbMarket',
     defaultMessage: 'Vicc: MLB Market',
   },
   nbaMarket: {
     id: 'Footer.nbaMarket',
     defaultMessage: 'Vicc: NBA Market',
-  },
+  },*/
   home: {
     id: 'Nav.Home',
     defaultMessage: 'Home',

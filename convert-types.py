@@ -80,6 +80,7 @@ def updateTypes(filePath):
     code = code.replace("footballTokensAddress", "cricketTokensAddress")
     code = code.replace("footballCardCollections", "cricketCardCollections")
     code = code.replace("footballProfile", "cricketProfile")
+    code = code.replace("myFootballManagerTasks", "myCricketManagerTasks")
     code = code.replace("footballLast30DaysLineupsCount", "cricketLast30DaysLineupsCount")
     code = code.replace("footballNationalSeriesTokensAddress", "cricketNationalSeriesTokensAddress")
     code = code.replace("?.football.", "?.")
@@ -91,6 +92,12 @@ def updateTypes(filePath):
     code = code.replace("starterBundleData.football", "starterBundleData")
     
     code = code.replace("'/my-sorare'", "'/my-vicc'")
+    code = code.replace("twitter.com/sorare", "twitter.com/vicc")
+    code = code.replace("medium.com/sorare", "medium.com/vicc")
+    code = code.replace("www.instagram.com/sorare", "www.instagram.com/vicc")
+    code = code.replace("www.tiktok.com/@sorare", "www.tiktok.com/@vicc")
+    code = code.replace("www.instagram.com/soraremlb", "www.instagram.com/viccmlb")
+    code = code.replace("www.instagram.com/sorarenba", "www.instagram.com/viccnba")
 
     startIndex = 0
     while True:

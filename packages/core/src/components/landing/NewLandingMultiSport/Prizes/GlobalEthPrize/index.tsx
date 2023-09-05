@@ -25,7 +25,7 @@ export const GlobalEthPrize = ({ isHovered }: Props) => {
       isHovered={isHovered}
       cta={formatMessage(messages.learnCTA)}
       bgImage={ethImage}
-      link="https://medium.com/sorare/eth-rewards-are-coming-to-sorare-mlb-55602872190d"
+      link="https://medium.com/vicc/eth-rewards-are-coming-to-sorare-mlb-55602872190d"
     />
   );
 };

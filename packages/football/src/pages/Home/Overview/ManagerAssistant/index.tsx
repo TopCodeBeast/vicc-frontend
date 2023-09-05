@@ -82,7 +82,7 @@ export const ManagerAssistant = ({ user, loading, leaderboards }: Props) => {
   };
 
   const tasksToDisplay =
-    user?.myFootballManagerTasks.filter(task => {
+    user?.myCricketManagerTasks.filter(task => {
       if (!tasksData[task.taskSlug]) {
         return false;
       }
@@ -175,7 +175,7 @@ ManagerAssistant.fragments = {
   currentUser: gql`
     fragment ManagerAssistant_currentUser on CurrentUser {
       slug
-      myFootballManagerTasks {
+      myCricketManagerTasks {
         id
         claimedAt
         ...FootballManagerTask_footballManagerTask

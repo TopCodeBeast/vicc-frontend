@@ -85,9 +85,9 @@ export const FooterLinks = () => {
           to={FOOTBALL_MARKET}
           onClick={() => trackLink(FOOTBALL_MARKET)}
         >
-          {formatMessage(navLabels.footballMarket)}
+          {formatMessage(navLabels.cricketMarket)}
         </FooterLink>
-        <FooterLink
+        {/* <FooterLink
           as={Link}
           to={MLB_MARKET}
           onClick={() => trackLink(MLB_MARKET)}
@@ -100,7 +100,7 @@ export const FooterLinks = () => {
           onClick={() => trackLink(NBA_MARKET)}
         >
           {formatMessage(navLabels.nbaMarket)}
-        </FooterLink>
+        </FooterLink> */}
       </div>
       <div>
         <FooterLink as={Link} to={CAREERS} onClick={() => trackLink(CAREERS)}>

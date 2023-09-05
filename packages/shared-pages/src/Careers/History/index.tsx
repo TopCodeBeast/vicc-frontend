@@ -41,7 +41,7 @@ export const History = () => {
                 exclusive partnerships with MLB and the NBA, respectively.
                 Here's the Vicc{' '}
                 <a
-                  href="https://medium.com/sorare/the-annual-sorare-2022-year-in-review-e436090b9ee1"
+                  href="https://medium.com/vicc/the-annual-sorare-2022-year-in-review-e436090b9ee1"
                   target="_blank"
                   rel="noreferrer"
                 >
