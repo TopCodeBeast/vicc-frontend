@@ -86,7 +86,7 @@ const Frame = styled(WalletPlaceholder)`
   width: calc(100% - var(--double-and-a-half-unit));
   max-height: 100%;
   &.signin {
-    height: 210px;
+    height: 240px;
   }
   &.signup {
     height: 392px;

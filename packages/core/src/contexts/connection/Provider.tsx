@@ -276,9 +276,9 @@ const ConnectionProvider = ({ children }: Props) => {
           isMobileWebviewSignUp={isMobileWebviewSignUp}
         />
       )}
-      {(mode === 'signup' || mode === 'signin') && (
+      {/* {(mode === 'signup' || mode === 'signin') && (
         <ReCAPTCHA ref={recaptchaRef} />
-      )}
+      )} */}
       {children}
     </ConnectionContextProvider>
   );
