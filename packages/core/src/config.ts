@@ -56,46 +56,17 @@ const getEnvConfig = () => {
     // Always use local env in storybook
     return config.development;
   }
-  if (hostname.match(/sorare.dev/)) {
+  if (hostname.match(/vicc-staging/)) {
     return config.staging;
   }
-  if (hostname.match(/sorare.tech/)) {
-    return config.mockprod;
+  if (hostname.match(/vicc-dev/)) {
+    return config.development;
   }
-  if (hostname.match(/sorare.co$/)) {
-    return {
-      ...config.production,
-      backendHost: config.production.backendHost.replace(
-        'sorare.com',
-        'sorare.co'
-      ),
-      walletUrl: config.production.walletUrl.replace('sorare.com', 'sorare.co'),
-      wsUrl: config.production.wsUrl.replace('sorare.com', 'sorare.co'),
-    };
+  if (hostname.match(/vicc.club$/)) {
+    return config.production;
   }
-  if (hostname === 'frontend') {
-    // this case is used when taking card snapshot in the dev environment
-    return {
-      ...config.development,
-      backendHost: 'http://backend:3000',
-    };
-  }
-  if (hostname.match(/.*\.local/)) {
-    return {
-      ...config.development,
-      backendHost: `${window.location.protocol}//${window.location.hostname}:3000`,
-      walletUrl: `${window.location.protocol}//${window.location.hostname}:3002`,
-    };
-  }
-
-  if (hostname.match(/localhost|(192\.168\..*\..*)/)) {
-    return {
-      ...config.development,
-      walletUrl: config.development.walletUrl.replace(
-        'http:',
-        window.location.protocol
-      ),
-    };
+  if (hostname.match(/localhost|127.0.0.1|(192\.168\..*\..*)/)) {
+    return config.local;
   }
 
   return config.production;
