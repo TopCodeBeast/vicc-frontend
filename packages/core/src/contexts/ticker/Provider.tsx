@@ -9,11 +9,11 @@ interface Props {
 const TickerProvider = ({ children }: Props) => {
   const [now, setNow] = useState(new Date());
 
-  useEffect(() => {
+  /*useEffect(() => {
     const interval = setInterval(() => setNow(new Date()), 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, []);*/
 
   return (
     <TickerContextProvider

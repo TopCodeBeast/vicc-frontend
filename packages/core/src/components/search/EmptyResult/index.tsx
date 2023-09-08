@@ -7,15 +7,15 @@ import { Text16 } from '@core/atoms/typography';
 const messages = defineMessages({
   [Sport.CRICKET]: {
     id: 'EmptyResult.CRICKET',
-    defaultMessage: 'No result in Football',
+    defaultMessage: 'No result',
   },
   [Sport.BASEBALL]: {
     id: 'EmptyResult.BASEBALL',
-    defaultMessage: 'No result in MLB',
+    defaultMessage: 'No result',
   },
   [Sport.NBA]: {
     id: 'EmptyResult.NBA',
-    defaultMessage: 'No result in NBA',
+    defaultMessage: 'No result',
   },
 });
 

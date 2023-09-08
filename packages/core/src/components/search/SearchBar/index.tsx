@@ -462,7 +462,7 @@ export const SearchBar = ({
           />
           {sortedSports && sortedSports.length > 0 && (
             <TabsContainer>
-              <Caption color="var(--c-neutral-600)">
+              {/* <Caption color="var(--c-neutral-600)">
                 <FormattedMessage {...messages.tabsTitle} />
               </Caption>
               <Tabs>
@@ -476,7 +476,7 @@ export const SearchBar = ({
                     <FormattedMessage {...sportsLabelsMessages[sport]} />
                   </Button>
                 ))}
-              </Tabs>
+              </Tabs> */}
 
               {emptyResult && (
                 <Tabs>
