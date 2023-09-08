@@ -172,7 +172,7 @@ export const messages = defineMessages<keyof Dict>({
   },
   signUpSubtitle: {
     id: 'walletApp.signUpSubtitle',
-    defaultMessage: 'Create your sorare account',
+    defaultMessage: 'Create Your Vicc Account',
   },
   submit: {
     id: 'walletApp.submit',
