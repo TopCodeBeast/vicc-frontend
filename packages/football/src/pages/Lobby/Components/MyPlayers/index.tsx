@@ -25,7 +25,7 @@ import {
 
 type LobbyMyPlayersQuery_vicc5_vicc5Fixture_myVicc5Lineups_vicc5Appearances =
   NonNullable<
-    LobbyMyPlayersQuery['football']['vicc5']['vicc5Fixture']
+    LobbyMyPlayersQuery['vicc5']['vicc5Fixture']
   >['myVicc5Lineups'][number]['vicc5Appearances'][number];
 
 const Root = styled.section`

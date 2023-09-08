@@ -97,7 +97,7 @@ const styles = {
 };
 
 type Vicc5FixturesDropdownQuery_vicc5_vicc5Fixtures_nodes =
-  Vicc5FixturesDropdownQuery['football']['vicc5']['vicc5Fixtures']['nodes'][number];
+  Vicc5FixturesDropdownQuery['vicc5']['vicc5Fixtures']['nodes'][number];
 
 const vicc5FixtureFragment = gql`
   fragment Lobby_GameWeekDropdownHeader_vicc5Fixture on Vicc5Fixture {

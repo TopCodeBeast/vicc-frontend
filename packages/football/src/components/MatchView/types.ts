@@ -1,7 +1,7 @@
 import { MatchViewFormationsQuery } from './__generated__/index.graphql';
 
 type MatchViewFormationsQuery_game =
-  MatchViewFormationsQuery['football']['game'];
+  MatchViewFormationsQuery['game'];
 
 type MatchViewFormationsQuery_game_awayFormation_startingLineup =
   MatchViewFormationsQuery_game['awayFormation']['startingLineup'][number][number];

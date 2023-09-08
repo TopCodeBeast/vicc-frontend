@@ -37,7 +37,7 @@ import {
 } from './__generated__/index.graphql';
 import useRecentCurrentUserCardsQuery from './useRecentCurrentUserCardsQuery';
 
-type CardsQuery_cards = CardsQuery['football']['cards'][number];
+type CardsQuery_cards = CardsQuery['cards'][number];
 
 type Item = CardsQuery_cards & { stack?: StackProps };
 
@@ -180,7 +180,7 @@ export const CardResultsFromGraphQL = ({
   });
 
   const cards = useMemo(
-    () => filterVisibleCards(data?.football?.cards),
+    () => filterVisibleCards(data?.cards),
     [data]
   );
   const getSortedHits = () => {

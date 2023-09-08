@@ -27,7 +27,7 @@ import {
 } from './__generated__/index.graphql';
 
 type RewardPoolQuery_vicc5League_vicc5Fixture_vicc5Leagues =
-  RewardPoolQuery['football']['vicc5']['vicc5League']['vicc5Fixture']['vicc5Leagues'][number];
+  RewardPoolQuery['vicc5']['vicc5League']['vicc5Fixture']['vicc5Leagues'][number];
 
 const Breadcrumbs = styled.div`
   display: flex;

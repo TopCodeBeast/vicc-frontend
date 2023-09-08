@@ -18,7 +18,7 @@ export enum OfferSelectType {
 
 export enum SportSelectType {
   ALL_SPORTS = 'allSport',
-  FOOTBALL = 'football',
+  CRICKET = 'cricket',
   BASEBALL = 'baseball',
   NBA = 'nba',
 }

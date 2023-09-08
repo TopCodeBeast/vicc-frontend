@@ -128,7 +128,7 @@ export const getCardFromAssetId = async (
       fetchPolicy: 'cache-first',
     })
     .then(value => {
-      return value.data?.football?.cardByAssetId;
+      return value.data?.cardByAssetId;
     });
 
 export const getTokenFromAssetId = async (

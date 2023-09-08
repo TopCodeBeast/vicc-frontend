@@ -55,7 +55,7 @@ type CardHit = {
 };
 
 type CommonDraftCampaign = NonNullable<
-  WithLiveCardsOnSaleLeaderboardQuery['football']['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
+  WithLiveCardsOnSaleLeaderboardQuery['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
 >;
 
 const POSITIONS = [

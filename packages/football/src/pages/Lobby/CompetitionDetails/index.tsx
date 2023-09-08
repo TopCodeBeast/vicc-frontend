@@ -54,7 +54,7 @@ import {
 } from './__generated__/index.graphql';
 
 type CompetitionDetailsQuery_vicc5Leaderboard =
-  CompetitionDetailsQuery['football']['vicc5']['vicc5Leaderboard'];
+  CompetitionDetailsQuery['vicc5']['vicc5Leaderboard'];
 
 // const Team = lazy(async () => import('@football/pages/Lobby/CompetitionDetails/Team'));
 const Rewards = lazy(

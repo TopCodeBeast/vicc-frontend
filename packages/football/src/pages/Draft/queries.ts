@@ -21,7 +21,7 @@ import {
 
 type DraftAutofillQuery_vicc5Leaderboard_commonDraftCampaign_autoPick =
   NonNullable<
-    DraftAutofillQuery['football']['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
+    DraftAutofillQuery['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
   >['autoPick'][number];
 
 const DRAFT_SETUP_QUERY = gql`

@@ -11,7 +11,6 @@ import { useTokenTakesPartPromotionalEvent_token } from './__generated__/useToke
 const getTokenEvent = (
   token: { assetId: string; slug: string; sport: Sport },
   promotionalEvents: {
-    sport: Sport;
     events: MarketplacePromotionalEvent[];
   }[]
 ) => {
@@ -19,9 +18,7 @@ const getTokenEvent = (
 
   const objectId =
     sport === Sport.CRICKET ? slug : `baseball-assetId:${assetId}`;
-  const sportEvents = promotionalEvents.find(
-    event => event.sport === sport
-  )?.events;
+  const sportEvents = promotionalEvents.find(event => event)?.events;
 
   return sportEvents?.find(
     event => event.rewardDetailsHref && event.objectIds.includes(objectId)

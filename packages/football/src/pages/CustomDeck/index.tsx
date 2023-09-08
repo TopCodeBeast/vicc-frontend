@@ -160,18 +160,18 @@ export const CustomDeck = () => {
 
   const loadNextPage = useCallback(() => {
     loadMore(false, {
-      after: data?.football?.customDeck?.deckCards?.pageInfo.endCursor,
+      after: data?.customDeck?.deckCards?.pageInfo.endCursor,
       deckSlug,
     });
   }, [
     loadMore,
     deckSlug,
-    data?.football?.customDeck?.deckCards?.pageInfo.endCursor,
+    data?.customDeck?.deckCards?.pageInfo.endCursor,
   ]);
 
   const { ref } = useInfiniteScroll(
     loadNextPage,
-    Boolean(data?.football?.customDeck?.deckCards?.pageInfo.hasNextPage),
+    Boolean(data?.customDeck?.deckCards?.pageInfo.hasNextPage),
     loading
   );
 
@@ -186,14 +186,14 @@ export const CustomDeck = () => {
   useEffect(
     () =>
       setItems(
-        data?.football?.customDeck
+        data?.customDeck
           ? sortBy(
               dc => dc.cardIndex!,
-              [...data?.football?.customDeck.deckCards.nodes]
+              [...data?.customDeck.deckCards.nodes]
             )
           : []
       ),
-    [data?.football?.customDeck, setItems]
+    [data?.customDeck, setItems]
   );
 
   if (!data || !items) return null;

@@ -19,7 +19,7 @@ import {
 } from './__generated__/index.graphql';
 
 type MatchViewPlayerDetailsQuery_player =
-  MatchViewPlayerDetailsQuery['football']['player'];
+  MatchViewPlayerDetailsQuery['player'];
 
 const Root = styled.div`
   position: relative;

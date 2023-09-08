@@ -586,7 +586,7 @@ export function isMarket(pathname: string) {
 // this should stay a hook for future feature flags integration
 export const useDefaultSportPages = (): { [key in Sport]: string } => {
   return {
-    FOOTBALL: FOOTBALL_HOME,
+    CRICKET: FOOTBALL_HOME,
     BASEBALL: MLB_HOME,
     NBA: NBA_HOME,
   };

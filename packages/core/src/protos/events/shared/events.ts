@@ -6,7 +6,7 @@ export const protobufPackage = 'events.shared';
 
 export enum Sport {
   UNKNOWN_SPORT = 0,
-  FOOTBALL = 1,
+  CRICKET = 1,
   BASEBALL = 2,
   NBA = 3,
   UNRECOGNIZED = -1,
@@ -18,7 +18,7 @@ export function sportFromJSON(object: any): Sport {
     case 'UNKNOWN_SPORT':
       return Sport.UNKNOWN_SPORT;
     case 1:
-    case 'FOOTBALL':
+    case 'CRICKET':
       return Sport.CRICKET;
     case 2:
     case 'BASEBALL':

@@ -70,11 +70,11 @@ import useDraftReducer, {
 
 type DraftQuery_vicc5Leaderboard_commonDraftCampaign_availablePlayers_nodes =
   NonNullable<
-    DraftQuery['football']['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
+    DraftQuery['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
   >['availablePlayers']['nodes'][number];
 
 type DraftSetupQuery_vicc5Leaderboard_commonDraftCampaign = NonNullable<
-  DraftSetupQuery['football']['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
+  DraftSetupQuery['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
 >;
 
 const PAGE_SIZE = 20;

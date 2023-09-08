@@ -14,11 +14,11 @@ import {
 } from './__generated__/queries.graphql';
 
 type AutoPick = NonNullable<
-  DraftAutofillQuery['football']['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
+  DraftAutofillQuery['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
 >['autoPick'][number];
 
 export type Player = NonNullable<
-  DraftQuery['football']['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
+  DraftQuery['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
 >['availablePlayers']['nodes'][number];
 
 type UpsertCommonDraftInputMutation_upsertCommonDraft_draftError = NonNullable<

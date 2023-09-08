@@ -27,13 +27,13 @@ const messages = defineMessages({
 });
 
 const primaryMarketPaths: { [key in Sport]: string } = {
-  FOOTBALL: FOOTBALL_NEW_SIGNINGS,
+  CRICKET: FOOTBALL_NEW_SIGNINGS,
   BASEBALL: MLB_PRIMARY_MARKET,
   NBA: NBA_PRIMARY_MARKET,
 };
 
 const secondaryMarketPaths: { [key in Sport]: string } = {
-  FOOTBALL: FOOTBALL_TRANSFER_MARKET,
+  CRICKET: FOOTBALL_TRANSFER_MARKET,
   BASEBALL: MLB_SECONDARY_MARKET,
   NBA: NBA_SECONDARY_MARKET,
 };

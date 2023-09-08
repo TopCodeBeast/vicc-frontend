@@ -17,7 +17,7 @@ export enum UTM_MEDIUMS {
   SOCIAL = 'social',
 }
 export enum UTM_TERMS {
-  FOOTBALL = 'football',
+  CRICKET = 'cricket',
   BASEBALL = 'baseball',
   NBA = 'nba',
 }

@@ -180,11 +180,11 @@ const ShopItemPicker = ({
   const { InfiniteScrollLoader } = useInfiniteScroll(
     useCallback(() => {
       loadMore(false, {
-        cursor: data?.football?.shopItems?.pageInfo.endCursor,
+        cursor: data?.shopItems?.pageInfo.endCursor,
         types,
       });
-    }, [data?.football?.shopItems?.pageInfo.endCursor, loadMore, types]),
-    Boolean(data?.football?.shopItems?.pageInfo?.hasNextPage),
+    }, [data?.shopItems?.pageInfo.endCursor, loadMore, types]),
+    Boolean(data?.shopItems?.pageInfo?.hasNextPage),
     loading
   );
 
@@ -197,14 +197,14 @@ const ShopItemPicker = ({
   }
 
   const excludeNoCooldownJerseyFromInventory = (
-    item: ShopItemPickerQuery['football']['shopItems']['nodes'][number]
+    item: ShopItemPickerQuery['shopItems']['nodes'][number]
   ) => {
     if (isType(item, 'JerseyShopItem') && inventory) {
       return item.myLimitResetAt !== null;
     }
     return true;
   };
-  const items = data?.football?.shopItems.nodes.filter(
+  const items = data?.shopItems.nodes.filter(
     excludeNoCooldownJerseyFromInventory
   );
 
@@ -215,7 +215,7 @@ const ShopItemPicker = ({
           <FormattedMessage
             id="ClubShop.Items.Number"
             defaultMessage="{number} items"
-            values={{ number: data?.football?.shopItems.totalCount || 0 }}
+            values={{ number: data?.shopItems.totalCount || 0 }}
           />
         </Text14>
         {!hideSort && (

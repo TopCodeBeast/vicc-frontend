@@ -22,7 +22,7 @@ import {
 
 type CompetitionDetailsRewardsTabQuery_vicc5Leaderboard_rewardsConfig_ranking =
   NonNullable<
-    CompetitionDetailsRewardsTabQuery['football']['vicc5']['vicc5Leaderboard']['rewardsConfig']['ranking']
+    CompetitionDetailsRewardsTabQuery['vicc5']['vicc5Leaderboard']['rewardsConfig']['ranking']
   >[number];
 
 export interface RangeReward

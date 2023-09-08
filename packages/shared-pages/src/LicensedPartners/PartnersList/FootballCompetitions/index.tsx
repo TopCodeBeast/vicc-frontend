@@ -64,7 +64,7 @@ export const FootballCompetitions = () => {
 
   const { data, loading } = useQuery(FOOTBALL_COMPETITIONS_QUERY);
 
-  const competitions = data?.football?.leaguesOpenForGameStats;
+  const competitions = data?.leaguesOpenForGameStats;
 
   const competitionsToDisplay = useMemo(() => {
     if (searchValue.trim()) {

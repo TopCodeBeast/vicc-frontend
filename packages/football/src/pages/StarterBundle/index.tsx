@@ -20,7 +20,7 @@ import {
 } from './__generated__/index.graphql';
 
 type StarterBundlePageQuery_cards =
-  StarterBundlePageQuery['football']['cards'][number];
+  StarterBundlePageQuery['cards'][number];
 
 const cardFragment = gql`
   fragment StarterBundlePage_card on Card {
