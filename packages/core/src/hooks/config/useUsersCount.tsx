@@ -17,9 +17,9 @@ const QUERY = gql`
           starterPacksCount
           managerSalesCount
           auctionsCount
-        }
+        # }
       }
-    #}
+    }
   }
 ` as TypedDocumentNode<UsersCount, UsersCountVariables>;
 
