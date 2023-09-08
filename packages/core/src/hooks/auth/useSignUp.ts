@@ -109,12 +109,12 @@ function useSignUp() {
     }): Promise<FetchResult<SignUpMutation>> => {
       const { passwordHash, ...rest } = attributes;
 
-      recaptchaRef.current?.reset();
+      /*recaptchaRef.current?.reset();
       const recaptchaTokenV2 = await recaptchaRef.current?.executeAsync();
       if (!recaptchaTokenV2) {
         track('Invalid Signup reCAPTCHA V2');
         return {};
-      }
+      }*/
 
       const result = await mutate({
         errorPolicy: 'all', // do not raise but rather forward errors through `result.errors`
@@ -127,7 +127,7 @@ function useSignUp() {
             utmParams: getParams,
             fromPath: redirectUrl || lastLocation || afterLoggedInTarget,
             gaClientId: getClientId(),
-            recaptchaTokenV2,
+            recaptchaTokenV2: 'recaptchaTokenV2',
             promoCode: getSignupPromo()?.campaignCode,
           },
         },
