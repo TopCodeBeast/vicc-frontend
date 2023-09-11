@@ -1,4 +1,24 @@
 {
+  "local": {
+    "backendHost": "http://localhost:4000",
+    "brazeApiKey": "",
+    "brazeSdkEndpoint": "",
+    "walletUrl": "http://localhost:5200",
+    "wsUrl": "",
+    "launchDarklyClientSideID": "",
+    "usSportsBackendHost": "",
+    "moonpayUrl": "",
+    "portisId": "",
+    "segmentApiKey": "",
+    "stripePublicKey": "",
+    "sofeHost": "",
+    "rampUrl": "",
+    "rampApiKey": "",
+    "impactPageLoadAPIUrl": "",
+    "mangopayBaseUrl": "",
+    "mangopayClientId": "",
+    "env": "local"
+  },
   "development": {
     "backendHost": "https://graphql.vicc.club",
     "brazeApiKey": "",
@@ -58,26 +78,6 @@
     "mangopayBaseUrl": "",
     "mangopayClientId": "",
     "env": "production"
-  },
-  "local": {
-    "backendHost": "https://localhost:4000",
-    "brazeApiKey": "",
-    "brazeSdkEndpoint": "",
-    "walletUrl": "http://localhost:5200",
-    "wsUrl": "",
-    "launchDarklyClientSideID": "",
-    "usSportsBackendHost": "",
-    "moonpayUrl": "",
-    "portisId": "",
-    "segmentApiKey": "",
-    "stripePublicKey": "",
-    "sofeHost": "",
-    "rampUrl": "",
-    "rampApiKey": "",
-    "impactPageLoadAPIUrl": "",
-    "mangopayBaseUrl": "",
-    "mangopayClientId": "",
-    "env": "local"
   },
   "mockprod": {
     "backendHost": "http://localhost:4000",

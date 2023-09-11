@@ -123,10 +123,7 @@ export const US_SPORTS_API_ROOT =
   envConfig.usSportsBackendHost || envConfig.backendHost;
 export const US_SPORTS_API_PATH = '/sports/graphql';
 export const SOFE_API_ROOT = envConfig.sofeHost || envConfig.backendHost;
-export const SOFE_API_PATH =
-  import.meta.env.MODE === 'development' && !isForcedEnv()
-    ? '/graphql'
-    : '/federation/graphql';
+export const SOFE_API_PATH = '/graphql';
 export const WS_ROOT = `${envConfig.wsUrl}/cable`;
 export const STRIPE_PUBLIC_KEY = envConfig.stripePublicKey;
 export const WALLET_URL = envConfig.walletUrl;
