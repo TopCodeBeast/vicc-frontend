@@ -1,1 +1,1 @@
-export const asObject = (json: Json) => (typeof json === 'object' ? json : {});
+export const asObject = (json: Json) => (typeof json === 'object' ? json as any : {});

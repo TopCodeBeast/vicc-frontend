@@ -11,48 +11,44 @@ export default () => {
 
   const convertFromWei = useCallback(
     (amountInWei: string | number, currencyCode: CurrencyCode) =>
-      0,
-      // exchangeRate?.rates
-      //   ? new Big(amountInWei)
-      //       .multipliedBy(
-      //         asObject(exchangeRate?.rates).wei[currencyCode.toLowerCase()]
-      //       )
-      //       .toNumber()
-      //   : 0,
+      exchangeRate?.rates
+        ? new Big(amountInWei)
+            .multipliedBy(
+              asObject(exchangeRate?.rates).wei[currencyCode.toLowerCase()]
+            )
+            .toNumber()
+        : 0,
     [exchangeRate?.rates]
   );
 
   const convertFromEth = useCallback(
     (amountInEth: string | number, currencyCode: CurrencyCode) =>
-      0,
-      // new Big(amountInEth)
-      //   .multipliedBy(
-      //     asObject(exchangeRate.rates).eth[currencyCode.toLowerCase()]
-      //   )
-      //   .toNumber(),
+      new Big(amountInEth)
+        .multipliedBy(
+          asObject(exchangeRate.rates).eth[currencyCode.toLowerCase()]
+        )
+        .toNumber(),
     [exchangeRate?.rates]
   );
 
   const convertToEth = useCallback(
     (amountInEur: string, currencyCode: CurrencyCode) =>
-      0,
-      // new Big(
-      //   Number.parseFloat(amountInEur) /
-      //     Number.parseFloat(
-      //       asObject(exchangeRate.rates).eth[currencyCode.toLowerCase()]
-      //     )
-      // )
-      //   .decimalPlaces(ETH_DECIMAL_PLACES)
-      //   .toNumber(),
+      new Big(
+        Number.parseFloat(amountInEur) /
+          Number.parseFloat(
+            asObject(exchangeRate.rates).eth[currencyCode.toLowerCase()]
+          )
+      )
+        .decimalPlaces(ETH_DECIMAL_PLACES)
+        .toNumber(),
     [exchangeRate?.rates]
   );
 
   const convertToWei = useCallback(
     (amountInEur: string, currencyCode: CurrencyCode) =>
-      0,
-      // new Big(amountInEur)
-      //   .dividedBy(asObject(exchangeRate.rates).wei[currencyCode.toLowerCase()])
-      //   .decimalPlaces(0),
+      new Big(amountInEur)
+        .dividedBy(asObject(exchangeRate.rates).wei[currencyCode.toLowerCase()])
+        .decimalPlaces(0),
     [exchangeRate?.rates]
   );
 

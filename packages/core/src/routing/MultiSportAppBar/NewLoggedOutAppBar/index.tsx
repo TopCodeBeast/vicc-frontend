@@ -248,7 +248,7 @@ const LoggedOutAppBar = () => {
         <Wrapper>
           <SportsLinks>
             <Logo to={LANDING} title="Vicc">
-              <SmallerStarBall />
+              {/* <SmallerStarBall /> */}
               <animated.div style={logoFadeIn}>
                 <ResponsiveViccLogo />
               </animated.div>

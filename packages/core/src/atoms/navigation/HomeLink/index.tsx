@@ -27,7 +27,7 @@ type Props = {
 export const HomeLink = ({ withStarball = false }: Props) => {
   return (
     <Logo to={LANDING} aria-label="Vicc">
-      {withStarball && <SmallerStarBall />}
+      {/* {withStarball && <SmallerStarBall />} */}
       <ResponsiveViccLogo />
     </Logo>
   );
