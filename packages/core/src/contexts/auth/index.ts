@@ -29,6 +29,7 @@ export interface UpdateUserEmailAttributes {
 
 export interface AuthContext {
   updateUser: (params: UpdateUserAttributes) => Promise<any>;
+  changePassword: (params: UpdateUserAttributes) => Promise<any>;
   confirmDevice: (confirmationToken: string) => Promise<any>;
   createResetPasswordRequest: (
     email: string,

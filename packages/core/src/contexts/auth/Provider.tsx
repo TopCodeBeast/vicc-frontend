@@ -7,6 +7,7 @@ import { client as httpClient, onError } from '@core/lib/http';
 import { paramsToSnakeCase } from '@core/lib/toSnakeCase';
 
 import AuthContextProvider, { UpdateUserAttributes } from '.';
+import useChangePassword from './useChangePassword';
 
 interface Props {
   children: ReactElement;
@@ -16,8 +17,26 @@ export const AuthProvider = ({ children }: Props) => {
   const { refetch } = useCurrentUserContext();
   const client = useApolloClient();
   const fromPath = useAfterLoggedInTarget();
+  const changePasswordMutation = useChangePassword();
 
   const refreshCurrentUser = async () => client.resetStore();
+
+  const changePassword = useCallback(
+    async (attributes: UpdateUserAttributes) => {
+      const { passwordHash, currentPasswordHash } = attributes;
+      try {
+        const result = await changePasswordMutation({
+          password: currentPasswordHash,
+          newPassword: passwordHash,
+        });
+        refetch();
+        return result;
+      } catch (error) {
+        return onError(error);
+      }
+    },
+    [refetch]
+  );
 
   const updateUser = useCallback(
     async (attributes: UpdateUserAttributes) => {
@@ -99,6 +118,7 @@ export const AuthProvider = ({ children }: Props) => {
     <AuthContextProvider
       value={{
         updateUser,
+        changePassword,
         confirmDevice,
         refreshCurrentUser,
         createResetPasswordRequest,

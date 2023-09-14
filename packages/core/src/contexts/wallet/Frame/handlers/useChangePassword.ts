@@ -8,7 +8,7 @@ import { formatUpdateUserErrors } from '@core/lib/http';
 export default () => {
   const { registerHandler } = useContext(MessagingContext)!;
   const { currentUser } = useCurrentUserContext();
-  const { updateUser } = useAuthContext();
+  const { changePassword } = useAuthContext();
 
   useEffect(
     () =>
@@ -17,7 +17,7 @@ export default () => {
         async ({ currentPasswordHash, passwordHash, userPrivateKey }) => {
           if (!currentUser) return { error: 'User should be authenticated' };
 
-          const { errors } = await updateUser({
+          const { errors } = await changePassword({
             currentPasswordHash,
             passwordHash,
             viccPrivateKey: userPrivateKey,
@@ -28,6 +28,6 @@ export default () => {
           return {};
         }
       ),
-    [registerHandler, updateUser, currentUser]
+    [registerHandler, changePassword, currentUser]
   );
 };
