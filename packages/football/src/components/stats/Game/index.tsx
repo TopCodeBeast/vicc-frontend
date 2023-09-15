@@ -76,8 +76,8 @@ export const Game = ({
     penaltyScoreAway,
   } = game;
 
-  const homeGoals = game.homeGoals ?? 0;
-  const awayGoals = game.awayGoals ?? 0;
+  const homeGoals = 0;//game.homeGoals ?? 0;
+  const awayGoals = 0;//game.awayGoals ?? 0;
 
   const Content = () => (
     <CoreGame
@@ -107,7 +107,7 @@ export const Game = ({
       }
       SecondTeamRow={
         <TeamRow
-          score={awayGoals}
+          score={0}
           lost={winner?.slug === homeTeam?.slug}
           name={awayTeam?.name || ''}
           code={awayTeam?.code || ''}
@@ -150,8 +150,6 @@ Game.fragments = {
       date
       minute
       status
-      awayGoals
-      homeGoals
       winner {
         ... on TeamInterface {
           slug

@@ -72,8 +72,6 @@ const COMPETITION_DETAILS_MATCHES_TAB_QUERY = gql`
     awayTeam {
       ...CompetitionDetailsMatchesTabQuery_team
     }
-    homeGoals
-    awayGoals
     competition {
       slug
       displayName

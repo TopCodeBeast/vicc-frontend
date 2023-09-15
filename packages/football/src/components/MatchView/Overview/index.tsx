@@ -141,7 +141,8 @@ const getMatchStatus = (
   game: Overview_game,
   selectedTeam: SelectedTeam
 ): MatchStatuses => {
-  const { winner, homeTeam, awayTeam, homeGoals, awayGoals } = game;
+  //TODO
+  /*const { winner, homeTeam, awayTeam, awayGoals } = game;
 
   if (isPlaying) {
     if (homeGoals > (awayGoals || 0)) {
@@ -167,7 +168,7 @@ const getMatchStatus = (
         ? MatchStatuses.WIN
         : MatchStatuses.LOSE;
     }
-  }
+  }*/
   return MatchStatuses.DRAW;
 };
 
@@ -284,7 +285,7 @@ const Overview = ({ game, selectedTeam, desktop }: Props) => {
           <HomeScore
             className={classnames({ grey: selectedTeam === SelectedTeam.AWAY })}
           >
-            <Score>{isNormalCase ? game.homeGoals : '-'}</Score>
+            <Score>{isNormalCase ? 0 : '-'}</Score>
           </HomeScore>
         </>
       )}
@@ -296,7 +297,7 @@ const Overview = ({ game, selectedTeam, desktop }: Props) => {
           <AwayScore
             className={classnames({ grey: selectedTeam === SelectedTeam.HOME })}
           >
-            <Score>{isNormalCase ? game.awayGoals : '-'}</Score>
+            <Score>{isNormalCase ? 0 : '-'}</Score>
           </AwayScore>
           <AwayFlag>
             <TeamImage src={awayTeam.pictureUrl || ''} />
@@ -342,8 +343,6 @@ Overview.fragments = {
       date
       minute
       status
-      awayGoals
-      homeGoals
       winner {
         ... on TeamInterface {
           slug

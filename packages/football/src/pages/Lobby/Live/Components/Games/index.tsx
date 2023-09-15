@@ -75,8 +75,6 @@ const subscription = gql`
       id
       minute
       status
-      awayGoals
-      homeGoals
     }
   }
 ` as TypedDocumentNode<onGameForLobbyUpdated, onGameForLobbyUpdatedVariables>;
@@ -109,8 +107,6 @@ const placeholderGame = (id: string) => ({
   date: '',
   minute: 0,
   status: 'scheduled',
-  awayGoals: null,
-  homeGoals: 0,
   awayTeam: null,
   homeTeam: null,
 });
