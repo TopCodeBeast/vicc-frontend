@@ -244,7 +244,7 @@ export const currentUser = gql`
     mustAcceptTcus
     followingCount
     followersCount
-    connectedOauths {
+    connectedOAuths {
       id
       email
       provider

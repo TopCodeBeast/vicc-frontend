@@ -26,11 +26,11 @@ const ConnectedOAuths = () => {
 
   if (!currentUser) return null;
 
-  const { connectedOauths } = currentUser;
+  const { connectedOAuths } = currentUser;
 
   return (
     <div>
-      {connectedOauths?.map(({ provider, email }) => (
+      {connectedOAuths?.map(({ provider, email }) => (
         <ConnectedOAuth
           key={`${provider}.${email}`}
           provider={provider}

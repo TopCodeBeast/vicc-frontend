@@ -301,7 +301,7 @@ export const typePolicies: TypePolicies = {
       baseballUnclaimedCardRewards: { merge: false },
       baseballUnclaimedCashRewards: { merge: false },
       baseballUnclaimedLineupRewards: { merge: false },
-      connectedOauths: {
+      connectedOAuths: {
         merge: replaceByIncoming,
       },
       nbaCardCounts: { merge: true },

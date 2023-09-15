@@ -21,7 +21,7 @@ const DISCONNECT_OMNIAUTH_PROVIDER_MUTATION = gql`
       }
       currentUser {
         slug
-        connectedOauths {
+        connectedOAuths {
           id
           email
           provider
