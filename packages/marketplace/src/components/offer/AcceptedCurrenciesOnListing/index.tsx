@@ -17,7 +17,7 @@ import { AcceptedCurrenciesValue } from '@sorare/core/src/hooks/useAcceptedCurre
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
 
 const LEARN_MORE_LINK =
-  'https://help.sorare.com/hc/en-us/articles/4402888626577-What-is-a-wallet-and-why-do-I-need-one-';
+  'https://help.vicc.com/hc/en-us/articles/4402888626577-What-is-a-wallet-and-why-do-I-need-one-';
 
 const Wrapper = styled.div`
   display: flex;

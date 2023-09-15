@@ -113,7 +113,7 @@ export const SummaryTable = ({
                         fees: fees * 100,
                         more: (
                           <FeesDetails
-                            href="https://help.sorare.com/hc/en-us/articles/4402889674897"
+                            href="https://help.vicc.com/hc/en-us/articles/4402889674897"
                             target="_blank"
                             rel="noreferrer noopener"
                           >

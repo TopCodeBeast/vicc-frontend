@@ -28,7 +28,7 @@ const OnboardingDialog = ({ open, onClose }: Props) => {
           <Text14 color="var(--c-neutral-600)">
             <FormattedMessage
               id="ClubShop.OnboardingDialog.Step1.Content1"
-              defaultMessage="At the end of every Game Week – Tuesdays and Fridays – you earn Coins based on your Vicc: Football teams’ scores (total of the individual competition scores)."
+              defaultMessage="At the end of every Game Week – Tuesdays and Fridays – you earn Coins based on your Vicc: Cricket teams’ scores (total of the individual competition scores)."
             />
           </Text14>
           <Text14 color="var(--c-neutral-600)">

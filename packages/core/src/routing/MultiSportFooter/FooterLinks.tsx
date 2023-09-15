@@ -134,9 +134,9 @@ export const FooterLinks = () => {
         </FooterLink>
         <FooterLink
           as="a"
-          href="https://help.sorare.com/hc/en-us/requests/new"
+          href="https://help.vicc.com/hc/en-us/requests/new"
           onClick={() =>
-            trackLink('https://help.sorare.com/hc/en-us/requests/new')
+            trackLink('https://help.vicc.com/hc/en-us/requests/new')
           }
           target="_blank"
           rel="noopener noreferrer"
