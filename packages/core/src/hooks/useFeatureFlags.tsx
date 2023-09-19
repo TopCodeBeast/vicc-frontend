@@ -1,4 +1,4 @@
-import { useFlags, useLDClient } from 'launchdarkly-react-client-sdk';
+// import { useFlags, useLDClient } from 'launchdarkly-react-client-sdk';
 import { useMemo } from 'react';
 
 export interface FlagSet {
@@ -97,8 +97,8 @@ export interface FeatureFlagsContextType {
 }
 
 export default (): FeatureFlagsContextType => {
-  const flags = useFlags();
-  const client = useLDClient();
+  const flags = {};//useFlags();
+  const client = undefined;//useLDClient();
 
   const computedFlags = useMemo(() => {
     const forcedFlag = sessionStorage.getItem('forcedFlag');

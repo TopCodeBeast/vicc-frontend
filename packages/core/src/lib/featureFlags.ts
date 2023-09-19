@@ -1,11 +1,11 @@
-import { withLDProvider } from 'launchdarkly-react-client-sdk';
+// import { withLDProvider } from 'launchdarkly-react-client-sdk';
 import { ComponentType } from 'react';
 
 import useFeatureFlags from '@core/hooks/useFeatureFlags';
 
 import { LAUNCH_DARKLY_CLIENT_SIDE_ID } from '../config';
 
-export const withFFProvider = (
+/*export const withFFProvider = (
   component: ComponentType<React.PropsWithChildren<unknown>>
 ) =>
   withLDProvider({
@@ -13,7 +13,7 @@ export const withFFProvider = (
     user: {
       key: '00000000-0000-0000-0000-000000000000',
     },
-  })(component);
+  })(component);*/
 
 export const useUseCustomLists = () => {
   const {
