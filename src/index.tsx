@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { withProfiler } from '@sorare/core/src/contexts/sentry/sentry';
 import useFeatureFlags from '@sorare/core/src/hooks/useFeatureFlags';
-import { withFFProvider } from '@sorare/core/src/lib/featureFlags';
 import './remove-child-workaround';
 
 import '@sorare/core/src/style/style.css';
@@ -23,7 +22,7 @@ const Root = () => {
   );
 };
 
-const RootWithLDProvider = withProfiler(withFFProvider(Root));
+const RootWithLDProvider = withProfiler(Root);
 
 ReactDOM.render(<RootWithLDProvider />, document.getElementById('root'));
 
