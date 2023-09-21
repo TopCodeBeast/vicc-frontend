@@ -45,7 +45,7 @@ export function getErrorFrom(errors: Errors, id: string) {
   );
 }
 
-/*export const formatRules = withFragments(
+export const formatRules = withFragments(
   (vicc5Leaderboard: Rules_vicc5Leaderboard, errors: Errors, intl: IntlShape) => {
     const { displayedRules, engineConfiguration } = vicc5Leaderboard || {};
     if (!displayedRules) {
@@ -177,4 +177,3 @@ export function getErrorFrom(errors: Errors, id: string) {
     ` as TypedDocumentNode<formatRules_vicc5Leaderboard>,
   }
 );
-*/

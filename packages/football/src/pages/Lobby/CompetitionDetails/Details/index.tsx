@@ -58,7 +58,7 @@ const COMPETITION_DETAILS_DEFAULT_TAB_QUERY = gql`
             ...PrizePoolOverview_leaderboardRewardsConfig
           }
           ...EngineConfiguration_vicc5Leaderboard
-          #...CompetitionRules_vicc5Leaderboard
+          ...CompetitionRules_vicc5Leaderboard
         }
       }
     #}
@@ -66,7 +66,7 @@ const COMPETITION_DETAILS_DEFAULT_TAB_QUERY = gql`
   ${EngineConfiguration.fragments.vicc5Leaderboard}
   ${PrizePoolOverview.fragments.leaderboardRewardsConfig}
   ${PrizePoolOverview.fragments.rewardsOverview}
-  #{CompetitionRules.fragments.vicc5Leaderboard}
+  ${CompetitionRules.fragments.vicc5Leaderboard}
   ${MissingCardsMessage.fragments.validity}
 ` as TypedDocumentNode<
   CompetitionDetailsDefaultTabQuery,

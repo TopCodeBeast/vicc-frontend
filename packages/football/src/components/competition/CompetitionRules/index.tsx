@@ -8,7 +8,7 @@ import { laptopAndAbove } from '@sorare/core/src/style/mediaQuery';
 
 import Eligibilities from '@football/components/competition/CompetitionRules/Eligibilities';
 import { LockedCompetitionAction } from '@football/components/competition/LockedCompetitionAction';
-// import { formatRules } from '@football/components/so5/Rules/formatRules';
+import { formatRules } from '@football/components/so5/Rules/formatRules';
 
 import RuleSection from './RuleSection';
 import { CompetitionRules_vicc5Leaderboard } from './__generated__/index.graphql';
@@ -98,7 +98,7 @@ const CompetitionRules = ({ vicc5Leaderboard }: Props) => {
   return <>CompetitionRules5</>;
 };
 
-/*CompetitionRules.fragments = {
+CompetitionRules.fragments = {
   vicc5Leaderboard: gql`
     fragment CompetitionRules_vicc5Leaderboard on Vicc5Leaderboard {
       slug
@@ -113,6 +113,6 @@ const CompetitionRules = ({ vicc5Leaderboard }: Props) => {
     ${RuleSection.fragments.vicc5Leaderboard}
     ${LockedCompetitionAction.fragments.vicc5Leaderboard}
   ` as TypedDocumentNode<CompetitionRules_vicc5Leaderboard>,
-};*/
+};
 
 export default CompetitionRules;

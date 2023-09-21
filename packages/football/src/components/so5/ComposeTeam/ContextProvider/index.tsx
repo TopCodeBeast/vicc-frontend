@@ -593,9 +593,9 @@ ContextProvider.fragments = {
           ...ComposeOnboarding_competition
         }
       }
-      #...Rules_vicc5Leaderboard
+      ...Rules_vicc5Leaderboard
     }
-    #{Rules.fragments.vicc5Leaderboard}
+    ${Rules.fragments.vicc5Leaderboard}
     ${ComposeOnboarding.fragments.competition}
   ` as TypedDocumentNode<ContextProvider_vicc5Leaderboard>,
   vicc5Lineup: gql`

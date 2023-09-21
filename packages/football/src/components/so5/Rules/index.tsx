@@ -13,7 +13,7 @@ import { Errors } from '@football/components/so5/ComposeTeam/Context';
 import { ELIGIBILITY_RULES } from '@football/lib/so5';
 
 import { Rules_vicc5Leaderboard } from './__generated__/index.graphql';
-// import { formatRules } from './formatRules';
+import { formatRules } from './formatRules';
 import { FormatRule } from './types';
 
 type Rules_vicc5Leaderboard_displayedRules = NonNullable<
@@ -124,7 +124,7 @@ export const Rules = ({
   return <>Rules5</>;
 };
 
-/*Rules.fragments = {
+Rules.fragments = {
   vicc5Leaderboard: gql`
     fragment Rules_vicc5Leaderboard on Vicc5Leaderboard {
       slug
@@ -132,6 +132,6 @@ export const Rules = ({
     }
     ${formatRules.fragments.vicc5Leaderboard}
   ` as TypedDocumentNode<Rules_vicc5Leaderboard>,
-};*/
+};
 
 export default Rules;
