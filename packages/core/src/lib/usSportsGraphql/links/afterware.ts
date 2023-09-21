@@ -15,7 +15,7 @@ export const afterwareLink = (
             response: { headers },
           } = ctx;
           if (
-            process.env.NODE_ENV === 'development' &&
+            import.meta.env.NODE_ENV === 'development' &&
             headers?.get('X-bullet-footer-text')
           ) {
             showNotification(

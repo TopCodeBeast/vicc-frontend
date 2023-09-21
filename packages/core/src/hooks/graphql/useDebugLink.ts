@@ -12,7 +12,7 @@ export const useDebugLink = () => {
     if (
       !recordGQLOperation ||
       isProduction ||
-      process.env.NODE_ENV === 'test'
+      import.meta.env.NODE_ENV === 'test'
     ) {
       return undefined;
     }

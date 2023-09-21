@@ -28,7 +28,7 @@ const DarkThemeContent: FC<React.PropsWithChildren<unknown>> = ({
 export const DarkTheme = ({ children }: Props) => {
   const { withinDarkTheme } = useContext(DarkThemeContext);
 
-  if (withinDarkTheme && process.env.NODE_ENV !== 'production') {
+  if (withinDarkTheme && import.meta.env.NODE_ENV !== 'production') {
     throw new Error(`Invalid DOM: DarkTheme cannot be children of DarkTheme.`);
   }
 

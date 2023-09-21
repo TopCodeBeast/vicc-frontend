@@ -166,8 +166,8 @@ export const GraphqlProvider = ({
             ...(apiKey && { APIKEY: apiKey }),
             // ...(import.meta.env.MODE === 'development' &&
             //   isProduction &&
-            //   process.env.SORARE_COM_API_KEY && {
-            //     APIKEY: process.env.SORARE_COM_API_KEY,
+            //   import.meta.env.SORARE_COM_API_KEY && {
+            //     APIKEY: import.meta.env.SORARE_COM_API_KEY,
             //   }),
           },
         };

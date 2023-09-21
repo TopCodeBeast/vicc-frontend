@@ -116,7 +116,7 @@ const DebugInfos = (props: DebugProps) => {
   const { graphQLCalls } = props;
   const [open, setOpen] = useLocalStorage<boolean>(
     'gql-debug',
-    process.env.NODE_ENV === 'development'
+    import.meta.env.NODE_ENV === 'development'
   );
 
   useKey(
@@ -129,7 +129,7 @@ const DebugInfos = (props: DebugProps) => {
   );
 
   if (!open) {
-    if (process.env.NODE_ENV !== 'development') {
+    if (import.meta.env.NODE_ENV !== 'development') {
       return null;
     }
 

@@ -15,10 +15,10 @@ export const xsrfHeaderName = 'X-CSRF-Token';
 export const xsrfCookieName = 'csrftoken';
 export const xsrfReceivingHeaderName = 'csrf-token';
 export const cloudflareAccessHeaders =
-  process.env.NODE_ENV === 'development' && (isStaging || isMockprod)
+  import.meta.env.NODE_ENV === 'development' && (isStaging || isMockprod)
     ? {
-        'CF-Access-Client-Id': process.env.CLOUDFLARE_ACCESS_CLIENT_ID,
-        'CF-Access-Client-Secret': process.env.CLOUDFLARE_ACCESS_CLIENT_SECRET,
+        'CF-Access-Client-Id': import.meta.env.CLOUDFLARE_ACCESS_CLIENT_ID,
+        'CF-Access-Client-Secret': import.meta.env.CLOUDFLARE_ACCESS_CLIENT_SECRET,
       }
     : {};
 

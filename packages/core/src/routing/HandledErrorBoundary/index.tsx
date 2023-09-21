@@ -55,7 +55,7 @@ class HandledErrorBoundary extends Component<
     }
     if (error.networkError) {
       if (error.networkError.message === 'Failed to fetch') {
-        if (process.env.NODE_ENV === 'development') {
+        if (import.meta.env.NODE_ENV === 'development') {
           return handleKnownError(
             'OOPS',
             `Couldn't connect to the Vicc API: ${error.message}.`
@@ -66,7 +66,7 @@ class HandledErrorBoundary extends Component<
       if (error.networkError instanceof TypeError) {
         // this happens when the API send invalid JSON
         // TypeError: Failed to execute 'text' on 'Response': body stream already read.
-        if (process.env.NODE_ENV === 'development') {
+        if (import.meta.env.NODE_ENV === 'development') {
           return handleKnownError(
             'OOPS',
             error.message || error.networkError.message

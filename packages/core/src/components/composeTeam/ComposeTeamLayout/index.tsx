@@ -6,7 +6,7 @@ import styled, { keyframes } from 'styled-components';
 import { laptopAndAbove } from '@core/style/mediaQuery';
 
 // Don't slow down tests
-const VIDEO_TIMEOUT = process.env.NODE_ENV === 'test' ? 10 : 3000;
+const VIDEO_TIMEOUT = import.meta.env.NODE_ENV === 'test' ? 10 : 3000;
 
 const slideIn = keyframes`
   from {

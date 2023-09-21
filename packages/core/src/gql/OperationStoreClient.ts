@@ -96,10 +96,10 @@ const standardClient = () => {
 };
 
 export default () => {
-  /*if (isForcedEnv() || process.env.PLAYGROUND === 'true' || IS_TEST_RUNNER) {
+  /*if (isForcedEnv() || import.meta.env.PLAYGROUND === 'true' || IS_TEST_RUNNER) {
     return null;
   }
-  if (process.env.NODE_ENV === 'development') {
+  if (import.meta.env.NODE_ENV === 'development') {
     if (!aliases) {
       throw new Error(
         `\`__generated__/aliases_${ENV}.json\` doesn't exist, ` +

@@ -25,9 +25,9 @@ export const authLink = setContext(async (_, { headers }) => {
   if (
     import.meta.env.MODE === 'development' &&
     isProduction &&
-    process.env.SORARE_COM_API_KEY
+    import.meta.env.SORARE_COM_API_KEY
   ) {
-    extraHeaders.APIKEY = process.env.SORARE_COM_API_KEY;
+    extraHeaders.APIKEY = import.meta.env.SORARE_COM_API_KEY;
   }
   return {
     headers: {

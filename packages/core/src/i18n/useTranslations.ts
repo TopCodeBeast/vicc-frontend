@@ -50,9 +50,9 @@ export default (locale: AllowedLocales, testMode = false) => {
       if (REVISION === 'development') {
         if (formattedLocale === 'en') {
           // for english translations, just rely on what's in the code
-        } else if (process.env.MASTER_COMMIT_REF) {
+        } else if (import.meta.env.MASTER_COMMIT_REF) {
           // otherwise load the associated master translations
-          loadLiveTranslations(process.env.MASTER_COMMIT_REF);
+          loadLiveTranslations(import.meta.env.MASTER_COMMIT_REF);
         }
       } else {
         loadLiveTranslations(REVISION);

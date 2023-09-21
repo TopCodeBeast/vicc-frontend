@@ -73,7 +73,7 @@ const identify = ({ userId, traits }: IdentifyArgs): void => {
   const uuid = userId || user().id();
 
   window.analytics.identify(uuid, traits);
-  if ((!isProduction || isForcedEnv()) && process.env.NODE_ENV !== 'test') {
+  if ((!isProduction || isForcedEnv()) && import.meta.env.NODE_ENV !== 'test') {
     console.log('🪲 Analytics User Identified: ', uuid, traits);
   }
 
@@ -87,7 +87,7 @@ const track = (
   if (window.analytics) {
     window.analytics.track(event, properties);
   }
-  if ((!isProduction || isForcedEnv()) && process.env.NODE_ENV !== 'test') {
+  if ((!isProduction || isForcedEnv()) && import.meta.env.NODE_ENV !== 'test') {
     console.log('🪲 Analytics Event Tracked: "%s"', event, properties);
   }
 };
