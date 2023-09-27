@@ -109,7 +109,7 @@ const PublicUserGroup = ({ vicc5UserGroup }: Props) => {
     displayName,
     logo,
     myMembership,
-    vicc5TournamentType,
+    vicc5Tournament,
     startVicc5Fixture,
     endVicc5Fixture,
     rarityType,
@@ -131,7 +131,7 @@ const PublicUserGroup = ({ vicc5UserGroup }: Props) => {
         />
         <FlexColContainer>
           <Text16 color="var(--c-neutral-600)">
-            {vicc5TournamentType.displayName}
+            {vicc5Tournament.displayName}
           </Text16>
           <Title5 color="var(--c-neutral-1000)" bold>
             {displayName}
@@ -191,9 +191,10 @@ PublicUserGroup.fragments = {
         score
         administrator
       }
-      vicc5TournamentType {
+      vicc5Tournament {
         id
         displayName
+        slug
       }
       startVicc5Fixture {
         slug

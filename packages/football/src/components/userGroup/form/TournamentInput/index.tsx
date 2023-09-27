@@ -34,9 +34,9 @@ const INPUT_ID = 'newUserGroupTournament';
 
 export const TournamentInput = ({ tournaments }: Props) => {
   const { formatMessage } = useIntl();
-  const options = tournaments.map(({ vicc5LeaderboardType, displayName }) => {
+  const options = tournaments.map(({ slug, displayName }) => {
     return {
-      value: vicc5LeaderboardType,
+      value: slug,
       label: displayName,
     };
   });
@@ -71,7 +71,7 @@ TournamentInput.fragments = {
     fragment TournamentInput_tournaments on Vicc5Tournament {
       id
       displayName
-      vicc5LeaderboardType
+      slug
     }
   ` as TypedDocumentNode<TournamentInput_tournaments>,
 };

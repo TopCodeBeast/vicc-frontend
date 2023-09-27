@@ -122,7 +122,7 @@ const CLUB_HONORS_SUMMARIES_QUERY = gql`
 const CLUB_HONORS_LINEUPS_QUERY = gql`
   query ClubHonorsLineupsQuery(
     $slug: String!
-    $vicc5LeaderboardType: Vicc5LeaderboardType
+    $vicc5TournamentSlug: String
     $cursor: String
   ) {
     user(slug: $slug) {
@@ -130,7 +130,7 @@ const CLUB_HONORS_LINEUPS_QUERY = gql`
       rewardedRankings(
         after: $cursor
         first: 12
-        vicc5LeaderboardType: $vicc5LeaderboardType
+        vicc5TournamentSlug: $vicc5TournamentSlug
       ) {
         nodes {
           id
@@ -171,7 +171,7 @@ const ClubHonors = ({ user: { slug }, readOnly }: Props) => {
     {
       variables: {
         slug,
-        vicc5LeaderboardType: selectedLeaderboard?.vicc5LeaderboardType,
+        vicc5TournamentSlug: selectedLeaderboard?.slug,
       },
       skip: readOnly,
       connection: 'Vicc5RankingConnection',
@@ -208,7 +208,7 @@ const ClubHonors = ({ user: { slug }, readOnly }: Props) => {
         if (a.customSeries !== b.customSeries) {
           return b.customSeries - a.customSeries;
         }
-        return a.vicc5TournamentType.displayName > b.vicc5TournamentType.displayName
+        return a.vicc5Tournament.displayName > b.vicc5Tournament.displayName
           ? 1
           : -1;
       })

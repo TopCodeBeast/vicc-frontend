@@ -60,13 +60,13 @@ export const PrivateLeagues = ({ vicc5, loading }: Props) => {
       userGroups
         ? Object.values(
             groupBy(
-              node => node.vicc5TournamentType.vicc5LeaderboardType,
+              node => node.vicc5Tournament.slug,
               userGroups
             )
           ).sort((a, b) => {
             return sortLeaderboardsByTournamentType(
-              a[0].vicc5TournamentType.vicc5LeaderboardType,
-              b[0].vicc5TournamentType.vicc5LeaderboardType
+              a[0].vicc5Tournament.slug,
+              b[0].vicc5Tournament.slug
             );
           })
         : [],
@@ -153,9 +153,9 @@ PrivateLeagues.fragments = {
       myVicc5UserGroups(first: 20, statuses: [STARTED, TO_START]) {
         nodes {
           slug
-          vicc5TournamentType {
+          vicc5Tournament {
             id
-            vicc5LeaderboardType
+            slug
           }
           ...PrivateLeagueBlock_userGroup
         }

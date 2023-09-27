@@ -46,9 +46,9 @@ export const GET_PRIVATE_USER_GROUP_QUERY = gql`
             id
             administrator
           }
-          vicc5TournamentType {
+          vicc5Tournament {
             id
-            vicc5LeaderboardType
+            slug
           }
         }
       }
@@ -147,7 +147,7 @@ export const Congrats = ({ slug, redirectToManagerHome }: Props) => {
     myMembership,
     membershipsCount,
     joinSecret,
-    vicc5TournamentType: { vicc5LeaderboardType },
+    vicc5Tournament: { slug: vicc5LeaderboardType },
   } = vicc5UserGroup;
   const isCreation = myMembership?.administrator && membershipsCount === 1;
 

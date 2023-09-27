@@ -75,14 +75,14 @@ const ClubHonorsSummaryByLeaderboard = ({
   selectedLeaderboard,
   onSelectLeaderboard,
 }: Props) => {
-  const { vicc5LeaderboardType } = selectedLeaderboard || {};
+  const { slug: vicc5LeaderboardType } = selectedLeaderboard || {};
 
   if (!leaderboards) {
     return null;
   }
 
   const onClick = (vicc5Tournament: Vicc5Tournament) => {
-    if (vicc5LeaderboardType === vicc5Tournament.vicc5LeaderboardType) {
+    if (vicc5LeaderboardType === vicc5Tournament.slug) {
       onSelectLeaderboard(null);
     } else {
       onSelectLeaderboard(vicc5Tournament);
@@ -93,20 +93,20 @@ const ClubHonorsSummaryByLeaderboard = ({
     <Root>
       <LeaderboardsCollapse showMore={leaderboards.length > 5}>
         <div>
-          {leaderboards.map(({ vicc5TournamentType, ...cards }) => (
+          {leaderboards.map(({ vicc5Tournament, ...cards }) => (
             <LeaderboardRewards
-              key={vicc5TournamentType.id}
+              key={vicc5Tournament.id}
               className={classnames({
                 selected:
-                  vicc5LeaderboardType === vicc5TournamentType.vicc5LeaderboardType,
+                  vicc5LeaderboardType === vicc5Tournament.slug,
               })}
-              onClick={() => onClick(vicc5TournamentType)}
+              onClick={() => onClick(vicc5Tournament)}
             >
               <LeaderboardLogo
-                src={vicc5TournamentType.svgLogoUrl}
-                alt={vicc5TournamentType.displayName}
+                src={vicc5Tournament.svgLogoUrl}
+                alt={vicc5Tournament.displayName}
               />
-              <LeaderboardName>{vicc5TournamentType.displayName}</LeaderboardName>
+              <LeaderboardName>{vicc5Tournament.displayName}</LeaderboardName>
               <RewardsWrapper>
                 <CardRewards {...cards} />
               </RewardsWrapper>
@@ -123,11 +123,11 @@ ClubHonorsSummaryByLeaderboard.fragments = {
     fragment ClubHonorsSummaryByLeaderboard_user on PublicUserInfoInterface {
       slug
       trophies {
-        vicc5TournamentType {
+        vicc5Tournament {
           id
           displayName
+          slug
           svgLogoUrl
-          vicc5LeaderboardType
         }
         limited: cardRewards(rarity: limited)
         rare: cardRewards(rarity: rare)

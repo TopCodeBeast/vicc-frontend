@@ -35,9 +35,9 @@ const GET_PRIVATE_USER_GROUP_QUERY = gql`
           myMembership {
             createdAt
           }
-          vicc5TournamentType {
+          vicc5Tournament {
             id
-            vicc5LeaderboardType
+            slug
           }
         }
       }

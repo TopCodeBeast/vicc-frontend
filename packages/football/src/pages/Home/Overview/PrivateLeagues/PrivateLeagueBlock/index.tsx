@@ -52,7 +52,7 @@ export const PrivateLeagueBlock = ({ userGroupsList }: Props) => {
         )}
         <Text14>
           {leaderboard?.displayName ||
-            userGroupsList[0].vicc5TournamentType.displayName}
+            userGroupsList[0].vicc5Tournament.displayName}
         </Text14>
       </Header>
       <List>
@@ -74,9 +74,10 @@ PrivateLeagueBlock.fragments = {
         displayName
         ...DivisionLogo_vicc5Leaderboard
       }
-      vicc5TournamentType {
+      vicc5Tournament {
         id
         displayName
+        slug
       }
       ...PrivateLeagueItem_userGroup
     }
