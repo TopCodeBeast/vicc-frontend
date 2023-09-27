@@ -124,8 +124,8 @@ export const UpcomingFixture = ({
         sortByConfirmedLineup(lineup1, lineup2) ||
         sortByDivision(l1, l2) ||
         sortLeaderboardsByTournamentType(
-          l1.tournamentType,
-          l2.tournamentType
+          l1.vicc5Tournament.slug,
+          l2.vicc5Tournament.slug
         ) ||
         sortLeaderboards(l1, l2)
       );
@@ -249,7 +249,10 @@ UpcomingFixture.fragments = {
       slug
       rarityType
       gameWeek
-      tournamentType
+      vicc5Tournament {
+        id
+        slug
+      }
       division
       vicc5Fixture {
         slug

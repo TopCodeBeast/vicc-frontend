@@ -155,9 +155,9 @@ export const Lineup = ({
     }
   );
 
-  const { vicc5Fixture, vicc5LeaderboardType } = leaderboard;
+  const { vicc5Fixture, vicc5Tournament } = leaderboard;
   const displaySemiProIncentive =
-    useDisplaySemiProIncentive(vicc5LeaderboardType);
+    useDisplaySemiProIncentive(vicc5Tournament.slug);
   const startDate = new Date(vicc5Fixture.startDate);
   const endDate = new Date(vicc5Fixture.endDate);
   const isLive = isPast(startDate) && isFuture(endDate);
@@ -332,7 +332,10 @@ Lineup.fragments = {
     fragment Lineup_vicc5Leaderboard on Vicc5Leaderboard {
       slug
       vicc5LineupsCount
-      vicc5LeaderboardType
+      vicc5Tournament {
+        id
+        slug
+      }
       totalRewards {
         ...LineupRewards_rewardsOverview
       }

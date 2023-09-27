@@ -41,10 +41,10 @@ const findDraftedSemiPro = (
   leaderboardsSemiPro: LeaderboardTeam[],
   draftedLeaderboard: LeaderboardTeam
 ) => {
-  return leaderboardsSemiPro.find(({ leaderboard: { vicc5LeaderboardType } }) => {
-    const semiProType = vicc5LeaderboardType.replace('_SEMI_PRO', '');
+  return leaderboardsSemiPro.find(({ leaderboard: { vicc5Tournament } }) => {
+    const semiProType = vicc5Tournament.slug.replace('_SEMI_PRO', '');
     const amateurType =
-      draftedLeaderboard?.leaderboard.vicc5LeaderboardType.replace(
+      draftedLeaderboard?.leaderboard.vicc5Tournament.slug.replace(
         '_AMATEUR',
         ''
       );
@@ -56,9 +56,9 @@ const findOpenedDraftedSemiPro = (
   leaderboardTeams: LeaderboardTeam[]
 ) => {
   return leaderboardsSemiPro.find(
-    ({ leaderboard: { vicc5LeaderboardType: semiProType } }) =>
+    ({ leaderboard: { vicc5Tournament: { slug: semiProType } } }) =>
       leaderboardTeams.find(
-        ({ leaderboard: { vicc5LeaderboardType: amateurType } }) => {
+        ({ leaderboard: { vicc5Tournament: { slug: amateurType } } }) => {
           return (
             amateurType.replace('_AMATEUR', '') ===
             semiProType.replace('_SEMI_PRO', '')
@@ -195,7 +195,7 @@ export const CompetitionListTable = ({
       commonDraftCampaign?.campaignType === 'ONBOARDING'
   );
   const leaderboardsSemiPro = leaderboardTeams.filter(
-    ({ leaderboard: { vicc5LeaderboardType } }) =>
+    ({ leaderboard: { vicc5Tournament: { slug: vicc5LeaderboardType } } }) =>
       /_SEMI_PRO$/.test(vicc5LeaderboardType)
   );
   const draftedLeaderboardSemiPro =
@@ -268,7 +268,10 @@ CompetitionListTable.fragments = {
   vicc5Leaderboard: gql`
     fragment CompetitionListTable_vicc5Leaderboard on Vicc5Leaderboard {
       slug
-      vicc5LeaderboardType
+      vicc5Tournament {
+        id
+        slug
+      }
       ...TableRow_vicc5Leaderboard
     }
     ${TableRow.fragments.vicc5Leaderboard}

@@ -556,7 +556,10 @@ ContextProvider.fragments = {
         startDate
         endDate
       }
-      vicc5LeaderboardType
+      vicc5Tournament {
+        id
+        slug
+      }
       defaultAverageScore
       rules {
         id

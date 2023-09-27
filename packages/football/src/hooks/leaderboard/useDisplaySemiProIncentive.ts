@@ -6,7 +6,7 @@ import { SEMI_PRO_TOURNAMENT_TYPES } from '@football/lib/leaderboard';
 import { isFreeUser } from '@football/lib/user';
 
 export const useDisplaySemiProIncentive = (
-  vicc5LeaderboardType: Nullable<Vicc5LeaderboardType>
+  vicc5LeaderboardType?: string
 ) => {
   const {
     flags: {

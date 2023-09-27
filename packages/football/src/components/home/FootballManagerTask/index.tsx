@@ -267,7 +267,10 @@ FootballManagerTask.fragments = {
   vicc5Leaderboard: gql`
     fragment FootballManagerTask_vicc5Leaderboard on Vicc5Leaderboard {
       slug
-      vicc5LeaderboardType
+      vicc5Tournament {
+        id
+        slug
+      }
       division
       canCompose {
         value

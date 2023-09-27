@@ -130,7 +130,7 @@ export const tasksData: {
     image: coach,
     getLink: ({ leaderboards }) => {
       const amateurLeaderboards = leaderboards?.filter(l =>
-        l.vicc5LeaderboardType.includes('_AMATEUR')
+        l.vicc5Tournament.slug.includes('_AMATEUR')
       );
       if (!amateurLeaderboards?.length) {
         return FOOTBALL_LOBBY;
@@ -215,7 +215,7 @@ export const tasksData: {
     image: coach_2,
     getLink: ({ leaderboards }) => {
       const amateurLeaderboards = leaderboards?.filter(l =>
-        l.vicc5LeaderboardType.includes('_AMATEUR')
+        l.vicc5Tournament.slug.includes('_AMATEUR')
       );
       const draftedAmateurLeaderboard = amateurLeaderboards?.find(
         l =>
@@ -226,8 +226,8 @@ export const tasksData: {
         l =>
           draftedAmateurLeaderboard &&
           l.division === 2 &&
-          l.vicc5LeaderboardType.startsWith(
-            draftedAmateurLeaderboard.vicc5LeaderboardType.replace('_AMATEUR', '')
+          l.vicc5Tournament.slug.startsWith(
+            draftedAmateurLeaderboard.vicc5Tournament.slug.replace('_AMATEUR', '')
           )
       );
       if (correspondingSemiProLeaderboard) {

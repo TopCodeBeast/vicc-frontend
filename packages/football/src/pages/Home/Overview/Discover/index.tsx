@@ -55,7 +55,7 @@ const getDraftedAmateurOf = (
 ) => {
   return amateurLeaderboards?.find(
     amateurLeaderboard =>
-      leaderboard.tournamentType === amateurLeaderboard.tournamentType
+      leaderboard.vicc5Tournament.slug === amateurLeaderboard.vicc5Tournament.slug
   );
 };
 
@@ -90,7 +90,7 @@ const getLeaderboardsToDiscover = (
       .sort(
         (l1, l2) =>
           sortByDrafted(l1, l2, draftedLeaderboards) ||
-          sortLeaderboardsByTournamentType(l1.tournamentType, l2.tournamentType)
+          sortLeaderboardsByTournamentType(l1.vicc5Tournament.slug, l2.vicc5Tournament.slug)
       );
 
     return correspondingLeaderboards?.[0];
@@ -172,8 +172,10 @@ Discover.fragments = {
       slug
       mainRarityType
       division
-      vicc5LeaderboardType
-      tournamentType
+      vicc5Tournament {
+        id
+        slug
+      }
       ...Lineup_vicc5Leaderboard
     }
     ${Lineup.fragments.vicc5Leaderboard}

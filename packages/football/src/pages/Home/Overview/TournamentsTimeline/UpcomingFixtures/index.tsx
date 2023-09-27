@@ -28,7 +28,7 @@ const filterCanCompose = (l: UpcomingFixtures_leaderboard) => {
 };
 
 const filterTraining = (l: UpcomingFixtures_leaderboard) => {
-  return l.vicc5LeaderboardType !== Vicc5LeaderboardType.SPECIAL_TRAINING_CENTER;
+  return l.vicc5Tournament.slug !== Vicc5LeaderboardType.SPECIAL_TRAINING_CENTER;
 };
 
 const filterTooManyCards = (l: UpcomingFixtures_leaderboard) => {
@@ -121,7 +121,10 @@ UpcomingFixtures.fragments = {
       upcomingLeaderboards {
         slug
         gameWeek
-        vicc5LeaderboardType
+        vicc5Tournament {
+          id
+          slug
+        }
         commonDraftCampaign {
           slug
           status

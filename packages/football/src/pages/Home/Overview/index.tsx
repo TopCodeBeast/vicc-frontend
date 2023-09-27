@@ -36,7 +36,10 @@ const HOME_LEADERBOARDS_QUERY = gql`
             slug
             status
           }
-          vicc5LeaderboardType
+          vicc5Tournament {
+            id
+            slug
+          }
           ...ManagerAssistant_vicc5Leaderboard
         }
         ...PrivateLeagues_vicc5

@@ -19,8 +19,10 @@ export const RECOMMENDED_LEADERBOARDS_QUERY = gql`
       vicc5 {
         upcomingLeaderboards {
           slug
-          vicc5LeaderboardType
-          tournamentType
+          vicc5Tournament {
+            id
+            slug
+          }
           commonDraftCampaign {
             slug
             status
@@ -62,8 +64,8 @@ const useGetRecommendedLeaderboard = ({
     const draftedLeaderboard = draftedLeaderboards[0];
     const correspondingSemiProLeaderboard = leaderboards?.find(
       l =>
-        SEMI_PRO_TOURNAMENT_TYPES.includes(l.vicc5LeaderboardType) &&
-        l.tournamentType === draftedLeaderboard.tournamentType
+        SEMI_PRO_TOURNAMENT_TYPES.includes(l.vicc5Tournament.slug) &&
+        l.vicc5Tournament.slug === draftedLeaderboard.vicc5Tournament.slug
     );
     return {
       recommendedLeaderboard: correspondingSemiProLeaderboard,

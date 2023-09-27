@@ -43,7 +43,10 @@ const COMPETITION_DETAILS_DEFAULT_TAB_QUERY = gql`
           title
           displayName
           description
-          vicc5LeaderboardType
+          vicc5Tournament {
+            id
+            slug
+          }
           canCompose {
             ...MissingCardsMessage_validity
           }
@@ -127,7 +130,7 @@ const CompetitionDetailsDefaultTab = () => {
   const hasSpecialRules = hasSpecialEngineConfiguration(vicc5Leaderboard);
 
   const displaySemiProIncentive = useDisplaySemiProIncentive(
-    vicc5Leaderboard?.vicc5LeaderboardType
+    vicc5Leaderboard?.vicc5Tournament.slug
   );
 
   if (!vicc5Leaderboard && loading) return <LoadingIndicator grow />;
