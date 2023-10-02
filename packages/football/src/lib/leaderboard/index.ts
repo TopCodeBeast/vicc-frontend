@@ -1,4 +1,4 @@
-import { Vicc5LeaderboardType } from '@sorare/core/src/__generated__/globalTypes';
+// import { Vicc5LeaderboardType } from '@sorare/core/src/__generated__/globalTypes';
 
 export const SEMI_PRO_TOURNAMENT_TYPES = [
   /*Vicc5LeaderboardType.FIRST_DIVISION_ENGLAND_SEMI_PRO,

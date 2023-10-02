@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 
 import {
   CommonDraftCampaignStatus,
-  Vicc5LeaderboardType,
 } from '@sorare/core/src/__generated__/globalTypes';
 import { groupBy } from '@sorare/core/src/lib/arrays';
 
@@ -28,7 +27,7 @@ const filterCanCompose = (l: UpcomingFixtures_leaderboard) => {
 };
 
 const filterTraining = (l: UpcomingFixtures_leaderboard) => {
-  return l.vicc5Tournament.slug !== Vicc5LeaderboardType.SPECIAL_TRAINING_CENTER;
+  return l.vicc5Tournament.slug !== 'SPECIAL_TRAINING_CENTER';
 };
 
 const filterTooManyCards = (l: UpcomingFixtures_leaderboard) => {

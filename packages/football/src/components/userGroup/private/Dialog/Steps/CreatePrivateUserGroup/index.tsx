@@ -6,7 +6,6 @@ import { generatePath, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
-  Vicc5LeaderboardType,
   Vicc5UserGroup,
 } from '@sorare/core/src/__generated__/globalTypes';
 import {
@@ -85,13 +84,13 @@ export const CreatePrivateUserGroup = () => {
     {
       displayName,
       description,
-      vicc5LeaderboardType,
+      vicc5TournamentSlug,
       startGameWeek,
       endGameWeek,
     }: {
       displayName: string;
       description: string;
-      vicc5LeaderboardType: Vicc5LeaderboardType;
+      vicc5TournamentSlug: string;
       startGameWeek: string;
       endGameWeek: string;
     },
@@ -100,7 +99,7 @@ export const CreatePrivateUserGroup = () => {
     const { data } = await createPrivateUG({
       displayName,
       description,
-      vicc5LeaderboardType,
+      vicc5TournamentSlug,
       logoId,
       startGameWeek: +startGameWeek,
       endGameWeek: endGameWeek === '' ? undefined : +endGameWeek,
