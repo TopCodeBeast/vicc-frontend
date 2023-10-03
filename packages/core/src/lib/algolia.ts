@@ -203,7 +203,7 @@ export const convertCardHitToToken = (
   collection: Collection;
   sport: Sport;
   metadata: {
-    __typename: 'TokenBaseballMetadata' | 'TokenCricketMetadata';
+    __typename: 'TokenCricketMetadata';
     id: string;
     playerDisplayName: string;
     playerSlug: string;

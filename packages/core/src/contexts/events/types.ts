@@ -68,9 +68,6 @@ export const fragments = {
           singleCivilYear
           teamSlug
         }
-        ... on TokenBaseballMetadata {
-          playerPositions
-        }
         ... on TokenCricketMetadata {
           playerPosition
         }

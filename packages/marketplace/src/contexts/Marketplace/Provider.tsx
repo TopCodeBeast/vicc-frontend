@@ -84,9 +84,7 @@ const tokenInfoProperties = (token: Analytics_tokenInfo) => ({
   position: isType(token.metadata, 'TokenCricketMetadata')
     ? token.metadata.playerPosition
     : '',
-  positions: isType(token.metadata, 'TokenBaseballMetadata')
-    ? token.metadata.playerPositions
-    : [],
+  positions: [],
   scarcity: token.metadata.rarity,
   season: token.metadata.seasonStartYear,
   serialNumber: token.metadata.serialNumber,
@@ -103,9 +101,6 @@ const tokensInfoProperties = (tokens: Analytics_tokenInfo[]) => ({
   domesticLeagueSlug: '',
   playerSlugs: tokens.map(token => token.metadata.playerSlug),
   positions: tokens.flatMap(token => {
-    if (isType(token.metadata, 'TokenBaseballMetadata')) {
-      return token.metadata.playerPositions;
-    }
     if (isType(token.metadata, 'TokenCricketMetadata')) {
       return [token.metadata.playerPosition];
     }
