@@ -24,7 +24,7 @@ export const Bid = ({ userAccountEntry, primaryCurrency }: Props) => {
   const { tokenOperation } = userAccountEntry;
   const { formatMessage } = useIntl();
 
-  if (!isType(tokenOperation, 'TokenBid')) {
+  if (!isType(tokenOperation, 'Bid')) {
     return null;
   }
 
@@ -44,7 +44,7 @@ Bid.fragments = {
     fragment Bid_userAccountEntry on UserAccountEntry {
       id
       tokenOperation {
-        ... on TokenBid {
+        ... on Bid {
           id
           ...TransactionsBid_tokenBid
         }

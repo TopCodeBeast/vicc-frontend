@@ -20,7 +20,7 @@ export const useBestBidBelongsToUser = () => {
 
 useBestBidBelongsToUser.fragments = {
   bestBid: gql`
-    fragment UseBestBidBelongsToUser_bestBid on TokenBid {
+    fragment UseBestBidBelongsToUser_bestBid on Bid {
       id
       bidder {
         ... on User {

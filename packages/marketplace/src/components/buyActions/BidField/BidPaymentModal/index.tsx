@@ -131,7 +131,7 @@ const BidPaymentModal = ({ auction, tokens, onSuccess, onClose }: Props) => {
             : monetaryAmount[monetaryAmountIndex].toString(),
         conversionCreditId,
       });
-      if (newBid && '__typename' in newBid && isType(newBid, 'TokenBid')) {
+      if (newBid && '__typename' in newBid && isType(newBid, 'Bid')) {
         onSuccessWithWallet(newBid?.auction);
       }
     },

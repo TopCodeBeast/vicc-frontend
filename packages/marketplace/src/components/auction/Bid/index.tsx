@@ -81,7 +81,7 @@ const Bid = ({
 };
 
 Bid.fragments = {
-  tokenBid: gql`
+  bid: gql`
     fragment Bid_tokenBid on Bid {
       id
       amounts {

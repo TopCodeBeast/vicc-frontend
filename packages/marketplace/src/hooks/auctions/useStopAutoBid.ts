@@ -13,7 +13,7 @@ import {
 const STOP_AUTO_BID_MUTATION = gql`
   mutation StopAutoBidMutation($input: stopAutoBidInput!) {
     stopAutoBid(input: $input) {
-      tokenBid {
+      bid {
         id
         auction {
           id
@@ -73,7 +73,7 @@ const useStopAutoBid = (bid: useStopAutoBid_bid) => {
 
 useStopAutoBid.fragments = {
   bid: gql`
-    fragment useStopAutoBid_bid on TokenBid {
+    fragment useStopAutoBid_bid on Bid {
       id
     }
   ` as TypedDocumentNode<useStopAutoBid_bid>,

@@ -22,7 +22,7 @@ export const Bid = ({ payment }: Props) => {
   const { tokenOperation } = payment;
   const { formatMessage } = useIntl();
 
-  if (!isType(tokenOperation, 'TokenBid')) {
+  if (!isType(tokenOperation, 'Bid')) {
     return null;
   }
 
@@ -39,7 +39,7 @@ Bid.fragments = {
       id
       ...AccountEntry_payment
       tokenOperation {
-        ... on TokenBid {
+        ... on Bid {
           id
           ...TransactionsBid_tokenBid
         }

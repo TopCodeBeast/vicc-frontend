@@ -32,7 +32,7 @@ export const TransactionsBid = ({ tokenBid }: Props) => {
 
 TransactionsBid.fragments = {
   tokenBid: gql`
-    fragment TransactionsBid_tokenBid on TokenBid {
+    fragment TransactionsBid_tokenBid on Bid {
       id
       auction {
         id

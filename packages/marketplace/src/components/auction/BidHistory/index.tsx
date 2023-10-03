@@ -79,7 +79,7 @@ BidHistory.fragments = {
       }
       totalCount
     }
-    ${Bid.fragments.tokenBid}
+    ${Bid.fragments.bid}
   ` as TypedDocumentNode<BidHistory_tokenBidConnection>,
 };
 

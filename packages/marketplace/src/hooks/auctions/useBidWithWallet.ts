@@ -20,7 +20,7 @@ import usePrepareBid from './usePrepareBid';
 const BID_WITH_WALLET_MUTATION = gql`
   mutation BidWithWalletMutation($input: bidInput!) {
     bid(input: $input) {
-      tokenBid {
+      bid {
         id
         amounts {
           ...MonetaryAmountFragment_monetaryAmount
@@ -128,7 +128,7 @@ const useBidWithWallet = (auction: useBidWithWallet_auction) => {
       },
     });
 
-    return dataBid?.bid?.tokenBid;
+    return dataBid?.bid?.bid;
   };
 
   return async (args: BidWithWalletArgs) => {

@@ -281,7 +281,7 @@
             "TeamFormation",
             "Token",
             "Auction",
-            "TokenBid",
+            "Bid",
             "TokenMonetaryReward",
             "TokenMyBid",
             "TokenOffer",
@@ -354,7 +354,7 @@
             "TokenPrimaryOffer"
         ],
         "PaymentIntentTokenOperation": [
-            "TokenBid",
+            "Bid",
             "TokenOffer",
             "TokenPrimaryOffer"
         ],
@@ -492,7 +492,7 @@
             "FullWithdrawalRequest",
             "So5Reward",
             "StarkwareWithdrawal",
-            "TokenBid",
+            "Bid",
             "TokenMonetaryReward",
             "TokenOffer",
             "TokenPrimaryOffer",
