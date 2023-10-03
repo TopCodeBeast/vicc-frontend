@@ -27,7 +27,7 @@ type PriceHistoryQuery_tokens_tokenPrices_deal =
   PriceHistoryQuery_tokens_tokenPrices['deal'];
 
 type PriceHistoryQuery_tokens_tokenPrices_deal_TokenAuction =
-  PriceHistoryQuery_tokens_tokenPrices_deal & { __typename: 'TokenAuction' };
+  PriceHistoryQuery_tokens_tokenPrices_deal & { __typename: 'Auction' };
 
 type PriceHistoryQuery_tokens_tokenPrices_deal_TokenAuction_nfts =
   PriceHistoryQuery_tokens_tokenPrices_deal_TokenAuction['nfts'][number];
@@ -115,7 +115,7 @@ const TransactionLabel = ({
 }: {
   deal: PriceHistoryQuery_tokens_tokenPrices_deal;
 }) => {
-  if (isType(deal, 'TokenAuction'))
+  if (isType(deal, 'Auction'))
     return <FormattedMessage {...messages.auction} />;
   return <FormattedMessage {...messages.publicOffer} />;
 };

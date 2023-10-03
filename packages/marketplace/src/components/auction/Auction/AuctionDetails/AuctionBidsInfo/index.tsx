@@ -46,7 +46,7 @@ export const AuctionBidsInfo = ({ auction }: Props) => {
 
 AuctionBidsInfo.fragments = {
   auction: gql`
-    fragment AuctionBidsInfo_auction on TokenAuction {
+    fragment AuctionBidsInfo_auction on Auction {
       id
       endDate
       bestBid {

@@ -23,7 +23,7 @@ export const BidsCount = ({ auction }: Props) => {
 
 BidsCount.fragments = {
   auction: gql`
-    fragment BidsCount_auction on TokenAuction {
+    fragment BidsCount_auction on Auction {
       id
       bidsCount
     }

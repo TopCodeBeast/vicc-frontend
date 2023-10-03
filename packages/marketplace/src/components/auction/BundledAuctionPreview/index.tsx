@@ -139,7 +139,7 @@ const tokenFragment = gql`
 BundledAuctionPreview.fragments = {
   token: tokenFragment,
   auction: gql`
-    fragment BundledAuctionPreview_auction on TokenAuction {
+    fragment BundledAuctionPreview_auction on Auction {
       id
       blockchainId
       nfts {

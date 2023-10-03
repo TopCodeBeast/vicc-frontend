@@ -105,7 +105,7 @@ export const AuctionDetails = ({
 
 AuctionDetails.fragments = {
   auction: gql`
-    fragment AuctionDetails_auction on TokenAuction {
+    fragment AuctionDetails_auction on Auction {
       id
       open
       bestBid {

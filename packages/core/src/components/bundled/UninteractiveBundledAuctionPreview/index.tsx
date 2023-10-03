@@ -86,7 +86,7 @@ export const UninteractiveBundledAuctionPreview = ({
 
 UninteractiveBundledAuctionPreview.fragments = {
   auction: gql`
-    fragment UninteractiveBundledAuctionPreview_auction on TokenAuction {
+    fragment UninteractiveBundledAuctionPreview_auction on Auction {
       id
       nfts {
         slug

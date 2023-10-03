@@ -199,7 +199,7 @@ BidPaymentModal.fragments = {
     ${BidBundleSummary.fragments.token}
   ` as TypedDocumentNode<BidPaymentModal_token>,
   auction: gql`
-    fragment BidPaymentModal_auction on TokenAuction {
+    fragment BidPaymentModal_auction on Auction {
       id
       autoBid
       open

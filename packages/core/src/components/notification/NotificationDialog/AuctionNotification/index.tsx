@@ -22,7 +22,7 @@ const StyledLayout = styled(Layout)`
 `;
 
 export const AuctionNotification = ({ notification, onClose }: Props) => {
-  const { name, tokenAuction } = notification;
+  const { name, auction } = notification;
 
   const onClick = useCallback(() => {
     onClose();
@@ -37,7 +37,7 @@ export const AuctionNotification = ({ notification, onClose }: Props) => {
     <StyledLayout onClose={onClose}>
       <AuctionNotificationContent
         onClick={onClick}
-        tokenAuction={tokenAuction}
+        tokenAuction={auction}
       />
     </StyledLayout>
   );
@@ -48,7 +48,7 @@ AuctionNotification.fragments = {
     fragment NotificationDialog_AuctionNotification_auctionNotification on AuctionNotification {
       id
       name
-      tokenAuction {
+      auction {
         id
         ...AuctionWonContent_tokenAuction
       }

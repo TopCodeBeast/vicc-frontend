@@ -140,7 +140,7 @@ const useBidWithWallet = (auction: useBidWithWallet_auction) => {
 
 useBidWithWallet.fragments = {
   auction: gql`
-    fragment useBidWithWallet_auction on TokenAuction {
+    fragment useBidWithWallet_auction on Auction {
       id
       blockchainId
     }

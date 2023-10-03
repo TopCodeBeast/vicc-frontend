@@ -170,7 +170,7 @@ BidField.fragments = {
     ${BidBundleSummary.fragments.token}
   ` as TypedDocumentNode<BidField_token>,
   auction: gql`
-    fragment BidField_auction on TokenAuction {
+    fragment BidField_auction on Auction {
       id
       blockchainId
       open

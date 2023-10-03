@@ -25,7 +25,7 @@ export const auctionCurrentPrice = withFragments(
   },
   {
     auction: gql`
-      fragment auctionCurrentPrice_auction on TokenAuction {
+      fragment auctionCurrentPrice_auction on Auction {
         id
         currentPrice
         privateCurrentPrice

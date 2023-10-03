@@ -25,7 +25,7 @@ export interface Item {
     | 'BundledAuction'
     | 'EnglishAuction'
     | 'Auction'
-    | 'TokenAuction'
+    | 'Auction'
     | 'Token'
     | 'BaseballCard'
     | 'NBACard';
@@ -49,7 +49,7 @@ const itemRoute = (item: Item) => {
         route: LEGACY_BUNDLED_AUCTION,
         params: { slug: item.slug },
       };
-    case 'TokenAuction':
+    case 'Auction':
       if (item?.nfts?.length && item?.nfts?.length > 1) {
         return {
           route: LEGACY_BUNDLED_AUCTION,

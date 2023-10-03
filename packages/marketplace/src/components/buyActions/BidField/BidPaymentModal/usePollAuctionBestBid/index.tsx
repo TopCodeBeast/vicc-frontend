@@ -151,7 +151,7 @@ const usePollAuctionBestBid = (
 
 usePollAuctionBestBid.fragments = {
   auction: gql`
-    fragment usePollAuctionBestBid_auction on TokenAuction {
+    fragment usePollAuctionBestBid_auction on Auction {
       id
       bestBid {
         id

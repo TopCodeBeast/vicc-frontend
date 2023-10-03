@@ -90,7 +90,7 @@ AuctionNotification.fragments = {
   auctionNotification: gql`
     fragment AuctionNotification_auctionNotification on AuctionNotification {
       ...Notification_notificationInterface
-      tokenAuction {
+      auction {
         id
         nfts {
           slug

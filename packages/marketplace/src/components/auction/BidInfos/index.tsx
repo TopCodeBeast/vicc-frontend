@@ -197,7 +197,7 @@ const BidInfos = ({ auction, promotionalEvent }: Props) => {
 
 BidInfos.fragments = {
   auction: gql`
-    fragment BidInfos_auction on TokenAuction {
+    fragment BidInfos_auction on Auction {
       id
       bidsCount
       open

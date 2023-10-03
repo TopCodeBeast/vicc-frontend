@@ -33,7 +33,7 @@ const useGetAuctionDetails = (auction: useGetAuctionDetails_auction | null) => {
 
 useGetAuctionDetails.fragments = {
   auction: gql`
-    fragment useGetAuctionDetails_auction on TokenAuction {
+    fragment useGetAuctionDetails_auction on Auction {
       id
       endDate
       currentPrice

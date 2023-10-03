@@ -124,7 +124,7 @@ const BidResume = ({ auction }: { auction: BidResume_tokenAuction }) => {
 
 BidResume.fragments = {
   tokenAuction: gql`
-    fragment BidResume_tokenAuction on TokenAuction {
+    fragment BidResume_tokenAuction on Auction {
       id
       bidsCount
       endDate

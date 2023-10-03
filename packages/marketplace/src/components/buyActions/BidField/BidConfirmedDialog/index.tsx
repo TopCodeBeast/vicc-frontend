@@ -101,7 +101,7 @@ const BidConfirmedDialog = ({
 
 BidConfirmedDialog.fragments = {
   tokenAuction: gql`
-    fragment BidConfirmedDialogContent_tokenAuction on TokenAuction {
+    fragment BidConfirmedDialogContent_tokenAuction on Auction {
       id
       autoBid
       ...BidResume_tokenAuction

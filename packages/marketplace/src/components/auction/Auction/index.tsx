@@ -59,7 +59,7 @@ export const Auction = ({ auction }: Props) => {
 
 Auction.fragments = {
   auction: gql`
-    fragment Auction_auction on TokenAuction {
+    fragment Auction_auction on Auction {
       id
       blockchainId
       nfts {

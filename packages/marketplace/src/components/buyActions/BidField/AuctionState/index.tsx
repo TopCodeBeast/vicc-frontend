@@ -75,7 +75,7 @@ const AuctionState = ({
 
 AuctionState.fragments = {
   tokenAuction: gql`
-    fragment AuctionState_tokenAuction on TokenAuction {
+    fragment AuctionState_tokenAuction on Auction {
       id
       bidsCount
       endDate

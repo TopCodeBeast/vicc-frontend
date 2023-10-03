@@ -160,7 +160,7 @@ export const AuctionWonContent = ({
 
 AuctionWonContent.fragments = {
   tokenAuction: gql`
-    fragment AuctionWonContent_tokenAuction on TokenAuction {
+    fragment AuctionWonContent_tokenAuction on Auction {
       id
       nfts {
         slug

@@ -83,7 +83,7 @@ const usePollAuction = (auction?: UsePollAuction_auction | null) => {
 
 usePollAuction.fragments = {
   auction: gql`
-    fragment UsePollAuction_auction on TokenAuction {
+    fragment UsePollAuction_auction on Auction {
       id
       open
       endDate

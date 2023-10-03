@@ -35,7 +35,7 @@ export const useAuctionConversionCredit = (
 
 useAuctionConversionCredit.fragments = {
   auction: gql`
-    fragment useAuctionConversionCredit_auction on TokenAuction {
+    fragment useAuctionConversionCredit_auction on Auction {
       id
       myBestBid {
         id

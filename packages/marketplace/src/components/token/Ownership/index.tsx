@@ -54,7 +54,7 @@ export const Ownership = ({ owner }: Props) => {
   const { up: laptop } = useScreenSize('laptop');
 
   const date = parseISO(owner.from);
-  const auction = isType(owner.deal, 'TokenAuction') ? owner.deal : undefined;
+  const auction = isType(owner.deal, 'Auction') ? owner.deal : undefined;
   const directOffer =
     isType(owner.deal, 'TokenOffer') &&
     owner.transferType === OwnerTransfer.DIRECT_OFFER
@@ -128,7 +128,7 @@ Ownership.fragments = {
         ...useOwnerAccount_account
       }
       deal {
-        ... on TokenAuction {
+        ... on Auction {
           id
           bidsCount
         }

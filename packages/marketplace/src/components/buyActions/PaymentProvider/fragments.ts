@@ -8,7 +8,7 @@ import { PaymentProvider_auction } from './__generated__/fragments.graphql';
 
 export const fragments = {
   auction: gql`
-    fragment PaymentProvider_auction on TokenAuction {
+    fragment PaymentProvider_auction on Auction {
       id
       blockchainId
       autoBid

@@ -30,7 +30,7 @@ export const BundledTokenAuctionName = ({ tokenAuction, Variant }: Props) => {
 
 BundledTokenAuctionName.fragments = {
   tokenAuction: gql`
-    fragment BundledTokenAuctionName_tokenAuction on TokenAuction {
+    fragment BundledTokenAuctionName_tokenAuction on Auction {
       id
       team
     }

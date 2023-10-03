@@ -126,7 +126,7 @@ export const OpenAuction = ({ auction }: Props) => {
 
 OpenAuction.fragments = {
   auction: gql`
-    fragment OpenAuction_auction on TokenAuction {
+    fragment OpenAuction_auction on Auction {
       id
       cancelled
       autoBid

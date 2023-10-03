@@ -26,7 +26,7 @@ const PRICE_HISTORY_QUERY = gql`
         }
         date
         deal {
-          ... on TokenAuction {
+          ... on Auction {
             id
             nfts {
               assetId
