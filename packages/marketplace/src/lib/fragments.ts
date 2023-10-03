@@ -88,7 +88,7 @@ const bidderFragment = gql`
 ` as TypedDocumentNode<TokenBidderSubscription_blockchainUser>;
 
 const bidsFragment = gql`
-  fragment TokenBidSubscription_bidConnection on TokenBidConnection {
+  fragment TokenBidSubscription_bidConnection on BidConnection {
     nodes {
       id
       amounts {

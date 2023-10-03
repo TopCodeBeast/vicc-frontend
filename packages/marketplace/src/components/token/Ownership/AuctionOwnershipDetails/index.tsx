@@ -41,7 +41,7 @@ export const AuctionOwnershipDetails = ({ auction }: Props) => {
     variables: {
       id: idFromObject(auction.id)!,
     },
-    connection: 'TokenBidConnection',
+    connection: 'BidConnection',
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });

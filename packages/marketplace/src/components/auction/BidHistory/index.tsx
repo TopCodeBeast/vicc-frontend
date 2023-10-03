@@ -68,7 +68,7 @@ const BidHistory = ({
 
 BidHistory.fragments = {
   bid: gql`
-    fragment BidHistory_tokenBidConnection on TokenBidConnection {
+    fragment BidHistory_tokenBidConnection on BidConnection {
       nodes {
         id
         ...Bid_tokenBid

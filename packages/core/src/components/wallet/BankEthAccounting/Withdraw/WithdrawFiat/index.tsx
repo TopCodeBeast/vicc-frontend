@@ -115,7 +115,7 @@ export const WithdrawFiat = () => {
     WITHDRAWAL_BANK_ACCOUNTS_QUERY,
     {
       skip: !fiatWalletAccountable,
-      connection: 'TokenBidConnection',
+      connection: 'BidConnection',
       nextFetchPolicy: 'cache-first',
       fetchPolicy: 'cache-and-network',
     }

@@ -64,7 +64,7 @@ export const CardPage = ({ inDialog }: Props) => {
       first: scoresLimit,
     },
     skip: !slug,
-    connection: 'TokenBidConnection',
+    connection: 'BidConnection',
   });
 
   const { InfiniteScrollLoader } = useInfiniteScroll(

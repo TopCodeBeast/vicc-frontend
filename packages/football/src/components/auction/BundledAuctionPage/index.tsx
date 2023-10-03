@@ -112,7 +112,7 @@ export const BundledAuctionPage = () => {
       id: id!,
     },
     skip: !id,
-    connection: 'TokenBidConnection',
+    connection: 'BidConnection',
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
