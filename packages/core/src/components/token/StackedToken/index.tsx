@@ -97,7 +97,7 @@ StackedToken.fragments = {
       pictureUrl(derivative: "tinified")
       sport
       metadata {
-        ... on TokenCardMetadataInterface {
+        ... on TokenMetadataInterface {
           id
           playerSlug
           teamSlug

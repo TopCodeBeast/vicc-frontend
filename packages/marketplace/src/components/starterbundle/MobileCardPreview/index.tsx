@@ -79,7 +79,7 @@ MobileCardPreview.fragments = {
       slug
       sport
       metadata {
-        ... on TokenCardMetadataInterface {
+        ... on TokenMetadataInterface {
           id
           rarity
           serialNumber

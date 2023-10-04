@@ -58,7 +58,7 @@ export const fragments = {
       slug
       name
       metadata {
-        ... on TokenCardMetadataInterface {
+        ... on TokenMetadataInterface {
           id
           playerDisplayName
           playerSlug

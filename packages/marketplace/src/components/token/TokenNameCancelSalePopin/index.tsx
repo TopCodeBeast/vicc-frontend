@@ -56,7 +56,7 @@ TokenNameCancelSalePopin.fragments = {
       slug
       sport
       metadata {
-        ... on TokenCardMetadataInterface {
+        ... on TokenMetadataInterface {
           id
           playerDisplayName
           rarity

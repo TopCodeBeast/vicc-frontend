@@ -61,7 +61,7 @@ TokenPriceHistory.fragments = {
       slug
       collection
       metadata {
-        ... on TokenCardMetadataInterface {
+        ... on TokenMetadataInterface {
           id
           playerDisplayName
           playerSlug

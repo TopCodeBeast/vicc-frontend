@@ -285,7 +285,7 @@
             "TokenMonetaryReward",
             "TokenMyBid",
             "TokenOffer",
-            "TokenOwner",
+            "Owner",
             "TokenPrice",
             "TokenPrimaryOffer",
             "TokenTrade",
@@ -455,7 +455,7 @@
             "Club",
             "NationalTeam"
         ],
-        "TokenCardMetadataInterface": [
+        "TokenMetadataInterface": [
             "TokenBaseballMetadata",
             "TokenFootballMetadata"
         ],

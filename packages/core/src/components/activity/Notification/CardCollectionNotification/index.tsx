@@ -179,7 +179,7 @@ CardCollectionNotification.fragments = {
           assetId
           slug
           metadata {
-            ... on TokenCardMetadataInterface {
+            ... on TokenMetadataInterface {
               id
               playerDisplayName
               playerSlug

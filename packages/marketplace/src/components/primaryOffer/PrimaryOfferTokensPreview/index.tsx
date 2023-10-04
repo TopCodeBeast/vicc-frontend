@@ -93,7 +93,7 @@ PrimaryOfferTokensPreview.fragments = {
       assetId
       collection
       metadata {
-        ... on TokenCardMetadataInterface {
+        ... on TokenMetadataInterface {
           id
           rarity
         }

@@ -112,7 +112,7 @@ OfferNotification.fragments = {
     fragment OfferNotification_offerNotification on OfferNotification {
       ...Notification_notificationInterface
       sport
-      tokenOffer {
+      offer {
         id
         status
         sender {

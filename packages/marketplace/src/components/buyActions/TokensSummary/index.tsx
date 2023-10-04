@@ -186,7 +186,7 @@ TokensSummary.fragments = {
       assetId
       slug
       metadata {
-        ... on TokenCardMetadataInterface {
+        ... on TokenMetadataInterface {
           id
           rarity
         }

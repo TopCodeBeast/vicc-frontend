@@ -245,7 +245,7 @@ PriceHistoryTooltip.fragments = {
       slug
       collection
       metadata {
-        ... on TokenCardMetadataInterface {
+        ... on TokenMetadataInterface {
           id
           rarity
           playerSlug

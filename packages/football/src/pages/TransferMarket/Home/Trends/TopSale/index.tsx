@@ -60,7 +60,7 @@ export const TopSale = ({ tokenOwner, timeframe }: Props) => {
 
 TopSale.fragments = {
   tokenOwner: gql`
-    fragment TopSale_tokenOwner on TokenOwner {
+    fragment TopSale_tokenOwner on Owner {
       id
       token {
         assetId

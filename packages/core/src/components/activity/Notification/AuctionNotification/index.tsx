@@ -99,7 +99,7 @@ AuctionNotification.fragments = {
           sport
           ...DumbNotification_tokenPicture
           metadata {
-            ... on TokenCardMetadataInterface {
+            ... on TokenMetadataInterface {
               id
               playerDisplayName
               playerSlug

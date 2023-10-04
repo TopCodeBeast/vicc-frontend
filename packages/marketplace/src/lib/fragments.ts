@@ -124,7 +124,7 @@ export const TOKEN_BY_ID_QUERY = gql`
         slug
         collection
         metadata {
-          ... on TokenCardMetadataInterface {
+          ... on TokenMetadataInterface {
             id
             rarity
           }
@@ -214,7 +214,7 @@ export const PRIMARY_OFFER_BY_ID_QUERY = gql`
           slug
           assetId
           metadata {
-            ... on TokenCardMetadataInterface {
+            ... on TokenMetadataInterface {
               id
               rarity
             }

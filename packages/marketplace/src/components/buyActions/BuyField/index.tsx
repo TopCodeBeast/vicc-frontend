@@ -235,7 +235,7 @@ BuyField.fragments = {
       sport
       ...Analytics_tokenInfo
       metadata {
-        ... on TokenCardMetadataInterface {
+        ... on TokenMetadataInterface {
           id
           rarity
           playerSlug

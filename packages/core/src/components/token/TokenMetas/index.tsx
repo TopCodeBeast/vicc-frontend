@@ -38,7 +38,7 @@ TokenMetas.fragments = {
       assetId
       sport
       metadata {
-        ... on TokenCardMetadataInterface {
+        ... on TokenMetadataInterface {
           id
           playerDisplayName
           playerSlug

@@ -252,7 +252,7 @@ export const tokenHitFragment = gql`
     collection
     sport
     metadata {
-      ... on TokenCardMetadataInterface {
+      ... on TokenMetadataInterface {
         id
         rarity
         serialNumber

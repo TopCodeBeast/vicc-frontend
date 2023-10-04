@@ -34,7 +34,7 @@ const EMPTY_SLOTS_SALES_QUERY = gql`
         assetId
         slug
         metadata {
-          ... on TokenCardMetadataInterface {
+          ... on TokenMetadataInterface {
             id
             playerSlug
           }

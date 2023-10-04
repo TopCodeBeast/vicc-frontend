@@ -118,7 +118,7 @@ export const Ownership = ({ owner }: Props) => {
 
 Ownership.fragments = {
   tokenOwner: gql`
-    fragment Ownership_tokenOwner on TokenOwner {
+    fragment Ownership_tokenOwner on Owner {
       id
       from
       transferType

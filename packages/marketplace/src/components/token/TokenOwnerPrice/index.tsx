@@ -36,7 +36,7 @@ export const TokenOwnerPrice = ({ tokenOwner }: Props) => {
 
 TokenOwnerPrice.fragments = {
   tokenOwner: gql`
-    fragment TokenOwnerPrice_tokenOwner on TokenOwner {
+    fragment TokenOwnerPrice_tokenOwner on Owner {
       id
       transferType
       price {

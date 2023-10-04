@@ -80,7 +80,7 @@ TokenName.fragments = {
       slug
       sport
       metadata {
-        ... on TokenCardMetadataInterface {
+        ... on TokenMetadataInterface {
           id
           playerSlug
           playerDisplayName
