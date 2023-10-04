@@ -53,7 +53,7 @@ const MY_OFFERS_QUERY = gql`
   ) {
     currentUser {
       slug
-      tokenOffers(
+      offers(
         direction: $direction
         first: 10
         after: $cursor

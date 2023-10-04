@@ -32,9 +32,7 @@ const notifications = gql`
   fragment InGameNotificationProvider_notifications on CurrentUser {
     slug
     unreadNotificationsCount
-    allUnreadNotificationsCount: unreadNotificationsCount(
-      categories: $notificationCategories
-    )
+    allUnreadNotificationsCount: unreadNotificationsCount
     allNotifications: notifications(
       first: $pageSize
       after: $notificationCursor
@@ -48,10 +46,7 @@ const notifications = gql`
         ...InGameNotificationProvider_notification
       }
     }
-    currentSportUnreadAnnouncementsCount: unreadNotificationsCount(
-      sports: $sports
-      categories: $announcementCategories
-    )
+    currentSportUnreadAnnouncementsCount: unreadNotificationsCount
     currentSportAnnouncements: notifications(
       first: $pageSize
       after: $notificationCursor

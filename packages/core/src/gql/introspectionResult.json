@@ -284,10 +284,10 @@
             "Bid",
             "TokenMonetaryReward",
             "TokenMyBid",
-            "TokenOffer",
+            "Offer",
             "Owner",
             "TokenPrice",
-            "TokenPrimaryOffer",
+            "Offer",
             "TokenTrade",
             "TokenWithdrawal",
             "User",
@@ -351,12 +351,12 @@
         "PaymentIntentOperation": [
             "Bid",
             "Offer",
-            "TokenPrimaryOffer"
+            "Offer"
         ],
         "PaymentIntentTokenOperation": [
             "Bid",
-            "TokenOffer",
-            "TokenPrimaryOffer"
+            "Offer",
+            "Offer"
         ],
         "PlayerGameStatsInterface": [
             "BaseballPlayerGameStats",
@@ -461,8 +461,8 @@
         ],
         "TokenDeal": [
             "Auction",
-            "TokenOffer",
-            "TokenPrimaryOffer"
+            "Offer",
+            "Offer"
         ],
         "TokenMetadata": [
             "TokenBaseballMetadata",
@@ -470,8 +470,8 @@
         ],
         "TokenOperationTradeInterface": [
             "Auction",
-            "TokenOffer",
-            "TokenPrimaryOffer"
+            "Offer",
+            "Offer"
         ],
         "UserAccountEntryOperation": [
             "Bid",
@@ -482,7 +482,7 @@
             "So5Reward",
             "StarkwareWithdrawal",
             "TokenMonetaryReward",
-            "TokenPrimaryOffer",
+            "Offer",
             "TokenWithdrawal",
             "Withdrawal"
         ],
@@ -494,8 +494,8 @@
             "StarkwareWithdrawal",
             "Bid",
             "TokenMonetaryReward",
-            "TokenOffer",
-            "TokenPrimaryOffer",
+            "Offer",
+            "Offer",
             "TokenWithdrawal",
             "Withdrawal"
         ],

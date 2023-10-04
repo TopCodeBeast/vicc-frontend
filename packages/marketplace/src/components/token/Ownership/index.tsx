@@ -56,7 +56,7 @@ export const Ownership = ({ owner }: Props) => {
   const date = parseISO(owner.from);
   const auction = isType(owner.deal, 'Auction') ? owner.deal : undefined;
   const directOffer =
-    isType(owner.deal, 'TokenOffer') &&
+    isType(owner.deal, 'Offer') &&
     owner.transferType === OwnerTransfer.DIRECT_OFFER
       ? owner.deal
       : undefined;
@@ -132,7 +132,7 @@ Ownership.fragments = {
           id
           bidsCount
         }
-        ... on TokenOffer {
+        ... on Offer {
           id
         }
       }

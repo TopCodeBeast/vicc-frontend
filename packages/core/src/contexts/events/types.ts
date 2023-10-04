@@ -68,9 +68,9 @@ export const fragments = {
           singleCivilYear
           teamSlug
         }
-        ... on TokenCricketMetadata {
-          playerPosition
-        }
+        # ... on TokenCricketMetadata {
+        #   playerPosition
+        # }
       }
       owner {
         id

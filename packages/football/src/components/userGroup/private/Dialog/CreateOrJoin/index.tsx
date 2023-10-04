@@ -144,7 +144,7 @@ const CreateOrJoin = ({ next }: Props) => {
               />
             </Title>
 
-            {!data?.vicc5.eligibleTournamentTypesForVicc5UserGroups
+            {!data?.vicc5.eligibleTournamentsForVicc5UserGroups
               .length ? (
               <Text16>
                 <FormattedMessage

@@ -195,7 +195,7 @@ export const AcceptOfferDialog = ({
 
 AcceptOfferDialog.fragments = {
   tokenOffer: gql`
-    fragment AcceptOfferDialog_tokenOffer on TokenOffer {
+    fragment AcceptOfferDialog_tokenOffer on Offer {
       id
       settlementCurrencies
       receiverSide {

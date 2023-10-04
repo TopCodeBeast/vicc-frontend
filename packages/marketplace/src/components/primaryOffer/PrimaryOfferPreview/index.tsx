@@ -173,7 +173,7 @@ export const PrimaryOfferPreview = ({
 
 PrimaryOfferPreview.fragments = {
   primaryOffer: gql`
-    fragment PrimaryOfferPreview_primaryOffer on TokenPrimaryOffer {
+    fragment PrimaryOfferPreview_primaryOffer on Offer {
       id
       endDate
       buyer {

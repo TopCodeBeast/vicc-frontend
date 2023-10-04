@@ -52,7 +52,7 @@ export const Offer = ({
     return null;
   }
 
-  if (!isType(tokenOperation, 'TokenOffer') || !tokenOperation.sender) {
+  if (!isType(tokenOperation, 'Offer') || !tokenOperation.sender) {
     return null;
   }
 
@@ -153,7 +153,7 @@ Offer.fragments = {
         ...MonetaryAmountFragment_monetaryAmount
       }
       tokenOperation {
-        ... on TokenOffer {
+        ... on Offer {
           id
           marketFeeAmounts {
             ...MonetaryAmountFragment_monetaryAmount

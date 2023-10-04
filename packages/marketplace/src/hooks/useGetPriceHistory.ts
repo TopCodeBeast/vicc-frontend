@@ -36,7 +36,7 @@ const PRICE_HISTORY_QUERY = gql`
               pictureUrl: pictureUrl(derivative: "tinified")
             }
           }
-          ... on TokenOffer {
+          ... on Offer {
             id
             senderSide {
               id
@@ -49,7 +49,7 @@ const PRICE_HISTORY_QUERY = gql`
               }
             }
           }
-          ... on TokenPrimaryOffer {
+          ... on Offer {
             id
             nfts {
               assetId

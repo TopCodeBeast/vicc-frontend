@@ -114,7 +114,7 @@ export const TransactionsOffer = ({ tokenOffer }: Props) => {
 
 TransactionsOffer.fragments = {
   tokenOffer: gql`
-    fragment TransactionsOffer_tokenOffer on TokenOffer {
+    fragment TransactionsOffer_tokenOffer on Offer {
       id
       endDate
       sender {

@@ -24,7 +24,7 @@ const OPEN_SALE_OFFERS_QUERY = gql`
   ) {
     currentUser {
       slug
-      liveSingleSaleTokenOffers(
+      liveSingleSaleOffers(
         first: 10
         after: $cursor
         sortByEndDate: $sortByEndDate
@@ -72,7 +72,7 @@ const OpenSingleSaleOffers = ({
 
   if (!data?.currentUser) return null;
   const { items, count, cursor, hasMore } = extractConnectionData(
-    data?.currentUser?.liveSingleSaleTokenOffers,
+    data?.currentUser?.liveSingleSaleOffers,
     p => <Sale key={p.id} sale={p} />
   );
 

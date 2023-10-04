@@ -34,7 +34,7 @@ const NewsSignings = ({
       img={cover}
       imgDesktop={coverDesktop}
       lifecycleKey={LIFECYCLE.sawMarketplaceOnboarding}
-      show={data?.currentUser?.wonTokenAuctions?.totalCount === 0}
+      show={data?.currentUser?.wonAuctions?.totalCount === 0}
       open={open}
       onClick={onClick}
     />

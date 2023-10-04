@@ -27,7 +27,7 @@ import usePrepareOffer from './usePrepareOffer';
 const CREATE_DIRECT_OFFER_MUTATION = gql`
   mutation CreateDirectOfferMutation($input: createDirectOfferInput!) {
     createDirectOffer(input: $input) {
-      tokenOffer {
+      offer {
         id
         counteredOffer {
           id

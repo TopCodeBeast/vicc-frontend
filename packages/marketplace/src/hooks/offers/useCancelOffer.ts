@@ -14,7 +14,7 @@ import {
 const CANCEL_OFFER_MUTATION = gql`
   mutation CancelOfferMutation($input: cancelOfferInput!) {
     cancelOffer(input: $input) {
-      tokenOffer {
+      offer {
         id
         status
         cancelledAt

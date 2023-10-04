@@ -127,7 +127,7 @@ export const BuyPrimaryOfferConfirmation = ({
 
 BuyPrimaryOfferConfirmation.fragments = {
   primaryOffer: gql`
-    fragment BuyPrimaryOfferConfirmation_primaryOffer on TokenPrimaryOffer {
+    fragment BuyPrimaryOfferConfirmation_primaryOffer on Offer {
       id
       price {
         ...MonetaryAmountFragment_monetaryAmount

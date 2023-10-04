@@ -98,12 +98,12 @@ export const OwnerAccount = ({ children, account }: Props) => {
     );
   }
 
-  if (isType(account.accountable, 'StarkwareAccount')) {
+  /*if (isType(account.accountable, 'StarkwareAccount')) {
     return renderOwnerAccount(
       account.accountable,
       account.accountable.starkKey
     );
-  }
+  }*/
 
   return null;
 };
@@ -126,17 +126,11 @@ OwnerAccount.fragments = {
           address
           ...Avatar_ethereumAccount
         }
-        ... on StarkwareAccount {
-          id
-          starkKey
-          ...Avatar_starkwareAccount
-        }
       }
     }
     ${UserName.fragments.user}
     ${ActiveUserAvatar.fragments.user}
     ${Avatar.fragments.ethereumAccount}
-    ${Avatar.fragments.starkwareAccount}
     ${GalleryLink.fragments.user}
   ` as TypedDocumentNode<OwnerAccount_account>,
 };

@@ -46,7 +46,7 @@ export const SaleWinner = ({ sale }: Props) => {
 
 SaleWinner.fragments = {
   offer: gql`
-    fragment SaleWinner_offer on TokenOffer {
+    fragment SaleWinner_offer on Offer {
       id
       endDate
       sender {

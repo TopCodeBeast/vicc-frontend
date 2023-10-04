@@ -20,7 +20,7 @@ export const Offer = ({ payment }: Props) => {
 
   if (!currentUser || !tokenOperation) return null;
 
-  if (!isType(tokenOperation, 'TokenOffer') || !tokenOperation.sender) {
+  if (!isType(tokenOperation, 'Offer') || !tokenOperation.sender) {
     return null;
   }
 
@@ -59,7 +59,7 @@ Offer.fragments = {
     fragment Offer_payment on Payment {
       id
       tokenOperation {
-        ... on TokenOffer {
+        ... on Offer {
           id
           ...TransactionsOffer_tokenOffer
         }

@@ -66,7 +66,7 @@ SaleDetails.fragments = {
     ${EndedSaleDetails.fragments.token}
   ` as TypedDocumentNode<SaleDetails_token>,
   offer: gql`
-    fragment SaleDetails_offer on TokenOffer {
+    fragment SaleDetails_offer on Offer {
       id
       endDate
       ...LiveSaleDetails_offer

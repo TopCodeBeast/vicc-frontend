@@ -76,7 +76,7 @@ export const PrimaryOfferPageContent = ({
 
 PrimaryOfferPageContent.fragments = {
   primaryOffer: gql`
-    fragment PrimaryOfferPageContent_primaryOffer on TokenPrimaryOffer {
+    fragment PrimaryOfferPageContent_primaryOffer on Offer {
       id
       nfts {
         assetId

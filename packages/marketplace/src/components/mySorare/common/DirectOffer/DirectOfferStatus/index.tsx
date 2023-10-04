@@ -400,7 +400,7 @@ const DirectOfferStatus = ({
 
 DirectOfferStatus.fragments = {
   tokenOffer: gql`
-    fragment MyViccDirectOfferStatus_tokenOffer on TokenOffer {
+    fragment MyViccDirectOfferStatus_tokenOffer on Offer {
       id
       blockchainId
       status

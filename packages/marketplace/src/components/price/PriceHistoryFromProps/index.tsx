@@ -33,7 +33,7 @@ type PriceHistoryQuery_tokens_tokenPrices_deal_TokenAuction_nfts =
   PriceHistoryQuery_tokens_tokenPrices_deal_TokenAuction['nfts'][number];
 
 type PriceHistoryQuery_tokens_tokenPrices_deal_TokenOffer =
-  PriceHistoryQuery_tokens_tokenPrices_deal & { __typename: 'TokenOffer' };
+  PriceHistoryQuery_tokens_tokenPrices_deal & { __typename: 'Offer' };
 
 type PriceHistoryQuery_tokens_tokenPrices_deal_TokenOffer_senderSide_nfts =
   PriceHistoryQuery_tokens_tokenPrices_deal_TokenOffer['senderSide']['nfts'][number];
@@ -121,7 +121,7 @@ const TransactionLabel = ({
 };
 
 const getTokenFromDeal = (deal: PriceHistoryQuery_tokens_tokenPrices_deal) => {
-  const dealIsTokenOffer = isType(deal, 'TokenOffer');
+  const dealIsTokenOffer = isType(deal, 'Offer');
 
   const items = dealIsTokenOffer ? deal.senderSide.nfts : deal.nfts;
   if (items.length === 1) return items[0];

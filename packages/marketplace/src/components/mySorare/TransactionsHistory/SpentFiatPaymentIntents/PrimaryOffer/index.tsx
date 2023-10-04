@@ -22,7 +22,7 @@ export const PrimaryOffer = ({ payment }: Props) => {
   const { tokenOperation } = payment;
   const { formatMessage } = useIntl();
 
-  if (!isType(tokenOperation, 'TokenPrimaryOffer')) {
+  if (!isType(tokenOperation, 'Offer')) {
     return null;
   }
 
@@ -39,7 +39,7 @@ PrimaryOffer.fragments = {
       id
       ...AccountEntry_payment
       tokenOperation {
-        ... on TokenPrimaryOffer {
+        ... on Offer {
           id
           ...TransactionsPrimaryOffer_tokenPrimaryOffer
         }

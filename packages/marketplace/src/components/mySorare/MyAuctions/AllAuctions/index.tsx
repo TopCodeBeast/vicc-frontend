@@ -24,7 +24,7 @@ const ALL_TOKEN_AUCTIONS_QUERY = gql`
   ) {
     currentUser {
       slug
-      tokenAuctions(
+      auctions(
         first: 10
         after: $cursor
         sortByEndDate: $sortByEndDate

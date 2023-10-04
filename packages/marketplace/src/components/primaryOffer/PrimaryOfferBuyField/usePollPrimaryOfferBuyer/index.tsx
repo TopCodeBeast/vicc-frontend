@@ -55,7 +55,7 @@ const usePollPrimaryOfferBuyer = (
 
 usePollPrimaryOfferBuyer.fragments = {
   primaryOffer: gql`
-    fragment usePollPrimaryOfferBuyer_primaryOffer on TokenPrimaryOffer {
+    fragment usePollPrimaryOfferBuyer_primaryOffer on Offer {
       id
       buyer {
         slug

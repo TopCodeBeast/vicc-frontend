@@ -24,7 +24,7 @@ const SOLD_SALE_OFFERS_QUERY = gql`
   ) {
     currentUser {
       slug
-      soldSingleSaleTokenOffers(
+      soldSingleSaleOffers(
         first: 10
         after: $cursor
         sortByEndDate: $sortByEndDate
@@ -71,7 +71,7 @@ const SoldSingleSaleOffers = ({
   );
 
   const { items, count, cursor, hasMore } = extractConnectionData(
-    data?.currentUser?.soldSingleSaleTokenOffers,
+    data?.currentUser?.soldSingleSaleOffers,
     p => <Sale key={p.id} sale={p} />
   );
   const displayLoading = !items && loading;

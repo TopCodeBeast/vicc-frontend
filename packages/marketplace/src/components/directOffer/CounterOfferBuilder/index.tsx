@@ -66,7 +66,7 @@ const CounterOfferBuilder = ({
 };
 CounterOfferBuilder.fragments = {
   tokenOffer: gql`
-    fragment CounterOfferBuilder_tokenOffer on TokenOffer {
+    fragment CounterOfferBuilder_tokenOffer on Offer {
       id
       blockchainId
       marketFeeAmountWei

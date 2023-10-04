@@ -17,7 +17,7 @@ const OPEN_TOKEN_AUCTIONS_QUERY = gql`
   query OpenTokenAuctionsQuery($newlyListed: Boolean, $sport: [Sport!]) {
     currentUser {
       slug
-      buyingTokenAuctions(newlyListed: $newlyListed, sport: $sport) {
+      buyingAuctions(newlyListed: $newlyListed, sport: $sport) {
         id
         ...Auction_auction
       }
@@ -44,7 +44,7 @@ const OpenAuctions = ({
   });
 
   const { items, count } = extractArrayData(
-    data?.currentUser?.buyingTokenAuctions,
+    data?.currentUser?.buyingAuctions,
     p => <Auction key={p.id} auction={p} />
   );
 

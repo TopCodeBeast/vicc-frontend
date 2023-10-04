@@ -43,32 +43,32 @@ const MY_NEWS_QUERY = gql`
   query MyNewsQuery {
     currentUser {
       slug
-      buyingTokenAuctions {
+      buyingAuctions {
         id
         ...Auction_auction
       }
-      liveSingleSaleTokenOffers(first: 2) {
+      liveSingleSaleOffers(first: 2) {
         totalCount
         nodes {
           id
           ...Sale_offer
         }
       }
-      boughtSingleSaleTokenOffers(first: 2) {
+      boughtSingleSaleOffers(first: 2) {
         totalCount
         nodes {
           id
           ...Sale_offer
         }
       }
-      pendingTokenOffersReceived(first: 1) {
+      pendingOffersReceived(first: 1) {
         totalCount
         nodes {
           id
           ...MyViccDirectOffer_tokenOffer
         }
       }
-      pendingTokenOffersSent(first: 1) {
+      pendingOffersSent(first: 1) {
         totalCount
         nodes {
           id
@@ -204,11 +204,11 @@ const MyNews = () => {
     return <LoadingIndicator />;
   }
 
-  const offerReceived = data?.currentUser?.pendingTokenOffersReceived;
-  const offerSent = data?.currentUser?.pendingTokenOffersSent;
-  const auctions = data?.currentUser?.buyingTokenAuctions;
-  const sales = data?.currentUser?.liveSingleSaleTokenOffers;
-  const purchases = data?.currentUser?.boughtSingleSaleTokenOffers;
+  const offerReceived = data?.currentUser?.pendingOffersReceived;
+  const offerSent = data?.currentUser?.pendingOffersSent;
+  const auctions = data?.currentUser?.buyingAuctions;
+  const sales = data?.currentUser?.liveSingleSaleOffers;
+  const purchases = data?.currentUser?.boughtSingleSaleOffers;
   const follows = data?.currentUser?.mySubscriptions;
 
   const hasAuctions = auctions && auctions?.length >= 1;

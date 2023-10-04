@@ -24,7 +24,7 @@ const LOST_TOKEN_AUCTIONS_QUERY = gql`
   ) {
     currentUser {
       slug
-      lostTokenAuctions(
+      lostAuctions(
         first: 10
         after: $cursor
         sortByEndDate: $sortByEndDate
@@ -71,7 +71,7 @@ const LostAuctions = ({
   );
 
   const { items, count, cursor, hasMore } = extractConnectionData(
-    data?.currentUser?.lostTokenAuctions,
+    data?.currentUser?.lostAuctions,
     p => <Auction key={p.id} auction={p} />
   );
 

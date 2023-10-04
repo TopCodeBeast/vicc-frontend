@@ -72,7 +72,7 @@ export const CreatePrivateUserGroup = () => {
     useQuery(ELIGIBLE_TOURNAMENTS_FOR_PRIVATE_USER_GROUP_QUERY);
   const tournaments =
     eligibleTournamentsData?.vicc5
-      .eligibleTournamentTypesForVicc5UserGroups;
+      .eligibleTournamentsForVicc5UserGroups;
 
   const { data: upcomingFixtureData, loading: upcomingFixtureLoading } =
     useQuery(UPCOMING_FIXTURES_QUERY);

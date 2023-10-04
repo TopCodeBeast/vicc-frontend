@@ -91,7 +91,7 @@ export const OfferSummary = ({
 
 OfferSummary.fragments = {
   tokenOffer: gql`
-    fragment OfferSummary_tokenOffer on TokenOffer {
+    fragment OfferSummary_tokenOffer on Offer {
       id
       sender {
         ... on User {

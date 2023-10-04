@@ -61,7 +61,7 @@ export const LiveOffer = ({ offer }: Props) => {
 
 LiveOffer.fragments = {
   tokenOffer: gql`
-    fragment LiveOffer_tokenOffer on TokenOffer {
+    fragment LiveOffer_tokenOffer on Offer {
       id
       createdAt
       senderSide {

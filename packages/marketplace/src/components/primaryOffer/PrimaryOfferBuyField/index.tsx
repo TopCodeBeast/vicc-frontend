@@ -190,7 +190,7 @@ export const PrimaryOfferBuyField = ({
 
 PrimaryOfferBuyField.fragments = {
   primaryOffer: gql`
-    fragment PrimaryOfferBuyField_primaryOffer on TokenPrimaryOffer {
+    fragment PrimaryOfferBuyField_primaryOffer on Offer {
       id
       price {
         ...MonetaryAmountFragment_monetaryAmount

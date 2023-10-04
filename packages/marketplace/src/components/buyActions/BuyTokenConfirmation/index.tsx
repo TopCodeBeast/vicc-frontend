@@ -105,7 +105,7 @@ export const BuyTokenConfirmation = ({ payment, offer }: Props) => {
 
 BuyTokenConfirmation.fragments = {
   tokenOffer: gql`
-    fragment BuyTokenConfirmation_tokenOffer on TokenOffer {
+    fragment BuyTokenConfirmation_tokenOffer on Offer {
       id
       creditCardFee
       sender {

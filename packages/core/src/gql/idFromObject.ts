@@ -19,7 +19,7 @@ export const dataIdFromObject = (object: StoreObject) => {
     if (__typename === 'Card') {
       return assetId || slug;
     }
-    if (__typename === 'TokenPrimaryOffer') {
+    if (__typename === 'Offer') {
       return idFromObject(id as string);
     }
     return slug || startYear || transactionHash;

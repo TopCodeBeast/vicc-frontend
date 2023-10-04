@@ -642,7 +642,7 @@ export const typePolicies: TypePolicies = {
         read(_, { args, toReference }) {
           if (args?.id) {
             return toReference({
-              __typename: 'TokenPrimaryOffer',
+              __typename: 'Offer',
               id: args.id,
             });
           }

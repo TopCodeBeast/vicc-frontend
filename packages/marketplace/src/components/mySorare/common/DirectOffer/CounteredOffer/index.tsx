@@ -143,7 +143,7 @@ CounteredOffer.fragments = {
     ${Nickname.fragments.user}
   ` as TypedDocumentNode<CounteredOffer_publicUserInfoInterface>,
   tokenOffer: gql`
-    fragment CounteredOffer_tokenOffer on TokenOffer {
+    fragment CounteredOffer_tokenOffer on Offer {
       id
       blockchainId
       sender {

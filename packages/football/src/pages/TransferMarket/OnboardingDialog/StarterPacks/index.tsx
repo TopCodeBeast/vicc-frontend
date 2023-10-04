@@ -34,7 +34,7 @@ const StartersPacks = ({
       img={cover}
       imgDesktop={coverDesktop}
       lifecycleKey={LIFECYCLE.sawStarterPacksOnboarding}
-      show={data?.currentUser?.boughtSingleSaleTokenOffers?.totalCount === 0}
+      show={data?.currentUser?.boughtSingleSaleOffers?.totalCount === 0}
       open={open}
       onClick={onClick}
     />

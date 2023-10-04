@@ -93,7 +93,7 @@ export const PrimaryOfferSale = ({ primaryOffer }: Props) => {
 
 PrimaryOfferSale.fragments = {
   primaryOffer: gql`
-    fragment PrimaryOfferSale_primaryOffer on TokenPrimaryOffer {
+    fragment PrimaryOfferSale_primaryOffer on Offer {
       id
       endDate
       buyer {

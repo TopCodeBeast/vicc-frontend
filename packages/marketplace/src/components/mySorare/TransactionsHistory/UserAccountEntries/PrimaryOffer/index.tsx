@@ -24,7 +24,7 @@ export const PrimaryOffer = ({ userAccountEntry, primaryCurrency }: Props) => {
   const { tokenOperation } = userAccountEntry;
   const { formatMessage } = useIntl();
 
-  if (!isType(tokenOperation, 'TokenPrimaryOffer')) {
+  if (!isType(tokenOperation, 'Offer')) {
     return null;
   }
 
@@ -44,7 +44,7 @@ PrimaryOffer.fragments = {
     fragment PrimaryOffer_userAccountEntry on UserAccountEntry {
       id
       tokenOperation {
-        ... on TokenPrimaryOffer {
+        ... on Offer {
           id
           ...TransactionsPrimaryOffer_tokenPrimaryOffer
         }

@@ -32,7 +32,7 @@ export const TransactionsPrimaryOffer = ({ tokenPrimaryOffer }: Props) => {
 
 TransactionsPrimaryOffer.fragments = {
   tokenPrimaryOffer: gql`
-    fragment TransactionsPrimaryOffer_tokenPrimaryOffer on TokenPrimaryOffer {
+    fragment TransactionsPrimaryOffer_tokenPrimaryOffer on Offer {
       id
       nfts {
         assetId

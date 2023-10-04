@@ -10,8 +10,8 @@ import {
 export const ELIGIBLE_TOURNAMENTS_FOR_PRIVATE_USER_GROUP_QUERY = gql`
   query eligibleTournamentsForPrivateUserGroupQuery {
     #football {
-      vicc5 {
-        eligibleTournamentTypesForVicc5UserGroups {
+      vicc5Root {
+        eligibleTournamentsForVicc5UserGroups {
           id
           ...TournamentInput_tournaments
         }

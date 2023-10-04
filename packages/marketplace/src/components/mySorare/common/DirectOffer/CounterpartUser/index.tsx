@@ -157,7 +157,7 @@ CounterpartUser.fragments = {
     ${Block.fragments.user}
   ` as TypedDocumentNode<CounterpartUser_publicUserInfoInterface>,
   tokenOffer: gql`
-    fragment CounterpartUser_tokenOffer on TokenOffer {
+    fragment CounterpartUser_tokenOffer on Offer {
       id
       status
       endDate

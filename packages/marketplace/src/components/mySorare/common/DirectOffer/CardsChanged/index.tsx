@@ -288,7 +288,7 @@ const CardsChanged = ({
 };
 
 const offerFragment = gql`
-  fragment CardsChangedOffer_tokenOffer on TokenOffer {
+  fragment CardsChangedOffer_tokenOffer on Offer {
     senderSide {
       id
       nfts {
@@ -310,7 +310,7 @@ const offerFragment = gql`
 
 CardsChanged.fragments = {
   tokenOffer: gql`
-    fragment CardsChanged_tokenOffer on TokenOffer {
+    fragment CardsChanged_tokenOffer on Offer {
       id
       ...CardsChangedOffer_tokenOffer
       counteredOffer {

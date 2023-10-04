@@ -125,12 +125,12 @@ export const UserAccountEntries = ({ currency }: Props) => {
       accountEntry: TransactionsHistoryQuery_currentUser_accountEntries_nodes
     ) => {
       const { tokenOperation } = accountEntry;
-      if (!isType(tokenOperation, 'TokenOffer')) {
+      if (!isType(tokenOperation, 'Offer')) {
         return undefined;
       }
 
       return accountEntries.find(entry => {
-        if (!isType(entry.tokenOperation, 'TokenOffer')) {
+        if (!isType(entry.tokenOperation, 'Offer')) {
           return false;
         }
 

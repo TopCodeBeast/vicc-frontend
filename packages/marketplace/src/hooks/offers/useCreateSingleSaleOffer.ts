@@ -26,7 +26,7 @@ import usePrepareOffer from './usePrepareOffer';
 const CREATE_SINGLE_SALE_OFFER_MUTATION = gql`
   mutation CreateSingleSaleOfferMutation($input: createSingleSaleOfferInput!) {
     createSingleSaleOffer(input: $input) {
-      tokenOffer {
+      offer {
         id
         sender {
           ... on User {

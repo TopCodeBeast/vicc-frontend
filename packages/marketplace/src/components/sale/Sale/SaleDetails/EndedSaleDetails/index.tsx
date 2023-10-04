@@ -112,7 +112,7 @@ EndedSaleDetails.fragments = {
     ${NewSaleDialog.fragments.token}
   ` as TypedDocumentNode<EndedSaleDetails_token>,
   offer: gql`
-    fragment EndedSaleDetails_offer on TokenOffer {
+    fragment EndedSaleDetails_offer on Offer {
       id
       status
       acceptedAt

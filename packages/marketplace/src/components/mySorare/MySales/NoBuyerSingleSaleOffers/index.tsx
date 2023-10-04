@@ -24,7 +24,7 @@ const NO_BUYER_SALE_OFFERS_QUERY = gql`
   ) {
     currentUser {
       slug
-      endedWithNoBuyerSingleSaleTokenOffers(
+      endedWithNoBuyerSingleSaleOffers(
         first: 10
         after: $cursor
         sortByEndDate: $sortByEndDate
@@ -71,7 +71,7 @@ const NoBuyerSingleSaleOffers = ({
   );
 
   const { items, count, cursor, hasMore } = extractConnectionData(
-    data?.currentUser?.endedWithNoBuyerSingleSaleTokenOffers,
+    data?.currentUser?.endedWithNoBuyerSingleSaleOffers,
     p => <Sale key={p.id} sale={p} />
   );
   const displayLoading = !items && loading;

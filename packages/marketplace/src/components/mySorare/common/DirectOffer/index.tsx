@@ -108,7 +108,7 @@ const DirectOffer = ({ offer, inModale }: Props) => {
 
 DirectOffer.fragments = {
   tokenOffer: gql`
-    fragment MyViccDirectOffer_tokenOffer on TokenOffer {
+    fragment MyViccDirectOffer_tokenOffer on Offer {
       id
       status
       ...MyViccDirectOfferStatus_tokenOffer

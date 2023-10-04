@@ -19,7 +19,7 @@ const useTokenOfferBelongsToUser = () => {
 
 useTokenOfferBelongsToUser.fragments = {
   offer: gql`
-    fragment useTokenOfferBelongsToUser_offer on TokenOffer {
+    fragment useTokenOfferBelongsToUser_offer on Offer {
       sender {
         ... on User {
           slug

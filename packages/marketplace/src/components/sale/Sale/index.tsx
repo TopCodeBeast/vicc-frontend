@@ -47,7 +47,7 @@ export const Sale = ({ sale }: Props) => {
 
 Sale.fragments = {
   offer: gql`
-    fragment Sale_offer on TokenOffer {
+    fragment Sale_offer on Offer {
       id
       senderSide {
         id

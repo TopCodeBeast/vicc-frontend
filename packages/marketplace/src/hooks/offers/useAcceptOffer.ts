@@ -25,7 +25,7 @@ const ACCEPT_OFFER_MUTATION = gql`
   mutation AcceptOfferMutation($input: acceptOfferInput!) {
     acceptOffer(input: $input) {
       deal {
-        ... on TokenPrimaryOffer {
+        ... on Offer {
           id
           status
           endDate
@@ -34,7 +34,7 @@ const ACCEPT_OFFER_MUTATION = gql`
             ...SmallUser_user
           }
         }
-        ... on TokenOffer {
+        ... on Offer {
           id
           status
           senderSide {

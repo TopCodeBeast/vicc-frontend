@@ -54,7 +54,7 @@ export const SalePrice = ({ sale, showFees }: Props) => {
 
 SalePrice.fragments = {
   offer: gql`
-    fragment SalePrice_offer on TokenOffer {
+    fragment SalePrice_offer on Offer {
       id
       owners {
         id

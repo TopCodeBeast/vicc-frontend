@@ -346,7 +346,7 @@ const DirectOfferBody = ({
 
 DirectOfferBody.fragments = {
   tokenOffer: gql`
-    fragment MyViccDirectOfferBody_tokenOffer on TokenOffer {
+    fragment MyViccDirectOfferBody_tokenOffer on Offer {
       id
       status
       marketFeeAmounts {
