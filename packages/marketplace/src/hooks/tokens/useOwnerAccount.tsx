@@ -80,14 +80,14 @@ export const useOwnerAccount = ({ account }: Props): ReturnedProps => {
     };
   }
 
-  if (isType(account.accountable, 'StarkwareAccount')) {
+  /*if (isType(account.accountable, 'StarkwareAccount')) {
     const accountable =
       account.accountable as useOwnerAccount_account_accountable_StarkwareAccount;
     return {
       avatar: <Avatar user={accountable} />,
       owner: accountable.starkKey,
     };
-  }
+  }*/
 
   return null;
 };

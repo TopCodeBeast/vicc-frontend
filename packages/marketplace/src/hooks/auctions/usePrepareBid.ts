@@ -1,7 +1,7 @@
 import { TypedDocumentNode, gql } from '@apollo/client';
 
 import {
-  StarkwareSignatureInput,
+  // StarkwareSignatureInput,
   SupportedCurrency,
   TokenPaymentMethod,
 } from '@sorare/core/src/__generated__/globalTypes';
@@ -19,6 +19,8 @@ import {
 export type AuthorizationRequest = NonNullable<
   NonNullable<PrepareBidMutation['prepareBid']>['authorizations']
 >[number];
+
+type StarkwareSignatureInput = any;
 
 const PREPARE_BID_MUTATION = gql`
   mutation PrepareBidMutation($input: prepareBidInput!) {

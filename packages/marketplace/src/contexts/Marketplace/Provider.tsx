@@ -81,9 +81,7 @@ const tokenInfoProperties = (token: Analytics_tokenInfo) => ({
   lastFifteenVicc5Appearances: 0,
   lastFifteenVicc5AverageScore: 0.0,
   playerSlug: token.metadata.playerSlug,
-  position: isType(token.metadata, 'TokenCricketMetadata')
-    ? token.metadata.playerPosition
-    : '',
+  position: '',
   positions: [],
   scarcity: token.metadata.rarity,
   season: token.metadata.seasonStartYear,

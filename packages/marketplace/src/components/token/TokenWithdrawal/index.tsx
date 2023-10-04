@@ -46,7 +46,7 @@ const TokenWithdrawal = ({ token }: Props) => {
   const { formatMessage } = useIntlContext();
   const { pendingWithdrawal, owner } = token;
 
-  const inRollup = owner?.blockchain === Blockchain.STARKWARE;
+  const inRollup = false;//owner?.blockchain === Blockchain.STARKWARE;
 
   const renderTransferInProgress = () => {
     if (!pendingWithdrawal) return null;

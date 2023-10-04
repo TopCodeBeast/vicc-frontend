@@ -1,7 +1,7 @@
 import { TypedDocumentNode, gql } from '@apollo/client';
 
 import {
-  StarkwareSignatureInput,
+  // StarkwareSignatureInput,
   SupportedCurrency,
   TokenPaymentMethod,
 } from '@sorare/core/src/__generated__/globalTypes';
@@ -48,6 +48,8 @@ const PREPARE_ACCEPT_OFFER_MUTATION = gql`
   PrepareAcceptOfferMutation,
   PrepareAcceptOfferMutationVariables
 >;
+
+type StarkwareSignatureInput = any;
 
 type PrepareAcceptOfferArgs = {
   offerId: string;

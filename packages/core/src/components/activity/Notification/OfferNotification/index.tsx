@@ -22,8 +22,8 @@ type Props = CommonNotificationProps & {
 };
 
 type OfferNotification_tokenOffer_User = (
-  | OfferNotification_offerNotification['tokenOffer']['receiver']
-  | OfferNotification_offerNotification['tokenOffer']['sender']
+  | OfferNotification_offerNotification['offer']['receiver']
+  | OfferNotification_offerNotification['offer']['sender']
 ) & {
   __typename: 'User';
 };
@@ -55,32 +55,32 @@ const messages = defineMessages({
 export const OfferNotification = ({ notification, ...rest }: Props) => {
   const { currentUser } = useCurrentUserContext();
 
-  const { name, createdAt, sport, tokenOffer, read } = notification;
+  const { name, createdAt, sport, offer, read } = notification;
 
   const link = useMemo(() => {
     if (
-      isType(tokenOffer.sender, 'User') &&
-      tokenOffer.sender.slug === currentUser?.slug
+      isType(offer.sender, 'User') &&
+      offer.sender.slug === currentUser?.slug
     ) {
       return generatePath(MY_SORARE_MY_OFFER_SENT, {
-        id: idFromObject(tokenOffer.id),
+        id: idFromObject(offer.id),
       });
     }
     return generatePath(MY_SORARE_MY_OFFER_RECEIVED, {
-      id: idFromObject(tokenOffer.id),
+      id: idFromObject(offer.id),
     });
-  }, [currentUser?.slug, tokenOffer]);
+  }, [currentUser?.slug, offer]);
 
   let user;
   switch (name) {
     case 'offer_accepted':
     case 'offer_rejected':
     case 'offer_cancelled':
-      user = tokenOffer.receiver as OfferNotification_tokenOffer_User;
+      user = offer.receiver as OfferNotification_tokenOffer_User;
       break;
     case 'offer_received':
     case 'offer_countered':
-      user = tokenOffer.sender as OfferNotification_tokenOffer_User;
+      user = offer.sender as OfferNotification_tokenOffer_User;
       break;
     default:
   }
