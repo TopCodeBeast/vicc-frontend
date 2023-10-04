@@ -99,7 +99,7 @@ const Footer = styled.footer`
 export const LOBBY_TOP_PLAYERS_PER_POSITION_QUERY = gql`
   query LobbyTopPlayersPerPositionQuery(
     $slug: String
-    $position: String!
+    $position: Position!
     $cursor: String
   ) {
     #football {

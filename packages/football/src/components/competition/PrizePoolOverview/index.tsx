@@ -257,7 +257,7 @@ const PrizePoolOverview = ({
 
 PrizePoolOverview.fragments = {
   leaderboardRewardsConfig: gql`
-    fragment PrizePoolOverview_leaderboardRewardsConfig on LeaderboardRewardsConfig {
+    fragment PrizePoolOverview_leaderboardRewardsConfig on Vicc5LeaderboardRewardsConfig {
       conditional {
         score
         coinAmount

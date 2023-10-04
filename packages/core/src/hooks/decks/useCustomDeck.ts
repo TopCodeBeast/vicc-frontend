@@ -8,8 +8,8 @@ import {
 } from './__generated__/useCustomDeck.graphql';
 
 const LIST_CUSTOM_DECK_QUERY = gql`
-  query ListCustomDeckQuery($name: String, $first: Int) {
-    customDeck(name: $name) {
+  query ListCustomDeckQuery($slug: String!, $name: String, $first: Int) {
+    customDeck(slug: $slug, name: $name) {
       slug
       name
       cardsCount

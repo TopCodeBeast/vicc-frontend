@@ -42,7 +42,7 @@ const CONFIG_QUERY = gql`
       ethereumEndpoint
       landingTheme {
         slug
-        cards
+        #cards
         subtitle
         userSource {
           id

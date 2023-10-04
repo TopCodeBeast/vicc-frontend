@@ -110,17 +110,11 @@ useOwnerAccount.fragments = {
           address
           ...Avatar_ethereumAccount
         }
-        ... on StarkwareAccount {
-          id
-          starkKey
-          ...Avatar_starkwareAccount
-        }
       }
     }
     ${UserName.fragments.user}
     ${Avatar.fragments.publicUserInfoInterface}
     ${Avatar.fragments.ethereumAccount}
-    ${Avatar.fragments.starkwareAccount}
     ${GalleryLink.fragments.user}
   ` as TypedDocumentNode<useOwnerAccount_account>,
 };
