@@ -162,11 +162,12 @@ export const emptyAppearance: EditableAppearance<null> = {
   card: null,
 };
 
+//TODO
 export const emptyLineupByPosition: EditableLineup<any> = {
-  [GlobalPosition.Goalkeeper]: { ...emptyAppearance },
-  [GlobalPosition.Defender]: { ...emptyAppearance },
-  [GlobalPosition.Midfielder]: { ...emptyAppearance },
-  [GlobalPosition.Forward]: { ...emptyAppearance },
+  [GlobalPosition.Batsman]: { ...emptyAppearance },
+  [GlobalPosition.Bowler]: { ...emptyAppearance },
+  [GlobalPosition.Fielder]: { ...emptyAppearance },
+  [GlobalPosition.Wicketkeeper]: { ...emptyAppearance },
   'Extra Player': { ...emptyAppearance },
 };
 
@@ -315,7 +316,7 @@ export const extraPlayerPosition: {
   [key in FormationName]: PlayablePosition | null;
 } = {
   defensive: GlobalPosition.Defender,
-  dense: GlobalPosition.Midfielder,
+  dense: GlobalPosition.Fielder,
   attacking: GlobalPosition.Forward,
   default: null,
 };
@@ -324,9 +325,9 @@ export const formationFromExtraPlayerPosition: {
   [key in PlayablePosition]: FormationName;
 } = {
   Defender: 'defensive',
-  Midfielder: 'dense',
+  Fielder: 'dense',
   Forward: 'attacking',
-  Goalkeeper: 'defensive',
+  Wicketkeeper: 'defensive',
 };
 
 export const getPositionSelectionOrder = (
@@ -460,7 +461,7 @@ export const positionShortNames = defineMessages<GlobalPosition | Position>({
     id: 'Player.shortForward',
     defaultMessage: 'FW',
   },
-  Midfielder: {
+  Fielder: {
     id: 'Player.shortMidfielder',
     defaultMessage: 'MD',
   },
@@ -468,7 +469,7 @@ export const positionShortNames = defineMessages<GlobalPosition | Position>({
     id: 'Player.shortDefender',
     defaultMessage: 'DF',
   },
-  Goalkeeper: {
+  Wicketkeeper: {
     id: 'Player.shortGoalkeeper',
     defaultMessage: 'GK',
   },

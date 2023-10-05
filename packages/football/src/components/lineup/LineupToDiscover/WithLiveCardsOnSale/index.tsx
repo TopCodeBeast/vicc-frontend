@@ -59,10 +59,10 @@ type CommonDraftCampaign = NonNullable<
 >;
 
 const POSITIONS = [
-  Position.Defender,
-  Position.Goalkeeper,
-  Position.Midfielder,
-  Position.Forward,
+  Position.Batsman,
+  Position.Wicketkeeper,
+  Position.Fielder,
+  Position.Bowler,
 ];
 
 const findBestPlayer = (

@@ -99,9 +99,9 @@ const tokensInfoProperties = (tokens: Analytics_tokenInfo[]) => ({
   domesticLeagueSlug: '',
   playerSlugs: tokens.map(token => token.metadata.playerSlug),
   positions: tokens.flatMap(token => {
-    if (isType(token.metadata, 'TokenCricketMetadata')) {
-      return [token.metadata.playerPosition];
-    }
+    // if (isType(token.metadata, 'TokenCricketMetadata')) {
+    //   return [token.metadata.playerPosition];
+    // }
     return [];
   }),
   cardCount: tokens.length,

@@ -33,10 +33,10 @@ export const splitName = (name: string) => {
 };
 
 export const lineupPositions = [
-  Position.Goalkeeper,
-  Position.Defender,
-  Position.Midfielder,
-  Position.Forward,
+  Position.Wicketkeeper,
+  Position.Batsman,
+  Position.Fielder,
+  Position.Bowler,
   'Extra Player',
 ] as const;
 
@@ -44,14 +44,14 @@ export type LineupPosition = (typeof lineupPositions)[number];
 
 // Changing how this array is sorted will change how the compose team go to the next available slot
 export const playablePositions = [
-  Position.Forward,
-  Position.Midfielder,
-  Position.Defender,
-  Position.Goalkeeper,
+  Position.Bowler,
+  Position.Fielder,
+  Position.Batsman,
+  Position.Wicketkeeper,
 ] as const;
 export type PlayablePosition = (typeof playablePositions)[number];
 
-export const allPositions = [...playablePositions, Position.Coach] as const;
+export const allPositions = [...playablePositions, Position.AllRounder] as const; //TODO
 
 export const positionComparator = (
   lenientPolicy: LenientPolicy = LenientPolicy.UNKNOWN_AT_HEAD
@@ -132,27 +132,27 @@ export const qualityNames: { [key in CardQuality]: string } = {
 };
 
 export const positionNames = defineMessages<Position>({
-  Forward: {
+  Bowler: {
     id: 'Player.forward',
     defaultMessage: 'Forward',
   },
-  Midfielder: {
+  Fielder: {
     id: 'Player.midfielder',
-    defaultMessage: 'Midfielder',
+    defaultMessage: 'Fielder',
   },
-  Defender: {
+  Batsman: {
     id: 'Player.defender',
     defaultMessage: 'Defender',
   },
-  Goalkeeper: {
+  Wicketkeeper: {
     id: 'Player.goalkeeper',
-    defaultMessage: 'Goalkeeper',
+    defaultMessage: 'Wicketkeeper',
   },
   Unknown: {
     id: 'Player.unknown',
     defaultMessage: 'Unknown Position',
   },
-  Coach: {
+  AllRounder: {
     id: 'Player.coach',
     defaultMessage: 'Coach',
   },

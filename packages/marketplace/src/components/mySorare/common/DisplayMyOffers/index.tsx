@@ -21,7 +21,7 @@ export const OPENED_STATES = [
   OfferState.OPENED,
   OfferState.PENDING_REJECTION,
   OfferState.MINTED,
-  OfferState.SETTLABLE,
+  OfferState.SETTLEABLE,
   OfferState.SETTLEMENT_PUBLISHED,
 ];
 
@@ -105,7 +105,7 @@ export const DisplayMyOffers = ({
   });
 
   const { items, count, cursor, hasMore } = extractConnectionData(
-    data?.currentUser?.tokenOffers,
+    data?.currentUser?.offers,
     node => <DirectOffer key={node!.id} offer={node!} />
   );
 

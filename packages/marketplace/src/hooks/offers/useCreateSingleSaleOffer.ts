@@ -148,7 +148,7 @@ const useCreateSingleSaleOffer = () => {
     });
 
     const updatedToken =
-      result.data?.createSingleSaleOffer?.tokenOffer?.senderSide?.nfts[0];
+      result.data?.createSingleSaleOffer?.offer?.senderSide?.nfts[0];
 
     if (updatedToken?.myMintedSingleSaleOffer) {
       showPopin({ assetId: updatedToken?.assetId });

@@ -75,7 +75,7 @@ export const ComposeOnboarding = ({ isOpen, onClose, competition }: Props) => {
             <Rows>
               <PickerRow>
                 <PickerCard
-                  position={Position.Forward}
+                  position={Position.Bowler}
                   drafted={{
                     value: 62,
                     avatarUrl: competition?.featuredPlayer?.pictureUrl,
@@ -88,9 +88,9 @@ export const ComposeOnboarding = ({ isOpen, onClose, competition }: Props) => {
                 <PickerCard position="Extra Player" active />
               </PickerRow>
               <PickerRow>
-                <PickerCard position={Position.Midfielder} />
-                <PickerCard position={Position.Defender} />
-                <PickerCard position={Position.Goalkeeper} />
+                <PickerCard position={Position.Fielder} />
+                <PickerCard position={Position.Batsman} />
+                <PickerCard position={Position.Wicketkeeper} />
               </PickerRow>
             </Rows>
           </LeagueHeader>

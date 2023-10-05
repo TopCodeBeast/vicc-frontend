@@ -93,7 +93,7 @@ const usePrepareAcceptOffer = ({ signAuthorizations }: Props) => {
       variables: {
         input: {
           offerId,
-          settlementInfo,
+          // settlementInfo,
         },
       },
     });

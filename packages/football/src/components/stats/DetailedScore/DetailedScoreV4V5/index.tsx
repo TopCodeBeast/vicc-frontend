@@ -106,9 +106,9 @@ export const DetailedScoreV4V5 = ({ vicc5Score, withDetails }: Props) => {
     );
 
   const displayCategory = (category: string) => {
-    if (position !== 'Goalkeeper' && category === 'GOALKEEPING') return false;
+    if (position !== 'Wicketkeeper' && category === 'GOALKEEPING') return false;
     if (
-      position === 'Goalkeeper' &&
+      position === 'Wicketkeeper' &&
       ['DEFENDING', 'ATTACKING'].includes(category)
     )
       return false;

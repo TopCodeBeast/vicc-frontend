@@ -65,7 +65,7 @@ const Card = styled.div`
   }
 `;
 
-const Goalkeeper = styled(Card)`
+const Wicketkeeper = styled(Card)`
   padding-top: var(--double-and-a-half-unit);
   .bigger & {
     padding-top: calc(2 * var(--quadruple-unit));
@@ -107,7 +107,7 @@ export const UninteractiveStarterBundlePreviewSkeleton = ({
           <Card>
             {forwardCard || <ImgSkeleton />}
             <Caption bold color="var(--c-neutral-500)">
-              <FormattedMessage {...positionShortNames[Position.Forward]} />
+              <FormattedMessage {...positionShortNames[Position.Bowler]} />
             </Caption>
           </Card>
           <Card>
@@ -121,21 +121,21 @@ export const UninteractiveStarterBundlePreviewSkeleton = ({
           <Card>
             {defenderCard || <ImgSkeleton />}
             <Caption bold color="var(--c-neutral-500)">
-              <FormattedMessage {...positionShortNames[Position.Defender]} />
+              <FormattedMessage {...positionShortNames[Position.Batsman]} />
             </Caption>
           </Card>
-          <Goalkeeper>
+          <Wicketkeeper>
             {goalkeeperCard || <ImgSkeleton />}
             <Caption bold color="var(--c-neutral-500)">
-              <FormattedMessage {...positionShortNames[Position.Goalkeeper]} />
+              <FormattedMessage {...positionShortNames[Position.Wicketkeeper]} />
             </Caption>
-          </Goalkeeper>
-          <Card>
+          </Wicketkeeper>
+          {/* <Card>
             {midfielderCard || <ImgSkeleton />}
             <Caption bold color="var(--c-neutral-500)">
-              <FormattedMessage {...positionShortNames[Position.Midfielder]} />
+              <FormattedMessage {...positionShortNames[Position.Fielder]} />
             </Caption>
-          </Card>
+          </Card> */}
         </Line>
       </Cards>
     </Gradient>

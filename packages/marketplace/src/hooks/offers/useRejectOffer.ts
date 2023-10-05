@@ -31,7 +31,7 @@ export default () => {
     const { errors } = await rejectOffer({
       variables: {
         input: {
-          blockchainId,
+          // blockchainId,
           block,
         },
       },

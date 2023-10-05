@@ -19,7 +19,7 @@ const messages = defineMessages<Position>({
     id: 'DraftFilters.SearchFilter.placeholder.forward',
     defaultMessage: 'Search a forward',
   },
-  Midfielder: {
+  Fielder: {
     id: 'DraftFilters.SearchFilter.placeholder.midfielder',
     defaultMessage: 'Search a midfielder',
   },
@@ -27,7 +27,7 @@ const messages = defineMessages<Position>({
     id: 'DraftFilters.SearchFilter.placeholder.defender',
     defaultMessage: 'Search a defender',
   },
-  Goalkeeper: {
+  Wicketkeeper: {
     id: 'DraftFilters.SearchFilter.placeholder.goalkeeper',
     defaultMessage: 'Search a goalkeeper',
   },

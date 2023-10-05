@@ -55,7 +55,7 @@ export default () => {
     const result = await cancelOffer({
       variables: {
         input: {
-          blockchainId,
+          // blockchainId,
         },
       },
     });

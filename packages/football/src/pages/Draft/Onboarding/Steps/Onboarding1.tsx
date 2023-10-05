@@ -23,7 +23,7 @@ type Props = {
 export const Onboarding1 = ({ avatarUrl, playerDisplayName }: Props) => (
   <Root>
     <PickerCard
-      position={Position.Forward}
+      position={Position.Bowler} //TODO
       drafted={{
         value: 61,
         avatarUrl,
@@ -33,12 +33,12 @@ export const Onboarding1 = ({ avatarUrl, playerDisplayName }: Props) => (
       }}
     />
 
-    <PickerCard position={Position.Midfielder} />
-    <PickerCard position={Position.Defender} />
-    <PickerCard position={Position.Goalkeeper} />
-    <PickerCard position={Position.Forward} active />
-    <PickerCard position={Position.Midfielder} />
-    <PickerCard position={Position.Defender} />
-    <PickerCard position={Position.Goalkeeper} />
+    {/* <PickerCard position={Position.Fielder} />
+    <PickerCard position={Position.Batsman} />
+    <PickerCard position={Position.Wicketkeeper} />
+    <PickerCard position={Position.Bowler} active />
+    <PickerCard position={Position.Fielder} />
+    <PickerCard position={Position.Batsman} />
+    <PickerCard position={Position.Wicketkeeper} /> */}
   </Root>
 );

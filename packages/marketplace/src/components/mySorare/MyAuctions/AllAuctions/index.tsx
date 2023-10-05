@@ -72,7 +72,7 @@ const AllAuctions = ({
   );
 
   const { items, count, cursor, hasMore } = extractConnectionData(
-    data?.currentUser?.tokenAuctions,
+    data?.currentUser?.auctions,
     p => <Auction key={p.id} auction={p} />
   );
 

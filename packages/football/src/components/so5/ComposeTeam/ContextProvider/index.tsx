@@ -111,7 +111,7 @@ const ContextProvider = ({
   const [errors, setErrors] = useState<Errors>();
   const [filters, setFilters] = useState<BenchFilters>(initialFilters);
   const [activePosition, setActivePosition] = useState<Position>(
-    GlobalPosition.Goalkeeper
+    GlobalPosition.Wicketkeeper
   );
   const navigate = useNavigate();
   const [previousActivePosition, setPreviousActivePosition] =
@@ -140,7 +140,7 @@ const ContextProvider = ({
 
     const extraCard = lineup['Extra Player'].card;
     if (!extraCard) return defaultFormation;
-    if (extraCard.position === 'Goalkeeper') return defaultFormation;
+    if (extraCard.position === 'Wicketkeeper') return defaultFormation;
 
     return (
       formationFromExtraPlayerPosition[

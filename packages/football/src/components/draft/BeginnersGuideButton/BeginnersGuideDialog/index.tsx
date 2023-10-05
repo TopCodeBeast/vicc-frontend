@@ -149,7 +149,7 @@ const BeginnersGuideDialog = ({ onClose }: Props) => {
           >
             <FormattedMessage
               id="Draft.BeginnersGuideBanner.BeginnersGuideDialog.Compose.Content"
-              defaultMessage="Once you’ve selected your initial 8 players, it’s time to compose your 5-player line-up consisting of: 1 Goalkeeper, 1 Defender, 1 Midfielder, 1 Forward and 1 extra player which is any player in an outfield position. Select the letter “C” to assign your team captain. Choose wisely, as your captain’s score will be boosted by 50%."
+              defaultMessage="Once you’ve selected your initial 8 players, it’s time to compose your 5-player line-up consisting of: 1 Wicketkeeper, 1 Defender, 1 Fielder, 1 Forward and 1 extra player which is any player in an outfield position. Select the letter “C” to assign your team captain. Choose wisely, as your captain’s score will be boosted by 50%."
             />
           </Section>
 

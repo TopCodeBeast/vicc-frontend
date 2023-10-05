@@ -51,7 +51,7 @@ const LineupToDiscover = (props: Props) => {
       defaultFilters={[
         'sale.primary:false',
         'rarity:limited',
-        'NOT position:Goalkeeper',
+        'NOT position:Wicketkeeper',
         vicc5LeaguesAlgoliaFilters[correspondingLeagueFilter],
       ]}
       distinct

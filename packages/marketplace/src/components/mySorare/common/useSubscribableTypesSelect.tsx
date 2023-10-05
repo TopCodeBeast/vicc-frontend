@@ -17,8 +17,8 @@ const messages = defineMessages({
       SubscribableType.PLAYER,
       SubscribableType.TEAM,
       SubscribableType.COUNTRY,
-      SubscribableType.BASEBALL_PLAYER,
-      SubscribableType.NBA_PLAYER,
+      // SubscribableType.BASEBALL_PLAYER,
+      // SubscribableType.NBA_PLAYER,
     ],
   },
   player: {
@@ -26,8 +26,8 @@ const messages = defineMessages({
     defaultMessage: 'Player',
     selectedTypes: [
       SubscribableType.PLAYER,
-      SubscribableType.BASEBALL_PLAYER,
-      SubscribableType.NBA_PLAYER,
+      // SubscribableType.BASEBALL_PLAYER,
+      // SubscribableType.NBA_PLAYER,
     ],
   },
   club: {
@@ -50,8 +50,8 @@ const SubscribableTypeBySport: {
     SubscribableType.TEAM,
     SubscribableType.COUNTRY,
   ],
-  [Sport.BASEBALL]: [SubscribableType.BASEBALL_PLAYER],
-  [Sport.NBA]: [SubscribableType.NBA_PLAYER],
+  [Sport.BASEBALL]: [SubscribableType.PLAYER],
+  [Sport.NBA]: [SubscribableType.PLAYER],
 };
 
 type SelectType = keyof typeof messages;

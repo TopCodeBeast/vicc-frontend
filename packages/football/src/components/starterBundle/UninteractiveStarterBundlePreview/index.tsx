@@ -17,10 +17,10 @@ export const UninteractiveStarterBundlePreview = ({
   bigger = false,
 }: Props) => {
   if (cards.length < 5) return null;
-  const forward = cards.find(c => c.position === Position.Forward);
-  const goalkeeper = cards.find(c => c.position === Position.Goalkeeper);
-  const defender = cards.find(c => c.position === Position.Defender);
-  const midfielder = cards.find(c => c.position === Position.Midfielder);
+  const forward = cards.find(c => c.position === Position.Bowler);
+  const goalkeeper = cards.find(c => c.position === Position.Wicketkeeper);
+  const defender = cards.find(c => c.position === Position.Batsman);
+  const midfielder = cards.find(c => c.position === Position.Fielder);
   const extra = cards.find(
     c =>
       ![
