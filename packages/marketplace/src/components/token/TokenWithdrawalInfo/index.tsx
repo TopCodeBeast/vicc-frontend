@@ -207,13 +207,13 @@ const TokenWithdrawalInfo = ({ token, transferRequest, onComplete }: Props) => {
         input: {
           assetId,
           destination: address!,
-          starkSignatures: [
+          /*starkSignatures: [
             {
               nonce: transferRequest!.nonce,
               expirationTimestamp: transferRequest!.expirationTimestamp,
               data: signature!,
             },
-          ],
+          ],*/
         },
       },
     });

@@ -53,7 +53,7 @@ export const PlayerNotifications = ({ subscription, item }: Props) => {
       <Scarcities>
         {blockchainRarities.map(scarcity => {
           const selected =
-            subscription.preferences.notifyForRarities.includes(scarcity);
+            subscription.preferences.notifyForRarities.includes(scarcity as any);
           const disabled =
             !rarityNotificationsByType[subscription.subscribableType].includes(
               scarcity

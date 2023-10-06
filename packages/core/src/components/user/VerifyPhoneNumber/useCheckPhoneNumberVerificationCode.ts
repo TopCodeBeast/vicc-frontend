@@ -50,7 +50,7 @@ export default () => {
       variables: {
         input: {
           code,
-          privateKeyRecovery,
+          // privateKeyRecovery,
         },
       },
     });

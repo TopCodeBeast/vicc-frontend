@@ -15,7 +15,7 @@ type Props = {
 };
 
 const messages = defineMessages<Position>({
-  Forward: {
+  Bowler: {
     id: 'DraftFilters.SearchFilter.placeholder.forward',
     defaultMessage: 'Search a forward',
   },
@@ -23,7 +23,7 @@ const messages = defineMessages<Position>({
     id: 'DraftFilters.SearchFilter.placeholder.midfielder',
     defaultMessage: 'Search a midfielder',
   },
-  Defender: {
+  Batsman: {
     id: 'DraftFilters.SearchFilter.placeholder.defender',
     defaultMessage: 'Search a defender',
   },
@@ -31,7 +31,7 @@ const messages = defineMessages<Position>({
     id: 'DraftFilters.SearchFilter.placeholder.goalkeeper',
     defaultMessage: 'Search a goalkeeper',
   },
-  Coach: {
+  AllRounder: {
     id: 'DraftFilters.SearchFilter.placeholder.default',
     defaultMessage: 'Search players',
   },

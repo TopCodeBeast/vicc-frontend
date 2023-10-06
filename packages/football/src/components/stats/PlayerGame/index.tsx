@@ -41,7 +41,7 @@ export const PlayerGame = (props: PlayerGameProps) => {
     GameEventStatus.PLAYING,
     GameEventStatus.PLAYED,
     GameEventStatus.SUSPENDED,
-  ].includes(status as GameEventStatus);
+  ].includes(status as any as GameEventStatus);
 
   const cardScore = (
     <Score>

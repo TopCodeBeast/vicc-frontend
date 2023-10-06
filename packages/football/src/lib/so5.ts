@@ -315,18 +315,18 @@ export type Formation = {
 export const extraPlayerPosition: {
   [key in FormationName]: PlayablePosition | null;
 } = {
-  defensive: GlobalPosition.Defender,
+  defensive: GlobalPosition.Batsman,
   dense: GlobalPosition.Fielder,
-  attacking: GlobalPosition.Forward,
+  attacking: GlobalPosition.Bowler,
   default: null,
 };
 
 export const formationFromExtraPlayerPosition: {
   [key in PlayablePosition]: FormationName;
 } = {
-  Defender: 'defensive',
+  Batsman: 'defensive',
   Fielder: 'dense',
-  Forward: 'attacking',
+  Bowler: 'attacking',
   Wicketkeeper: 'defensive',
 };
 
@@ -457,7 +457,7 @@ export const getPlayerScore = withFragments(
 );
 
 export const positionShortNames = defineMessages<GlobalPosition | Position>({
-  Forward: {
+  Bowler: {
     id: 'Player.shortForward',
     defaultMessage: 'FW',
   },
@@ -465,7 +465,7 @@ export const positionShortNames = defineMessages<GlobalPosition | Position>({
     id: 'Player.shortMidfielder',
     defaultMessage: 'MD',
   },
-  Defender: {
+  Batsman: {
     id: 'Player.shortDefender',
     defaultMessage: 'DF',
   },
@@ -477,7 +477,7 @@ export const positionShortNames = defineMessages<GlobalPosition | Position>({
     id: 'Player.shortExtraPlayer',
     defaultMessage: 'Extra',
   },
-  Coach: {
+  AllRounder: {
     id: 'Player.shortCoach',
     defaultMessage: 'Coach',
   },
@@ -501,7 +501,7 @@ export const getAppearancesByPosition = <T extends AppearanceWithPosition>(
   appearances.reduce(
     (acc, app) => {
       const { position } = app.card;
-      if (position === GlobalPosition.Coach) return acc;
+      // if (position === GlobalPosition.Coach) return acc;
       if (position === GlobalPosition.Unknown) return acc;
 
       if (acc[position]?.card) {

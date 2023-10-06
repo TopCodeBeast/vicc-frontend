@@ -47,7 +47,7 @@ export default (): [
               otpSessionChallenge,
               gaClientId: getClientId(),
               deviceFingerprint,
-              impactClickId: getValue('irclickid'),
+              // impactClickId: getValue('irclickid'),
             },
           },
         });

@@ -131,7 +131,7 @@ const useCreateSingleSaleOffer = () => {
         input: {
           dealId: generateDealId(),
           assetId: token.assetId,
-          migrationData,
+          // migrationData,
           duration,
           ...(useAuthorizations
             ? {

@@ -92,7 +92,7 @@ export const CardRow = ({
       <Container>
         <Description>
           <TokenDescription
-            token={convertedCardHit}
+            token={convertedCardHit as any}
             Title={Text16}
             withoutLink
             Details={Text14}

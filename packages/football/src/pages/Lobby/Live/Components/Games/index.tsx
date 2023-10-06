@@ -134,7 +134,7 @@ export const Games = () => {
   });
   const games = {
     [TAB.MINE]: sortBy(
-      g => STATUS[g.status as GameEventStatus],
+      g => STATUS[g.status as any as GameEventStatus],
       [...(vicc5Fixture?.myVicc5Games || [])].filter(
         g => gameStatusMessages[g.status]
       )
@@ -241,7 +241,7 @@ export const Games = () => {
       </header>
       <GamesWrapper>
         {displayed.map(match => (
-          <StyledGame key={match.id} game={match} withMatchView />
+          <StyledGame key={match.id} game={match as any} withMatchView />
         ))}
         {!isDesktop && hasMoreMatches && <InfiniteScrollLoader />}
       </GamesWrapper>

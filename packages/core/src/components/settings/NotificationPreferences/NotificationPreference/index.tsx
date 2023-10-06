@@ -84,7 +84,7 @@ export const NotificationPreference = ({ preference, sport }: Props) => {
           notificationPreference: {
             name,
             value: newValue,
-            sport,
+            // sport,
           },
         },
       },

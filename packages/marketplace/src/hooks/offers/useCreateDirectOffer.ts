@@ -129,7 +129,7 @@ const useCreateDirectOffer = () => {
               receiveAssetIds: receiveTokens.map(t => t.assetId!),
               sendAssetIds: sendTokens.map(t => t.assetId!),
               receiverSlug,
-              migrationData,
+              // migrationData,
               duration,
               counteredOfferId,
               ...(useAuthorizations
@@ -140,7 +140,7 @@ const useCreateDirectOffer = () => {
                   }
                 : {
                     starkSignatures: legacySignedLimitOrders,
-                    sendWeiAmount: sendMonetaryAmount.wei,
+                    sendAmount: sendMonetaryAmount.wei,
                     ...(counteredOfferId && {
                       receiveWeiAmount: receiveMonetaryAmount.wei,
                     }),

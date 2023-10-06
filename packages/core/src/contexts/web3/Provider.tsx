@@ -131,7 +131,7 @@ export const Web3Provider = ({ children }: Props) => {
         saveLastWeb3Provider({
           variables: {
             input: {
-              lastWeb3Provider: getWallet(provider),
+              // lastWeb3Provider: getWallet(provider),
             },
           },
         });

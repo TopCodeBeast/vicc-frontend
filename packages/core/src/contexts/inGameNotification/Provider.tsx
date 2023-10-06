@@ -118,7 +118,7 @@ export const InGameNotificationProvider: FC<
         const { data: mutationData } = await markNotificationsAsReadMutation({
           variables: {
             input: {
-              notificationIds,
+              // notificationIds,
             },
             sports: lastSport ? [lastSport] : undefined,
             notificationCategories: flattenGroups(allGroups),

@@ -122,8 +122,8 @@ const useBidWithWallet = (auction: useBidWithWallet_auction) => {
           auctionId: auction.id,
           amount:
             supportedCurrency === SupportedCurrency.WEI ? bidAmountWei : amount,
-          settlementInfo,
-          approvals,
+          // settlementInfo,
+          // approvals,
         },
       },
     });

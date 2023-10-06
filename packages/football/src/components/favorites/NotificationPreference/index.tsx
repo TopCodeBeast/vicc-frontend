@@ -141,7 +141,7 @@ export const NotificationPreference = ({ subscription }: Props) => {
             </Text16>
             <DialogContent>
               {subscribableRarities.map(scarcity => {
-                const enabled = notifyForRarities.includes(scarcity);
+                const enabled = notifyForRarities.includes(scarcity as any);
                 return (
                   <CustomScarcityPreference
                     key={scarcity}
@@ -173,7 +173,7 @@ export const NotificationPreference = ({ subscription }: Props) => {
         <Row
           className={classnames({
             current: subscribableRarities.every(r =>
-              notifyForRarities.includes(r)
+              notifyForRarities.includes(r as any)
             ),
           })}
           onClick={() => {

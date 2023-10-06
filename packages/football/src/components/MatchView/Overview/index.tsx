@@ -182,10 +182,10 @@ const Overview = ({ game, selectedTeam, desktop }: Props) => {
   const { formatDate } = useIntlContext();
   const { date, homeTeam, awayTeam, status, vicc5Fixture } = game;
 
-  const isPlaying = status === GameEventStatus.PLAYING;
-  const isNormalCase = normalCaseStatuses.includes(status as GameEventStatus);
-  const isSpecialCase = specialCaseStatuses.includes(status as GameEventStatus);
-  const isUpcoming = status === GameEventStatus.SCHEDULED;
+  const isPlaying = status === GameEventStatus.PLAYING as any; //TODO
+  const isNormalCase = normalCaseStatuses.includes(status as any as GameEventStatus);
+  const isSpecialCase = specialCaseStatuses.includes(status as any as GameEventStatus);
+  const isUpcoming = status === GameEventStatus.SCHEDULED as any;
 
   const fullDate = formatDate(date, {
     weekday: 'short',

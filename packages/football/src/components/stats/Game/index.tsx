@@ -87,7 +87,7 @@ export const Game = ({
           date={date}
           vicc5Fixture={game.vicc5Fixture}
           competitionName={game.competition?.displayName}
-          status={status as GameEventStatus}
+          status={status as any as GameEventStatus}
           minute={minute}
           cardScore={cardScore}
           withDate={withDate}
@@ -100,7 +100,7 @@ export const Game = ({
           name={homeTeam?.name || ''}
           code={homeTeam?.code || ''}
           pictureUrl={teamLogo(homeTeam)}
-          status={status as GameEventStatus}
+          status={status as any as GameEventStatus}
           penaltiesScore={penaltyScoreHome}
           otherPenaltiesScore={penaltyScoreAway}
         />
@@ -112,7 +112,7 @@ export const Game = ({
           name={awayTeam?.name || ''}
           code={awayTeam?.code || ''}
           pictureUrl={teamLogo(awayTeam)}
-          status={status as GameEventStatus}
+          status={status as any as GameEventStatus}
           penaltiesScore={penaltyScoreAway}
           otherPenaltiesScore={penaltyScoreHome}
         />
@@ -124,7 +124,7 @@ export const Game = ({
   const matchLiveOrPlayed = [
     GameEventStatus.PLAYED,
     GameEventStatus.PLAYING,
-  ].includes(status as GameEventStatus);
+  ].includes(status as any as GameEventStatus);
   if (withMatchView && matchLiveOrPlayed) {
     return (
       <>

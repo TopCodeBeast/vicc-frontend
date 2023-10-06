@@ -55,8 +55,8 @@ const SportsMappings: Readonly<{ [key in Sport]: AlgoliaSport }> = {
 
 const FakeCollectionMappings: Readonly<{ [key in AlgoliaSport]: Collection }> =
   {
-    nba: Collection.NBA,
-    baseball: Collection.BASEBALL,
+    nba: Collection.CRICKET,
+    baseball: Collection.CRICKET,
     football: Collection.CRICKET,
   };
 

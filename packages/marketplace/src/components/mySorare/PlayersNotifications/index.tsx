@@ -58,9 +58,9 @@ const FOLLOWS_FOR_NOTIFICATIONS_QUERY = gql`
 >;
 
 const playersSubscriptionsType = {
-  [Sport.BASEBALL]: SubscribableType.BASEBALL_PLAYER,
+  [Sport.BASEBALL]: SubscribableType.PLAYER,
   [Sport.CRICKET]: SubscribableType.PLAYER,
-  [Sport.NBA]: SubscribableType.NBA_PLAYER,
+  [Sport.NBA]: SubscribableType.PLAYER,
 };
 
 const Root = styled.div`

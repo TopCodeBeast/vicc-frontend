@@ -139,12 +139,12 @@ export const OwnYourGame = () => {
     : { onClick: signIn };
 
   const animatedCards = useMemo(() => {
-    if (landingTheme && landingTheme.cards.length > 0) {
-      const cardsA = shuffle([...landingTheme.cards]);
-      const cardsB = shuffle([...landingTheme.cards]);
-      const cardsC = cardsA;
-      return { cardsA, cardsB, cardsC };
-    }
+    // if (landingTheme && landingTheme.cards.length > 0) {
+    //   const cardsA = shuffle([...landingTheme.cards]);
+    //   const cardsB = shuffle([...landingTheme.cards]);
+    //   const cardsC = cardsA;
+    //   return { cardsA, cardsB, cardsC };
+    // }
     return {
       cardsA: footballCards,
       cardsB: nbaCards,

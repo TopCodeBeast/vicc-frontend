@@ -39,7 +39,7 @@ export default () => {
 
   return async (paymentMethod: string, provider: PaymentMethodProvider) => {
     const result = await detachPaymentMethod({
-      variables: { input: { paymentMethod, provider } },
+      variables: { input: { paymentMethod, /*provider*/ } },
     });
 
     const errors = result.data?.detachPaymentMethod?.errors || [];

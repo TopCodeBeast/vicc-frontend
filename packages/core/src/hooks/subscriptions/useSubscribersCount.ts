@@ -22,7 +22,7 @@ export default function useSubscribersCount(
   const { data } = useQuery(SUBSCRIPTION_STATS_QUERY, {
     variables: {
       subscribable: {
-        type: subscribable.__typename,
+        type: subscribable.__typename as any,
         slug: subscribable.slug,
       },
     },

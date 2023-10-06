@@ -32,7 +32,7 @@ export default function useUpdateSubscription(subscription: { slug: string }) {
       variables: {
         input: {
           slug: subscription.slug,
-          rarities: [...rarities],
+          rarities: [...rarities] as any,
           enabled,
         },
       },

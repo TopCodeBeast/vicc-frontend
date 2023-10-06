@@ -78,8 +78,8 @@ const usePrepareBid = ({ signAuthorizations }: Props) => {
     const { data } = await prepareBidMutation({
       variables: {
         input: {
-          englishAuctionId,
-          settlementInfo,
+          auctionId: englishAuctionId,
+          // settlementInfo,
           amount,
         },
       },

@@ -118,7 +118,7 @@ const useAcceptOffer = () => {
       variables: {
         input: {
           offerId,
-          migrationData,
+          // migrationData,
 
           ...(useAuthorizations
             ? { settlementInfo, approvals }

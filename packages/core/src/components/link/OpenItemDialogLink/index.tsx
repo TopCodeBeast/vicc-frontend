@@ -44,7 +44,7 @@ const itemRoute = (item: Item) => {
       return { route: LEGACY_CARD_SHOW, params: { slug: item.slug } };
     case 'BundledAuction':
     case 'EnglishAuction':
-    case 'Auction':
+    // case 'Auction':
       return {
         route: LEGACY_BUNDLED_AUCTION,
         params: { slug: item.slug },

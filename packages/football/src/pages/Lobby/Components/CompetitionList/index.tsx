@@ -149,7 +149,7 @@ export const CompetitionList = ({
       if (
         hasFeaturedStarterPacks ||
         canCompose.value ||
-        rarityType === Rarity.common
+        (rarityType as any) === Rarity.common
       ) {
         return filteredByScarcity;
       }

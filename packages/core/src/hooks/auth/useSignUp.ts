@@ -123,7 +123,7 @@ function useSignUp() {
             ...rest,
             password: passwordHash,
             referrer: getValue('referrer'),
-            impactClickId: getValue('irclickid'),
+            // impactClickId: getValue('irclickid'),
             utmParams: getParams,
             fromPath: redirectUrl || lastLocation || afterLoggedInTarget,
             gaClientId: getClientId(),
