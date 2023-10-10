@@ -44,7 +44,7 @@ const StyledGame = styled(Game)`
 const COMPETITION_DETAILS_MATCHES_TAB_QUERY = gql`
   query CompetitionDetailsMatchesTabQuery($leaderboardSlug: String!) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Leaderboard(slug: $leaderboardSlug) {
           slug
           title

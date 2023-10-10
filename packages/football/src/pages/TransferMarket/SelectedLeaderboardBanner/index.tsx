@@ -68,7 +68,7 @@ const StyledButton = styled(Button)`
 const MARKET_LEADERBOARD_QUERY = gql`
   query MarketLeaderboardQuery($slug: String!) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Leaderboard(slug: $slug) {
           slug
           displayName

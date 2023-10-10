@@ -35,7 +35,7 @@ const UpcomingContent = styled.div<{ hide?: boolean }>`
 export const LINEUPS_COUNT_QUERY = gql`
   query LineupsCountQuery {
     #football {
-      vicc5 {
+      vicc5Root {
         myUpcomingLineupsPaginated {
           totalCount
         }

@@ -191,7 +191,7 @@ const ShareLabel = styled.span`
 const COMPETITION_DETAILS_QUERY = gql`
   query CompetitionDetailsQuery($slug: String!) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Leaderboard(slug: $slug) {
           slug
           rarityType

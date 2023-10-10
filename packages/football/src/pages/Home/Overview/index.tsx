@@ -26,7 +26,7 @@ const HOME_LEADERBOARDS_QUERY = gql`
       ...ManagerAssistant_currentUser
     }
     #football {
-      vicc5 {
+      vicc5Root {
         upcomingLeaderboards {
           slug
           canCompose {

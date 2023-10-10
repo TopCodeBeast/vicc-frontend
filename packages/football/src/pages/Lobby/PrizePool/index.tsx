@@ -89,7 +89,7 @@ export const LOBBY_PRIZE_POOL_QUERY = gql`
     $rarities: [Vicc5LeaderboardRarity!]
   ) {
     #football {
-      vicc5 {
+      vicc5Root {
         futureLeaderboardsPaginated(
           after: $cursor
           first: 50

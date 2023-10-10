@@ -82,7 +82,7 @@ const subscription = gql`
 const GAMES_QUERY = gql`
   query GamesQuery {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Fixture(type: LIVE) {
           slug
           games {

@@ -52,7 +52,7 @@ export const BENCH_CARDS_QUERY = gql`
     $deckId: String
   ) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
           vicc5League {

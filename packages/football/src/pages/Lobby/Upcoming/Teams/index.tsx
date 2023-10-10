@@ -85,7 +85,7 @@ const messages = defineMessages({
 export const UPCOMING_TEAMS_SETUP_QUERY = gql`
   query UpcomingTeamsSetupQuery {
     #football {
-      vicc5 {
+      vicc5Root {
         lineups: myUpcomingLineupsPaginated {
           totalCount
         }

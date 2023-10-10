@@ -27,7 +27,7 @@ type DraftAutofillQuery_vicc5Leaderboard_commonDraftCampaign_autoPick =
 const DRAFT_SETUP_QUERY = gql`
   query DraftSetupQuery($vicc5LeaderboardSlug: String!) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
           commonDraftCampaign {
@@ -86,7 +86,7 @@ const DRAFT_QUERY = gql`
     $selectedPrintablePlayerIds: [ID!]
   ) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
           commonDraftCampaign {
@@ -142,7 +142,7 @@ const AUTOFILL_QUERY = gql`
     $selectedPrintablePlayerIds: [ID!]
   ) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
           commonDraftCampaign {

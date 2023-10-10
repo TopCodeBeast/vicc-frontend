@@ -65,7 +65,7 @@ const CONFIG_QUERY = gql`
       defaultFiatCurrency
       ethAssetType
       ethQuantum
-      vicc5 {
+      vicc5Config {
         id
         vicc5LeaguesAlgoliaFilters
       }

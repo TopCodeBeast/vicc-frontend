@@ -49,7 +49,7 @@ const Filters = styled.div`
 const LOBBY_LEADERBOARD_PICKER_QUERY = gql`
   query LobbyLeaderboardPickerQuery($type: Vicc5State, $slug: String) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Fixture(type: $type, slug: $slug) {
           slug
           vicc5Leaderboards {

@@ -49,7 +49,7 @@ const ButtonWrapper = styled.div`
 const UPCOMING_FIXTURES_QUERY = gql`
   query Vicc5UpcomingFixtureQuery {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Fixture(type: UPCOMING) {
           slug
           ...ScoringPeriodInput_upcomingFixture

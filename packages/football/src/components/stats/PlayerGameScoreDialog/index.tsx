@@ -22,7 +22,7 @@ const playerFragment = gql`
 export const PLAYER_GAME_SCORE_DIALOG_QUERY = gql`
   query PlayerGameScoreDialogQuery($id: ID!) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Score(id: $id) {
           id
           ...PlayerStatsDialog_vicc5Score

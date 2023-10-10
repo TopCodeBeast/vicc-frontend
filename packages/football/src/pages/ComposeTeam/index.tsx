@@ -38,7 +38,7 @@ import {
 const COMPOSE_TEAM_LEADERBOARD_QUERY = gql`
   query ComposeTeamLeaderboardQuery($vicc5LeaderboardSlug: String!) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
           trainingCenter
@@ -72,7 +72,7 @@ const COMPOSE_TEAM_QUERY = gql`
     $statsView: Boolean!
   ) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Leaderboard(slug: $vicc5LeaderboardSlug) {
           slug
           vicc5League {

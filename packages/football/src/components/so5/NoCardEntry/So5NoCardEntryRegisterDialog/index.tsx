@@ -19,7 +19,7 @@ const NO_CARD_ENTRY_REGISTER_DIALOG_QUERY = gql`
   query NoCardEntryRegisterDialogConfiQuery {
     config {
       id
-      vicc5 {
+      vicc5Config {
         id
         noCardRoute {
           id

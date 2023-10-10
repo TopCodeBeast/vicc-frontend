@@ -62,7 +62,7 @@ const messages = defineMessages({
 const LOBBY_MY_PLAYERS_QUERY = gql`
   query LobbyMyPlayersQuery($type: Vicc5State, $slug: String) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Fixture(type: $type, slug: $slug) {
           slug
           myVicc5Lineups {

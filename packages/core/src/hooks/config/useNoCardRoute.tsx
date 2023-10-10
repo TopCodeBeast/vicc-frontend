@@ -11,7 +11,7 @@ const QUERY = gql`
   query NoCardRoute {
     config {
       id
-      vicc5 {
+      vicc5Config {
         id
         noCardRoute {
           id

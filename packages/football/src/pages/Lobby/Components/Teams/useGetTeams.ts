@@ -21,7 +21,7 @@ const LOBBY_UPCOMING_LINEUPS_QUERY = gql`
     $draft: Boolean
   ) {
     #football {
-      vicc5 {
+      vicc5Root {
         myUpcomingLineupsPaginated(
           after: $startCursor
           before: $endCursor
@@ -66,7 +66,7 @@ const LOBBY_LINEUPS_QUERY = gql`
     $limit: Int = 6
   ) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Fixture(type: $type, slug: $slug) {
           slug
           myVicc5LineupsPaginated(

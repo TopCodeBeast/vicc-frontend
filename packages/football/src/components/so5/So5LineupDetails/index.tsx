@@ -72,7 +72,7 @@ const TiebreakerScore = styled.div`
 export const SO5_RANKING_DETAILS_QUERY = gql`
   query Vicc5RankingDetailsQuery($id: ID!) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Ranking(id: $id) {
           id
           ranking

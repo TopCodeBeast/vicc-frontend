@@ -59,7 +59,7 @@ export const REWARD_POOL_QUERY = gql`
     $quality: String!
   ) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5League(slug: $vicc5LeagueSlug) {
           slug
           name

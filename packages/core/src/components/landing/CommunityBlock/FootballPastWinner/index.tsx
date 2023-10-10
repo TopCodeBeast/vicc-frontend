@@ -16,7 +16,7 @@ import {
 const FOOTBALL_PAST_LEADERBOARD_SLUG_QUERY = gql`
   query FootballPastLeaderboardSlugQuery {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Fixture(type: PAST) {
           slug
           displayName
@@ -35,7 +35,7 @@ const FOOTBALL_PAST_LEADERBOARD_SLUG_QUERY = gql`
 const FOOTBALL_PAST_LEADERBOARD_QUERY = gql`
   query FootballPastLeaderboardQuery($leaderboardSlug: String!) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Leaderboard(slug: $leaderboardSlug) {
           slug
           displayName
@@ -62,7 +62,7 @@ const FOOTBALL_PAST_LEADERBOARD_QUERY = gql`
 const FOOTBALL_PAST_LINEUP_WINNER_QUERY = gql`
   query FootballPastLineupWinnerQuery($lineupId: ID!) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Lineup(id: $lineupId) {
           vicc5Appearances {
             card {

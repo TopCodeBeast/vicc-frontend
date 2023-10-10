@@ -44,7 +44,7 @@ import '@sorare/core/src/style/romieFontFaces.css';
 const HOME_DATA_QUERY = gql`
   query HomeDataQuery {
     #football {
-      vicc5 {
+      vicc5Root {
         onboardingCommonDraftCampaigns {
           slug
           displayName

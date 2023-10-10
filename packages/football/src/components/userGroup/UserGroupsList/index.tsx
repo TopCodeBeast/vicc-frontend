@@ -107,7 +107,7 @@ export const GET_MY_PRIVATE_USER_GROUPS_QUERY = gql`
     $after: String
   ) {
     #football {
-      vicc5 {
+      vicc5Root {
         myVicc5UserGroups(first: 8) @include(if: $enableLongFormatCompetition) {
           nodes {
             slug

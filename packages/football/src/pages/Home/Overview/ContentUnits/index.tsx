@@ -33,7 +33,7 @@ const QUERY = gql`
   query ManagerHomeContentUnits {
     config {
       id
-      vicc5 {
+      vicc5Config {
         id
         managerHomeContentUnitsSets {
           id

@@ -10,7 +10,7 @@ import {
 const GET_PRIVATE_USER_GROUP_QUERY = gql`
   query GetPrivateUserGroupByJoinSecretQuery($joinSecret: String!) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5UserGroup(joinSecret: $joinSecret) {
           id
           slug

@@ -16,7 +16,7 @@ import {
 export const RECOMMENDED_LEADERBOARDS_QUERY = gql`
   query RecommendedLeaderboardsQuery {
     #football {
-      vicc5 {
+      vicc5Root {
         upcomingLeaderboards {
           slug
           vicc5Tournament {

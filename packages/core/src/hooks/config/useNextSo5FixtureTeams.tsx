@@ -11,7 +11,7 @@ const QUERY = gql`
   query NextVicc5FixtureTeams {
     config {
       id
-      vicc5 {
+      vicc5Config {
         id
         nextVicc5FixtureTeams {
           ... on TeamInterface {

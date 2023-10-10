@@ -61,7 +61,7 @@ const tabs = defineMessages({
 const LOBBY_PAST_QUERY = gql`
   query LobbyPastQuery($slug: String, $type: Vicc5State) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Fixture(slug: $slug, type: $type) {
           slug
           aasmState

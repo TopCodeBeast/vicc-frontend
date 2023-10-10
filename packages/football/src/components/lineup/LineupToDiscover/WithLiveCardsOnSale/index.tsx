@@ -20,7 +20,7 @@ import useLiveCardsOnSale from './useLiveCardsOnSale';
 const WITH_LIVE_CARDS_ON_SALE_LEADERBOARD_QUERY = gql`
   query WithLiveCardsOnSaleLeaderboardQuery($slug: String!) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Leaderboard(slug: $slug) {
           slug
           commonDraftCampaign {

@@ -14,7 +14,7 @@ import {
 export const LAST_LINEUP_QUERY = gql`
   query myLastLineupQuery {
     #football {
-      vicc5 {
+      vicc5Root {
         myUpcomingLineupsPaginated {
           nodes {
             name

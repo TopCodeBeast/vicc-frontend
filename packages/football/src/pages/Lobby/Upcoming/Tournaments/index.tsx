@@ -15,7 +15,7 @@ import {
 export const LOBBY_UPCOMING_TOURNAMENTS_QUERY = gql`
   query LobbyUpcomingTournamentsQuery {
     #football {
-      vicc5 {
+      vicc5Root {
         upcomingLeaderboards {
           slug
           gameWeek

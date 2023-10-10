@@ -48,7 +48,7 @@ const LOBBY_LEADERBOARDS_FETCHER_QUERY = gql`
     $page: Int!
   ) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Leaderboard(slug: $slug) {
           slug
           vicc5League {

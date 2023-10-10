@@ -44,7 +44,7 @@ const TeamsRoutes = styled.div`
 const LOBBY_LIVE_INDEX_QUERY = gql`
   query LobbyLiveIndexQuery {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Fixture(type: LIVE) {
           slug
           totalLineups: myVicc5LineupsCount(draft: false)

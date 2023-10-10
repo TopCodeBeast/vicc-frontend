@@ -114,7 +114,7 @@ const vicc5FixtureFragment = gql`
 const SO5_FIXTURES_DROPDOWN_QUERY = gql`
   query Vicc5FixturesDropdownQuery($cursor: String) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Fixtures(first: 50, after: $cursor) {
           nodes {
             slug

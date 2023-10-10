@@ -37,7 +37,7 @@ import {
 export const GET_PRIVATE_USER_GROUP_QUERY = gql`
   query GetPrivateUserGroupQuery($slug: String!) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5UserGroup(slug: $slug) {
           slug
           membershipsCount

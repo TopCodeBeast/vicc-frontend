@@ -142,7 +142,7 @@ const Captain = styled.div`
 const LINEUP_SHARING_QUERY = gql`
   query LineupSharingQuery($id: ID!) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Lineup(id: $id) {
           id
           vicc5Appearances {

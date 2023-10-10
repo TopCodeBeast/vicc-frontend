@@ -103,7 +103,7 @@ export const LOBBY_TOP_PLAYERS_PER_POSITION_QUERY = gql`
     $cursor: String
   ) {
     #football {
-      vicc5 {
+      vicc5Root {
         vicc5Fixture(slug: $slug) {
           slug
           orderedVicc5Scores(first: 1) {
