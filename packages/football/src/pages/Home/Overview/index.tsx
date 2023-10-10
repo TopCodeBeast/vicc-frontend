@@ -63,9 +63,9 @@ export const Overview = () => {
     nextFetchPolicy: 'cache-and-network',
     fetchPolicy: 'cache-and-network',
   });
-  const leaderboards = data?.vicc5.upcomingLeaderboards;
+  const leaderboards = data?.vicc5Root.upcomingLeaderboards;
   const user = data?.currentUser;
-  const vicc5 = data?.vicc5;
+  const vicc5 = data?.vicc5Root;
 
   const contentUnits = !disableHomeContentUnits && (
     <ContentUnits

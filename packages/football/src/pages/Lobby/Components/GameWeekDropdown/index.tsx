@@ -97,7 +97,7 @@ const styles = {
 };
 
 type Vicc5FixturesDropdownQuery_vicc5_vicc5Fixtures_nodes =
-  Vicc5FixturesDropdownQuery['vicc5']['vicc5Fixtures']['nodes'][number];
+  Vicc5FixturesDropdownQuery['vicc5Root']['vicc5Fixtures']['nodes'][number];
 
 const vicc5FixtureFragment = gql`
   fragment Lobby_GameWeekDropdownHeader_vicc5Fixture on Vicc5Fixture {
@@ -278,7 +278,7 @@ const GameWeekDropdown = ({
     fetchPolicy: 'cache-and-network',
     skip: !enabled,
   });
-  const vicc5Fixtures = data?.vicc5.vicc5Fixtures;
+  const vicc5Fixtures = data?.vicc5Root.vicc5Fixtures;
   const endCursor = vicc5Fixtures?.pageInfo?.endCursor;
   const hasMore = Boolean(vicc5Fixtures?.pageInfo.hasNextPage);
   const latestGameWeek = vicc5Fixtures?.nodes[0]?.gameWeek;
@@ -289,11 +289,11 @@ const GameWeekDropdown = ({
   }, [endCursor, loadMore]);
 
   const parseOptions = useCallback<() => GroupBase[]>(() => {
-    if (!data?.vicc5.vicc5Fixtures?.nodes) {
+    if (!data?.vicc5Root.vicc5Fixtures?.nodes) {
       return [];
     }
     optionsBySlug.current = groupNodesBySlug(
-      data.vicc5.vicc5Fixtures.nodes
+      data.vicc5Root.vicc5Fixtures.nodes
     );
     return groupOptionsByYear(optionsBySlug.current);
   }, [data, optionsBySlug]);

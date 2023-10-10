@@ -28,6 +28,10 @@ const messages = defineMessages<Tradeable>({
     defaultMessage:
       'Your Card cannot be sold. You must transfer it to your Vicc account.',
   },
+  [Tradeable.ON_SALE]: {//TODO
+    id: 'Sell.yes',
+    defaultMessage: 'Your Card can be sold on the Manager Sales Market.',
+  },
   [Tradeable.YES]: {
     id: 'Sell.yes',
     defaultMessage: 'Your Card can be sold on the Manager Sales Market.',

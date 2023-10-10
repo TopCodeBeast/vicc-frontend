@@ -96,7 +96,7 @@ export const SelectedLeaderboardBanner = () => {
 
   if (!data) return null;
 
-  const { vicc5Leaderboard } = data.vicc5;
+  const { vicc5Leaderboard } = data.vicc5Root;
   return (
     <StyledLink
       to={generatePathWithSearch(FOOTBALL_COMPETITION_DETAILS, {

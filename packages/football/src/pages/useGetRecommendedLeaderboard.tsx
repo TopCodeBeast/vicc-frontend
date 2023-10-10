@@ -53,7 +53,7 @@ const useGetRecommendedLeaderboard = ({
     return {};
   }
 
-  const leaderboards = data?.vicc5.upcomingLeaderboards;
+  const leaderboards = data?.vicc5Root.upcomingLeaderboards;
 
   const draftedLeaderboards =
     leaderboards?.filter(

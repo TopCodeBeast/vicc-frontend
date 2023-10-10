@@ -136,12 +136,12 @@ const useGetTeams = (variables: Props) => {
   });
   return upcoming
     ? {
-        data: upcomingData?.vicc5.myUpcomingLineupsPaginated,
+        data: upcomingData?.vicc5Root.myUpcomingLineupsPaginated,
         loading: upcomingLoading,
         loadMore: upcomingLoadMore,
       }
     : {
-        data: data?.vicc5.vicc5Fixture?.myVicc5LineupsPaginated,
+        data: data?.vicc5Root.vicc5Fixture?.myVicc5LineupsPaginated,
         loading,
         loadMore,
       };

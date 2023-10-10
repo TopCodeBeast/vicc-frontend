@@ -172,7 +172,7 @@ const ComposeTeamOrRedirect = () => {
     }
   );
 
-  const { vicc5Leaderboard } = leaderboardData?.vicc5 || {};
+  const { vicc5Leaderboard } = leaderboardData?.vicc5Root || {};
   const { vicc5Fixture, trainingCenter } = vicc5Leaderboard || {};
   const { myVicc5LineupsPaginated } = vicc5Fixture || {};
   const firstValidLineupId = idFromObject(

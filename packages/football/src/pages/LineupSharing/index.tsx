@@ -209,9 +209,9 @@ const LineupSharing = () => {
   useEffect(() => {
     if (data) {
       const img =
-        data.vicc5.vicc5Lineup.socialPictureUrls?.post ||
-        data.vicc5.vicc5Lineup.socialPictureUrls?.square ||
-        data.vicc5.vicc5Lineup.socialPictureUrls?.story ||
+        data.vicc5Root.vicc5Lineup.socialPictureUrls?.post ||
+        data.vicc5Root.vicc5Lineup.socialPictureUrls?.square ||
+        data.vicc5Root.vicc5Lineup.socialPictureUrls?.story ||
         undefined;
 
       setPageMetadata(
@@ -220,14 +220,14 @@ const LineupSharing = () => {
             id: 'LineUpSharing.title',
             defaultMessage: "{nickname}'s Lineup",
           },
-          { nickname: data.vicc5.vicc5Lineup.user?.nickname }
+          { nickname: data.vicc5Root.vicc5Lineup.user?.nickname }
         ),
         { img }
       );
-      if (data.vicc5.vicc5Lineup.vicc5Leaderboard) {
+      if (data.vicc5Root.vicc5Lineup.vicc5Leaderboard) {
         track('View Shared Lineup', {
-          lineup: data?.vicc5.vicc5Lineup.id,
-          competition: data.vicc5.vicc5Lineup.vicc5Leaderboard.displayName,
+          lineup: data?.vicc5Root.vicc5Lineup.id,
+          competition: data.vicc5Root.vicc5Lineup.vicc5Leaderboard.displayName,
         });
       }
     }
@@ -243,7 +243,7 @@ const LineupSharing = () => {
   if (!data) return null;
 
   const { vicc5Appearances, vicc5Leaderboard, vicc5Fixture, user } =
-    data.vicc5.vicc5Lineup;
+    data.vicc5Root.vicc5Lineup;
   const lineup = getAppearancesByPosition(vicc5Appearances);
 
   return (

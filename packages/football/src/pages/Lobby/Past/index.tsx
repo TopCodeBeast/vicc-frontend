@@ -109,7 +109,7 @@ export const LobbyPast = () => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const vicc5Fixture = data?.vicc5.vicc5Fixture || undefined;
+  const vicc5Fixture = data?.vicc5Root.vicc5Fixture || undefined;
   const rewardsLeftToBeClaimed = vicc5Fixture?.myVicc5Rewards.some(
     ({ aasmState }) => aasmState !== 'claimed'
   );

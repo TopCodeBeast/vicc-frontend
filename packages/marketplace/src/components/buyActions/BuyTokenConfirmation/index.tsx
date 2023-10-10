@@ -98,7 +98,7 @@ export const BuyTokenConfirmation = ({ payment, offer }: Props) => {
       }
       summaryTableProps={summaryTableProps}
       payment={payment}
-      seller={<SmallUser user={sender} />}
+      seller={<SmallUser user={sender as any} />} //TODO******
     />
   );
 };

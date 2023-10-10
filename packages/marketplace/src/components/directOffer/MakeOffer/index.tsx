@@ -33,6 +33,10 @@ const statusMessages = defineMessages<Tradeable>({
     defaultMessage:
       'This Card cannot be sold on Vicc. The owner must transfer it to their Vicc account.',
   },
+  [Tradeable.ON_SALE]: {//TODO
+    id: 'MakeOffer.internal',
+    defaultMessage: 'You can make an offer on this Card.',
+  },
   [Tradeable.YES]: {
     id: 'MakeOffer.internal',
     defaultMessage: 'You can make an offer on this Card.',

@@ -217,7 +217,7 @@ const FootballPublicHome = () => {
       competitions: [{ released: true, slug: id, logoUrl: '' }],
       upcomingVicc5Leaderboard: { vicc5LineupsCount: 0, slug: '' },
     })),
-  } = data?.vicc5 || {};
+  } = data?.vicc5Root || {};
   const sizes = Object.entries({
     sm: 600,
     md: 960,
@@ -235,7 +235,7 @@ const FootballPublicHome = () => {
   );
 
   const regularSignup =
-    !data?.vicc5.onboardingCommonDraftCampaigns?.length ||
+    !data?.vicc5Root.onboardingCommonDraftCampaigns?.length ||
     useDisableFootballOnboarding;
 
   return (

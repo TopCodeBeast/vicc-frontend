@@ -54,7 +54,7 @@ import {
 } from './__generated__/index.graphql';
 
 type CompetitionDetailsQuery_vicc5Leaderboard =
-  CompetitionDetailsQuery['vicc5']['vicc5Leaderboard'];
+  CompetitionDetailsQuery['vicc5Root']['vicc5Leaderboard'];
 
 // const Team = lazy(async () => import('@football/pages/Lobby/CompetitionDetails/Team'));
 const Rewards = lazy(
@@ -301,7 +301,7 @@ export const CompetitionDetails = ({ closeButton }: Props) => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const { vicc5Leaderboard } = data?.vicc5 || {};
+  const { vicc5Leaderboard } = data?.vicc5Root || {};
 
   const getCorrespondingLineup = () => {
     if (idFromQS) {

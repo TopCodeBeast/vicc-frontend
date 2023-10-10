@@ -22,7 +22,7 @@ import {
 
 type CompetitionDetailsRewardsTabQuery_vicc5Leaderboard_rewardsConfig_ranking =
   NonNullable<
-    CompetitionDetailsRewardsTabQuery['vicc5']['vicc5Leaderboard']['rewardsConfig']['ranking']
+    CompetitionDetailsRewardsTabQuery['vicc5Root']['vicc5Leaderboard']['rewardsConfig']['ranking']
   >[number];
 
 export interface RangeReward
@@ -165,7 +165,7 @@ const CompetitionDetailsRewardsTab = () => {
   const [leaderboardMode, setLeaderboardMode] =
     useLocalStorage<LeaderboardModes>(STORAGE.leaderboardMode, 'matchday');
 
-  const vicc5Leaderboard = data?.vicc5.vicc5Leaderboard;
+  const vicc5Leaderboard = data?.vicc5Root.vicc5Leaderboard;
   const vicc5League = vicc5Leaderboard?.vicc5League;
   const universalVicc5UserGroup = vicc5Leaderboard?.universalVicc5UserGroups?.[0];
 

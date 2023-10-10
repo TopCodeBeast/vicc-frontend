@@ -65,7 +65,7 @@ const WITH_LIVE_CARDS_ON_SALE_CARD_QUERY = gql`
 >;
 
 type CommonDraftCampaign = NonNullable<
-  WithLiveCardsOnSaleLeaderboardQuery['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
+  WithLiveCardsOnSaleLeaderboardQuery['vicc5Root']['vicc5Leaderboard']['commonDraftCampaign']
 >;
 const useLiveCardsOnSale = ({
   bestDraftedPlayers,
