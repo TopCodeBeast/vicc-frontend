@@ -62,7 +62,7 @@ const PrivateUserGroupJoinFromLinkDialog = ({ joinSecret }: Props) => {
     localStorage.removeItem(STORAGE.inviteCode);
   }
 
-  if (!(data?.vicc5.vicc5UserGroup && joinSecret)) {
+  if (!(data?.vicc5Root.vicc5UserGroup && joinSecret)) {
     return null;
   }
 
@@ -74,7 +74,7 @@ const PrivateUserGroupJoinFromLinkDialog = ({ joinSecret }: Props) => {
     joinDisabled,
     membershipsCount,
     myMembership,
-  } = data?.vicc5.vicc5UserGroup;
+  } = data?.vicc5Root.vicc5UserGroup;
   const alreadyJoined = !!myMembership;
 
   const getPrivateUserGroupJoinState = () => {

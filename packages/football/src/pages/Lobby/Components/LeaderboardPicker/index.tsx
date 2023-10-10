@@ -98,7 +98,7 @@ export const LeaderboardPicker = ({ type }: Props) => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const vicc5Fixture = data?.vicc5.vicc5Fixture;
+  const vicc5Fixture = data?.vicc5Root.vicc5Fixture;
   const redirectTo = useCallback(
     ({ rarity, leaderboard }: { rarity?: string; leaderboard?: string }) => {
       if (!vicc5Fixture) return null;

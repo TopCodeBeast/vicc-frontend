@@ -127,7 +127,7 @@ export const PrizePool = () => {
     }
   );
 
-  const vicc5Leaderboards = data?.vicc5.futureLeaderboardsPaginated.nodes;
+  const vicc5Leaderboards = data?.vicc5Root.futureLeaderboardsPaginated.nodes;
   const groupedVicc5Leaderboards = useMemo(
     () =>
       sortBy(
@@ -143,11 +143,11 @@ export const PrizePool = () => {
     useCallback(() => {
       loadMore(false, {
         cursor:
-          data?.vicc5.futureLeaderboardsPaginated?.pageInfo.endCursor,
+          data?.vicc5Root.futureLeaderboardsPaginated?.pageInfo.endCursor,
       });
-    }, [data?.vicc5.futureLeaderboardsPaginated, loadMore]),
+    }, [data?.vicc5Root.futureLeaderboardsPaginated, loadMore]),
     Boolean(
-      data?.vicc5.futureLeaderboardsPaginated?.pageInfo?.hasNextPage
+      data?.vicc5Root.futureLeaderboardsPaginated?.pageInfo?.hasNextPage
     ),
     loading
   );

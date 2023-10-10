@@ -76,7 +76,7 @@ export const CreatePrivateUserGroup = () => {
 
   const { data: upcomingFixtureData, loading: upcomingFixtureLoading } =
     useQuery(UPCOMING_FIXTURES_QUERY);
-  const upcomingFixture = upcomingFixtureData?.vicc5.vicc5Fixture;
+  const upcomingFixture = upcomingFixtureData?.vicc5Root.vicc5Fixture;
 
   const onSelectNewSkin = (id: string) => setLogoId(id);
 

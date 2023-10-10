@@ -124,7 +124,7 @@ export const ComposeTeam = ({ vicc5LeaderboardSlug, vicc5LineupId }: Props) => {
     return <Navigate to={isReorgApp ? FOOTBALL_PLAY_WEEKLY : FOOTBALL_LOBBY} />;
   }
 
-  const { vicc5Leaderboard } = data.vicc5;
+  const { vicc5Leaderboard } = data.vicc5Root;
   const { vicc5Lineup, vicc5League } = vicc5Leaderboard || {};
 
   const handleSubmitSuccess = (captainPictureUrl?: string) => {

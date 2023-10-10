@@ -43,7 +43,7 @@ const useFavPlayer = ({ skip = false }: { skip?: boolean }) => {
   const { data } = useQuery(LAST_LINEUP_QUERY, { skip });
 
   const card =
-    data?.vicc5.myUpcomingLineupsPaginated.nodes[0]?.vicc5Appearances.find(
+    data?.vicc5Root.myUpcomingLineupsPaginated.nodes[0]?.vicc5Appearances.find(
       vicc5Appearance => vicc5Appearance.captain
     )?.card;
 

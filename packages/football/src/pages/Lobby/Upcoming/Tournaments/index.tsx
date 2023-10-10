@@ -49,7 +49,7 @@ export const LobbyUpcomingTournaments = () => {
     }
   );
 
-  const vicc5Leaderboards = data?.vicc5.upcomingLeaderboards;
+  const vicc5Leaderboards = data?.vicc5Root.upcomingLeaderboards;
   const extraTeamsCapItems = data?.shopItems.nodes;
 
   const refetchCb = useCallback(() => {

@@ -30,7 +30,7 @@ export default () => {
   });
 
   return {
-    nextVicc5FixtureTeams: data?.config?.vicc5?.nextVicc5FixtureTeams || [],
+    nextVicc5FixtureTeams: data?.config?.vicc5Config?.nextVicc5FixtureTeams || [],
     loading,
   };
 };

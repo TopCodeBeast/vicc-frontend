@@ -106,13 +106,13 @@ export const LobbyLiveIndex = () => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const vicc5Fixture = data?.vicc5.vicc5Fixture || undefined;
+  const vicc5Fixture = data?.vicc5Root.vicc5Fixture || undefined;
 
   return (
     <Layout vicc5Fixture={vicc5Fixture}>
       <Container>
         <ComposeTeamReminderBanner
-          vicc5Fixture={data?.vicc5.vicc5FixtureUpcoming}
+          vicc5Fixture={data?.vicc5Root.vicc5FixtureUpcoming}
         />
         {!vicc5Fixture && loading && (
           <Loading>

@@ -47,7 +47,7 @@ const Vicc5NoCardEntryRegisterDialog = (props: Props) => {
 
   const { open } = props;
   const { maxLineupsPerUser, emailAddress } =
-    data?.config?.vicc5?.noCardRoute || {};
+    data?.config?.vicc5Config?.noCardRoute || {};
 
   useEffect(() => {
     if (open) {
@@ -60,7 +60,7 @@ const Vicc5NoCardEntryRegisterDialog = (props: Props) => {
       loading={loading}
       maxLineupsPerUser={maxLineupsPerUser}
       emailAddress={emailAddress}
-      poolDetail={<PoolDetail noCardRoute={data?.config?.vicc5?.noCardRoute} />}
+      poolDetail={<PoolDetail noCardRoute={data?.config?.vicc5Config?.noCardRoute} />}
     />
   );
 };

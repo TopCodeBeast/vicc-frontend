@@ -93,8 +93,8 @@ export const LeaderboardFetcher = ({
     skip: !leaderboardSlug,
   });
 
-  const { vicc5 } = data || {};
-  const { vicc5Leaderboard } = vicc5 || {};
+  const { vicc5Root } = data || {};
+  const { vicc5Leaderboard } = vicc5Root || {};
   const {
     myVicc5Rankings,
     vicc5Rankings,

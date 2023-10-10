@@ -128,7 +128,7 @@ export const Games = () => {
     nextFetchPolicy: 'cache-first',
     fetchPolicy: 'cache-and-network',
   });
-  const { vicc5Fixture } = data?.vicc5 || {};
+  const { vicc5Fixture } = data?.vicc5Root || {};
   const parseSearch = qs.parse(window.location.search, {
     ignoreQueryPrefix: true,
   });

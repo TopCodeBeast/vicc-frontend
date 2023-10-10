@@ -30,7 +30,7 @@ export default () => {
   });
 
   return {
-    noCardRoute: data?.config?.vicc5?.noCardRoute || {
+    noCardRoute: data?.config?.vicc5Config?.noCardRoute || {
       nextOpenDate: '',
       nextCloseDate: '',
     },

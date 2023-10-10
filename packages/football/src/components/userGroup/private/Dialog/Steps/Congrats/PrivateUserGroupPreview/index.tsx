@@ -8,7 +8,7 @@ import UserGroupPicture from '@football/components/userGroup/UserGroupPicture';
 import { GetPrivateUserGroupQuery } from '@football/components/userGroup/private/Dialog/Steps/Congrats/__generated__/index.graphql';
 
 type Skin = NonNullable<
-  GetPrivateUserGroupQuery['vicc5']['vicc5UserGroup']['logo']
+  GetPrivateUserGroupQuery['vicc5Root']['vicc5UserGroup']['logo']
 >;
 
 const GroupContent = styled.div`

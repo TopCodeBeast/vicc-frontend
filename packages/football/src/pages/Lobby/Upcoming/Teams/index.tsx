@@ -127,7 +127,7 @@ export const LobbyUpcomingTeams = () => {
     fetchPolicy: 'cache-and-network',
   });
 
-  const { lineups, drafts, upcomingLeaderboards } = data?.vicc5 || {};
+  const { lineups, drafts, upcomingLeaderboards } = data?.vicc5Root || {};
   const totalLineups = lineups?.totalCount || 0;
   const totalDrafts = drafts?.totalCount || 0;
 

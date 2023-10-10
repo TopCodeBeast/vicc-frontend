@@ -81,7 +81,7 @@ export const PlayerGameScoreDialog = ({
   });
 
   if (data) {
-    const { vicc5Score } = data.vicc5;
+    const { vicc5Score } = data.vicc5Root;
     const gameWeek = vicc5Score.playerGameStats.game.vicc5Fixture?.gameWeek;
     const {
       player,

@@ -75,7 +75,7 @@ export const LobbyUpcoming = () => {
   });
 
   const { formatMessage } = useIntlContext();
-  const { myUpcomingLineupsPaginated } = data?.vicc5 || {};
+  const { myUpcomingLineupsPaginated } = data?.vicc5Root || {};
   const totalLineups = myUpcomingLineupsPaginated?.totalCount || 0;
 
   if (tab && !Object.values(LOBBY_TABS).includes(tab)) {

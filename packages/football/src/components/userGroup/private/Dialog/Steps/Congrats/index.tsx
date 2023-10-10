@@ -138,7 +138,7 @@ export const Congrats = ({ slug, redirectToManagerHome }: Props) => {
     return null;
   }
   const {
-    vicc5: { vicc5UserGroup },
+    vicc5Root: { vicc5UserGroup },
   } = data;
 
   const {

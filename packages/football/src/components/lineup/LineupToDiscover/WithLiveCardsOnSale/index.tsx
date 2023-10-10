@@ -55,7 +55,7 @@ type CardHit = {
 };
 
 type CommonDraftCampaign = NonNullable<
-  WithLiveCardsOnSaleLeaderboardQuery['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
+  WithLiveCardsOnSaleLeaderboardQuery['vicc5Root']['vicc5Leaderboard']['commonDraftCampaign']
 >;
 
 const POSITIONS = [
@@ -125,7 +125,7 @@ const WithLiveCardsOnSale = ({
   );
 
   const { draftedPlayers } =
-    leaderboardData?.vicc5.vicc5Leaderboard?.commonDraftCampaign || {};
+    leaderboardData?.vicc5Root.vicc5Leaderboard?.commonDraftCampaign || {};
   const bestDraftedPlayers = useMemo(
     () => getBestPlayers(draftedPlayers || []),
     [draftedPlayers]

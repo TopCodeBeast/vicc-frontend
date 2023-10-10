@@ -180,12 +180,12 @@ const UserGroupsList = ({ showDialog }: Props) => {
   });
 
   const after =
-    data?.vicc5.paginatedMyVicc5UserGroups?.pageInfo?.endCursor;
+    data?.vicc5Root.paginatedMyVicc5UserGroups?.pageInfo?.endCursor;
   const { InfiniteScrollLoader } = useInfiniteScroll(
     useCallback(() => {
       loadMore(false, { after, enableLongFormatCompetition });
     }, [loadMore, after, enableLongFormatCompetition]),
-    Boolean(data?.vicc5.paginatedMyVicc5UserGroups?.pageInfo?.hasNextPage),
+    Boolean(data?.vicc5Root.paginatedMyVicc5UserGroups?.pageInfo?.hasNextPage),
     loading
   );
 
@@ -198,17 +198,17 @@ const UserGroupsList = ({ showDialog }: Props) => {
     });
   };
 
-  const privateUserGroups = data?.vicc5.myVicc5UserGroups?.nodes || [];
+  const privateUserGroups = data?.vicc5Root.myVicc5UserGroups?.nodes || [];
   const publicUserGroups =
-    data?.vicc5.universalVicc5UserGroups?.nodes || [];
+    data?.vicc5Root.universalVicc5UserGroups?.nodes || [];
   const paginatedPrivateUserGroups =
-    data?.vicc5.paginatedMyVicc5UserGroups?.nodes || [];
+    data?.vicc5Root.paginatedMyVicc5UserGroups?.nodes || [];
   const privateUserGroupsTotal =
-    data?.vicc5.myVicc5UserGroups?.totalCount || 0;
+    data?.vicc5Root.myVicc5UserGroups?.totalCount || 0;
   const paginatedPrivateUserGroupsTotal =
-    data?.vicc5.paginatedMyVicc5UserGroups?.totalCount || 0;
+    data?.vicc5Root.paginatedMyVicc5UserGroups?.totalCount || 0;
   const publicUserGroupsTotal =
-    data?.vicc5.universalVicc5UserGroups?.totalCount || 0;
+    data?.vicc5Root.universalVicc5UserGroups?.totalCount || 0;
 
   return (
     <Root>

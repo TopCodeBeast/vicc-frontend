@@ -70,11 +70,11 @@ import useDraftReducer, {
 
 type DraftQuery_vicc5Leaderboard_commonDraftCampaign_availablePlayers_nodes =
   NonNullable<
-    DraftQuery['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
+    DraftQuery['vicc5Root']['vicc5Leaderboard']['commonDraftCampaign']
   >['availablePlayers']['nodes'][number];
 
 type DraftSetupQuery_vicc5Leaderboard_commonDraftCampaign = NonNullable<
-  DraftSetupQuery['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
+  DraftSetupQuery['vicc5Root']['vicc5Leaderboard']['commonDraftCampaign']
 >;
 
 const PAGE_SIZE = 20;
@@ -666,14 +666,14 @@ const DraftOrRedirect = () => {
         <LoadingIndicator fullScreen />
       </div>
     );
-  if (!slug || !data?.vicc5.vicc5Leaderboard.commonDraftCampaign) {
+  if (!slug || !data?.vicc5Root.vicc5Leaderboard.commonDraftCampaign) {
     return <Navigate to={LANDING} />;
   }
 
   return (
     <Draft
       vicc5LeaderboardSlug={slug}
-      commonDraftCampaign={data.vicc5.vicc5Leaderboard.commonDraftCampaign}
+      commonDraftCampaign={data.vicc5Root.vicc5Leaderboard.commonDraftCampaign}
     />
   );
 };

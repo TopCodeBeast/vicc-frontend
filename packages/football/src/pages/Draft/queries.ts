@@ -21,7 +21,7 @@ import {
 
 type DraftAutofillQuery_vicc5Leaderboard_commonDraftCampaign_autoPick =
   NonNullable<
-    DraftAutofillQuery['vicc5']['vicc5Leaderboard']['commonDraftCampaign']
+    DraftAutofillQuery['vicc5Root']['vicc5Leaderboard']['commonDraftCampaign']
   >['autoPick'][number];
 
 const DRAFT_SETUP_QUERY = gql`
@@ -130,7 +130,7 @@ export const useDraftQuery = (variables: DraftQueryVariables) => {
     fetchPolicy: 'cache-first',
   });
   const { nodes: availablePlayers = [], pageInfo } =
-    data?.vicc5.vicc5Leaderboard.commonDraftCampaign?.availablePlayers ||
+    data?.vicc5Root.vicc5Leaderboard.commonDraftCampaign?.availablePlayers ||
     {};
 
   return { data: { availablePlayers, pageInfo }, loading, loadMore };
@@ -178,7 +178,7 @@ export const useAutoFillQuery = ({
       variables: { vicc5LeaderboardSlug },
       onCompleted: autoFillData => {
         const { autoPick } =
-          autoFillData?.vicc5.vicc5Leaderboard.commonDraftCampaign || {};
+          autoFillData?.vicc5Root.vicc5Leaderboard.commonDraftCampaign || {};
         if (autoPick && onCompleted) {
           onCompleted(autoPick);
         }

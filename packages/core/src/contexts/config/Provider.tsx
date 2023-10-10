@@ -221,9 +221,9 @@ export const ConfigProvider = ({ children }: Props) => {
       value={{
         ...config,
         vicc5: {
-          ...config.vicc5,
+          ...config.vicc5Config,
           vicc5LeaguesAlgoliaFilters: asObject(
-            config.vicc5.vicc5LeaguesAlgoliaFilters
+            config.vicc5Config.vicc5LeaguesAlgoliaFilters
           ),
         },
         marketFeeRateBasisPoints: config.marketFeeRateBasisPoints / 10000,
