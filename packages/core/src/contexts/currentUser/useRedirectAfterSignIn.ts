@@ -38,7 +38,8 @@ export default () => {
         (sportTarget && defaultSportPages[sportTarget]) ||
         (lastVisitedSport && defaultSportPages[lastVisitedSport]);
       if (currentUser) {
-        if (fromPath) {
+        navigate(FOOTBALL_MARKET);
+        /*if (fromPath) {
           // make sure we don't redirect to an external URL as it would be a security issue.
           const url = new URL(fromPath, window.location.origin);
           navigate(`${url.pathname}${url.search}`, {
@@ -68,7 +69,7 @@ export default () => {
             }
             navigate(FOOTBALL_MARKET);
           }
-        }
+        }*/
       }
     },
     [redirectUrl, afterLoggedInTarget, sportTarget, defaultSportPages, navigate]

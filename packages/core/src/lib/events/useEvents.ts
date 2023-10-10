@@ -95,7 +95,7 @@ const useEvents = () => {
 //TODO
 const useEvents = () => {
   const track = useCallback((...params: any) => {
-    console.log('event.track')
+    console.log('event.track', params)
   }, []);
 
   return track;
