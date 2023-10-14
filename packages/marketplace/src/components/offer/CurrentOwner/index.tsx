@@ -42,7 +42,7 @@ export const CurrentOwner = ({ token }: Props) => {
     !owner || isType(owner.account?.owner, 'Contract');
 
   const onSale =
-    myMintedSingleSaleOffer && belongsToUser(myMintedSingleSaleOffer);
+    myMintedSingleSaleOffer && belongsToUser(myMintedSingleSaleOffer as any);
 
   useEffect(() => {
     if (onSale) {
