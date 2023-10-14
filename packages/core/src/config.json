@@ -60,10 +60,10 @@
     "env": "staging"
   },
   "production": {
-    "backendHost": "http://localhost:4000",
+    "backendHost": "https://vicc.club/graphql",
     "brazeApiKey": "",
     "brazeSdkEndpoint": "",
-    "walletUrl": "http://localhost:5200",
+    "walletUrl": "https://wallet.vicc.club",
     "wsUrl": "",
     "launchDarklyClientSideID": "",
     "usSportsBackendHost": "",
