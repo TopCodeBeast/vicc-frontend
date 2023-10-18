@@ -30,13 +30,13 @@ const Container = styled.div<{ $white?: boolean }>`
       ${({ $white }) =>
         !$white &&
         css`
-          filter: invert(1);
+          filter: invert(0);
         `}
     }
     ${({ $white }) =>
       $white &&
       css`
-        filter: invert(1);
+        filter: invert(0);
       `}
   }
 `;
