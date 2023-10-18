@@ -78,13 +78,13 @@ export const Overview = () => {
 
   return (
     <Wrapper>
-      <ManagerAssistant
+      {/* <ManagerAssistant
         user={user}
         leaderboards={leaderboards}
         loading={loading}
       />
       <TournamentsTimeline vicc5={vicc5} loading={loading} />
-      {contentUnits}
+      {contentUnits} */}
       <PrivateLeagues vicc5={vicc5} loading={loading} />
     </Wrapper>
   );

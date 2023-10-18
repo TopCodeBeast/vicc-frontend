@@ -104,9 +104,9 @@ export const EmptyStateCta = () => {
           />
         </Text14>
       </FlexColContainer>
-      <Trophy className="trophy" src={trophy} />
+      {/* <Trophy className="trophy" src={trophy} />
       <Magic className="magic" src={magic} />
-      <Crown className="crown" src={crown} />
+      <Crown className="crown" src={crown} /> */}
     </Root>
   );
 };
