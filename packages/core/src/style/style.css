@@ -40,9 +40,9 @@
   --c-rgb-neutral-300: var(--c-static-rgb-neutral-300);
   --c-rgb-neutral-200: var(--c-static-rgb-neutral-200);
   --c-rgb-neutral-100: var(--c-static-rgb-neutral-100);
-  --c-brand-800: #2d42b2;
-  --c-brand-600: #4662f7;
-  --c-brand-300: #8094ff;
+  --c-brand-800: #b28f2d;
+  --c-brand-600: #f7aa46;
+  --c-brand-300: #fff280;
   --c-rgb-brand-800: 45, 66, 178;
   --c-rgb-brand-600: 70, 98, 247;
   --c-rgb-brand-300: 128, 148, 255;

@@ -145,12 +145,12 @@ export const Notice = () => {
           <FormattedMessage {...messages.title} />
         </Title4>
         <TabBar value={selectedSport}>
-          {sports.map(s => (
+          {/* {sports.map(s => (
             <Tab key={s} value={s} onClick={() => setSelectedSport(s)}>
               <SportIcon sport={s} />
               <FormattedMessage {...sportsLabelsMessages[s]} />
             </Tab>
-          ))}
+          ))} */}
         </TabBar>
       </Header>
       {selectedSport &&
