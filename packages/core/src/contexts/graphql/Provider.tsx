@@ -163,6 +163,7 @@ export const GraphqlProvider = ({
             DEVICE_FINGERPRINT: await deviceFingerprint(),
             [xsrfHeaderName]: cookie.load(xsrfCookieName),
             'Seon-Session': seonSession,
+            'Apollo-Require-Preflight': true,
             ...(apiKey && { APIKEY: apiKey }),
             // ...(import.meta.env.MODE === 'development' &&
             //   isProduction &&
@@ -353,8 +354,8 @@ export const GraphqlProvider = ({
                   path: '/',
                   // make sure the cookie is available on subdomains
                   domain: window.location.hostname.replace(
-                    /.*\.sorare\./,
-                    'sorare.'
+                    /.*\.vicc\./,
+                    'vicc.'
                   ),
                   expires,
                 }
