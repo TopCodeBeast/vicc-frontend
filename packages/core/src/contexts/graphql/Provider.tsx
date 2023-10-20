@@ -155,10 +155,10 @@ export const GraphqlProvider = ({
           headers: {
             ...headers,
             ...cloudflareAccessHeaders,
-            'sorare-client': CLIENT_TYPE,
-            'sorare-version': VERSION,
-            'sorare-build': REVISION,
-            'sorare-tab-version': TAB_VERSION,
+            'vicc-client': CLIENT_TYPE,
+            'vicc-version': VERSION,
+            'vicc-build': REVISION,
+            'vicc-tab-version': TAB_VERSION,
             'Accept-Language': locale,
             DEVICE_FINGERPRINT: await deviceFingerprint(),
             [xsrfHeaderName]: cookie.load(xsrfCookieName),
@@ -281,9 +281,9 @@ export const GraphqlProvider = ({
     });
     /* eslint-disable consistent-return */
 
-    const httpLink = createHttpLink({ uri });
+    // const httpLink = createHttpLink({ uri });
 
-    /*const httpLink = ApolloLink.split(
+    const httpLink = ApolloLink.split(
       hasSubscriptionOperation,
       new ActionCableLink({ cable: wsCable }) as any,
       createUploadLink({
@@ -331,7 +331,7 @@ export const GraphqlProvider = ({
           accept: 'application/json',
         },
       })
-    );*/
+    );
 
     const afterwareLink = new ApolloLink((operation, forward) => {
       return forward
