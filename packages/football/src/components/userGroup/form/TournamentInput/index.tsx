@@ -44,7 +44,7 @@ export const TournamentInput = ({ tournaments }: Props) => {
   return (
     <FieldWrapper>
       <Select
-        name="vicc5LeaderboardType"
+        name="vicc5TournamentSlug"
         id={INPUT_ID}
         options={options}
         initialValue={options[0]}
