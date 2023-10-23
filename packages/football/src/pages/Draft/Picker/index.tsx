@@ -168,6 +168,7 @@ export const Picker = ({
   }, [activePosition]);
 
   const nbEmptySlots = draft.length - playerFilledCount;
+  console.log('draft', draft)
 
   return (
     <Container {...props}>
