@@ -164,11 +164,12 @@ export const AnimatedDiamond = forwardRef<AnimatedDiamond, Props>(
             shakeAnimation: runningAnimation === 'shake',
           })}
         >
-          {runningAnimation === 'turn' ? (
+          {/* {runningAnimation === 'turn' ? (
             <img width={size} height={size} src={diamondGif} alt="" />
           ) : (
             <img width={size} height={size} src={diamond} alt="" />
-          )}
+          )} */}
+          <img width={size} height={size} src={diamond} alt="" />
         </Wrapper>
       </RootWrapper>
     );
