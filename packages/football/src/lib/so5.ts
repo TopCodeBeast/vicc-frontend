@@ -306,7 +306,7 @@ export const getScoreModifiers = (
   return { score, scoreModifier };
 };
 
-export type FormationName = 'defensive' | 'dense' | 'attacking' | 'default';
+export type FormationName = 'batsman' | 'filder' | 'bowler' | 'wicketkeeper';
 export type Formation = {
   name: FormationName;
   formation: string;
@@ -315,19 +315,19 @@ export type Formation = {
 export const extraPlayerPosition: {
   [key in FormationName]: PlayablePosition | null;
 } = {
-  defensive: GlobalPosition.Batsman,
-  dense: GlobalPosition.Fielder,
-  attacking: GlobalPosition.Bowler,
-  default: null,
+  batsman: GlobalPosition.Batsman,
+  filder: GlobalPosition.Fielder,
+  bowler: GlobalPosition.Bowler,
+  wicketkeeper: GlobalPosition.Wicketkeeper,
 };
 
 export const formationFromExtraPlayerPosition: {
   [key in PlayablePosition]: FormationName;
 } = {
-  Batsman: 'defensive',
-  Fielder: 'dense',
-  Bowler: 'attacking',
-  Wicketkeeper: 'defensive',
+  Batsman: 'batsman',
+  Fielder: 'filder',
+  Bowler: 'bowler',
+  Wicketkeeper: 'wicketkeeper',
 };
 
 export const getPositionSelectionOrder = (
@@ -458,28 +458,28 @@ export const getPlayerScore = withFragments(
 
 export const positionShortNames = defineMessages<GlobalPosition | Position>({
   Bowler: {
-    id: 'Player.shortForward',
-    defaultMessage: 'FW',
+    id: 'Player.shortBowler',
+    defaultMessage: 'BO',
   },
   Fielder: {
-    id: 'Player.shortMidfielder',
-    defaultMessage: 'MD',
+    id: 'Player.shortFielder',
+    defaultMessage: 'FL',
   },
   Batsman: {
-    id: 'Player.shortDefender',
-    defaultMessage: 'DF',
+    id: 'Player.shortBatsman',
+    defaultMessage: 'BM',
   },
   Wicketkeeper: {
-    id: 'Player.shortGoalkeeper',
-    defaultMessage: 'GK',
+    id: 'Player.shortWicketkeeper',
+    defaultMessage: 'WK',
   },
   'Extra Player': {
     id: 'Player.shortExtraPlayer',
     defaultMessage: 'Extra',
   },
   AllRounder: {
-    id: 'Player.shortCoach',
-    defaultMessage: 'Coach',
+    id: 'Player.shortAllRounder',
+    defaultMessage: 'ALL',
   },
   Unknown: {
     id: 'Player.shortUnknown',
