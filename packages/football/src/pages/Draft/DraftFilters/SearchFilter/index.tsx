@@ -16,24 +16,24 @@ type Props = {
 
 const messages = defineMessages<Position>({
   Bowler: {
-    id: 'DraftFilters.SearchFilter.placeholder.forward',
-    defaultMessage: 'Search a forward',
+    id: 'DraftFilters.SearchFilter.placeholder.bowler',
+    defaultMessage: 'Search a bowler',
   },
   Fielder: {
-    id: 'DraftFilters.SearchFilter.placeholder.midfielder',
-    defaultMessage: 'Search a midfielder',
+    id: 'DraftFilters.SearchFilter.placeholder.fielder',
+    defaultMessage: 'Search a fielder',
   },
   Batsman: {
-    id: 'DraftFilters.SearchFilter.placeholder.defender',
-    defaultMessage: 'Search a defender',
+    id: 'DraftFilters.SearchFilter.placeholder.batsman',
+    defaultMessage: 'Search a batsman',
   },
   Wicketkeeper: {
-    id: 'DraftFilters.SearchFilter.placeholder.goalkeeper',
-    defaultMessage: 'Search a goalkeeper',
+    id: 'DraftFilters.SearchFilter.placeholder.wicketkeeper',
+    defaultMessage: 'Search a wicketkeeper',
   },
   AllRounder: {
-    id: 'DraftFilters.SearchFilter.placeholder.default',
-    defaultMessage: 'Search players',
+    id: 'DraftFilters.SearchFilter.placeholder.allrounder',
+    defaultMessage: 'Search all rounder',
   },
   Unknown: {
     id: 'DraftFilters.SearchFilter.placeholder.default',
