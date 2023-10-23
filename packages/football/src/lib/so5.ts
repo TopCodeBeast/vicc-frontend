@@ -459,15 +459,15 @@ export const getPlayerScore = withFragments(
 export const positionShortNames = defineMessages<GlobalPosition | Position>({
   Bowler: {
     id: 'Player.shortBowler',
-    defaultMessage: 'BO',
+    defaultMessage: 'BOWL',
   },
   Fielder: {
     id: 'Player.shortFielder',
-    defaultMessage: 'FL',
+    defaultMessage: 'FIELD',
   },
   Batsman: {
     id: 'Player.shortBatsman',
-    defaultMessage: 'BM',
+    defaultMessage: 'BATS',
   },
   Wicketkeeper: {
     id: 'Player.shortWicketkeeper',
