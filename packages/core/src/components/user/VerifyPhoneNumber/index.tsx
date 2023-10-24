@@ -43,6 +43,7 @@ export const VerifyPhoneNumber = ({ onCancel }: Props) => {
     currentUser?.phoneNumberVerificationRequested && !enterPhoneNumber;
 
   if (!shouldOpen) return null;
+  return null;
 
   const sendVerificationCode = async (phoneNumber: string) =>
     verifyPhoneNumber(phoneNumber).then(res => {
