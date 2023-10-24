@@ -133,19 +133,19 @@ export const qualityNames: { [key in CardQuality]: string } = {
 
 export const positionNames = defineMessages<Position>({
   Bowler: {
-    id: 'Player.forward',
-    defaultMessage: 'Forward',
+    id: 'Player.bowler',
+    defaultMessage: 'Bowler',
   },
   Fielder: {
-    id: 'Player.midfielder',
+    id: 'Player.fielder',
     defaultMessage: 'Fielder',
   },
   Batsman: {
-    id: 'Player.defender',
-    defaultMessage: 'Defender',
+    id: 'Player.batsman',
+    defaultMessage: 'Batsman',
   },
   Wicketkeeper: {
-    id: 'Player.goalkeeper',
+    id: 'Player.wicketkeeper',
     defaultMessage: 'Wicketkeeper',
   },
   Unknown: {
@@ -153,8 +153,8 @@ export const positionNames = defineMessages<Position>({
     defaultMessage: 'Unknown Position',
   },
   AllRounder: {
-    id: 'Player.coach',
-    defaultMessage: 'Coach',
+    id: 'Player.allRounder',
+    defaultMessage: 'All Rounder',
   },
 });
 

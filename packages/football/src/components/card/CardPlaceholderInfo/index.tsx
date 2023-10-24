@@ -29,7 +29,8 @@ const CardPlaceholderInfo = ({ position }: Props) => {
       </Icon>
       <Text16>
         <strong>
-          <FormattedMessage {...positionShortNames[position]} />
+          {/* <FormattedMessage {...positionShortNames[position]} /> */}
+          {position}
         </strong>
       </Text16>
     </Root>
