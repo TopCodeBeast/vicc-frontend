@@ -48,7 +48,7 @@ const DumbComposeTeam = ({
     stall={stall}
     disableAnimation={disableAnimation}
     video={STADIUM_ANIMATION}
-    poster={`${FRONTEND_ASSET_HOST}/fields/fallback.jpg`}
+    poster={`/assets/fields/fallback.jpg`}
     bench={
       <BenchWrapper>
         <Header>{header}</Header>
