@@ -306,7 +306,7 @@ export const getScoreModifiers = (
   return { score, scoreModifier };
 };
 
-export type FormationName = 'batsman' | 'filder' | 'bowler' | 'wicketkeeper';
+export type FormationName = 'batsman' | 'filder' | 'bowler' | 'wicketkeeper' | 'default';
 export type Formation = {
   name: FormationName;
   formation: string;
@@ -319,6 +319,7 @@ export const extraPlayerPosition: {
   filder: GlobalPosition.Fielder,
   bowler: GlobalPosition.Bowler,
   wicketkeeper: GlobalPosition.Wicketkeeper,
+  default: null,
 };
 
 export const formationFromExtraPlayerPosition: {

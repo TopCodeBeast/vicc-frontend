@@ -321,9 +321,9 @@ const LastScores = ({
           />
         ) : (
           <>
-            <PlayerUnavailabilityBadge
+            {/* <PlayerUnavailabilityBadge
               {...getSuspensionsAndInjuries<LastScores_player>(score.game)}
-            />
+            /> */}
             <FormattedMessage {...playerGameStatusLabels.did_not_play_short} />
           </>
         ),
@@ -447,19 +447,19 @@ LastScores.fragments = {
       slug
       lastFiveVicc5Appearances
       lastFifteenVicc5Appearances
-      injuries {
-        id
-        ...PlayerUnavailabilityBadge_injury
-      }
-      suspensions {
-        id
-        ...PlayerUnavailabilityBadge_suspension
-      }
+      #injuries {
+      #  id
+      #  ...PlayerUnavailabilityBadge_injury
+      #}
+      #suspensions {
+      #  id
+      #  ...PlayerUnavailabilityBadge_suspension
+      #}
       ...useGetSuspensionsAndInjuries_player
     }
     ${useGetSuspensionsAndInjuries.fragments.player}
-    ${PlayerUnavailabilityBadge.fragments.injury}
-    ${PlayerUnavailabilityBadge.fragments.suspension}
+    #{PlayerUnavailabilityBadge.fragments.injury}
+    #{PlayerUnavailabilityBadge.fragments.suspension}
   ` as TypedDocumentNode<LastScores_player>,
 };
 

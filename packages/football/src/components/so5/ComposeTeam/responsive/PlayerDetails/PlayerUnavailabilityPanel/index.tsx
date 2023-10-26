@@ -9,11 +9,11 @@ import { playerUnavailability } from '@sorare/core/src/lib/glossary';
 
 import { PlayerUnavailabilityPanel_player } from './__generated__/index.graphql';
 
-type PlayerUnavailabilityPanel_player_activeInjuries =
-  PlayerUnavailabilityPanel_player['activeInjuries'][number];
+// type PlayerUnavailabilityPanel_player_activeInjuries =
+//   PlayerUnavailabilityPanel_player['activeInjuries'][number];
 
-type PlayerUnavailabilityPanel_player_activeSuspensions =
-  PlayerUnavailabilityPanel_player['activeSuspensions'][number];
+// type PlayerUnavailabilityPanel_player_activeSuspensions =
+//   PlayerUnavailabilityPanel_player['activeSuspensions'][number];
 
 const Root = styled.div`
   display: flex;
@@ -62,7 +62,7 @@ const messages = defineMessages({
   },
 });
 
-const Injury = ({
+/*const Injury = ({
   kind,
   startDate,
   expectedEndDate,
@@ -148,12 +148,12 @@ const Suspension = ({
       </UnavailabilityContent>
     </UnavailabilityContainer>
   );
-};
+};*/
 
 type Props = {
   player: PlayerUnavailabilityPanel_player;
 };
-const PlayerUnavailabilityPanel = ({
+/*const PlayerUnavailabilityPanel = ({
   player: { activeInjuries, activeSuspensions },
 }: Props) => {
   if (!activeInjuries.length && !activeSuspensions.length) return null;
@@ -173,30 +173,33 @@ const PlayerUnavailabilityPanel = ({
       </FlexWrapper>
     </Root>
   );
+};*/
+const PlayerUnavailabilityPanel = ({ player }: Props) => {
+  return <></>;
 };
 
 PlayerUnavailabilityPanel.fragments = {
   player: gql`
     fragment PlayerUnavailabilityPanel_player on Player {
       slug
-      activeInjuries {
-        id
-        kind
-        startDate
-        expectedEndDate
-      }
-      activeSuspensions {
-        id
-        competition {
-          slug
-          id
-          displayName
-        }
-        matches
-        reason
-        startDate
-        endDate
-      }
+      #activeInjuries {
+      #  id
+      #  kind
+      #  startDate
+      #  expectedEndDate
+      #}
+      #activeSuspensions {
+      #  id
+      #  competition {
+      #    slug
+      #    id
+      #    displayName
+      #  }
+      #  matches
+      #  reason
+      #  startDate
+      #  endDate
+      #}
     }
   ` as TypedDocumentNode<PlayerUnavailabilityPanel_player>,
 };

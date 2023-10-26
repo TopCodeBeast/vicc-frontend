@@ -8,7 +8,7 @@ import Tooltip from '@sorare/core/src/atoms/tooltip/Tooltip';
 import { Text14, Title6 } from '@sorare/core/src/atoms/typography';
 import { playerUnavailability } from '@sorare/core/src/lib/glossary';
 
-import {
+/*import {
   PlayerUnavailabilityBadge_injury,
   PlayerUnavailabilityBadge_suspension,
 } from './__generated__/index.graphql';
@@ -155,3 +155,8 @@ PlayerUnavailabilityBadge.fragments = {
 };
 
 export default PlayerUnavailabilityBadge;
+*/
+
+export default function PlayerUnavailabilityBadge() {
+  return <></>;
+}
