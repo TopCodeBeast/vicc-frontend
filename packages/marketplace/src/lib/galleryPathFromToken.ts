@@ -3,7 +3,7 @@ import { galleryPathFromSport } from '@sorare/core/src/lib/galleryPathFromSport'
 
 export const galleryPathFromToken = (
   slug: string,
-  nft: { sport: Sport } | undefined
+  nft: { sport?: Sport } | undefined
 ) => {
   if (!nft) {
     // FIXME: we don't know where to go without a NFT

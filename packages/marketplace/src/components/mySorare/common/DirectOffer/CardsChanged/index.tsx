@@ -51,7 +51,7 @@ const messages = defineMessages({
   },
 });
 
-const compareCardsArray = <T extends { assetId: string }>(
+const compareCardsArray = <T extends { assetId?: string }>(
   newCards: T[],
   oldCards: T[]
 ) => {

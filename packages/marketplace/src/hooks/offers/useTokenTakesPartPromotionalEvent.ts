@@ -9,15 +9,14 @@ import useMarketplacePromotionalEvents from '@sorare/core/src/hooks/search/useMa
 import { useTokenTakesPartPromotionalEvent_token } from './__generated__/useTokenTakesPartPromotionalEvent.graphql';
 
 const getTokenEvent = (
-  token: { assetId: string; slug: string; sport: Sport },
+  token: { assetId?: string; slug: string; sport?: Sport },
   promotionalEvents: {
     events: MarketplacePromotionalEvent[];
   }[]
 ) => {
-  const { sport, slug, assetId } = token;
+  const { slug } = token;
 
-  const objectId =
-    sport === Sport.CRICKET ? slug : `baseball-assetId:${assetId}`;
+  const objectId = slug;
   const sportEvents = promotionalEvents.find(event => event)?.events;
 
   return sportEvents?.find(
@@ -29,7 +28,7 @@ const useTokenTakesPartPromotionalEvent = () => {
   const { marketplacePromotionalEvents } = useMarketplacePromotionalEvents();
 
   return (
-    tokens: { assetId: string; slug: string; sport: Sport }[]
+    tokens: { assetId?: string; slug: string; sport?: Sport }[]
   ): MarketplacePromotionalEvent | undefined => {
     const tokenEvents = tokens.map(token =>
       getTokenEvent(token, marketplacePromotionalEvents)

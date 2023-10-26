@@ -7,7 +7,7 @@ export type TokenTransferChildrenProps = {
 export type TokenTransferValidatorProps = {
   tokens: {
     slug: string;
-    sport: string;
+    sport?: string;
   }[];
   children: (props: TokenTransferChildrenProps) => React.ReactNode;
   shouldValidate?: boolean;

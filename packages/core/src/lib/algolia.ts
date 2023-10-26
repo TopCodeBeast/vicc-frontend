@@ -159,11 +159,11 @@ export type MarketplaceHit = {
 
 export const buildAlgoliaObjectId = (card: {
   slug: string;
-  assetId: string;
-  sport: Sport;
+  assetId?: string;
+  sport?: Sport;
 }) => {
   if (card.sport === Sport.CRICKET) return card.slug;
-  return `${algoliaCardObjectIdPrefix[card.sport]}:${card.assetId}`;
+  return `${algoliaCardObjectIdPrefix[card.sport || Sport.CRICKET]}:${card.assetId}`;
 };
 
 export const convertToCardHit = (card: Algolia_CardHit_token): CardHit => ({

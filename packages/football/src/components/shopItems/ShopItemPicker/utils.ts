@@ -7,7 +7,7 @@ export const isConsumable = (item: { position: ShopItemType }) =>
 
 export const canEquip = (item: {
   position: ShopItemType;
-  myPurchasesCount: number;
+  myPurchasesCount?: number;
 }) => item.myPurchasesCount > 0 && !isConsumable(item);
 
 export const limitReached = (item: {

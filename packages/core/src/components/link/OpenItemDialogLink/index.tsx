@@ -32,7 +32,7 @@ export interface Item {
   slug?: string;
   id?: string;
   blockchainId?: string;
-  nfts?: { assetId: string }[];
+  nfts?: { assetId?: string }[];
 }
 
 const itemRoute = (item: Item) => {

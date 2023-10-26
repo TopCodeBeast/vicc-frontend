@@ -1,5 +1,5 @@
 export const useGetCardsDetails = () => {
-  const getCardsDetails = <T extends { assetId: string }>(
+  const getCardsDetails = <T extends { assetId?: string }>(
     offer: {
       senderSide: {
         nfts: T[];

@@ -13,7 +13,7 @@ import { TokenPriceHistory_token } from './__generated__/index.graphql';
 
 export type FakeToken = {
   slug: string;
-  collection: Collection;
+  collection?: Collection;
   metadata: {
     rarity: Rarity;
     playerSlug: string;
