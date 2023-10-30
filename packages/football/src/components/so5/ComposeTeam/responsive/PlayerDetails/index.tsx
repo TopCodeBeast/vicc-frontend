@@ -219,7 +219,7 @@ PlayerDetails.fragments = {
     fragment PlayerDetails_card on Card {
       slug
       assetId
-      position: positionTyped
+      position
       ...PlayerProperties_card
     }
     ${PlayerProperties.fragments.card}

@@ -262,7 +262,7 @@ const LastScores = ({
 
   const [homeAwayTab, setHomeAwayTab] = useState<TabValue>(TabValue.all);
 
-  const getSuspensionsAndInjuries = useGetSuspensionsAndInjuries(player);
+  // const getSuspensionsAndInjuries = useGetSuspensionsAndInjuries(player);
 
   if (!vicc5Scores?.length) return null;
 

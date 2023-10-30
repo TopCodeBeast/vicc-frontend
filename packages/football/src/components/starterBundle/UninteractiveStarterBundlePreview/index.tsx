@@ -60,7 +60,7 @@ UninteractiveStarterBundlePreview.fragments = {
     fragment UninteractiveStarterBundlePreview_card on Card {
       assetId
       slug
-      position: positionTyped
+      position
       token {
         slug
         assetId

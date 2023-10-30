@@ -148,7 +148,7 @@ Vicc5LineupAppearance.fragments = {
         player {
           slug
           displayName
-          position: positionTyped
+          position
           ...AppearanceDetailsFull_player
         }
         ...FlexCard_card

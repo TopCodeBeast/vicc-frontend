@@ -92,7 +92,7 @@ PlayerNotifications.fragments = {
       slug
       displayName
       avatarImageUrl: pictureUrl(derivative: "avatar")
-      position: positionTyped
+      position
       shirtNumber
       activeClub {
         slug

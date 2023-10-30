@@ -305,7 +305,7 @@ Lineup.fragments = {
         card {
           assetId
           slug
-          position: positionTyped
+          position
         }
         vicc5Score {
           id

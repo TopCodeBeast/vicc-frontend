@@ -106,7 +106,7 @@ Information.fragments = {
     fragment Information_player on Player {
       slug
       age
-      position: positionTyped
+      position
       shirtNumber
       birthDate
       country {

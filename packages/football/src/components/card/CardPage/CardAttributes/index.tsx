@@ -46,7 +46,7 @@ const TeamRow = styled.div`
 `;
 
 export const CardAttributes = ({ card }: Props) => {
-  const { team, positionTyped, age, player, xp } = card;
+  const { team, position, age, player, xp } = card;
   const { country } = player;
   const isClub = isType(team, 'Club');
 
@@ -74,7 +74,7 @@ export const CardAttributes = ({ card }: Props) => {
             <FormattedMessage {...cardAttributes.position} />
           </Title>
           <Text14>
-            <FormattedMessage {...positionNames[positionTyped]} />
+            <FormattedMessage {...positionNames[position]} />
           </Text14>
         </Row>
         <Row>
@@ -113,7 +113,7 @@ CardAttributes.fragments = {
     fragment CardAttributes_card on Card {
       slug
       assetId
-      positionTyped
+      position
       age
       xp
       player {

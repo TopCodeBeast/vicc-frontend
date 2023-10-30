@@ -151,7 +151,7 @@ const LINEUP_SHARING_QUERY = gql`
             card {
               slug
               assetId
-              position: positionTyped
+              position
               rarity
               pictureUrl: pictureUrl(derivative: "tinified")
               player {

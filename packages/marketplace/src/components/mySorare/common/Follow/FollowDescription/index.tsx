@@ -113,7 +113,7 @@ FollowDescription.fragments = {
     fragment FollowDescription_player on Player {
       slug
       displayName
-      position: positionTyped
+      position
       activeClub {
         slug
         name

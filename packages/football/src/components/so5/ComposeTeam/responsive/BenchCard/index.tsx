@@ -130,7 +130,7 @@ BenchCard.fragments = {
       assetId
       rarity
       pictureUrl: pictureUrl(derivative: "tinified")
-      position: positionTyped
+      position
       lastFiveVicc5AverageScore: averageScore(type: LAST_FIVE_VICC5_AVERAGE_SCORE)
       lastFifteenVicc5AverageScore: averageScore(
         type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE

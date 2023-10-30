@@ -28,7 +28,7 @@ const PLAYER_QUERY = gql`
     #football {
       player(slug: $slug) {
         slug
-        position: positionTyped
+        position
         displayName
         ...PageContext_subscribable
         ...PlayerPageContent_player

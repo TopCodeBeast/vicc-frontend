@@ -127,7 +127,7 @@ PlayerProperties.fragments = {
       slug
       displayName
       age
-      position: positionTyped
+      position
       lastFifteenVicc5AverageScore: averageScore(
         type: LAST_FIFTEEN_VICC5_AVERAGE_SCORE
       )

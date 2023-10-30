@@ -76,7 +76,7 @@ export const BENCH_CARDS_QUERY = gql`
             nodes {
               slug
               assetId
-              position: positionTyped
+              position
               ...BenchCards_card
             }
             pageInfo {

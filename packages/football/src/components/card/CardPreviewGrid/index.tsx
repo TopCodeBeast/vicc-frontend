@@ -331,7 +331,7 @@ const cardFragment = gql`
   fragment CardPreviewGrid_card on Card {
     slug
     assetId
-    position: positionTyped
+    position
     user {
       slug
     }

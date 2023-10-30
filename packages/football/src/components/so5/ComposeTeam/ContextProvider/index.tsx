@@ -427,7 +427,7 @@ export const cardFragment = gql`
   fragment ContextProvider_card on Card {
     slug
     assetId
-    position: positionTyped
+    position
     rarity
     grade
     pictureUrl: pictureUrl(derivative: "tinified")

@@ -316,7 +316,7 @@ const formatCardRewards = withFragments(
             rarity
             player {
               slug
-              position: positionTyped
+              position
               age
               country {
                 slug

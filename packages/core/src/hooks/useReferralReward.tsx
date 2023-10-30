@@ -92,7 +92,7 @@ useReferralReward.fragments = {
         backPictureUrl
         player {
           slug
-          position: positionTyped
+          position
           age
           activeClub {
             slug
