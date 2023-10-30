@@ -10,8 +10,8 @@ const useGetSuspensionsAndInjuries = (
 ) => {
   const useGetSuspensionsAndInjuriesCallback = <
     T extends {
-      suspensions: useGetSuspensionsAndInjuries_player['suspensions'];
-      injuries: useGetSuspensionsAndInjuries_player['injuries'];
+      suspensions: any;//useGetSuspensionsAndInjuries_player['suspensions'];
+      injuries: any;//useGetSuspensionsAndInjuries_player['injuries'];
     }
   >(
     game: useGetSuspensionsAndInjuries_vicc5Score['game']
@@ -19,7 +19,7 @@ const useGetSuspensionsAndInjuries = (
     suspensions: T['suspensions'];
     injuries: T['injuries'];
   } => {
-    const suspensions = (player?.suspensions || []).filter(suspension => {
+    /*const suspensions = (player?.suspensions || []).filter(suspension => {
       return (
         suspension.competition.slug === game.competition.slug &&
         suspension.startDate < game.date &&
@@ -32,8 +32,8 @@ const useGetSuspensionsAndInjuries = (
         injury.startDate < game.date &&
         (!injury.expectedEndDate || injury.expectedEndDate > game.date)
       );
-    });
-    return { suspensions, injuries };
+    });*/
+    return { suspensions: [], injuries: [] };
   };
 
   return useGetSuspensionsAndInjuriesCallback;
@@ -55,20 +55,20 @@ useGetSuspensionsAndInjuries.fragments = {
   player: gql`
     fragment useGetSuspensionsAndInjuries_player on Player {
       slug
-      injuries {
-        id
-        startDate
-        expectedEndDate
-      }
-      suspensions {
-        id
-        competition {
-          slug
-          id
-        }
-        startDate
-        endDate
-      }
+      #injuries {
+      #  id
+      #  startDate
+      #  expectedEndDate
+      #}
+      #suspensions {
+      #  id
+      #  competition {
+      #    slug
+      #    id
+      #  }
+      #  startDate
+      #  endDate
+      #}
     }
   ` as TypedDocumentNode<useGetSuspensionsAndInjuries_player>,
 };

@@ -45,9 +45,9 @@ export type AlgoliaCardIndexesNames = AlgoliaCardIndexesName[];
 export interface ConfigContext {
   landingTheme?: ConfigQuery_config_landingTheme | null;
   algoliaIndexes: AlgoliaIndexes;
-  algoliaCardIndexes: AlgoliaCardIndexes;
-  algoliaApplicationId: string;
-  algoliaSearchApiKey: string;
+  algoliaCardIndexes?: AlgoliaCardIndexes;
+  algoliaApplicationId?: string;
+  algoliaSearchApiKey?: string;
   ethereumNetworkId?: string;
   ethereumEndpoint?: string;
   viccTokensAddress?: string;
