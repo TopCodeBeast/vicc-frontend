@@ -4,9 +4,11 @@ import { useCallback } from 'react';
 import { AuthBroadCastChannel } from '@core/lib/broadcastChannel';
 import useEvents from '@core/lib/events/useEvents';
 import { client as httpClient } from '@core/lib/http';
+import { useSessionContext } from '../../contexts/session';
 
 const useLogout = () => {
-  const client = useApolloClient();
+  const { setApiKey } = useSessionContext();
+  /*const client = useApolloClient();
   const track = useEvents();
 
   return useCallback(
@@ -27,6 +29,13 @@ const useLogout = () => {
         })
         .catch(response => ({ error: response.error })),
     [client, track]
+  );*/
+
+  return useCallback(
+    async () => {
+      setApiKey(null);
+      await window.location.reload();
+    }, []
   );
 };
 
