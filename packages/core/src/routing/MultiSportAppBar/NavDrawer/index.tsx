@@ -102,7 +102,7 @@ export const NavDrawerHeader = ({
       <CloseButton onClick={onClose}>
         <CloseBold />
       </CloseButton>
-      {currentNavSport && onBack && (
+      {/* {currentNavSport && onBack && (
         <LogoButton onClick={onBack}>
           <LogoButtonContent style={LogoAnimation}>
             <LogoContainer>
@@ -113,7 +113,7 @@ export const NavDrawerHeader = ({
             </animated.span>
           </LogoButtonContent>
         </LogoButton>
-      )}
+      )} */}
     </Header>
   );
 };
