@@ -541,13 +541,13 @@ BuildingPage.fragments = {
       nickname
       profile {
         id
-        marketplacePreferences(sports: [CRICKET, NBA, BASEBALL]) {
-          sport
-          preferences {
-            name
-            value
-          }
-        }
+        #marketplacePreferences(sports: [CRICKET, NBA, BASEBALL]) {
+        #  sport
+        #  preferences {
+        #    name
+        #    value
+        #  }
+        #}
       }
       hoursToAnswerTrades
       ...TradePaymentMethods_publicUserInfoInterface
