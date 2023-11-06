@@ -4,7 +4,7 @@ export const formatEthereumAddress = (ethereumAddress: string) =>
   `${ethereumAddress.slice(0, 6)}...${ethereumAddress.slice(-6, -1)}`;
 
 export const ethNetworkName = (networkId: number | string) => {
-  switch (networkId.toString()) {
+  switch (networkId?.toString()) {
     case '1':
       return 'Mainnet';
     case '2':

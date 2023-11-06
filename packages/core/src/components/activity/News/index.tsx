@@ -165,7 +165,7 @@ export const News = () => {
 
   return (
     <Root>
-      <FiltersContainer>
+      {/* <FiltersContainer>
         <FilterInDropdown
           darkTheme
           buttonLabel={
@@ -193,7 +193,7 @@ export const News = () => {
             onChange={setSelectedSports}
           />
         </FilterInDropdown>
-      </FiltersContainer>
+      </FiltersContainer> */}
       <ItemsContainer>
         {currentUser ? (
           <>

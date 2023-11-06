@@ -90,7 +90,7 @@ export const Notifications = () => {
   return (
     <Root>
       <FiltersContainer>
-        <FilterInDropdown
+        {/* <FilterInDropdown
           darkTheme
           buttonLabel={
             <FormattedMessage
@@ -116,7 +116,7 @@ export const Notifications = () => {
             selectedValues={selectedSports}
             onChange={setSelectedSports}
           />
-        </FilterInDropdown>
+        </FilterInDropdown> */}
         <FilterInDropdown
           darkTheme
           buttonLabel={

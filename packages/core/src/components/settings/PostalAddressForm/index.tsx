@@ -185,7 +185,7 @@ const PostalAddressForm = ({
         >
       ) => (
         // key based on firstName to reset the form when the user delete his address
-        <Root key={defaultValues.firstName || 'postal-address'}>
+        <Root key={defaultValues?.firstName || 'postal-address'}>
           <FormWrapper>
             <Country>
               {countriesOptions.length && !loading ? (
