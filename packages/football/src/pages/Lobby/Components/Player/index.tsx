@@ -144,9 +144,9 @@ Player.fragments = {
         }
         playerGameStats {
           id
-          goals
-          yellowCard
-          redCard
+          # goals
+          # yellowCard
+          # redCard
         }
         ...getPlayerScore_vicc5Score
       }

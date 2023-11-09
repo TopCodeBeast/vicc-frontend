@@ -73,7 +73,7 @@ const subscription = gql`
   subscription onGameForLobbyUpdated {
     gameWasUpdated {
       id
-      minute
+      # minute
       status
     }
   }

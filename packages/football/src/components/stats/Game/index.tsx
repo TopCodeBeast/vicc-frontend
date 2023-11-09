@@ -148,7 +148,7 @@ Game.fragments = {
     fragment Vicc5Game_game on Game {
       id
       date
-      minute
+      # minute
       status
       winner {
         ... on TeamInterface {

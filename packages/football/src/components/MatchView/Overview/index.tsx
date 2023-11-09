@@ -341,7 +341,7 @@ Overview.fragments = {
     fragment Overview_game on Game {
       id
       date
-      minute
+      # minute
       status
       winner {
         ... on TeamInterface {

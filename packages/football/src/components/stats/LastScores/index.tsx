@@ -408,7 +408,7 @@ LastScores.fragments = {
       score
       playerGameStats {
         id
-        minsPlayed
+        # minsPlayed
         team {
           ... on TeamInterface {
             slug
