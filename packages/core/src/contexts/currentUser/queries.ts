@@ -170,7 +170,7 @@ export const currentUser = gql`
     }
     viccPrivateKeyRecovery
     viccAddress
-    starkKey
+    # starkKey
     bankMappedEthereumAddress
     depositedEth
     currentDevice {

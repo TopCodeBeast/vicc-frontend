@@ -42,8 +42,8 @@ useGetAuthorizationApprovals.fragments = {
       fingerprint
       request {
         ... on StarkexLimitOrderAuthorizationRequest {
-          vaultIdSell
-          vaultIdBuy
+          # vaultIdSell
+          # vaultIdBuy
           amountSell
           amountBuy
           tokenSell
@@ -52,7 +52,7 @@ useGetAuthorizationApprovals.fragments = {
           expirationTimestamp
           feeInfo {
             feeLimit
-            sourceVaultId
+            # sourceVaultId
             tokenId
           }
         }
@@ -62,13 +62,13 @@ useGetAuthorizationApprovals.fragments = {
           expirationTimestamp
           feeInfoUser {
             feeLimit
-            sourceVaultId
+            # sourceVaultId
             tokenId
           }
           nonce
           receiverPublicKey
-          receiverVaultId
-          senderVaultId
+          # receiverVaultId
+          # senderVaultId
           token
         }
         ... on MangopayWalletTransferAuthorizationRequest {

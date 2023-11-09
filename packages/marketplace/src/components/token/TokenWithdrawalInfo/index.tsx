@@ -385,15 +385,15 @@ TokenWithdrawalInfo.fragments = {
   ` as TypedDocumentNode<TokenWithdrawalInfo_token>,
   transferRequest: gql`
     fragment TokenWithdrawalInfo_transferRequest on TransferRequest {
-      senderVaultId
-      receiverVaultId
+      # senderVaultId
+      # receiverVaultId
       amount
       token
       nonce
       expirationTimestamp
       feeInfoUser {
         tokenId
-        sourceVaultId
+        # sourceVaultId
         feeLimit
       }
     }

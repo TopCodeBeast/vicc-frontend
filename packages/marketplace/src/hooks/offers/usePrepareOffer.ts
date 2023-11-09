@@ -24,8 +24,8 @@ const PREPARE_OFFER_MUTATION = gql`
   mutation PrepareOfferMutation($input: prepareOfferInput!) {
     prepareOffer(input: $input) {
       limitOrders {
-        vaultIdSell
-        vaultIdBuy
+        # vaultIdSell
+        # vaultIdBuy
         amountSell
         amountBuy
         tokenSell
@@ -33,7 +33,7 @@ const PREPARE_OFFER_MUTATION = gql`
         nonce
         expirationTimestamp
         feeInfo {
-          sourceVaultId
+          # sourceVaultId
           tokenId
           feeLimit
         }

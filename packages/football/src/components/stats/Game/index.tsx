@@ -171,8 +171,8 @@ Game.fragments = {
           pictureUrl: pictureUrl(derivative: "avatar")
         }
       }
-      penaltyScoreHome
-      penaltyScoreAway
+      # penaltyScoreHome
+      # penaltyScoreAway
     }
   ` as TypedDocumentNode<Vicc5Game>,
   gameWeek: gql`

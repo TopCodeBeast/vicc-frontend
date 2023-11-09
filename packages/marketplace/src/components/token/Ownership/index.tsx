@@ -120,7 +120,8 @@ Ownership.fragments = {
   tokenOwner: gql`
     fragment Ownership_tokenOwner on Owner {
       id
-      from
+      # from
+      ownerSince
       transferType
       ...TokenOwnerPrice_tokenOwner
       account {

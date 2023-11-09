@@ -20,7 +20,8 @@ ItemOwnerSince.fragments = {
       slug
       owner {
         id
-        from
+        # from
+        ownerSince
       }
     }
   ` as TypedDocumentNode<ItemOwnerSince_token>,

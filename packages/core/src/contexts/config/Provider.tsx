@@ -37,7 +37,7 @@ const CONFIG_QUERY = gql`
       algoliaSearchApiKey
       bankAddress
       relayAddress
-      starkExchangeAddress
+      # starkExchangeAddress
       ethereumNetworkId
       ethereumEndpoint
       landingTheme {
