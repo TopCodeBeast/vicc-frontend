@@ -48,7 +48,7 @@ const sportProfile = gql`
     #nbaProfile {
     #  id
     #  onboarded
-    }
+    # }
   }
 ` as TypedDocumentNode<CurrentUseProvider_sportProfile>;
 
