@@ -137,11 +137,12 @@ export const Career = ({ player: { clubMemberships } }: Props) => {
                   startDate,
                   endDate,
                   membershipTeam,
-                  aggregatedStats,
+                  //aggregatedStats,
                   id,
                 } = membership;
                 const { appearances, goals, assists, substituteIn } =
-                  aggregatedStats;
+                  { appearances: null, goals: null, assists: null, substituteIn: null };
+                //aggregatedStats;
 
                 if (!appearances) return null;
                 if (!membershipTeam) return null;
@@ -238,13 +239,13 @@ Career.fragments = {
           }
           ...TeamPicture_team
         }
-        aggregatedStats {
-          id
-          appearances
-          goals
-          assists
-          substituteIn
-        }
+        #aggregatedStats {
+        #  id
+        #  appearances
+        #  goals
+        #  assists
+        #  substituteIn
+        #}
       }
     }
     ${TeamPicture.fragments.team}

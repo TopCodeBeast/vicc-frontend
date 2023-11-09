@@ -41,13 +41,13 @@ const sportProfile = gql`
       id
       onboarded
     }
-    baseballProfile {
-      id
-      onboarded
-    }
-    nbaProfile {
-      id
-      onboarded
+    #baseballProfile {
+    #  id
+    #  onboarded
+    #}
+    #nbaProfile {
+    #  id
+    #  onboarded
     }
   }
 ` as TypedDocumentNode<CurrentUseProvider_sportProfile>;
@@ -181,10 +181,10 @@ export const currentUser = gql`
     availableBalanceForWithdrawal
     totalBalance
     bankBalance
-    ethMigration {
-      id
-      aasmState
-    }
+    #ethMigration {
+    #  id
+    #  aasmState
+    #}
     otpRequiredForLogin
     cardCounts {
       total
@@ -299,10 +299,10 @@ export const subscription = gql`
       bankBalance
       coinBalance
       unreadNotificationsCount
-      ethMigration {
-        id
-        aasmState
-      }
+      #ethMigration {
+      #  id
+      #  aasmState
+      #}
       pendingDeposits {
         id
         date

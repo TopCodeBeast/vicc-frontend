@@ -19,9 +19,9 @@ export const WITHDRAWALS_QUERY = gql`
       withdrawalsWithRates {
         ...Withdrawal_withdrawalWithRates
       }
-      fastWithdrawalsWithRates {
-        ...FastWithdrawal_fastWithdrawalWithRates
-      }
+      #fastWithdrawalsWithRates {
+      #  ...FastWithdrawal_fastWithdrawalWithRates
+      #}
     }
   }
   ${Withdrawal.fragments.withdrawal}

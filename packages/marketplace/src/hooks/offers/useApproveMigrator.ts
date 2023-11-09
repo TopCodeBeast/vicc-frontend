@@ -24,7 +24,7 @@ type useApproveMigrator_token_owner_account_accountable_EthereumAccount =
 
 const NEXT_RELAY_BATCH_NONCE_QUERY = gql`
   query NextRelayBatchNonceQuery($address: String!) {
-    nextRelayBatchNonce(address: $address)
+    # nextRelayBatchNonce(address: $address)
   }
 ` as TypedDocumentNode<
   NextRelayBatchNonceQuery,
@@ -140,7 +140,7 @@ useApproveMigrator.fragments = {
           accountable {
             ... on EthereumAccount {
               id
-              migratorApproved
+              # migratorApproved
             }
           }
         }

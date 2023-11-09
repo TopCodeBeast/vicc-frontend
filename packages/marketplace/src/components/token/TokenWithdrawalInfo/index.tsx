@@ -391,11 +391,11 @@ TokenWithdrawalInfo.fragments = {
       token
       nonce
       expirationTimestamp
-      feeInfoUser {
-        tokenId
-        # sourceVaultId
-        feeLimit
-      }
+      #feeInfoUser {
+      #  tokenId
+      #  sourceVaultId
+      #  feeLimit
+      #}
     }
   ` as TypedDocumentNode<TokenWithdrawalInfo_transferRequest>,
 };
