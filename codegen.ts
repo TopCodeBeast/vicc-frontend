@@ -10,6 +10,9 @@ const config: CodegenConfig = {
         avoidOptionals: false,
         namingConvention: 'keep',
         nonOptionalTypename: true,
+        scalars: {
+          WeiAmount: 'string',
+        }
       },
     },
     'packages/': {
