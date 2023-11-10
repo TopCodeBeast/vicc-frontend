@@ -48,7 +48,7 @@ export default function useSubscription() {
       variables: {
         input: {
           subscribable: {
-            type: subscribable.__typename as any,
+            type: (subscribable.__typename?.toUpperCase()) as any,
             slug: subscribable.slug,
           },
           interactionContext,
