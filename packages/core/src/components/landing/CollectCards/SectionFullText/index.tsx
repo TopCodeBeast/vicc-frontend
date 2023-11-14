@@ -8,10 +8,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   font-family: 'apercu-pro';
   padding: 0 calc(6 * var(--unit));
+  text-align: center;
   @media ${tabletAndAbove} {
     flex: 5 1 0;
     padding: 0;
-    max-width: 400px;
   }
 `;
 
@@ -44,7 +44,7 @@ type Props = {
   subHeading: ReactNode;
 };
 
-export const SectionText = ({ heading, subHeading }: Props) => {
+export const SectionFullText = ({ heading, subHeading }: Props) => {
   return (
     <Wrapper>
       <HeadingWrapper data-testid="section-text">{heading}</HeadingWrapper>

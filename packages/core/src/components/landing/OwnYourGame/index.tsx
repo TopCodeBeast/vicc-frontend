@@ -19,6 +19,8 @@ import PlayNowButton from '../PlayNowButton';
 import footballCards from './footballCards';
 import mlbCards from './mlbCards';
 import nbaCards from './nbaCards';
+import PlayerCards from '../PlayerCards';
+import useFeatureFlags from '@core/hooks/useFeatureFlags';
 
 const Background = styled.div`
   position: relative;
@@ -60,6 +62,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   position: relative;
+  align-items: center;
   z-index: 1;
   padding: var(--double-unit) var(--unit) calc(3 * var(--unit));
   @media ${tabletAndAbove} {
@@ -82,6 +85,8 @@ const Title = styled(animated.h1)`
   }
 
   /* min: 32px - max: 64px */
+  font-family: system-ui;
+  text-align: center;
   font-size: clamp(2rem, 4vw + 1rem, 4rem);
 `;
 
@@ -109,11 +114,28 @@ const Ctas = styled.div`
 
 const Box = styled.div`
   max-width: ${breakpoints.mobile}px;
-
   @media ${tabletAndAbove} {
-    max-width: calc(${breakpoints.tablet}px - 100px);
+    max-width: 70%;
   }
 `;
+
+const Image = styled.img`
+  width: 100%;
+  max-width: 1680px;
+  height: 100%;
+  position: absolute;
+  isolation: isolate;
+`;
+
+const path = "assets/fields/landing_yard.jpg";
+  
+const urls = [
+  "assets/fields/players/1.png",
+  "assets/fields/players/2.png",
+  "assets/fields/players/3.png",
+  "assets/fields/players/4.png",
+  "assets/fields/players/5.png"
+];
 
 export const OwnYourGame = () => {
   const { currentUser } = useCurrentUserContext();
@@ -163,30 +185,34 @@ export const OwnYourGame = () => {
       />
     );
   }
-
   const mainBlockText = (
     <Wrapper>
       <Box>
+        <PlayerCards
+          cards={urls}
+        />
         <Title style={titleAnimation}>
           <FormattedMessage
             id="Landing.OwnYourGame.title"
-            defaultMessage="Build{br}Your{br}Legacy"
+            defaultMessage="Build Your Legacy"
             values={{
               br: <br />,
             }}
           />
         </Title>
-        <animated.div style={subtitleAnimation}>
-          <Subtitle>{subtitle}</Subtitle>
           <Ctas>
-            <PlayNowButton {...cta}>
+            <PlayNowButton {...cta} 
+              style={{margin:'auto', 
+                      color:'white', 
+                      background:'grey',
+                      paddingLeft: '2em',
+                      paddingRight: '2em'}}>
               <FormattedMessage
                 id="OwnYourGame.cta"
                 defaultMessage="Play Now"
               />
             </PlayNowButton>
           </Ctas>
-        </animated.div>
       </Box>
     </Wrapper>
   );
@@ -194,7 +220,7 @@ export const OwnYourGame = () => {
   return (
     <Background>
       <AnimationContainer>
-        <AnimatedBackground {...animatedCards} nbCardsPerColumns={9} />
+        <Image src={path} alt="" />
         <Fade />
       </AnimationContainer>
       <MultiSportAppBar color="transparent" />

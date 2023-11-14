@@ -21,10 +21,16 @@ import { CollectBlock } from '../CollectCards/CollectBlock';
 import { CollectTitle } from '../CollectCards/CollectTitle';
 import { ComposeBlock } from '../CollectCards/ComposeBlock';
 import { WinBlock } from '../CollectCards/WinBlock';
+import { SquadBlock } from '../CollectCards/SquadBlock';
+import { FanBlock } from '../CollectCards/FanBlock';
+import { WinEpicBlock } from '../CollectCards/WinEpicBlock';
 import { OwnYourGame } from '../OwnYourGame';
 import { TrustedBy } from '../TrustedBy';
 
 import '@core/style/drukFontFaces.css';
+import { PartnersBlock } from '../CollectCards/PartnersBlock';
+import SportsFooter from '@sorare/core/src/routing/SportsFooter';
+import { TitleBlock } from '../CollectCards/TitleBlock';
 
 const DarkBackground = styled.div`
   background-color: black;
@@ -32,7 +38,8 @@ const DarkBackground = styled.div`
 `;
 
 const GreyBackground = styled.div`
-  background: var(--c-static-neutral-200);
+  // background: var(--c-static-neutral-200);
+  background: black;
 `;
 
 const WhiteBackground = styled.div`
@@ -54,6 +61,46 @@ const FullPage = styled.div`
   align-items: center;
   height: min(100%, 100vh);
 `;
+
+
+const Background = styled.div`
+  position: relative;
+  width: 100%;
+  background: black;
+`;
+
+const AnimationContainer = styled.div`
+  width: 100%;
+  max-width: 1680px;
+  height: 100%;
+  margin: auto;
+  z-index: 0;
+`;
+const Fade = styled.div`
+  width: 100%;
+  max-width: 1680px;
+  height: 100%;
+  position: absolute;
+
+  background: linear-gradient(
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%,
+      rgba(0, 0, 0, 0) 90%,
+      rgba(0, 0, 0, 1) 100%
+    ),
+    linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 20%),
+    linear-gradient(-90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 20%);
+`;
+
+const Image = styled.img`
+  width: 100%;
+  max-width: 1680px;
+  height: 100%;
+  position: absolute;
+  isolation: isolate;
+`;
+
+const path = "assets/fields/fallback.jpg";
 
 const LandingMultiSport = () => {
   const { currentUser } = useCurrentUserContext();
@@ -108,31 +155,37 @@ const LandingMultiSport = () => {
         ) : (
           <OwnYourGame />
         )}
-        {(currentUser || !landingTheme?.sport) && <ChooseYourSport />}
+        {/* {(currentUser || !landingTheme?.sport) && <ChooseYourSport />} */}
       </DarkBackground>
 
       <GreyBackground>
         <Container>
           <Spaced>
-            <CollectTitle />
+            {/* <CollectTitle /> */}
             <FullPage>
-              <CollectBlock />
+              <TitleBlock />
             </FullPage>
             <FullPage>
-              <ComposeBlock />
+              <SquadBlock />
             </FullPage>
             <FullPage>
-              <WinBlock />
+              <FanBlock />
+            </FullPage>
+            <FullPage>
+              <WinEpicBlock />
             </FullPage>
           </Spaced>
         </Container>
       </GreyBackground>
-      <WhiteBackground>
-        <Container>
-          <TrustedBy />
-        </Container>
-      </WhiteBackground>
-      <MultiSportFooter />
+            
+      <Background>
+        <AnimationContainer>
+          <Image src={path} alt="" />
+          <Fade />
+        </AnimationContainer>
+        <PartnersBlock/>
+        <SportsFooter />
+      </Background>
     </>
   );
 };

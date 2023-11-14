@@ -100,11 +100,24 @@ const Illustration = ({ cards }: { cards: string[] }) => {
   );
 };
 
+const urls = [
+  "assets/fields/players/1.png",
+  "assets/fields/players/2.png",
+  "assets/fields/players/3.png",
+  "assets/fields/players/4.png",
+  "assets/fields/players/5.png"
+];
+
+const GreyBackground = styled.div`
+  background: black;
+`;
 export const CollectBlock = () => (
   <Wrapper>
-    <Illustration
-      cards={[commonCard, limitedCard, rareCard, superRareCard, uniqueCard]}
-    />
+    <GreyBackground>
+      <Illustration
+        cards={urls}
+      />
+    </GreyBackground>
     <SectionText
       heading={
         <FormattedMessage

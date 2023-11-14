@@ -12,7 +12,7 @@ import socialLinks from './socialLinks';
 
 const Footer = styled(Container)`
   padding: var(--triple-unit) var(--double-unit);
-  background: var(--c-neutral-1000);
+  background: rgb(0, 0, 0, 0.6);
   color: var(--c-neutral-100);
   position: relative;
 `;
@@ -33,24 +33,29 @@ const CopyContainer = styled(Text16)`
     text-align: right;
   }
 `;
+const Divider = styled.div`
+  width: 100%;
+  background: white;
+  height: 1px;
+`;
 
 type Props = {
   className?: string;
 };
 
-const MultiSportFooter = ({ className }: Props) => {
+const SportsFooter = ({ className }: Props) => {
   return (
     <Footer as="footer" className={classNames(className, 'light-theme')}>
-      <SocialLinks socialLinks={socialLinks} />
       <FooterLinks />
+      <Divider />
       <CopyAndLanguage>
-        <LanguageSwitcher />
         <CopyContainer>
           © {new Date().getFullYear()} Vicc, SAS. All Rights Reserved.
         </CopyContainer>
+        <SocialLinks socialLinks={socialLinks} />
       </CopyAndLanguage>
     </Footer>
   );
 };
 
-export default MultiSportFooter;
+export default SportsFooter;
