@@ -249,7 +249,7 @@ const Overview = ({ game, selectedTeam, desktop }: Props) => {
               <FlexContainer>
                 {isPlaying ? (
                   <>
-                    <LiveIndicator /> <strong>{game.minute}&lsquo;</strong>
+                    {/* <LiveIndicator /> <strong>{game.minute}&lsquo;</strong> */}
                   </>
                 ) : (
                   <>

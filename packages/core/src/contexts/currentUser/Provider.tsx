@@ -159,7 +159,6 @@ export const CurrentUserProvider = ({ children }: Props) => {
     if (currentUser?.id) {
       identifyAnalytics(idFromObject(currentUser.id)!, {
         created: currentUser?.createdAt,
-        mlbOnboarded: currentUser?.baseballProfile?.onboarded,
         feature_flags: flags,
       });
     }
@@ -168,7 +167,6 @@ export const CurrentUserProvider = ({ children }: Props) => {
     currentUser?.createdAt,
     identifyAnalytics,
     flags,
-    currentUser?.baseballProfile?.onboarded,
   ]);
 
   const availableBalanceForWithdrawalPositive = currentUser

@@ -6,7 +6,6 @@ import {
   SupportedCurrency,
 } from '@sorare/core/src/__generated__/globalTypes';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
-import useCreateEthMigration from '@sorare/core/src/hooks/starkware/useCreateEthMigration';
 import { useSettlementCurrencies } from '@sorare/core/src/hooks/useSettlementCurrencies';
 import { useFiatBalance } from '@sorare/core/src/hooks/wallets/useFiatBalance';
 import { generateDealId } from '@sorare/core/src/lib/deal';
@@ -90,7 +89,6 @@ const useCreateSingleSaleOffer = () => {
   const { showPopin } = useSingleSaleOfferContext();
   const approveMigrator = useApproveMigrator();
   const migrateCards = useMigrateCards();
-  const createEthMigration = useCreateEthMigration();
   const prepareOffer = usePrepareOffer();
 
   return async ({
@@ -100,7 +98,7 @@ const useCreateSingleSaleOffer = () => {
     duration,
   }: CreateSingleSaleOfferArgs) => {
     await approveMigrator([token]);
-    await createEthMigration();
+    // await createEthMigration();
     const migrationData = await migrateCards([token]);
     const receiveAmount = canListAndTradeInFiat
       ? amountInput

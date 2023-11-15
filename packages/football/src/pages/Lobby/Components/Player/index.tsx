@@ -84,7 +84,7 @@ export const Player = ({ player }: { player: LobbyPlayer_vicc5Appearance }) => {
         <Picture src={pictureUrl ?? undefined} alt="" width={80} />
         <Info>
           <Title6>{displayName}</Title6>
-          <Chips>
+          {/* <Chips>
             {vicc5Score?.playerGameStats?.goals && (
               <Chip
                 size="smaller"
@@ -115,7 +115,7 @@ export const Player = ({ player }: { player: LobbyPlayer_vicc5Appearance }) => {
                 )}
               />
             )}
-          </Chips>
+          </Chips> */}
         </Info>
         <Score>
           <PlayerScore score={score} status={status} />

@@ -10,7 +10,6 @@ import {
   useSnackNotificationContext,
 } from '@sorare/core/src/contexts/snackNotification';
 import { formatGqlErrors } from '@sorare/core/src/gql';
-import useCreateEthMigration from '@sorare/core/src/hooks/starkware/useCreateEthMigration';
 import { MonetaryAmountOutput } from '@sorare/core/src/hooks/useMonetaryAmount';
 import { generateDealId, isHandledError } from '@sorare/core/src/lib/deal';
 import { getMonetaryAmountIndex } from '@sorare/core/src/lib/monetaryAmount';
@@ -63,7 +62,6 @@ const useCreateDirectOffer = () => {
   const { showNotification } = useSnackNotificationContext();
   const approveMigrator = useApproveMigrator();
   const migrateCards = useMigrateCards();
-  const createEthMigration = useCreateEthMigration();
   const prepareOffer = usePrepareOffer();
 
   return useCallback(
@@ -81,7 +79,7 @@ const useCreateDirectOffer = () => {
       } = args;
       try {
         await approveMigrator(sendTokens);
-        await createEthMigration();
+        // await createEthMigration();
         const migrationData = await migrateCards(sendTokens);
 
         const sendMonetaryAmountIndex =
@@ -174,7 +172,7 @@ const useCreateDirectOffer = () => {
     },
     [
       approveMigrator,
-      createEthMigration,
+      // createEthMigration,
       createOffer,
       migrateCards,
       prepareOffer,
