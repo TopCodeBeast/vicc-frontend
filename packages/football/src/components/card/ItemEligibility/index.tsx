@@ -61,7 +61,7 @@ const cardFragment = gql`
 ItemEligibility.fragments = {
   card: cardFragment,
   auction: gql`
-    fragment ItemEligibility_auction on EnglishAuctionInterface {
+    fragment ItemEligibility_auction on AuctionInterface {
       slug
       cards {
         slug

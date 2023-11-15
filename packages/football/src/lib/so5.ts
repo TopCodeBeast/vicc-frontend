@@ -445,7 +445,7 @@ export const getPlayerScore = withFragments(
         score
         playerGameStats {
           id
-          minsPlayed
+          # minsPlayed
           reviewed
         }
         game {

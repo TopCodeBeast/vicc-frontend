@@ -28,6 +28,9 @@ dist-ssr
 *.sln
 *.sw?
 
+/test-errors*.cmd
+/compile-errors*
+
 # Graphql
 __generated__
 index.graphql.ts

@@ -308,12 +308,12 @@ Player.fragments = {
         }
         playerGameStats {
           id
-          goals
-          ownGoals
-          goalAssist
-          yellowCard
-          redCard
-          minsPlayed
+          # goals
+          # ownGoals
+          # goalAssist
+          # yellowCard
+          # redCard
+          # minsPlayed
         }
       }
     }

@@ -20,8 +20,8 @@ const PREPARE_ACCEPT_OFFER_MUTATION = gql`
   mutation PrepareAcceptOfferMutation($input: prepareAcceptOfferInput!) {
     prepareAcceptOffer(input: $input) {
       limitOrders {
-        vaultIdSell
-        vaultIdBuy
+        # vaultIdSell
+        # vaultIdBuy
         amountSell
         amountBuy
         tokenSell
@@ -30,7 +30,7 @@ const PREPARE_ACCEPT_OFFER_MUTATION = gql`
         expirationTimestamp
         feeInfo {
           tokenId
-          sourceVaultId
+          # sourceVaultId
           feeLimit
         }
       }

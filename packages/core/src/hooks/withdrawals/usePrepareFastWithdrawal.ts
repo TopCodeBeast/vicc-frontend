@@ -12,8 +12,8 @@ const PREPARE_FAST_WITHDRAWAL_MUTATION = gql`
   mutation PrepareFastWithdrawalMutation($input: prepareFastWithdrawalInput!) {
     prepareFastWithdrawal(input: $input) {
       fastWithdrawal {
-        senderVaultId
-        receiverVaultId
+        # senderVaultId
+        # receiverVaultId
         receiverPublicKey
         amount
         token
@@ -23,7 +23,7 @@ const PREPARE_FAST_WITHDRAWAL_MUTATION = gql`
         condition
         feeInfoUser {
           feeLimit
-          sourceVaultId
+          # sourceVaultId
           tokenId
         }
       }

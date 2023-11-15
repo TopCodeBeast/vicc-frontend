@@ -93,7 +93,7 @@ Formation.fragments = {
   game: gql`
     fragment Formation_game on Game {
       id
-      minute
+      # minute
       homeFormation {
         startingLineup {
           id

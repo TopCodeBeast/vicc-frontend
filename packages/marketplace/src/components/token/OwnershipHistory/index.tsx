@@ -43,7 +43,8 @@ OwnershipHistory.fragments = {
       slug
       ownershipHistory {
         id
-        from
+        # from
+        ownerSince
         ...Ownership_tokenOwner
         user {
           slug

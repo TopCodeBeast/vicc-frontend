@@ -36,14 +36,14 @@ export const SEASON_STATS_QUERY = gql`
       player(slug: $playerSlug) {
         slug
         stats(seasonStartYear: $seasonStartYear) {
-          assists
+          # assists
           appearances
-          goals
-          yellowCards
-          redCards
-          minutesPlayed
-          substituteIn
-          substituteOut
+          # goals
+          # yellowCards
+          # redCards
+          # minutesPlayed
+          # substituteIn
+          # substituteOut
         }
       }
     #}

@@ -167,7 +167,7 @@ PlayerCard.fragments = {
         id
         playerGameStats {
           id
-          goals
+          # goals
         }
         game {
           id

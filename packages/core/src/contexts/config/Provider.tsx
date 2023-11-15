@@ -37,7 +37,7 @@ const CONFIG_QUERY = gql`
       algoliaSearchApiKey
       bankAddress
       relayAddress
-      starkExchangeAddress
+      # starkExchangeAddress
       ethereumNetworkId
       ethereumEndpoint
       landingTheme {
@@ -55,7 +55,7 @@ const CONFIG_QUERY = gql`
       cricketNationalSeriesTokensAddress
       viccEncryptionKey
       sponsorAccountAddress
-      migratorAddress
+      # migratorAddress
       minimumReceiveWeiAmount
       marketFeeRateBasisPoints
       exchangeRate {

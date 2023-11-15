@@ -148,7 +148,7 @@ Game.fragments = {
     fragment Vicc5Game_game on Game {
       id
       date
-      minute
+      # minute
       status
       winner {
         ... on TeamInterface {
@@ -171,8 +171,8 @@ Game.fragments = {
           pictureUrl: pictureUrl(derivative: "avatar")
         }
       }
-      penaltyScoreHome
-      penaltyScoreAway
+      # penaltyScoreHome
+      # penaltyScoreAway
     }
   ` as TypedDocumentNode<Vicc5Game>,
   gameWeek: gql`
