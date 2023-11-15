@@ -21,7 +21,8 @@ export const OwnershipHistory = ({ token, title }: Props) => {
   const { ownershipHistory } = token;
 
   const sortedOwnerHistory = [...ownershipHistory].sort((ownerA, ownerB) =>
-    compareDesc(parseISO(ownerA.from), parseISO(ownerB.from))
+    // compareDesc(parseISO(ownerA.from), parseISO(ownerB.from))
+    compareDesc(new Date(), new Date()) //TODO
   );
 
   if (sortedOwnerHistory.length === 0) return null;

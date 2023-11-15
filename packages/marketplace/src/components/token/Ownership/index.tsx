@@ -53,7 +53,7 @@ export const Ownership = ({ owner }: Props) => {
   const { formatDistanceToNow, formatDate } = useIntlContext();
   const { up: laptop } = useScreenSize('laptop');
 
-  const date = parseISO(owner.from);
+  const date = new Date();//parseISO(owner.from); //TODO
   const auction = isType(owner.deal, 'Auction') ? owner.deal : undefined;
   const directOffer =
     isType(owner.deal, 'Offer') &&
