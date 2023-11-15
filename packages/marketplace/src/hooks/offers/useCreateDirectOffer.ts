@@ -143,7 +143,7 @@ const useCreateDirectOffer = () => {
                       receiveWeiAmount: receiveMonetaryAmount.wei,
                     }),
                   }),
-            },
+            } as any, //TODO
           },
           refetchQueries: [
             'MyOffersAllOffersSentQuery',

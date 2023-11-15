@@ -284,7 +284,7 @@ const LastScores = ({
       const gamePlayed =
         score.playerGameStats.game.status !== GameStatus.POSTPONED &&
         score.playerGameStats.game.status !== GameStatus.CANCELLED;
-      const isDNP = !score.playerGameStats.minsPlayed;
+      const isDNP = false;//!score.playerGameStats.minsPlayed;
       const playerScore =
         !isDNP && gamePlayed && typeof score.score === 'number'
           ? score.score

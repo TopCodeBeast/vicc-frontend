@@ -78,7 +78,6 @@ export default () => {
           email,
           nickname,
           viccAddress,
-          starkKey,
           viccPrivateKey,
         } = currentUser;
 
@@ -92,7 +91,7 @@ export default () => {
               nickname,
               address: viccAddress || undefined,
               userPrivateKey: viccPrivateKey || undefined,
-              starkKey: starkKey || undefined,
+              starkKey: undefined,
             },
           },
         };
