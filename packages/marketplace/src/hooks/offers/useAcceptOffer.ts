@@ -8,7 +8,6 @@ import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNoti
 import { useWalletContext } from '@sorare/core/src/contexts/wallet';
 import { formatGqlErrors } from '@sorare/core/src/gql';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
-import useCreateEthMigration from '@sorare/core/src/hooks/starkware/useCreateEthMigration';
 
 import SmallUser from '@marketplace/components/user/SmallUser';
 
@@ -75,7 +74,6 @@ const useAcceptOffer = () => {
   const { signLimitOrders } = useWalletContext();
   const approveMigrator = useApproveMigrator();
   const migrateCards = useMigrateCards();
-  const createEthMigration = useCreateEthMigration();
   const { prepareAcceptOffer } = usePrepareAcceptOffer({
     signAuthorizations: true,
   });
@@ -110,7 +108,7 @@ const useAcceptOffer = () => {
     }
 
     await approveMigrator(receiveTokens);
-    await createEthMigration();
+    // await createEthMigration();
 
     const migrationData = await migrateCards(receiveTokens);
 

@@ -101,6 +101,15 @@ export const proxyUrl = (
     })}`
   );
 };
+export const localUrl = (
+  url: string,
+  cdnQueryParams: CloudflareResizeProps
+) => {
+    return `assets/fields/${url}${qs.stringify(
+      options(cdnQueryParams),
+      { addQueryPrefix: true }
+    )}`;
+};
 
 /**
  * For sorare.com assets only (relative paths in staging/production or absolute sorare.com paths)

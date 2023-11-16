@@ -191,14 +191,14 @@ const FootballField = ({
             desktop={desktop}
             formation={game.homeFormation}
             onPlayerDetailsClick={onPlayerDetailsClick}
-            gameDuration={game.minute}
+            gameDuration={0/*game.minute*/}
           />
           <Formation
             ref={intersectionRef}
             desktop={desktop}
             formation={game.awayFormation}
             onPlayerDetailsClick={onPlayerDetailsClick}
-            gameDuration={game.minute}
+            gameDuration={0/*game.minute*/}
             reverse
           />
         </FormationsContainer>

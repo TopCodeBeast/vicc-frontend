@@ -403,7 +403,7 @@ export const getPlayerScore = withFragments(
 
     const { game } = vicc5Score;
     const gameStatus = game.status;
-    const { minsPlayed } = vicc5Score.playerGameStats;
+    const minsPlayed = 0; //const { minsPlayed } = vicc5Score.playerGameStats;
 
     if (!!gameStatus && isGameScheduled(gameStatus)) {
       return { score: null, status: PlayerScoreStatus.PENDING };

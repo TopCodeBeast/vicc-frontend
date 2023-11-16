@@ -35,15 +35,16 @@ export const useDepositEth = (accountData: AccountData | null) => {
   const prepareEthDeposit = usePrepareEthDeposit();
   const createPendingDeposit = useCreatePendingDeposit();
   const [loading, setLoading] = useState(false);
-  const starkKey = currentUser?.starkKey || null;
+  // const starkKey = currentUser?.starkKey || null; //TODO
   const { formatMessage } = useIntl();
+
   const deposit = useCallback(
     async (amountInEth: number) => {
       const { ethAccount, ethereum: ethereumInstance } = accountData!;
       if (!currentUser) throw new Error('No current user');
       if (!ethereumInstance.starkExchangeManager)
         throw new Error('No stark exchange manager');
-      if (!starkKey) throw new Error('No stark key');
+      // if (!starkKey) throw new Error('No stark key');
 
       const ethDeposit = await prepareEthDeposit(toWei(amountInEth));
       if (!ethDeposit) return null;
@@ -53,7 +54,7 @@ export const useDepositEth = (accountData: AccountData | null) => {
       const result =
         await ethereumInstance.starkExchangeManager?.depositEthAsync(
           ethAccount!,
-          starkKey,
+          // starkKey,
           assetType,
           vaultId,
           Number(weiAmount)
@@ -71,7 +72,7 @@ export const useDepositEth = (accountData: AccountData | null) => {
     [
       accountData,
       currentUser,
-      starkKey,
+      // starkKey,
       prepareEthDeposit,
       trackDepositEthEvent,
       browserWallet,

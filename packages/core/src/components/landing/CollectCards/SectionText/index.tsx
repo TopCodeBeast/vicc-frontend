@@ -20,6 +20,7 @@ const HeadingWrapper = styled.h2`
   font-size: 30px;
   line-height: 100%;
   margin: 0;
+  color: white;
   margin-bottom: var(--double-unit);
   @media ${tabletAndAbove} {
     font-size: 60px;
@@ -31,7 +32,8 @@ const SubHeading = styled.div`
   font-weight: 400;
   font-size: 14px;
   line-height: 150%;
-  color: var(--c-neutral-600);
+  // color: var(--c-neutral-600);
+  color: white;
   @media ${tabletAndAbove} {
     font-size: 18px;
   }

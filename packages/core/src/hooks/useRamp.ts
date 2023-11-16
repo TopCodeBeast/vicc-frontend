@@ -25,7 +25,7 @@ export default () => {
   const { sendSafeError } = useSentryContext();
   const { setCurrentTab } = useWalletDrawerContext();
   const swapAsset = 'STARKSORARE_ETH';
-  const userAddress = currentUser?.starkKey;
+  const userAddress = '';//currentUser?.starkKey; //TODO
   const available = Boolean(userAddress) && currentUser?.rampSupported;
   const webhookStatusUrl = `${RAMP_TRANSACTION_WEBHOOK}?externalCustomerId=${currentUser?.id}`;
 

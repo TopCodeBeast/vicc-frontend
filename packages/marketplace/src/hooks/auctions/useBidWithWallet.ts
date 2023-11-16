@@ -7,7 +7,6 @@ import {
 import { useSnackNotificationContext } from '@sorare/core/src/contexts/snackNotification';
 import { errorWrapper } from '@sorare/core/src/errors';
 import useMutation from '@sorare/core/src/hooks/graphql/useMutation';
-import useCreateEthMigration from '@sorare/core/src/hooks/starkware/useCreateEthMigration';
 import { monetaryAmountFragment } from '@sorare/core/src/lib/monetaryAmount';
 
 import {
@@ -91,7 +90,6 @@ const useBidWithWallet = (auction: useBidWithWallet_auction) => {
   const [bid] = useMutation(BID_WITH_WALLET_MUTATION);
 
   const { showNotification } = useSnackNotificationContext();
-  const createEthMigration = useCreateEthMigration();
 
   const { prepareBid } = usePrepareBid({ signAuthorizations: true });
 
@@ -113,8 +111,6 @@ const useBidWithWallet = (auction: useBidWithWallet_auction) => {
       showNotification('unlockWallet');
       throw new Error('Missing password');
     }
-
-    await createEthMigration();
 
     const { data: dataBid } = await bid({
       variables: {

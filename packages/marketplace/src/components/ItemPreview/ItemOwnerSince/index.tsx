@@ -9,8 +9,9 @@ interface Props {
 }
 
 export const ItemOwnerSince = ({ token }: Props) => {
-  if (!token.owner?.from) return null;
-  return <Since date={token.owner.from} />;
+  // if (!token.owner?.from) return null;
+  // return <Since date={token.owner.from} />;
+  return <></>; //TODO
 };
 
 ItemOwnerSince.fragments = {

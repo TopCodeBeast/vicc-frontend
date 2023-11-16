@@ -14,6 +14,7 @@ const Footer = styled(Container)`
   padding: var(--triple-unit) var(--double-unit);
   background: var(--c-neutral-1000);
   color: var(--c-neutral-100);
+  position: relative;
 `;
 const CopyAndLanguage = styled.div`
   display: flex;

@@ -144,7 +144,7 @@ export const PlayerCard = ({ onClick, appearance, isLive }: Props) => {
           }
         >
           {gameIsLive && <LiveDot size="sm" animate />}
-          {vicc5Score?.playerGameStats?.goals && <Ball />}
+          {/* {vicc5Score?.playerGameStats?.goals && <Ball />} */}
           {getScoreLabel()}
         </PlayerScore>
       </CardFooter>

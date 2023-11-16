@@ -67,13 +67,13 @@ export const Game = ({
   const {
     id = '',
     date,
-    minute,
+    // minute,
     homeTeam,
     awayTeam,
     status,
     winner,
-    penaltyScoreHome,
-    penaltyScoreAway,
+    // penaltyScoreHome,
+    // penaltyScoreAway,
   } = game;
 
   const homeGoals = 0;//game.homeGoals ?? 0;
@@ -88,7 +88,7 @@ export const Game = ({
           vicc5Fixture={game.vicc5Fixture}
           competitionName={game.competition?.displayName}
           status={status as any as GameEventStatus}
-          minute={minute}
+          minute={0}
           cardScore={cardScore}
           withDate={withDate}
         />
@@ -101,8 +101,8 @@ export const Game = ({
           code={homeTeam?.code || ''}
           pictureUrl={teamLogo(homeTeam)}
           status={status as any as GameEventStatus}
-          penaltiesScore={penaltyScoreHome}
-          otherPenaltiesScore={penaltyScoreAway}
+          penaltiesScore={0}
+          otherPenaltiesScore={0}
         />
       }
       SecondTeamRow={
@@ -113,8 +113,8 @@ export const Game = ({
           code={awayTeam?.code || ''}
           pictureUrl={teamLogo(awayTeam)}
           status={status as any as GameEventStatus}
-          penaltiesScore={penaltyScoreAway}
-          otherPenaltiesScore={penaltyScoreHome}
+          penaltiesScore={0}
+          otherPenaltiesScore={0}
         />
       }
       className={className}

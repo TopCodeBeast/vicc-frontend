@@ -153,12 +153,12 @@ const Player = ({ player, gameDuration }: Props) => {
     roundedGameDuration = 90;
   }
 
-  const playerMinutesPlayed = playerGameStats.minsPlayed || 0;
-  const playerGoals = playerGameStats.goals || 0;
-  const playerAssists = playerGameStats.goalAssist || 0;
-  const ownGoals = playerGameStats.ownGoals || 0;
-  const playerYellowCards = playerGameStats.yellowCard || 0;
-  const playerRedCards = playerGameStats.redCard || 0;
+  const playerMinutesPlayed = 0; //playerGameStats.minsPlayed || 0;
+  const playerGoals = 0; //playerGameStats.goals || 0;
+  const playerAssists = 0; //playerGameStats.goalAssist || 0;
+  const ownGoals = 0; //playerGameStats.ownGoals || 0;
+  const playerYellowCards = 0; //playerGameStats.yellowCard || 0;
+  const playerRedCards = 0; //playerGameStats.redCard || 0;
 
   const penaltiesConceded = player.vicc5Score.negativeDecisiveStats.find(
     statItem => statItem.stat === 'penalty_conceded'
@@ -179,7 +179,7 @@ const Player = ({ player, gameDuration }: Props) => {
           backgroundImage: `url(${player.pictureUrl || playerPlaceholder})`,
         }}
       >
-        {playerMinutesPlayed < roundedGameDuration && (
+        {/* {playerMinutesPlayed < roundedGameDuration && (
           <SubWrapper>
             <ArrowWrapper>
               <FontAwesomeIcon
@@ -192,7 +192,7 @@ const Player = ({ player, gameDuration }: Props) => {
               {playerGameStats.minsPlayed}&apos;
             </MinPlayedWrapper>
           </SubWrapper>
-        )}
+        )} */}
         {(playerRedCards > 0 || playerYellowCards > 0) && (
           <CardWrapper>
             {playerYellowCards > 0 && (

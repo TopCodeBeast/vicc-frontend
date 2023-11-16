@@ -122,7 +122,7 @@ export const WithdrawEthTo = () => {
   const { currentUser, fiatCurrency } = useCurrentUserContext();
   const { showNotification } = useSnackNotificationContext();
   const bankWithdrawableAmount = useBankWithdrawableAmount();
-  const { availableBalance, bankBalance, ethMigration } = currentUser!;
+  const { availableBalance, bankBalance, /*ethMigration*/ } = currentUser!;
   const { convertFromEth } = useCurrencyConverters();
 
   const maxEthAmount = fromWei(availableBalance, 4, RoundingMode.ROUND_DOWN);
@@ -131,7 +131,7 @@ export const WithdrawEthTo = () => {
     2
   );
 
-  const isFastWithdrawal = ethMigration || new Big(bankBalance).eq(0);
+  const isFastWithdrawal = /*ethMigration ||*/ new Big(bankBalance).eq(0);
 
   const [amountToWithdraw, setAmountToWithdraw] = useState(() => {
     if (!isFastWithdrawal)

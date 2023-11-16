@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Sport } from '__generated__/globalTypes';
 import Button, { Color } from '@core/atoms/buttons/Button';
 import useEvents from '@core/lib/events/useEvents';
+import { Style } from 'util';
 
 type Props = {
   to?: string;
@@ -13,6 +14,7 @@ type Props = {
   medium?: boolean;
   color?: Color;
   sport?: Sport;
+  style?: React.CSSProperties;
 };
 
 const PlayNowButton = ({
@@ -24,6 +26,7 @@ const PlayNowButton = ({
   tabIndex,
   medium = true,
   color = 'white',
+  style
 }: Props) => {
   const track = useEvents();
 
@@ -32,6 +35,7 @@ const PlayNowButton = ({
     <Button
       color={color}
       medium={medium}
+      style={style}
       className={className}
       tabIndex={tabIndex}
       onClick={() => {

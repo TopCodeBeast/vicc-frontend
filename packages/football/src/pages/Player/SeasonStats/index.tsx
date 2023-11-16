@@ -78,13 +78,13 @@ const SeasonStats = ({ playerSlug, seasonStartYear }: Props) => {
 
   const {
     appearances,
-    assists,
-    goals,
-    minutesPlayed,
-    redCards,
-    substituteIn,
-    substituteOut,
-    yellowCards,
+    // assists,
+    // goals,
+    // minutesPlayed,
+    // redCards,
+    // substituteIn,
+    // substituteOut,
+    // yellowCards,
   } = data?.player.stats || emptyValues;
 
   const renderIcon = (icon: FontAwesomeIconProps['icon']) => (
@@ -98,7 +98,7 @@ const SeasonStats = ({ playerSlug, seasonStartYear }: Props) => {
         value={appearances}
         icon={renderIcon(faDoorOpen)}
       />
-      <InfoLineWithLogoAndValue
+      {/* <InfoLineWithLogoAndValue
         iconColor="green"
         message={attributes.minPlayed}
         value={minutesPlayed}
@@ -139,7 +139,7 @@ const SeasonStats = ({ playerSlug, seasonStartYear }: Props) => {
         message={attributes.redCards}
         value={redCards}
         icon={renderIcon(faRectanglePortrait)}
-      />
+      /> */}
     </Root>
   );
 };

@@ -208,7 +208,7 @@ export const WithdrawSummary = ({
   const { currentUser } = useCurrentUserContext();
   const { showNotification } = useSnackNotificationContext();
   const bankWithdrawableAmount = useBankWithdrawableAmount();
-  const { bankBalance, ethMigration } = currentUser!;
+  const { bankBalance, /*ethMigration*/ } = currentUser!;
   const withdraw = useWithdraw();
   const fastWithdrawal = useFastWithdrawal();
   const createFastWithdrawal = useCreateFastWithdrawal();
@@ -224,7 +224,7 @@ export const WithdrawSummary = ({
     flags: { stopSponsorGasFees = false },
   } = useFeatureFlags();
 
-  const isFastWithdrawal = ethMigration || new Big(bankBalance).eq(0);
+  const isFastWithdrawal = /*ethMigration ||*/ new Big(bankBalance).eq(0);
 
   const totalEthAmountReceived = useMemo(() => {
     return ethAmount - gasFees;

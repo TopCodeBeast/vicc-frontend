@@ -32,8 +32,7 @@ export default () => {
         currentUser?.email &&
         (!currentUser.viccAddress ||
           currentUser.viccAddress === nullAddress ||
-          (!currentUser.starkKey &&
-            currentUser.viccPrivateKey &&
+          (currentUser.viccPrivateKey &&
             !reset_password_token))
       ) {
         setCurrentTab(WalletTab.GENERATE_KEYS);
@@ -83,7 +82,7 @@ export default () => {
     currentUser?.email,
     currentUser?.viccAddress,
     currentUser?.viccPrivateKey,
-    currentUser?.starkKey,
+    // currentUser?.starkKey,
     prompt,
     registerHandler,
     sendRequest,

@@ -43,11 +43,11 @@ const Withdrawals = () => {
   if (loading) return <LoadingIndicator />;
   if (!data?.currentUser) return <div>unable to retrieve withdrawals</div>;
 
-  const { withdrawalsWithRates, fastWithdrawalsWithRates } = data.currentUser;
+  const { withdrawalsWithRates, /*fastWithdrawalsWithRates*/ } = data.currentUser;
 
   const withdrawals = [
     ...withdrawalsWithRates,
-    ...fastWithdrawalsWithRates,
+    // ...fastWithdrawalsWithRates,
   ].sort((w1, w2) => (w1.createdAt < w2.createdAt ? 1 : -1));
 
   if (withdrawals.length === 0) {
@@ -60,7 +60,8 @@ const Withdrawals = () => {
         w.__typename === 'WithdrawalWithRates' ? (
           <Withdrawal key={w.id} withdrawal={w} />
         ) : (
-          <FastWithdrawal key={w.id} withdrawal={w} />
+          // <FastWithdrawal key={w.id} withdrawal={w} />
+          <>FastWithdrawal</>
         )
       )}
     </Root>

@@ -514,7 +514,7 @@ export const navLabels = defineMessages({
   },
   cricketMarket: {
     id: 'Footer.cricketMarket',
-    defaultMessage: 'Vicc: Cricket Market',
+    defaultMessage: 'Marketplace',
   },
   /*mlbMarket: {
     id: 'Footer.mlbMarket',

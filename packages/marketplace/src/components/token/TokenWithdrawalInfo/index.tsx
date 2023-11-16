@@ -171,7 +171,7 @@ const TokenWithdrawalInfo = ({ token, transferRequest, onComplete }: Props) => {
     showErrorsWithSnackNotification: true,
   });
   const feeAmount = unquantizeAmount(
-    transferRequest.feeInfoUser?.feeLimit || '0'
+    '0', //transferRequest.feeInfoUser?.feeLimit || '0'
   );
 
   const canPay =
@@ -200,7 +200,7 @@ const TokenWithdrawalInfo = ({ token, transferRequest, onComplete }: Props) => {
     const signature = await signTransfer({
       ...transferRequest,
       receiverPublicKey: address!,
-      feeInfoUser: transferRequest?.feeInfoUser || undefined,
+      feeInfoUser: undefined, //transferRequest?.feeInfoUser || undefined,
     });
     await create({
       variables: {
